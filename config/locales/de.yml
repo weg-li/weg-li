@@ -98,7 +98,7 @@ de:
         title: 'Warum OAuth?'
         text: 'OAuth ist ein offener Standard für Authentifizierung, der es dem Nutzer erlaubt, flexibel Berechtigungen zu erteilen oder zu entfernen.'
       email:
-        hint: 'Du wirst zu <em>jedem</em> login eine neue E-Mail erhalten!'
+        hint: 'Du wirst zu <em>jedem</em> neuen Login per Mail eine neue Login E-Mail erhalten!'
         title: 'per E-Mail einloggen'
         text: 'Bei jedem Login erhältst du eine neue E-Mail in der ein Login-Link enthalten ist. Einfach auf den enthaltenen Link klicken und loslegen!'
   mailers:

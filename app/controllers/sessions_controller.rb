@@ -42,11 +42,19 @@ class SessionsController < ApplicationController
     redirect_to user_path(user), notice: "Offline Login for #{user.nickname}!"
   end
 
-  def email
-    if params[:email].present?
-      session[:email_auth_address] = params[:email]
+  def email; end
+
+  def email_signup
+    email = params[:email]
+    if email.present?
+      session[:email_auth_address] = email
       session[:email_auth_token] = SecureRandom.uuid
-      UserMailer.email_auth(params[:email], session[:email_auth_token]).deliver_now
+      UserMailer.email_auth(email, session[:email_auth_token]).deliver_now
+
+      redirect_to root_path, notice: t('users.confirmation_mail', email: email)
+    else
+      flash.now[:alert] = 'Bitte gebe eine E-Mail-Adresse ein!'
+      render :email
     end
   end
 

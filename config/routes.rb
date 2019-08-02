@@ -37,7 +37,8 @@ Rails.application.routes.draw do
   end
 
   scope '/sessions' do
-    match '/email', to: 'sessions#email', via: [:get, :post]
+    get '/email', to: 'sessions#email'
+    post '/email_signup', to: 'sessions#email_signup'
   end
 
   root 'notices#index', as: :authenticated_root, constraints: -> (request) { request.env["rack.session"].has_key?("user_id") }
