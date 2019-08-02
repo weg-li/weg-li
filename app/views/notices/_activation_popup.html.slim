@@ -1,0 +1,19 @@
+- unless current_user.validated?
+  #validation-modal.modal
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button type="button" class="close" data-dismiss="modal" aria-hidden="true" ×
+          h4.modal-title Bestätige deine E-Mail-Adresse
+        .modal-body
+          p
+            |
+              Um weg-li nutzen zu können, musst du zunächst deine E-Mail-Adresse bestätigen.
+              Eine E-Mail mit einem Aktivierungs-Link wurde an deine Adresse gesendet.
+              Bitte klicke auf den enthaltenen Link um deine Identität zu bestätigen.
+
+          p Gehe zu deinem Profil falls die E-Mail nicht angekommen ist, oder du deine E-Mail-Adresse ändern möchtest:
+          p= link_to 'zum Profil', user_path(current_user), class: 'btn btn-primary'
+
+  javascript:
+    $('#validation-modal').modal();

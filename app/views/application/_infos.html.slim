@@ -1,0 +1,17 @@
+h3= "#{user.nickname} in #{user.district}"
+
+.row
+  .col-lg-6
+    .panel.panel-default
+      .panel-heading Infos zum Account
+      ul.list-group
+        li.list-group-item Mitglied seit: #{l(user.created_at.to_date)}
+
+  .col-lg-6
+    .panel.panel-default
+      .panel-heading Statistik
+      ul.list-group
+        - user.statistics.each do |key, value|
+          li.list-group-item
+            = t(key, scope: 'users.statistics')
+            .badge.pull-right= value

@@ -1,0 +1,73 @@
+- set_title t('navigation.profile')
+- set_crumbs t('navigation.profile') => url_for
+
+.row
+  .col-lg-6
+    .panel.panel-default
+      .panel-heading= t('users.authorizations')
+      .panel-body
+        - existing_providers = current_user.authorizations.map(&:provider)
+        - login_links do |name, path, key|
+          p
+            - if existing_providers.include?(key)
+              = link_to "#", class: "btn btn-default btn-block disabled"
+                span>= name
+                span.glyphicon.glyphicon-ok
+            - else
+              = link_to t('users.connect_via', provider: name), path, class: "btn btn-default btn-block"
+
+    .panel.panel-default
+      .panel-heading= t('users.actions')
+
+      .panel-body
+        p
+          - if current_user.validated?
+            = link_to "#", class: "btn btn-default btn-block disabled"
+              span>= t('users.email_confirmed')
+              span.glyphicon.glyphicon-ok
+          - else
+            = button_to t('users.confirm_email'), confirmation_mail_user_path(current_user), method: :patch, remote: true, class: "btn btn-default btn-block"
+        = form_for current_user, remote: true do |form|
+          .input-group
+            = form.email_field :email, class: 'form-control', required: true
+            span.input-group-btn
+              = form.submit t('users.change_email'), class: "btn btn-default"
+
+      .panel-body
+        = button_to t('users.delete_account'), user_path(current_user), method: :delete, class: "btn btn-danger btn-block"
+
+        / = form_for current_user, remote: true do |form|
+        /   - User.bitfields[:flags].keys.each do |key|
+        /     .form-group
+        /       .checkbox
+        /         label
+        /           = form.check_box key
+        /           = t("users.flags.#{key}")
+        /   = form.submit t('users.change_settings'), class: "btn btn-default"
+
+
+  .col-lg-6
+    = form_for current_user, html: {class: "form-horizontal"} do |form|
+      .panel.panel-default
+        .panel-heading Persönliche Daten
+        .panel-body
+          = form.label :nickname, class: "control-label"
+          = form.text_field :nickname, class: "form-control", required: true
+          span.help-block Der Spitzname wird für die Veröffentlichung der Anzeigen im öffentlichen Profil verwendet.
+
+          = form.label :name, class: "control-label"
+          = form.text_field :name, class: "form-control", required: true
+
+          = form.label :address, class: "control-label"
+          = form.text_field :address, class: "form-control", required: true
+
+          span.help-block Name und Anschrift werden beim Erstatten von Anzeigen als Zeugen-Adresse verwendet verwendet.
+
+          = form.label :district, class: "control-label"
+          = form.select :district, District.names.map { |name| [t(name, scope: "users.districts"), name] }, { include_blank: 'Bitte auswählen' }, { class: "form-control", required: true }
+
+          span.help-block Der Bezirk wird für die Auswahl der jeweilig zuständigen Stelle genutzt und kann bei neuen Meldungen umgeschaltet werden.
+
+        .panel-footer.clearfix
+          .pull-right
+            = form.submit "speichern", class: "btn btn-success"

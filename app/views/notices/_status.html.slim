@@ -1,0 +1,3 @@
+span.label.label-default(class="label-status-#{status}")
+  span.glyphicon.glyphicon-open(class="glyphicon-status-#{status}")
+  span<= Notice.human_attribute_name(status)

@@ -1,0 +1,31 @@
+.page-header
+  h2 In nur <span class="text-success">3 einfachen Schritten</span> zur ersten Meldung!
+
+= render 'three_step'
+
+.row
+  .col-lg-2
+    = link_to new_notice_path, class: 'btn btn-success btn-lg btn-block' do
+      strong.step.success-step-button> 1
+      span.text-error= t('notices.steps.fotos.title')
+  .col-lg-10
+    .well.well-sm.callout
+      p= t('notices.steps.fotos.description')
+
+.row
+  .col-lg-2
+    = link_to new_notice_path, class: 'btn btn-disabled btn-lg btn-block' do
+      strong.step.success-step-button> 2
+      span.text-error= t('notices.steps.infos.title')
+  .col-lg-10
+    .well.well-sm.callout
+      p= t('notices.steps.infos.description')
+
+.row
+  .col-lg-2
+    = link_to new_notice_path, class: 'btn btn-disabled btn-lg btn-block' do
+      strong.step.success-step-button> 3
+      span.text-error= t('notices.steps.charges.title')
+  .col-lg-10
+    .well.well-sm.callout
+      p= t('notices.steps.charges.description')

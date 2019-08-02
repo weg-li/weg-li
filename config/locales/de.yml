@@ -1,0 +1,193 @@
+de:
+  activerecord:
+    models:
+      user: 'Benutzer'
+      notice: 'Meldung'
+    attributes:
+      user:
+        time_zone: 'Zeitzone'
+        nickname: 'Spitzname'
+        name: 'Name'
+        address: 'Anschrift'
+        email: 'E-Mail'
+        district: 'Bezirk'
+      notice:
+        created_at: 'Erstellt'
+        fotos: 'Beweisfotos'
+        address: 'Ort'
+        registration: 'Kennzeichen'
+        make: 'Fabrikat'
+        brand: 'Marke'
+        model: 'Modell'
+        kind: 'Art'
+        color: 'Farbe'
+        charge: 'Verstoß'
+        date: 'Datum'
+        empty: 'Verlassen'
+        parked: 'Geparkt'
+        recipients: 'Empfänger'
+        incomplete: 'unvollständig'
+        status: 'Status'
+        open: 'offen'
+        disabled: 'deaktiviert'
+        analysing: 'analysieren'
+        shared: 'gemeldet'
+        colors:
+          beige: 'Beige'
+          blue: 'Blau'
+          brown: 'Braun'
+          yellow: 'Gelb'
+          grey: 'Grau'
+          green: 'Grün'
+          red: 'Rot'
+          black: 'Schwarz'
+          silver: 'Silber'
+          violet: 'Violett'
+          white: 'Weiß'
+          orange: 'Orange'
+          gold: 'Gold'
+  title: "📸 📝 ✊ weg-li: 1, 2, 3 - weg vom Weg"
+  slogan: "1, 2, 3 - weg vom Weg"
+  slogan_1: "1, 2, 3 -  📸 📝 ✊"
+  slogan_2: "weg vom Weg"
+  navigation:
+    notices: 'Meldungen'
+    draft: 'Schreiben'
+    dashboard: 'Übersicht'
+    locale: 'Sprache'
+    logout: 'Abmelden'
+    profile: 'Profil'
+    pricing: 'Preise'
+    payment: 'Zahlung'
+  footer:
+    references: 'In den Medien und im Netz'
+  locale:
+    en: 'Englisch'
+    de: 'Deutsch'
+  home:
+    register_now: 'Jetzt anmelden und die <span class="label label-primary">&beta;eta</span> ausprobieren!'
+    register_now_xs: 'Jetzt anmelden & ausprobieren!'
+    register_with_oauth: 'Anmelden mit Twitter & Co <span class="caret"></span>'
+    select_oauth_provider: 'Wähle eine der Möglichkeiten zum Anmelden:'
+  sessions:
+    sign_in_provider: 'Einfach mit OAuth anmelden'
+    enter_data: 'Bitte gib deine Daten ein'
+    not_logged_in: "Du bist nicht eingeloggt!"
+    not_proper_account: "Du bist nicht mit dem richtigen Benutzerkonto eingeloggt!"
+    welcome_back: "Hallo %{nickname}, willkommen zurück!"
+    connected: "Erfolgreich verbunden mit %{provider}!"
+    validation_successful: 'Deine E-Mail Adresse wurde erfolgreich bestätigt.'
+    bye: "Tschüss und bis bald!"
+    ups_something_went_wrong: "Mist, da ist was schief gelaufen."
+    welcome: "Hallo %{nickname}, herzlich willkommen bei weg-li!"
+    existing_user: "Die E-Mail Adresse %{email} ist bereits registriert, bitte nutze %{providers} zum Einloggen!"
+    please_enter_email_for_login: 'Bitte gib deine E-Mail Adresse zum Einloggen ein!'
+    authorize_button: 'per E-Mail einloggen'
+    signup_button: 'Registrierung abschließen'
+    callouts:
+      signup_nickname:
+        hint: 'Dein Spitzname wird später für deine Anrede verwendet.'
+        title: 'Spitznamen ändern'
+        text: 'Nachdem du registriert bist kannst du jederzeit deinen Spitznamen ändern.'
+      signup_email:
+        hint: 'Deine E-Mail Adresse wird für den Login und für Benachrichtigungen verwendet.'
+        title: 'Valide Adresse ist nötig'
+        text: 'Du musst deine E-Mail Adresse bestätigen, damit wir dich später erreichen können.'
+      provider:
+        hint: 'Wähle einen <a href="http://en.wikipedia.org/wiki/OAuth">OAuth</a> Anbieter aus und akzeptiere die benötigten Berechtigungen.'
+        title: 'Warum OAuth?'
+        text: 'OAuth ist ein offener Standard für Authentifizierung, der es dem Nutzer erlaubt, flexibel Berechtigungen zu erteilen oder zu entfernen.'
+      email:
+        hint: 'Du wirst zu <em>jedem</em> login eine neue E-Mail erhalten!'
+        title: 'per E-Mail einloggen'
+        text: 'Bei jedem Login erhältst du eine neue E-Mail in der ein Login-Link enthalten ist. Einfach auf den enthaltenen Link klicken und loslegen!'
+  mailers:
+    signup: 'Du hast dich erfolgreich registriert, bitte bestätige deine E-Mail Adresse!'
+    validate: 'Bitte bestätige deine E-Mail Adresse!'
+    email_auth: 'Logge dich bei weg-li ein.'
+  users:
+    districts:
+      hamburg: 'Hamburg'
+      lueneburg: 'Lüneburg'
+      bremen: 'Bremen'
+    confirmation_mail: "Eine Bestätigungs-Mail wurde an %{email} versendet."
+    profile_updated_and_confirmation_email: 'Dein Profil wurde aktualisiert und eine Bestätigungs-Mail wurde an deine E-Mail Adresse versendet!'
+    profile_updated: 'Dein Profil wurde aktualisiert.'
+    authorizations: 'Verknüpfungen'
+    connect_via: "per %{provider} verbinden"
+    actions: 'Aktionen'
+    email_confirmed: 'Adresse bestätigt'
+    confirm_email: "E-Mail Adresse ändern"
+    change_nickname: "Name ändern"
+    change_email: "E-Mail ändern"
+    change_time_zone: "Zeit-Zone ändern"
+    delete_account: "Konto löschen"
+    destroyed: "Dein Konto und alle Daten wurden gelöscht!"
+    settings: 'Einstellungen'
+    change_settings: 'Einstellungen ändern'
+    flags:
+      todo: 'todo'
+  articles:
+    title: 'das weg-li Blog'
+    wrote_on: 'hat am <em>%{date}</em> geschrieben'
+    chronic: 'Chronologisch'
+    posts_per: 'weg-li Artikel im Zeitraum: %{period}'
+    tagged: 'Tags'
+    posts_for: 'weg-li Artikel für %{tag}'
+    nothing_to_see: 'Leider gibt es hier im Moment nichts zu sehen!'
+    nothing_found: 'Leider konnten wir für <em>%{phrase}</em> keine Artikel finden, versuche es später noch einmal!'
+    period:
+      this-year: 'Dieses Jahr'
+      this-month: 'Diesen Monat'
+      this-week: 'Diese Woche'
+  notices:
+    new_notice: 'Neue Meldung'
+    create_button: 'Meldung erstellen'
+    secure_button: 'nächster Schritt, verschicken!'
+    share_notice: 'Verschicken'
+    manage_your_history: 'Verwalte deine Meldungen'
+    nothing_found: 'Leider gibt es für diesen Filter keine Ergebnisse.'
+    status:
+      disabled: 'deaktiviert'
+      open: 'ungelesen'
+      shared: 'gemeldet'
+    bulk_actions: 'Mehrfach Aktionen'
+    bulk_destroy: 'Auswahl löschen'
+    confirm: "Diese Aktion kann nicht rückgängig gemacht werden!"
+    actions: 'Aktionen'
+    read: 'lesen'
+    share: 'verschicken'
+    enable: 'aktivieren'
+    disable: 'deaktivieren'
+    destroy: 'löschen'
+    created: 'Du hast eine neue Meldung erstellt!'
+    enabled: 'Die Meldung wurde reaktiviert!'
+    disabled: 'Die Meldung wurde deaktiviert!'
+    destroyed: 'Die Meldung wurde gelöscht!'
+    bulk_destroyed: 'Die ausgewählten Meldungen wurden gelöscht!'
+    sent_via_email: "Deine Meldung wurde an %{recepients} versendet."
+    share_message: 'Verschicke deine Anzeige'
+    send_email: 'per E-Mail senden'
+    copy_to_clipboard: 'in die Zwischenablage kopieren'
+    copy_hint: 'Kopieren in die Zwischenablage: CMD+C / Ctrl+C, lange Antippen und kopieren für Touch'
+    back_to_dashboard: 'zurück zur Übersicht'
+    steps:
+      fotos:
+        title: knipsen
+        description: Mache ein oder mehrere Beweisfotos, die den Verstoß dokumentieren. Das Fabrikat und das Nummernschild sollten auf den Fotos gut zu erkennen sein. Vermeide es möglichst Fotos mit Passanten zu machen.
+      infos:
+        title: beschreiben
+        description: Um mit Hilfe der Meldung Anzeige zu Erstatten, werden noch zusätzliche Informationen benötigt. Neben Zeit und Ort des Verstoßes, müssen auch noch weitere Informationen zum Fahrzeug angegeben werden. Diese Informationen werden soweit möglich automatisch aus den Beweisfotos ermittelt.
+      charges:
+        title: melden
+        description: Aus den Daten kann direkt eine Anzeige erstattet werden, die dann an das zuständige Ordnungsamt oder die Polizei gesendet wird. Alle Meldungen werden zudem auf der öffentlich erreichbaren weg-li Karte angezeigt.
+
+    callouts:
+      send_email:
+        hint: 'Erstatte die Anzeige direkt per E-Mail.'
+        title: 'Anzeige per E-Mail'
+        text: 'Inzwischen ist es fast überall möglich Anzeige per E-Mail zu erstatten, manche Bundesländer bieten sogar eigene Portale an, <a href="https://www.test.de/Gewusst-wie-Online-Anzeige-erstatten-5003664-0/" target="_blank">eine Liste findet sich hier</a>.'
+      copy_link:
+        hint: 'Per <em>copy &amp; paste</em> die Meldung anderweitig nutzen.'
+        title: 'Copy &amp; Paste'
+        text: 'Der Link zur Meldung wird in deine Zwischenablage kopiert. Einfügen mit <code>CMD+V</code> auf Mac oder <code>CTRL+V</code> auf Windows, lange Antippen und kopieren für Touch.'

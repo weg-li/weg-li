@@ -1,0 +1,15 @@
+- set_title t('notices.new_notice')
+- set_crumbs t('navigation.notices') => notices_path, t('notices.new_notice') => url_for
+
+= render 'three_step', step: :first
+
+= form_errors @notice
+= form_for @notice, html: {class: "form-horizontal"} do |form|
+  = render 'fotos_form', notice: @notice, form: form
+  hr.spacer
+  .row
+    .col-lg-12
+      .pull-right
+        .btn-group
+          = form.button 'hochladen & weitere Meldung', name: :another, class: "btn btn-default"
+          = form.submit 'hochladen und weiter', class: "btn btn-success"

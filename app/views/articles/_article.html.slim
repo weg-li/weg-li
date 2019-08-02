@@ -1,0 +1,13 @@
+- render_cached(article) do
+  article
+    = link_to article, title: article.title do
+      h2.text-warning= article.title
+    .blog-user.spacer
+      = gravatar(article.user)
+      small
+        = link_to article, title: article.title do
+          span.text-muted== t('articles.wrote_on', date: l(article.published_at))
+        - article.tags.each do |tag|
+          span.margin-left.label.label-warning=> link_to tag, articles_path(tag: tag), title: t('articles.posts_for', tag: tag)
+    .content
+      == markdown(article.body.html_safe)

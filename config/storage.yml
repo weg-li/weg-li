@@ -1,0 +1,15 @@
+test:
+  service: Disk
+  root: <%= Rails.root.join("tmp/storage") %>
+
+google_development:
+  service: GCS
+  project: "weg-li"
+  bucket: "weg-li-development"
+  credentials: "<%= Rails.root.join("config/gcloud-development.json") %>"
+
+google_production:
+  service: GCS
+  project: "weg-li"
+  bucket: "weg-li-production"
+  credentials: <%= ENV['GOOGLE_APPLICATION_CREDENTIALS'].as_json %>

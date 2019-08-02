@@ -1,0 +1,54 @@
+.page-header
+footer
+  .row
+    .col-lg-8.col-xs-12
+      ul.clearfix.list-unstyled
+        li
+          = link_to root_url, title: t('slogan') do
+           <span class="glyphicon glyphicon-copyright-mark"></span> weg-li
+        / li
+        /   = link_to blog_url, title: 'weg-li Blog' do
+        /     <span class="glyphicon glyphicon-book"></span> Blog
+        li
+          = link_to faq_url, title: 'weg-li FAQ' do
+            <span class="glyphicon glyphicon-info-sign"></span> FAQ
+        li
+          = mail_to 'peter@weg-li.de' do
+            <span class="glyphicon glyphicon-send"></span> E-Mail
+        li= link_to 'https://twitter.com/weg-li', title: 'weg-li on Twitter - @weg-li' do
+            <span class="glyphicon glyphicon-retweet"></span> Twitter
+        li= link_to 'https://github.com/weg-li', title: 'weg-li on GitHub - We <3 Open-Source!' do
+            <span class="glyphicon glyphicon-heart-empty"></span> GitHub
+      / hr
+      / p.spacer.margin-left-small
+      /   em.text-muted.smaller #{t('footer.references')}:
+      / ul.list-unstyled
+      /   li.references
+      /     = link_to 'http://www.bluewin.ch/de/digital/tipps/2014/10/27/verschluesselte-nachrichten-verschicken.html' do
+      /       = image_tag 'swisscom-logo.png'
+      /       em Bluewin.ch
+      /   li.references
+      /     = link_to 'http://www.n24.de/n24/Nachrichten/Netzwelt/d/5613888/verschluesselte-nachrichten-bequem-verschicken.html' do
+      /       = image_tag 'N24_logo.svg'
+      /       em N24
+      /   li.references
+      /     = link_to 'http://www.focus.de/digital/internet/surftipp-der-woche/internet-verschluesselte-nachrichten-verschicken_id_4229160.html' do
+      /       = image_tag 'focus.jpg'
+      /       em Focus
+      /   li.references
+      /     = link_to 'http://www.wn.de/Freizeit/Ratgeber/Digitales/Surftipp-der-Woche/1770096-Internet-Verschluesselte-Nachrichten-verschicken' do
+      /       = image_tag 'wn.jpg'
+      /       em Westfälische Nachrichten
+    .col-lg-4.col-xs-12
+      address.well.gray-ish
+        .pull-left
+          = link_to 'https://github.com/phoet/' do
+            = image_tag 'phoet.jpg', class: "img-circle me-thumb"
+        div
+          strong= link_to 'Peter Schröder', 'https://github.com/phoet/'
+          <br>
+          |
+            Tigerstr. 32<br>
+            22525 Hamburg, Germany<br>
+          <abbr title="Phone">P:</abbr> #{link_to '+49 178 1391035', 'phone:491781391035'}<br>
+          <abbr title="E-Mail">E:</abbr> #{mail_to 'peter@weg-li.de'}

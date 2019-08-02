@@ -1,0 +1,63 @@
+.navbar.navbar-default.navbar-fixed-top.data-turbolinks-permanent
+  .container
+    .navbar-header
+      = link_to '📸 📝 ✊ weg-li', root_path, class: "navbar-brand", title: t('slogan')
+      = render 'beta_label'
+      button.navbar-toggle  type="button" data-toggle="collapse" data-target="#navbar-main"
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+    #navbar-main.navbar-collapse.collapse
+      ul.nav.navbar-nav
+        li.dropdown
+          - if signed_in?
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">#{t('navigation.notices')} <span class="caret"></span></a>
+            ul.dropdown-menu aria-labelledby="login"
+              li
+                = link_to notices_path do
+                  span.glyphicon.glyphicon-th-list.smaller>
+                  span.margin-left-small= t('navigation.dashboard')
+              li
+                = link_to new_notice_path do
+                  span.glyphicon.glyphicon-pencil.smaller>
+                  span.margin-left-small= t('navigation.draft')
+
+        - if signed_in? && current_user.admin?
+          li
+            = link_to 'Styleguide', styleguide_path
+
+      ul.nav.navbar-nav.navbar-right
+        / li.dropdown(data-turbolinks="false")
+        /   a class="dropdown-toggle" data-toggle="dropdown" href="#" id="language" title=t('navigation.locale')
+        /     span.glyphicon.glyphicon-globe.small>
+        /     = t('navigation.locale')
+        /     span.caret
+        /   ul.dropdown-menu aria-labelledby="language"
+        /     - I18n.available_locales.each do |locale|
+        /       li= link_to t("locale.#{locale}"), url_for(locale: locale)
+        - if signed_in?
+          ul.nav.navbar-nav
+            li.dropdown.navbar-user
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">#{gravatar(current_user)} <span class="caret"></span></a>
+              ul.dropdown-menu aria-labelledby="login"
+                li
+                  = link_to [:edit, current_user] do
+                    span.glyphicon.glyphicon-user.smaller>
+                    span.margin-left-small= t('navigation.edit_profile')
+                li
+                  = link_to public_profile_path(current_user.token) do
+                    span.glyphicon.glyphicon-person.smaller>
+                    span.margin-left-small= t('navigation.view_profile')
+          li(data-no-turbolink)
+            = link_to logout_path, title: t('navigation.logout') do
+              span.glyphicon.glyphicon-log-out.small>
+              = t('navigation.logout')
+        - else
+          li.dropdown(data-turbolinks="false")
+            a class="dropdown-toggle" data-toggle="dropdown" href="#" id="login" title="Login"
+              span.glyphicon.glyphicon-log-out.small>
+              | Login
+              span.caret
+            ul.dropdown-menu aria-labelledby="login"
+              - login_links do |name, path, key|
+                li= link_to "via #{name}", path

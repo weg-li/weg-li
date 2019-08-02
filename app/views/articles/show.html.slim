@@ -1,0 +1,7 @@
+- set_title @article.title
+
+.row
+  .col-lg-8
+    = render @article
+  .col-lg-4
+    = render 'pills', facets: @facets

@@ -1,0 +1,19 @@
+.flex-buttons.btn-group.btn-group-sm
+  = link_to notice_path(notice), class: 'btn btn-primary', title: 'ansehen'
+    span.glyphicon.glyphicon-eye-open
+  - if notice.incomplete?
+    = link_to edit_notice_path(notice), class: 'btn btn-primary', title: 'bearbeiten'
+      span.glyphicon.glyphicon-edit
+  - elsif notice.open?
+    = link_to edit_notice_path(notice), class: 'btn btn-primary', title: 'bearbeiten'
+      span.glyphicon.glyphicon-edit
+    = link_to share_notice_path(notice), class: 'btn btn-primary', title: 'verschicken'
+      span.glyphicon.glyphicon-share
+  - elsif notice.disabled?
+    = link_to enable_notice_path(notice), remote: true, method: :patch, class: 'btn btn-primary', title: 'aktivieren'
+      span.glyphicon.glyphicon-plus-sign
+  - else
+    = link_to disable_notice_path(notice), remote: true, method: :patch, class: 'btn btn-primary', title: 'deaktivieren'
+      span.glyphicon.glyphicon-minus-sign
+  = link_to notice_path(notice), method: :delete, remote: true, data: {confirm: t('notices.confirm')}, class: 'btn btn-primary', title: 'löschen'
+    span.glyphicon.glyphicon-trash

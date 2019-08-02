@@ -1,0 +1,11 @@
+Hallo <%= @user.name %>,
+
+bitte bestätige deine E-Mail Adresse, in dem du auf den nachfolgenden Link klickst:
+
+<%= validation_url(token: @user.token) %>
+
+Nach der Bestätigung kannst du sofort loslegen und ein erstes Vergehen melden:
+
+<%= notices_url %>
+
+<%= render 'mailer/footer' %>

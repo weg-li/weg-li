@@ -1,0 +1,28 @@
+Sehr geehrte Damen und Herren,
+
+Hiermit zeige ich, mit der Bitte um Weiterverfolgung, folgende Verkehrsordnungswidrigkeit an:
+
+<%= Notice.human_attribute_name(:charge) %>: <%= @notice.charge %>
+<%= Notice.human_attribute_name(:date) %>: <%= l(@notice.date, default: Time.zone.today) %>
+<%= Notice.human_attribute_name(:address) %>: <%= @notice.address %><%= " (lat: #{@notice.latitude} lng: #{@notice.longitude})" if @notice.coordinates? %>
+<%= Notice.human_attribute_name(:brand) %>: <%= @notice.brand %>
+<%= Notice.human_attribute_name(:registration) %>: <%= @notice.registration %>
+
+<% if @notice.empty? %>
+Das Fahrzeug war verlassen.
+<% end %>
+<% if @notice.parked? %>
+Das Fahrzeug stand mindestens 3 Minuten.
+<% end %>
+
+Ich stelle mich als Zeuge zur Verfügung und bin damit einverstanden, als Zeuge benannt zu werden.
+
+Ladungsfähige Anschrift: <%= @user.name %>, <%= @user.address %>
+
+Im Anhang befinden sich die Beweisfotos.
+
+Diese Anzeige können Sie auch online Abrufen:
+<%= public_charge_url(@notice) %>
+
+Mit freundlichen Grüßen
+<%= @user.name %>

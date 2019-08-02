@@ -1,0 +1,7 @@
+.row.spacer
+  .col-lg-4
+    = form.label :fotos, class: "control-label"
+    = form.file_field :fotos, id: 'fileupload', multiple: true, direct_upload: true, class: "form-control-file", accept: 'foto/tiff,foto/jpeg'
+  .col-lg-8
+    .well.well-sm.callout
+      p= t('notices.steps.fotos.description')

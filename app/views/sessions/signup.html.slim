@@ -1,0 +1,39 @@
+= form_errors @user
+= form_for @user, url: complete_path, html: {class: "form-horizontal"} do |form|
+  .row
+    .col-lg-12
+      fieldset
+        legend= t('sessions.enter_data')
+
+      .well.well-sm.callout
+        p
+          | Der Spitzname wird für die Veröffentlichung der Anzeigen im öffentlichen Profil verwendet.
+          br
+          | Name und Anschrift werden beim Erstatten von Anzeigen als Zeugen-Adresse verwendet verwendet.
+          br
+          | Der Bezirk wird für die Auswahl der jeweilig zuständigen Stelle genutzt und kann bei neuen Meldungen umgeschaltet werden.
+
+  .row.spacer
+    .col-lg-6
+      = form.label :nickname, class: "control-label"
+      = form.text_field :nickname, class: "form-control", required: true
+    .col-lg-6
+      = form.label :email, class: "control-label"
+      = form.text_field :email, placeholder: 'z.B. me@example.com', class: "form-control", required: true
+
+  .row
+    .col-lg-4
+      = form.label :name, class: "control-label"
+      = form.text_field :name, placeholder: 'z.B. Hanno Nym', class: "form-control", required: true
+    .col-lg-4
+      = form.label :address, class: "control-label"
+      = form.text_field :address, placeholder: 'z.B. Sylvesterallee 7, 22525 Hamburg', class: "form-control", required: true
+    .col-lg-4
+      = form.label :district, class: "control-label"
+      = form.select :district, District.names.map { |name| [t(name, scope: "users.districts"), name] }, { include_blank: 'Bitte auswählen' }, { class: "form-control", required: true }
+
+  hr.spacer
+  .row
+    .col-lg-12
+      .pull-right
+        = form.submit t('sessions.signup_button'), class: "btn btn-success"

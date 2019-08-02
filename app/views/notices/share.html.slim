@@ -1,0 +1,37 @@
+- set_title t('notices.share_notice')
+- set_crumbs t('navigation.notices') => notices_path, t('notices.share_notice') => url_for
+
+= render 'three_step', step: :third
+
+.row
+  .col-lg-12
+    .well.well-sm.callout
+      p
+        |
+          Alle Informationen und Beweisfotos sind nun erfasst, eine Anzeige kann direkt per E-Mail bei Polizei oder Ordnungsamt erstattet werden.
+          Ist eine Anzeige einmal erstattet worden, so wird sie verfolgt und kann nicht wieder zurückgenommen werden.
+          Anzeigen sollten also niemals leichtfertig und nur mit begründetem Verdacht gemeldet werden.
+
+.row
+  .col-lg-12
+    pre.charge
+      - @user = current_user
+      = render template: '/notice_mailer/charge.text.erb'
+
+.row
+  .col-lg-12
+    = render 'fotos', notice: @notice
+
+= form_errors @notice
+= form_for @notice, url: mail_notice_path(@notice), html: {class: "form-horizontal"} do |form|
+  = render 'share_form', notice: @notice, form: form
+
+
+  hr.spacer
+
+  .row
+    .col-lg-12
+      .pull-right
+        .btn-group
+          = link_to 'Daten ändern', edit_notice_path(@notice), class: 'btn btn-default'
+          = link_to 'zurück zur Übersicht', notices_path, class: 'btn btn-default'

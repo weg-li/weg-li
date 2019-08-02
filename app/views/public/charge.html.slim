@@ -1,0 +1,23 @@
+.panel.panel-default
+  .panel-heading= @notice.charge
+  .panel-body
+    .row
+      .col-lg-6
+        dl.dl-horizontal
+          dt= Notice.human_attribute_name(:created_at)
+          dd= d(@notice.created_at)
+          dt= Notice.human_attribute_name(:address)
+          dd= @notice.address
+          dt= Notice.human_attribute_name(:registration)
+          dd= @notice.registration
+          dt= Notice.human_attribute_name(:brand)
+          dd= @notice.brand
+
+      .col-lg-6
+        = render 'fotos', notice: @notice, publicly: true
+
+    - if @notice.coordinates?
+      hr.spacer
+      .row
+        .col-lg-12
+          = render 'map', notice: @notice

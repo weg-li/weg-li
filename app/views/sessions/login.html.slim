@@ -1,0 +1,11 @@
+.page-header
+  .page-title
+    h2= t('sessions.sign_in_provider')
+
+.row
+  .col-lg-6
+    .btn-group.btn-group-justified
+      - login_links do |name, path, key|
+        = link_to name, path, class: "btn btn-success"
+  .col-lg-6
+    = render 'callout', section: 'sessions', key: 'provider'

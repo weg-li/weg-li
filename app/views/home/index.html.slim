@@ -1,0 +1,31 @@
+.spacer.hidden-xs
+.row
+  .col-lg-5
+    .page-header.hidden-xs
+      h1= link_to 'weg-li', root_url, class: 'text-warning', title: t('title')
+    .spacer-large
+    p.lead
+      = link_to root_url, title: t('slogan') do
+        span.caps>= t('slogan_1')
+        em.text-warning.hidden-xs= t('slogan_2')
+  .col-lg-7
+    .well
+      h2.spacer.text-center
+        .hidden-xs== t('home.register_now')
+        .visible-xs== t('home.register_now_xs')
+      .spacer.text-center
+        .btn-group
+          button.btn.btn-lg.btn-success.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+            == t('home.register_with_oauth')
+          ul.dropdown-menu.dropdown-menu-right
+            li.dropdown-header= t('home.select_oauth_provider')
+            - login_links do |name, path, key|
+              li= link_to name, path
+
+/ hr.spacer-large.hidden-xs
+/
+/ = render 'steps'
+/
+/ .hidden-xs
+/   hr.spacer-large.hidden-xs
+/   = render 'faq'

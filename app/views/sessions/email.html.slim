@@ -1,0 +1,17 @@
+- if params[:email]
+  p.alert.alert-success= t('users.confirmation_mail', email: params[:email])
+
+= form_tag email_path, class: "form-horizontal", autocomplete: :off do |form|
+  .row
+    .col-lg-12
+      fieldset
+        legend= t('sessions.please_enter_email_for_login')
+  .row
+    = label_tag :email, 'E-Mail', class: "col-lg-2 control-label"
+    .col-lg-4
+      = email_field_tag :email, '', placeholder: 'me@example.com', required: true, class: "form-control"
+    .col-lg-6
+      = render 'callout', section: 'sessions', key: 'email'
+  .row
+    .col-lg-12
+      .pull-right= submit_tag t('sessions.authorize_button'), class: "btn btn-success"

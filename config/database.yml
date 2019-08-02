@@ -1,0 +1,13 @@
+development:
+  adapter: postgresql
+  database: weg-li_development
+  username: postgres
+  host: localhost
+  encoding: utf8
+
+test:
+  adapter: postgresql
+  database: weg-li_test
+  username: postgres
+  host: localhost
+  encoding: utf8

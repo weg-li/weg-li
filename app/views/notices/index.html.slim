@@ -1,0 +1,71 @@
+- set_title t('navigation.notices')
+- set_crumbs t('navigation.notices') => url_for
+
+= render 'activation_popup'
+
+- if @notices.present? || params[:filter]
+  = form_tag bulk_notices_path, method: :post, remote: true do
+    .panel.panel-default
+      .panel-heading
+        .row
+          .col-lg-6.hidden-xs
+            h2.panel-title= t('notices.manage_your_history')
+          .col-lg-6
+            .pull-right= link_to new_notice_path, class: 'btn btn-sm btn-primary', title: t('notices.draft_it') do
+              span.glyphicon.glyphicon-pencil.smaller
+      .table-responsive
+        table.table.table-striped.table-hover
+          thead
+            tr
+              th= check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
+              th Daten
+              th
+                .dropdown
+                  button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+                    => params[:filter] ? params[:filter][:status] : Notice.human_attribute_name(:status)
+                    span.caret
+                  ul.dropdown-menu aria-labelledby="dropdownMenu1"
+                    - @filter_status.each do |status|
+                      li
+                        = link_to url_for(@table_params.merge(filter: {status: status})) do
+                          = render 'status', status: status
+                    li role="separator" class="divider"
+                    li= link_to 'No filter', url_for(@table_params.merge(filter: nil))
+              th
+                => t('notices.table_header.sent')
+                = link_to url_for(@table_params.merge(order: {sent: @order_sent}))
+                  - if params[:order] && params[:order][:sent] == 'ASC'
+                    span.glyphicon.glyphicon-arrow-up.smaller
+                  - else
+                    span.glyphicon.glyphicon-arrow-down.smaller
+              th= Notice.human_attribute_name(:address)
+              th
+          tbody
+          - if @notices.present?
+            - @notices.each do |notice|
+              tr
+                td= check_box_tag "selected[]", notice.id, false, class: 'select-all'
+                td
+                  - if notice.incomplete?
+                    = render 'status', status: :incomplete
+                td= render 'status', status: notice.status
+                td= d(notice.created_at)
+                td= notice.address
+                td= render 'actions', notice: notice
+          - else
+            tr
+              td(colspan=7)= t('notices.nothing_found')
+      .panel-footer
+        .row
+          .col-lg-12
+            .btn-group
+              = link_to '#', onclick: "event.preventDefault(); $(this).closest('form').submit()", data: {confirm: t('notices.confirm')}, class: 'btn btn-sm btn-default' do
+                span.glyphicon.glyphicon-trash.smaller>
+                span= t('notices.bulk_destroy')
+            .pull-right= link_to new_notice_path, class: 'btn btn-sm btn-primary', title: t('notices.draft_it') do
+              span.glyphicon.glyphicon-pencil.smaller
+  .text-center
+    = paginate @notices
+
+- else
+  = render 'blank_slate'

@@ -1,0 +1,18 @@
+.row
+  .col-lg-6
+    .input-group
+      = form.text_field :recipients, placeholder: "john.doe@example.com", class: 'form-control', pattern: ".+@.+", required: true
+      span.input-group-btn
+        = button_tag class: "btn btn-success" do
+          span.glyphicon.glyphicon-send>
+          span als E-Mail versenden
+  .col-lg-6
+    = render 'callout', section: 'notices', key: 'send_email'
+
+.row
+  .col-lg-6
+    = button_tag title: t('notices.copy_to_clipboard'), class: "btn btn-success btn-block", onclick: "event.preventDefault(); copyToClipboard('#{t('notices.copy_hint')}', '#{public_charge_url(notice)}')" do
+      span.glyphicon.glyphicon-list-alt>
+      span Link zur Anzeige kopieren
+  .col-lg-6
+    = render 'callout', section: 'notices', key: 'copy_link'

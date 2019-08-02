@@ -1,0 +1,177 @@
+$default-color: #62c462;
+
+.turbolinks-progress-bar {
+  background-color: $default-color;
+  height: 5px !important;
+}
+
+.gravatar {
+  border-radius: 5px;
+}
+
+.map-canvas {
+  width: auto;
+  margin: 0 5%;
+  height: 400px;
+  border-radius: 5px;
+}
+
+.modal-foto {
+  width: 100%;
+}
+
+ul.foto-list {
+  li.list-item {
+    list-style: none;
+    img.item-foto {
+      border-radius: 5px;
+    }
+  }
+}
+
+pre.charge {
+  overflow-y: scroll;
+  height: 20vh;
+  min-height: 100px;
+}
+
+.me-thumb {
+  width: 100px;
+  padding: 10px;
+}
+
+.flex-buttons {
+  white-space: nowrap;
+  .btn {
+    float: none;
+    display: inline-block;
+  }
+  a {
+    text-decoration: none;
+  }
+}
+
+.navbar-logo {
+  padding: 6px;
+}
+
+.navbar-user {
+  a {
+    padding: 10px !important;
+  }
+  img {
+    height: 32px;
+    width: 32px;
+    border: 1px;
+    border-radius: 5px;
+  }
+  em {
+    padding-left: 5px;
+  }
+}
+
+.references {
+  img {
+    height: 22px;
+    background-color: white;
+    padding: 1px;
+    border: 1px;
+    vertical-align: bottom;
+    border-radius: 5px;
+  }
+  em {
+    padding-left: 5px;
+  }
+}
+
+.blog-user {
+  img {
+    margin: 0.5em;
+    width: 16px;
+    height: 16px;
+    border: 1px;
+    border-radius: 5px;
+  }
+}
+
+.info {
+  text-decoration: none;
+  &:hover, &:active, &:focus {
+    text-decoration: none;
+  }
+}
+
+.caps {
+  font-variant: small-caps;
+}
+
+.callout {
+  border-left: 5px solid #f89406;
+}
+
+.margin-left {
+  margin-left: 1em;
+}
+.margin-left-small {
+  margin-left: 0.2em;
+}
+.margin-left-large {
+  margin-left: 2em;
+}
+
+.spacer {
+  padding-bottom: 1em;
+}
+.spacer-small {
+  padding-bottom: 0.2em;
+}
+.spacer-large {
+  padding-bottom: 2em;
+}
+
+.smaller {
+  font-size: smaller;
+}
+
+.gray-ish {
+  background-color: #32383e;
+}
+
+.success-step {
+  background-color: #32383e;
+  border: 2px solid $default-color;
+}
+.success-step1 {
+  background-color: $default-color;
+}
+.success-step2 {
+  background-color: darken($default-color, 15%);
+}
+.success-step3 {
+  background-color: darken($default-color, 30%);
+}
+.success-step-muted {
+  background-color: #32383e;
+}
+.success-step-button {
+  background-color: white;
+  color: darken($default-color, 15%);
+  border: 2px solid darken($default-color, 15%);
+}
+
+.step {
+  border-radius: 999999%;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-bottom: 2px;
+  padding-top: 0px;
+  text-shadow: none;
+}
+
+.mega {
+  font-weight: bold;
+  font-size: 100px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-rop: 100px;
+}

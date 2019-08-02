@@ -1,0 +1,32 @@
+- set_title @notice.token, t('navigation.notices')
+- set_crumbs t('navigation.notices') => notices_path, @notice.token => url_for
+
+.panel.panel-default
+  .panel-heading
+    = render 'actions', notice: @notice
+    - if @notice.incomplete?
+      = render 'status', status: :incomplete
+  .panel-body
+    .row
+      .col-lg-6
+        dl.dl-horizontal
+          dt= Notice.human_attribute_name(:status)
+          dd= render 'status', status: @notice.status
+          dt= Notice.human_attribute_name(:created_at)
+          dd= d(@notice.created_at)
+          dt= Notice.human_attribute_name(:address)
+          dd= @notice.address
+          dt= Notice.human_attribute_name(:registration)
+          dd= @notice.registration
+          dt= Notice.human_attribute_name(:brand)
+          dd= @notice.brand
+
+
+      .col-lg-6
+        = render 'fotos', notice: @notice
+
+    - if @notice.coordinates?
+      hr.spacer
+      .row
+        .col-lg-12
+          = render 'map', notice: @notice

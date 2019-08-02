@@ -1,0 +1,36 @@
+.row
+  .col-lg-4.col-lg-push-8.text-center
+    .hidden-xs
+      .spacer-large
+      .spacer-large
+      .spacer-large
+    span.step.mega.success-step-muted 1
+    h2.larger= t('notices.draft_it')
+  .col-lg-8.col-lg-pull-4.text-center
+    = image_tag "draft_it_#{I18n.locale}.png", class: 'img-thumbnail', title: t('notices.draft_it')
+
+hr.spacer-large.hidden-xs
+
+.row
+  .col-lg-4.text-center
+    .hidden-xs
+      .spacer-large
+      .spacer-large
+      .spacer-large
+    span.step.mega.success-step-muted 2
+    h2.larger= t('notices.secure_it')
+  .col-lg-8.text-center
+    = image_tag "secure_it_#{I18n.locale}.png", class: 'img-thumbnail', title: t('notices.secure_it')
+
+hr.spacer-large.hidden-xs
+
+.row
+  .col-lg-4.col-lg-push-8.text-center
+    .hidden-xs
+      .spacer-large
+      .spacer-large
+      .spacer-large
+    span.step.mega.success-step-muted 3
+    h2.larger= t('notices.share_it')
+  .col-lg-8.col-lg-pull-4.text-center
+    = image_tag "share_it_#{I18n.locale}.png", class: 'img-thumbnail', title: t('notices.share_it')

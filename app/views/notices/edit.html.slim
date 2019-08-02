@@ -1,0 +1,40 @@
+- set_title t('notices.new_notice')
+- set_crumbs t('navigation.notices') => notices_path, t('notices.new_notice') => url_for
+
+= render 'three_step', step: :second
+
+- if @notice.incomplete?
+  .row
+    .col-lg-12
+      .well.well-sm.callout
+        p Aus den Beweisfotos lassen sich automatisch Informationen ermitteln. EXIF-Metadaten liefern Standort und Uhrzeit, Bilderkennung und OCR liefern Kennzeichen, Hersteller, Farben etc.
+
+  .row
+    .col-lg-4
+      - if @notice.analysing?
+        = link_to url_for, class: 'btn btn-success btn-block' do
+          span.glyphicon.glyphicon-repeat.smaller>
+          span kurz warten und dann aktualisieren
+      - else
+        = link_to 'Beweisfotos analysieren', [:analyse, @notice], method: :patch, class: 'btn btn-success btn-block'
+    .col-lg-8
+      = render 'fotos', notice: @notice
+
+- else
+  .row
+    .col-lg-12
+      = render 'fotos', notice: @notice
+
+hr.spacer
+
+= form_errors @notice
+= form_for @notice, html: {class: "form-horizontal"} do |form|
+  = render 'notice_form', notice: @notice, form: form
+
+  hr.spacer
+  .row
+    .col-lg-12
+      .pull-right
+        .btn-group
+          = form.button 'nur speichern', name: :show, class: "btn btn-default"
+          = form.submit 'speichern und weiter', class: "btn btn-success"
