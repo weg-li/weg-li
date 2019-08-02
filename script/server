@@ -8,6 +8,6 @@ export TWITTER_CONSUMER_SECRET=YpZWhJaIoVff8dslqxjDRTNYYko8Xqx5W2ADMFWJB7H6o8SBZ
 export GOOGLE_CONSUMER_KEY=715814087119-08hv5rj74bmq7burc2dpnt3hbd28jg5t.apps.googleusercontent.com
 export GOOGLE_CONSUMER_SECRET=UPq0r1YoKno2cz0e9dYB9sKr
 export GOOGLE_CLOUD_PROJECT=weg-li
-export GOOGLE_CLOUD_KEYFILE=config/gcloud-development.json
+export GOOGLE_CLOUD_KEYFILE=config/secrets/gcloud.json
 
 bundle exec rails server

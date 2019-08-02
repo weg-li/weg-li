@@ -17,5 +17,5 @@
 /storage
 
 *.DS_Store
-config/secret
+config/secrets
 .byebug_history

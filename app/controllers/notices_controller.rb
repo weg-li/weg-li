@@ -4,19 +4,19 @@ class NoticesController < ApplicationController
 
   def index
     @filter_status =  Notice.statuses.keys
-    @order_sent = 'ASC'
+    @order_created_at = 'ASC'
     @table_params = {}
 
     @notices = current_user.notices.page(params[:page])
     if filter = params[:filter]
-      @table_params[:filter] = filter.to_hash
+      @table_params[:filter] = filter.to_unsafe_hash
       @notices = @notices.where(status: filter[:status]) if filter[:status]
     end
     if order = params[:order]
-      @table_params[:order] = order.to_hash
-      if order[:sent]
-        @notices = @notices.reorder(created_at: order[:sent])
-        @order_sent = 'DESC' if order[:sent] == 'ASC'
+      @table_params[:order] = order.to_unsafe_hash
+      if order[:created_at]
+        @notices = @notices.reorder(created_at: order[:created_at])
+        @order_created_at = 'DESC' if order[:created_at] == 'ASC'
       end
     end
   end

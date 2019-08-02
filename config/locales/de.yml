@@ -52,11 +52,13 @@ de:
   slogan_2: "weg vom Weg"
   navigation:
     notices: 'Meldungen'
-    draft: 'Schreiben'
+    draft: 'Erfassen'
     dashboard: 'Übersicht'
     locale: 'Sprache'
     logout: 'Abmelden'
     profile: 'Profil'
+    edit_profile: 'Profil bearbeiten'
+    view_profile: 'Profil ansehen'
     pricing: 'Preise'
     payment: 'Zahlung'
   footer:
@@ -106,6 +108,10 @@ de:
     validate: 'Bitte bestätige deine E-Mail Adresse!'
     email_auth: 'Logge dich bei weg-li ein.'
   users:
+    statistics:
+      all: 'Alle Meldungen'
+      incomplete: 'Offene Meldungen'
+      shared: 'Gesendete Meldungen'
     districts:
       hamburg: 'Hamburg'
       lueneburg: 'Lüneburg'
@@ -177,7 +183,7 @@ de:
         description: Mache ein oder mehrere Beweisfotos, die den Verstoß dokumentieren. Das Fabrikat und das Nummernschild sollten auf den Fotos gut zu erkennen sein. Vermeide es möglichst Fotos mit Passanten zu machen.
       infos:
         title: beschreiben
-        description: Um mit Hilfe der Meldung Anzeige zu Erstatten, werden noch zusätzliche Informationen benötigt. Neben Zeit und Ort des Verstoßes, müssen auch noch weitere Informationen zum Fahrzeug angegeben werden. Diese Informationen werden soweit möglich automatisch aus den Beweisfotos ermittelt.
+        description: Um mit Hilfe der Meldung ein Anzeige zu Erstatten, werden noch zusätzliche Informationen benötigt. Neben Zeit und Ort des Verstoßes, müssen auch noch Details zum Fahrzeug angegeben werden. Diese Informationen werden soweit möglich automatisch aus den Beweisfotos ermittelt.
       charges:
         title: melden
         description: Aus den Daten kann direkt eine Anzeige erstattet werden, die dann an das zuständige Ordnungsamt oder die Polizei gesendet wird. Alle Meldungen werden zudem auf der öffentlich erreichbaren weg-li Karte angezeigt.

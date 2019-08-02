@@ -42,11 +42,11 @@
               ul.dropdown-menu aria-labelledby="login"
                 li
                   = link_to [:edit, current_user] do
-                    span.glyphicon.glyphicon-user.smaller>
+                    span.glyphicon.glyphicon-edit.smaller>
                     span.margin-left-small= t('navigation.edit_profile')
                 li
                   = link_to public_profile_path(current_user.token) do
-                    span.glyphicon.glyphicon-person.smaller>
+                    span.glyphicon.glyphicon-user.smaller>
                     span.margin-left-small= t('navigation.view_profile')
           li(data-no-turbolink)
             = link_to logout_path, title: t('navigation.logout') do

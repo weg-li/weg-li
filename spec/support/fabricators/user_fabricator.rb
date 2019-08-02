@@ -1,5 +1,5 @@
 Fabricator(:user) do
-  nickname  { Faker::Internet.user_name(3..30) }
+  nickname  { Faker::Internet.user_name }
   email     { Faker::Internet.email }
   token     { SecureRandom.hex(16) }
   name      { Faker::Name.name }
