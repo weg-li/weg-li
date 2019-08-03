@@ -60,20 +60,28 @@ class Vehicle
 
   def self.charges
     @charges = [
+      'Parken auf Radfahrstreifen (Verkehrszeichen 237)',
+      'Parken auf Fahrradschutzstreifen (Gestrichelte Linie)',
+      'Parken im Halteverbot',
+      'Parken im eingeschränkten Halteverbot',
+      'Parken auf Sperrflächen',
+      'Parken bis zu zehn Meter vor Lichtzeichen',
+      'Parken auf dem Fußgängerüberweg sowie 5 Meter davor und dahinter',
       'Parken im Kreuzungs-/Einmündungsbereich sowie 5 Meter davor und dahinter',
+      'Parken vor abgesenkten Bordsteinen',
       'Parken vor Grundstücksein- und -ausfahrten',
       'Parken auf schmalen Straßen auch gegenüber von Grundstücksein- und -ausfahrten',
-      'Parken vor abgesenkten Bordsteinen',
-      'Parken vor und hinter Bahnübergängen mit Andreaskreuz (innerorts besteht im 5-Meter-Bereich, außerorts im 50-Meter-Bereich das Parkverbot)',
       'Parken an Haltestellen (Verkehrszeichen 224) sowie 15 Meter davor und dahinter',
+      'Parken auf der Busspur',
       'Parken im Kreisverkehr',
       'Parken in Fußgängerzonen',
-      'Parken im Bereich von Verkehrs- bzw. Durchfahrtsverboten (Verkehrszeichen 250, 252, 253)',
+      'Parken im verkehrsberuhigten Bereich',
+      'Parken in zweiter Reihe',
+      'Parken vor Feuerwehrzufahrten',
+      'Parken vor und hinter Bahnübergängen mit Andreaskreuz',
       'Parken auf Straßen mit durchgezogener Linie',
-      'Parken an Engstellen, wenn weniger als 3 Meter zwischen dem parkenden Fahrzeug und der Fahrstreifenbegrenzung verbleiben würden',
-      'Parken auf dem Fußgängerüberweg sowie 5 Meter davor und dahinter',
-      'Parken im verkehrsberuhigten Bereich außerhalb der ausgewiesenen Parkflächen',
-      'Parken auf Fahrradschutzstreifen',
+      'Parken an Engstellen, wenn weniger als 3 Meter verbleiben würden',
+      'Parken im Bereich von Verkehrs- bzw. Durchfahrtsverboten (Verkehrszeichen 250, 252, 253)',
     ]
   end
 end
