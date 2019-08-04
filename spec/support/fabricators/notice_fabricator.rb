@@ -1,7 +1,7 @@
 include ActionDispatch::TestProcess
 
 Fabricator(:notice) do
-  fotos { [fixture_file_upload(Rails.root.join('spec/support/assets/mercedes.jpg'), 'image/jpeg')] }
+  photos { [fixture_file_upload(Rails.root.join('spec/support/assets/mercedes.jpg'), 'image/jpeg')] }
   address { Faker::Address.full_address }
   charge { Vehicle.charges.shuffle.first }
   date { 2.days.ago }
