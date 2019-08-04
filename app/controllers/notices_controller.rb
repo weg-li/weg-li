@@ -61,12 +61,10 @@ class NoticesController < ApplicationController
 
   def mail
     @notice = current_user.notices.from_param(params[:id])
+    @notice.assign_attributes(mail_params)
 
-    if recepients = params.dig(:notice, :recipients).presence
-      recepients = recepients.strip.split(/[\s,;]+/)
-      recepients.each do |recepient|
-        NoticeMailer.charge(current_user, recepient, @notice).deliver
-      end
+    if @notice.recipients?
+      NoticeMailer.charge(current_user, @notice).deliver
       @notice.update! status: :shared
 
       redirect_back(fallback_location: notices_path, notice: t('notices.sent_via_email', recepients: recepients.to_sentence))
@@ -134,5 +132,9 @@ class NoticesController < ApplicationController
 
   def notice_params
     params.require(:notice).permit(:charge, :date, :registration, :make, :brand, :model, :color, :kind, :address, :empty, :parked, fotos: [])
+  end
+
+  def mail_params
+    params.require(:notice).permit(:recipients)
   end
 end

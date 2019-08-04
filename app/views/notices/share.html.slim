@@ -22,10 +22,11 @@
   .col-lg-12
     = render 'fotos', notice: @notice
 
+hr
+
 = form_errors @notice
 = form_for @notice, url: mail_notice_path(@notice), html: {class: "form-horizontal"} do |form|
   = render 'share_form', notice: @notice, form: form
-
 
   hr.spacer
 

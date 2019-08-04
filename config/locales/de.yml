@@ -90,11 +90,11 @@ de:
       signup_nickname:
         hint: 'Dein Spitzname wird später für deine Anrede verwendet.'
         title: 'Spitznamen ändern'
-        text: 'Nachdem du registriert bist kannst du jederzeit deinen Spitznamen ändern.'
+        text: 'Nachdem Du registriert bist kannst Du jederzeit deinen Spitznamen ändern.'
       signup_email:
         hint: 'Deine E-Mail Adresse wird für den Login und für Benachrichtigungen verwendet.'
         title: 'Valide Adresse ist nötig'
-        text: 'Du musst deine E-Mail Adresse bestätigen, damit wir dich später erreichen können.'
+        text: 'Du musst deine E-Mail Adresse bestätigen, damit wir Dich später erreichen können.'
       provider:
         hint: 'Wähle einen <a href="http://en.wikipedia.org/wiki/OAuth">OAuth</a> Anbieter aus und akzeptiere die benötigten Berechtigungen.'
         title: 'Warum OAuth?'
@@ -102,11 +102,11 @@ de:
       email:
         hint: 'Du wirst zu <em>jedem</em> neuen Login per Mail eine neue Login E-Mail erhalten!'
         title: 'per E-Mail einloggen'
-        text: 'Bei jedem Login erhältst du eine neue E-Mail in der ein Login-Link enthalten ist. Einfach auf den enthaltenen Link klicken und loslegen!'
+        text: 'Bei jedem Login erhältst Du eine neue E-Mail in der ein Login-Link enthalten ist. Einfach auf den enthaltenen Link klicken und loslegen!'
   mailers:
-    signup: 'Du hast dich erfolgreich registriert, bitte bestätige deine E-Mail Adresse!'
+    signup: 'Du hast Dich erfolgreich registriert, bitte bestätige deine E-Mail Adresse!'
     validate: 'Bitte bestätige deine E-Mail Adresse!'
-    email_auth: 'Logge dich bei weg-li ein.'
+    email_auth: 'Logge Dich bei weg-li ein.'
   users:
     statistics:
       all: 'Alle Meldungen'
@@ -190,7 +190,7 @@ de:
 
     callouts:
       send_email:
-        hint: 'Erstatte die Anzeige direkt per E-Mail.'
+        hint: 'Erstatte die Anzeige direkt per E-Mail, Du erhältst eine Kopie per CC.'
         title: 'Anzeige per E-Mail'
         text: 'Inzwischen ist es fast überall möglich Anzeige per E-Mail zu erstatten, manche Bundesländer bieten sogar eigene Portale an, <a href="https://www.test.de/Gewusst-wie-Online-Anzeige-erstatten-5003664-0/" target="_blank">eine Liste findet sich hier</a>.'
       copy_link:

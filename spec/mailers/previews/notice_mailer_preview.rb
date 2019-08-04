@@ -3,7 +3,8 @@ class NoticeMailerPreview < ActionMailer::Preview
   def charge
     notice = Notice.first!
     user = notice.user
-    email = 'example@schwample.de'
-    NoticeMailer.charge(user, email, notice)
+    notice.recipients = 'example.de, uschi@s\\\churbel.de'
+
+    NoticeMailer.charge(user, notice)
   end
 end
