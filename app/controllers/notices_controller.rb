@@ -63,7 +63,7 @@ class NoticesController < ApplicationController
     @notice = current_user.notices.from_param(params[:id])
     @notice.assign_attributes(mail_params)
 
-    if @notice.recipients?
+    if @notice.recipients.present?
       NoticeMailer.charge(current_user, @notice).deliver
       @notice.update! status: :shared
 
