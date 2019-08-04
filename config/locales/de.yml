@@ -13,7 +13,7 @@ de:
         district: 'Bezirk'
       notice:
         created_at: 'Erstellt'
-        fotos: 'Beweisfotos'
+        photos: 'Beweisfotos'
         address: 'Ort'
         registration: 'Kennzeichen'
         make: 'Fabrikat'
@@ -46,10 +46,10 @@ de:
           white: 'Weiß'
           orange: 'Orange'
           gold: 'Gold'
-  title: "📸 📝 ✊ weg-li: 1, 2, 3 - weg vom Weg"
-  slogan: "1, 2, 3 - weg vom Weg"
+  title: "📸 📝 ✊ weg-li: 1, 2, 3 - weg vom Radweg"
+  slogan: "1, 2, 3 - weg vom Radweg"
   slogan_1: "1, 2, 3 -  📸 📝 ✊"
-  slogan_2: "weg vom Weg"
+  slogan_2: "weg vom Radweg"
   navigation:
     notices: 'Meldungen'
     draft: 'Erfassen'
@@ -109,9 +109,10 @@ de:
     email_auth: 'Logge Dich bei weg-li ein.'
   users:
     statistics:
-      all: 'Alle Meldungen'
+      all: 'Meldungen insgesamt'
       incomplete: 'Offene Meldungen'
-      shared: 'Gesendete Meldungen'
+      shared: 'Erstatte Anzeigen'
+      photos: 'Geknipste Fotos'
     districts:
       hamburg: 'Hamburg'
       lueneburg: 'Lüneburg'
@@ -178,7 +179,7 @@ de:
     copy_hint: 'Kopieren in die Zwischenablage: CMD+C / Ctrl+C, lange Antippen und kopieren für Touch'
     back_to_dashboard: 'zurück zur Übersicht'
     steps:
-      fotos:
+      photos:
         title: knipsen
         description: Mache ein oder mehrere Beweisfotos, die den Verstoß dokumentieren. Das Fabrikat und das Nummernschild sollten auf den Fotos gut zu erkennen sein. Vermeide es möglichst Fotos mit Passanten zu machen.
       infos:

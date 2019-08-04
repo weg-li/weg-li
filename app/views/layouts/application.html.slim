@@ -8,8 +8,8 @@ html lang=I18n.locale
     = javascript_include_tag("application")
     = csrf_meta_tags
     = render 'twitter_card'
-    / = tag :link, rel: 'shortcut icon', href: image_path("favicon.ico")
-    / = tag :link, rel: 'apple-touch-icon-precomposed', href: image_path("favicon.ico")
+    = tag :link, rel: 'shortcut icon', href: image_path("favicon.ico")
+    = tag :link, rel: 'apple-touch-icon-precomposed', href: image_path("favicon.ico")
     = auto_discovery_link_tag :rss, articles_path(format: :rss), title: "Rss-Feed"
     = render 'i18njs'
   body

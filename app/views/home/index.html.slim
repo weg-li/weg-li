@@ -2,7 +2,7 @@
 .row
   .col-lg-5
     .page-header.hidden-xs
-      h1= link_to 'weg-li', root_url, class: 'text-warning', title: t('title')
+      h1= link_to 'weg-li 🚲', root_url, class: 'text-warning', title: t('title')
     .spacer-large
     p.lead
       = link_to root_url, title: t('slogan') do
@@ -21,6 +21,44 @@
             li.dropdown-header= t('home.select_oauth_provider')
             - login_links do |name, path, key|
               li= link_to name, path
+
+hr.spacer
+
+.row
+  .col-lg-6
+    h3 Aktuelle Ziele:
+
+    ul.list-group
+      li.list-group-item
+        - goal = 100
+        - statistics = Notice.statistics(Time.zone.today.beginning_of_week)
+        - current = statistics[:shared]
+        strong Wochenziel: #{current} von #{goal} Anzeigen erstattet
+        .progress.progress-striped.active
+          .progress-bar.progress-bar-danger(style="width: #{[100, current / (goal / 100)].min}%")
+
+      li.list-group-item
+        - goal = 400
+        - statistics = Notice.statistics(Time.zone.today.beginning_of_month)
+        - current = statistics[:shared]
+        strong Monatsziel: #{current} von #{goal} Anzeigen erstattet
+        .progress.progress-striped.active
+          .progress-bar.progress-bar-warning(style="width: #{[100, current / (goal / 100)].min}%")
+
+      li.list-group-item
+        strong Jahresziel: Keine Radwegparker mehr!
+        .progress.progress-striped.active
+          .progress-bar.progress-bar-success(style="width: 100%")
+
+  .col-lg-6
+    h3 Bisherige Daten:
+    ul.list-group
+      - statistics = Notice.statistics
+      - statistics.each do |key, value|
+        li.list-group-item
+          = t(key, scope: 'users.statistics')
+          .badge.pull-right= value
+
 
 / hr.spacer-large.hidden-xs
 /

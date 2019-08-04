@@ -10,16 +10,27 @@ class Notice < ActiveRecord::Base
   after_validation :geocode
 
   belongs_to :user
-  has_many_attached :fotos
+  has_many_attached :photos
 
-  validates :fotos, :registration, :charge, :address, :brand, :color, :date, presence: :true
+  validates :photos, :registration, :charge, :address, :brand, :color, :date, presence: :true
 
   enum status: {open: 0, disabled: 1, analysing: 2, shared: 3}
+
+  scope :since, -> (date) { where('notices.created_at > ?', date) }
 
   attr_accessor :recipients
 
   def self.from_param(token)
     find_by_token!(token)
+  end
+
+  def self.statistics(date = 100.years.ago)
+    {
+      photos: since(date).joins(photos_attachments: :blob).count,
+      all: since(date).count,
+      incomplete: since(date).incomplete.count,
+      shared: since(date).shared.count,
+    }
   end
 
   def coordinates?
