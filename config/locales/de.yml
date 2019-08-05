@@ -133,7 +133,7 @@ de:
     settings: 'Einstellungen'
     change_settings: 'Einstellungen ändern'
     flags:
-      todo: 'todo'
+      hide_public_profile: 'öffentliches Profil deaktivieren'
   articles:
     title: 'das weg-li Blog'
     wrote_on: 'hat am <em>%{date}</em> geschrieben'
@@ -150,20 +150,28 @@ de:
   notices:
     new_notice: 'Neue Meldung'
     create_button: 'Meldung erstellen'
-    secure_button: 'nächster Schritt, verschicken!'
-    share_notice: 'Verschicken'
     manage_your_history: 'Verwalte deine Meldungen'
     nothing_found: 'Leider gibt es für diesen Filter keine Ergebnisse.'
     status:
+      open: 'offen'
       disabled: 'deaktiviert'
-      open: 'ungelesen'
+      analysing: 'analysieren'
       shared: 'gemeldet'
+      incomplete: 'unvollständig'
+      complete: 'vollständig'
+    status-hints:
+      open: 'Die Beweisfotos wurden gespeichert, bitte die Meldung überprüfen, vervollständigen und eine Anzeige erstatten.'
+      disabled: 'Die Meldung ist deaktiviert und im Internet nicht mehr zu erreichen.'
+      analysing: 'Im Hintergrund wird automatisch versucht möglichst viele Informationen aus den Beweisfotos zu ermitteln.'
+      shared: 'Die Meldung wurde zur Anzeige gebracht.'
+      complete: 'Alle Daten, die für eine Anzeige notwendig sind, wurden erfasst.'
+      incomplete: 'Es fehlen noch ein paar Daten, bitte die Meldung bearbeiten und die fehlenden Daten nachtragen.'
     bulk_actions: 'Mehrfach Aktionen'
     bulk_destroy: 'Auswahl löschen'
     confirm: "Diese Aktion kann nicht rückgängig gemacht werden!"
     actions: 'Aktionen'
     read: 'lesen'
-    share: 'verschicken'
+    share: 'melden'
     enable: 'aktivieren'
     disable: 'deaktivieren'
     destroy: 'löschen'
@@ -180,14 +188,14 @@ de:
     back_to_dashboard: 'zurück zur Übersicht'
     steps:
       photos:
-        title: knipsen
-        description: Mache ein oder mehrere Beweisfotos, die den Verstoß dokumentieren. Das Fabrikat und das Nummernschild sollten auf den Fotos gut zu erkennen sein. Vermeide es möglichst Fotos mit Passanten zu machen.
+        title: erfassen
+        description: Mache ein oder mehrere Beweisfotos, die den Verstoß dokumentieren, und lade sie hoch. Das Fabrikat und das Nummernschild sollten auf den Fotos gut zu erkennen sein. Vermeide es möglichst Fotos mit Passanten zu machen.
       infos:
         title: beschreiben
         description: Um mit Hilfe der Meldung ein Anzeige zu Erstatten, werden noch zusätzliche Informationen benötigt. Neben Zeit und Ort des Verstoßes, müssen auch noch Details zum Fahrzeug angegeben werden. Diese Informationen werden soweit möglich automatisch aus den Beweisfotos ermittelt.
       charges:
         title: melden
-        description: Aus den Daten kann direkt eine Anzeige erstattet werden, die dann an das zuständige Ordnungsamt oder die Polizei gesendet wird. Alle Meldungen werden zudem auf der öffentlich erreichbaren weg-li Karte angezeigt.
+        description: Aus den Daten kann direkt eine Anzeige erstattet werden, die dann an das zuständige Ordnungsamt oder die Polizei gesendet wird. Alle Meldungen werden zudem anonymisiert auf der öffentlich erreichbaren weg-li Karte angezeigt.
 
     callouts:
       send_email:

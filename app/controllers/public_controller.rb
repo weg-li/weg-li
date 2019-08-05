@@ -1,9 +1,10 @@
 class PublicController < ApplicationController
   def charge
-    @notice = Notice.find_by_token!(params[:token])
+    @notice = Notice.for_public.find_by_token!(params[:token])
   end
 
   def profile
-    @user = User.find_by_token!(params[:token])
+    @user = User.for_public.find_by_token!(params[:token])
+    @notices = @user.notices.shared
   end
 end

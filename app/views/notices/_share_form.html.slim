@@ -6,9 +6,12 @@
         = button_tag class: "btn btn-success" do
           span.glyphicon.glyphicon-send>
           span als E-Mail versenden
+    small.help-block Diese E-Mail-Adresse wurde automatisch für den in #{link_to('deinem Profil', edit_user_path(current_user))} hinterlegten Bezirk vorausgewählt.
 
   .col-lg-6
     = render 'callout', section: 'notices', key: 'send_email'
+
+hr.spacer
 
 .row
   .col-lg-6
@@ -17,3 +20,11 @@
       span Link zur Anzeige kopieren
   .col-lg-6
     = render 'callout', section: 'notices', key: 'copy_link'
+
+
+.row
+  .col-lg-6
+    .well.well-sm= public_charge_url(notice)
+  .col-lg-6
+    = link_to public_charge_path(notice), class: 'btn btn-primary', title: 'als Anzeige ansehen'
+      span.glyphicon.glyphicon-globe

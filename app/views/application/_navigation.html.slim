@@ -19,7 +19,7 @@
                   span.margin-left-small= t('navigation.dashboard')
               li
                 = link_to new_notice_path do
-                  span.glyphicon.glyphicon-pencil.smaller>
+                  span.glyphicon.glyphicon-plus.smaller>
                   span.margin-left-small= t('navigation.draft')
 
         - if signed_in? && current_user.admin?
@@ -45,7 +45,7 @@
                     span.glyphicon.glyphicon-edit.smaller>
                     span.margin-left-small= t('navigation.edit_profile')
                 li
-                  = link_to public_profile_path(current_user.token) do
+                  = link_to current_user do
                     span.glyphicon.glyphicon-user.smaller>
                     span.margin-left-small= t('navigation.view_profile')
           li(data-no-turbolink)

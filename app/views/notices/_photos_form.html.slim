@@ -2,7 +2,7 @@
   .col-lg-4
     .form-group
       = form.label :photos, class: "control-label"
-      = form.file_field :photos, id: 'fileupload', multiple: true, direct_upload: true, class: "form-control-file", accept: 'image/tiff,image/jpeg'
+      = form.file_field :photos, id: 'fileupload', required: true, multiple: true, direct_upload: true, class: "form-control-file", accept: 'image/tiff,image/jpeg'
   .col-lg-8
     .well.well-sm.callout
       p= t('notices.steps.photos.description')

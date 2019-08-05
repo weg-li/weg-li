@@ -1,1 +1,4 @@
 = render('infos', user: @user)
+- if @notices.present?
+  - @notices.each do |notice|
+    = render('map', notice: notice)

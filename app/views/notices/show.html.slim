@@ -1,5 +1,5 @@
 - set_title @notice.token, t('navigation.notices')
-- set_crumbs t('navigation.notices') => notices_path, @notice.token => url_for
+- set_crumbs t('navigation.notices') => notices_path, 'ansehen' => url_for
 
 .panel.panel-default
   .panel-heading
@@ -14,13 +14,14 @@
           dd= render 'status', status: @notice.status
           dt= Notice.human_attribute_name(:created_at)
           dd= d(@notice.created_at)
+          dt= Notice.human_attribute_name(:charge)
+          dd= @notice.charge
           dt= Notice.human_attribute_name(:address)
           dd= @notice.address
           dt= Notice.human_attribute_name(:registration)
           dd= @notice.registration
           dt= Notice.human_attribute_name(:brand)
           dd= @notice.brand
-
 
       .col-lg-6
         = render 'photos', notice: @notice

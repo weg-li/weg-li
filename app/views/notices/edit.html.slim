@@ -1,5 +1,5 @@
 - set_title t('notices.new_notice')
-- set_crumbs t('navigation.notices') => notices_path, t('notices.new_notice') => url_for
+- set_crumbs t('navigation.notices') => notices_path, 'beschreiben' => url_for
 
 = render 'three_step', step: :second
 
@@ -22,12 +22,12 @@
       - else
         = link_to 'Beweisfotos analysieren', [:analyse, @notice], method: :patch, class: 'btn btn-success btn-block'
     .col-lg-8
-      = render 'photo', notice: @notice
+      = render 'photos', notice: @notice
 
 - else
   .row
     .col-lg-12
-      = render 'photo', notice: @notice
+      = render 'photos', notice: @notice
 
 hr.spacer
 

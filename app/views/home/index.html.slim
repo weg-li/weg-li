@@ -22,7 +22,7 @@
             - login_links do |name, path, key|
               li= link_to name, path
 
-hr.spacer
+hr.spacer-large
 
 .row
   .col-lg-2.text-center
@@ -32,7 +32,7 @@ hr.spacer
       p Verkehrswende selber machen, durch sichere Radwege und freie Bürgersteige!
       small #{link_to('Peter Schröder', 'https://twitter.com/phoet', target: '_blank')}, besorgter Vater, Fußgänger, E-Scooterer, Radler und Autofahrer
 
-hr.spacer
+hr.spacer-large
 
 .row
   .col-lg-6
@@ -43,7 +43,8 @@ hr.spacer
         - goal = 100
         - statistics = Notice.statistics(Time.zone.today.beginning_of_week)
         - current = statistics[:shared]
-        strong Wochenziel: #{current} von #{goal} Anzeigen erstattet
+        strong> Wochenziel:
+        span #{current} von #{goal} Anzeigen erstattet
         .progress.progress-striped.active
           .progress-bar.progress-bar-danger(style="width: #{[100, current / (goal / 100)].min}%")
 
@@ -51,14 +52,18 @@ hr.spacer
         - goal = 400
         - statistics = Notice.statistics(Time.zone.today.beginning_of_month)
         - current = statistics[:shared]
-        strong Monatsziel: #{current} von #{goal} Anzeigen erstattet
+        strong> Monatsziel:
+        span #{current} von #{goal} Anzeigen erstattet
         .progress.progress-striped.active
           .progress-bar.progress-bar-warning(style="width: #{[100, current / (goal / 100)].min}%")
 
       li.list-group-item
-        strong Jahresziel: Keine Radwegparker mehr!
+        strong> Jahresziel:
+        span Keine Radwegparker mehr!
         .progress.progress-striped.active
-          .progress-bar.progress-bar-success(style="width: 100%")
+          #total-progress.progress-bar.progress-bar-success(style="width: 5%")
+          javascript:
+            setInterval(function(element) { element.style.width = Math.min(100, (parseInt(element.style.width) + 2)) + '%' }, 1000, document.getElementById('total-progress'));
 
   .col-lg-6
     h3 Bisherige Daten:

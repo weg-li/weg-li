@@ -1,4 +1,11 @@
 - set_title t('navigation.profile')
-- set_crumbs t('navigation.profile') => url_for
+- set_crumbs t('navigation.profile') => url_for, 'ansehen' => url_for
+
+
+= link_to public_profile_path(current_user.token), class: 'btn', target: '_blank' do
+  span.glyphicon.glyphicon-globe>
+  span öffentliches Profil ansehen
+
+hr.spacer
 
 = render 'infos', user: current_user

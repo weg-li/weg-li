@@ -1,7 +1,12 @@
-$default-color: #62c462;
+$default-color: #3a3f44;
+$primary-color: #7a8288;
+$success-color: #62c462;
+$warning-color: #f89406;
+$info-color: #5bc0de;
+$danger-color: #ee5f5b;
 
 .turbolinks-progress-bar {
-  background-color: $default-color;
+  background-color: $success-color;
   height: 5px !important;
 }
 
@@ -27,6 +32,48 @@ ul.photo-list {
       border-radius: 5px;
     }
   }
+}
+.index-photo {
+  height: 3em;
+  border-radius: 5px;
+}
+
+.glyphicon-status-incomplete:before {
+  content: "\e209";
+}
+.glyphicon-status-complete:before {
+  content: "\e013";
+}
+.glyphicon-status-open:before {
+  content: "\270f";
+}
+.glyphicon-status-analysing:before {
+  content: "\231b";
+}
+.glyphicon-status-disabled:before {
+  content: "\e090";
+}
+.glyphicon-status-shared:before {
+  content: "\e089";
+}
+
+.label-status-incomplete {
+  background-color: $warning-color;
+}
+.label-status-complete {
+  background-color: $default-color;
+}
+.label-status-open {
+  background-color: $default-color;
+}
+.label-status-analysing {
+  background-color: $info-color;
+}
+.label-status-disabled {
+  background-color: $danger-color;
+}
+.label-status-shared {
+  background-color: $success-color;
 }
 
 pre.charge {
@@ -143,33 +190,38 @@ pre.charge {
 
 .success-step {
   background-color: #32383e;
-  border: 2px solid $default-color;
+  border: 2px solid $success-color;
 }
 .success-step1 {
-  background-color: $default-color;
+  background-color: $success-color;
 }
 .success-step2 {
-  background-color: darken($default-color, 15%);
+  background-color: darken($success-color, 15%);
 }
 .success-step3 {
-  background-color: darken($default-color, 30%);
+  background-color: darken($success-color, 30%);
 }
 .success-step-muted {
   background-color: #32383e;
 }
 .success-step-button {
   background-color: white;
-  color: darken($default-color, 15%);
-  border: 2px solid darken($default-color, 15%);
+  color: darken($success-color, 15%);
+  border: 2px solid darken($success-color, 15%);
 }
 
 .step {
   border-radius: 999999%;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-bottom: 2px;
-  padding-top: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 4px;
+  padding-top: 2px;
   text-shadow: none;
+}
+
+.step-top {
+  // border: 2px solid rgb(200, 200, 200);
+  color: white;
 }
 
 .mega {
@@ -178,4 +230,16 @@ pre.charge {
   padding-left: 30px;
   padding-right: 30px;
   padding-rop: 100px;
+}
+
+.navbar, .page-header, .lead, footer {
+  a {
+    text-decoration: none;
+  }
+}
+a.btn {
+  text-decoration: none;
+}
+a {
+  text-decoration: underline;
 }

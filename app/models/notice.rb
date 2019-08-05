@@ -17,6 +17,7 @@ class Notice < ActiveRecord::Base
   enum status: {open: 0, disabled: 1, analysing: 2, shared: 3}
 
   scope :since, -> (date) { where('notices.created_at > ?', date) }
+  scope :for_public, -> () { where.not(status: :disabled) }
 
   attr_accessor :recipients
 
