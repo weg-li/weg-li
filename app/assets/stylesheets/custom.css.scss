@@ -83,8 +83,9 @@ pre.charge {
 }
 
 .me-thumb {
-  width: 100px;
-  padding: 10px;
+  width: 80px;
+  height: 80px;
+  margin-right: 20px;
 }
 
 .me-quote {
@@ -232,7 +233,7 @@ pre.charge {
   padding-rop: 100px;
 }
 
-.navbar, .page-header, .lead, footer {
+.navbar, .page-header, .lead, .panel, footer {
   a {
     text-decoration: none;
   }

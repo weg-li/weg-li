@@ -189,10 +189,10 @@ de:
     steps:
       photos:
         title: erfassen
-        description: Mache ein oder mehrere Beweisfotos, die den Verstoß dokumentieren, und lade sie hoch. Das Fabrikat und das Nummernschild sollten auf den Fotos gut zu erkennen sein. Vermeide es möglichst Fotos mit Passanten zu machen.
+        description: Mache ein oder mehrere Beweisfotos, die den Verstoß dokumentieren und lade sie hoch. Das Fabrikat und das Nummernschild sollten auf den Fotos gut zu erkennen sein. Vermeide es möglichst Fotos mit Passanten zu machen.
       infos:
         title: beschreiben
-        description: Um mit Hilfe der Meldung ein Anzeige zu Erstatten, werden noch zusätzliche Informationen benötigt. Neben Zeit und Ort des Verstoßes, müssen auch noch Details zum Fahrzeug angegeben werden. Diese Informationen werden soweit möglich automatisch aus den Beweisfotos ermittelt.
+        description: Um mit Hilfe der Meldung eine Anzeige zu erstatten, werden noch zusätzliche Informationen benötigt. Neben Zeit und Ort des Verstoßes müssen auch noch Details zum Fahrzeug angegeben werden. Diese Informationen werden soweit möglich automatisch aus den Beweisfotos ermittelt.
       charges:
         title: melden
         description: Aus den Daten kann direkt eine Anzeige erstattet werden, die dann an das zuständige Ordnungsamt oder die Polizei gesendet wird. Alle Meldungen werden zudem anonymisiert auf der öffentlich erreichbaren weg-li Karte angezeigt.
@@ -203,6 +203,6 @@ de:
         title: 'Anzeige per E-Mail'
         text: 'Inzwischen ist es fast überall möglich Anzeige per E-Mail zu erstatten, manche Bundesländer bieten sogar eigene Portale an, <a href="https://www.test.de/Gewusst-wie-Online-Anzeige-erstatten-5003664-0/" target="_blank">eine Liste findet sich hier</a>.'
       copy_link:
-        hint: 'Per <em>copy &amp; paste</em> die Meldung anderweitig nutzen.'
+        hint: 'Per <em>copy &amp; paste</em> den Link zur Meldung z.B. auf Twitter teilen.'
         title: 'Copy &amp; Paste'
         text: 'Der Link zur Meldung wird in deine Zwischenablage kopiert. Einfügen mit <code>CMD+V</code> auf Mac oder <code>CTRL+V</code> auf Windows, lange Antippen und kopieren für Touch.'

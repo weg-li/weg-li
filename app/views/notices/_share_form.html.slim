@@ -20,11 +20,3 @@ hr.spacer
       span Link zur Anzeige kopieren
   .col-lg-6
     = render 'callout', section: 'notices', key: 'copy_link'
-
-
-.row
-  .col-lg-6
-    .well.well-sm= public_charge_url(notice)
-  .col-lg-6
-    = link_to public_charge_path(notice), class: 'btn btn-primary', title: 'als Anzeige ansehen'
-      span.glyphicon.glyphicon-globe

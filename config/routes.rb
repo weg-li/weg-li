@@ -46,6 +46,7 @@ Rails.application.routes.draw do
 
   get '/blog',     to: 'articles#index'
   get '/faq',      to: 'home#faq'
+  get '/privacy',  to: 'home#privacy'
 
   # dev
   get '/styleguide', to: 'styleguide#index'

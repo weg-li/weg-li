@@ -47,6 +47,8 @@ GEM
     arel (9.0.0)
     bindex (0.8.1)
     bitfields (0.10.0)
+    bootstrap3-datetimepicker-rails (4.14.30)
+      momentjs-rails (>= 2.8.1)
     builder (3.2.3)
     byebug (11.0.1)
     color (1.8)
@@ -164,6 +166,8 @@ GEM
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.11.3)
+    momentjs-rails (2.20.1)
+      railties (>= 3.1)
     multi_json (1.13.1)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
@@ -334,6 +338,7 @@ PLATFORMS
 
 DEPENDENCIES
   bitfields
+  bootstrap3-datetimepicker-rails (~> 4.14.30)
   byebug
   color
   dalli
@@ -350,6 +355,7 @@ DEPENDENCIES
   letter_opener
   listen
   mini_magick
+  momentjs-rails (>= 2.9.0)
   omniauth
   omniauth-github
   omniauth-google-oauth2

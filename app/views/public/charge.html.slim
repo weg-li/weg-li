@@ -1,19 +1,27 @@
 .panel.panel-default
-  .panel-heading= @notice.charge
+  .panel-heading Anzeige wegen Falschparkens
   .panel-body
     .row
-      .col-lg-6
+      .col-lg-8
         dl.dl-horizontal
-          dt= Notice.human_attribute_name(:created_at)
-          dd= d(@notice.created_at)
+          dt= Notice.human_attribute_name(:charge)
+          dd= @notice.charge
+          dt= Notice.human_attribute_name(:date)
+          dd= d(@notice.date)
           dt= Notice.human_attribute_name(:address)
           dd= @notice.address
           dt= Notice.human_attribute_name(:registration)
           dd= @notice.registration
           dt= Notice.human_attribute_name(:brand)
           dd= @notice.brand
+          dt= Notice.human_attribute_name(:color)
+          dd= @notice.color
+          - if !@notice.empty?
+            dd Das Fahrzeug war verlassen
+          - if !@notice.parked?
+            dd Das Fahrzeug stand mindestens 3 Minuten.
 
-      .col-lg-6
+      .col-lg-4
         = render 'photos', notice: @notice, publicly: true
 
     - if @notice.coordinates?
