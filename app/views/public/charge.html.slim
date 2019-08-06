@@ -15,7 +15,7 @@
           dt= Notice.human_attribute_name(:brand)
           dd= @notice.brand
           dt= Notice.human_attribute_name(:color)
-          dd= @notice.color
+          dd= t(@notice.color, scope: "activerecord.attributes.notice.colors")
           - if !@notice.empty?
             dd Das Fahrzeug war verlassen
           - if !@notice.parked?

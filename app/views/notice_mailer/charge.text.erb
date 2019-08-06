@@ -12,14 +12,16 @@ Hiermit zeige ich, mit der Bitte um Weiterverfolgung, folgende Verkehrsordnungsw
 
 <%= Notice.human_attribute_name(:brand) %>: <%= @notice.brand %>
 
-<%= Notice.human_attribute_name(:color) %>: <%= @notice.color %>
+<%= Notice.human_attribute_name(:color) %>: <%= t(@notice.color, scope: "activerecord.attributes.notice.colors") %>
 
 <%= Notice.human_attribute_name(:registration) %>: <%= @notice.registration %>
 
 <% if @notice.empty? %>
+
 Das Fahrzeug war verlassen.
 <% end %>
 <% if @notice.parked? %>
+
 Das Fahrzeug stand mindestens 3 Minuten.
 <% end %>
 
@@ -31,9 +33,10 @@ Ladungsfähige Anschrift: <%= @user.name %>, <%= @user.address %>
 
 Im Anhang befinden sich die Beweisfotos.
 
-Diese Anzeige können Sie auch online abrufen:
-<%= public_charge_url(@notice) %>
+
+Diese Anzeige können Sie auch online abrufen: <%= public_charge_url(@notice) %>
 
 
 Mit freundlichen Grüßen
+
 <%= @user.name %>
