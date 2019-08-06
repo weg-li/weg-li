@@ -1,4 +1,5 @@
 = render('infos', user: @user)
-- if @notices.present?
-  - @notices.each do |notice|
-    = render('map', notice: notice)
+
+hr.spacer
+
+= render('multi_map', notices: @user.notices, init: @user.district.map_data)
