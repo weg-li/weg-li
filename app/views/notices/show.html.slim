@@ -3,7 +3,7 @@
 
 .panel.panel-default
   .panel-heading
-    strong Meldung vom #{l(@notice.created_at)}
+    strong> Meldung vom #{l(@notice.created_at)}
     => render 'status', status: @notice.status
     - if @notice.incomplete?
       = render 'status', status: :incomplete
