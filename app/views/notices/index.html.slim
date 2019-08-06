@@ -51,7 +51,7 @@
                       = image_tag(url_for(photo.variant(resize: "100x100").processed), class: 'index-photo')
                 td= d(notice.created_at)
                 td
-                  = render 'status', status: notice.status
+                  => render 'status', status: notice.status
                   = render 'status', status: :incomplete if notice.incomplete?
                 td= render 'actions', notice: notice
           - else
