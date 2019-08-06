@@ -23,6 +23,7 @@ de:
         color: 'Farbe'
         charge: 'Verstoß'
         date: 'Datum'
+        note: 'Hinweis'
         empty: 'Verlassen'
         parked: 'Geparkt'
         recipients: 'Empfänger'

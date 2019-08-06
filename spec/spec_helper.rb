@@ -14,6 +14,7 @@ RSpec.configure do |config|
   config.order = "random"
   config.include ActiveSupport::Testing::TimeHelpers
   config.include RequestHelper
+  config.include DataHelper
   config.before do
     I18n.locale = :de
   end

@@ -1,7 +1,6 @@
 require "google/cloud/vision"
 require "google/cloud/storage"
 
-
 class Annotator
 
   def self.grep_text(result)

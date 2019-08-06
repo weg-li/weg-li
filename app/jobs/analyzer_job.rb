@@ -1,13 +1,17 @@
 class AnalyzerJob < ApplicationJob
   def perform(notice)
+    notice.data ||= {}
     notice.photos.each do |photo|
       notice.latitude ||= photo.metadata[:latitude]
       notice.longitude ||= photo.metadata[:longitude]
       notice.date ||= photo.metadata[:date_time]
 
       result = annotator.annotate_object(photo.key)
-      notice.registration ||= Annotator.grep_text(result) { |string| Vehicle.plate?(string) }.first
-      notice.color ||= Annotator.dominant_colors(result).first
+      if result.present?
+        notice.data[photo.record_id] = result
+        notice.registration ||= Annotator.grep_text(result) { |string| Vehicle.plate?(string) }.first
+        notice.color ||= Annotator.dominant_colors(result).first
+      end
     end
 
     notice.reverse_geocode

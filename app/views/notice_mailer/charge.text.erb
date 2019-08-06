@@ -24,6 +24,10 @@ Das Fahrzeug war verlassen.
 
 Das Fahrzeug stand mindestens 3 Minuten.
 <% end %>
+<% if @notice.note? %>
+
+<%= @notice.note %>
+<% end %>
 
 
 Ich stelle mich als Zeuge zur Verfügung und bin damit einverstanden, als Zeuge benannt zu werden.

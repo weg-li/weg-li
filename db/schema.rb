@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_02_123602) do
+ActiveRecord::Schema.define(version: 2019_08_06_133759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,7 +60,6 @@ ActiveRecord::Schema.define(version: 2019_08_02_123602) do
     t.integer "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "question", limit: 255
     t.integer "status", default: 0
     t.integer "flags", default: 0, null: false
     t.datetime "date"
@@ -74,6 +73,7 @@ ActiveRecord::Schema.define(version: 2019_08_02_123602) do
     t.float "latitude"
     t.float "longitude"
     t.boolean "incomplete", default: false, null: false
+    t.string "note"
   end
 
   create_table "users", force: :cascade do |t|
@@ -85,7 +85,6 @@ ActiveRecord::Schema.define(version: 2019_08_02_123602) do
     t.datetime "validation_date"
     t.integer "access", default: 0
     t.string "time_zone"
-    t.string "stripe_customer_token"
     t.integer "flags", default: 0, null: false
     t.string "name"
     t.string "address"

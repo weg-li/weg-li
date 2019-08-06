@@ -3,29 +3,12 @@
   .panel-body
     .row
       .col-lg-8
-        dl.dl-horizontal
-          dt= Notice.human_attribute_name(:charge)
-          dd= @notice.charge
-          dt= Notice.human_attribute_name(:date)
-          dd= d(@notice.date)
-          dt= Notice.human_attribute_name(:address)
-          dd= @notice.address
-          dt= Notice.human_attribute_name(:registration)
-          dd= @notice.registration
-          dt= Notice.human_attribute_name(:brand)
-          dd= @notice.brand
-          dt= Notice.human_attribute_name(:color)
-          dd= t(@notice.color, scope: "activerecord.attributes.notice.colors")
-          - if !@notice.empty?
-            dd Das Fahrzeug war verlassen
-          - if !@notice.parked?
-            dd Das Fahrzeug stand mindestens 3 Minuten.
+        = render 'details', notice: @notice
 
       .col-lg-4
         = render 'photos', notice: @notice, publicly: true
 
-    - if @notice.coordinates?
-      hr.spacer
-      .row
-        .col-lg-12
-          = render 'map', notice: @notice
+- if @notice.coordinates?
+  .row
+    .col-lg-12
+      = render 'map', notice: @notice

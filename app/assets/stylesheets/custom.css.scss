@@ -26,7 +26,11 @@ $danger-color: #ee5f5b;
 }
 
 ul.photo-list {
+  padding: 0px;
+
   li.list-item {
+    float: left;
+    padding: 0px 5px 5px 0px;
     list-style: none;
     img.item-photo {
       border-radius: 5px;
