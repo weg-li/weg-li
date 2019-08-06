@@ -24,9 +24,9 @@
   .col-lg-6
     = form.label :date, class: "control-label"
 
-    .input-group
-      = form.datetime_field :date, class: "form-control", required: true
-      span.input-group-addon(data-toggle="tooltip" data-placement="top" title="Sorry liebe Firefox-Nutzer, aber euer Browser unterstützt keine datetime-local Felder 😑")
+    .input-group.datetimepicker
+      = form.text_field :date, class: "form-control", required: true
+      span.input-group-addon
         span.glyphicon.glyphicon-calendar
 
     = form.label :color, class: "control-label"
