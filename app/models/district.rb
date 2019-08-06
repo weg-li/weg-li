@@ -1,6 +1,6 @@
 class District < Struct.new(:name, :email)
   HAMBURG = District.new('hamburg', 'anzeigenbussgeldstelle@eza.hamburg.de')
-  LUENEBURG = District.new('lueneburg', 'rechtundkommunales@landkreis.lueneburg.de')
+  LUENEBURG = District.new('lueneburg', 'bussgeldstelle@landkreis.lueneburg.de')
   BREMEN = District.new('bremen', 'bussgeldstelle@ordnungsamt.bremen.de')
 
   ALL = [
