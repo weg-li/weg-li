@@ -39,6 +39,13 @@ class Notice < ActiveRecord::Base
     latitude? && longitude?
   end
 
+  def map_data
+    {
+      latitude: latitude,
+      longitude: longitude,
+    }
+  end
+
   def to_param
     token
   end

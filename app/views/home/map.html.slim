@@ -1,0 +1,31 @@
+.page-header
+  h1 weg-li Karte für #{@district.display_name}
+
+.row
+  .col-lg-8
+    dl.dl-horizontal
+      dt Erstatte Anzeigen
+      dd= @notices.size
+      dt Aktive Nutzer
+      dd= @notices.map(&:user_id).uniq.size
+  .col-lg-4
+    .dropdown
+      button.btn.btn-default.dropdown-toggle type="button" data-toggle="dropdown"
+        span>= "Bezirk #{@district.display_name}"
+        span.caret
+      ul.dropdown-menu
+        - District::ALL.each do |district|
+          li= link_to district.display_name, url_for(district: district.name)
+.row
+  .col-lg-8
+    - grouped = @notices.group_by(&:charge)
+    - grouped.each do |key, group|
+      span.label.label-default= "#{key} #{group.size}"
+  .col-lg-4
+    - grouped = @notices.group_by(&:brand)
+    - grouped.each do |key, group|
+      span.label.label-default= "#{key} #{group.size}"
+
+hr.spacer
+
+= render 'multi_map', notices: @notices, init: @district.map_data

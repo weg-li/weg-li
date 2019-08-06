@@ -1,7 +1,7 @@
-= content_tag(:div, class: 'map-canvas', data: { notice: notice.attributes }) do
+= content_tag(:div, id: "map_#{dom_id(notice)}", class: "map-canvas", data: { notice: notice.attributes }) do
   p Enable JS to view Map!
 
 javascript:
   (function() {
-    new GMap($(".map-canvas")).show();
+    new GMap($("#map_#{dom_id(notice)}")).show();
   })();
