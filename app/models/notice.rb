@@ -31,6 +31,7 @@ class Notice < ActiveRecord::Base
       all: since(date).count,
       incomplete: since(date).incomplete.count,
       shared: since(date).shared.count,
+      users: User.where(id: since(date).pluck(:user_id)).count,
     }
   end
 

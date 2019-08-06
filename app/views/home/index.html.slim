@@ -2,7 +2,7 @@
 .row
   .col-lg-5
     .page-header.hidden-xs
-      h1= link_to 'weg-li 🚲', root_url, class: 'text-warning', title: t('title')
+      h1= link_to 'weg-li 🚲💨', root_url, class: 'text-warning', title: t('title')
     .spacer-large
     p.lead
       = link_to root_url, title: t('slogan') do
@@ -29,14 +29,30 @@ hr.spacer-large
     = image_tag 'phoet.jpg', class: "img-circle me-quote"
   .col-lg-10
     blockquote
-      p Verkehrswende selber machen, durch sichere Radwege und freie Bürgersteige!
-      small #{link_to('Peter Schröder', 'https://twitter.com/phoet', target: '_blank')}, besorgter Vater, Fußgänger, E-Scooterer, Radler und Autofahrer
+      p Verkehrswende selber machen, durch sichere Radwege und freie Bürgersteige, besonders für Kinder!
+      small #{link_to('Peter Schröder', 'https://twitter.com/phoet', target: '_blank')}, 👨‍👦 besorgter Vater, 🚶‍♂️ Fußgänger, 🛴 E-Scooterer, 🚲 Radler und 🚐 Autofahrer
+
+hr.spacer-large
+
+.well.well-sm
+  p Du kennst das bistimmt auch...
+  p
+    em> "Bin nur grad beim Kiosk",
+    em> "Muss nur eben das Paket ausliefern",
+    em> "War sonst kein Parkplatz frei",
+    em> "Da hab ich schon immer geparkt",
+    em> "Aber ich wohne doch hier"
+
+  p Mit weg-li kannst Du super einfach Falschparker melden:
+  p  📸 Beweisfoto erfassen, 📝 Verstoß beschreiben, ✊ Ordnugnsamt bzw Polizei melden 👏
+
+= render 'notices/three_step'
 
 hr.spacer-large
 
 .row
   .col-lg-6
-    h3 Aktuelle Ziele:
+    h3 🥇 Aktuelle Ziele:
 
     ul.list-group
       li.list-group-item
@@ -66,7 +82,7 @@ hr.spacer-large
             setInterval(function(element) { element.style.width = Math.min(100, (parseInt(element.style.width) + 2)) + '%' }, 1000, document.getElementById('total-progress'));
 
   .col-lg-6
-    h3 Bisherige Daten:
+    h3 📈 Bisherige Daten:
     ul.list-group
       - statistics = Notice.statistics
       - statistics.each do |key, value|
