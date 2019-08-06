@@ -67,7 +67,7 @@ class NoticesController < ApplicationController
       NoticeMailer.charge(current_user, @notice).deliver
       @notice.update! status: :shared
 
-      redirect_back(fallback_location: notices_path, notice: t('notices.sent_via_email', recepients: @notice.recipients))
+      redirect_to(notices_path, notice: t('notices.sent_via_email', recepients: @notice.recipients))
     else
       @notice.errors.add(:recipients, :blank)
       render :share
