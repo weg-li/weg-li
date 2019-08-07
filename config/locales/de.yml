@@ -53,6 +53,7 @@ de:
   slogan_2: "Macht die Bahn frei!"
   navigation:
     notices: 'Meldungen'
+    map: 'Kartenansicht'
     draft: 'Erfassen'
     dashboard: 'Übersicht'
     locale: 'Sprache'
@@ -60,8 +61,6 @@ de:
     profile: 'Profil'
     edit_profile: 'Profil bearbeiten'
     view_profile: 'Profil ansehen'
-    pricing: 'Preise'
-    payment: 'Zahlung'
   footer:
     references: 'In den Medien und im Netz'
   locale:

@@ -18,6 +18,10 @@
                   span.glyphicon.glyphicon-th-list.smaller>
                   span.margin-left-small= t('navigation.dashboard')
               li
+                = link_to map_notices_path do
+                  span.glyphicon.glyphicon-map-marker.smaller>
+                  span.margin-left-small= t('navigation.map')
+              li
                 = link_to new_notice_path do
                   span.glyphicon.glyphicon-plus.smaller>
                   span.margin-left-small= t('navigation.draft')

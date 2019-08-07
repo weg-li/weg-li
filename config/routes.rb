@@ -9,7 +9,10 @@ Rails.application.routes.draw do
       patch :purge
     end
 
-    post :bulk, on: :collection
+    collection do
+      get :map
+      post :bulk
+    end
   end
   resources :users do
     patch :confirmation_mail, on: :member

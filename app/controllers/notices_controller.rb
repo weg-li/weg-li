@@ -21,6 +21,12 @@ class NoticesController < ApplicationController
     end
   end
 
+  def map
+    @since = (params[:since] || '7').to_i
+
+    @notices = current_user.notices.since(@since.days.ago)
+  end
+
   def show
     @notice = current_user.notices.from_param(params[:id])
   end
