@@ -14,7 +14,7 @@ de:
       notice:
         created_at: 'Erstellt'
         photos: 'Beweisfotos'
-        address: 'Ort'
+        address: 'Adresse'
         registration: 'Kennzeichen'
         make: 'Fabrikat'
         brand: 'Marke'
@@ -22,7 +22,7 @@ de:
         kind: 'Art'
         color: 'Farbe'
         charge: 'Verstoß'
-        date: 'Datum'
+        date: 'Datum & Uhrzeit'
         note: 'Hinweis'
         empty: 'Verlassen'
         parked: 'Geparkt'

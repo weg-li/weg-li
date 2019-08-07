@@ -1,4 +1,7 @@
 class Notice < ActiveRecord::Base
+    extend TimeSplitter::Accessors
+  split_accessor :date
+
   include Bitfields
   bitfield :flags, 1 => :empty, 2 => :parked
 

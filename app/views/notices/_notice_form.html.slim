@@ -11,8 +11,6 @@
     = form.label :charge, class: "control-label"
     = form.select :charge, Vehicle.charges, { include_blank: 'Bitte auswählen' }, { class: "form-control", required: true }
 
-  .col-lg-4
-
 .row
   .col-lg-6
     = form.label :registration, class: "control-label"
@@ -23,11 +21,11 @@
 
   .col-lg-6
     = form.label :date, class: "control-label"
-
-    .input-group.datetimepicker
-      = form.text_field :date, class: "form-control", required: true
-      span.input-group-addon
-        span.glyphicon.glyphicon-calendar
+    .row
+      .col-lg-6
+        = form.date_field :date_date, class: "form-control", required: true
+      .col-lg-6
+        = form.time_field :date_time, class: "form-control", required: true
 
     = form.label :color, class: "control-label"
     = form.select :color, Vehicle.colors.map { |color| [t(color, scope: "activerecord.attributes.notice.colors"), color] }, { include_blank: 'Bitte auswählen' }, { class: "form-control", required: true }
