@@ -20,7 +20,7 @@ class UsersController < ApplicationController
       end
     else
       current_user.save!
-      redirect_to user_path(current_user), notice: t('users.profile_updated')
+      redirect_to root_path, notice: t('users.profile_updated')
     end
   end
 
@@ -40,6 +40,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :nickname, :time_zone, :name, :address)
+    params.require(:user).permit([:email, :nickname, :time_zone, :name, :address] + User.bitfields[:flags].keys)
   end
 end

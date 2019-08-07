@@ -1,8 +1,9 @@
 .row.spacer
   .col-lg-4
-    .form-group
-      = form.label :photos, class: "control-label"
-      = form.file_field :photos, id: 'fileupload', required: true, multiple: true, direct_upload: true, class: "form-control-file", accept: 'image/tiff,image/jpeg'
+    = form.label :photos, class: "control-label"
+    = form.file_field :photos, id: 'fileupload', required: true, multiple: true, direct_upload: true, class: "form-control-file", accept: 'image/tiff,image/jpeg'
+    small.help-block Die Fotos sollten insgesamt nicht größer als 10 MB sein.
+
   .col-lg-8
     .well.well-sm.callout
       p= t('notices.steps.photos.description')
