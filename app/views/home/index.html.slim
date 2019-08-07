@@ -1,17 +1,17 @@
-.spacer.hidden-xs
+.spacer
 .row
   .col-lg-5
-    .page-header.hidden-xs
+    .page-header
       h1= link_to 'weg-li 🚲💨', root_url, class: 'text-warning', title: t('title')
     .spacer-large
     p.lead
       = link_to root_url, title: t('slogan') do
         span.caps>= t('slogan_1')
-        em.text-warning.hidden-xs= t('slogan_2')
+        em.text-warning= t('slogan_2')
   .col-lg-7
     .well
       h2.spacer.text-center
-        .hidden-xs== t('home.register_now')
+        == t('home.register_now')
         .visible-xs== t('home.register_now_xs')
       .spacer.text-center
         .btn-group
@@ -89,12 +89,3 @@ hr.spacer-large
         li.list-group-item
           = t(key, scope: 'users.statistics')
           .badge.pull-right= value
-
-
-/ hr.spacer-large.hidden-xs
-/
-/ = render 'steps'
-/
-/ .hidden-xs
-/   hr.spacer-large.hidden-xs
-/   = render 'faq'
