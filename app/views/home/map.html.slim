@@ -20,11 +20,11 @@
   .col-lg-8
     - grouped = @notices.group_by(&:charge)
     - grouped.each do |key, group|
-      span.label.label-default= "#{key} #{group.size}"
+      span.label.label-default>= "#{key} #{group.size}"
   .col-lg-4
     - grouped = @notices.group_by(&:brand)
     - grouped.each do |key, group|
-      span.label.label-default= "#{key} #{group.size}"
+      span.label.label-default>= "#{key} #{group.size}"
 
 hr.spacer
 
