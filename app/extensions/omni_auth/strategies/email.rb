@@ -8,19 +8,26 @@ module OmniAuth
       end
 
       def callback_phase
-        if request[:token] != session[:email_auth_token]
-          return fail!(:invalid_credentials)
-        else
+        fail!('Token fehlt') and return if request[:token].blank?
+
+        begin
+          decoded_token = JWT.decode(request[:token], Rails.application.secrets.secret_key_base, true, algorithm: 'HS256').first
+          @email = decoded_token['iss']
+
+          fail!('E-Mail fehlt') and return if @email.blank?
+
           super
+        rescue JWT::ImmatureSignature
+          fail!('Token kaputt')
         end
       end
 
       uid do
-        Digest::SHA256.new.hexdigest(session[:email_auth_address])
+        Digest::SHA256.new.hexdigest(@email)
       end
 
       info do
-        {'email' => session[:email_auth_address]}
+        {'email' => @email}
       end
     end
   end
