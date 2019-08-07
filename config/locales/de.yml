@@ -125,8 +125,8 @@ de:
     authorizations: 'Verknüpfungen'
     connect_via: "per %{provider} verbinden"
     actions: 'Aktionen'
-    email_confirmed: 'Adresse bestätigt'
-    confirm_email: "E-Mail Adresse ändern"
+    email_confirmed: 'E-Mail Adresse bestätigt'
+    confirm_email: "E-Mail zur Bestätigung erneut senden"
     change_nickname: "Name ändern"
     change_email: "E-Mail ändern"
     change_time_zone: "Zeit-Zone ändern"

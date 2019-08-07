@@ -6,20 +6,20 @@
         legend= t('sessions.enter_data')
 
       .well.well-sm.callout
-        p
-          | Der Spitzname wird für die Veröffentlichung der Anzeigen im öffentlichen Profil verwendet.
-          br
-          | Name und Anschrift werden beim Erstatten von Anzeigen als Zeugen-Adresse verwendet.
-          br
-          | Der Bezirk wird für die Auswahl der jeweilig zuständigen Stelle genutzt und kann bei neuen Meldungen umgeschaltet werden.
+        p Der Spitzname wird für die Veröffentlichung der Anzeigen im öffentlichen Profil verwendet.
 
-  .row.spacer
+  .row.spacer-large
     .col-lg-6
       = form.label :nickname, class: "control-label"
       = form.text_field :nickname, class: "form-control", required: true
     .col-lg-6
       = form.label :email, class: "control-label"
       = form.text_field :email, placeholder: 'z.B. me@example.com', class: "form-control", required: true
+
+  .row
+    .col-lg-12
+      .well.well-sm.callout
+        p Name und Anschrift werden beim Erstatten von Anzeigen als Zeugen-Adresse verwendet. Der Bezirk wird für die Auswahl der jeweilig zuständigen Stelle genutzt und kann bei neuen Meldungen umgeschaltet werden.
 
   .row
     .col-lg-4
