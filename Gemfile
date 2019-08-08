@@ -26,6 +26,7 @@ gem 'google-cloud-vision'
 gem "google-cloud-storage", "~> 1.8", require: false
 gem 'mini_magick'
 gem 'color'
+gem 'administrate'
 
 group :production do
   gem 'exception_notification'

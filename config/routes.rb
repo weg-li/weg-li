@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    resources :articles
+    resources :authorizations
+    resources :notices
+    resources :users
+
+    root to: "notices#index"
+  end
+
   resources :notices do
     member do
       get :share
@@ -14,9 +23,11 @@ Rails.application.routes.draw do
       post :bulk
     end
   end
+
   resources :users do
     patch :confirmation_mail, on: :member
   end
+
   resources :articles
 
   resource :sitemap, only: :show
