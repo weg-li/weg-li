@@ -36,11 +36,17 @@ class NoticesController < ApplicationController
   end
 
   def create
-    @notice = current_user.notices.build(notice_params)
-    @notice.save_incomplete!
+    notice = current_user.notices.build(notice_params)
+    notice.save_incomplete!
 
-    action = params[:another] ? :new : :edit
-    redirect_to [action, @notice], notice: 'Meldung wurde gespeichert'
+    notice = 'Eine Meldung mit Beweisfotos wurde erfasst'
+    path = edit_notice_path(notice)
+    if params[:another]
+      path = new_notice_path
+      notice += ', nun gleich die nächste Meldung erfassen'
+    end
+
+    redirect_to path, notice: notice
   end
 
   def edit
@@ -52,7 +58,7 @@ class NoticesController < ApplicationController
 
     if @notice.update(notice_params)
       path = params[:show] ? [@notice] : [:share, @notice]
-      redirect_to path, notice: 'Meldung wurde vollständig gespeichert'
+      redirect_to path, notice: 'Meldung wurde gespeichert'
     else
       render :edit
     end
