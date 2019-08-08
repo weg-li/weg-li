@@ -27,6 +27,7 @@ gem "google-cloud-storage", "~> 1.8", require: false
 gem 'mini_magick'
 gem 'color'
 gem 'administrate'
+gem 'administrate-field-active_storage'
 
 group :production do
   gem 'exception_notification'

@@ -9,8 +9,7 @@ class NoticeDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     user: Field::BelongsTo,
-    photos_attachments: Field::HasMany.with_options(class_name: "ActiveStorage::Attachment"),
-    photos_blobs: Field::HasMany.with_options(class_name: "ActiveStorage::Blob"),
+    photos: Field::ActiveStorage,
     id: Field::Number,
     data: Field::String.with_options(searchable: false),
     token: Field::String,
@@ -38,18 +37,19 @@ class NoticeDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
-    :user,
-    :photos_attachments,
-    :photos_blobs,
     :id,
+    :token,
+    :created_at,
+    :status,
+    :user,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
     :user,
-    :photos_attachments,
-    :photos_blobs,
+    :photos,
+    # :photos_blobs,
     :id,
     :data,
     :token,
@@ -76,8 +76,8 @@ class NoticeDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :user,
-    :photos_attachments,
-    :photos_blobs,
+    :photos,
+    # :photos_blobs,
     :data,
     :token,
     :status,
@@ -99,7 +99,7 @@ class NoticeDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how notices are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(notice)
-  #   "Notice ##{notice.id}"
-  # end
+  def display_resource(notice)
+    "Notice ##{notice.id}"
+  end
 end

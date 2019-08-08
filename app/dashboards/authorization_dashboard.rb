@@ -51,7 +51,7 @@ class AuthorizationDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how authorizations are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(authorization)
-  #   "Authorization ##{authorization.id}"
-  # end
+  def display_resource(authorization)
+    "Authorization ##{authorization.id}"
+  end
 end

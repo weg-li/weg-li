@@ -57,7 +57,7 @@ class ArticleDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how articles are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(article)
-  #   "Article ##{article.id}"
-  # end
+  def display_resource(article)
+    article.headline
+  end
 end
