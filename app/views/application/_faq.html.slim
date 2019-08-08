@@ -4,11 +4,20 @@
 .panel-group id="accordion"
   .panel.panel-info
     a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-1"
-      h4.text-warning Was ist weg-li?
+      h4.text-warning Was ist die Mission von weg-li?
     panel-collapse.collapse id="collapse-1"
       .panel-body
-        p Mit weg-li lassen sich in 3 einfachen Schritten Falschparker dem Ordnungsamt bzw. der Polizei melden.
-        p 1. Foto hochladen 2. Vergehen beschreiben 3. Anzeige erstatten
+        p Mit weg-li kannst Du ganz einfach dazu beitragen die Verkehrswende zu beschleunigen. Denn für den Ausbau von Rad- und Fußverkehr braucht es sichere Infrastruktur! Da wir bei der Geschwindigkeit des Ausbaus von geschützten Radwegen und komfortablen Gehwegen nur wenig Einfluss haben, können wir immerhin dafür sorgen, dass die bestehende Infrastruktur nicht durch Falschparker geschädigt wird. 😡
+        p Zusammen können wir dem gesellschaftlich akzeptierten Falschparken ein Ende bereiten und dafür sorgen, dass wir zügig und sicher als Radfahrer und Fußgänger im Straßenverkehr unterwegs sind. Dies ist besonders wichtig wenn man an die schwächeren Verkehrsteilnehmer denkt, vor allem die Kinder.
+        p Was ist nun also zu tun und zu testen? Ganz konkret:
+        ol
+          li 📸 Beweisfoto mit dem Handy machen
+          li 📝 Foto bei weg-li hochladen und Verstoß erfassen
+          li ✊ Falschparker über weg-li per E-Mail bei Ordnungsamt / Polizei melden
+        p Die Benutzung soll sich extrem einfach im Alltag integrieren lassen. Viele Ideen sind dabei aus der Benutzung der Wegehelden-App entstanden, die leider in Sachen UX etwas zu wünschen übrig lässt...
+        p Also: wenn Du unterwegs bist und einen Falschparker siehst, dann machst Du ein, zwei Fotos auf denen das Fahrzeug und das Nummernschild gut zu erkennen sind. Idealer weise lässt sich auch das Vergehen, z.B. “Parken auf dem Radweg”, direkt aus dem Foto ersehen.
+        p Bist Du an deinem Ziel angekommen oder hast später am Tag noch etwas Zeit, dann kannst Du deine Schnappschüsse in Ruhe hochladen.
+        p Es werden automatisch (zukünftig hoffentlich auch zuverlässig) so viele Informationen wie möglich, mit Hilfe von Bilderkennung und Machine-Learning, aus den Fotos extrahiert. Zunächst musst Du sicherlich noch einige Informationen selbst ausfüllen, aber Du weißt ja... βeta 😏
 
     a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-2"
       h4.text-warning Was ist der Unterschied zur Wegeheld-App?
@@ -16,3 +25,44 @@
       .panel-body
         p Mit weg-li kommt man schneller zum Ziel und hoffentlich zu sicheren Radwegen und freien Bürgersteigen.
         p Gerne selber vergleichen und auch die #{link_to('Wegeheld-App', 'https://www.wegeheld.org/', target: '_blank')} ausprobieren!
+
+    a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-3"
+      h4.text-warning Gibt es keine App für iOS und Android?
+    panel-collapse.collapse id="collapse-3"
+      .panel-body
+        p
+          | Die ursprüngliche Idee für weg-li war eine App, die für Android und iOS in den App-Stores breit stehen soll.
+          br
+          | Für die Test-Phase habe ich mich aber explizit dagegen entschieden, da ich den Prototyp so schnell wie möglich in Betrieb nehmen wollte um die Idee zu validieren.
+        p
+          | Grundsätzlich spricht nichts gegen die Entwicklung von nativen Apps, es könnte sogar aus Marketing-Gründen eine gute Idee sein in den App-Stores präsent zu sein.
+        p
+          |
+            Aus eigener Erfahrung, besonders mit der Wegeheld-App, steht nun vorerst die Hypothese, dass eine zusätzliche App zu umständlich ist für diese Aufgabe.
+            Mit der gewohnten Foto-App von Android oder iOS geht es am schnellsten Schnappschüsse unterwegs zu machen.
+            Diese kann man dann bequem in Ruhe, mit Empfang, bzw per WLAN hochladen.
+
+    a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-4"
+      h4.text-warning Gibt es wirklich keine App für iOS und Android?
+    panel-collapse.collapse id="collapse-4"
+      .panel-body
+        p
+          |
+            Für alle App-Liebhaber gibt es unter iOS und Android die möglichkeit eine Webseite auf dem Homescreen zu speichern.
+            Es sieht dann immerhin aus als hätte man eine App, allerdings ist das nicht viel mehr als ein gewöhnliches Bookmark.
+        p Unter Android macht man das im Firefox z.B. über das Seiten-Menü (3 Pünktchen neben der URL-Leiste) <code><span class="glyphicon glyphicon-option-vertical"></span> > Seite > Seitenverknüpfung hinzufügen</code>.
+
+    a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-5"
+      h4.text-warning Kommt da in Zukunft noch mehr?
+    panel-collapse.collapse id="collapse-5"
+      .panel-body
+        p
+          |
+            Im Moment ist weg-li nicht viel mehr als eine Seite über die man Fotos hochladen kann und diese dann per E-Mail verschickt werden. Soweit so langweilig!
+            Aber mit irgendetwas muss man starten und dieser Anfang ist nun gemacht. Das MVP ist da.
+        p
+          | Zukünftig möchte ich weg-li dahingehend weiter entwickeln, dass man es eigentlich nicht mehr benutzen muss und nach dem knipsen des Fotos alles vollautomatisch passiert.
+        p
+          |
+            Um diese Ideen weiter zu treiben wird weg-li als nächstes lernen Parkvergehen in Fotos bei Twitter zu erkennen und daraus Meldungen zu erfassen.
+            Der Twitter-User wird dann über die vorbereitete Meldung informiert, kann sie per OAuth claimen und dann direkt eine Anzeige erstatten.
