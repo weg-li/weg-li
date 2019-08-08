@@ -28,7 +28,17 @@ module UserHandling
   end
 
   def current_user
-    @current_user ||= User.find_by_id(session[:user_id])
+    @current_user ||= find_by_session_or_cookies
+  end
+
+  def find_by_session_or_cookies
+    User.find_by_id(session[:user_id]) || User.authenticated_with_token(*remember_me)
+  end
+
+  def remember_me
+    cookies.permanent.signed[:remember_me] || ['', '']
+  rescue
+    ['', '']
   end
 
   def signed_in?
