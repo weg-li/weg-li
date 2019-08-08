@@ -39,14 +39,14 @@ class NoticesController < ApplicationController
     notice = current_user.notices.build(notice_params)
     notice.save_incomplete!
 
-    notice = 'Eine Meldung mit Beweisfotos wurde erfasst'
+    message = 'Eine Meldung mit Beweisfotos wurde erfasst'
     path = edit_notice_path(notice)
     if params[:another]
+      message += ', nun gleich die nächste Meldung erfassen'
       path = new_notice_path
-      notice += ', nun gleich die nächste Meldung erfassen'
     end
 
-    redirect_to path, notice: notice
+    redirect_to path, notice: message
   end
 
   def edit
