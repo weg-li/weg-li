@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       patch :disable
       patch :analyse
       patch :purge
+      patch :upload
     end
 
     collection do

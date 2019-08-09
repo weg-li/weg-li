@@ -64,6 +64,14 @@ class NoticesController < ApplicationController
     end
   end
 
+  def upload
+    notice = current_user.notices.from_param(params[:id])
+    notice.assign_attributes(notice_params)
+    notice.save_incomplete!
+
+    redirect_to [:edit, notice], notice: 'Beweisfotos wurden hochgeladen'
+  end
+
   def share
     @notice = current_user.notices.from_param(params[:id])
     @notice.recipients = current_user.district.email
