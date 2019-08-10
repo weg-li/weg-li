@@ -3,10 +3,12 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
   BREMEN = District.new('bremen', 'bussgeldstelle@ordnungsamt.bremen.de', 13, 53.078, 8.797)
   HAMBURG = District.new('hamburg', 'anzeigenbussgeldstelle@eza.hamburg.de', 12, 53.56544, 9.95947)
   LUENEBURG = District.new('lueneburg', 'bussgeldstelle@landkreis.lueneburg.de', 14, 53.249, 10.403)
+  DORTMUND = District.new('dortmund', 'fremdanzeigen.verkehrsueberwachung@stadtdo.de', 13, 51.513, 7.460)
 
   ALL = [
     BERLIN,
     BREMEN,
+    DORTMUND,
     HAMBURG,
     LUENEBURG,
   ]
