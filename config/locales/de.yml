@@ -119,6 +119,7 @@ de:
       berlin: 'Berlin'
       bremen: 'Bremen'
       lueneburg: 'Lüneburg'
+      muenster: 'Münster'
       dortmund: 'Dortmund'
     confirmation_mail: "Eine Bestätigungs-Mail wurde an %{email} versendet."
     profile_updated_and_confirmation_email: 'Dein Profil wurde aktualisiert und eine Bestätigungs-Mail wurde an deine E-Mail Adresse versendet!'
