@@ -5,6 +5,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
   DUESSELDORF = District.new('duesseldorf', 'bussgeldstelle@duesseldorf.de', 13, 51.219, 6.778)
   FRANKFURT = District.new('frankfurt', 'owi.datenerfassung.amt32@stadt-frankfurt.de', 12, 50.109, 8.675)
   HAMBURG = District.new('hamburg', 'anzeigenbussgeldstelle@eza.hamburg.de', 12, 53.56544, 9.95947)
+  HANNOVER = District.new('hannover', '32.41@hannover-stadt.de', 13, 52.374, 9.734)
   KIEL = District.new('kiel', 'ad-bussgeldstelle@kiel.de', 13, 54.319, 10.118)
   LUENEBURG = District.new('lueneburg', 'bussgeldstelle@landkreis.lueneburg.de', 14, 53.249, 10.403)
   MUENSTER = District.new('muenster', 'kod@stadt-muenster.de', 14, 51.961, 7.622)
@@ -16,6 +17,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
     DUESSELDORF,
     FRANKFURT,
     HAMBURG,
+    HANNOVER,
     KIEL,
     LUENEBURG,
     MUENSTER,
