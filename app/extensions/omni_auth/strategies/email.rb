@@ -1,3 +1,5 @@
+require 'base64'
+
 module OmniAuth
   module Strategies
     class Email
@@ -8,17 +10,19 @@ module OmniAuth
       end
 
       def callback_phase
-        fail!('Token fehlt') and return if request[:token].blank?
+        fail!(:invalid_credentials) and return if request[:token].blank?
 
         begin
-          decoded_token = JWT.decode(request[:token], Rails.application.secrets.secret_key_base, true, algorithm: 'HS256').first
+          token = Base64.decode64(request[:token])
+          decoded_token = JWT.decode(token, Rails.application.secrets.secret_key_base, true, algorithm: 'HS256').first
           @email = decoded_token['iss']
 
-          fail!('E-Mail fehlt') and return if @email.blank?
+          fail!(:invalid_credentials) and return if @email.blank?
 
           super
-        rescue JWT::ImmatureSignature
-          fail!('Token kaputt')
+        rescue
+          Rails.logger.warn("an error occured when decoding token #{token} #{$!}")
+          fail!(:invalid_credentials)
         end
       end
 

@@ -64,7 +64,8 @@ class SessionsController < ApplicationController
         iat: now_seconds,
         exp: now_seconds + expiration,
     }
-    ::JWT.encode(payload, Rails.application.secrets.secret_key_base, 'HS256')
+    token = ::JWT.encode(payload, Rails.application.secrets.secret_key_base, 'HS256')
+    Base64.encode64(token)
   end
 
   def signup
