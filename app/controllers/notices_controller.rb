@@ -151,7 +151,7 @@ class NoticesController < ApplicationController
   private
 
   def notice_params
-    params.require(:notice).permit(:charge, :date, :date_date, :date_time, :registration, :make, :brand, :model, :color, :kind, :address, :note, :empty, :parked, photos: [])
+    params.require(:notice).permit(:charge, :date, :date_date, :date_time, :registration, :make, :brand, :model, :color, :kind, :address, :note, :hinder, :empty, :parked, photos: [])
   end
 
   def mail_params

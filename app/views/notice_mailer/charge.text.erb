@@ -16,6 +16,10 @@ Hiermit zeige ich, mit der Bitte um Weiterverfolgung, folgende Verkehrsordnungsw
 
 <%= Notice.human_attribute_name(:registration) %>: <%= @notice.registration %>
 
+<% if @notice.hinder? %>
+
+Das Fahrzeug behindert andere Verkehrsteilnehmer.
+<% end %>
 <% if @notice.empty? %>
 
 Das Fahrzeug war verlassen.

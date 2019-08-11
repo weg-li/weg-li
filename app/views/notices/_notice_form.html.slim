@@ -35,6 +35,10 @@
     label.control-label Details zum Vorwurf
     .checkbox
       label
+        = form.check_box :hinder
+        span Behinderung anderer Verkehrsteilnehmer
+    .checkbox
+      label
         = form.check_box :empty
         span Das Fahrzeug war verlassen
     .checkbox

@@ -3,7 +3,7 @@ class Notice < ActiveRecord::Base
   split_accessor :date
 
   include Bitfields
-  bitfield :flags, 1 => :empty, 2 => :parked
+  bitfield :flags, 1 => :empty, 2 => :parked, 4 => :hinder
 
   include Incompletable
 

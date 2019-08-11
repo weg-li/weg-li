@@ -62,6 +62,7 @@ class Vehicle
     @charges = [
       'Parken auf Radfahrstreifen (Verkehrszeichen 237)',
       'Parken auf Fahrradschutzstreifen (Gestrichelte Linie)',
+      'Parken auf dem Gehweg',
       'Parken im Halteverbot',
       'Parken im eingeschränkten Halteverbot',
       'Parken auf Sperrflächen',
