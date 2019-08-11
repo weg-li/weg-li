@@ -39,7 +39,7 @@ de:
         status: 'Status'
         open: 'offen'
         disabled: 'deaktiviert'
-        analysing: 'analysieren'
+        analyzing: 'analysieren'
         shared: 'gemeldet'
         colors:
           beige: 'Beige'
@@ -171,14 +171,14 @@ de:
     status:
       open: 'offen'
       disabled: 'deaktiviert'
-      analysing: 'analysieren'
+      analyzing: 'analysieren'
       shared: 'gemeldet'
       incomplete: 'unvollständig'
       complete: 'vollständig'
     status-hints:
       open: 'Die Beweisfotos wurden gespeichert, bitte die Meldung überprüfen, vervollständigen und eine Anzeige erstatten.'
       disabled: 'Die Meldung ist deaktiviert und im Internet nicht mehr zu erreichen.'
-      analysing: 'Im Hintergrund wird automatisch versucht möglichst viele Informationen aus den Beweisfotos zu ermitteln.'
+      analyzing: 'Im Hintergrund wird automatisch versucht möglichst viele Informationen aus den Beweisfotos zu ermitteln.'
       shared: 'Die Meldung wurde zur Anzeige gebracht.'
       complete: 'Alle Daten, die für eine Anzeige notwendig sind, wurden erfasst.'
       incomplete: 'Es fehlen noch ein paar Daten, bitte die Meldung bearbeiten und die fehlenden Daten nachtragen.'

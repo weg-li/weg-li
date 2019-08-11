@@ -17,7 +17,7 @@ class Notice < ActiveRecord::Base
 
   validates :photos, :registration, :charge, :address, :brand, :color, :date, presence: :true
 
-  enum status: {open: 0, disabled: 1, analysing: 2, shared: 3}
+  enum status: {open: 0, disabled: 1, analyzing: 2, shared: 3}
 
   scope :since, -> (date) { where('notices.created_at > ?', date) }
   scope :for_public, -> () { where.not(status: :disabled) }

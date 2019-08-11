@@ -14,7 +14,7 @@ Rails.application.routes.draw do
       patch :mail
       patch :enable
       patch :disable
-      patch :analyse
+      patch :analyze
       patch :purge
       patch :upload
     end

@@ -4,7 +4,7 @@
 = render 'activation_popup'
 
 - if @notices.present? || params[:filter]
-  = form_tag bulk_notices_path, method: :post, remote: true do
+  = form_tag bulk_notices_path, method: :post do
     .panel.panel-default
       .panel-heading
         .row
@@ -61,7 +61,10 @@
         .row
           .col-lg-12
             .btn-group
-              = link_to '#', onclick: "event.preventDefault(); $(this).closest('form').submit()", data: {confirm: t('notices.confirm')}, class: 'btn btn-sm btn-default' do
+              = button_tag name: :bulk_action, value: :analyze, type: :submit, class: 'btn btn-sm btn-default' do
+                span.glyphicon.glyphicon-flash>
+                span Auswahl analysieren
+              = button_tag name: :bulk_action, value: :destroy, type: :submit, class: 'btn btn-sm btn-default' do
                 span.glyphicon.glyphicon-trash>
                 span= t('notices.bulk_destroy')
             .pull-right= link_to new_notice_path, class: 'btn btn-sm btn-success', title: 'Meldung erfassen' do

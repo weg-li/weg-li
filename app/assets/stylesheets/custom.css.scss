@@ -51,7 +51,7 @@ ul.photo-list {
 .glyphicon-status-open:before {
   content: "\270f";
 }
-.glyphicon-status-analysing:before {
+.glyphicon-status-analyzing:before {
   content: "\231b";
 }
 .glyphicon-status-disabled:before {
@@ -70,7 +70,7 @@ ul.photo-list {
 .label-status-open {
   background-color: $default-color;
 }
-.label-status-analysing {
+.label-status-analyzing {
   background-color: $info-color;
 }
 .label-status-disabled {

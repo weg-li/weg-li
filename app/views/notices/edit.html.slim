@@ -28,12 +28,14 @@
 
     .row
       .col-lg-4
-        - if @notice.analysing?
+        - if @notice.analyzing?
           = link_to url_for, class: 'btn btn-success btn-block' do
             span.glyphicon.glyphicon-repeat.smaller>
             span kurz warten und dann aktualisieren
         - else
-          = link_to 'Beweisfotos analysieren', [:analyse, @notice], method: :patch, class: 'btn btn-success btn-block'
+          = link_to [:analyze, @notice], method: :patch, class: 'btn btn-success btn-block' do
+            span.glyphicon.glyphicon-flash>
+            span Beweisfotos analysieren
       .col-lg-8
         = render 'photos', notice: @notice
 

@@ -2,8 +2,8 @@ class AnalyzerJob < ApplicationJob
   def perform(notice)
     notice.data ||= {}
     notice.photos.each do |photo|
-      notice.latitude ||= photo.metadata[:latitude]
-      notice.longitude ||= photo.metadata[:longitude]
+      notice.latitude ||= photo.metadata[:latitude] if photo.metadata[:latitude].to_f.positive?
+      notice.longitude ||= photo.metadata[:longitude] if photo.metadata[:longitude].to_f.positive?
       notice.date ||= photo.metadata[:date_time]
 
       result = annotator.annotate_object(photo.key)

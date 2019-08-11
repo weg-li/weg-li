@@ -116,24 +116,31 @@ class NoticesController < ApplicationController
   end
 
   def bulk
-    action = params[:bulk_action] || 'destroy'
+    action = params[:bulk_action] || 'analyze'
     notices = current_user.notices.where(id: params[:selected])
     case action
+    when 'analyze'
+      notices.each do |notice|
+        notice.status = :analyzing
+        notice.save_incomplete!
+        AnalyzerJob.perform_async(notice)
+      end
+      flash[:notice] = 'Die Fotos der ausgewählten Meldungen werden im Hintergrund analysiert'
     when 'destroy'
-      flash[:notice] = t('notices.bulk_destroyed')
       notices.destroy_all
+      flash[:notice] = t('notices.bulk_destroyed')
     end
 
     redirect_to notices_path
   end
 
-  def analyse
+  def analyze
     notice = current_user.notices.from_param(params[:id])
 
-    if notice.analysing?
+    if notice.analyzing?
       redirect_back fallback_location: notice_path(notice), notice: 'Analyse läuft bereits'
     else
-      notice.status = :analysing
+      notice.status = :analyzing
       notice.save_incomplete!
       AnalyzerJob.perform_async(notice)
 
