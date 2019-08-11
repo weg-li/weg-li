@@ -24,10 +24,11 @@
               h4.modal-title Beweisfoto ##{index + 1}
             .modal-body
               = image_tag(url_for(photo), class: 'modal-photo', )
-              - photo.metadata.each do |key, value|
-                span.label.label-sm.label-default>
-                  strong= "#{key}: "
-                  = value
+              / for admins
+              / - photo.metadata.each do |key, value|
+              /   span.label.label-sm.label-default>
+              /     strong= "#{key}: "
+              /     = value
 
             .modal-footer
               - unless publicly
