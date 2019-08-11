@@ -10,6 +10,8 @@
             span.glyphicon.glyphicon-eye-open
 
           - unless publicly
+            = link_to(rails_blob_path(photo, disposition: "attachment"), class: 'btn btn-default', title: 'herunterladen')
+              span.glyphicon.glyphicon-download
             = link_to(purge_notice_path(notice, photo_id: photo.id), method: :patch, remote: true, data: {confirm: t('notices.confirm')}, class: 'btn btn-default', title: 'löschen')
               span.glyphicon.glyphicon-trash
 
@@ -21,10 +23,16 @@
                 span aria-hidden="true" &times;
               h4.modal-title Beweisfoto ##{index + 1}
             .modal-body
-              = image_tag(url_for(photo), class: 'modal-photo')
+              = image_tag(url_for(photo), class: 'modal-photo', )
+              - photo.metadata.each do |key, value|
+                span.label.label-sm.label-default>
+                  strong= "#{key}: "
+                  = value
 
             .modal-footer
-              button type="button" class="btn btn-sm btn-default" data-dismiss="modal" Schließen
               - unless publicly
+                = link_to(rails_blob_path(photo, disposition: "attachment"), class: 'btn btn-sm btn-default', title: 'herunterladen')
+                  span.glyphicon.glyphicon-download
                 = link_to(purge_notice_path(notice, photo_id: photo.id), method: :patch, remote: true, data: {confirm: t('notices.confirm')}, class: 'btn btn-sm btn-default', title: 'löschen')
                   span.glyphicon.glyphicon-trash
+              button type="button" class="btn btn-sm btn-default" data-dismiss="modal" Schließen
