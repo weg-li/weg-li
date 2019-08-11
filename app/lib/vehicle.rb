@@ -66,6 +66,7 @@ class Vehicle
       'Parken im Halteverbot',
       'Parken im eingeschränkten Halteverbot',
       'Parken auf Sperrflächen',
+      'Parken auf Grünflächen',
       'Parken bis zu zehn Meter vor Lichtzeichen',
       'Parken auf dem Fußgängerüberweg sowie 5 Meter davor und dahinter',
       'Parken im Kreuzungs-/Einmündungsbereich sowie 5 Meter davor und dahinter',
