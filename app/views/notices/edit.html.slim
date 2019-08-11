@@ -34,7 +34,7 @@
             span kurz warten und dann aktualisieren
         - else
           = link_to [:analyze, @notice], method: :patch, class: 'btn btn-success btn-block' do
-            span.glyphicon.glyphicon-flash>
+            span.glyphicon.glyphicon-hourglass>
             span Beweisfotos analysieren
       .col-lg-8
         = render 'photos', notice: @notice
