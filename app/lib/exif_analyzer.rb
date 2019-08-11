@@ -16,6 +16,7 @@ class EXIFAnalyzer < ActiveStorage::Analyzer
           meta[:longitude] = gps.fields[:gps_longitude].to_f
           meta[:altitude] = gps.fields[:gps_altitude].to_f
         end
+        meta[:dump] = exif.fields
       end
     end
 
