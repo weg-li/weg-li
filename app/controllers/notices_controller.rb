@@ -119,16 +119,22 @@ class NoticesController < ApplicationController
     action = params[:bulk_action] || 'analyze'
     notices = current_user.notices.where(id: params[:selected])
     case action
+    when 'share'
+      notices.open.complete.each do |notice|
+        NoticeMailer.charge(current_user, notice).deliver_later
+        notice.update! status: :shared
+      end
+      flash[:notice] = 'Die noch offenen, vollständigen Meldungen werden im Hintergrund per E-Mail gemeldet'
     when 'analyze'
-      notices.each do |notice|
+      notices.open.incomplete.each do |notice|
         notice.status = :analyzing
         notice.save_incomplete!
         AnalyzerJob.perform_async(notice)
       end
-      flash[:notice] = 'Die Fotos der ausgewählten Meldungen werden im Hintergrund analysiert'
+      flash[:notice] = 'Die Fotos der unvollständigen Meldungen werden im Hintergrund analysiert'
     when 'destroy'
-      notices.destroy_all
-      flash[:notice] = t('notices.bulk_destroyed')
+      notices.open.destroy_all
+      flash[:notice] = 'Die offenen Meldungen wurden gelöscht'
     end
 
     redirect_to notices_path

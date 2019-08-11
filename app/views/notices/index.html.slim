@@ -64,6 +64,9 @@
               = button_tag name: :bulk_action, value: :analyze, type: :submit, class: 'btn btn-sm btn-default' do
                 span.glyphicon.glyphicon-hourglass>
                 span Auswahl analysieren
+              = button_tag name: :bulk_action, value: :share, type: :submit, class: 'btn btn-sm btn-default' do
+                span.glyphicon.glyphicon-share>
+                span Auswahl melden
               = button_tag name: :bulk_action, value: :destroy, type: :submit, class: 'btn btn-sm btn-default' do
                 span.glyphicon.glyphicon-trash>
                 span= t('notices.bulk_destroy')

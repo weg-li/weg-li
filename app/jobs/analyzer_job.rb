@@ -14,6 +14,12 @@ class AnalyzerJob < ApplicationJob
       end
     end
 
+    # - autcomplete weg bei Nummernschild und Ort
+    # - kennzeichen regex mit 4 zahlen
+    # - farbe gucken wo auto ist
+    # - gucken ob nummernschilder erkannt werden
+    # - gucken ob schrift, z.b volvo auftaucht
+
     notice.reverse_geocode
     notice.status = :open
     notice.save_incomplete!

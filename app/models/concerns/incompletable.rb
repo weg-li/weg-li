@@ -21,5 +21,6 @@ module Incompletable
     end
 
     scope :incomplete, -> { where(incomplete: true) }
+    scope :complete, -> { where(incomplete: false) }
   end
 end

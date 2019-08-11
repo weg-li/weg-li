@@ -195,7 +195,6 @@ de:
     enabled: 'Die Meldung wurde reaktiviert!'
     disabled: 'Die Meldung wurde deaktiviert!'
     destroyed: 'Die Meldung wurde gelöscht!'
-    bulk_destroyed: 'Die ausgewählten Meldungen wurden gelöscht!'
     sent_via_email: "Deine Meldung wurde an %{recepients} versendet."
     share_message: 'Verschicke deine Anzeige'
     send_email: 'per E-Mail senden'
