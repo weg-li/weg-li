@@ -28,11 +28,11 @@ describe Vehicle do
 
     expect(Vehicle.plate?("")).to be_falsy
     expect(Vehicle.plate?("RDD WN 200")).to be_falsy
-    expect(Vehicle.plate?("RD 200")).to be_falsy
     expect(Vehicle.plate?("XX WN 200")).to be_falsy
   end
 
   it "realworld matches" do
     expect(Vehicle.plate?("RD WN.200")).to eql("RD WN 200")
+    expect(Vehicle.plate?("HHTX 1267")).to eql("HHTX1267")
   end
 end

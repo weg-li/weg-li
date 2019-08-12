@@ -15,13 +15,20 @@ class Vehicle
   end
 
   def self.plate?(text)
-    if text.strip.gsub(/\W+/,'-') =~ plate_regex
+    text = text.strip.gsub(/\W+/,'-')
+    if text =~ plate_regex
       "#{$1} #{$2} #{$3}"
+    elsif text =~ relaxed_plate_regex
+      "#{$1}#{$2}#{$3}"
     end
   end
 
   def self.plate_regex
     @plate_regex ||= Regexp.new("^(#{Vehicle.plates.keys.join('|')})-([A-Z]{1,3})-(\\d{1,4})$")
+  end
+
+  def self.relaxed_plate_regex
+    @relaxed_plate_regex ||= Regexp.new("^(#{Vehicle.plates.keys.join('|')})([A-Z]{1,3})-(\\d{1,4})$")
   end
 
   def self.brands
