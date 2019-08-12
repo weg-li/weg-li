@@ -4,7 +4,7 @@
 
 https://www.weg-li.de/
 
-
+![weg-li: 1, 2, 3 - Macht die Bahn frei!](https://user-images.githubusercontent.com/48745/62852900-12304300-bceb-11e9-8ba4-3303c83c7dfc.png)
 
 ## License
 
