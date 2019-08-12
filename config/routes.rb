@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   resources :notices do
     member do
+      get :inspect
       get :share
       patch :mail
       patch :enable

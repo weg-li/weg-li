@@ -14,6 +14,9 @@
               span.glyphicon.glyphicon-download
             = link_to(purge_notice_path(notice, photo_id: photo.id), method: :patch, remote: true, data: {confirm: t('notices.confirm')}, class: 'btn btn-default', title: 'löschen')
               span.glyphicon.glyphicon-trash
+            - if current_user.admin?
+              = link_to(inspect_notice_path(notice, photo_id: photo.id), class: 'btn btn-default', title: 'inspect')
+                span.glyphicon.glyphicon-flash
 
       .modal.fade id="modal_#{dom_id(photo)}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         .modal-dialog

@@ -1,5 +1,6 @@
 class NoticesController < ApplicationController
   before_action :authenticate!
+  before_action :authenticate_admin_user!, only: :inspect
   around_action :user_time_zone, if: :change_time_zone?
 
   def index
@@ -106,6 +107,12 @@ class NoticesController < ApplicationController
     @notice.update! status: :disabled
 
     redirect_to notices_path, notice: t('notices.disabled')
+  end
+
+  def inspect
+    @notice = current_user.notices.from_param(params[:id])
+    @photo = @notice.photos.find(params[:photo_id])
+    @result = Annotator.new.annotate_object(@photo.key)
   end
 
   def destroy

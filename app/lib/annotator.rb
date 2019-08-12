@@ -51,8 +51,8 @@ class Annotator
         features: [
           {type: 'LABEL_DETECTION'},
           {type: 'TEXT_DETECTION'},
-          # {type: 'LANDMARK_DETECTION'},
-          # {type: 'OBJECT_LOCALIZATION'},
+          {type: 'LOGO_DETECTION'},
+          {type: 'OBJECT_LOCALIZATION'},
           {type: 'IMAGE_PROPERTIES'},
         ],
       },

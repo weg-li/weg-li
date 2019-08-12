@@ -1,5 +1,5 @@
 class Notice < ActiveRecord::Base
-    extend TimeSplitter::Accessors
+  extend TimeSplitter::Accessors
   split_accessor :date
 
   include Bitfields
