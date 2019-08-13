@@ -1,10 +1,33 @@
 [![Build Status](https://travis-ci.org/weg-li/weg-li.svg?branch=master)](https://travis-ci.org/weg-li/weg-li)
 
-## 📸 📝 ✊ weg-li: 1, 2, 3 - Macht die Bahn frei!
+# 📸 📝 ✊ weg-li: 1, 2, 3 - Macht die Bahn frei!
 
 https://www.weg-li.de/
 
 ![weg-li: 1, 2, 3 - Macht die Bahn frei!](https://user-images.githubusercontent.com/48745/62852900-12304300-bceb-11e9-8ba4-3303c83c7dfc.png)
+
+## Installation
+
+Please follow [this guide if you have not ever installed Ruby on your computer](https://guides.railsgirls.com/install).
+
+The TL;DR for Mac:
+
+```bash
+# global setup
+brew install rbenv # ruby environemnt
+rbenv install 2.5.3 # install ruby 2.5.3
+
+brew install postgresql # database
+brew install imagemagick # image-processing
+
+# project setup
+bin/setup
+```
+
+```bash
+# run this to start the rails process
+script/server
+```
 
 ## License
 
