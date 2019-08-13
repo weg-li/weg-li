@@ -3,6 +3,8 @@
 //= require turbolinks
 //= require activestorage
 //= require bootstrap/dist/js/bootstrap
+//= require bootstrap-fileinput/js/fileinput
+//= require bootstrap-fileinput/js/locales/de
 //= require selectize
 //= require custom
 //= require direct_uploads
