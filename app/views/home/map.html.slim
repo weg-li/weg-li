@@ -1,7 +1,10 @@
 .page-header
   h1 weg-li Karte für #{@district.display_name}
 
-  p In #{@district.display_name} sind momentan #{@count[@district.name] || 0} aller #{@total} weg-li Knipser unterwegs.
+  p
+    |
+      In #{@district.display_name} sind momentan #{@count[@district.name] || 0} aller #{@total} weg-li Knipser unterwegs.
+      Dein Bezirk fehlt? Dann schreib gerne an #{mail_to 'peter@weg-li.de'} und sag uns wo Du testen möchtest. Hast Du die zuständige Stelle und deren E-Mail Adresse schon parat? Dann geht es besonders schnell!
 
 .row
   .col-lg-8

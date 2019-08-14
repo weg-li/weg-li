@@ -96,15 +96,17 @@ class NoticesController < ApplicationController
   end
 
   def enable
-    @notice = current_user.notices.from_param(params[:id])
-    @notice.update! status: :open
+    notice = current_user.notices.from_param(params[:id])
+    notice.status = :open
+    notice.save_incomplete!
 
     redirect_to notices_path, notice: t('notices.enabled')
   end
 
   def disable
-    @notice = current_user.notices.from_param(params[:id])
-    @notice.update! status: :disabled
+    notice = current_user.notices.from_param(params[:id])
+    notice.status = :disabled
+    notice.save_incomplete!
 
     redirect_to notices_path, notice: t('notices.disabled')
   end
@@ -116,8 +118,8 @@ class NoticesController < ApplicationController
   end
 
   def destroy
-    @notice = current_user.notices.from_param(params[:id])
-    @notice.destroy!
+    notice = current_user.notices.from_param(params[:id])
+    notice.destroy!
 
     redirect_to notices_path, notice: t('notices.destroyed')
   end

@@ -84,6 +84,10 @@ ul.photo-list {
   color: $default-color;
 }
 
+.file-drop-zone.clickable:hover {
+  border: 1px dashed;
+}
+
 pre.charge {
   overflow-y: scroll;
   height: 20vh;
