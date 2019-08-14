@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby File.read('.ruby-version').chomp
+ruby '2.6.3'
 
 gem 'rails', '5.2.3'
 gem 'responders'
