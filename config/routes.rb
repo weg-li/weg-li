@@ -57,7 +57,7 @@ Rails.application.routes.draw do
     post '/email_signup', to: 'sessions#email_signup'
   end
 
-  root 'notices#index', as: :authenticated_root, constraints: -> (request) { request.env["rack.session"].has_key?("user_id") }
+  root 'notices#index', as: :authenticated_root, constraints: -> (request) { request.env['rack.session'].has_key?('user_id') || request.env['rack.request.cookie_hash'].has_key?('remember_me') }
   root 'home#index'
 
   get '/blog',     to: 'articles#index'
