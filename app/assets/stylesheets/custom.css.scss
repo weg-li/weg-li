@@ -80,6 +80,10 @@ ul.photo-list {
   background-color: $success-color;
 }
 
+.select2-results__option {
+  color: $default-color;
+}
+
 pre.charge {
   overflow-y: scroll;
   height: 20vh;

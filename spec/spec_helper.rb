@@ -7,6 +7,8 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 ActiveRecord::Migration.maintain_test_schema!
 
+I18n.locale = :de
+
 RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.infer_base_class_for_anonymous_controllers = false
@@ -15,7 +17,4 @@ RSpec.configure do |config|
   config.include ActiveSupport::Testing::TimeHelpers
   config.include RequestHelper
   config.include DataHelper
-  config.before do
-    I18n.locale = :de
-  end
 end

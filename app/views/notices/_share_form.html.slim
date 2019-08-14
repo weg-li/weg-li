@@ -1,7 +1,7 @@
 .row
   .col-lg-6
     .input-group
-      = form.text_field :recipients, placeholder: "john.doe@example.com", class: 'form-control', pattern: ".+@.+", required: true
+      = form.select :recipients, District.all.map { |district| ["#{district.display_name} (#{district.email})", district.email] }, { include_blank: 'Tippen zum Auswählen' }, { class: "form-control" }
       span.input-group-btn
         = button_tag class: "btn btn-success" do
           span.glyphicon.glyphicon-send>
