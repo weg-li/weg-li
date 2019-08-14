@@ -83,6 +83,16 @@ ul.photo-list {
 .select2-results__option {
   color: $default-color;
 }
+.select2-container--bootstrap .select2-selection--single {
+  margin-top: 1px;
+  height: 36px;
+}
+.input-group {
+  .select2-container--bootstrap .select2-selection--single {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+}
 
 .file-drop-zone.clickable:hover {
   border: 1px dashed;
