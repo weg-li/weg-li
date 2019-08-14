@@ -8,7 +8,8 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
   # https://hamburg.adfc.de/verkehr/maengelmelder/falschparker/
   HAMBURG = District.new('hamburg', 'anzeigenbussgeldstelle@eza.hamburg.de', 12, 53.56544, 9.95947)
   HANNOVER = District.new('hannover', '32.41@hannover-stadt.de', 13, 52.374, 9.734)
-  HANNOVER_REGION = District.new('hannover_region', 'verkehrsowi@region-hannover.de sein', 11, 52.374, 9.734)
+  HANNOVER_REGION = District.new('hannover_region', 'verkehrsowi@region-hannover.de', 11, 52.374, 9.734)
+  HILDEN = District.new('hilden', 'ordnungsamt@hilden.de', 15, 51.169, 6.932)
   HERNE = District.new('herne', 'ordnungsamt@herne.de', 13, 51.537, 7.195)
   KIEL = District.new('kiel', 'ad-bussgeldstelle@kiel.de', 13, 54.319, 10.118)
   LUENEBURG = District.new('lueneburg', 'bussgeldstelle@landkreis.lueneburg.de', 14, 53.249, 10.403)
@@ -25,6 +26,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
     HAMBURG,
     HANNOVER,
     HANNOVER_REGION,
+    HILDEN,
     HERNE,
     KIEL,
     LUENEBURG,
