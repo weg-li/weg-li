@@ -15,7 +15,7 @@ The TL;DR for Mac:
 ```bash
 # global setup
 brew install rbenv # ruby environemnt
-rbenv install 2.5.3 # install ruby 2.5.3
+rbenv install 2.6.3 # install ruby runtime
 
 brew install postgresql # database
 brew install imagemagick # image-processing
