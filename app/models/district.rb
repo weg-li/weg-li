@@ -8,14 +8,12 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
   # https://hamburg.adfc.de/verkehr/maengelmelder/falschparker/
   HAMBURG = District.new('hamburg', 'anzeigenbussgeldstelle@eza.hamburg.de', 12, 53.56544, 9.95947)
   HANNOVER = District.new('hannover', '32.41@hannover-stadt.de', 13, 52.374, 9.734)
+  HANNOVER_REGION = District.new('hannover_region', 'verkehrsowi@region-hannover.de sein', 11, 52.374, 9.734)
   HERNE = District.new('herne', 'ordnungsamt@herne.de', 13, 51.537, 7.195)
   KIEL = District.new('kiel', 'ad-bussgeldstelle@kiel.de', 13, 54.319, 10.118)
   LUENEBURG = District.new('lueneburg', 'bussgeldstelle@landkreis.lueneburg.de', 14, 53.249, 10.403)
   MUENCHEN = District.new('muenchen', 'verkehrsueberwachung.kvr@muenchen.de', 13, 48.133, 11.565)
   MUENSTER = District.new('muenster', 'kod@stadt-muenster.de', 14, 51.961, 7.622)
-
-
-
 
   ALL = [
     BERLIN,
@@ -26,6 +24,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
     FRANKFURT,
     HAMBURG,
     HANNOVER,
+    HANNOVER_REGION,
     HERNE,
     KIEL,
     LUENEBURG,
@@ -33,12 +32,16 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
     MUENSTER,
   ]
 
+  def self.all
+    ALL
+  end
+
   def self.names
-    ALL.map(&:name)
+    all.map(&:name)
   end
 
   def self.by_name(name)
-    ALL.find { |district| district.name == name }
+    all.find { |district| district.name == name }
   end
 
   def map_data
