@@ -5,7 +5,6 @@ ruby File.read('.ruby-version').chomp
 gem 'rails', '5.2.3'
 gem 'responders'
 gem 'puma'
-gem 'webpacker' # right now this is just so that yarn is installed
 gem 'sass-rails'
 gem 'jquery-rails'
 gem 'selectize-rails'

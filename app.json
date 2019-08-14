@@ -47,5 +47,11 @@
     "newrelic",
     "heroku-postgresql",
     "scheduler"
+  ],
+  "buildpacks": [
+    {
+      "url": "urn:buildpack:heroku/ruby",
+      "url": "urn:buildpack:heroku/nodejs"
+    }
   ]
 }
