@@ -1,4 +1,3 @@
-.page-header
 footer
   .row
     .col-lg-8.col-xs-12
@@ -57,3 +56,6 @@ footer
             Tigerstr. 32<br>
             22525 Hamburg, Germany<br>
           <abbr title="E-Mail">E:</abbr> #{mail_to 'peter@weg-li.de'}
+
+- if defined?(Puma)
+  | <!-- served by Puma-#{Puma::Const::PUMA_VERSION} #{Puma::Const::CODE_NAME} Ruby: #{RUBY_VERSION} on Rails #{Rails.version} -->
