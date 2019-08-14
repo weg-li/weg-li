@@ -27,7 +27,7 @@ class ArticleDashboard < Administrate::BaseDashboard
     :user,
     :id,
     :created_at,
-    :updated_at,
+    :headline,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES

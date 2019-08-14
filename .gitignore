@@ -19,5 +19,3 @@
 *.DS_Store
 config/secrets
 .byebug_history
-
-node_modules

@@ -22,7 +22,7 @@
                 span>= name
                 span.glyphicon.glyphicon-ok
             - else
-              = link_to t('users.connect_via', provider: name), path, class: "btn btn-default btn-block"
+              = link_to(t('users.connect_via', provider: name), path, method: :post, data: { turbolinks: false }, class: "btn btn-default btn-block")
 
     .panel.panel-default
       .panel-heading= t('users.actions')

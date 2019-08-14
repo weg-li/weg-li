@@ -20,7 +20,7 @@
           ul.dropdown-menu.dropdown-menu-right
             li.dropdown-header= t('home.select_oauth_provider')
             - login_links do |name, path, key|
-              li= link_to name, path
+              li= link_to(name, path, method: :post, data: { turbolinks: false })
 
 hr.spacer-large
 

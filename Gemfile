@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
 
-ruby File.read('.ruby-version').chomp
+ruby '2.6.3'
 
 gem 'rails', '5.2.3'
 gem 'responders'
 gem 'puma'
 gem 'sass-rails'
 gem 'jquery-rails'
-gem 'selectize-rails'
+gem 'select2-rails'
 gem 'turbolinks'
 gem 'sucker_punch'
 gem 'time_splitter'

@@ -7,10 +7,12 @@ dl.dl-horizontal
   dd= notice.address
   dt= Notice.human_attribute_name(:registration)
   dd= notice.registration
-  dt= Notice.human_attribute_name(:brand)
-  dd= notice.brand
-  dt= Notice.human_attribute_name(:color)
-  dd= t(@notice.color, scope: "activerecord.attributes.notice.colors")
+  - if notice.brand?
+    dt= Notice.human_attribute_name(:brand)
+    dd= notice.brand
+  - if notice.color?
+    dt= Notice.human_attribute_name(:color)
+    dd= t(notice.color, scope: "activerecord.attributes.notice.colors")
   - if notice.empty? || notice.parked? || notice.note? || notice.hinder?
     dt Details
     - if notice.hinder?

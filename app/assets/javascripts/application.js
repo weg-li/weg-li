@@ -5,7 +5,7 @@
 //= require bootstrap/dist/js/bootstrap
 //= require bootstrap-fileinput/js/fileinput
 //= require bootstrap-fileinput/js/locales/de
-//= require selectize
+//= require select2
 //= require custom
 //= require direct_uploads
 //= require google_maps

@@ -9,13 +9,14 @@ class Notice < ActiveRecord::Base
 
   before_validation :defaults
 
+  geocoded_by :address
   reverse_geocoded_by :latitude, :longitude, language: Proc.new { |model| I18n.locale }
   after_validation :geocode
 
   belongs_to :user
   has_many_attached :photos
 
-  validates :photos, :registration, :charge, :address, :brand, :color, :date, presence: :true
+  validates :photos, :registration, :charge, :address, :date, presence: :true
 
   enum status: {open: 0, disabled: 1, analyzing: 2, shared: 3}
 
