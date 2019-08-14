@@ -6,6 +6,6 @@
   .col-lg-6
     .btn-group.btn-group-justified
       - login_links do |name, path, key|
-        = link_to name, path, class: "btn btn-success"
+        = link_to(name, path, method: :post, data: { turbolinks: false }, class: "btn btn-success")
   .col-lg-6
     = render 'callout', section: 'sessions', key: 'provider'

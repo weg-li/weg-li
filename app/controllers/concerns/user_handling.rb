@@ -29,6 +29,8 @@ module UserHandling
 
   def current_user
     @current_user ||= find_by_session_or_cookies
+    sign_in(@current_user) if @current_user.present?
+    @current_user
   end
 
   def find_by_session_or_cookies
@@ -36,7 +38,7 @@ module UserHandling
   end
 
   def remember_me
-    cookies.permanent.signed[:remember_me] || ['', '']
+    cookies.encrypted[:remember_me] || ['', '']
   rescue
     ['', '']
   end
@@ -48,12 +50,12 @@ module UserHandling
   def current_user=(user)
     @current_user = user
     session[:user_id] = user.id
-    cookies.permanent.signed[:remember_me] = [user.id, user.token]
+    cookies.encrypted[:remember_me] = [user.id, user.token]
   end
   alias_method :sign_in, :current_user=
 
   def sign_out
     session.destroy
-    cookies.permanent.signed[:remember_me] = ['', '']
+    cookies.delete(:remember_me)
   end
 end
