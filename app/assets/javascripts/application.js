@@ -3,7 +3,7 @@
 //= require turbolinks
 //= require activestorage
 //= require bootstrap/dist/js/bootstrap
-//= require selectize
+//= require select2
 //= require custom
 //= require direct_uploads
 //= require google_maps
