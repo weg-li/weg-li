@@ -10,12 +10,16 @@ Hiermit zeige ich, mit der Bitte um Weiterverfolgung, folgende Verkehrsordnungsw
 
 <%= Notice.human_attribute_name(:address) %>: <%= @notice.address %><%= " (lat: #{@notice.latitude} lng: #{@notice.longitude})" if @notice.coordinates? %>
 
-<%= Notice.human_attribute_name(:brand) %>: <%= @notice.brand %>
-
-<%= Notice.human_attribute_name(:color) %>: <%= t(@notice.color, scope: "activerecord.attributes.notice.colors") %>
-
 <%= Notice.human_attribute_name(:registration) %>: <%= @notice.registration %>
 
+<% if @notice.brand? %>
+
+<%= Notice.human_attribute_name(:brand) %>: <%= @notice.brand %>
+<% end %>
+<% if @notice.color? %>
+
+<%= Notice.human_attribute_name(:color) %>: <%= t(@notice.color, scope: "activerecord.attributes.notice.colors") %>
+<% end %>
 <% if @notice.hinder? %>
 
 Das Fahrzeug behindert andere Verkehrsteilnehmer.
