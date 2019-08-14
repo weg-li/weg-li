@@ -124,14 +124,17 @@ de:
       users: 'Aktive Benutzer'
     districts:
       berlin: 'Berlin'
+      bochum: 'Bochum'
       bremen: 'Bremen'
       dortmund: 'Dortmund'
       duesseldorf: 'Düsseldorf'
       frankfurt: 'Frankfurt'
       hamburg: 'Hamburg'
       hannover: 'Hannover'
+      herne: 'Herne'
       kiel: 'Kiel'
       lueneburg: 'Lüneburg'
+      muenchen: 'München'
       muenster: 'Münster'
     confirmation_mail: "Eine Bestätigungs-Mail wurde an %{email} versendet."
     profile_updated_and_confirmation_email: 'Dein Profil wurde aktualisiert und eine Bestätigungs-Mail wurde an deine E-Mail Adresse versendet!'
