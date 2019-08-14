@@ -3,24 +3,24 @@
     .well.well-sm.callout
       p= t('notices.steps.infos.description')
 
-    = form.label :address, class: "control-label"
+    = form.label :address, class: "control-label control-label-required"
     = form.text_field :address, placeholder: 'z.B. Sylvesterallee 7', class: "form-control", required: true
 
 .row
   .col-lg-12
-    = form.label :charge, class: "control-label"
+    = form.label :charge, class: "control-label control-label-required"
     = form.select :charge, Vehicle.charges, { include_blank: 'Tippen zum Auswählen' }, { class: "form-control", required: true }
 
 .row
   .col-lg-6
-    = form.label :registration, class: "control-label"
+    = form.label :registration, class: "control-label control-label-required"
     = form.text_field :registration, placeholder: 'z.B. HH SV 1887', class: "form-control", required: true
 
     = form.label :brand, class: "control-label"
     = form.select :brand, Vehicle.brands, { include_blank: 'Tippen zum Auswählen' }, { class: "form-control" }
 
   .col-lg-6
-    = form.label :date, class: "control-label"
+    = form.label :date, class: "control-label control-label-required"
     .row
       .col-lg-6
         = form.date_field :date_date, class: "form-control", required: true

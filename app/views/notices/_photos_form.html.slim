@@ -5,5 +5,5 @@
 
 .row.spacer
   .col-lg-12
-    = form.label :photos, class: "control-label"
+    = form.label :photos, class: "control-label control-label-required"
     = form.file_field :photos, id: 'fileupload', required: true, multiple: true, direct_upload: true, class: "form-control-file", accept: 'image/tiff,image/jpeg'

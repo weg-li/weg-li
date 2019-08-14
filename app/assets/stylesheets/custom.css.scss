@@ -80,6 +80,10 @@ ul.photo-list {
   background-color: $success-color;
 }
 
+.control-label-required::after {
+  content:"*";
+}
+
 .select2-results__option {
   color: $default-color;
 }
