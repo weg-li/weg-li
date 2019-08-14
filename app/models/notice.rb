@@ -9,6 +9,7 @@ class Notice < ActiveRecord::Base
 
   before_validation :defaults
 
+  geocoded_by :address 
   reverse_geocoded_by :latitude, :longitude, language: Proc.new { |model| I18n.locale }
   after_validation :geocode
 
