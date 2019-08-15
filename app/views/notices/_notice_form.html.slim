@@ -4,7 +4,24 @@
       p= t('notices.steps.infos.description')
 
     = form.label :address, class: "control-label control-label-required"
-    = form.text_field :address, placeholder: 'z.B. Sylvesterallee 7', class: "form-control", required: true
+    .input-group
+      = form.text_field :address, placeholder: 'z.B. Sylvesterallee 7', class: "form-control", required: true
+      a.input-group-addon(href="#" data-toggle="modal" data-target="#modal_map")
+        span.glyphicon.glyphicon-map-marker
+      .modal.fade id="modal_map" tabindex="-1" role="dialog"
+        .modal-dialog
+          .modal-content
+            .modal-header
+              button type="button" class="close" data-dismiss="modal" aria-label="Schließen"
+                span aria-hidden="true" &times;
+              h4.modal-title Adresse auswählen
+            .modal-body
+              .well.well-sm.callout
+                p Den Marker einfach an die entsprechende Stelle ziehen, die Adresse wird dann automatisch ausgefüllt.
+              = render('picker_map', notice: notice, target: '#notice_address')
+
+            .modal-footer
+              button type="button" class="btn btn-sm btn-default" data-dismiss="modal" Schließen
 
 .row
   .col-lg-12

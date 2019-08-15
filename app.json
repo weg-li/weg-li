@@ -3,6 +3,9 @@
   "scripts": {
   },
   "env": {
+    "OPENCAGEDATA_KEY": {
+      "required": true
+    },
     "GITHUB_CONSUMER_KEY": {
       "required": true
     },
