@@ -1,0 +1,8 @@
+- coordinates = notice.coordinates? ? notice.map_data : notice.user.district.map_data
+= content_tag(:div, id: "map_#{dom_id(notice)}", class: "map-canvas", data: { notice: coordinates, target: target }) do
+  p Enable JS to view Map!
+
+javascript:
+  (function() {
+    new GPickerMap($("#map_#{dom_id(notice)}")).show();
+  })();
