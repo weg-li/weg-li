@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe UsersHelper do
-  let(:user) { Fabricate.build(:user, nickname: 'lora', email: 'lora@weg-li.de') }
+  let(:user) { Fabricate.build(:user, name: 'lora', email: 'lora@weg-li.de') }
 
   context "gravatar" do
     it "can calculate proper gravatar hashes" do

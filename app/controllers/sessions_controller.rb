@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     auth = request.env['omniauth.auth'].slice('provider', 'uid', 'info')
     if authorization = Authorization.find_by_provider_and_uid(auth['provider'], auth['uid'])
       sign_in(authorization.user)
-      redirect_to notices_path, notice: t('sessions.welcome_back', nickname: authorization.user.nickname)
+      redirect_to notices_path, notice: t('sessions.welcome_back', nickname: authorization.user.name)
     elsif signed_in?
       current_user.authorizations.create! provider: auth['provider'], uid: auth['uid']
       redirect_to user_path(current_user), notice: t('sessions.connected', provider: auth['provider'].humanize)
