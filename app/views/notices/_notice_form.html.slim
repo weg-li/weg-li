@@ -5,7 +5,7 @@
 
     = form.label :address, class: "control-label control-label-required"
     .input-group
-      = form.text_field :address, placeholder: 'z.B. Sylvesterallee 7', class: "form-control", required: true
+      = form.text_field :address, placeholder: "z.B. Sylvesterallee 7, Hamburg", class: "form-control", required: true
       a.input-group-addon(href="#" data-toggle="modal" data-target="#modal_map")
         span.glyphicon.glyphicon-map-marker
       .modal.fade id="modal_map" tabindex="-1" role="dialog"
