@@ -20,7 +20,8 @@ class UsersController < ApplicationController
       end
     else
       current_user.save!
-      redirect_to root_path, notice: t('users.profile_updated')
+
+      redirect_to current_user, notice: t('users.profile_updated')
     end
   end
 

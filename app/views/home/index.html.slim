@@ -13,7 +13,7 @@
       - if signed_in?
         h2.spacer.text-center 📸 📝 ✊ weg-li jetzt ausprobieren:
         .spacer.text-center
-          = link_to(root_path, class: 'btn btn-lg btn-success') do
+          = link_to(notices_path, class: 'btn btn-lg btn-success') do
             span.glyphicon.glyphicon-th-list>
             span zu meinen Meldungen
       - else
