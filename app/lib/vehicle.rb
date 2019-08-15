@@ -85,6 +85,7 @@ class Vehicle
       'Parken im Kreisverkehr',
       'Parken in Fußgängerzonen',
       'Parken im verkehrsberuhigten Bereich',
+      'Parken auf dem Behindertenparkplatz',
       'Parken in zweiter Reihe',
       'Parken vor Feuerwehrzufahrten',
       'Parken vor und hinter Bahnübergängen mit Andreaskreuz',
