@@ -40,18 +40,17 @@
         /     - I18n.available_locales.each do |locale|
         /       li= link_to t("locale.#{locale}"), url_for(locale: locale)
         - if signed_in?
-          ul.nav.navbar-nav
-            li.dropdown.navbar-user
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">#{gravatar(current_user)} <span class="caret"></span></a>
-              ul.dropdown-menu aria-labelledby="login"
-                li
-                  = link_to [:edit, current_user] do
-                    span.glyphicon.glyphicon-edit.smaller>
-                    span.margin-left-small= t('navigation.edit_profile')
-                li
-                  = link_to current_user do
-                    span.glyphicon.glyphicon-user.smaller>
-                    span.margin-left-small= t('navigation.view_profile')
+          li.dropdown.navbar-user
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">#{gravatar(current_user)} <span class="caret"></span></a>
+            ul.dropdown-menu aria-labelledby="login"
+              li
+                = link_to [:edit, current_user] do
+                  span.glyphicon.glyphicon-edit.smaller>
+                  span.margin-left-small= t('navigation.edit_profile')
+              li
+                = link_to current_user do
+                  span.glyphicon.glyphicon-user.smaller>
+                  span.margin-left-small= t('navigation.view_profile')
           li(data-no-turbolink)
             = link_to logout_path, title: t('navigation.logout') do
               span.glyphicon.glyphicon-log-out.small>
