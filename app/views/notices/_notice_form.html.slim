@@ -25,7 +25,7 @@
       .col-lg-6
         = form.date_field :date_date, class: "form-control", required: true
       .col-lg-6
-        = form.time_field :date_time, class: "form-control", required: true
+        = form.time_field :date_time, class: "form-control", required: true, step: 1, value: (form.object.date_time || Time.zone.now).strftime('%H:%M')
 
     = form.label :color, class: "control-label"
     = form.select :color, Vehicle.colors.map { |color| [t(color, scope: "activerecord.attributes.notice.colors"), color] }, { include_blank: 'Tippen zum Auswählen' }, { class: "form-control" }
