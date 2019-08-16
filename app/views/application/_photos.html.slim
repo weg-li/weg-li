@@ -4,7 +4,7 @@
     - notice.photos.each_with_index do |photo, index|
       li.list-item
         a(href="#" data-toggle="modal" data-target="#modal_#{dom_id(photo)}")
-          = image_tag(url_for(photo.variant(resize: "200x200", auto_orient: true).processed), class: 'item-photo')
+          = image_tag(url_for(photo.variant(resize: "100x100", auto_orient: true).processed), class: 'item-photo')
         .flex-buttons.btn-group.btn-group-sm
           button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal_#{dom_id(photo)}"
             span.glyphicon.glyphicon-eye-open
@@ -26,7 +26,7 @@
                 span aria-hidden="true" &times;
               h4.modal-title Beweisfoto ##{index + 1}
             .modal-body
-              = image_tag(url_for(photo), class: 'modal-photo', )
+              = image_tag(url_for(photo.variant(resize: "1000x1000", auto_orient: true).processed), class: 'modal-photo', )
               / for admins
               / - photo.metadata.each do |key, value|
               /   span.label.label-sm.label-default>
