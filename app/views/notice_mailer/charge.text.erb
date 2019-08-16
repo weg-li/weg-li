@@ -19,10 +19,6 @@ Hiermit zeige ich, mit der Bitte um Weiterverfolgung, folgende Verkehrsordnungsw
 
 <%= Notice.human_attribute_name(:color) %>: <%= t(@notice.color, scope: "activerecord.attributes.notice.colors") %>
 <% end %>
-<% if @notice.hinder? %>
-
-Das Fahrzeug behindert andere Verkehrsteilnehmer.
-<% end %>
 <% if @notice.empty? %>
 
 Das Fahrzeug war verlassen.
@@ -30,6 +26,14 @@ Das Fahrzeug war verlassen.
 <% if @notice.parked? %>
 
 Das Fahrzeug stand mindestens 3 Minuten.
+<% end %>
+<% if @notice.parked_long? %>
+
+Das Fahrzeug stand länger als 3 Stunden.
+<% end %>
+<% if @notice.hinder? %>
+
+Das Fahrzeug behindert andere Verkehrsteilnehmer.
 <% end %>
 <% if @notice.note? %>
 

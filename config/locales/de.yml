@@ -33,6 +33,7 @@ de:
         note: 'Hinweis'
         empty: 'Verlassen'
         parked: 'Geparkt'
+        parked_long: 'Lang Geparkt'
         hinder: 'Behinderung'
         recipients: 'Empfänger'
         incomplete: 'unvollständig'

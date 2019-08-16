@@ -15,11 +15,13 @@ dl.dl-horizontal
     dd= t(notice.color, scope: "activerecord.attributes.notice.colors")
   - if notice.empty? || notice.parked? || notice.note? || notice.hinder?
     dt Details
-    - if notice.hinder?
-      dd Behinderung anderer Verkehrsteilnehmer
     - if notice.empty?
       dd Das Fahrzeug war verlassen
     - if notice.parked?
       dd Das Fahrzeug stand mindestens 3 Minuten.
+    - if notice.parked_long?
+      dd Das Fahrzeug stand länger als 3 Stunden.
+    - if notice.hinder?
+      dd Behinderung anderer Verkehrsteilnehmer
     - if notice.note?
       dd= notice.note
