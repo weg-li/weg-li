@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   validates :email, :token, uniqueness: true
   validates :time_zone, inclusion: {in: ActiveSupport::TimeZone.all.map(&:name)}, allow_nil: true, allow_blank: true
 
+  scope :since, -> (date) { where('users.created_at > ?', date) }
   scope :for_public, -> () { not_hide_public_profile }
 
   def validate!

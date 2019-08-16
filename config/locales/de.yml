@@ -123,6 +123,7 @@ de:
       shared: 'Erstatte Anzeigen'
       photos: 'Geknipste Fotos'
       users: 'Aktive Benutzer'
+      all_users: 'Benutzer insgesamt'
     districts:
       berlin: 'Berlin'
       bochum: 'Bochum'
