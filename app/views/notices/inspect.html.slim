@@ -1,2 +1,2 @@
-= image_tag(url_for(@photo.variant(resize: "100x100").processed), class: 'item-photo')
+= image_tag(url_for(@photo.variant(resize: "100x100", auto_orient: true).processed), class: 'item-photo')
 = debug @result
