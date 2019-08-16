@@ -26,12 +26,7 @@
                 span aria-hidden="true" &times;
               h4.modal-title Beweisfoto ##{index + 1}
             .modal-body
-              = image_tag(url_for(photo.variant(resize: "1000x1000", auto_orient: true).processed), class: 'modal-photo', )
-              / for admins
-              / - photo.metadata.each do |key, value|
-              /   span.label.label-sm.label-default>
-              /     strong= "#{key}: "
-              /     = value
+              = image_tag(url_for(photo.variant(resize: "1000x1000", auto_orient: true).processed), class: 'modal-photo')
 
             .modal-footer
               - unless publicly
