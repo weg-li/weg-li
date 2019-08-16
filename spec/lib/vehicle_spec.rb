@@ -31,8 +31,33 @@ describe Vehicle do
     expect(Vehicle.plate?("XX WN 200")).to be_falsy
   end
 
-  it "realworld matches" do
+  it "realworld plate matches" do
     expect(Vehicle.plate?("RD WN.200")).to eql("RD WN 200")
     expect(Vehicle.plate?("HHTX 1267")).to eql("HHTX1267")
   end
+
+
+  it "it checks possible brand matches" do
+    sample = "SEAT"
+    result = Vehicle.brand?(sample)
+    expect(result).to be_truthy
+    expect(result).to eql("Seat")
+
+    sample = "323 Combi"
+    result = Vehicle.brand?(sample)
+    expect(result).to be_truthy
+    expect(result).to eql("Mazda")
+
+    expect(Vehicle.brand?("")).to be_falsy
+    expect(Vehicle.brand?("RDD WN 200")).to be_falsy
+    expect(Vehicle.brand?("XX WN 200")).to be_falsy
+  end
+
+  it "alias brand matches" do
+    expect(Vehicle.brand?("vw")).to eql("Volkswagen")
+  end
+
+  # it "realworld brand matches" do
+  #   expect(Vehicle.brand?("vw")).to eql("RD WN 200")
+  # end
 end

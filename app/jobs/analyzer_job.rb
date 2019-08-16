@@ -10,6 +10,7 @@ class AnalyzerJob < ApplicationJob
       if result.present?
         notice.data[photo.record_id] = result
         notice.registration ||= Annotator.grep_text(result) { |string| Vehicle.plate?(string) }.first
+        notice.brand ||= Annotator.grep_text(result) { |string| Vehicle.brand?(string) }.first
         notice.color ||= Annotator.dominant_colors(result).first
       end
     end
