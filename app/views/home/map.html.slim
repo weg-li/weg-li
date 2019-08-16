@@ -23,11 +23,11 @@
           li= link_to district.display_name, url_for(district: district.name)
 .row
   .col-lg-8
-    - grouped = @notices.group_by(&:charge)
+    - grouped = @notices.group_by(&:charge).sort_by {|key, _| key}.reverse.to_h
     - grouped.each do |key, group|
       span.label.label-default>= "#{key} #{group.size}"
   .col-lg-4
-    - grouped = @notices.group_by(&:brand)
+    - grouped = @notices.group_by(&:brand).sort_by {|key, _| key }.reverse.to_h
     - grouped.each do |key, group|
       span.label.label-default>= "#{key.presence || 'ohne'} #{group.size}"
 
