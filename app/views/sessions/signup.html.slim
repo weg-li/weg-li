@@ -6,7 +6,7 @@
         legend= t('sessions.enter_data')
 
       .well.well-sm.callout
-        p Der Spitzname wird für die Veröffentlichung der Anzeigen im öffentlichen Profil verwendet.
+        | Der Spitzname wird für die Veröffentlichung der Anzeigen im öffentlichen Profil verwendet.
 
   .row.spacer-large
     .col-lg-6
@@ -19,15 +19,17 @@
   .row
     .col-lg-12
       .well.well-sm.callout
-        p Name und Anschrift werden beim Erstatten von Anzeigen als Zeugen-Adresse verwendet. Der Bezirk wird für die Auswahl der jeweilig zuständigen Stelle genutzt und kann im Profil geändert werden.
+        | Name und Anschrift werden beim Erstatten von Anzeigen als Zeugen-Adresse verwendet. Die Behörden verfolgen nur Anzeigen mit vollständiger ladungsfähiger Anschrift, anonyme Anzeigen werden verworfen. Der Bezirk wird für die Standard-Auswahl der jeweilig zuständigen Stelle bei der Erstattung von Anzeigen genutzt und kann im Profil geändert werden.
 
   .row
     .col-lg-4
       = form.label :name, class: "control-label"
       = form.text_field :name, placeholder: 'z.B. Hanno Nym', class: "form-control", required: true
+      small.help-text Anzeigen müssen mit dem vollständigen Namen erfolgen
     .col-lg-4
       = form.label :address, class: "control-label"
-      = form.text_field :address, placeholder: 'z.B. Sylvesterallee 7, 22525 Hamburg', class: "form-control", required: true
+      = form.text_field :address, placeholder: 'z.B. Sylvesterallee 7, 22525 Hamburg', class: "form-control", required: true, pattern: '.+ \d{5}.*'
+      small.help-text Anzeigen benötigen eine vollständige Anschrift mit PLZ & Ort
     .col-lg-4
       = form.label :district, class: "control-label"
       = form.select :district, District.names.map { |name| [t(name, scope: "users.districts"), name] }, { include_blank: 'Bitte auswählen' }, { class: "form-control", required: true }
