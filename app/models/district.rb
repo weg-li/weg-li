@@ -13,6 +13,8 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
   HILDEN = District.new('hilden', 'ordnungsamt@hilden.de', 15, 51.169, 6.932)
   HERNE = District.new('herne', 'ordnungsamt@herne.de', 13, 51.537, 7.195)
   KIEL = District.new('kiel', 'ad-bussgeldstelle@kiel.de', 13, 54.319, 10.118)
+  # https://www.leipzig.de/buergerservice-und-verwaltung/sicherheit-und-ordnung/kommunale-verkehrsueberwachung/ueberwachung-des-ruhenden-verkehrs-politessen/
+  LEIPZIG = District.new('leipzig', 'ordnungsamt@leipzig.de', 13, 51.340, 12.374)
   LUENEBURG = District.new('lueneburg', 'bussgeldstelle@landkreis.lueneburg.de', 14, 53.249, 10.403)
   MUENCHEN = District.new('muenchen', 'verkehrsueberwachung.kvr@muenchen.de', 13, 48.133, 11.565)
   MUENSTER = District.new('muenster', 'kod@stadt-muenster.de', 14, 51.961, 7.622)
@@ -31,6 +33,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
     HILDEN,
     HERNE,
     KIEL,
+    LEIPZIG,
     LUENEBURG,
     MUENCHEN,
     MUENSTER,
