@@ -26,7 +26,8 @@
                 span aria-hidden="true" &times;
               h4.modal-title Beweisfoto ##{index + 1}
             .modal-body
-              = image_tag(url_for(photo.variant(resize: "1000x1000", auto_orient: true).processed), class: 'modal-photo')
+              span.zoom(style="position: relative; overflow: hidden; display: inline-block;")
+                = image_tag(url_for(photo.variant(resize: "1000x1000", auto_orient: true).processed), class: 'modal-photo')
 
             .modal-footer
               - unless publicly
