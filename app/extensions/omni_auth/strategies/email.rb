@@ -20,7 +20,7 @@ module OmniAuth
 
           super
         rescue
-          Rails.logger.warn("an error occured when decoding token #{token} #{$!}")
+          Rails.logger.warn("an error occured when decoding token #{request[:token]} #{$!}")
           fail!(:invalid_credentials)
         end
       end
