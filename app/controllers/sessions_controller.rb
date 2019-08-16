@@ -47,7 +47,7 @@ class SessionsController < ApplicationController
   def email_signup
     email = params[:email]
     if email.present?
-      token = generate_token(email)
+      token = Token.generate(email)
       UserMailer.email_auth(email, token).deliver_now
 
       redirect_to root_path, notice: t('users.confirmation_mail', email: email)
@@ -55,17 +55,6 @@ class SessionsController < ApplicationController
       flash.now[:alert] = 'Bitte gebe eine E-Mail-Adresse ein!'
       render :email
     end
-  end
-
-  def generate_token(email, expiration: 5.minutes)
-    now_seconds = Time.now.to_i
-    payload = {
-        iss: email,
-        iat: now_seconds,
-        exp: now_seconds + expiration,
-    }
-    token = ::JWT.encode(payload, Rails.application.secrets.secret_key_base, 'HS256')
-    Base64.encode64(token)
   end
 
   def signup

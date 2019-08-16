@@ -13,8 +13,7 @@ module OmniAuth
         fail!(:invalid_credentials) and return if request[:token].blank?
 
         begin
-          token = Base64.decode64(request[:token])
-          decoded_token = JWT.decode(token, Rails.application.secrets.secret_key_base, true, algorithm: 'HS256').first
+          decoded_token = Token.decode(request[:token])
           @email = decoded_token['iss']
 
           fail!(:invalid_credentials) and return if @email.blank?
