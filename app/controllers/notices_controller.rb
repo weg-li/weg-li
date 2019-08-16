@@ -138,7 +138,7 @@ class NoticesController < ApplicationController
       notices.open.incomplete.each do |notice|
         notice.status = :analyzing
         notice.save_incomplete!
-        AnalyzerJob.perform_async(notice)
+        AnalyzerJob.perform_later(notice)
       end
       flash[:notice] = 'Die Fotos der unvollständigen Meldungen werden im Hintergrund analysiert'
     when 'destroy'
@@ -157,7 +157,7 @@ class NoticesController < ApplicationController
     else
       notice.status = :analyzing
       notice.save_incomplete!
-      AnalyzerJob.perform_async(notice)
+      AnalyzerJob.perform_later(notice)
 
       redirect_back fallback_location: notice_path(notice), notice: 'Analyse gestartet, es kann einen Augenblick dauern'
     end
