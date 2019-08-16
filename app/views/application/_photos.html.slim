@@ -25,13 +25,9 @@
               button type="button" class="close" data-dismiss="modal" aria-label="Schließen"
                 span aria-hidden="true" &times;
               h4.modal-title Beweisfoto ##{index + 1}
+
             .modal-body
               = image_tag(url_for(photo), class: 'modal-photo', )
-              / for admins
-              / - photo.metadata.each do |key, value|
-              /   span.label.label-sm.label-default>
-              /     strong= "#{key}: "
-              /     = value
 
             .modal-footer
               - unless publicly
