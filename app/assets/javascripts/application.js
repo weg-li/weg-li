@@ -6,6 +6,7 @@
 //= require bootstrap-fileinput/js/fileinput
 //= require bootstrap-fileinput/js/locales/de
 //= require select2
+//= require jquery-zoom/jquery.zoom
 //= require custom
 //= require direct_uploads
 //= require google_maps

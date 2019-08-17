@@ -66,8 +66,9 @@ hr.spacer-large
         - goal = 100
         - statistics = Notice.statistics(Time.zone.today.beginning_of_week)
         - current = statistics[:shared]
-        strong> Wochenziel:
-        span #{current} von #{goal} Anzeigen erstattet
+        p
+          strong> Wochenziel:
+          span #{current} von #{goal} Anzeigen erstattet
         .progress.progress-striped.active
           .progress-bar.progress-bar-danger(style="width: #{[100, current / (goal / 100)].min}%")
 
@@ -75,14 +76,16 @@ hr.spacer-large
         - goal = 400
         - statistics = Notice.statistics(Time.zone.today.beginning_of_month)
         - current = statistics[:shared]
-        strong> Monatsziel:
-        span #{current} von #{goal} Anzeigen erstattet
+        p
+          strong> Monatsziel:
+          span #{current} von #{goal} Anzeigen erstattet
         .progress.progress-striped.active
           .progress-bar.progress-bar-warning(style="width: #{[100, current / (goal / 100)].min}%")
 
       li.list-group-item
-        strong> Jahresziel:
-        span Freie Radwege und Bürgersteige!
+        p
+          strong> Jahresziel:
+          span Freie Radwege und Bürgersteige!
         .progress.progress-striped.active
           #total-progress.progress-bar.progress-bar-success(style="width: 5%")
           javascript:

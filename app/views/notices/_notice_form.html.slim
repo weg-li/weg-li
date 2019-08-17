@@ -52,16 +52,20 @@
     label.control-label Details zum Vorwurf
     .checkbox
       label
-        = form.check_box :hinder
-        span Behinderung anderer Verkehrsteilnehmer
-    .checkbox
-      label
         = form.check_box :empty
         span Das Fahrzeug war verlassen
     .checkbox
       label
         = form.check_box :parked
         span Das Fahrzeug stand mindestens 3 Minuten
+    .checkbox
+      label
+        = form.check_box :parked_long
+        span Das Fahrzeug stand länger als 3 Stunden
+    .checkbox
+      label
+        = form.check_box :hinder
+        span Behinderung anderer Verkehrsteilnehmer
 
   .col-lg-6
     = form.label :note, class: "control-label"

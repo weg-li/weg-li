@@ -33,6 +33,7 @@ de:
         note: 'Hinweis'
         empty: 'Verlassen'
         parked: 'Geparkt'
+        parked_long: 'Lang Geparkt'
         hinder: 'Behinderung'
         recipients: 'Empfänger'
         incomplete: 'unvollständig'
@@ -122,6 +123,7 @@ de:
       shared: 'Erstatte Anzeigen'
       photos: 'Geknipste Fotos'
       users: 'Aktive Benutzer'
+      all_users: 'Benutzer insgesamt'
     districts:
       berlin: 'Berlin'
       bochum: 'Bochum'

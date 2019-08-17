@@ -3,7 +3,7 @@ class Notice < ActiveRecord::Base
   split_accessor :date
 
   include Bitfields
-  bitfield :flags, 1 => :empty, 2 => :parked, 4 => :hinder
+  bitfield :flags, 1 => :empty, 2 => :parked, 4 => :hinder, 8 => :parked_long
 
   include Incompletable
 
@@ -36,6 +36,7 @@ class Notice < ActiveRecord::Base
       incomplete: since(date).incomplete.count,
       shared: since(date).shared.count,
       users: User.where(id: since(date).pluck(:user_id)).count,
+      all_users: User.since(date).count,
     }
   end
 
