@@ -10,6 +10,11 @@ Rails.application.routes.draw do
     root to: "notices#index"
   end
 
+  namespace :api do
+    resources :notices
+    resources :users
+  end
+
   resources :notices do
     member do
       get :inspect

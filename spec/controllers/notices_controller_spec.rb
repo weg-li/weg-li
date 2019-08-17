@@ -3,6 +3,18 @@ require 'spec_helper'
 describe NoticesController do
   let(:user) { Fabricate(:user) }
 
+  before do
+    login(user)
+  end
+
+  context "index" do
+    it "index works" do
+      get :index
+
+      expect(response).to be_ok
+    end
+  end
+
   context "create" do
     let(:params) {
       {
@@ -11,9 +23,6 @@ describe NoticesController do
         }
       }
     }
-    before do
-      login(user)
-    end
 
     it "creates a notice with given params" do
       expect {
@@ -31,8 +40,6 @@ describe NoticesController do
           recipients: "hanno@nym.de",
         },
       }
-
-      login(user)
     end
 
     it "sends a mail to share recipient" do
@@ -47,8 +54,6 @@ describe NoticesController do
   context "destroy" do
     before do
       @notice = Fabricate(:notice, user: user)
-
-      login(user)
     end
 
     it "should destroy the notice" do

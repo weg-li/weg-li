@@ -42,6 +42,10 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    acts_as_api (1.0.1)
+      activemodel (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      rack (>= 1.1.0)
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
     administrate (0.11.0)
@@ -363,6 +367,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_api
   administrate
   administrate-field-active_storage
   bitfields

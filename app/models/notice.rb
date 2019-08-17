@@ -7,6 +7,13 @@ class Notice < ActiveRecord::Base
 
   include Incompletable
 
+  acts_as_api
+
+  api_accessible :public_beta do |template|
+    %i(status address latitude longitude registration charge date photos).each { |key| template.add(key) }
+    Notice.bitfields[:flags].keys.each { |key| template.add(key) }
+  end
+
   before_validation :defaults
 
   geocoded_by :address

@@ -9,6 +9,8 @@ ActiveRecord::Migration.maintain_test_schema!
 
 I18n.locale = :de
 
+ENV['WEGLI_API_KEY'] = 'dingSbums'
+
 RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.infer_base_class_for_anonymous_controllers = false
