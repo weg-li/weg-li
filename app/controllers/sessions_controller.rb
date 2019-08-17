@@ -48,7 +48,7 @@ class SessionsController < ApplicationController
     email = params[:email]
     if email.present?
       token = Token.generate(email)
-      UserMailer.email_auth(email, token).deliver_now
+      UserMailer.email_auth(email, token).deliver_later
 
       redirect_to root_path, notice: t('users.confirmation_mail', email: email)
     else
@@ -83,7 +83,7 @@ class SessionsController < ApplicationController
 
     if @user.save
       session.delete(:auth_data)
-      UserMailer.signup(@user).deliver_now
+      UserMailer.signup(@user).deliver_later
       sign_in(@user)
       redirect_to session.delete(:auth_path), notice: t('sessions.welcome', nickname: @user.nickname)
     else
