@@ -25,10 +25,10 @@
               button type="button" class="close" data-dismiss="modal" aria-label="Schließen"
                 span aria-hidden="true" &times;
               h4.modal-title Beweisfoto ##{index + 1}
+
             .modal-body
               span.zoom(style="position: relative; overflow: hidden; display: inline-block;")
                 = image_tag(url_for(photo.variant(resize: "1000x1000", auto_orient: true).processed), class: 'modal-photo')
-
             .modal-footer
               - unless publicly
                 = link_to(rails_blob_path(photo, disposition: "attachment"), class: 'btn btn-sm btn-default', title: 'herunterladen')

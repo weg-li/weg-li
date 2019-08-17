@@ -1,4 +1,6 @@
 class AnalyzerJob < ApplicationJob
+  queue_as :default
+
   def perform(notice)
     notice.data ||= {}
     notice.photos.each do |photo|
