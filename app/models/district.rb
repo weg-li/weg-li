@@ -3,6 +3,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
   BOCHUM = District.new('bochum', 'amt30@bochum.de', 14, 51.481, 7.213)
   BONN = District.new('bonn', 'stvo@bonn.de', 14, 50.735, 7.098)
   BREMEN = District.new('bremen', 'bussgeldstelle@ordnungsamt.bremen.de', 13, 53.078, 8.797)
+  BUXTEHUDE = District.new('buxtehude', 'fg32@stadt.buxtehude.de', 15, 53.465, 9.687)
   DORTMUND = District.new('dortmund', 'fremdanzeigen.verkehrsueberwachung@stadtdo.de', 13, 51.513, 7.460)
   DUESSELDORF = District.new('duesseldorf', 'bussgeldstelle@duesseldorf.de', 13, 51.219, 6.778)
   FRANKFURT = District.new('frankfurt', 'owi.datenerfassung.amt32@stadt-frankfurt.de', 12, 50.109, 8.675)
@@ -24,6 +25,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
     BOCHUM,
     BONN,
     BREMEN,
+    BUXTEHUDE,
     DORTMUND,
     DUESSELDORF,
     FRANKFURT,
