@@ -38,13 +38,15 @@ class NoticesController < ApplicationController
 
   def create
     notice = current_user.notices.build(notice_params)
-    notice.save_incomplete!
+    notice.analyze!
 
     message = 'Eine Meldung mit Beweisfotos wurde erfasst'
     path = edit_notice_path(notice)
     if params[:another]
       message += ', nun gleich die nächste Meldung erfassen'
       path = new_notice_path
+    else
+      message += 'und Analyse gestartet'
     end
 
     redirect_to path, notice: message
@@ -136,9 +138,7 @@ class NoticesController < ApplicationController
       flash[:notice] = 'Die noch offenen, vollständigen Meldungen werden im Hintergrund per E-Mail gemeldet'
     when 'analyze'
       notices.open.incomplete.each do |notice|
-        notice.status = :analyzing
-        notice.save_incomplete!
-        AnalyzerJob.perform_later(notice)
+        notice.analyze!
       end
       flash[:notice] = 'Die Fotos der unvollständigen Meldungen werden im Hintergrund analysiert'
     when 'destroy'
@@ -155,9 +155,7 @@ class NoticesController < ApplicationController
     if notice.analyzing?
       redirect_back fallback_location: notice_path(notice), notice: 'Analyse läuft bereits'
     else
-      notice.status = :analyzing
-      notice.save_incomplete!
-      AnalyzerJob.perform_later(notice)
+      notice.analyze!
 
       redirect_back fallback_location: notice_path(notice), notice: 'Analyse gestartet, es kann einen Augenblick dauern'
     end

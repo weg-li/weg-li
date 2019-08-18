@@ -40,6 +40,12 @@ class Notice < ActiveRecord::Base
     }
   end
 
+  def analyze!
+    self.status = :analyzing
+    save_incomplete!
+    AnalyzerJob.perform_later(self)
+  end
+
   def coordinates?
     latitude? && longitude?
   end
