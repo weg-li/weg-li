@@ -31,7 +31,8 @@ class SessionsController < ApplicationController
   end
 
   def failure
-    redirect_to root_path, alert: t('sessions.ups_something_went_wrong')
+    Rails.logger.warn("oauth failed: #{params[:message]}")
+    redirect_to root_path, alert: "#{t('sessions.ups_something_went_wrong')} (#{params[:message]})"
   end
 
   def offline_login
