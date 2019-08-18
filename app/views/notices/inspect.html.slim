@@ -1,3 +1,4 @@
 = image_tag(url_for(@photo.variant(resize: "1000x1000", auto_orient: true).processed), class: 'item-photo')
+= debug @photo.metadata
 = debug Annotator.grep_text(@result) { |string| Vehicle.plate?(string) }
 = debug @result
