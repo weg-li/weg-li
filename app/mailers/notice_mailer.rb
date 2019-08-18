@@ -1,5 +1,5 @@
 class NoticeMailer < ActionMailer::Base
-  default bcc: "peter@weg-li.de"
+  default bcc: 'anzeige@weg-li.de', return_path: 'anzeige@weg-li.de', sender: 'anzeige@weg-li.de'
 
   def charge(user, notice)
     @user = user
