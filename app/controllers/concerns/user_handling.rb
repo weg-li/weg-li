@@ -39,8 +39,6 @@ module UserHandling
 
   def remember_me
     cookies.encrypted[:remember_me] || ['', '']
-  rescue
-    ['', '']
   end
 
   def signed_in?
