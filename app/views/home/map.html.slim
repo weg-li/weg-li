@@ -4,19 +4,19 @@
   p
     |
       In #{@district.display_name} sind momentan #{@count[@district.name] || 0} aller #{@total} weg-li Knipser unterwegs.
-      Dein Bezirk fehlt? Dann schreib gerne an #{mail_to 'peter@weg-li.de'} und sag uns wo Du testen möchtest. Hast Du die zuständige Stelle und deren E-Mail Adresse schon parat? Dann geht es besonders schnell!
+      Deine Stadt fehlt? Dann schreib gerne an #{mail_to 'peter@weg-li.de'} und sag uns, wo Du testen möchtest. Hast Du die zuständige Stelle und deren E-Mail Adresse schon parat? Dann geht es besonders schnell!
 
 .row
   .col-lg-8
     dl.dl-horizontal
-      dt Erstatte Anzeigen
+      dt Erstattete Anzeigen
       dd= @notices.size
       dt Aktive Nutzer
       dd= @active
   .col-lg-4
     .dropdown
       button.btn.btn-default.dropdown-toggle type="button" data-toggle="dropdown"
-        span>= "Bezirk #{@district.display_name}"
+        span>= "Stadt #{@district.display_name}"
         span.caret
       ul.dropdown-menu
         - District::ALL.each do |district|
