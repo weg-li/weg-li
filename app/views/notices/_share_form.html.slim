@@ -6,7 +6,7 @@
         = button_tag class: "btn btn-success" do
           span.glyphicon.glyphicon-send>
           span als E-Mail versenden
-    small.help-block Diese E-Mail-Adresse wurde automatisch für den in #{link_to('deinem Profil', edit_user_path(current_user))} hinterlegten Bezirk vorausgewählt.
+    small.help-block Diese E-Mail-Adresse wurde automatisch für die in #{link_to('Deinem Profil', edit_user_path(current_user))} hinterlegte Stadt vorausgewählt.
 
   .col-lg-6
     = render 'callout', section: 'notices', key: 'send_email'
