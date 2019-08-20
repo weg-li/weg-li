@@ -48,7 +48,7 @@ module UserHandling
   def current_user=(user)
     @current_user = user
     session[:user_id] = user.id
-    cookies.encrypted[:remember_me] = [user.id, user.token]
+    cookies.encrypted[:remember_me] = { value: [user.id, user.token], expires: 1.month, httponly: true, secure: Rails.env.production? }
   end
   alias_method :sign_in, :current_user=
 
