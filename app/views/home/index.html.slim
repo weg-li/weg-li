@@ -17,13 +17,13 @@
             span.glyphicon.glyphicon-th-list>
             span zu meinen Meldungen
       - else
-        h2.spacer.text-center
-          == t('home.register_now')
-          .visible-xs== t('home.register_now_xs')
+        h2.text-center Jetzt anmelden und die <span class="label label-primary">&beta;eta</span> ausprobieren!
+        p.muted.text-center Mehr Informationen gibt es in #{link_to('der &beta;eta-Test Einladung'.html_safe, 'https://docs.google.com/document/d/1SQTXXvGY8BzL-NgjXAKm0EVZ3YTqHOMPonWtVJk7vxg/', target: '_blank')} nachzulesen.
         .spacer.text-center
           .btn-group
             button.btn.btn-lg.btn-success.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
               == t('home.register_with_oauth')
+
             ul.dropdown-menu.dropdown-menu-right
               li.dropdown-header= t('home.select_oauth_provider')
               - login_links do |name, path, key|
@@ -51,7 +51,7 @@ hr.spacer-large
     em> "Aber ich wohne doch hier"
 
   p Mit weg-li kannst Du super einfach Falschparker melden:
-  p  📸 Beweisfoto erfassen 📝 Verstoß beschreiben ✊ bei Ordnungsamt / Polizei melden 👏😍💪
+  p  📸 Beweisfoto erfassen 📝 Verstoß beschreiben ✊ beim Ordnungsamt melden 👏😍💪
 
 = render 'notices/three_step'
 

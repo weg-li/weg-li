@@ -76,8 +76,6 @@ de:
     en: 'Englisch'
     de: 'Deutsch'
   home:
-    register_now: 'Jetzt anmelden und die <span class="label label-primary">&beta;eta</span> ausprobieren!'
-    register_now_xs: 'Jetzt anmelden & ausprobieren!'
     register_with_oauth: 'Anmelden mit Twitter & Co <span class="caret"></span>'
     select_oauth_provider: 'Wähle eine der Möglichkeiten zum Anmelden:'
   sessions:
