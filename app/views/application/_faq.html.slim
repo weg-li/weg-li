@@ -66,8 +66,8 @@
         p
           | Derzeit ist die weg-li &beta;eta nur in einigen Städten nutzbar, da noch nicht alle relevanten Daten hinterlegt sind:
           ul.list-inline
-            - District.names.each do |name|
-              li= t(name, scope: "users.districts")
+            - District.all.each do |district|
+              li= district.display_name
         p
           | Wenn noch eine Stadt fehlt, dann schreib gerne an #{mail_to 'peter@weg-li.de'} und teile uns mit, wo genau Du testen möchtest. Vielleicht hast Du auch schon die zuständige Stelle und deren E-Mail Adresse parat?
 

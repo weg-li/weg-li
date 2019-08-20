@@ -32,7 +32,7 @@
       small.help-text Anzeigen benötigen eine vollständige Anschrift mit PLZ & Ort
     .col-lg-4
       = form.label :district, class: "control-label"
-      = form.select :district, District.names.map { |name| [t(name, scope: "users.districts"), name] }, { include_blank: 'Bitte auswählen' }, { class: "form-control", required: true }
+      = form.select :district, District.all.map { |district| [district.display_name, district.name] }, { include_blank: 'Bitte auswählen' }, { class: "form-control", required: true }
 
   hr.spacer
   .row

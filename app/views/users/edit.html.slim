@@ -55,7 +55,7 @@
           small.help-block Name und Anschrift werden beim Erstatten von Anzeigen als Zeugen-Adresse verwendet.
 
           = form.label :district, class: "control-label"
-          = form.select :district, District.names.map { |name| [t(name, scope: "users.districts"), name] }, { include_blank: 'Bitte auswählen' }, { class: "form-control", required: true }
+          = form.select :district, District.all.map { |district| [district.display_name, district.name] }, { include_blank: 'Bitte auswählen' }, { class: "form-control", required: true }
 
           small.help-block Die Stadt wird für die Auswahl der jeweilig zuständigen Stelle genutzt und kann bei neuen Meldungen umgeschaltet werden.
 
