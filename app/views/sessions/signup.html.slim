@@ -6,15 +6,18 @@
         legend= t('sessions.enter_data')
 
       .well.well-sm.callout
-        | Der Spitzname wird für die Veröffentlichung der Anzeigen im öffentlichen Profil verwendet.
+        | Der Spitzname wird für die Veröffentlichung der Anzeigen im öffentlichen Profil verwendet. Die E-Mail-Adresse wird für den Kontakt zum Ordnungsamt genutzt, dafür kann auch optional die Telefonnummer hinterlegt werden.
 
   .row.spacer-large
-    .col-lg-6
+    .col-lg-4
       = form.label :nickname, class: "control-label"
       = form.text_field :nickname, class: "form-control", required: true
-    .col-lg-6
+    .col-lg-4
       = form.label :email, class: "control-label"
       = form.text_field :email, placeholder: 'z.B. me@example.com', class: "form-control", required: true
+    .col-lg-4
+      = form.label :email, class: "control-label"
+      = form.text_field :email, placeholder: 'z.B. 040 600 90 76 98', class: "form-control"
 
   .row
     .col-lg-12

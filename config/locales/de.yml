@@ -17,9 +17,11 @@ de:
         name: 'Name'
         address: 'Anschrift'
         email: 'E-Mail'
+        phone: 'Telefon'
         district: 'Stadt'
       notice:
         created_at: 'Erstellt'
+        district: 'Stadt'
         photos: 'Beweisfotos'
         address: 'Adresse'
         registration: 'Kennzeichen'
@@ -35,7 +37,6 @@ de:
         parked: 'Geparkt'
         parked_long: 'Lang Geparkt'
         hinder: 'Behinderung'
-        recipients: 'Empfänger'
         incomplete: 'unvollständig'
         status: 'Status'
         open: 'offen'
@@ -117,7 +118,9 @@ de:
   users:
     statistics:
       all: 'Meldungen insgesamt'
-      incomplete: 'Offene Meldungen'
+      incomplete: 'Unvollständige Meldungen'
+      complete: 'Vollständige Meldungen'
+      open: 'Offene Meldungen'
       shared: 'Erstattete Anzeigen'
       photos: 'Geknipste Fotos'
       users: 'Aktive Benutzer'
@@ -224,7 +227,7 @@ de:
 
     callouts:
       send_email:
-        hint: 'Erstatte die Anzeige direkt per E-Mail, Du erhältst eine Kopie per CC.'
+        hint: 'Erstatte die Anzeige direkt per E-Mail, Du erhältst eine Kopie in CC.'
         title: 'Anzeige per E-Mail'
         text: 'Inzwischen ist es fast überall möglich Anzeige per E-Mail zu erstatten, manche Bundesländer bieten sogar eigene Portale an, <a href="https://www.test.de/Gewusst-wie-Online-Anzeige-erstatten-5003664-0/" target="_blank">eine Liste findet sich hier</a>.'
       copy_link:

@@ -28,7 +28,7 @@ describe NoticesController do
       @params = {
         id: @notice.to_param,
         notice: {
-          recipients: "hanno@nym.de",
+          disrict: "hamburg",
         },
       }
 

@@ -13,7 +13,17 @@
         = render 'details', notice: @notice
 
       .col-lg-4
-        = render 'photos', notice: @notice
+        = render 'photos', notice: @notice, publicly: true
+
+    hr.spacer
+
+    .row
+      .col-lg-6
+        = button_tag title: t('notices.copy_to_clipboard'), class: "btn btn-default btn-block", onclick: "event.preventDefault(); copyToClipboard('#{t('notices.copy_hint')}', '#{public_charge_url(@notice)}')" do
+          span.glyphicon.glyphicon-list-alt>
+          span Link zur Meldung kopieren
+      .col-lg-6
+        = render 'callout', section: 'notices', key: 'copy_link'
 
   .panel-footer
     = render 'actions', notice: @notice

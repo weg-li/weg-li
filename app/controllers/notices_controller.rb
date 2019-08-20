@@ -75,22 +75,24 @@ class NoticesController < ApplicationController
 
   def share
     @notice = current_user.notices.from_param(params[:id])
-    @notice.recipients = current_user.district.email
+    @notice.district = current_user.district
 
-    @mail = NoticeMailer.charge(current_user, @notice.recipients, @notice)
+    @mail = NoticeMailer.charge(current_user, @notice)
   end
 
   def mail
     @notice = current_user.notices.from_param(params[:id])
     @notice.assign_attributes(mail_params)
 
-    if @notice.recipients.present?
-      NoticeMailer.charge(current_user, @notice).deliver
-      @notice.update! status: :shared
+    if @notice.district.present?
+      @notice.status = :shared
+      @notice.save!
 
-      redirect_to(notices_path, notice: t('notices.sent_via_email', recepients: @notice.recipients))
+      NoticeMailer.charge(current_user, @notice).deliver_later
+
+      redirect_to(notices_path, notice: t('notices.sent_via_email', recepients: @notice.district.email))
     else
-      @notice.errors.add(:recipients, :blank)
+      @notice.errors.add(:district, :blank)
       render :share
     end
   end
@@ -177,6 +179,6 @@ class NoticesController < ApplicationController
   end
 
   def mail_params
-    params.require(:notice).permit(:recipients)
+    params.require(:notice).permit(:district)
   end
 end

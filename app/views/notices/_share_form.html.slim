@@ -1,22 +1,12 @@
 .row
   .col-lg-6
     .input-group
-      = form.select :recipients, District.all.map { |district| ["#{district.display_name} (#{district.email})", district.email] }, { include_blank: 'Tippen zum Auswählen' }, { class: "form-control" }
+      = form.select :district, District.all.map { |district| ["#{district.display_name} (#{district.email})", district.name] }, { include_blank: 'Tippen zum Auswählen' }, { class: "form-control" }
       span.input-group-btn
         = button_tag class: "btn btn-success" do
           span.glyphicon.glyphicon-send>
-          span als E-Mail versenden
+          span Anzeige erstatten
     small.help-block Diese E-Mail-Adresse wurde automatisch für die in #{link_to('Deinem Profil', edit_user_path(current_user))} hinterlegte Stadt vorausgewählt.
 
   .col-lg-6
     = render 'callout', section: 'notices', key: 'send_email'
-
-hr.spacer
-
-.row
-  .col-lg-6
-    = button_tag title: t('notices.copy_to_clipboard'), class: "btn btn-default btn-block", onclick: "event.preventDefault(); copyToClipboard('#{t('notices.copy_hint')}', '#{public_charge_url(notice)}')" do
-      span.glyphicon.glyphicon-list-alt>
-      span Link zur Meldung kopieren
-  .col-lg-6
-    = render 'callout', section: 'notices', key: 'copy_link'

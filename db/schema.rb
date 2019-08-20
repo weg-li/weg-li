@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_06_133759) do
+ActiveRecord::Schema.define(version: 2019_08_20_181249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 2019_08_06_133759) do
     t.float "longitude"
     t.boolean "incomplete", default: false, null: false
     t.string "note"
+    t.string "district", default: "hamburg", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -89,6 +90,9 @@ ActiveRecord::Schema.define(version: 2019_08_06_133759) do
     t.string "name"
     t.string "address"
     t.string "district", default: "hamburg", null: false
+    t.string "phone"
+    t.float "latitude"
+    t.float "longitude"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
