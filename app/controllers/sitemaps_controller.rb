@@ -5,6 +5,7 @@ class SitemapsController < ApplicationController
     @urls = [
       root_url,
       faq_url,
+      map_url,
       blog_url,
     ] + Article.active.map { |article| article_url(article) }
 
