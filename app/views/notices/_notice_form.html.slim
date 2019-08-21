@@ -17,11 +17,19 @@
               h4.modal-title Adresse auswählen
             .modal-body
               .well.well-sm.callout
-                p Den Marker einfach an die entsprechende Stelle ziehen, die Adresse wird dann automatisch ausgefüllt.
-              = render('picker_map', notice: notice, target: '#notice_address')
-
+                p Den Marker einfach an die entsprechende Stelle ziehen, oder den aktuellen Standort verwenden, die Adresse wird dann automatisch ausgefüllt.
+              = render('picker_map', notice: notice, target: '#notice_address', trigger: '#geolocation')
             .modal-footer
-              button type="button" class="btn btn-sm btn-default" data-dismiss="modal" Schließen
+              = button_tag type: :button, class: "btn btn-default", id: 'geolocation' do
+                span.glyphicon.glyphicon-map-marker>
+                | Aktuellen Standort verwenden
+
+              button type="button" class="btn btn-default" data-dismiss="modal" Schließen
+    small.help-text
+      |
+        Leider #{link_to('entfernen manche iOS Geräte beim Hochladen die Metadaten', 'https://apple.stackexchange.com/questions/326789/gps-exif-from-iphone-photo-upload-in-safari', target: '_blank')},
+        die für die Standort-Ermittlung benötigt werden.
+        Bei der Analyse wird dann keine Adresse ermittelt.
 
 .row
   .col-lg-12
