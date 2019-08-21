@@ -27,7 +27,13 @@ module UserHandling
     current_user == user
   end
 
+  def alias_user
+    @alias_user ||= find_by_alias
+  end
+
   def current_user
+    return alias_user if alias_user.present?
+
     @current_user ||= find_by_session_or_cookies
     sign_in(@current_user) if @current_user.present?
     @current_user
@@ -35,6 +41,10 @@ module UserHandling
 
   def find_by_session_or_cookies
     User.find_by_id(session[:user_id]) || User.authenticated_with_token(*remember_me)
+  end
+
+  def find_by_alias
+    User.find_by_id(session[:alias_id])
   end
 
   def remember_me
@@ -45,6 +55,10 @@ module UserHandling
     !!current_user
   end
 
+  def signed_in_alias?
+    !!alias_user
+  end
+
   def current_user=(user)
     @current_user = user
     session[:user_id] = user.id
@@ -52,8 +66,18 @@ module UserHandling
   end
   alias_method :sign_in, :current_user=
 
+  def alias_user=(user)
+    @alias_user = user
+    session[:alias_id] = user.id
+  end
+  alias_method :sign_in_alias, :alias_user=
+
   def sign_out
     session.destroy
     cookies.delete(:remember_me)
+  end
+
+  def sign_out_alias
+    session.delete(:alias_id)
   end
 end

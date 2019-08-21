@@ -30,6 +30,12 @@ class SessionsController < ApplicationController
     redirect_to root_path, notice: flash[:notice] || t('sessions.bye')
   end
 
+  def destroy_alias
+    sign_out_alias if signed_in_alias?
+
+    redirect_to root_path, notice: flash[:notice] || t('sessions.bye')
+  end
+
   def failure
     Rails.logger.warn("oauth failed: #{params[:message]}")
     redirect_to root_path, alert: "#{t('sessions.ups_something_went_wrong')} (#{params[:message]})"

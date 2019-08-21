@@ -5,7 +5,9 @@ Rails.application.routes.draw do
     resources :articles
     resources :authorizations
     resources :notices
-    resources :users
+    resources :users do
+      post :login
+    end
 
     root to: "notices#index"
   end
@@ -45,6 +47,7 @@ Rails.application.routes.draw do
     get  '/offline_login/:nickname', to: 'sessions#offline_login' if Rails.env.development?
     get  '/:provider/callback',      to: 'sessions#create',     as: :provider_callback
     get  '/failure',                 to: 'sessions#failure'
+    get  '/destroy_alias_session',   to: 'sessions#destroy_alias',    as: :logout_alias
     get  '/destroy_session',         to: 'sessions#destroy',    as: :logout
     get  '/validation/:token',       to: 'sessions#validation', as: :validation
     get  '/signup',                  to: 'sessions#signup',     as: :signup

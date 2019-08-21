@@ -55,6 +55,11 @@
             = link_to logout_path, title: t('navigation.logout') do
               span.glyphicon.glyphicon-log-out.small>
               = t('navigation.logout')
+          - if signed_in_alias?
+            li(data-no-turbolink)
+              = link_to logout_alias_path, title: t('navigation.logout') do
+                span.glyphicon.glyphicon-log-out.small>
+                | Logout Alias
         - else
           li.dropdown(data-turbolinks="false")
             a class="dropdown-toggle" data-toggle="dropdown" href="#" id="login" title="Login"
