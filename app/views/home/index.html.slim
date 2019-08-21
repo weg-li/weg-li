@@ -83,8 +83,18 @@ hr.spacer-large
           .progress-bar.progress-bar-warning(style="width: #{[100, current / (goal / 100)].min}%")
 
       li.list-group-item
+        - goal = 400 * 5
+        - statistics = Notice.statistics(Time.zone.today.beginning_of_month)
+        - current = statistics[:shared]
         p
           strong> Jahresziel:
+          span #{current} von #{goal} Anzeigen erstattet
+        .progress.progress-striped.active
+          .progress-bar.progress-bar-info(style="width: #{[100, current / (goal / 100)].min}%")
+
+      li.list-group-item
+        p
+          strong> Ziellinie:
           span Freie Radwege und Bürgersteige!
         .progress.progress-striped.active
           #total-progress.progress-bar.progress-bar-success(style="width: 5%")

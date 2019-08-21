@@ -16,13 +16,13 @@
       = form.label :email, class: "control-label"
       = form.text_field :email, placeholder: 'z.B. me@example.com', class: "form-control", required: true
     .col-lg-4
-      = form.label :email, class: "control-label"
-      = form.text_field :email, placeholder: 'z.B. 040 600 90 76 98', class: "form-control"
+      = form.label :phone, class: "control-label"
+      = form.text_field :phone, placeholder: 'z.B. 040 600 90 76 98', class: "form-control"
 
   .row
     .col-lg-12
       .well.well-sm.callout
-        | Name und Anschrift werden beim Erstatten von Anzeigen als Zeugen-Adresse verwendet. Die Behörden verfolgen nur Anzeigen mit vollständiger ladungsfähiger Anschrift, anonyme Anzeigen werden verworfen. Die Stadt wird für die Standard-Auswahl der jeweilig zuständigen Stelle bei der Erstattung von Anzeigen genutzt und kann im Profil geändert werden.
+        | Name und Anschrift werden beim Erstatten von Anzeigen als Zeugen-Adresse verwendet. Die Behörden verfolgen nur Anzeigen mit vollständiger ladungsfähiger Anschrift, anonyme Anzeigen werden verworfen. Der Bezirk wird für die Standard-Auswahl der jeweilig zuständigen Stelle bei der Erstattung von Anzeigen genutzt und kann im Profil geändert werden.
 
   .row
     .col-lg-4
@@ -36,6 +36,7 @@
     .col-lg-4
       = form.label :district, class: "control-label"
       = form.select :district, District.all.map { |district| [district.display_name, district.name] }, { include_blank: 'Bitte auswählen' }, { class: "form-control", required: true }
+      small.help-text Dein Bezirk fehlt? Schreibe an #{mail_to('peter@weg-li.de')} wo Du testen willst.
 
   hr.spacer
   .row

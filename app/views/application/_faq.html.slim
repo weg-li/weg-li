@@ -64,12 +64,12 @@
     panel-collapse.collapse id="collapse-#{i}"
       .panel-body
         p
-          | Derzeit ist die weg-li &beta;eta nur in einigen Städten nutzbar, da noch nicht alle relevanten Daten hinterlegt sind:
+          | Derzeit ist die weg-li &beta;eta noch nicht in allen Verwaltungsbezirken nutzbar. Für die nachfolgenden Bezirke sind schon alle Informationen hinterlegt:
           ul.list-inline
             - District.all.each do |district|
               li= district.display_name
         p
-          | Wenn noch eine Stadt fehlt, dann schreib gerne an #{mail_to 'peter@weg-li.de'} und teile uns mit, wo genau Du testen möchtest. Vielleicht hast Du auch schon die zuständige Stelle und deren E-Mail Adresse parat?
+          | Wenn noch Dein Bezirk fehlt, dann schreib gerne an #{mail_to 'peter@weg-li.de'} und teile uns mit, wo genau Du testen möchtest. Vielleicht hast Du auch schon die zuständige Stelle und deren E-Mail Adresse parat?
 
     - i += 1
     a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}"
@@ -94,7 +94,7 @@
       .panel-body
         p
           |
-            Wie Anzeigen per E-Mail behandelt werden, ist von Stadt zu Stadt unterschiedlich.
+            Wie Anzeigen per E-Mail behandelt werden, ist von Bezirk zu Bezirk unterschiedlich.
             In Hamburg bekommt man initial eine Art "Eingangsbestätigung" mit der folgenden Passage:
         blockquote.small Auskünfte zur weiteren Bearbeitung Ihrer Anzeige werden aus datenschutzrechtlichen Gründen nicht erteilt.
         p Transparenz sieht anders aus ...

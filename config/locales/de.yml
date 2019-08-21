@@ -18,10 +18,10 @@ de:
         address: 'Anschrift'
         email: 'E-Mail'
         phone: 'Telefon'
-        district: 'Stadt'
+        district: 'Bezirk'
       notice:
         created_at: 'Erstellt'
-        district: 'Stadt'
+        district: 'Bezirk'
         photos: 'Beweisfotos'
         address: 'Adresse'
         registration: 'Kennzeichen'
@@ -125,6 +125,7 @@ de:
       photos: 'Geknipste Fotos'
       users: 'Aktive Benutzer'
       all_users: 'Benutzer insgesamt'
+      districts: 'Unterstützte Bezirke'
     districts:
       berlin: 'Berlin'
       bochum: 'Bochum'
@@ -217,7 +218,7 @@ de:
     steps:
       photos:
         title: erfassen
-        description: Mache ein oder mehrere Beweisfotos, die den Verstoß dokumentieren, und lade sie hoch. Das Fabrikat und das Nummernschild sollten auf den Fotos gut zu erkennen sein. Vermeide es möglichst, Fotos mit Passanten und Kennzeichen unbeteiligter Fahrzeuge zu machen.
+        description: Mache ein oder mehrere Beweisfotos, die den Verstoß klar dokumentieren, und lade sie hoch. Das Fabrikat und das Nummernschild sollten auf den Fotos gut zu erkennen sein. Erstelle eine neue Meldung pro Fahrzeug und vermeide es möglichst, Fotos mit Passanten und Kennzeichen Unbeteiligter zu machen.
       infos:
         title: beschreiben
         description: Um mit Hilfe der Meldung eine Anzeige zu erstatten, werden noch zusätzliche Informationen benötigt. Neben Zeit und Ort des Verstoßes müssen auch noch Details zum Fahrzeug angegeben werden. Diese Informationen werden soweit möglich automatisch aus den Beweisfotos ermittelt.
