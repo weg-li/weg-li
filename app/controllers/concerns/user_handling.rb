@@ -23,6 +23,10 @@ module UserHandling
     end
   end
 
+  def admin?
+    session_user.admin?
+  end
+
   def current_user?
     current_user == user
   end
@@ -31,11 +35,15 @@ module UserHandling
     @alias_user ||= find_by_alias
   end
 
+  def session_user
+    @session_user ||= find_by_session_or_cookies
+  end
+
   def current_user
     return alias_user if alias_user.present?
 
-    @current_user ||= find_by_session_or_cookies
-    sign_in(@current_user) if @current_user.present?
+    sign_in(session_user) if session_user.present?
+
     @current_user
   end
 

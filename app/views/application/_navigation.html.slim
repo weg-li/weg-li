@@ -26,7 +26,7 @@
                   span.glyphicon.glyphicon-plus.smaller>
                   span.margin-left-small= t('navigation.draft')
 
-        - if signed_in? && current_user.admin?
+        - if signed_in? && admin?
           li
             = link_to 'Styleguide', styleguide_path
 
