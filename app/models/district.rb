@@ -4,6 +4,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
   BONN = District.new('bonn', 'stvo@bonn.de', 14, 50.735, 7.098)
   BREMEN = District.new('bremen', 'bussgeldstelle@ordnungsamt.bremen.de', 13, 53.078, 8.797)
   BUXTEHUDE = District.new('buxtehude', 'fg32@stadt.buxtehude.de', 15, 53.465, 9.687)
+  DARMSTADT = District.new('darmstadt', 'buergerordnungsamt@darmstadt.de', 15, 49.871, 8.652)
   DORTMUND = District.new('dortmund', 'fremdanzeigen.verkehrsueberwachung@stadtdo.de', 13, 51.513, 7.460)
   DUESSELDORF = District.new('duesseldorf', 'bussgeldstelle@duesseldorf.de', 13, 51.219, 6.778)
   FRANKFURT = District.new('frankfurt', 'owi.datenerfassung.amt32@stadt-frankfurt.de', 12, 50.109, 8.675)
@@ -11,6 +12,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
   HAMBURG = District.new('hamburg', 'anzeigenbussgeldstelle@eza.hamburg.de', 12, 53.56544, 9.95947)
   HANNOVER = District.new('hannover', '32.41@hannover-stadt.de', 13, 52.374, 9.734)
   HANNOVER_REGION = District.new('hannover_region', 'verkehrsowi@region-hannover.de', 11, 52.374, 9.734)
+  HESSEN_REGION = District.new('hessen_region', 'post@zbs.hessen.de', 10, 50.430, 8.849)
   HILDEN = District.new('hilden', 'ordnungsamt@hilden.de', 15, 51.169, 6.932)
   HERNE = District.new('herne', 'ordnungsamt@herne.de', 13, 51.537, 7.195)
   KIEL = District.new('kiel', 'ad-bussgeldstelle@kiel.de', 13, 54.319, 10.118)
@@ -28,12 +30,14 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
     BONN,
     BREMEN,
     BUXTEHUDE,
+    DARMSTADT,
     DORTMUND,
     DUESSELDORF,
     FRANKFURT,
     HAMBURG,
     HANNOVER,
     HANNOVER_REGION,
+    HESSEN_REGION,
     HILDEN,
     HERNE,
     KIEL,
