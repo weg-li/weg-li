@@ -22,6 +22,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
   LUENEBURG = District.new('lueneburg', 'bussgeldstelle@landkreis.lueneburg.de', 14, 53.249, 10.403)
   MUENCHEN = District.new('muenchen', 'verkehrsueberwachung.kvr@muenchen.de', 13, 48.133, 11.565)
   MUENSTER = District.new('muenster', 'kod@stadt-muenster.de', 14, 51.961, 7.622)
+  NEUSS = District.new('neuss', 'verkehrslenkung@stadt.neuss.de', 15, 51.198, 6.690)
   TUEBINGEN = District.new('tuebingen', 'verkehrsabteilung@tuebingen.de', 15, 48.520, 9.053)
 
   ALL = [
@@ -46,6 +47,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
     LUENEBURG,
     MUENCHEN,
     MUENSTER,
+    NEUSS,
     TUEBINGEN,
   ]
 
