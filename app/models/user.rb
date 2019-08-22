@@ -45,6 +45,10 @@ class User < ActiveRecord::Base
     latitude? && longitude?
   end
 
+  def wegli_email
+    "#{nickname.parameterize}+#{token}@anzeige.weg-li.de"
+  end
+
   def map_data
     return district.map_data unless coordinates?
 

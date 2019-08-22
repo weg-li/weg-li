@@ -41,18 +41,23 @@ Das Fahrzeug behindert andere Verkehrsteilnehmer.
 <% end %>
 
 
-Ich stelle mich als Zeuge zur Verfügung und bin damit einverstanden, als Zeuge benannt zu werden.
-
 Ladungsfähige Anschrift: <%= @user.name %>, <%= @user.address %>
+
+E-Mail Adresse: <%= @user.email %>
 <% if @user.phone? %>
 
 Telefonnummer für Rückfragen: <%= @user.phone %>
 <% end %>
 
 
-Bitte bestätigen Sie kurz Ihre Zuständigkeit und den Erhalt der E-Mail durch eine Antwort an mich.
+Meine oben gemachten Angaben einschließlich meiner Personalien sind zutreffend und vollständig.
+Mir ist bewusst, dass ich als Zeuge zur wahrheitsgemäßen Aussage und auch zu einem möglichen Erscheinen vor Gericht verpflichtet bin.
+Vorsätzlich falsche Angaben zu angeblichen Ordnungswidrigkeiten können eine Straftat darstellen.
+
+
+Bitte bestätigen Sie kurz Ihre Zuständigkeit und den Erhalt dieser E-Mail durch eine Antwort an <%= @user.email %>.
 Falls Sie nicht zuständig sein sollten, leiten Sie bitte meine E-Mail weiter und setzen mich dabei in CC.
-Dabei dürfen Sie gerne die persönlichen Daten weiterleiten.
+Dabei dürfen Sie auch meine persönlichen Daten weiterleiten und für die Dauer des Verfahrens speichern.
 
 
 Im Anhang befinden sich die Beweisfotos.
