@@ -29,9 +29,15 @@
     .row
       .col-lg-4
         - if @notice.analyzing?
+          .progress.progress-striped.active
+            #total-progress.progress-bar.progress-bar-success(style="width: 5%")
+
           = link_to url_for, class: 'btn btn-success btn-block' do
             span.glyphicon.glyphicon-repeat.smaller>
-            span kurz warten und dann aktualisieren
+            span#analyze-progress kurz warten und dann aktualisieren
+          javascript:
+            setInterval(function(element) { element.style.width = Math.min(100, (parseInt(element.style.width) + 25)) + '%' }, 1000, document.getElementById('total-progress'));
+
         - else
           = link_to [:analyze, @notice], method: :patch, class: 'btn btn-success btn-block' do
             span.glyphicon.glyphicon-hourglass>
