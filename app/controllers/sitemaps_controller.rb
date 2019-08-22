@@ -1,6 +1,4 @@
 class SitemapsController < ApplicationController
-  respond_to :xml
-
   def show
     @urls = [
       root_url,
@@ -9,6 +7,9 @@ class SitemapsController < ApplicationController
       blog_url,
     ] + Article.active.map { |article| article_url(article) }
 
-    respond_with(@urls)
+
+    respond_to do |format|
+      format.xml { render xml: @urls }
+    end
   end
 end

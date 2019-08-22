@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 ruby '2.6.3'
 
 gem 'rails', '5.2.3'
-gem 'responders'
 gem 'puma'
 gem 'sass-rails'
 gem 'jquery-rails'

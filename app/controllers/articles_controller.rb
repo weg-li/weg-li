@@ -3,9 +3,9 @@ class ArticlesController < ApplicationController
     @articles = search_scope
     @facets   = Article.facets
 
-    respond_to do |wants|
-      wants.html
-      wants.rss
+    respond_to do |format|
+      format.html
+      format.rss
     end
   end
 
