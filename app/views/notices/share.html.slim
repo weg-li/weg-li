@@ -8,9 +8,7 @@
     .well.well-sm.callout
       p
         |
-          Alle Informationen und Beweisfotos sind nun erfasst, eine Anzeige kann direkt per E-Mail beim Ordnungsamt bzw. der Polizei erstattet werden.
-          Ist eine Anzeige einmal erstattet worden, so wird sie verfolgt und kann nicht wieder zurückgenommen werden.
-          Anzeigen sollten also niemals leichtfertig und nur mit begründetem Verdacht gemeldet werden.
+          Kontrolliere die erfassten Informationen und Beweisfotos in der Vorschau. Danach kann die Anzeige direkt per E-Mail beim Ordnungsamt erstattet werden.
 
 .row
   .col-lg-12
@@ -20,9 +18,15 @@
 
 .row
   .col-lg-12
-    = render 'photos', notice: @notice
+    = render 'photos', notice: @notice, publicly: true
 
-hr
+.row
+  .col-lg-12
+    .well.well-sm.callout
+      p
+        |
+          Ist eine Anzeige einmal erstattet worden, so wird sie verfolgt und kann nicht wieder zurückgenommen werden.
+          Anzeigen sollten niemals leichtfertig und nur mit begründetem Verdacht gemeldet werden.
 
 = form_errors @notice
 = form_for @notice, url: mail_notice_path(@notice), html: {class: "form-horizontal"} do |form|

@@ -23,8 +23,6 @@ class Notice < ActiveRecord::Base
   scope :since, -> (date) { where('notices.created_at > ?', date) }
   scope :for_public, -> () { where.not(status: :disabled) }
 
-  attr_accessor :recipients
-
   def self.from_param(token)
     find_by_token!(token)
   end
@@ -37,6 +35,7 @@ class Notice < ActiveRecord::Base
       shared: since(date).shared.count,
       users: User.where(id: since(date).pluck(:user_id)).count,
       all_users: User.since(date).count,
+      districts: District.all.size,
     }
   end
 
@@ -44,6 +43,14 @@ class Notice < ActiveRecord::Base
     self.status = :analyzing
     save_incomplete!
     AnalyzerJob.perform_later(self)
+  end
+
+  def district=(district)
+    self[:district] = district.to_s
+  end
+
+  def district
+    District.by_name(self[:district])
   end
 
   def coordinates?

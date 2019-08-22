@@ -9,15 +9,6 @@
           button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal_#{dom_id(photo)}"
             span.glyphicon.glyphicon-eye-open
 
-          - unless publicly
-            = link_to(rails_blob_path(photo, disposition: "attachment"), class: 'btn btn-default', title: 'herunterladen')
-              span.glyphicon.glyphicon-download
-            = link_to(purge_notice_path(notice, photo_id: photo.id), method: :patch, remote: true, data: {confirm: t('notices.confirm')}, class: 'btn btn-default', title: 'löschen')
-              span.glyphicon.glyphicon-trash
-            - if current_user.admin?
-              = link_to(inspect_notice_path(notice, photo_id: photo.id), class: 'btn btn-default', title: 'inspect')
-                span.glyphicon.glyphicon-flash
-
       .modal.fade id="modal_#{dom_id(photo)}" tabindex="-1" role="dialog"
         .modal-dialog
           .modal-content
@@ -30,9 +21,12 @@
               span.zoom(style="position: relative; overflow: hidden; display: inline-block;")
                 = image_tag(url_for(photo.variant(resize: "1000x1000", auto_orient: true).processed), class: 'modal-photo')
             .modal-footer
+              - if admin?
+                = link_to(inspect_notice_path(notice, photo_id: photo.id), class: 'btn btn-default', title: 'inspect') do
+                  span.glyphicon.glyphicon-flash
               - unless publicly
-                = link_to(rails_blob_path(photo, disposition: "attachment"), class: 'btn btn-sm btn-default', title: 'herunterladen')
-                  span.glyphicon.glyphicon-download
-                = link_to(purge_notice_path(notice, photo_id: photo.id), method: :patch, remote: true, data: {confirm: t('notices.confirm')}, class: 'btn btn-sm btn-default', title: 'löschen')
+                = link_to(purge_notice_path(notice, photo_id: photo.id), method: :patch, remote: true, data: {confirm: t('notices.confirm')}, class: 'btn btn-default', title: 'löschen') do
                   span.glyphicon.glyphicon-trash
-              button type="button" class="btn btn-sm btn-default" data-dismiss="modal" Schließen
+              = link_to(rails_blob_path(photo, disposition: "attachment"), class: 'btn btn-default', title: 'herunterladen') do
+                span.glyphicon.glyphicon-download
+              button type="button" class="btn btn-default" data-dismiss="modal" Schließen

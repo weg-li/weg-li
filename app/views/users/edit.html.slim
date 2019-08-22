@@ -54,8 +54,13 @@
 
           small.help-block Name und Anschrift werden beim Erstatten von Anzeigen als Zeugen-Adresse verwendet.
 
+          = form.label :phone, class: "control-label"
+          = form.text_field :phone, class: "form-control", required: true, placeholder: 'z.B. 040 600 90 76 98'
+
+          small.help-block Ist eine Telefonnummer vorhanden, dann wird diese für Rückfragen mit angegeben.
+
           = form.label :district, class: "control-label"
-          = form.select :district, District.names.map { |name| [t(name, scope: "users.districts"), name] }, { include_blank: 'Bitte auswählen' }, { class: "form-control", required: true }
+          = form.select :district, District.all.map { |district| [district.display_name, district.name] }, { include_blank: 'Bitte auswählen' }, { class: "form-control", required: true }
 
           small.help-block Der Bezirk wird für die Auswahl der jeweilig zuständigen Stelle genutzt und kann bei neuen Meldungen umgeschaltet werden.
 

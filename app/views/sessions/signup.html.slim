@@ -6,15 +6,18 @@
         legend= t('sessions.enter_data')
 
       .well.well-sm.callout
-        | Der Spitzname wird für die Veröffentlichung der Anzeigen im öffentlichen Profil verwendet.
+        | Der Spitzname wird für die Veröffentlichung der Anzeigen im öffentlichen Profil verwendet. Die E-Mail-Adresse wird für den Kontakt zum Ordnungsamt genutzt, dafür kann auch optional die Telefonnummer hinterlegt werden.
 
   .row.spacer-large
-    .col-lg-6
+    .col-lg-4
       = form.label :nickname, class: "control-label"
       = form.text_field :nickname, class: "form-control", required: true
-    .col-lg-6
+    .col-lg-4
       = form.label :email, class: "control-label"
       = form.text_field :email, placeholder: 'z.B. me@example.com', class: "form-control", required: true
+    .col-lg-4
+      = form.label :phone, class: "control-label"
+      = form.text_field :phone, placeholder: 'z.B. 040 600 90 76 98', class: "form-control"
 
   .row
     .col-lg-12
@@ -32,7 +35,8 @@
       small.help-text Anzeigen benötigen eine vollständige Anschrift mit PLZ & Ort
     .col-lg-4
       = form.label :district, class: "control-label"
-      = form.select :district, District.names.map { |name| [t(name, scope: "users.districts"), name] }, { include_blank: 'Bitte auswählen' }, { class: "form-control", required: true }
+      = form.select :district, District.all.map { |district| [district.display_name, district.name] }, { include_blank: 'Bitte auswählen' }, { class: "form-control", required: true }
+      small.help-text Dein Bezirk fehlt? Schreibe an #{mail_to('peter@weg-li.de')} wo Du testen willst.
 
   hr.spacer
   .row

@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
 
   enum access: {user: 0, admin: 42}
 
+  geocoded_by :address
+  after_validation :geocode
   before_validation :defaults
 
   has_many :notices, -> { order('created_at DESC') }, dependent: :destroy
@@ -39,10 +41,28 @@ class User < ActiveRecord::Base
     "#{nickname} (#{email})"
   end
 
+  def coordinates?
+    latitude? && longitude?
+  end
+
+  def wegli_email
+    "#{nickname.parameterize}+#{token}@anzeige.weg-li.de"
+  end
+
+  def map_data
+    return district.map_data unless coordinates?
+
+    {
+      latitude: latitude,
+      longitude: longitude,
+    }
+  end
+
   def statistics
     {
       all: notices.count,
       incomplete: notices.incomplete.count,
+      open: notices.open.count,
       shared: notices.shared.count,
     }
   end

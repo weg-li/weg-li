@@ -4,6 +4,7 @@ class SessionsController < ApplicationController
 
   def create
     auth = request.env['omniauth.auth'].slice('provider', 'uid', 'info')
+    Rails.logger.info(auth)
     if authorization = Authorization.find_by_provider_and_uid(auth['provider'], auth['uid'])
       sign_in(authorization.user)
       redirect_to notices_path, notice: t('sessions.welcome_back', nickname: authorization.user.name)
@@ -30,8 +31,15 @@ class SessionsController < ApplicationController
     redirect_to root_path, notice: flash[:notice] || t('sessions.bye')
   end
 
+  def destroy_alias
+    sign_out_alias if signed_in_alias?
+
+    redirect_to root_path, notice: flash[:notice] || t('sessions.bye')
+  end
+
   def failure
-    redirect_to root_path, alert: t('sessions.ups_something_went_wrong')
+    Rails.logger.warn("oauth failed: #{params[:message]}")
+    redirect_to root_path, alert: "#{t('sessions.ups_something_went_wrong')} (#{params[:message]})"
   end
 
   def offline_login

@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-  helper_method :signed_in?, :current_user
+  helper_method :signed_in_alias?, :signed_in?, :admin?, :current_user
 
   private
 
