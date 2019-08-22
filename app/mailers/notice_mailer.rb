@@ -11,6 +11,6 @@ class NoticeMailer < ActionMailer::Base
     end
 
     subject = "Anzeige #{@notice.registration} #{@notice.charge}"
-    mail to: notice.district.email, cc: user.email, subject: subject, reply_to: user.email, from: user.wegli_email
+    mail subject: subject, to: notice.district.email, cc: "#{user.name} <#{user.email}>", reply_to: "#{user.name} <#{user.email}>", from: "#{user.name} <#{user.wegli_email}>"
   end
 end
