@@ -149,6 +149,7 @@ de:
       muenchen: 'München'
       muenster: 'Münster'
       neuss: 'Neuss'
+      nuernberg: 'Nürnberg'
       tuebingen: 'Tübingen'
     confirmation_mail: "Eine Bestätigungs-Mail wurde an %{email} versendet."
     profile_updated_and_confirmation_email: 'Dein Profil wurde aktualisiert und eine Bestätigungs-Mail wurde an Deine E-Mail Adresse versendet!'
