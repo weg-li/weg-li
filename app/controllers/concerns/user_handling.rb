@@ -24,7 +24,7 @@ module UserHandling
   end
 
   def admin?
-    session_user.admin?
+    session_user&.admin?
   end
 
   def current_user?
