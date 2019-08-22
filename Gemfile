@@ -23,7 +23,7 @@ gem 'pg'
 gem 'redcarpet'
 gem 'geocoder'
 gem 'google-cloud-vision'
-gem "google-cloud-storage", "~> 1.8", require: false
+gem 'google-cloud-storage', '~> 1.8', require: false
 gem 'mini_magick'
 gem 'color'
 gem 'administrate'
