@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PublicController do
+describe "public", type: :request do
   before do
     @notice = Fabricate(:notice)
     @user = @notice.user
@@ -8,19 +8,19 @@ describe PublicController do
 
   context "GET :charge" do
     it "shows the notice form and registers an opening" do
-      get :charge, params: {token: @notice.token}
+      get public_charge_path(token: @notice.token)
 
       expect(response).to be_successful
-      expect(assigns[:notice]).to eql(@notice)
+      assert_select('.panel-heading', "Anzeige: #{@notice.charge}")
     end
   end
 
   context "GET :profile" do
     it "shows the notice form and registers an opening" do
-      get :profile, params: {token: @user.token}
+      get public_profile_path(token: @user.token)
 
       expect(response).to be_successful
-      expect(assigns[:user]).to eql(@user)
+      assert_select('h3', "#{@user.nickname} in #{@user.district.display_name}")
     end
   end
 end
