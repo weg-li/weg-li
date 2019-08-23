@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^3.4.1",
     "bootstrap-fileinput": "^5.0.4",
     "jquery-zoom": "^1.7.21",
     "vue": "^2.5.16"
