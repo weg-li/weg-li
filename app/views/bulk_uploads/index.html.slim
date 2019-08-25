@@ -1,0 +1,88 @@
+- set_title t('navigation.bulk_uploads')
+- set_crumbs t('navigation.bulk_uploads') => url_for, 'Übersicht' => url_for
+
+= render 'activation_popup'
+
+- if @bulk_uploads.present? || params[:filter]
+  = form_tag bulk_bulk_uploads_path, method: :post do
+    .panel.panel-default
+      .panel-heading
+        .row
+          .col-lg-6.hidden-xs
+            h2.panel-title Meldungen verwalten
+          .col-lg-6
+            .pull-right= link_to new_bulk_upload_path, class: 'btn btn-sm btn-success', title: 'Meldung erfassen' do
+              span.glyphicon.glyphicon-plus>
+              | Meldung erfassen
+      .table-responsive
+        table.table.table-striped.table-hover
+          thead
+            tr
+              th
+              th= bulk_upload.human_attribute_name(:photos)
+              th
+                => bulk_upload.human_attribute_name(:created_at)
+                = link_to url_for(@table_params.merge(order: {created_at: @order_created_at}))
+                  - if params[:order] && params[:order][:created_at] == 'ASC'
+                    span.glyphicon.glyphicon-arrow-up.smaller
+                  - else
+                    span.glyphicon.glyphicon-arrow-down.smaller
+              th
+                .dropdown
+                  button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+                    => params[:filter] ? bulk_upload.human_attribute_name(params[:filter][:status]) : bulk_upload.human_attribute_name(:status)
+                    span.caret
+                  ul.dropdown-menu aria-labelledby="dropdownMenu1"
+                    - @filter_status.each do |status|
+                      li
+                        = link_to url_for(@table_params.merge(filter: {status: status})) do
+                          = render 'status', status: status
+                    li role="separator" class="divider"
+                    li= link_to 'kein Filter', url_for(@table_params.merge(filter: nil))
+              th
+          tbody
+          - if @bulk_uploads.present?
+            - @bulk_uploads.each do |bulk_upload|
+              tr
+                td= check_box_tag "selected[]", bulk_upload.id, false, class: 'select-all'
+                td
+                  = link_to(bulk_upload) do
+                    - bulk_upload.photos.each do |photo|
+                      = image_tag(url_for(photo.variant(resize: "100x100", auto_orient: true).processed), class: 'index-photo')
+                td= d(bulk_upload.created_at)
+                td
+                  => render 'status', status: bulk_upload.status
+                  = render 'status', status: :incomplete if bulk_upload.incomplete?
+                td= render 'actions', bulk_upload: bulk_upload
+            tr
+              td= check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
+              td(colspan=4)
+                small
+                  label(for='select_all') Alle Meldungen auswählen
+          - else
+            tr
+              td(colspan=7)= t('bulk_uploads.nothing_found')
+      .panel-footer
+        .row
+          .col-lg-12
+            span Auswahl
+            .btn-group
+              = button_tag name: :bulk_action, value: :analyze, type: :submit, class: 'btn btn-sm btn-default' do
+                span.glyphicon.glyphicon-hourglass>
+                span analysieren
+              = button_tag name: :bulk_action, value: :share, type: :submit, class: 'btn btn-sm btn-default' do
+                span.glyphicon.glyphicon-share>
+                span melden
+              = button_tag name: :bulk_action, value: :destroy, type: :submit, class: 'btn btn-sm btn-default' do
+                span.glyphicon.glyphicon-trash>
+                span löschen
+
+  .text-center
+    = paginate @bulk_uploads
+
+  .well.well-sm
+    - (bulk_upload.statuses.keys + [:incomplete]).each do |status|
+      p= render 'status', status: status, legend: true
+
+- else
+  = render 'blank_slate'

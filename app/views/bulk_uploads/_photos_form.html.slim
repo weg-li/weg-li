@@ -1,0 +1,12 @@
+.row
+  .col-lg-12
+    .well.well-sm.callout
+      p
+        |
+          Der Upload ermöglicht es viele Beweisfotos für unterschiedliche Meldungen auf einmal hochzuladen.
+          Durch die Gruppierungsfunktion per Drag&Drop können sehr schnell viele neue Meldungen erzeugt werden.
+
+.row.spacer
+  .col-lg-12
+    = form.label :photos, class: "control-label control-label-required"
+    = form.file_field :photos, id: 'fileupload', required: true, multiple: true, direct_upload: true, class: "form-control-file text-muted", accept: 'image/tiff,image/jpeg'

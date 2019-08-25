@@ -1,0 +1,20 @@
+- set_title 'Upload gruppieren'
+- set_crumbs 'Uploads' => bulk_uploads_path, 'gruppieren' => url_for
+
+= form_with model: @bulk_upload, html: {class: "form-horizontal"} do |form|
+  = render 'photos', notice: @bulk_upload
+
+  = @bulk_upload.notices.size
+  ul
+    - @bulk_upload.notices.each_with_index do |notice, i|
+      = form.fields_for "notices[#{i}]", notice do |notice_form|
+        li
+          = notice_form.label :address
+          = notice_form.text_field :address
+
+  hr.spacer
+  .row
+    .col-lg-12
+      .pull-right
+        .btn-group
+          = form.submit 'neue Meldungen aus Gruppen erfassen', class: "btn btn-success"
