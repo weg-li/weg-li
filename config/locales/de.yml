@@ -127,6 +127,7 @@ de:
       all_users: 'Benutzer insgesamt'
       districts: 'Unterstützte Bezirke'
     districts:
+      aichtal: 'Aichtal'
       berlin: 'Berlin'
       bochum: 'Bochum'
       bonn: 'Bonn'
@@ -135,6 +136,7 @@ de:
       darmstadt: 'Darmstadt'
       dortmund: 'Dortmund'
       duesseldorf: 'Düsseldorf'
+      filderstadt: 'Filderstadt'
       frankfurt: 'Frankfurt'
       hamburg: 'Hamburg'
       hannover: 'Hannover'
@@ -150,7 +152,9 @@ de:
       muenster: 'Münster'
       neuss: 'Neuss'
       nuernberg: 'Nürnberg'
+      nuertingen: 'Nürtingen'
       tuebingen: 'Tübingen'
+      stuttgart: 'Stuttgart'
     confirmation_mail: "Eine Bestätigungs-Mail wurde an %{email} versendet."
     profile_updated_and_confirmation_email: 'Dein Profil wurde aktualisiert und eine Bestätigungs-Mail wurde an Deine E-Mail Adresse versendet!'
     profile_updated: 'Dein Profil wurde aktualisiert.'

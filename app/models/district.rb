@@ -1,4 +1,5 @@
 class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
+  AICHTAL = District.new('aichtal', 'stadt@aichtal.de', 15, 48.628, 9.257)
   BERLIN = District.new('berlin', 'anzeige@bowi.berlin.de', 12, 52.520, 13.401)
   BOCHUM = District.new('bochum', 'amt30@bochum.de', 14, 51.481, 7.213)
   BONN = District.new('bonn', 'stvo@bonn.de', 14, 50.735, 7.098)
@@ -7,6 +8,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
   DARMSTADT = District.new('darmstadt', 'buergerordnungsamt@darmstadt.de', 15, 49.871, 8.652)
   DORTMUND = District.new('dortmund', 'fremdanzeigen.verkehrsueberwachung@stadtdo.de', 13, 51.513, 7.460)
   DUESSELDORF = District.new('duesseldorf', 'bussgeldstelle@duesseldorf.de', 13, 51.219, 6.778)
+  FILDERSTADT = District.new('filderstadt', 'amt32@filderstadt.de', 15, 48.676, 9.217)
   FRANKFURT = District.new('frankfurt', 'owi.datenerfassung.amt32@stadt-frankfurt.de', 12, 50.109, 8.675)
   # https://hamburg.adfc.de/verkehr/maengelmelder/falschparker/
   HAMBURG = District.new('hamburg', 'anzeigenbussgeldstelle@eza.hamburg.de', 12, 53.56544, 9.95947)
@@ -24,9 +26,12 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
   MUENSTER = District.new('muenster', 'kod@stadt-muenster.de', 14, 51.961, 7.622)
   NEUSS = District.new('neuss', 'verkehrslenkung@stadt.neuss.de', 15, 51.198, 6.690)
   NUERNBERG = District.new('nuernberg', 'info@zv-kvue.nuernberg.de', 15, 49.450, 11.076)
+  NUERTINGEN = District.new('nuertingen', 'ordnungsamt.stadt@nuertingen.de', 15, 48.625, 9.344)
+  STUTTGART = District.new('stuttgart', 'verkehrsueberwachung@stuttgart.de', 14, 48.774, 9.176)
   TUEBINGEN = District.new('tuebingen', 'verkehrsabteilung@tuebingen.de', 15, 48.520, 9.053)
 
   ALL = [
+    AICHTAL,
     BERLIN,
     BOCHUM,
     BONN,
@@ -35,6 +40,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
     DARMSTADT,
     DORTMUND,
     DUESSELDORF,
+    FILDERSTADT,
     FRANKFURT,
     HAMBURG,
     HANNOVER,
@@ -50,7 +56,9 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
     MUENSTER,
     NEUSS,
     NUERNBERG,
+    NUERTINGEN,
     TUEBINGEN,
+    STUTTGART,
   ]
 
   def self.all
