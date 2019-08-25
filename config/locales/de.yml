@@ -200,8 +200,6 @@ de:
       shared: 'Die Meldung wurde zur Anzeige gebracht.'
       complete: 'Alle Daten, die für eine Anzeige notwendig sind, wurden erfasst.'
       incomplete: 'Es fehlen noch ein paar Daten, bitte die Meldung bearbeiten und die fehlenden Daten nachtragen.'
-    bulk_actions: 'Mehrfach Aktionen'
-    bulk_destroy: 'Auswahl löschen'
     confirm: "Diese Aktion kann nicht rückgängig gemacht werden!"
     actions: 'Aktionen'
     read: 'lesen'
