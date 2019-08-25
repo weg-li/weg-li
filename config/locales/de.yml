@@ -8,6 +8,7 @@ de:
       truncate: "&hellip;"
   activerecord:
     models:
+      bulk_upload: 'Upload'
       user: 'Benutzer'
       notice: 'Meldung'
     attributes:
@@ -19,6 +20,9 @@ de:
         email: 'E-Mail'
         phone: 'Telefon'
         district: 'Bezirk'
+      bulk_upload:
+        created_at: 'Erstellt'
+        photos: 'Beweisfotos'
       notice:
         created_at: 'Erstellt'
         district: 'Bezirk'
@@ -161,7 +165,6 @@ de:
     confirm_email: "E-Mail zur Bestätigung erneut senden"
     change_nickname: "Name ändern"
     change_email: "E-Mail ändern"
-    change_time_zone: "Zeit-Zone ändern"
     delete_account: "Konto löschen"
     destroyed: "Dein Konto und alle Daten wurden gelöscht!"
     settings: 'Einstellungen'

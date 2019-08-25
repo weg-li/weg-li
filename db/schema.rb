@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_20_181249) do
+ActiveRecord::Schema.define(version: 2019_08_25_114801) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,13 @@ ActiveRecord::Schema.define(version: 2019_08_20_181249) do
     t.datetime "updated_at"
   end
 
+  create_table "bulk_uploads", force: :cascade do |t|
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_bulk_uploads_on_user_id"
+  end
+
   create_table "notices", force: :cascade do |t|
     t.json "data"
     t.string "token", limit: 255
@@ -75,6 +82,7 @@ ActiveRecord::Schema.define(version: 2019_08_20_181249) do
     t.boolean "incomplete", default: false, null: false
     t.string "note"
     t.string "district", default: "hamburg", null: false
+    t.integer "bulk_upload_id"
   end
 
   create_table "users", force: :cascade do |t|

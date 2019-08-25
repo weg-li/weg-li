@@ -25,6 +25,10 @@
                 = link_to new_notice_path do
                   span.glyphicon.glyphicon-plus.smaller>
                   span.margin-left-small= t('navigation.draft')
+              li
+                = link_to new_bulk_upload_path do
+                  span.glyphicon.glyphicon-cloud-upload.smaller>
+                  span.margin-left-small Hochladen
 
         - if signed_in? && admin?
           li

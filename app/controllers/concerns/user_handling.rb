@@ -3,14 +3,6 @@ module UserHandling
 
   protected
 
-  def user_time_zone(&block)
-    Time.use_zone(current_user.time_zone, &block)
-  end
-
-  def change_time_zone?
-    signed_in? && current_user.time_zone.present?
-  end
-
   def authenticate!
     unless signed_in?
       redirect_to login_path, alert: t('sessions.not_logged_in')

@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     root to: "notices#index"
   end
 
+  resources :bulk_uploads
+
   resources :notices do
     member do
       get :inspect
