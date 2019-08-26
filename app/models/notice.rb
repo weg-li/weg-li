@@ -42,7 +42,7 @@ class Notice < ActiveRecord::Base
   def analyze!
     self.status = :analyzing
     save_incomplete!
-    AnalyzerJob.perform_later(self)
+    AnalyzerJob.set(wait: 3.seconds).perform_later(self)
   end
 
   def district=(district)
