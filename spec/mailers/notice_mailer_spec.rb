@@ -12,7 +12,7 @@ describe NoticeMailer do
       expect(mail.to).to eq(["anzeigenbussgeldstelle@eza.hamburg.de"])
       expect(mail.cc).to eq([user.email])
       expect(mail.reply_to).to eq([user.email])
-      expect(mail.attachments).to have(1).elements
+      expect(mail.attachments.size).to be(1)
     end
   end
 end

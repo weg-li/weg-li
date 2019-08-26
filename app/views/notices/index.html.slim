@@ -18,7 +18,7 @@
         table.table.table-striped.table-hover
           thead
             tr
-              th= check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
+              th
               th= Notice.human_attribute_name(:photos)
               th
                 => Notice.human_attribute_name(:created_at)
@@ -54,22 +54,30 @@
                   => render 'status', status: notice.status
                   = render 'status', status: :incomplete if notice.incomplete?
                 td= render 'actions', notice: notice
+            tr
+              td= check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
+              td(colspan=4)
+                small
+                  label(for='select_all') Alle Meldungen auswählen
           - else
             tr
               td(colspan=7)= t('notices.nothing_found')
       .panel-footer
         .row
           .col-lg-12
+            span Auswahl
             .btn-group
               = button_tag name: :bulk_action, value: :analyze, type: :submit, class: 'btn btn-sm btn-default' do
                 span.glyphicon.glyphicon-hourglass>
-                span Auswahl analysieren
+                span analysieren
               = button_tag name: :bulk_action, value: :share, type: :submit, class: 'btn btn-sm btn-default' do
                 span.glyphicon.glyphicon-share>
-                span Auswahl melden
+                span melden
               = button_tag name: :bulk_action, value: :destroy, type: :submit, class: 'btn btn-sm btn-default' do
                 span.glyphicon.glyphicon-trash>
-                span= t('notices.bulk_destroy')
+                span löschen
+
+
             .pull-right= link_to new_notice_path, class: 'btn btn-sm btn-success', title: 'Meldung erfassen' do
               span.glyphicon.glyphicon-plus>
               | Meldung erfassen

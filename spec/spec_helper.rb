@@ -15,6 +15,7 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.order = "random"
   config.include ActiveSupport::Testing::TimeHelpers
-  config.include RequestHelper
+  config.include RequestHelper, type: :controller
+  config.include LoginHelper, type: :request
   config.include DataHelper
 end
