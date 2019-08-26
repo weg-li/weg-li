@@ -5,7 +5,13 @@ class ApplicationController < ActionController::Base
 
   helper_method :signed_in_alias?, :signed_in?, :admin?, :current_user
 
+  rescue_from ActionController::InvalidAuthenticityToken, with: :session_expired
+
   private
+
+  def session_expired
+    redirect_to login_path, alert: 'Ihre Sitzung ist abgelaufen'
+  end
 
   def _404(exception)
     Rails.logger.warn exception
