@@ -44,7 +44,7 @@ Rails.application.routes.draw do
   end
 
   scope '/auth' do
-    get  '/offline_login/:nickname', to: 'sessions#offline_login' if Rails.env.development?
+    get  '/offline_login/:nickname', to: 'sessions#offline_login' unless Rails.env.production?
     get  '/:provider/callback',      to: 'sessions#create',     as: :provider_callback
     get  '/failure',                 to: 'sessions#failure'
     get  '/destroy_alias_session',   to: 'sessions#destroy_alias',    as: :logout_alias

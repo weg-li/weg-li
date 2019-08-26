@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe SitemapsController do
+describe 'sitemaps', type: :request do
   it "renders xml" do
-    get :show, format: :xml
+    get sitemap_path(format: :xml)
 
     expect(response).to be_successful
   end

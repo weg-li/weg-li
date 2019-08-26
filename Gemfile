@@ -49,6 +49,5 @@ group :development, :test do
   gem 'byebug'
   gem 'fabrication'
   gem 'rspec-rails'
-  gem 'rails-controller-testing'
   gem 'faker'
 end
