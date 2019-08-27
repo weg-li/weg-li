@@ -3,7 +3,7 @@ class HomeController < ApplicationController
   end
 
   def map
-    @district = District.by_name(params[:district] || 'hamburg')
+    @district = District.by_name(params[:district] || current_user&.district_name || 'hamburg')
 
     @notices = Notice.shared.for_public.where(user_id: User.for_public.where(district: @district.name).pluck(:id))
     @active = @notices.map(&:user_id).uniq.size

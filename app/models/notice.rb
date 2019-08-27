@@ -21,6 +21,7 @@ class Notice < ActiveRecord::Base
   enum status: {open: 0, disabled: 1, analyzing: 2, shared: 3}
 
   scope :since, -> (date) { where('notices.created_at > ?', date) }
+  scope :destroyable, -> () { where.not(status: :shared) }
   scope :for_public, -> () { where.not(status: :disabled) }
 
   def self.from_param(token)
@@ -42,7 +43,7 @@ class Notice < ActiveRecord::Base
   def analyze!
     self.status = :analyzing
     save_incomplete!
-    AnalyzerJob.perform_later(self)
+    AnalyzerJob.set(wait: 3.seconds).perform_later(self)
   end
 
   def district=(district)

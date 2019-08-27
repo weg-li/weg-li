@@ -37,6 +37,10 @@ class User < ActiveRecord::Base
     District.by_name(self[:district])
   end
 
+  def district_name
+    self[:district]
+  end
+
   def to_label
     "#{nickname} (#{email})"
   end

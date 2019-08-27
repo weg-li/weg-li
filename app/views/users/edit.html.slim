@@ -42,24 +42,24 @@
       .panel.panel-default
         .panel-heading Persönliche Daten
         .panel-body
-          = form.label :nickname, class: "control-label"
+          = form.label :nickname, class: "control-label control-label-required"
           = form.text_field :nickname, class: "form-control", required: true
           small.help-block Der Spitzname wird für die Veröffentlichung der Anzeigen im öffentlichen Profil verwendet.
 
-          = form.label :name, class: "control-label"
+          = form.label :name, class: "control-label control-label-required"
           = form.text_field :name, class: "form-control", required: true
 
-          = form.label :address, class: "control-label"
+          = form.label :address, class: "control-label control-label-required"
           = form.text_field :address, class: "form-control", required: true
 
           small.help-block Name und Anschrift werden beim Erstatten von Anzeigen als Zeugen-Adresse verwendet.
 
           = form.label :phone, class: "control-label"
-          = form.text_field :phone, class: "form-control", required: true, placeholder: 'z.B. 040 600 90 76 98'
+          = form.text_field :phone, class: "form-control", placeholder: 'z.B. 040 600 90 76 98'
 
           small.help-block Ist eine Telefonnummer vorhanden, dann wird diese für Rückfragen mit angegeben.
 
-          = form.label :district, class: "control-label"
+          = form.label :district, class: "control-label control-label-required"
           = form.select :district, District.all.map { |district| [district.display_name, district.name] }, { include_blank: 'Bitte auswählen' }, { class: "form-control", required: true }
 
           small.help-block Der Bezirk wird für die Auswahl der jeweilig zuständigen Stelle genutzt und kann bei neuen Meldungen umgeschaltet werden.
