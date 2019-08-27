@@ -19,5 +19,6 @@
     = link_to public_charge_path(notice), class: 'btn btn-primary', title: 'als Anzeige ansehen'
       span.glyphicon.glyphicon-globe
 
-  = link_to notice_path(notice), method: :delete, remote: true, data: {confirm: t('notices.confirm')}, class: 'btn btn-primary', title: 'löschen'
-    span.glyphicon.glyphicon-trash
+  - unless notice.shared?
+    = link_to notice_path(notice), method: :delete, remote: true, data: {confirm: t('notices.confirm')}, class: 'btn btn-primary', title: 'löschen'
+      span.glyphicon.glyphicon-trash
