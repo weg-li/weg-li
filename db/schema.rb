@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_20_181249) do
+ActiveRecord::Schema.define(version: 2019_08_29_131705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,7 +74,8 @@ ActiveRecord::Schema.define(version: 2019_08_20_181249) do
     t.float "longitude"
     t.boolean "incomplete", default: false, null: false
     t.string "note"
-    t.string "district", default: "hamburg", null: false
+    t.string "district"
+    t.integer "bulk_upload_id"
   end
 
   create_table "users", force: :cascade do |t|
