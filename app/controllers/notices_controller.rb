@@ -38,6 +38,7 @@ class NoticesController < ApplicationController
 
   def create
     notice = current_user.notices.build(notice_params)
+    notice.district = current_user.district
     notice.analyze!
 
     message = 'Eine Meldung mit Beweisfotos wurde erfasst'
@@ -77,7 +78,7 @@ class NoticesController < ApplicationController
 
   def share
     @notice = current_user.notices.from_param(params[:id])
-    @notice.district = current_user.district
+    @notice.district ||= current_user.district
 
     @mail = NoticeMailer.charge(current_user, @notice)
   end
