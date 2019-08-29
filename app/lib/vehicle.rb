@@ -6,6 +6,15 @@ class Vehicle
     @data
   end
 
+  def self.trucks
+    [
+      'MAN',
+      'Iveco',
+      'CANIA',
+      'DAF',
+    ]
+  end
+
   def self.cars
     data[:cars]
   end
@@ -48,7 +57,9 @@ class Vehicle
   end
 
   def self.brands
-    cars.map { |entry| entry['brand'] }.sort
+    all = cars.map { |entry| entry['brand'] } + trucks
+
+    all.sort
   end
 
   def self.models(brand)
