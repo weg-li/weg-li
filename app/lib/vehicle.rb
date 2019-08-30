@@ -48,7 +48,20 @@ class Vehicle
   end
 
   def self.brands
-    cars.map { |entry| entry['brand'] }.sort
+    (car_brands + truck_brands).sort
+  end
+
+  def self.car_brands
+    cars.map { |entry| entry['brand'] }
+  end
+
+  def self.truck_brands
+    [
+      'MAN',
+      'Iveco',
+      'CANIA',
+      'DAF',
+    ]
   end
 
   def self.models(brand)

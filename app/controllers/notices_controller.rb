@@ -47,7 +47,7 @@ class NoticesController < ApplicationController
       message += ', nun gleich die nächste Meldung erfassen'
       path = new_notice_path
     else
-      message += 'und Analyse gestartet'
+      message += ' und Analyse gestartet'
     end
 
     redirect_to path, notice: message
