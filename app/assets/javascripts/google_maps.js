@@ -1,3 +1,5 @@
+//= require @google/markerclusterer/src/markerclusterer
+
 class GMap {
   constructor(canvas) {
     this.canvas = canvas[0];
@@ -105,6 +107,35 @@ class GMultiMap {
   }
 }
 
+class GClusterMap {
+  constructor(canvas) {
+    this.canvas = canvas[0];
+    this.init = canvas.data("init");
+    this.notices = canvas.data("notices");
+  }
+
+  show() {
+    const options = {
+      zoom: this.init.zoom,
+      scrollwheel: false,
+      streetViewControl: false,
+      center: new google.maps.LatLng(this.init.latitude, this.init.longitude),
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+    }
+
+    const map = new google.maps.Map(this.canvas, options);
+    const markers = this.notices.map((notice, i) => {
+      const position = new google.maps.LatLng(notice.latitude, notice.longitude);
+      return new google.maps.Marker({
+        position,
+        title: notice.location,
+      });
+    });
+    new MarkerClusterer(map, markers, {imagePath: '/img/map/m'});
+  }
+}
+
 window.GMap = GMap;
 window.GPickerMap = GPickerMap;
 window.GMultiMap = GMultiMap;
+window.GClusterMap = GClusterMap;

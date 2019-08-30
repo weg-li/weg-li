@@ -1,0 +1,7 @@
+= content_tag(:div, id: "cluster_map", class: "map-canvas", data: { notices: notices.map(&:map_data), init: init }) do
+  p Enable JS to view Map!
+
+javascript:
+  (function() {
+    new GClusterMap($("#cluster_map")).show();
+  })();
