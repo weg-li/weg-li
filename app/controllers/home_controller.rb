@@ -3,6 +3,7 @@ class HomeController < ApplicationController
   end
 
   def map
+    @display = params[:display] || 'cluster'
     @district = District.by_name(params[:district] || current_user&.district_name || 'hamburg')
 
     @notices = Notice.shared.for_public.where(user_id: User.for_public.where(district: @district.name).pluck(:id))
