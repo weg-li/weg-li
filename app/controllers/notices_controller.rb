@@ -37,8 +37,7 @@ class NoticesController < ApplicationController
   end
 
   def create
-    notice = current_user.notices.build(notice_params)
-    notice.district = current_user.district
+    notice = current_user.notices.build(notice_upload_params)
     notice.analyze!
 
     message = 'Eine Meldung mit Beweisfotos wurde erfasst'
@@ -51,6 +50,32 @@ class NoticesController < ApplicationController
     end
 
     redirect_to path, notice: message
+  end
+
+  def import
+    tweet = Twttr.client.status(notice_import_params[:tweet_url], tweet_mode: :extended)
+    import_user = User.new(nickname: tweet.user.screen_name, name: tweet.user.name, address: tweet.user.location, access: :ghost)
+    import_user.save(validate: false)
+
+    notice = import_user.notices.build(notice_import_params)
+    notice.date = tweet.created_at
+    notice.note = tweet.attrs[:full_text]
+    coordinates = (tweet.geo || tweet.coordinates)&.coordinates
+    if coordinates.present?
+      notice.longitude = coordinates.first
+      notice.latitude = coordinates.last
+    end
+    tweet.media.each do |media|
+      filename = media.media_url_https.basename
+
+      next unless filename =~ /jpg|jpeg/
+
+      notice.photos.attach(io: open(media.media_url_https), filename: filename, content_type: "image/jpg")
+    end
+
+    notice.analyze!
+
+    redirect_to public_charge_path(notice), notice: 'Eine Meldung mit Beweisfotos wurde importiert'
   end
 
   def edit
@@ -70,7 +95,7 @@ class NoticesController < ApplicationController
 
   def upload
     notice = current_user.notices.from_param(params[:id])
-    notice.assign_attributes(notice_params)
+    notice.assign_attributes(notice_upload_params)
     notice.save_incomplete!
 
     redirect_to [:edit, notice], notice: 'Beweisfotos wurden hochgeladen'
@@ -174,7 +199,15 @@ class NoticesController < ApplicationController
   private
 
   def notice_params
-    params.require(:notice).permit(:charge, :date, :date_date, :date_time, :registration, :make, :brand, :model, :color, :kind, :address, :note, :hinder, :empty, :parked, :parked_long, photos: [])
+    params.require(:notice).permit(:charge, :date, :date_date, :date_time, :registration, :make, :brand, :model, :color, :kind, :address, :note, :hinder, :empty, :parked, :parked_long)
+  end
+
+  def notice_upload_params
+    params.require(:notice).permit(photos: [])
+  end
+
+  def notice_import_params
+    params.require(:notice).permit(:tweet_url)
   end
 
   def mail_params

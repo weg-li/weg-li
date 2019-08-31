@@ -7,6 +7,8 @@ class Notice < ActiveRecord::Base
 
   include Incompletable
 
+  attr_accessor :tweet_url
+
   before_validation :defaults
 
   geocoded_by :address, language: Proc.new { |model| I18n.locale }, no_annotations: true
@@ -73,5 +75,6 @@ class Notice < ActiveRecord::Base
 
   def defaults
     self.token ||= SecureRandom.hex(16)
+    self.district ||= user&.district
   end
 end

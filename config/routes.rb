@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     collection do
       get :map
       post :bulk
+      post :import
     end
   end
 
@@ -73,7 +74,6 @@ Rails.application.routes.draw do
 
   # dev
   get '/styleguide', to: 'styleguide#index'
-  get '/tweetport', to: 'tweetport#new'
 
   get '/ping', to: -> (env) { [200, {'Content-Type' => 'text/html'}, ['pong']] }
 end
