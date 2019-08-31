@@ -28,6 +28,10 @@
 
         - if signed_in? && admin?
           li
+            = link_to 'Tweetport', tweetport_path
+
+        - if signed_in? && admin?
+          li
             = link_to 'Styleguide', styleguide_path
 
       ul.nav.navbar-nav.navbar-right
