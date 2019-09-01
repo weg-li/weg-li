@@ -54,7 +54,13 @@ class NoticesController < ApplicationController
 
   def import
     tweet = Twttr.client.status(notice_import_params[:tweet_url], tweet_mode: :extended)
-    import_user = User.new(nickname: tweet.user.screen_name, name: tweet.user.name, address: tweet.user.location, access: :ghost)
+    nickname = tweet.user.screen_name
+    if User.where(nickname: nickname).any?
+      redirect_to new_notice_path, notice: "Der Nutzer #{nickname} besteht bereits im System"
+      return
+    end
+
+    import_user = User.new(nickname: nickname, name: tweet.user.name, address: tweet.user.location, access: :ghost)
     import_user.save(validate: false)
 
     notice = import_user.notices.build(notice_import_params)
