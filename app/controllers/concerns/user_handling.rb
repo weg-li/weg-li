@@ -27,6 +27,12 @@ module UserHandling
     session_user&.admin?
   end
 
+  def access?(kind)
+    return false if signed_out?
+
+    User.accesses[kind] <= User.accesses[current_user.access]
+  end
+
   def current_user?
     current_user == user
   end
@@ -61,6 +67,10 @@ module UserHandling
 
   def signed_in?
     !!current_user
+  end
+
+  def signed_out?
+    !signed_in?
   end
 
   def signed_in_alias?

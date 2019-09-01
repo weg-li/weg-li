@@ -14,7 +14,7 @@
           = form.button 'hochladen & neu erfassen', name: :another, class: "btn btn-default"
           = form.submit 'hochladen & weiter', class: "btn btn-success"
 
-- if admin?
+- if access?(:community)
   hr.spacer
   .row
     .col-lg-12
