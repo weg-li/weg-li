@@ -7,6 +7,11 @@
 
       .col-lg-4
         = render 'photos', notice: @notice, publicly: true
+  - if @notice.user.ghost?
+    .panel-footer.clearfix
+      .pull-right
+        = link_to("Dies ist meine Meldung, per Twitter-Login claimen!", "/auth/twitter", method: :post, data: { turbolinks: false }, class: "btn btn-success")
+
 
 - if @notice.coordinates?
   .row
