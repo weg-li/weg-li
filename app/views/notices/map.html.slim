@@ -2,16 +2,10 @@
 - set_crumbs t('navigation.notices') => notices_path, 'Kartenansicht' => url_for
 
 .row
-  .col-lg-8
   .col-lg-4
-    .dropdown.pull-right
-      button.btn.btn-default.dropdown-toggle type="button" data-toggle="dropdown"
-        span>= "In den letzten #{@since} Tagen"
-        span.caret
-      ul.dropdown-menu
-        - [7, 14, 30, 365].each do |days|
-          li= link_to "#{days} Tage", url_for(since: days)
+  .col-lg-8
+    = render('map_filter', district: @district, display: @display, since: @since)
 
 hr.spacer
 
-= render 'multi_map', notices: @notices, init: current_user.district.map_data
+= render "#{@display}_map", notices: @notices, init: @district.map_data
