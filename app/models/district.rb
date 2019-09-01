@@ -1,6 +1,7 @@
 class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
   AICHTAL = District.new('aichtal', 'stadt@aichtal.de', 15, 48.628, 9.257)
   BERLIN = District.new('berlin', 'anzeige@bowi.berlin.de', 12, 52.520, 13.401)
+  BIELEFELD = District.new('bielefeld', 'bussgeld.verkehr@bielefeld.de', 14, 52.020, 8.529)
   BOCHUM = District.new('bochum', 'amt30@bochum.de', 14, 51.481, 7.213)
   BONN = District.new('bonn', 'stvo@bonn.de', 14, 50.735, 7.098)
   BREMEN = District.new('bremen', 'bussgeldstelle@ordnungsamt.bremen.de', 13, 53.078, 8.797)
@@ -33,6 +34,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
   ALL = [
     AICHTAL,
     BERLIN,
+    BIELEFELD,
     BOCHUM,
     BONN,
     BREMEN,
