@@ -30,6 +30,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
   NUERTINGEN = District.new('nuertingen', 'ordnungsamt.stadt@nuertingen.de', 15, 48.625, 9.344)
   STUTTGART = District.new('stuttgart', 'verkehrsueberwachung@stuttgart.de', 14, 48.774, 9.176)
   TUEBINGEN = District.new('tuebingen', 'verkehrsabteilung@tuebingen.de', 15, 48.520, 9.053)
+  ZWEIBRUECKEN = District.new('zweibruecken', 'ordnungsamt@zweibruecken.de', 16, 49.249, 7.360)
 
   ALL = [
     AICHTAL,
@@ -59,8 +60,9 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
     NEUSS,
     NUERNBERG,
     NUERTINGEN,
-    TUEBINGEN,
     STUTTGART,
+    TUEBINGEN,
+    ZWEIBRUECKEN,
   ]
 
   def self.all
