@@ -67,7 +67,11 @@
         span Das Fahrzeug stand mindestens 3 Minuten
     .checkbox
       label
-        = form.check_box :parked_long
+        = form.check_box :parked_one_hour
+        span Das Fahrzeug stand länger als 1 Stunde
+    .checkbox
+      label
+        = form.check_box :parked_three_hours
         span Das Fahrzeug stand länger als 3 Stunden
     .checkbox
       label
