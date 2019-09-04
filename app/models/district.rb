@@ -29,6 +29,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
   NEUSS = District.new('neuss', 'verkehrslenkung@stadt.neuss.de', 15, 51.198, 6.690)
   NUERNBERG = District.new('nuernberg', 'info@zv-kvue.nuernberg.de', 15, 49.450, 11.076)
   NUERTINGEN = District.new('nuertingen', 'ordnungsamt.stadt@nuertingen.de', 15, 48.625, 9.344)
+  RAVENSBURG = District.new('ravensburg', 'ordnungsamt@ravensburg.de', 15, 47.781, 9.612)
   STUTTGART = District.new('stuttgart', 'verkehrsueberwachung@stuttgart.de', 14, 48.774, 9.176)
   TUEBINGEN = District.new('tuebingen', 'verkehrsabteilung@tuebingen.de', 15, 48.520, 9.053)
   ZWEIBRUECKEN = District.new('zweibruecken', 'ordnungsamt@zweibruecken.de', 16, 49.249, 7.360)
@@ -62,6 +63,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
     NEUSS,
     NUERNBERG,
     NUERTINGEN,
+    RAVENSBURG,
     STUTTGART,
     TUEBINGEN,
     ZWEIBRUECKEN,
