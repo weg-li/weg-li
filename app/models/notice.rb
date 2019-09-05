@@ -48,6 +48,16 @@ class Notice < ActiveRecord::Base
     AnalyzerJob.set(wait: 3.seconds).perform_later(self)
   end
 
+  def apply_favorites(registrations)
+    other = Notice.shared.since(1.month.ago).find_by(registration: registrations)
+    if other
+      self.registration = other.registration
+      self.brand = other.brand
+      self.color = other.color
+      self.charge = other.charge
+    end
+  end
+
   def district=(district)
     self[:district] = district.to_s
   end
