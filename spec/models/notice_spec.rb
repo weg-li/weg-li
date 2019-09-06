@@ -9,6 +9,19 @@ describe Notice do
     end
   end
 
+  context "apply_favorites" do
+    it "applies favorites" do
+      existing_notice = Fabricate.create(:notice, status: :shared, registration: 'HH PS 123')
+
+      notice.apply_favorites(['HH PS 123'])
+
+      expect(notice.registration).to eql('HH PS 123')
+      expect(notice.brand).to eql(existing_notice.brand)
+      expect(notice.color).to eql(existing_notice.color)
+      expect(notice.charge).to eql(existing_notice.charge)
+    end
+  end
+
   context "incomplete" do
     it "is incomplete" do
       expect(notice).to be_complete
