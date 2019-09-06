@@ -4,16 +4,26 @@
 .row
   .col-lg-6
     .panel.panel-default
+      .panel-heading E-Mail Adresse
+
+      .panel-body
+        = form_for current_user, remote: true do |form|
+          .input-group
+            = form.email_field :email, class: 'form-control', required: true
+            span.input-group-btn
+              = form.submit t('users.change_email'), class: "btn btn-default"
+      .panel-body
+        - if current_user.validated?
+          = link_to "#", class: "btn btn-default btn-block disabled"
+            span>= t('users.email_confirmed')
+            span.glyphicon.glyphicon-ok
+        - else
+          = button_to t('users.confirm_email'), confirmation_mail_user_path(current_user), method: :patch, remote: true, class: "btn btn-primary btn-block"
+
+
+    .panel.panel-default
       .panel-heading= t('users.authorizations')
       .panel-body
-        p
-          - if current_user.validated?
-            = link_to "#", class: "btn btn-default btn-block disabled"
-              span>= t('users.email_confirmed')
-              span.glyphicon.glyphicon-ok
-          - else
-            = button_to t('users.confirm_email'), confirmation_mail_user_path(current_user), method: :patch, remote: true, class: "btn btn-default btn-block"
-
         - existing_providers = current_user.authorizations.map(&:provider)
         - login_links do |name, path, key|
           p
@@ -26,14 +36,6 @@
 
     .panel.panel-default
       .panel-heading= t('users.actions')
-
-      .panel-body
-        = form_for current_user, remote: true do |form|
-          .input-group
-            = form.email_field :email, class: 'form-control', required: true
-            span.input-group-btn
-              = form.submit t('users.change_email'), class: "btn btn-default"
-
       .panel-body
         = button_to t('users.delete_account'), user_path(current_user), method: :delete, class: "btn btn-danger btn-block"
 
