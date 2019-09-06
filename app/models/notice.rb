@@ -58,6 +58,10 @@ class Notice < ActiveRecord::Base
     end
   end
 
+  def similar_count(since: 1.month.ago)
+    @similar_count ||= Notice.since(since).where(registration: registration).count
+  end
+
   def district=(district)
     self[:district] = district.to_s
   end
