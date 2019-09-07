@@ -7,13 +7,9 @@
   = form_tag bulk_notices_path, method: :post do
     .panel.panel-default
       .panel-heading
-        .row
-          .col-lg-6.hidden-xs
-            h2.panel-title Meldungen verwalten
-          .col-lg-6
-            .pull-right= link_to new_notice_path, class: 'btn btn-sm btn-success', title: 'Meldung erfassen' do
-              span.glyphicon.glyphicon-plus>
-              | Meldung erfassen
+        = link_to new_notice_path, class: 'btn btn-sm btn-success', title: 'Meldung erfassen' do
+          span.glyphicon.glyphicon-plus>
+          | Meldung erfassen
       .table-responsive
         table.table.table-striped.table-hover
           thead
@@ -41,27 +37,27 @@
                     li= link_to 'kein Filter', url_for(@table_params.merge(filter: nil))
               th
           tbody
-          - if @notices.present?
-            - @notices.each do |notice|
+            - if @notices.present?
+              - @notices.each do |notice|
+                tr
+                  td= check_box_tag "selected[]", notice.id, false, class: 'select-all'
+                  td
+                    = link_to(notice) do
+                      - notice.photos.each do |photo|
+                        = image_tag(url_for(photo.variant(resize: "100x100", auto_orient: true).processed), class: 'index-photo')
+                  td= link_to(d(notice.created_at), notice)
+                  td
+                    => render 'status', status: notice.status
+                    = render 'status', status: :incomplete if notice.incomplete?
+                  td= render 'actions', notice: notice
               tr
-                td= check_box_tag "selected[]", notice.id, false, class: 'select-all'
-                td
-                  = link_to(notice) do
-                    - notice.photos.each do |photo|
-                      = image_tag(url_for(photo.variant(resize: "100x100", auto_orient: true).processed), class: 'index-photo')
-                td= d(notice.created_at)
-                td
-                  => render 'status', status: notice.status
-                  = render 'status', status: :incomplete if notice.incomplete?
-                td= render 'actions', notice: notice
-            tr
-              td= check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
-              td(colspan=4)
-                small
-                  label(for='select_all') Alle Meldungen auswählen
-          - else
-            tr
-              td(colspan=7)= t('notices.nothing_found')
+                td= check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
+                td(colspan=4)
+                  small
+                    label(for='select_all') Alle Meldungen auswählen
+            - else
+              tr
+                td(colspan=7)= t('notices.nothing_found')
       .panel-footer
         .row
           .col-lg-12
