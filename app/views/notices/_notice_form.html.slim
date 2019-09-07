@@ -27,7 +27,7 @@
               button type="button" class="btn btn-default" data-dismiss="modal" Schließen
     small.help-text
       |
-        #{link_to('Safari auf iOS entfernt leider die Metadaten', 'https://apple.stackexchange.com/questions/326789/gps-exif-from-iphone-photo-upload-in-safari', target: '_blank')},
+        #{link_to('Safari auf iOS entfernt leider manchmal die Metadaten', 'https://apple.stackexchange.com/questions/326789/gps-exif-from-iphone-photo-upload-in-safari', target: '_blank')},
         die für die automatische Standort-Ermittlung benötigt werden.
 
 .row
@@ -39,9 +39,9 @@
   .col-lg-6
     = form.label :registration, class: "control-label control-label-required"
     = form.text_field :registration, placeholder: 'z.B. HH SV 1887', class: "form-control", required: true
-
-    = form.label :brand, class: "control-label"
-    = form.select :brand, Vehicle.brands, { include_blank: 'Tippen zum Auswählen' }, { class: "form-control" }
+    - fair_use_limit = 5
+    - if notice.similar_count > fair_use_limit
+      small.help-text Für dieses Fahrzeug wurden im letzten Monat bereits mehr als #{fair_use_limit} Meldungen erfasst.
 
   .col-lg-6
     = form.label :date, class: "control-label control-label-required"
@@ -51,6 +51,12 @@
       .col-lg-6
         = form.time_field :date_time, class: "form-control", required: true, step: 1, value: (form.object.date_time || Time.zone.now).strftime('%H:%M')
 
+.row
+  .col-lg-6
+    = form.label :brand, class: "control-label"
+    = form.select :brand, Vehicle.brands, { include_blank: 'Tippen zum Auswählen' }, { class: "form-control" }
+
+  .col-lg-6
     = form.label :color, class: "control-label"
     = form.select :color, Vehicle.colors.map { |color| [t(color, scope: "activerecord.attributes.notice.colors"), color] }, { include_blank: 'Tippen zum Auswählen' }, { class: "form-control" }
 

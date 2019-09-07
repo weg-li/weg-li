@@ -1,7 +1,7 @@
 class NoticesController < ApplicationController
+  before_action :validate!, except: [:index]
   before_action :authenticate!
   before_action :authenticate_admin_user!, only: :inspect
-  around_action :user_time_zone, if: :change_time_zone?
 
   def index
     @filter_status =  Notice.statuses.keys

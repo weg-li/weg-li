@@ -23,6 +23,14 @@ module UserHandling
     end
   end
 
+  def validate!
+    if !current_user.validated?
+      redirect_to edit_user_path(current_user), alert: 'Die E-Mail Adresse wurde noch nicht per Link bestätigt, bitte überprüfe Deine E-Mails!'
+    elsif current_user.disabled?
+      redirect_to edit_user_path(current_user), alert: 'Dein Account wurde vorrübergehend deaktiviert, bitte wende Dich an den Support!'
+    end
+  end
+
   def admin?
     session_user&.admin?
   end
