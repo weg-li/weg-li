@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.6.3'
+ruby '2.6.4'
 
 gem 'rails', '6.0.0'
 gem 'puma'
@@ -27,6 +27,7 @@ gem 'google-cloud-vision'
 gem 'google-cloud-storage'
 gem 'mini_magick'
 gem 'color'
+gem 'twitter'
 gem 'administrate', github: 'thoughtbot/administrate'
 gem 'administrate-field-active_storage'
 

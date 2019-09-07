@@ -63,6 +63,7 @@ footer
       small.text-muted
         | Die weg-li &beta;eta ist #{link_to('am 1. August 2019 gestartet', 'https://twitter.com/phoet/status/1156893833105485824', target: '_blank', class: 'text-muted')} und ist jetzt schon in #{District.all.size} Bezirken vefügbar:
         br
-        | #{District.all.map {  |district| district.display_name }.join(', ')}
+        - District.all.each do |district|
+          => link_to district.display_name, map_url(district: district.name), class: 'text-muted'
 - if defined?(Puma)
   | <!-- served by Puma-#{Puma::Const::PUMA_VERSION} #{Puma::Const::CODE_NAME} Ruby: #{RUBY_VERSION} on Rails #{Rails.version} -->

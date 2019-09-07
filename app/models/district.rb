@@ -1,8 +1,10 @@
 class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
   AICHTAL = District.new('aichtal', 'stadt@aichtal.de', 15, 48.628, 9.257)
   BERLIN = District.new('berlin', 'anzeige@bowi.berlin.de', 12, 52.520, 13.401)
+  BIELEFELD = District.new('bielefeld', 'bussgeld.verkehr@bielefeld.de', 14, 52.020, 8.529)
   BOCHUM = District.new('bochum', 'amt30@bochum.de', 14, 51.481, 7.213)
   BONN = District.new('bonn', 'stvo@bonn.de', 14, 50.735, 7.098)
+  BRAUNSCHWEIG = District.new('braunschweig', 'gewerbe.ordnung@braunschweig.de', 15, 52.264, 10.520)
   BREMEN = District.new('bremen', 'bussgeldstelle@ordnungsamt.bremen.de', 13, 53.078, 8.797)
   BUXTEHUDE = District.new('buxtehude', 'fg32@stadt.buxtehude.de', 15, 53.465, 9.687)
   DARMSTADT = District.new('darmstadt', 'buergerordnungsamt@darmstadt.de', 15, 49.871, 8.652)
@@ -15,10 +17,12 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
   HANNOVER = District.new('hannover', '32.41@hannover-stadt.de', 13, 52.374, 9.734)
   HANNOVER_REGION = District.new('hannover_region', 'verkehrsowi@region-hannover.de', 11, 52.374, 9.734)
   HESSEN_REGION = District.new('hessen_region', 'post@zbs.hessen.de', 10, 50.430, 8.849)
+  HILCHENBACH = District.new('hilchenbach', 'c.wandtke@hilchenbach.de', 14, 50.996, 8.110)
   HILDEN = District.new('hilden', 'ordnungsamt@hilden.de', 15, 51.169, 6.932)
   HERNE = District.new('herne', 'ordnungsamt@herne.de', 13, 51.537, 7.195)
   KIEL = District.new('kiel', 'ad-bussgeldstelle@kiel.de', 13, 54.319, 10.118)
   KOELN = District.new('koeln', 'owi-anzeigen@koeln.de', 13, 50.937, 6.957)
+  KREUZTAL = District.new('kreuztal', 'ordnungsamt@kreuztal.de', 15, 50.968, 7.988)
   # https://www.leipzig.de/buergerservice-und-verwaltung/sicherheit-und-ordnung/kommunale-verkehrsueberwachung/ueberwachung-des-ruhenden-verkehrs-politessen/
   LEIPZIG = District.new('leipzig', 'ordnungsamt@leipzig.de', 13, 51.340, 12.374)
   LUENEBURG = District.new('lueneburg', 'bussgeldstelle@landkreis.lueneburg.de', 14, 53.249, 10.403)
@@ -27,14 +31,19 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
   NEUSS = District.new('neuss', 'verkehrslenkung@stadt.neuss.de', 15, 51.198, 6.690)
   NUERNBERG = District.new('nuernberg', 'info@zv-kvue.nuernberg.de', 15, 49.450, 11.076)
   NUERTINGEN = District.new('nuertingen', 'ordnungsamt.stadt@nuertingen.de', 15, 48.625, 9.344)
+  RAVENSBURG = District.new('ravensburg', 'ordnungsamt@ravensburg.de', 15, 47.781, 9.612)
+  SIEGEN = District.new('siegen', 'bussgeldstelle@siegen.de', 14, 50.875, 8.018)
   STUTTGART = District.new('stuttgart', 'verkehrsueberwachung@stuttgart.de', 14, 48.774, 9.176)
   TUEBINGEN = District.new('tuebingen', 'verkehrsabteilung@tuebingen.de', 15, 48.520, 9.053)
+  ZWEIBRUECKEN = District.new('zweibruecken', 'ordnungsamt@zweibruecken.de', 16, 49.249, 7.360)
 
   ALL = [
     AICHTAL,
     BERLIN,
+    BIELEFELD,
     BOCHUM,
     BONN,
+    BRAUNSCHWEIG,
     BREMEN,
     BUXTEHUDE,
     DARMSTADT,
@@ -46,10 +55,12 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
     HANNOVER,
     HANNOVER_REGION,
     HESSEN_REGION,
+    HILCHENBACH,
     HILDEN,
     HERNE,
     KIEL,
     KOELN,
+    KREUZTAL,
     LEIPZIG,
     LUENEBURG,
     MUENCHEN,
@@ -57,8 +68,11 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
     NEUSS,
     NUERNBERG,
     NUERTINGEN,
-    TUEBINGEN,
+    RAVENSBURG,
+    SIEGEN,
     STUTTGART,
+    TUEBINGEN,
+    ZWEIBRUECKEN,
   ]
 
   def self.all

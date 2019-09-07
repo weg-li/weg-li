@@ -3,14 +3,16 @@ class Notice < ActiveRecord::Base
   split_accessor :date
 
   include Bitfields
-  bitfield :flags, 1 => :empty, 2 => :parked, 4 => :hinder, 8 => :parked_long
+  bitfield :flags, 1 => :empty, 2 => :parked, 4 => :hinder, 8 => :parked_three_hours, 16 => :parked_one_hour
 
   include Incompletable
 
+  attr_accessor :tweet_url
+
   before_validation :defaults
 
-  geocoded_by :address
-  reverse_geocoded_by :latitude, :longitude, language: Proc.new { |model| I18n.locale }
+  geocoded_by :address, language: Proc.new { |model| I18n.locale }, no_annotations: true
+  reverse_geocoded_by :latitude, :longitude, language: Proc.new { |model| I18n.locale }, no_annotations: true
   after_validation :geocode
 
   belongs_to :user
@@ -73,5 +75,6 @@ class Notice < ActiveRecord::Base
 
   def defaults
     self.token ||= SecureRandom.hex(16)
+    self.district ||= user&.district
   end
 end

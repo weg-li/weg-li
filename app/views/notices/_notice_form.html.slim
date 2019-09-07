@@ -27,9 +27,8 @@
               button type="button" class="btn btn-default" data-dismiss="modal" Schließen
     small.help-text
       |
-        Leider #{link_to('entfernen manche iOS Geräte beim Hochladen die Metadaten', 'https://apple.stackexchange.com/questions/326789/gps-exif-from-iphone-photo-upload-in-safari', target: '_blank')},
-        die für die Standort-Ermittlung benötigt werden.
-        Bei der Analyse wird dann keine Adresse ermittelt.
+        #{link_to('Safari auf iOS entfernt leider die Metadaten', 'https://apple.stackexchange.com/questions/326789/gps-exif-from-iphone-photo-upload-in-safari', target: '_blank')},
+        die für die automatische Standort-Ermittlung benötigt werden.
 
 .row
   .col-lg-12
@@ -68,7 +67,11 @@
         span Das Fahrzeug stand mindestens 3 Minuten
     .checkbox
       label
-        = form.check_box :parked_long
+        = form.check_box :parked_one_hour
+        span Das Fahrzeug stand länger als 1 Stunde
+    .checkbox
+      label
+        = form.check_box :parked_three_hours
         span Das Fahrzeug stand länger als 3 Stunden
     .checkbox
       label

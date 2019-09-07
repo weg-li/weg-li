@@ -84,7 +84,7 @@ hr.spacer-large
 
       li.list-group-item
         - goal = 400 * 5
-        - statistics = Notice.statistics(Time.zone.today.beginning_of_month)
+        - statistics = Notice.statistics(Time.zone.today.beginning_of_year)
         - current = statistics[:shared]
         p
           strong> Jahresziel:

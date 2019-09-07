@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     collection do
       get :map
       post :bulk
+      post :import
     end
   end
 
