@@ -3,7 +3,7 @@ require "google/cloud/storage"
 
 class Annotator
   def self.unsafe?(result)
-    result[:safe_search_annotation].any? { |_, value| [:LIKELY, :VERY_LIKELY].include?(value) }
+    (result[:safe_search_annotation] || {}).any? { |_, value| [:LIKELY, :VERY_LIKELY].include?(value) }
   end
 
   def self.grep_text(result)
