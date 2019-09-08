@@ -11,6 +11,10 @@ class AnalyzerJob < ApplicationJob
 
       result = annotator.annotate_object(photo.key)
       if result.present?
+        if Annotator.unsafe?(result)
+          notice.user.update(access: :disabled)
+        end
+
         notice.data[photo.record_id] = result
         registrations = Annotator.grep_text(result) { |string| Vehicle.plate?(string) }
         notice.apply_favorites(registrations)

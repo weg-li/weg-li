@@ -30,9 +30,9 @@ gem 'color'
 gem 'twitter'
 gem 'administrate', github: 'thoughtbot/administrate'
 gem 'administrate-field-active_storage'
+gem 'exception_notification'
 
 group :production do
-  gem 'exception_notification'
   gem 'rack-cache'
   gem 'uglifier'
   gem 'rails_12factor'
