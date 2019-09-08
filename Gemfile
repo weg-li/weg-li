@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.6.4'
 
-gem 'rails', '5.2.3'
+gem 'rails', '6.0.0'
 gem 'puma'
 gem 'sass-rails'
 gem 'jquery-rails'
@@ -22,12 +22,13 @@ gem 'kaminari-bootstrap', '~> 3.0.1'
 gem 'pg'
 gem 'redcarpet'
 gem 'geocoder'
+gem 'image_processing'
 gem 'google-cloud-vision'
-gem 'google-cloud-storage', '~> 1.8', require: false
+gem 'google-cloud-storage'
 gem 'mini_magick'
 gem 'color'
 gem 'twitter'
-gem 'administrate'
+gem 'administrate', github: 'thoughtbot/administrate'
 gem 'administrate-field-active_storage'
 
 group :production do

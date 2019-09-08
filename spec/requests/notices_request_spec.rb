@@ -40,7 +40,7 @@ describe 'notices', type: :request do
         patch mail_notice_path(@notice), params: @params
 
         expect(response).to be_redirect
-      }.to change { ActionMailer::Base.deliveries.size }.by(1)
+      }.to have_enqueued_job(ActionMailer::MailDeliveryJob)
     end
   end
 

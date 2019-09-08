@@ -11,7 +11,7 @@ describe "public", type: :request do
       get public_charge_path(token: @notice.token)
 
       expect(response).to be_successful
-      assert_select('.panel-heading', "Anzeige: #{@notice.charge}")
+      assert_select('.panel-heading', "Anzeige: #{@notice.registration} #{@notice.charge}")
     end
   end
 

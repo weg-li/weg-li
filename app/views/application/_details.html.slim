@@ -1,7 +1,11 @@
 dl.dl-horizontal
-  - if notice.district?
-    dt= Notice.human_attribute_name(:district)
-    dd= notice.district.display_name
+  dt= Notice.human_attribute_name(:status)
+  dd
+    => render 'status', status: @notice.status
+    - if @notice.incomplete?
+      = render 'status', status: :incomplete
+  dt= Notice.human_attribute_name(:district)
+  dd= notice.district.display_name
   dt= Notice.human_attribute_name(:charge)
   dd= notice.charge
   dt= Notice.human_attribute_name(:date)
