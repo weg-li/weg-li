@@ -1,5 +1,10 @@
 - publicly ||= false
+- upload ||= false
 .well.well-sm.clearfix
+  - if upload
+    .pull-right
+      button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_photo_upload"
+        span.glyphicon.glyphicon-plus
   ul.photo-list
     - notice.photos.each_with_index do |photo, index|
       li.list-item
@@ -30,3 +35,19 @@
               = link_to(rails_blob_path(photo, disposition: "attachment"), class: 'btn btn-default', title: 'herunterladen') do
                 span.glyphicon.glyphicon-download
               button type="button" class="btn btn-default" data-dismiss="modal" Schließen
+
+- if upload
+  .modal.fade id="modal_photo_upload" tabindex="-1" role="dialog"
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button type="button" class="close" data-dismiss="modal" aria-label="Schließen"
+            span aria-hidden="true" &times;
+          h4.modal-title Beweisfotos hochladen
+
+        = form_for notice, url: [:upload, notice], html: {class: "form-horizontal"} do |form|
+          .modal-body
+            = render 'photos_form', notice: notice, form: form
+          .modal-footer
+            = form.submit 'hochladen', class: "btn btn-success" do
+            button type="button" class="btn btn-default" data-dismiss="modal" Schließen
