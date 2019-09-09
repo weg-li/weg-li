@@ -1,0 +1,16 @@
+.safari-only {
+  display: none;
+}
+
+@supports (-webkit-text-size-adjust:none) and (not (-ms-ime-align:auto)) and (not (-moz-appearance:none)) {
+  /*
+    Define here the CSS styles applied only to the Safari 9 version when
+    running in iOS devices (iPhone, iPad, ...) https://solvit.io/bcf61b6
+   */
+   .safari-only {
+     display: block;
+   }
+   input[type=date], input[type=time] {
+     -webkit-appearance: none;
+   }
+}

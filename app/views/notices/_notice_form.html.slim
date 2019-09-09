@@ -25,10 +25,7 @@
                 | Aktuellen Standort verwenden
 
               button type="button" class="btn btn-default" data-dismiss="modal" Schließen
-    small.help-text
-      |
-        #{link_to('Safari auf iOS entfernt leider manchmal die Metadaten', 'https://apple.stackexchange.com/questions/326789/gps-exif-from-iphone-photo-upload-in-safari', target: '_blank')},
-        die für die automatische Standort-Ermittlung benötigt werden.
+    = render('safari_hint')
 
 .row
   .col-lg-12
@@ -47,9 +44,15 @@
     = form.label :date, class: "control-label control-label-required"
     .row
       .col-lg-6
-        = form.date_field :date_date, class: "form-control", required: true
+        .input-group
+          = form.date_field :date_date, class: "form-control", required: true, placeholder: Time.zone.now.strftime('%d.%m.%Y')
+          label.input-group-addon(for="notice_date_date")
+            span.glyphicon.glyphicon-calendar
       .col-lg-6
-        = form.time_field :date_time, class: "form-control", required: true, step: 1, value: (form.object.date_time || Time.zone.now).strftime('%H:%M')
+        .input-group
+          = form.time_field :date_time, class: "form-control", required: true, step: 1, value: (form.object.date_time || Time.zone.now).strftime('%H:%M')
+          label.input-group-addon(for="notice_date_time")
+            span.glyphicon.glyphicon-time
 
 .row
   .col-lg-6
