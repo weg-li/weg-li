@@ -3,90 +3,94 @@
     .well.well-sm.callout
       p= t('notices.steps.infos.description')
 
-    = form.label :address, class: "control-label control-label-required"
-    .input-group
-      = form.text_field :address, placeholder: "z.B. Sylvesterallee 7, Hamburg", class: "form-control", required: true
-      a.input-group-addon(href="#" data-toggle="modal" data-target="#modal_map")
-        span.glyphicon.glyphicon-map-marker
-      .modal.fade id="modal_map" tabindex="-1" role="dialog"
-        .modal-dialog
-          .modal-content
-            .modal-header
-              button type="button" class="close" data-dismiss="modal" aria-label="Schließen"
-                span aria-hidden="true" &times;
-              h4.modal-title Adresse auswählen
-            .modal-body
-              .well.well-sm.callout
-                p Den Marker einfach an die entsprechende Stelle ziehen, oder den aktuellen Standort verwenden, die Adresse wird dann automatisch ausgefüllt.
-              = render('picker_map', notice: notice, target: '#notice_address', trigger: '#geolocation')
-            .modal-footer
-              = button_tag type: :button, class: "btn btn-default", id: 'geolocation' do
-                span.glyphicon.glyphicon-map-marker>
-                | Aktuellen Standort verwenden
-
-              button type="button" class="btn btn-default" data-dismiss="modal" Schließen
-    = render('safari_hint')
-
-.row
+.form-row
   .col-lg-12
-    = form.label :charge, class: "control-label control-label-required"
-    = form.select :charge, Vehicle.charges, { include_blank: 'Tippen zum Auswählen' }, { class: "form-control", required: true }
+    .form-group
+      = form.label :address, class: "control-label control-label-required"
+      .input-group
+        = form.text_field :address, placeholder: "z.B. Sylvesterallee 7, Hamburg", class: "form-control", required: true
+        a.input-group-addon(href="#" data-toggle="modal" data-target="#modal_map")
+          span.glyphicon.glyphicon-map-marker
+        .modal.fade id="modal_map" tabindex="-1" role="dialog"
+          .modal-dialog
+            .modal-content
+              .modal-header
+                button type="button" class="close" data-dismiss="modal" aria-label="Schließen"
+                  span aria-hidden="true" &times;
+                h4.modal-title Adresse auswählen
+              .modal-body
+                .well.well-sm.callout
+                  p Den Marker einfach an die entsprechende Stelle ziehen, oder den aktuellen Standort verwenden, die Adresse wird dann automatisch ausgefüllt.
+                = render('picker_map', notice: notice, target: '#notice_address', trigger: '#geolocation')
+              .modal-footer
+                = button_tag type: :button, class: "btn btn-default", id: 'geolocation' do
+                  span.glyphicon.glyphicon-map-marker>
+                  | Aktuellen Standort verwenden
 
-.row
-  .col-lg-6
-    = form.label :registration, class: "control-label control-label-required"
-    = form.text_field :registration, placeholder: 'z.B. HH SV 1887', class: "form-control", required: true
-    - fair_use_limit = 5
-    - if notice.similar_count > fair_use_limit
-      small.help-text Für dieses Fahrzeug wurden im letzten Monat bereits mehr als #{fair_use_limit} Meldungen erfasst.
+                button type="button" class="btn btn-default" data-dismiss="modal" Schließen
+      = render('safari_hint')
 
-  .col-lg-6
-    = form.label :date, class: "control-label control-label-required"
-    .row
-      .col-lg-6
-        .input-group
-          = form.date_field :date_date, class: "form-control", required: true, placeholder: Time.zone.now.strftime('%d.%m.%Y')
-          label.input-group-addon(for="notice_date_date")
-            span.glyphicon.glyphicon-calendar
-      .col-lg-6
-        .input-group
-          = form.time_field :date_time, class: "form-control", required: true, step: 1, value: (form.object.date_time || Time.zone.now).strftime('%H:%M')
-          label.input-group-addon(for="notice_date_time")
-            span.glyphicon.glyphicon-time
+    .form-group
+      = form.label :charge, class: "control-label control-label-required"
+      = form.select :charge, Vehicle.charges, { include_blank: 'Tippen zum Auswählen' }, { class: "form-control", required: true }
 
-.row
+.form-row
   .col-lg-6
-    = form.label :brand, class: "control-label"
-    = form.select :brand, Vehicle.brands, { include_blank: 'Tippen zum Auswählen' }, { class: "form-control" }
-
-  .col-lg-6
-    = form.label :color, class: "control-label"
-    = form.select :color, Vehicle.colors.map { |color| [t(color, scope: "activerecord.attributes.notice.colors"), color] }, { include_blank: 'Tippen zum Auswählen' }, { class: "form-control" }
-
-.row
-  .col-lg-6
-    label.control-label Details zum Vorwurf
-    .checkbox
-      label
-        = form.check_box :empty
-        span Das Fahrzeug war verlassen
-    .checkbox
-      label
-        = form.check_box :parked
-        span Das Fahrzeug stand mindestens 3 Minuten
-    .checkbox
-      label
-        = form.check_box :parked_one_hour
-        span Das Fahrzeug stand länger als 1 Stunde
-    .checkbox
-      label
-        = form.check_box :parked_three_hours
-        span Das Fahrzeug stand länger als 3 Stunden
-    .checkbox
-      label
-        = form.check_box :hinder
-        span Behinderung anderer Verkehrsteilnehmer
+    .form-group
+      = form.label :registration, class: "control-label control-label-required"
+      = form.text_field :registration, placeholder: 'z.B. HH SV 1887', class: "form-control", required: true
+      - fair_use_limit = 5
+      - if notice.similar_count > fair_use_limit
+        small.help-text Für dieses Fahrzeug wurden im letzten Monat bereits mehr als #{fair_use_limit} Meldungen erfasst.
 
   .col-lg-6
-    = form.label :note, class: "control-label"
-    = form.text_area :note, placeholder: 'Das Fahrzeug war zudem ordnungswidrig mit Rauten verziert', class: "form-control"
+    .form-group
+      = form.label :date, class: "control-label control-label-required"
+      .input-group
+        = form.date_field :date_date, class: "form-control", required: true, placeholder: Time.zone.now.strftime('%d.%m.%Y')
+        label.input-group-addon(for="notice_date_date")
+          span.glyphicon.glyphicon-calendar
+        = form.time_field :date_time, class: "form-control", required: true, step: 1, value: (form.object.date_time || Time.zone.now).strftime('%H:%M')
+        label.input-group-addon(for="notice_date_time")
+          span.glyphicon.glyphicon-time
+
+.form-row
+  .col-lg-6
+    .form-group
+      = form.label :brand, class: "control-label"
+      = form.select :brand, Vehicle.brands, { include_blank: 'Tippen zum Auswählen' }, { class: "form-control" }
+
+  .col-lg-6
+    .form-group
+      = form.label :color, class: "control-label"
+      = form.select :color, Vehicle.colors.map { |color| [t(color, scope: "activerecord.attributes.notice.colors"), color] }, { include_blank: 'Tippen zum Auswählen' }, { class: "form-control" }
+
+.form-row
+  .col-lg-6
+    .form-group
+      label.control-label Details zum Vorwurf
+      .checkbox
+        label
+          = form.check_box :empty
+          span Das Fahrzeug war verlassen
+      .checkbox
+        label
+          = form.check_box :parked
+          span Das Fahrzeug stand mindestens 3 Minuten
+      .checkbox
+        label
+          = form.check_box :parked_one_hour
+          span Das Fahrzeug stand länger als 1 Stunde
+      .checkbox
+        label
+          = form.check_box :parked_three_hours
+          span Das Fahrzeug stand länger als 3 Stunden
+      .checkbox
+        label
+          = form.check_box :hinder
+          span Behinderung anderer Verkehrsteilnehmer
+
+  .col-lg-6
+    .form-group
+      = form.label :note, class: "control-label"
+      = form.text_area :note, placeholder: 'Das Fahrzeug war zudem ordnungswidrig mit Rauten verziert', class: "form-control"
