@@ -11,6 +11,8 @@
           span.glyphicon.glyphicon-plus>
           | Meldung erfassen
       .table-responsive
+        .visible-xs-block.scroll-indicator
+          a(href="#actions" data-turbolinks="false") ⤳
         table.table.table-striped.table-hover
           thead
             tr
@@ -35,7 +37,7 @@
                           = render 'status', status: status
                     li role="separator" class="divider"
                     li= link_to 'kein Filter', url_for(@table_params.merge(filter: nil))
-              th Aktionen
+              th#actions Aktionen
           tbody
             - if @notices.present?
               - @notices.each do |notice|

@@ -42,6 +42,12 @@ ul.photo-list {
   border-radius: 5px;
 }
 
+.scroll-indicator {
+  position: absolute;
+  right: 20px;
+  margin-top: -5px;
+}
+
 .glyphicon-status-incomplete:before {
   content: "\e209";
 }
