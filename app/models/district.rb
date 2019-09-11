@@ -26,6 +26,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
   # https://www.leipzig.de/buergerservice-und-verwaltung/sicherheit-und-ordnung/kommunale-verkehrsueberwachung/ueberwachung-des-ruhenden-verkehrs-politessen/
   LEIPZIG = District.new('leipzig', 'ordnungsamt@leipzig.de', 13, 51.340, 12.374)
   LUENEBURG = District.new('lueneburg', 'bussgeldstelle@landkreis.lueneburg.de', 14, 53.249, 10.403)
+  MAINZ = District.new('mainz', 'verkehrsueberwachungsamt@stadt.mainz.de', 14, 49.999, 8.268)
   MUENCHEN = District.new('muenchen', 'verkehrsueberwachung.kvr@muenchen.de', 13, 48.133, 11.565)
   MUENSTER = District.new('muenster', 'kod@stadt-muenster.de', 14, 51.961, 7.622)
   NEUSS = District.new('neuss', 'verkehrslenkung@stadt.neuss.de', 15, 51.198, 6.690)
@@ -63,6 +64,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
     KREUZTAL,
     LEIPZIG,
     LUENEBURG,
+    MAINZ,
     MUENCHEN,
     MUENSTER,
     NEUSS,
