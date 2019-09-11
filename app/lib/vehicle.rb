@@ -109,6 +109,7 @@ class Vehicle
       'Parken weniger als 5 Meter vor/hinter der Kreuzung/Einmündung',
       'Parken im absolutem Haltverbot (Zeichen 283)',
       'Parken unzulässig im eingeschränkten Haltverbot (Zeichen 286)',
+      'Parken unzulässig auf einer Sperrfläche (Zeichen 298)',
       'Parken an einer engen/unübersichtlichen Straßenstelle',
       'Parken im Bereich einer scharfen Kurve',
       'Parken unzulässig in der zweiten Reihe',
