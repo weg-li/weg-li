@@ -6,17 +6,18 @@
       In #{@district.display_name} sind momentan #{@count[@district.name] || 0} aller #{@total} weg-li Knipser unterwegs.
       Dein Bezirk fehlt? Dann schreib gerne an #{mail_to 'peter@weg-li.de'} und sag uns, wo Du testen möchtest. Hast Du die zuständige Stelle und deren E-Mail Adresse schon parat? Dann geht es besonders schnell!
 
-.row
-  .col-lg-4
-    - grouped = @notices.group_by(&:brand).sort_by {|_, group| group.size }.reverse
-    - grouped.each do |key, group|
-      span.label.label-default>= "#{key.presence || 'ohne'} #{group.size}"
-  .col-lg-8
-    - grouped = @notices.group_by(&:charge).sort_by {|_, group| group.size }.reverse
-    - grouped.each do |key, group|
-      span.label.label-default>= "#{key} #{group.size}"
+- if @notices.present?
+  .row
+    .col-lg-4
+      - grouped = @notices.group_by(&:brand).sort_by {|_, group| group.size }.reverse
+      - grouped.each do |key, group|
+        span.label.label-default>= "#{key.presence || 'ohne'} #{group.size}"
+    .col-lg-8
+      - grouped = @notices.group_by(&:charge).sort_by {|_, group| group.size }.reverse
+      - grouped.each do |key, group|
+        span.label.label-default>= "#{key} #{group.size}"
 
-hr.spacer
+  hr.spacer
 
 .row
   .col-lg-4
