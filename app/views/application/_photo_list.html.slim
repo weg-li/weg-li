@@ -1,0 +1,24 @@
+.well.well-sm.clearfix
+  ul.photo-list
+    - photos.each_with_index do |photo, index|
+      li.list-item
+        a(href="#" data-toggle="modal" data-target="#modal_#{dom_id(photo)}")
+          = image_tag(url_for(photo.variant(resize: "100x100", auto_orient: true).processed), class: 'item-photo')
+        .flex-buttons.btn-group.btn-group-sm
+          button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal_#{dom_id(photo)}"
+            span.glyphicon.glyphicon-eye-open
+
+      .modal.fade id="modal_#{dom_id(photo)}" tabindex="-1" role="dialog"
+        .modal-dialog
+          .modal-content
+            .modal-header
+              button type="button" class="close" data-dismiss="modal" aria-label="Schließen"
+                span aria-hidden="true" &times;
+              h4.modal-title Beweisfoto ##{index + 1}
+            .modal-body
+              span.zoom(style="position: relative; overflow: hidden; display: inline-block;")
+                = image_tag(url_for(photo.variant(resize: "1000x1000", auto_orient: true).processed), class: 'modal-photo')
+            .modal-footer
+              = link_to(rails_blob_path(photo, disposition: "attachment"), class: 'btn btn-default', title: 'herunterladen') do
+                span.glyphicon.glyphicon-download
+              button type="button" class="btn btn-default" data-dismiss="modal" Schließen

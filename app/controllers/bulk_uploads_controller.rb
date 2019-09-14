@@ -34,7 +34,8 @@ class BulkUploadsController < ApplicationController
 
   def edit
     @bulk_upload = current_user.bulk_uploads.find(params[:id])
-    @notices = @bulk_upload.photos.map { |photo| @bulk_upload.notices.build(photos: [photo], address: 'blaaaa') }
+    # @notices = @bulk_upload.photos.map { |photo| @bulk_upload.notices.build(photos: [photo], address: 'blaaaa') }
+    @groups = @bulk_upload.photos.group_by { |photo| photo.filename.to_s }
   end
 
   def update
