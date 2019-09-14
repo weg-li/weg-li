@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe NoticesController do
+describe 'notices', type: :request do
   let(:user) { Fabricate(:user) }
 
   context "create" do
@@ -17,7 +17,7 @@ describe NoticesController do
 
     it "creates a notice with given params" do
       expect {
-        post :create, params: params
+        post notices_path, params: params
       }.to change { user.notices.count }.by(1)
     end
   end
@@ -37,10 +37,10 @@ describe NoticesController do
 
     it "sends a mail to share recipient" do
       expect {
-        patch :mail, params: @params
+        patch mail_notice_path(@notice), params: @params
 
         expect(response).to be_redirect
-      }.to change { ActionMailer::Base.deliveries.size }.by(1)
+      }.to have_enqueued_job(ActionMailer::MailDeliveryJob)
     end
   end
 
@@ -53,7 +53,7 @@ describe NoticesController do
 
     it "should destroy the notice" do
       expect {
-        post :destroy, params: {id: @notice}
+        delete notice_path(@notice)
       }.to change { user.notices.count }.by(-1)
     end
   end

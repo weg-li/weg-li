@@ -1,3 +1,5 @@
+//= require @google/markerclusterer/src/markerclusterer
+
 class GMap {
   constructor(canvas) {
     this.canvas = canvas[0];
@@ -51,9 +53,9 @@ class GPickerMap {
       var geocoder = new google.maps.Geocoder;
       geocoder.geocode({'location': { lat, lng }}, (results, status) => {
         if (status === 'OK') {
-          if (results[0]) {
-            const address = results[0].formatted_address;
-            $(this.target).val(address);
+          if (results.length > 0) {
+            const result = (results.filter(result => result.types.includes('street_address')) || results)[0];
+            $(this.target).val(result.formatted_address);
           } else {
             window.alert('Es konnten keine Ergebnisse gefunden werden.');
           }
@@ -105,6 +107,35 @@ class GMultiMap {
   }
 }
 
+class GClusterMap {
+  constructor(canvas) {
+    this.canvas = canvas[0];
+    this.init = canvas.data("init");
+    this.notices = canvas.data("notices");
+  }
+
+  show() {
+    const options = {
+      zoom: this.init.zoom,
+      scrollwheel: false,
+      streetViewControl: false,
+      center: new google.maps.LatLng(this.init.latitude, this.init.longitude),
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+    }
+
+    const map = new google.maps.Map(this.canvas, options);
+    const markers = this.notices.map((notice, i) => {
+      const position = new google.maps.LatLng(notice.latitude, notice.longitude);
+      return new google.maps.Marker({
+        position,
+        title: notice.location,
+      });
+    });
+    new MarkerClusterer(map, markers, {imagePath: '/img/map/m'});
+  }
+}
+
 window.GMap = GMap;
 window.GPickerMap = GPickerMap;
 window.GMultiMap = GMultiMap;
+window.GClusterMap = GClusterMap;

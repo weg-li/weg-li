@@ -25,7 +25,7 @@ describe Article do
     end
 
     it "finds articles in period" do
-      @article.update_attributes! published_at: 2.weeks.ago
+      @article.update! published_at: 2.weeks.ago
       articles = Article.in_period('this month')
       expect(articles.to_a).to eql([@article])
     end

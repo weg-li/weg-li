@@ -5,6 +5,7 @@ Fabricator(:user) do
   name      { Faker::Name.name }
   address   { Faker::Address.full_address }
   district  { 'hamburg' }
+  validation_date { 2.days.ago }
 end
 
 Fabricator(:admin, from: :user) do

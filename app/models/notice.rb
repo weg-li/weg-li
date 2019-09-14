@@ -3,14 +3,16 @@ class Notice < ActiveRecord::Base
   split_accessor :date
 
   include Bitfields
-  bitfield :flags, 1 => :empty, 2 => :parked, 4 => :hinder, 8 => :parked_long
+  bitfield :flags, 1 => :empty, 2 => :parked, 4 => :hinder, 8 => :parked_three_hours, 16 => :parked_one_hour
 
   include Incompletable
 
+  attr_accessor :tweet_url
+
   before_validation :defaults
 
-  geocoded_by :address
-  reverse_geocoded_by :latitude, :longitude, language: Proc.new { |model| I18n.locale }
+  geocoded_by :address, language: Proc.new { |model| I18n.locale }, no_annotations: true
+  reverse_geocoded_by :latitude, :longitude, language: Proc.new { |model| I18n.locale }, no_annotations: true
   after_validation :geocode
 
   belongs_to :user
@@ -21,6 +23,7 @@ class Notice < ActiveRecord::Base
   enum status: {open: 0, disabled: 1, analyzing: 2, shared: 3}
 
   scope :since, -> (date) { where('notices.created_at > ?', date) }
+  scope :destroyable, -> () { where.not(status: :shared) }
   scope :for_public, -> () { where.not(status: :disabled) }
 
   def self.from_param(token)
@@ -42,7 +45,21 @@ class Notice < ActiveRecord::Base
   def analyze!
     self.status = :analyzing
     save_incomplete!
-    AnalyzerJob.perform_later(self)
+    AnalyzerJob.set(wait: 3.seconds).perform_later(self)
+  end
+
+  def apply_favorites(registrations)
+    other = Notice.shared.since(1.month.ago).find_by(registration: registrations)
+    if other
+      self.registration = other.registration
+      self.brand = other.brand
+      self.color = other.color
+      self.charge = other.charge
+    end
+  end
+
+  def similar_count(since: 1.month.ago)
+    @similar_count ||= Notice.since(since).where(registration: registration).count
   end
 
   def district=(district)
@@ -72,5 +89,6 @@ class Notice < ActiveRecord::Base
 
   def defaults
     self.token ||= SecureRandom.hex(16)
+    self.district ||= user&.district
   end
 end

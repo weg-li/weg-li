@@ -1,6 +1,7 @@
 class NoticesController < ApplicationController
   before_action :authenticate!
   before_action :authenticate_admin_user!, only: :inspect
+  before_action :validate!, except: [:index]
 
   def index
     @filter_status =  Notice.statuses.keys
@@ -23,8 +24,10 @@ class NoticesController < ApplicationController
 
   def map
     @since = (params[:since] || '7').to_i
+    @display = params[:display] || 'cluster'
+    @district = District.by_name(params[:district] || current_user&.district_name || 'hamburg')
 
-    @notices = current_user.notices.since(@since.days.ago)
+    @notices = current_user.notices.since(@since.days.ago).where(district: @district.name)
   end
 
   def show
@@ -36,7 +39,7 @@ class NoticesController < ApplicationController
   end
 
   def create
-    notice = current_user.notices.build(notice_params)
+    notice = current_user.notices.build(notice_upload_params)
     notice.analyze!
 
     message = 'Eine Meldung mit Beweisfotos wurde erfasst'
@@ -45,10 +48,42 @@ class NoticesController < ApplicationController
       message += ', nun gleich die nächste Meldung erfassen'
       path = new_notice_path
     else
-      message += 'und Analyse gestartet'
+      message += ' und Analyse gestartet'
     end
 
     redirect_to path, notice: message
+  end
+
+  def import
+    tweet = Twttr.client.status(notice_import_params[:tweet_url], tweet_mode: :extended)
+    nickname = tweet.user.screen_name
+    if User.where(nickname: nickname).any?
+      redirect_to new_notice_path, notice: "Der Nutzer #{nickname} besteht bereits im System"
+      return
+    end
+
+    import_user = User.new(nickname: nickname, name: tweet.user.name, address: tweet.user.location, access: :ghost)
+    import_user.save(validate: false)
+
+    notice = import_user.notices.build(notice_import_params)
+    notice.date = tweet.created_at
+    notice.note = tweet.attrs[:full_text]
+    coordinates = (tweet.geo || tweet.coordinates)&.coordinates
+    if coordinates.present?
+      notice.longitude = coordinates.first
+      notice.latitude = coordinates.last
+    end
+    tweet.media.each do |media|
+      filename = media.media_url_https.basename
+
+      next unless filename =~ /jpg|jpeg/
+
+      notice.photos.attach(io: open(media.media_url_https), filename: filename, content_type: "image/jpg")
+    end
+
+    notice.analyze!
+
+    redirect_to public_charge_path(notice), notice: 'Eine Meldung mit Beweisfotos wurde importiert'
   end
 
   def edit
@@ -68,7 +103,7 @@ class NoticesController < ApplicationController
 
   def upload
     notice = current_user.notices.from_param(params[:id])
-    notice.assign_attributes(notice_params)
+    notice.assign_attributes(notice_upload_params)
     notice.save_incomplete!
 
     redirect_to [:edit, notice], notice: 'Beweisfotos wurden hochgeladen'
@@ -76,7 +111,7 @@ class NoticesController < ApplicationController
 
   def share
     @notice = current_user.notices.from_param(params[:id])
-    @notice.district = current_user.district
+    @notice.district ||= current_user.district
 
     @mail = NoticeMailer.charge(current_user, @notice)
   end
@@ -121,7 +156,7 @@ class NoticesController < ApplicationController
   end
 
   def destroy
-    notice = current_user.notices.from_param(params[:id])
+    notice = current_user.notices.destroyable.from_param(params[:id])
     notice.destroy!
 
     redirect_to notices_path, notice: t('notices.destroyed')
@@ -172,7 +207,15 @@ class NoticesController < ApplicationController
   private
 
   def notice_params
-    params.require(:notice).permit(:charge, :date, :date_date, :date_time, :registration, :make, :brand, :model, :color, :kind, :address, :note, :hinder, :empty, :parked, :parked_long, photos: [])
+    params.require(:notice).permit(:charge, :date, :date_date, :date_time, :registration, :make, :brand, :model, :color, :kind, :address, :note, :hinder, :empty, :parked, :parked_one_hour, :parked_three_hours)
+  end
+
+  def notice_upload_params
+    params.require(:notice).permit(photos: [])
+  end
+
+  def notice_import_params
+    params.require(:notice).permit(:tweet_url)
   end
 
   def mail_params

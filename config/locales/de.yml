@@ -39,7 +39,8 @@ de:
         note: 'Hinweis'
         empty: 'Verlassen'
         parked: 'Geparkt'
-        parked_long: 'Lang Geparkt'
+        parked_one_hour: 'Länger als 1 Stunde'
+        parked_three_hours: 'Länger als 3 Stunden'
         hinder: 'Behinderung'
         incomplete: 'unvollständig'
         status: 'Status'
@@ -53,6 +54,7 @@ de:
           brown: 'Braun'
           yellow: 'Gelb'
           grey: 'Grau'
+          gray: 'Grau'
           green: 'Grün'
           red: 'Rot'
           black: 'Schwarz'
@@ -131,30 +133,42 @@ de:
       all_users: 'Benutzer insgesamt'
       districts: 'Unterstützte Bezirke'
     districts:
+      aichtal: 'Aichtal'
       berlin: 'Berlin'
+      bielefeld: 'Bielefeld'
       bochum: 'Bochum'
       bonn: 'Bonn'
+      braunschweig: 'Braunschweig'
       bremen: 'Bremen'
       buxtehude: 'Buxtehude'
       darmstadt: 'Darmstadt'
       dortmund: 'Dortmund'
       duesseldorf: 'Düsseldorf'
+      filderstadt: 'Filderstadt'
       frankfurt: 'Frankfurt'
       hamburg: 'Hamburg'
       hannover: 'Hannover'
       hannover_region: 'Großraum Hannover'
       hessen_region: 'Großraum Hessen'
+      hilchenbach: 'Hilchenbach'
       hilden: 'Hilden'
       herne: 'Herne'
       kiel: 'Kiel'
       koeln: 'Köln'
+      kreuztal: 'Kreuztal'
       leipzig: 'Leipzig'
       lueneburg: 'Lüneburg'
+      mainz: 'Mainz'
       muenchen: 'München'
       muenster: 'Münster'
       neuss: 'Neuss'
       nuernberg: 'Nürnberg'
+      nuertingen: 'Nürtingen'
+      ravensburg: 'Ravensburg'
+      stuttgart: 'Stuttgart'
+      siegen: 'Siegen'
       tuebingen: 'Tübingen'
+      zweibruecken: 'Zweibrücken'
     confirmation_mail: "Eine Bestätigungs-Mail wurde an %{email} versendet."
     profile_updated_and_confirmation_email: 'Dein Profil wurde aktualisiert und eine Bestätigungs-Mail wurde an Deine E-Mail Adresse versendet!'
     profile_updated: 'Dein Profil wurde aktualisiert.'
@@ -222,13 +236,13 @@ de:
     back_to_dashboard: 'zurück zur Übersicht'
     steps:
       photos:
-        title: erfassen
+        title: Erfassen
         description: Mache ein oder mehrere Beweisfotos, die den Verstoß klar dokumentieren, und lade sie hoch. Das Fabrikat und das Nummernschild sollten auf den Fotos gut zu erkennen sein. Erstelle eine neue Meldung pro Fahrzeug und vermeide es möglichst, Fotos mit Passanten und Kennzeichen Unbeteiligter zu machen.
       infos:
-        title: beschreiben
+        title: Beschreiben
         description: Um mit Hilfe der Meldung eine Anzeige zu erstatten, werden noch zusätzliche Informationen benötigt. Neben Zeit und Ort des Verstoßes müssen auch noch Details zum Fahrzeug angegeben werden. Diese Informationen werden soweit möglich automatisch aus den Beweisfotos ermittelt.
       charges:
-        title: melden
+        title: Melden
         description: Aus den Daten kann direkt eine Anzeige erstattet werden, die dann an das zuständige Ordnungsamt oder die Polizei gesendet wird. Alle Meldungen werden zudem anonymisiert auf der öffentlich erreichbaren weg-li Karte angezeigt.
 
     callouts:

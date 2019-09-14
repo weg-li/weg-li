@@ -68,7 +68,9 @@ class SessionsController < ApplicationController
   def signup
     email = @auth['info']['email']
     check_existing_user(email)
-    @user = User.new(nickname: @auth['info']['nickname'], email: email)
+    nickname = @auth['info']['nickname']
+    @user = User.ghost.find_by(nickname: nickname) || User.new(nickname: nickname)
+    @user.email = email
   end
 
   def ticket
@@ -86,7 +88,10 @@ class SessionsController < ApplicationController
       user_params[:email] = session[:email_auth_address]
       user_params[:validation_date] = Time.now
     end
-    @user = User.new(user_params)
+    nickname = @auth['info']['nickname']
+    @user = User.ghost.find_by(nickname: nickname) || User.new
+    @user.assign_attributes(user_params)
+    @user.access = :user
     @user.authorizations.build provider: @auth['provider'], uid: @auth['uid']
 
     if @user.save

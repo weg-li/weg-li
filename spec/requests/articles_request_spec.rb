@@ -18,7 +18,7 @@ describe "blog", type: :request  do
       get articles_path(format: :rss)
 
       expect(response).to be_successful
-      expect(response.content_type).to eql(Mime[:rss].to_s)
+      expect(response.media_type).to eql(Mime[:rss].to_s)
     end
   end
 

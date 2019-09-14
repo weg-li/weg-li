@@ -42,6 +42,12 @@ ul.photo-list {
   border-radius: 5px;
 }
 
+.scroll-indicator {
+  position: absolute;
+  right: 20px;
+  margin-top: -5px;
+}
+
 .glyphicon-status-incomplete:before {
   content: "\e209";
 }
@@ -89,7 +95,9 @@ ul.photo-list {
 }
 .select2-container--bootstrap .select2-selection--single {
   margin-top: 1px;
-  height: 36px;
+  height: 38px;
+  border-color: black;
+  line-height: 1.6;
 }
 .input-group {
   .select2-container--bootstrap .select2-selection--single {
@@ -239,10 +247,10 @@ pre.charge {
 
 .step {
   border-radius: 999999%;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-bottom: 4px;
-  padding-top: 2px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-bottom: 3px;
+  padding-top: 3px;
   text-shadow: none;
 }
 
