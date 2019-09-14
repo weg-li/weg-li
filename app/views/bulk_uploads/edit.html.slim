@@ -10,6 +10,33 @@
         .col-lg-4
           = form.submit 'Gruppe als Meldung erfassen', class: "btn btn-success"
 
+
+javascript:
+  function ziehen(ev) {
+    ev.dataTransfer.setData('text', ev.target.id);
+  }
+
+  function ablegenErlauben(ev, el) {
+    ev.preventDefault();
+    el.classList.add('well-active');
+  }
+
+  function ablegenLeave(ev, el) {
+    el.classList.remove('well-active');
+  }
+
+  function ablegenEnter(ev, el) {
+  }
+
+  function ablegen(ev, el) {
+    el.classList.remove('well-active');
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData('text');
+    el.children[0].appendChild(document.getElementById(data));
+    // ev.target.appendChild(document.getElementById(data));
+  }
+
+
 = form_with model: @bulk_upload, html: {class: "form-horizontal"} do |form|
   hr.spacer
   .row

@@ -5,6 +5,10 @@ $warning-color: #f89406;
 $info-color: #5bc0de;
 $danger-color: #ee5f5b;
 
+.well-active {
+  background-color: $primary-color;
+}
+
 .turbolinks-progress-bar {
   background-color: $success-color;
   height: 5px !important;

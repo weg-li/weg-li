@@ -1,9 +1,9 @@
-.well.well-sm.clearfix
+.well.well-sm.clearfix(ondragover="ablegenErlauben(event, this)" ondragleave="ablegenLeave(event, this)" ondragenter="ablegenEnter(event, this)" ondrop="ablegen(event, this)")
   ul.photo-list
     - photos.each_with_index do |photo, index|
-      li.list-item
-        a(href="#" data-toggle="modal" data-target="#modal_#{dom_id(photo)}")
-          = image_tag(url_for(photo.variant(resize: "100x100", auto_orient: true).processed), class: 'item-photo')
+      li.list-item(draggable="true" id="drag_#{dom_id(photo)}" ondragstart="ziehen(event)")
+        a(href="#" data-toggle="modal" data-target="#modal_#{dom_id(photo)}" draggable="false")
+          = image_tag(url_for(photo.variant(resize: "100x100", auto_orient: true).processed), class: 'item-photo', draggable: "false")
         .flex-buttons.btn-group.btn-group-sm
           button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal_#{dom_id(photo)}"
             span.glyphicon.glyphicon-eye-open
