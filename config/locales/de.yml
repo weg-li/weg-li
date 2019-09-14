@@ -72,6 +72,7 @@ de:
     map: 'Kartenansicht'
     draft: 'Erfassen'
     dashboard: 'Übersicht'
+    bulk_uploads: 'Uploads'
     locale: 'Sprache'
     logout: 'Abmelden'
     profile: 'Profil'

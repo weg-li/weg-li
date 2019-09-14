@@ -4,6 +4,7 @@ class BulkUploadsController < ApplicationController
   def index
     @order_created_at = 'ASC'
     @table_params = {}
+    @filter_status = []
 
     @bulk_uploads = current_user.bulk_uploads.page(params[:page])
     if order = params[:order]

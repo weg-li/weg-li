@@ -4,4 +4,8 @@ class BulkUpload < ActiveRecord::Base
   has_many_attached :photos
 
   validates :photos, presence: :true
+
+  def status
+    :open
+  end
 end

@@ -20,5 +20,5 @@
       span.glyphicon.glyphicon-minus-sign
 
   - unless notice.shared?
-    = link_to notice_path(notice), method: :delete, remote: true, data: {confirm:'Die Meldung wird entgültig gelöscht'}, class: 'btn btn-primary', title: 'löschen'
+    = link_to notice_path(notice), method: :delete, remote: true, data: {confirm: 'Die Meldung wird entgültig gelöscht'}, class: 'btn btn-primary', title: 'löschen'
       span.glyphicon.glyphicon-trash
