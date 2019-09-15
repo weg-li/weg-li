@@ -43,7 +43,7 @@
                   - if bulk_upload.photos.present?
                     = link_to(bulk_upload) do
                       - bulk_upload.photos.each do |photo|
-                        = image_tag(url_for(photo.variant(resize: "100x100", auto_orient: true).processed), class: 'index-photo')
+                        = image_tag(url_for_photo(photo, size: :thumb), class: 'index-photo')
                   - else
                     span -
                 td= d(bulk_upload.created_at)

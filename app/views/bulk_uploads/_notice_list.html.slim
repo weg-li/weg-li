@@ -11,7 +11,7 @@ table.table.table-striped.table-hover
         td
           = link_to(notice) do
             - notice.photos.each do |photo|
-              = image_tag(url_for(photo.variant(resize: "100x100", auto_orient: true).processed), class: 'index-photo')
+              = image_tag(url_for_photo(photo, size: :thumb), class: 'index-photo')
         td= link_to(d(notice.created_at), notice)
         td
           => render 'status', status: notice.status
