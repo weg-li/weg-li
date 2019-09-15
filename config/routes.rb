@@ -12,7 +12,15 @@ Rails.application.routes.draw do
     root to: "notices#index"
   end
 
-  resources :bulk_uploads
+  resources :bulk_uploads do
+    member do
+      patch :purge
+    end
+
+    collection do
+      post :bulk
+    end
+  end
 
   resources :notices do
     member do

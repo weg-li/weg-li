@@ -199,6 +199,13 @@ de:
       this-year: 'Dieses Jahr'
       this-month: 'Diesen Monat'
       this-week: 'Diese Woche'
+  bulk_upload:
+    status:
+      open: 'offen'
+      done: 'erledigt'
+    status-hints:
+      open: 'Die Beweisfotos wurden gespeichert, bitte Meldungungen daraus erzeugen, vervollständigen und eine Anzeige erstatten.'
+      done: 'Alle Beweisfotos des Uploads wurden neuen Meldungen zugeordnet.'
   notices:
     new_notice: 'Neue Meldung'
     create_button: 'Meldung erstellen'

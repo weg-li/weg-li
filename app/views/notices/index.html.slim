@@ -37,7 +37,9 @@
                           = render 'status', status: status
                     li role="separator" class="divider"
                     li= link_to 'kein Filter', url_for(@table_params.merge(filter: nil))
-              th#actions Aktionen
+              th
+                span Aktionen
+                span#actions.pull-right(style="width:0px;")
           tbody
             - if @notices.present?
               - @notices.each do |notice|

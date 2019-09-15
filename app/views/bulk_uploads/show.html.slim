@@ -1,35 +1,21 @@
-- set_title @bulk_upload.token, t('navigation.bulk_uploads')
+- set_title 'Upload ansehen', t('navigation.bulk_uploads')
 - set_crumbs t('navigation.bulk_uploads') => bulk_uploads_path, 'ansehen' => url_for
 
 .panel.panel-default
   .panel-heading
-    strong> Meldung vom #{l(@bulk_upload.created_at)}
-    => render 'status', status: @bulk_upload.status
-    - if @bulk_upload.incomplete?
-      = render 'status', status: :incomplete
+    = render 'upload_actions', bulk_upload: @bulk_upload
   .panel-body
     .row
-      .col-lg-8
-        = render 'details', bulk_upload: @bulk_upload
-
       .col-lg-4
-        = render 'photos', bulk_upload: @bulk_upload, publicly: true
+        dl.dl-horizontal
+          dt= BulkUpload.human_attribute_name(:created_at)
+          dd= d(@bulk_upload.created_at)
+          dt= BulkUpload.human_attribute_name(:status)
+          dd= render 'upload_status', status: @bulk_upload.status
 
-    hr.spacer
+      .col-lg-8
+        - if @bulk_upload.photos.present?
+          = render 'photos', notice: @bulk_upload, publicly: true
 
-    .row
-      .col-lg-6
-        = button_tag title: t('bulk_uploads.copy_to_clipboard'), class: "btn btn-default btn-block", onclick: "event.preventDefault(); copyToClipboard('#{t('bulk_uploads.copy_hint')}', '#{public_charge_url(@bulk_upload)}')" do
-          span.glyphicon.glyphicon-list-alt>
-          span Link zur Meldung kopieren
-      .col-lg-6
-        = render 'callout', section: 'bulk_uploads', key: 'copy_link'
-
-  .panel-footer
-    = render 'actions', bulk_upload: @bulk_upload
-
-
-- if @bulk_upload.coordinates?
-  .row
-    .col-lg-12
-      = render 'map', bulk_upload: @bulk_upload
+  - if @bulk_upload.notices.present?
+    = render 'notice_list', notices: @bulk_upload.notices

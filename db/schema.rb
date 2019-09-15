@@ -81,14 +81,9 @@ ActiveRecord::Schema.define(version: 2019_09_05_124745) do
     t.float "longitude"
     t.boolean "incomplete", default: false, null: false
     t.string "note"
-<<<<<<< HEAD
-    t.string "district", default: "hamburg", null: false
-    t.integer "bulk_upload_id"
-=======
     t.string "district"
     t.integer "bulk_upload_id"
     t.index ["registration"], name: "index_notices_on_registration"
->>>>>>> master
   end
 
   create_table "users", force: :cascade do |t|

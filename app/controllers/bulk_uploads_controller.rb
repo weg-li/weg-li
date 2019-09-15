@@ -4,7 +4,7 @@ class BulkUploadsController < ApplicationController
   def index
     @order_created_at = 'ASC'
     @table_params = {}
-    @filter_status = []
+    @filter_status = [:open, :done]
 
     @bulk_uploads = current_user.bulk_uploads.page(params[:page])
     if order = params[:order]
@@ -34,20 +34,41 @@ class BulkUploadsController < ApplicationController
 
   def edit
     @bulk_upload = current_user.bulk_uploads.find(params[:id])
-    # @notices = @bulk_upload.photos.map { |photo| @bulk_upload.notices.build(photos: [photo], address: 'blaaaa') }
-    @groups = @bulk_upload.photos.group_by { |photo| photo.filename.to_s }
+
+    redirect_to bulk_uploads_path, notice: 'Es wurden bereits alle Fotos des Uploads verarbeitet' and return if @bulk_upload.photos.blank?
   end
 
   def update
-    @bulk_upload = current_user.bulk_uploads.find(params[:id])
+    bulk_upload = current_user.bulk_uploads.find(params[:id])
 
-    if @bulk_upload.update(bulk_upload_params)
-      redirect_to path, notice: 'Upload wurde gespeichert'
+    if params[:one_per_photo]
+      photos = bulk_upload.photos
+      Notice.transaction do
+        photos.each do |photo|
+          notice = current_user.notices.build(bulk_upload: bulk_upload)
+          notice.save_incomplete!
+          photo.update!(record: notice)
+        end
+      end
     else
-      render :edit
+      photos = bulk_upload.photos.find(params[:bulk_upload][:photos])
+      Notice.transaction do
+        notice = current_user.notices.build(bulk_upload: bulk_upload)
+        notice.save_incomplete!
+        photos.each { |photo| photo.update!(record: notice) }
+      end
     end
+
+
+    redirect_to edit_bulk_upload_path(bulk_upload), notice: 'Neue Meldung aus Fotos erzeugt'
   end
 
+  def purge
+    bulk_upload = current_user.bulk_uploads.from_param(params[:id])
+    bulk_upload.photos.find(params[:photo_id]).purge
+
+    redirect_back fallback_location: edit_bulk_upload_path(bulk_upload), notice: 'Foto gelöscht'
+  end
 
   def destroy
     notice = current_user.bulk_uploads.find(params[:id])
