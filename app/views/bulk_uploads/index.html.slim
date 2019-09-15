@@ -2,7 +2,7 @@
 - set_crumbs t('navigation.bulk_uploads') => url_for, 'Übersicht' => url_for
 
 - if @bulk_uploads.present? || params[:filter]
-  = form_tag bulk_uploads_path, method: :post do
+  = form_tag bulk_bulk_uploads_path, method: :post do
     .panel.panel-default
       .panel-heading
         = link_to new_bulk_upload_path, class: 'btn btn-sm btn-success', title: 'Meldung erfassen' do

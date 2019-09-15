@@ -59,7 +59,6 @@ class BulkUploadsController < ApplicationController
       end
     end
 
-
     redirect_to edit_bulk_upload_path(bulk_upload), notice: 'Neue Meldung aus Fotos erzeugt'
   end
 
@@ -75,6 +74,18 @@ class BulkUploadsController < ApplicationController
     notice.destroy!
 
     redirect_to bulk_uploads_path, notice: 'Upload wurde gelöscht'
+  end
+
+  def bulk
+    action = params[:bulk_action] || 'destroy'
+    bulk_uploads = current_user.bulk_uploads.where(id: params[:selected])
+    case action
+    when 'destroy'
+      bulk_uploads.destroy_all
+      flash[:notice] = 'Die Uploads wurden gelöscht'
+    end
+
+    redirect_to bulk_uploads_path
   end
 
   private
