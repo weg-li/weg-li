@@ -114,6 +114,7 @@ class Vehicle
       'Parken im Bereich einer scharfen Kurve',
       'Parken unzulässig in der zweiten Reihe',
       'Parken vor oder in einer amtlich gekennzeichneten Feuerwehrzufahrt',
+      'Parken verbotswidrig im Bereich eines Taxenstandes (Zeichen 229)',
       'Parken verbotswidrig und verhinderten dadurch die Benutzung gekennzeichneter Parkflächen',
       'Parken im Bereich einer Grundstückseinfahrt bzw. -ausfahrt',
       'Parken auf einer schmalen Fahrbahn gegenüber einer Grundstückseinfahrt/Grundstücks-ausfahrt',
