@@ -1,0 +1,12 @@
+- set_title 'Neuer Upload'
+- set_crumbs 'Uploads' => bulk_uploads_path, 'hochladen' => url_for
+
+= form_errors @bulk_upload
+= form_for @bulk_upload, html: {class: "form-horizontal"} do |form|
+  = render 'photos_form', bulk_upload: @bulk_upload, form: form
+  hr.spacer
+  .row
+    .col-lg-12
+      .pull-right
+        .btn-group
+          = form.submit 'hochladen & zuordnen', class: "btn btn-success"

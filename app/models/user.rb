@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   after_validation :geocode
   before_validation :defaults
 
+  has_many :bulk_uploads, -> { order('created_at DESC') }, dependent: :destroy
   has_many :notices, -> { order('created_at DESC') }, dependent: :destroy
   has_many :authorizations, dependent: :destroy
   has_many :articles, dependent: :destroy

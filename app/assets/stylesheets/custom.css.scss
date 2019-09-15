@@ -5,6 +5,10 @@ $warning-color: #f89406;
 $info-color: #5bc0de;
 $danger-color: #ee5f5b;
 
+.well-active {
+  background-color: $primary-color;
+}
+
 .turbolinks-progress-bar {
   background-color: $success-color;
   height: 5px !important;
@@ -37,6 +41,28 @@ ul.photo-list {
     }
   }
 }
+ul.droppable-list {
+  min-height: 100px;
+  li {
+    cursor: move;
+    img {
+      cursor: move;
+    }
+  }
+}
+ul.droppable-list:before{
+  content:"\e068";
+  font-family:"Glyphicons Halflings";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 28px;
+  position: absolute;
+  margin-top: 30px;
+  margin-left: 25px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .index-photo {
   height: 3em;
   border-radius: 5px;
@@ -57,6 +83,9 @@ ul.photo-list {
 .glyphicon-status-open:before {
   content: "\270f";
 }
+.glyphicon-status-done:before {
+  content: "\e089";
+}
 .glyphicon-status-analyzing:before {
   content: "\231b";
 }
@@ -75,6 +104,9 @@ ul.photo-list {
 }
 .label-status-open {
   background-color: $default-color;
+}
+.label-status-done {
+  background-color: $success-color;
 }
 .label-status-analyzing {
   background-color: $info-color;

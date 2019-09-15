@@ -1,0 +1,27 @@
+.well.well-sm.clearfix(ondragover="ablegenErlauben(event, this)" ondragleave="ablegenLeave(event, this)" ondragenter="ablegenEnter(event, this)" ondrop="ablegen(event, this)")
+  ul.photo-list.droppable-list
+    - photos.each_with_index do |photo, index|
+      li.list-item(draggable="true" id="drag_#{dom_id(photo)}" ondragstart="ziehen(event)")
+        a(href="#" data-toggle="modal" data-target="#modal_#{dom_id(photo)}" draggable="false")
+          = image_tag(url_for(photo.variant(resize: "100x100", auto_orient: true).processed), class: 'item-photo', draggable: "false")
+          = hidden_field_tag('bulk_upload[photos][]', photo.id)
+        .flex-buttons.btn-group.btn-group-sm
+          button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal_#{dom_id(photo)}"
+            span.glyphicon.glyphicon-eye-open
+
+      .modal.fade id="modal_#{dom_id(photo)}" tabindex="-1" role="dialog"
+        .modal-dialog
+          .modal-content
+            .modal-header
+              button type="button" class="close" data-dismiss="modal" aria-label="Schließen"
+                span aria-hidden="true" &times;
+              h4.modal-title Beweisfoto ##{index + 1}
+            .modal-body
+              span.zoom(style="position: relative; overflow: hidden; display: inline-block;")
+                = image_tag(url_for(photo.variant(resize: "1000x1000", auto_orient: true).processed), class: 'modal-photo')
+            .modal-footer
+              = link_to(purge_bulk_upload_path(bulk_upload, photo_id: photo.id), method: :patch, remote: true, data: {confirm: t('notices.confirm')}, class: 'btn btn-default', title: 'löschen') do
+                span.glyphicon.glyphicon-trash
+              = link_to(rails_blob_path(photo, disposition: "attachment"), class: 'btn btn-default', title: 'herunterladen') do
+                span.glyphicon.glyphicon-download
+              button type="button" class="btn btn-default" data-dismiss="modal" Schließen

@@ -54,6 +54,13 @@ ActiveRecord::Schema.define(version: 2019_09_05_124745) do
     t.datetime "updated_at"
   end
 
+  create_table "bulk_uploads", force: :cascade do |t|
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_bulk_uploads_on_user_id"
+  end
+
   create_table "notices", force: :cascade do |t|
     t.json "data"
     t.string "token", limit: 255
