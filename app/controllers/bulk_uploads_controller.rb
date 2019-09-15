@@ -48,6 +48,7 @@ class BulkUploadsController < ApplicationController
           notice = current_user.notices.build(bulk_upload: bulk_upload)
           notice.save_incomplete!
           photo.update!(record: notice)
+          notice.analyze!
         end
       end
     else
@@ -56,6 +57,7 @@ class BulkUploadsController < ApplicationController
         notice = current_user.notices.build(bulk_upload: bulk_upload)
         notice.save_incomplete!
         photos.each { |photo| photo.update!(record: notice) }
+        notice.analyze!
       end
     end
 
