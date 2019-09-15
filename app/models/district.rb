@@ -20,6 +20,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
   HILCHENBACH = District.new('hilchenbach', 'c.wandtke@hilchenbach.de', 14, 50.996, 8.110)
   HILDEN = District.new('hilden', 'ordnungsamt@hilden.de', 15, 51.169, 6.932)
   HERNE = District.new('herne', 'ordnungsamt@herne.de', 13, 51.537, 7.195)
+  KARLSRUHE = District.new('karlsruhe', 'kod@oa.karlsruhe.de', 14, 49.007, 8.396)
   KIEL = District.new('kiel', 'ad-bussgeldstelle@kiel.de', 13, 54.319, 10.118)
   KOELN = District.new('koeln', 'owi-anzeigen@koeln.de', 13, 50.937, 6.957)
   KREUZTAL = District.new('kreuztal', 'ordnungsamt@kreuztal.de', 15, 50.968, 7.988)
@@ -59,6 +60,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
     HILCHENBACH,
     HILDEN,
     HERNE,
+    KARLSRUHE,
     KIEL,
     KOELN,
     KREUZTAL,
