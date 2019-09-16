@@ -122,6 +122,38 @@ ul.droppable-list:before{
   background-color: $success-color;
 }
 
+.glyphicon-access-disabled:before {
+  content: "\e090";
+}
+.glyphicon-access-ghost:before {
+  content: "\002a";
+}
+.glyphicon-access-user:before {
+  content: "\e008";
+}
+.glyphicon-access-community:before {
+  content: "\e007";
+}
+.glyphicon-access-admin:before {
+  content: "\e006";
+}
+
+.label-access-disabled {
+  background-color: $warning-color;
+}
+.label-access-ghost {
+  background-color: $default-color;
+}
+.label-access-user {
+  background-color: $primary-color;
+}
+.label-access-community {
+  background-color: $info-color;
+}
+.label-access-admin {
+  background-color: $success-color;
+}
+
 .control-label-required::after {
   content:"*";
 }

@@ -123,6 +123,12 @@ de:
     validate: 'Bitte bestätige Deine E-Mail Adresse!'
     email_auth: 'Logge Dich bei weg-li ein.'
   users:
+    access:
+      admin: 'Admin'
+      community: 'Community'
+      user: 'User'
+      ghost: 'Ghost'
+      disabled: 'Disabled'
     statistics:
       all: 'Meldungen insgesamt'
       incomplete: 'Unvollständige Meldungen'
