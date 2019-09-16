@@ -60,6 +60,8 @@ class Notice < ActiveRecord::Base
   end
 
   def similar_count(since: 1.month.ago)
+    return 0 if registration.blank?
+
     @similar_count ||= Notice.since(since).where(registration: registration).count
   end
 

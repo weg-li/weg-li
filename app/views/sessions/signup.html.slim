@@ -28,15 +28,15 @@
     .col-lg-4
       = form.label :name, class: "control-label"
       = form.text_field :name, placeholder: 'z.B. Hanno Nym', class: "form-control", required: true
-      small.help-text Anzeigen müssen mit dem vollständigen Namen erfolgen
+      small.help-block Anzeigen müssen mit dem vollständigen Namen erfolgen
     .col-lg-4
       = form.label :address, class: "control-label"
       = form.text_field :address, placeholder: 'z.B. Sylvesterallee 7, 22525 Hamburg', class: "form-control", required: true, pattern: '.+ \d{5}.*'
-      small.help-text Anzeigen benötigen eine vollständige Anschrift mit PLZ & Ort
+      small.help-block Anzeigen benötigen eine vollständige Anschrift mit PLZ & Ort
     .col-lg-4
       = form.label :district, class: "control-label"
       = form.select :district, District.all.map { |district| [district.display_name, district.name] }, { include_blank: 'Bitte auswählen' }, { class: "form-control", required: true }
-      small.help-text Dein Bezirk fehlt? Schreibe an #{mail_to('peter@weg-li.de')} wo Du testen willst.
+      small.help-block Dein Bezirk fehlt? Schreibe an #{mail_to('peter@weg-li.de')} wo Du testen willst.
 
   hr.spacer
   .row

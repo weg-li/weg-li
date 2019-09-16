@@ -3,7 +3,7 @@
     .well.well-sm.callout
       p= t('notices.steps.infos.description')
 
-.form-row
+.row.form-row
   .col-lg-12
     .form-group
       = form.label :address, class: "control-label control-label-required"
@@ -33,14 +33,14 @@
       = form.label :charge, class: "control-label control-label-required"
       = form.select :charge, Vehicle.charges, { include_blank: 'Tippen zum Auswählen' }, { class: "form-control", required: true }
 
-.form-row
+.row.form-row
   .col-lg-6
     .form-group
       = form.label :registration, class: "control-label control-label-required"
       = form.text_field :registration, placeholder: 'z.B. HH SV 1887', class: "form-control", required: true
       - fair_use_limit = 5
       - if notice.similar_count > fair_use_limit
-        small.help-text Für dieses Fahrzeug wurden im letzten Monat bereits mehr als #{fair_use_limit} Meldungen erfasst.
+        small.help-block Für dieses Fahrzeug wurden im letzten Monat bereits mehr als #{fair_use_limit} Meldungen erfasst.
 
   .col-lg-6
     .form-group
@@ -53,7 +53,7 @@
         label.input-group-addon(for="notice_date_time")
           span.glyphicon.glyphicon-time
 
-.form-row
+.row.form-row
   .col-lg-6
     .form-group
       = form.label :brand, class: "control-label"
@@ -64,7 +64,7 @@
       = form.label :color, class: "control-label"
       = form.select :color, Vehicle.colors.map { |color| [t(color, scope: "activerecord.attributes.notice.colors"), color] }, { include_blank: 'Tippen zum Auswählen' }, { class: "form-control" }
 
-.form-row
+.row.form-row
   .col-lg-6
     .form-group
       label.control-label Details zum Vorwurf
