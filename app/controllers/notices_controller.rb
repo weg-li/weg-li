@@ -94,7 +94,7 @@ class NoticesController < ApplicationController
     @notice = current_user.notices.from_param(params[:id])
 
     if @notice.update(notice_params)
-      path = params[:show] ? [@notice] : [:share, @notice]
+      path = params[:only_save] ? notices_path : [:share, @notice]
       redirect_to path, notice: 'Meldung wurde gespeichert'
     else
       render :edit
