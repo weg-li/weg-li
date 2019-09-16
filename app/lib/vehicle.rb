@@ -15,7 +15,7 @@ class Vehicle
   end
 
   def self.plate?(text)
-    text = text.strip.gsub(/\W+/,'-')
+    text = text.strip.gsub(/^[.,:;'_+-]/, '').gsub(/[.,:;'_+-]$/, '').gsub(/\W+/,'-')
     if text =~ plate_regex
       "#{$1} #{$2} #{$3}"
     elsif text =~ relaxed_plate_regex
