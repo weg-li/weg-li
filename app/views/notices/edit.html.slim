@@ -39,7 +39,7 @@
 hr.spacer
 
 = form_errors @notice
-= form_for @notice, html: {class: "form-horizontal", autocomplete: :off} do |form|
+= form_for @notice, html: {autocomplete: :off} do |form|
   = render 'notice_form', notice: @notice, form: form
 
   hr.spacer

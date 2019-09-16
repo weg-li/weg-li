@@ -2,7 +2,7 @@
 - set_crumbs 'Uploads' => bulk_uploads_path, 'hochladen' => url_for
 
 = form_errors @bulk_upload
-= form_for @bulk_upload, html: {class: "form-horizontal"} do |form|
+= form_for @bulk_upload do |form|
   = render 'photos_form', bulk_upload: @bulk_upload, form: form
   hr.spacer
   .row

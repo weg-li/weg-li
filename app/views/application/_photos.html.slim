@@ -45,7 +45,7 @@
             span aria-hidden="true" &times;
           h4.modal-title Beweisfotos hochladen
 
-        = form_for notice, url: [:upload, notice], html: {class: "form-horizontal"} do |form|
+        = form_for notice, url: [:upload, notice] do |form|
           .modal-body
             = render 'photos_form', notice: notice, form: form
           .modal-footer

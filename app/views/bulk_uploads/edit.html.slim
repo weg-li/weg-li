@@ -8,7 +8,7 @@
         |
           Mehrere Beweisfotos gruppiert nach Fahrzeug ins obere Feld ziehen und anschließend eine neue Meldung daraus erstellen.
 
-= form_with model: @bulk_upload, html: {class: "form-horizontal"} do |form|
+= form_with model: @bulk_upload do |form|
   .row
     .col-lg-12
       fieldset Beweisfotos für neue Meldung
@@ -57,7 +57,7 @@ hr.spacer
         |
           Sollte jedes der Beweisfotos zu einem einzelnen Vergehen gehören, dann kann hier auf Knopfdruck pro Beweisfoto jeweils eine neue Meldung erzeugt werden.
 
-= form_with model: @bulk_upload, html: {class: "form-horizontal"} do |form|
+= form_with model: @bulk_upload do |form|
   .row
     .col-lg-12
       .pull-right
