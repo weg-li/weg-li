@@ -9,6 +9,10 @@ $danger-color: #ee5f5b;
   background-color: $primary-color;
 }
 
+.progress-sm {
+  height: 10px;
+}
+
 .turbolinks-progress-bar {
   background-color: $success-color;
   height: 5px !important;
