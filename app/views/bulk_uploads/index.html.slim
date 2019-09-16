@@ -41,7 +41,7 @@
               td
                 - if bulk_upload.photos.present?
                   = link_to(bulk_upload) do
-                    - bulk_upload.photos.each do |photo|
+                    - bulk_upload.photos.first(3).each do |photo|
                       = image_tag(url_for_photo(photo, size: :thumb), class: 'index-photo')
                 - else
                   span -
@@ -57,13 +57,10 @@
           tr
             td(colspan=7) Es wurden keine Uploads gefunden
     .panel-footer
-      .row
-        .col-lg-12
-          span Auswahl
-          .btn-group
-            = button_tag name: :bulk_action, value: :destroy, type: :submit, class: 'btn btn-sm btn-default' do
-              span.glyphicon.glyphicon-trash>
-              span löschen
+      .btn-group
+        = button_tag name: :bulk_action, value: :destroy, type: :submit, class: 'btn btn-sm btn-default' do
+          span.glyphicon.glyphicon-trash>
+          span löschen
 
 .text-center
   = paginate @bulk_uploads
