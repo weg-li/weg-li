@@ -8,6 +8,8 @@
         .flex-buttons.btn-group.btn-group-sm
           button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal_#{dom_id(photo)}"
             span.glyphicon.glyphicon-eye-open
+          button type="button" class="btn btn-default btn-xs" onclick="ablegenMove('drag_#{dom_id(photo)}')"
+            span.glyphicon.glyphicon-move
 
       .modal.fade id="modal_#{dom_id(photo)}" tabindex="-1" role="dialog"
         .modal-dialog

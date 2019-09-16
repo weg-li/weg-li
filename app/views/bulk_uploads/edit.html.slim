@@ -5,8 +5,9 @@
   .col-lg-12
     .well.well-sm.callout
       p
-        |
-          Mehrere Beweisfotos gruppiert nach Fahrzeug ins obere Feld ziehen und anschließend eine neue Meldung daraus erstellen.
+        | Mehrere Beweisfotos gruppiert nach Fahrzeug ins obere Feld ziehen, oder mit Hilfe des
+        span.glyphicon.glyphicon-move<>
+        | dorthin bewegen und anschließend eine neue Meldung daraus erstellen.
 
 = form_with model: @bulk_upload do |form|
   .row
@@ -46,6 +47,17 @@ javascript:
     ev.preventDefault();
     var data = ev.dataTransfer.getData('text');
     el.children[0].appendChild(document.getElementById(data));
+  }
+
+  function ablegenMove(id) {
+    const el = document.getElementById(id);
+    const first = document.getElementsByClassName('droppable-list')[0];
+    const last = document.getElementsByClassName('droppable-list')[1];
+    if (Array.from(first.childNodes).includes(el)) {
+      last.appendChild(el);
+    } else {
+      first.appendChild(el);
+    }
   }
 
 hr.spacer

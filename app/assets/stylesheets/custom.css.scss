@@ -54,18 +54,6 @@ ul.droppable-list {
     }
   }
 }
-ul.droppable-list:before{
-  content:"\e068";
-  font-family:"Glyphicons Halflings";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 28px;
-  position: absolute;
-  margin-top: 30px;
-  margin-left: 25px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
 
 .index-photo {
   height: 3em;
