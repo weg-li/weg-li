@@ -33,8 +33,8 @@ describe Vehicle do
 
   it "realworld plate matches" do
     expect(Vehicle.plate?("RD WN.200")).to eql("RD WN 200")
-    expect(Vehicle.plate?("HHTX 1267")).to eql("HHTX1267")
-    expect(Vehicle.plate?(".HHCG 142")).to eql("HHCG142")
+    expect(Vehicle.plate?("HHTX 1267")).to eql("HHTX 1267")
+    expect(Vehicle.plate?(".HHCG 142")).to eql("HHCG 142")
   end
 
 

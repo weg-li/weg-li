@@ -15,11 +15,12 @@ class Vehicle
   end
 
   def self.plate?(text)
+    # TODO: search with context of the current district ie HH first
     text = text.strip.gsub(/^[.,:;'_+-]/, '').gsub(/[.,:;'_+-]$/, '').gsub(/\W+/,'-')
     if text =~ plate_regex
       "#{$1} #{$2} #{$3}"
     elsif text =~ relaxed_plate_regex
-      "#{$1}#{$2}#{$3}"
+      "#{$1}#{$2} #{$3}"
     end
   end
 
