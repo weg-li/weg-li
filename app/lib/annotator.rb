@@ -51,6 +51,7 @@ class Annotator
     request = [
       {
         image: image,
+        image_context: { language_hints: ['de'] },
         features: [
           {type: 'LABEL_DETECTION'},
           {type: 'DOCUMENT_TEXT_DETECTION'},
