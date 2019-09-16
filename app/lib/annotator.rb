@@ -53,7 +53,7 @@ class Annotator
         image: image,
         features: [
           {type: 'LABEL_DETECTION'},
-          {type: 'TEXT_DETECTION'},
+          {type: 'DOCUMENT_TEXT_DETECTION'},
           {type: 'LOGO_DETECTION'},
           {type: 'OBJECT_LOCALIZATION'},
           {type: 'IMAGE_PROPERTIES'},
