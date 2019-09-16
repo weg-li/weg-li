@@ -10,7 +10,7 @@ module UserHandling
   end
 
   def authenticate_admin_user!
-    if !signed_in? || !current_user.admin?
+    if !signed_in? || !session_user.admin?
       redirect_to(root_path, notice: 'You are not supposed to see that!')
     end
   end
