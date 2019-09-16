@@ -26,8 +26,9 @@
                 = button_tag type: :button, class: "btn btn-default", id: 'geolocation' do
                   span.glyphicon.glyphicon-map-marker>
                   | Aktuellen Standort verwenden
-
                 button type="button" class="btn btn-default" data-dismiss="modal" Schließen
+      - unless notice.coordinates?
+        small.help-block Aus den Beweisfotos konnten leider keine Koordinaten für das automatische Ermitteln der Adresse ausgelesen werden.
 
     .form-group
       = form.label :charge, class: "control-label control-label-required"
