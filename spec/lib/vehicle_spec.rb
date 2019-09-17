@@ -20,6 +20,10 @@ describe Vehicle do
     expect([["A", "Augsburg"], ["AA", "Ostalbkreis (Aalen)"], ["AB", "Aschaffenburg"]]).to eql(data)
   end
 
+  it "it normalizes strings" do
+    expect(Vehicle.normalize("|_ HH EH 1327")).to eql("HH-EH-1327")
+  end
+
   it "it checks possible plate matches" do
     sample = " RD  WN.200 "
     result = Vehicle.plate?(sample)
