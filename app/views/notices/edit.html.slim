@@ -36,6 +36,15 @@
     .col-lg-12
       = render 'photos', notice: @notice, upload: true
 
+- photo_doubles = @notice.photo_doubles
+- if photo_doubles.present?
+  .alert.alert-warning
+    strong
+      | Beweisfotos mit identischem Namen wurden schon benutzt:
+      - photo_doubles.each do |photo|
+        =< link_to photo.filename, photo.record
+
+
 hr.spacer
 
 = form_errors @notice

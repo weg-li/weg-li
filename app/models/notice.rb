@@ -65,6 +65,10 @@ class Notice < ActiveRecord::Base
     @similar_count ||= Notice.since(since).where(registration: registration).count
   end
 
+  def photo_doubles
+    user.photos_attachments.joins(:blob).where('active_storage_blobs.filename' => photos.map { |photo| photo.filename.to_s })
+  end
+
   def district=(district)
     self[:district] = district.to_s
   end
