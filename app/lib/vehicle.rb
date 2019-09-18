@@ -24,7 +24,7 @@ class Vehicle
   end
 
   def self.normalize(text)
-    tokens = "[ •.,:;\"'|_+-]"
+    tokens = "[ •„.,:;\"'|_+-]"
     left = Regexp.new("^#{tokens}+")
     right = Regexp.new("#{tokens}+$")
     text.gsub(left, '').gsub(right, '').gsub(/\W+/,'-')
@@ -39,7 +39,7 @@ class Vehicle
   end
 
   def self.relaxed_plate_regex
-    @relaxed_plate_regex ||= Regexp.new("^O?(#{Vehicle.plates.keys.join('|')})-?O?([A-Z]{1,3})-?(\\d{1,4})$")
+    @relaxed_plate_regex ||= Regexp.new("^O?(#{Vehicle.plates.keys.join('|')}):?-?O?([A-Z]{1,3})-?(\\d{1,4})$")
   end
 
   def self.brand?(text)

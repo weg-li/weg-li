@@ -41,6 +41,9 @@ describe Vehicle do
     expect(Vehicle.plate?(".HHCG 142")).to eql("HHCG 142")
     expect(Vehicle.plate?("OHH NK 2121")).to eql("HHNK 2121")
     expect(Vehicle.plate?("AZ SJ59")).to eql("AZ SJ 59")
+    expect(Vehicle.plate?("H:HS2127")).to eql("H HS 2127")
+    expect(Vehicle.plate?("HHW2071")).to eql("HHW 2071")
+    expect(Vehicle.plate?("„HH RH 2788")).to eql("HH RH 2788")
   end
 
 
