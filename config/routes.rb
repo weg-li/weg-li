@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :articles
     resources :authorizations
     resources :notices
+    resources :bulk_uploads
     resources :users do
       post :login
     end
