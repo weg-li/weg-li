@@ -9,7 +9,7 @@ describe 'notices', type: :request do
 
   context "index" do
     it "index works" do
-      get :index
+      get notices_path
 
       expect(response).to be_ok
     end

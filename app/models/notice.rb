@@ -23,7 +23,7 @@ class Notice < ActiveRecord::Base
   after_validation :geocode
 
   belongs_to :user
-  belongs_to :bulk_upload
+  belongs_to :bulk_upload, optional: true
   has_many_attached :photos
 
   validates :photos, :registration, :charge, :address, :date, presence: :true

@@ -102,6 +102,7 @@ de:
       blank: muss ausgefüllt werden
       confirmation: stimmt nicht mit der Bestätigung überein
       empty: muss ausgefüllt werden
+      required: muss ausgefüllt werden
       equal_to: muss genau %{count} sein
       even: muss gerade sein
       exclusion: ist nicht verfügbar

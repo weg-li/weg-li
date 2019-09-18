@@ -4,7 +4,6 @@ describe "api", type: :request do
   before do
     @user = Fabricate(:user)
     @notice = Fabricate(:notice, user: @user)
-    request.headers.merge!({ 'x-api-key' => ENV['WEGLI_API_KEY'] })
   end
 
   # TODO
@@ -15,7 +14,7 @@ describe "api", type: :request do
 
   context "index" do
     it "index works" do
-      get :index
+      get api_notices_path, headers: { 'x-api-key' => ENV['WEGLI_API_KEY'] }
 
       expect(response).to be_ok
       expect(response.body).to eql([@notice.as_api_response(:public_beta)].to_json)
