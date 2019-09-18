@@ -35,7 +35,7 @@ class Vehicle
   end
 
   def self.plate_regex
-    @plate_regex ||= Regexp.new("^(#{Vehicle.plates.keys.join('|')})-([A-Z]{1,3})-(\\d{1,4})$")
+    @plate_regex ||= Regexp.new("^(#{Vehicle.plates.keys.join('|')})-([A-Z]{1,3})-?(\\d{1,4})$")
   end
 
   def self.relaxed_plate_regex
