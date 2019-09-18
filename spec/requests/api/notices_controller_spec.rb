@@ -7,7 +7,7 @@ describe "api", type: :request do
   end
 
   # TODO
-  # user based authorizations
+  # user based authorizations, calculate key from token with secret, show in profile
   # proper json for photos_attachments
   # missing rest endpoints
   # idea for uploading with signed urls
