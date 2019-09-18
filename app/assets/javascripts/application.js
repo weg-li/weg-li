@@ -3,8 +3,6 @@
 //= require turbolinks
 //= require activestorage
 //= require bootstrap/dist/js/bootstrap
-//= require bootstrap-fileinput/js/fileinput
-//= require bootstrap-fileinput/js/locales/de
 //= require select2
 //= require jquery-zoom/jquery.zoom
 //= require custom

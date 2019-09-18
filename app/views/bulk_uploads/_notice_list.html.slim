@@ -1,0 +1,20 @@
+table.table.table-striped.table-hover
+  thead
+    tr
+      th= Notice.human_attribute_name(:photos)
+      th= Notice.human_attribute_name(:created_at)
+      th= Notice.human_attribute_name(:status)
+      th Aktionen
+  tbody
+    - notices.each do |notice|
+      tr
+        td
+          = link_to(notice) do
+            - notice.photos.each do |photo|
+              = image_tag(url_for_photo(photo, size: :thumb), class: 'index-photo')
+        td= link_to(d(notice.created_at), notice)
+        td
+          => render 'status', status: notice.status
+          = render 'status', status: :incomplete if notice.incomplete?
+        td
+          = render 'notices/actions', notice: notice

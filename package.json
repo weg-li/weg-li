@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "bootstrap": "^3.3.7",
-    "bootstrap-fileinput": "^5.0.4",
+    "@google/markerclusterer": "^1.0.3",
+    "bootstrap": "^3.4.1",
     "jquery-zoom": "^1.7.21",
     "vue": "^2.5.16"
   }

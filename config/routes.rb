@@ -5,7 +5,10 @@ Rails.application.routes.draw do
     resources :articles
     resources :authorizations
     resources :notices
-    resources :users
+    resources :bulk_uploads
+    resources :users do
+      post :login
+    end
 
     root to: "notices#index"
   end
@@ -13,6 +16,16 @@ Rails.application.routes.draw do
   namespace :api do
     resources :notices
     resources :users
+  end
+
+  resources :bulk_uploads do
+    member do
+      patch :purge
+    end
+
+    collection do
+      post :bulk
+    end
   end
 
   resources :notices do
@@ -30,6 +43,7 @@ Rails.application.routes.draw do
     collection do
       get :map
       post :bulk
+      post :import
     end
   end
 
@@ -47,9 +61,10 @@ Rails.application.routes.draw do
   end
 
   scope '/auth' do
-    get  '/offline_login/:nickname', to: 'sessions#offline_login' if Rails.env.development?
+    get  '/offline_login/:nickname', to: 'sessions#offline_login' unless Rails.env.production?
     get  '/:provider/callback',      to: 'sessions#create',     as: :provider_callback
     get  '/failure',                 to: 'sessions#failure'
+    get  '/destroy_alias_session',   to: 'sessions#destroy_alias',    as: :logout_alias
     get  '/destroy_session',         to: 'sessions#destroy',    as: :logout
     get  '/validation/:token',       to: 'sessions#validation', as: :validation
     get  '/signup',                  to: 'sessions#signup',     as: :signup

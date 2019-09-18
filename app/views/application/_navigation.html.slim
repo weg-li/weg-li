@@ -16,17 +16,26 @@
               li
                 = link_to notices_path do
                   span.glyphicon.glyphicon-th-list.smaller>
-                  span.margin-left-small= t('navigation.dashboard')
+                  span.margin-left-small Meldungen
               li
                 = link_to map_notices_path do
                   span.glyphicon.glyphicon-map-marker.smaller>
-                  span.margin-left-small= t('navigation.map')
+                  span.margin-left-small Kartenansicht
               li
                 = link_to new_notice_path do
                   span.glyphicon.glyphicon-plus.smaller>
-                  span.margin-left-small= t('navigation.draft')
+                  span.margin-left-small Meldung erfassen
+              - if access?(:community)
+                li
+                  = link_to bulk_uploads_path do
+                    span.glyphicon.glyphicon-th-list.smaller>
+                    span.margin-left-small Uploads
+                li
+                  = link_to new_bulk_upload_path do
+                    span.glyphicon.glyphicon-cloud-upload.smaller>
+                    span.margin-left-small Upload starten
 
-        - if signed_in? && current_user.admin?
+        - if signed_in? && admin?
           li
             = link_to 'Styleguide', styleguide_path
 
@@ -55,6 +64,11 @@
             = link_to logout_path, title: t('navigation.logout') do
               span.glyphicon.glyphicon-log-out.small>
               = t('navigation.logout')
+          - if signed_in_alias?
+            li(data-no-turbolink)
+              = link_to logout_alias_path, title: t('navigation.logout') do
+                span.glyphicon.glyphicon-log-out.small>
+                | Logout Alias
         - else
           li.dropdown(data-turbolinks="false")
             a class="dropdown-toggle" data-toggle="dropdown" href="#" id="login" title="Login"

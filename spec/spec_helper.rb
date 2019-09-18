@@ -6,10 +6,34 @@ require 'rspec/rails'
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 ActiveRecord::Migration.maintain_test_schema!
-
+Geocoder.configure(lookup: :test)
+Geocoder::Lookup::Test.set_default_stub(
+  [
+    {
+      'coordinates'  => [45.1891676, 5.6997775],
+      'address'      => '8 Avenue Aristide Briand, 38600 Fontaine, France',
+      'state'        => 'Rhone-Alpes',
+      'state_code'   => 'RA',
+      'country'      => 'France',
+      'country_code' => 'FR'
+    }
+  ]
+)
 I18n.locale = :de
 
+
 ENV['WEGLI_API_KEY'] = 'dingSbums'
+
+module ActiveJob
+  module QueueAdapters
+    class InlineAdapter
+      def enqueue_at(job, scheduled_at)
+        Rails.logger.info("inlining execution you know even though its scheduled_at #{scheduled_at}")
+        enqueue(job)
+      end
+    end
+  end
+end
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = true
@@ -17,6 +41,7 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.order = "random"
   config.include ActiveSupport::Testing::TimeHelpers
-  config.include RequestHelper
+  config.include RequestHelper, type: :controller
+  config.include LoginHelper, type: :request
   config.include DataHelper
 end

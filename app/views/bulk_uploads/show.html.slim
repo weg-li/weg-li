@@ -1,0 +1,21 @@
+- set_title 'Upload ansehen', t('navigation.bulk_uploads')
+- set_crumbs t('navigation.bulk_uploads') => bulk_uploads_path, 'ansehen' => url_for
+
+.panel.panel-default
+  .panel-heading
+    = render 'upload_actions', bulk_upload: @bulk_upload
+  .panel-body
+    .row
+      .col-lg-4
+        dl.dl-horizontal
+          dt= BulkUpload.human_attribute_name(:created_at)
+          dd= d(@bulk_upload.created_at)
+          dt= BulkUpload.human_attribute_name(:status)
+          dd= render 'upload_status', status: @bulk_upload.status
+
+      .col-lg-8
+        - if @bulk_upload.photos.present?
+          = render 'photos', notice: @bulk_upload, publicly: true
+
+  - if @bulk_upload.notices.present?
+    = render 'notice_list', notices: @bulk_upload.notices

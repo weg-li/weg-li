@@ -5,6 +5,14 @@ $warning-color: #f89406;
 $info-color: #5bc0de;
 $danger-color: #ee5f5b;
 
+.well-active {
+  background-color: $primary-color;
+}
+
+.progress-sm {
+  height: 10px;
+}
+
 .turbolinks-progress-bar {
   background-color: $success-color;
   height: 5px !important;
@@ -37,9 +45,25 @@ ul.photo-list {
     }
   }
 }
+ul.droppable-list {
+  min-height: 100px;
+  li {
+    cursor: move;
+    img {
+      cursor: move;
+    }
+  }
+}
+
 .index-photo {
   height: 3em;
   border-radius: 5px;
+}
+
+.scroll-indicator {
+  position: absolute;
+  right: 20px;
+  margin-top: -5px;
 }
 
 .glyphicon-status-incomplete:before {
@@ -50,6 +74,9 @@ ul.photo-list {
 }
 .glyphicon-status-open:before {
   content: "\270f";
+}
+.glyphicon-status-done:before {
+  content: "\e089";
 }
 .glyphicon-status-analyzing:before {
   content: "\231b";
@@ -70,6 +97,9 @@ ul.photo-list {
 .label-status-open {
   background-color: $default-color;
 }
+.label-status-done {
+  background-color: $success-color;
+}
 .label-status-analyzing {
   background-color: $info-color;
 }
@@ -77,6 +107,38 @@ ul.photo-list {
   background-color: $danger-color;
 }
 .label-status-shared {
+  background-color: $success-color;
+}
+
+.glyphicon-access-disabled:before {
+  content: "\e090";
+}
+.glyphicon-access-ghost:before {
+  content: "\002a";
+}
+.glyphicon-access-user:before {
+  content: "\e008";
+}
+.glyphicon-access-community:before {
+  content: "\e007";
+}
+.glyphicon-access-admin:before {
+  content: "\e006";
+}
+
+.label-access-disabled {
+  background-color: $warning-color;
+}
+.label-access-ghost {
+  background-color: $default-color;
+}
+.label-access-user {
+  background-color: $primary-color;
+}
+.label-access-community {
+  background-color: $info-color;
+}
+.label-access-admin {
   background-color: $success-color;
 }
 
@@ -89,7 +151,9 @@ ul.photo-list {
 }
 .select2-container--bootstrap .select2-selection--single {
   margin-top: 1px;
-  height: 36px;
+  height: 38px;
+  border-color: black;
+  line-height: 1.6;
 }
 .input-group {
   .select2-container--bootstrap .select2-selection--single {
@@ -239,10 +303,10 @@ pre.charge {
 
 .step {
   border-radius: 999999%;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-bottom: 4px;
-  padding-top: 2px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-bottom: 3px;
+  padding-top: 3px;
   text-shadow: none;
 }
 

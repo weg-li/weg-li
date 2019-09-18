@@ -1,20 +1,23 @@
 = form_errors @user
-= form_for @user, url: complete_path, html: {class: "form-horizontal"} do |form|
+= form_for @user, url: complete_path do |form|
   .row
     .col-lg-12
       fieldset
         legend= t('sessions.enter_data')
 
       .well.well-sm.callout
-        | Der Spitzname wird für die Veröffentlichung der Anzeigen im öffentlichen Profil verwendet.
+        | Der Spitzname wird als Pseudonym im öffentlichen Profil verwendet. Die E-Mail-Adresse wird für den Kontakt zum Ordnungsamt genutzt, dafür kann auch optional die Telefonnummer hinterlegt werden.
 
   .row.spacer-large
-    .col-lg-6
+    .col-lg-4
       = form.label :nickname, class: "control-label"
       = form.text_field :nickname, class: "form-control", required: true
-    .col-lg-6
+    .col-lg-4
       = form.label :email, class: "control-label"
       = form.text_field :email, placeholder: 'z.B. me@example.com', class: "form-control", required: true
+    .col-lg-4
+      = form.label :phone, class: "control-label"
+      = form.text_field :phone, placeholder: 'z.B. 040 600 90 76 98', class: "form-control"
 
   .row
     .col-lg-12
@@ -25,14 +28,15 @@
     .col-lg-4
       = form.label :name, class: "control-label"
       = form.text_field :name, placeholder: 'z.B. Hanno Nym', class: "form-control", required: true
-      small.help-text Anzeigen müssen mit dem vollständigen Namen erfolgen
+      small.help-block Anzeigen müssen mit dem vollständigen Namen erfolgen
     .col-lg-4
       = form.label :address, class: "control-label"
       = form.text_field :address, placeholder: 'z.B. Sylvesterallee 7, 22525 Hamburg', class: "form-control", required: true, pattern: '.+ \d{5}.*'
-      small.help-text Anzeigen benötigen eine vollständige Anschrift mit PLZ & Ort
+      small.help-block Anzeigen benötigen eine vollständige Anschrift mit PLZ & Ort
     .col-lg-4
       = form.label :district, class: "control-label"
-      = form.select :district, District.names.map { |name| [t(name, scope: "users.districts"), name] }, { include_blank: 'Bitte auswählen' }, { class: "form-control", required: true }
+      = form.select :district, District.all.map { |district| [district.display_name, district.name] }, { include_blank: 'Bitte auswählen' }, { class: "form-control", required: true }
+      small.help-block Dein Bezirk fehlt? Schreibe an #{mail_to('peter@weg-li.de')} wo Du testen willst.
 
   hr.spacer
   .row

@@ -10,9 +10,14 @@ describe User do
     end
 
     it "handles timezones" do
-      expect(Fabricate.build(:user, time_zone: 'bla')).to have(1).errors_on(:time_zone)
+      expect(Fabricate.build(:user, time_zone: 'bla')).to_not be_valid
       expect(Fabricate.build(:user, time_zone: 'Berlin')).to be_valid
     end
+  end
+
+  it "generates wegli_email" do
+    user = Fabricate.build(:user, token: 'dd-33', nickname: 'Funktä rd--//')
+    expect(user.wegli_email).to eql('funkta-rd+dd-33@anzeige.weg-li.de')
   end
 
   it "handles districts" do

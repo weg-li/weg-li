@@ -7,18 +7,16 @@
   = form_tag bulk_notices_path, method: :post do
     .panel.panel-default
       .panel-heading
-        .row
-          .col-lg-6.hidden-xs
-            h2.panel-title Meldungen verwalten
-          .col-lg-6
-            .pull-right= link_to new_notice_path, class: 'btn btn-sm btn-success', title: 'Meldung erfassen' do
-              span.glyphicon.glyphicon-plus>
-              | Meldung erfassen
+        = link_to new_notice_path, class: 'btn btn-sm btn-success', title: 'Meldung erfassen' do
+          span.glyphicon.glyphicon-plus>
+          | Meldung erfassen
       .table-responsive
+        .visible-xs-block.scroll-indicator
+          a(href="#actions" data-turbolinks="false") ⤳
         table.table.table-striped.table-hover
           thead
             tr
-              th= check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
+              th
               th= Notice.human_attribute_name(:photos)
               th
                 => Notice.human_attribute_name(:created_at)
@@ -40,43 +38,74 @@
                     li role="separator" class="divider"
                     li= link_to 'kein Filter', url_for(@table_params.merge(filter: nil))
               th
+                span Aktionen
+                span#actions.pull-right(style="width:0px;")
           tbody
-          - if @notices.present?
-            - @notices.each do |notice|
+            - if @notices.present?
+              - @notices.each do |notice|
+                tr
+                  td= check_box_tag "selected[]", notice.id, false, class: 'select-all'
+                  td
+                    = link_to(notice) do
+                      - notice.photos.each do |photo|
+                        = image_tag(url_for_photo(photo, size: :thumb), class: 'index-photo')
+                  td= link_to(d(notice.created_at), notice)
+                  td
+                    => render 'status', status: notice.status
+                    = render 'status', status: :incomplete if notice.incomplete?
+                  td= render 'actions', notice: notice
               tr
-                td= check_box_tag "selected[]", notice.id, false, class: 'select-all'
-                td
-                  = link_to(notice) do
-                    - notice.photos.each do |photo|
-                      = image_tag(url_for(photo.variant(resize: "100x100", auto_orient: true).processed), class: 'index-photo')
-                td= d(notice.created_at)
-                td
-                  => render 'status', status: notice.status
-                  = render 'status', status: :incomplete if notice.incomplete?
-                td= render 'actions', notice: notice
-          - else
-            tr
-              td(colspan=7)= t('notices.nothing_found')
+                td= check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
+                td(colspan=4)
+                  small
+                    label(for='select_all') Alle Meldungen auswählen
+            - else
+              tr
+                td(colspan=7)= t('notices.nothing_found')
       .panel-footer
         .row
           .col-lg-12
             .btn-group
               = button_tag name: :bulk_action, value: :analyze, type: :submit, class: 'btn btn-sm btn-default' do
                 span.glyphicon.glyphicon-hourglass>
-                span Auswahl analysieren
+                span analysieren
               = button_tag name: :bulk_action, value: :share, type: :submit, class: 'btn btn-sm btn-default' do
                 span.glyphicon.glyphicon-share>
-                span Auswahl melden
+                span melden
               = button_tag name: :bulk_action, value: :destroy, type: :submit, class: 'btn btn-sm btn-default' do
                 span.glyphicon.glyphicon-trash>
-                span= t('notices.bulk_destroy')
-            .pull-right= link_to new_notice_path, class: 'btn btn-sm btn-success', title: 'Meldung erfassen' do
-              span.glyphicon.glyphicon-plus>
-              | Meldung erfassen
+                span löschen
+
   .text-center
     = paginate @notices
 
   .well.well-sm
+    strong Aktionen für Meldungen
+    small
+      ul.list-inline
+        li
+          span.glyphicon.glyphicon-eye-open>
+          | Meldung ansehen
+        li
+          span.glyphicon.glyphicon-edit>
+          | Meldung bearbeiten
+        li
+          span.glyphicon.glyphicon-trash>
+          | Meldung löschen
+        li
+          span.glyphicon.glyphicon-share>
+          | Anzeige erstatten
+        li
+          span.glyphicon.glyphicon-globe>
+          | Anzeige ansehen
+        li
+          span.glyphicon.glyphicon-minus-sign>
+          | Anzeige deaktivieren
+        li
+          span.glyphicon.glyphicon-plus-sign>
+          | Anzeige aktivieren
+
+    strong Status für Meldungen
     - (Notice.statuses.keys + [:incomplete]).each do |status|
       p= render 'status', status: status, legend: true
 

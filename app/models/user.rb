@@ -2,13 +2,17 @@ class User < ActiveRecord::Base
   include Bitfields
   bitfield :flags, 1 => :hide_public_profile
 
-  enum access: {user: 0, admin: 42}
+  enum access: {disabled: -99, ghost: -1, user: 0, community: 1, admin: 42}
 
+  geocoded_by :address
+  after_validation :geocode
   before_validation :defaults
 
+  has_many :bulk_uploads, -> { order('created_at DESC') }, dependent: :destroy
   has_many :notices, -> { order('created_at DESC') }, dependent: :destroy
   has_many :authorizations, dependent: :destroy
   has_many :articles, dependent: :destroy
+  has_many :photos_attachments, through: :notices
 
   accepts_nested_attributes_for :authorizations
 
@@ -35,14 +39,36 @@ class User < ActiveRecord::Base
     District.by_name(self[:district])
   end
 
+  def district_name
+    self[:district]
+  end
+
   def to_label
     "#{nickname} (#{email})"
+  end
+
+  def coordinates?
+    latitude? && longitude?
+  end
+
+  def wegli_email
+    "#{nickname.parameterize}+#{token}@anzeige.weg-li.de"
+  end
+
+  def map_data
+    return district.map_data unless coordinates?
+
+    {
+      latitude: latitude,
+      longitude: longitude,
+    }
   end
 
   def statistics
     {
       all: notices.count,
       incomplete: notices.incomplete.count,
+      open: notices.open.count,
       shared: notices.shared.count,
     }
   end

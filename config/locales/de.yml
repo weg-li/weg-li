@@ -8,6 +8,7 @@ de:
       truncate: "&hellip;"
   activerecord:
     models:
+      bulk_upload: 'Upload'
       user: 'Benutzer'
       notice: 'Meldung'
     attributes:
@@ -17,9 +18,14 @@ de:
         name: 'Name'
         address: 'Anschrift'
         email: 'E-Mail'
+        phone: 'Telefon'
         district: 'Bezirk'
+      bulk_upload:
+        created_at: 'Erstellt'
+        photos: 'Beweisfotos'
       notice:
         created_at: 'Erstellt'
+        district: 'Bezirk'
         photos: 'Beweisfotos'
         address: 'Adresse'
         registration: 'Kennzeichen'
@@ -33,9 +39,9 @@ de:
         note: 'Hinweis'
         empty: 'Verlassen'
         parked: 'Geparkt'
-        parked_long: 'Lang Geparkt'
+        parked_one_hour: 'Länger als 1 Stunde'
+        parked_three_hours: 'Länger als 3 Stunden'
         hinder: 'Behinderung'
-        recipients: 'Empfänger'
         incomplete: 'unvollständig'
         status: 'Status'
         open: 'offen'
@@ -48,6 +54,7 @@ de:
           brown: 'Braun'
           yellow: 'Gelb'
           grey: 'Grau'
+          gray: 'Grau'
           green: 'Grün'
           red: 'Rot'
           black: 'Schwarz'
@@ -65,6 +72,7 @@ de:
     map: 'Kartenansicht'
     draft: 'Erfassen'
     dashboard: 'Übersicht'
+    bulk_uploads: 'Uploads'
     locale: 'Sprache'
     logout: 'Abmelden'
     profile: 'Profil'
@@ -76,13 +84,11 @@ de:
     en: 'Englisch'
     de: 'Deutsch'
   home:
-    register_now: 'Jetzt anmelden und die <span class="label label-primary">&beta;eta</span> ausprobieren!'
-    register_now_xs: 'Jetzt anmelden & ausprobieren!'
     register_with_oauth: 'Anmelden mit Twitter & Co <span class="caret"></span>'
     select_oauth_provider: 'Wähle eine der Möglichkeiten zum Anmelden:'
   sessions:
     sign_in_provider: 'Einfach mit OAuth anmelden'
-    enter_data: 'Bitte gib deine Daten ein'
+    enter_data: 'Bitte gib Deine Daten ein'
     not_logged_in: "Du bist nicht eingeloggt!"
     not_proper_account: "Du bist nicht mit dem richtigen Benutzerkonto eingeloggt!"
     welcome_back: "Hallo %{nickname}, willkommen zurück!"
@@ -92,18 +98,18 @@ de:
     ups_something_went_wrong: "Mist, da ist was schief gelaufen."
     welcome: "Hallo %{nickname}, herzlich willkommen bei weg-li!"
     existing_user: "Die E-Mail Adresse %{email} ist bereits registriert, bitte nutze %{providers} zum Einloggen!"
-    please_enter_email_for_login: 'Bitte gib deine E-Mail Adresse zum Einloggen ein!'
+    please_enter_email_for_login: 'Bitte gib Deine E-Mail Adresse zum Einloggen ein!'
     authorize_button: 'per E-Mail einloggen'
     signup_button: 'Registrierung abschließen'
     callouts:
       signup_nickname:
-        hint: 'Dein Spitzname wird später für deine Anrede verwendet.'
+        hint: 'Dein Spitzname wird später für Deine Anrede verwendet.'
         title: 'Spitznamen ändern'
-        text: 'Nachdem Du registriert bist kannst Du jederzeit deinen Spitznamen ändern.'
+        text: 'Nachdem Du registriert bist, kannst Du jederzeit Deinen Spitznamen ändern.'
       signup_email:
         hint: 'Deine E-Mail Adresse wird für den Login und für Benachrichtigungen verwendet.'
         title: 'Valide Adresse ist nötig'
-        text: 'Du musst deine E-Mail Adresse bestätigen, damit wir Dich später erreichen können.'
+        text: 'Du musst Deine E-Mail Adresse bestätigen, damit wir Dich später erreichen können.'
       provider:
         hint: 'Wähle einen <a href="http://en.wikipedia.org/wiki/OAuth">OAuth</a> Anbieter aus und akzeptiere die benötigten Berechtigungen.'
         title: 'Warum OAuth?'
@@ -111,39 +117,73 @@ de:
       email:
         hint: 'Du wirst zu <em>jedem</em> neuen Login per Mail eine neue Login E-Mail erhalten!'
         title: 'per E-Mail einloggen'
-        text: 'Bei jedem Login erhältst Du eine neue E-Mail in der ein Login-Link enthalten ist. Einfach auf den enthaltenen Link klicken und loslegen!'
+        text: 'Bei jedem Login erhältst Du eine neue E-Mail, in der ein Login-Link enthalten ist. Einfach auf den enthaltenen Link klicken und loslegen!'
   mailers:
-    signup: 'Du hast Dich erfolgreich registriert, bitte bestätige deine E-Mail Adresse!'
-    validate: 'Bitte bestätige deine E-Mail Adresse!'
+    signup: 'Du hast Dich erfolgreich registriert, bitte bestätige Deine E-Mail Adresse!'
+    validate: 'Bitte bestätige Deine E-Mail Adresse!'
     email_auth: 'Logge Dich bei weg-li ein.'
   users:
+    access:
+      admin: 'Admin'
+      community: 'Community'
+      user: 'User'
+      ghost: 'Ghost'
+      disabled: 'Disabled'
     statistics:
       all: 'Meldungen insgesamt'
-      incomplete: 'Offene Meldungen'
-      shared: 'Erstatte Anzeigen'
+      incomplete: 'Unvollständige Meldungen'
+      complete: 'Vollständige Meldungen'
+      open: 'Offene Meldungen'
+      shared: 'Erstattete Anzeigen'
       photos: 'Geknipste Fotos'
       users: 'Aktive Benutzer'
       all_users: 'Benutzer insgesamt'
+      districts: 'Unterstützte Bezirke'
     districts:
+      aichtal: 'Aichtal'
+      bamberg: 'Bamberg'
       berlin: 'Berlin'
+      bielefeld: 'Bielefeld'
       bochum: 'Bochum'
       bonn: 'Bonn'
+      braunschweig: 'Braunschweig'
       bremen: 'Bremen'
+      buxtehude: 'Buxtehude'
+      darmstadt: 'Darmstadt'
       dortmund: 'Dortmund'
       duesseldorf: 'Düsseldorf'
+      filderstadt: 'Filderstadt'
       frankfurt: 'Frankfurt'
       hamburg: 'Hamburg'
       hannover: 'Hannover'
       hannover_region: 'Großraum Hannover'
+      heidelberg: 'Heidelberg'
+      hessen_region: 'Großraum Hessen'
+      hilchenbach: 'Hilchenbach'
       hilden: 'Hilden'
       herne: 'Herne'
+      karlsruhe: 'Karlsruhe'
       kiel: 'Kiel'
+      koeln: 'Köln'
+      kreuztal: 'Kreuztal'
       leipzig: 'Leipzig'
       lueneburg: 'Lüneburg'
+      mainz: 'Mainz'
+      mannheim: 'Mannheim'
+      moenchengladbach: 'Mönchengladbach'
       muenchen: 'München'
       muenster: 'Münster'
+      neuss: 'Neuss'
+      nuernberg: 'Nürnberg'
+      nuertingen: 'Nürtingen'
+      ravensburg: 'Ravensburg'
+      saarbruecken: 'Saarbrücken'
+      stuttgart: 'Stuttgart'
+      siegen: 'Siegen'
+      tuebingen: 'Tübingen'
+      zweibruecken: 'Zweibrücken'
     confirmation_mail: "Eine Bestätigungs-Mail wurde an %{email} versendet."
-    profile_updated_and_confirmation_email: 'Dein Profil wurde aktualisiert und eine Bestätigungs-Mail wurde an deine E-Mail Adresse versendet!'
+    profile_updated_and_confirmation_email: 'Dein Profil wurde aktualisiert und eine Bestätigungs-Mail wurde an Deine E-Mail Adresse versendet!'
     profile_updated: 'Dein Profil wurde aktualisiert.'
     authorizations: 'Verknüpfungen'
     connect_via: "per %{provider} verbinden"
@@ -152,7 +192,6 @@ de:
     confirm_email: "E-Mail zur Bestätigung erneut senden"
     change_nickname: "Name ändern"
     change_email: "E-Mail ändern"
-    change_time_zone: "Zeit-Zone ändern"
     delete_account: "Konto löschen"
     destroyed: "Dein Konto und alle Daten wurden gelöscht!"
     settings: 'Einstellungen'
@@ -172,10 +211,17 @@ de:
       this-year: 'Dieses Jahr'
       this-month: 'Diesen Monat'
       this-week: 'Diese Woche'
+  bulk_upload:
+    status:
+      open: 'offen'
+      done: 'erledigt'
+    status-hints:
+      open: 'Die Beweisfotos wurden gespeichert, bitte Meldungungen daraus erzeugen, vervollständigen und eine Anzeige erstatten.'
+      done: 'Alle Beweisfotos des Uploads wurden neuen Meldungen zugeordnet.'
   notices:
     new_notice: 'Neue Meldung'
     create_button: 'Meldung erstellen'
-    manage_your_history: 'Verwalte deine Meldungen'
+    manage_your_history: 'Verwalte Deine Meldungen'
     nothing_found: 'Leider gibt es für diesen Filter keine Ergebnisse.'
     status:
       open: 'offen'
@@ -187,12 +233,10 @@ de:
     status-hints:
       open: 'Die Beweisfotos wurden gespeichert, bitte die Meldung überprüfen, vervollständigen und eine Anzeige erstatten.'
       disabled: 'Die Meldung ist deaktiviert und im Internet nicht mehr zu erreichen.'
-      analyzing: 'Im Hintergrund wird automatisch versucht möglichst viele Informationen aus den Beweisfotos zu ermitteln.'
+      analyzing: 'Im Hintergrund wird automatisch versucht, möglichst viele Informationen aus den Beweisfotos zu ermitteln.'
       shared: 'Die Meldung wurde zur Anzeige gebracht.'
       complete: 'Alle Daten, die für eine Anzeige notwendig sind, wurden erfasst.'
       incomplete: 'Es fehlen noch ein paar Daten, bitte die Meldung bearbeiten und die fehlenden Daten nachtragen.'
-    bulk_actions: 'Mehrfach Aktionen'
-    bulk_destroy: 'Auswahl löschen'
     confirm: "Diese Aktion kann nicht rückgängig gemacht werden!"
     actions: 'Aktionen'
     read: 'lesen'
@@ -212,21 +256,21 @@ de:
     back_to_dashboard: 'zurück zur Übersicht'
     steps:
       photos:
-        title: erfassen
-        description: Mache ein oder mehrere Beweisfotos, die den Verstoß dokumentieren und lade sie hoch. Das Fabrikat und das Nummernschild sollten auf den Fotos gut zu erkennen sein. Vermeide es möglichst Fotos mit Passanten und Kennzeichen unbeteiligter Fahrzeuge zu machen.
+        title: Erfassen
+        description: Mache ein oder mehrere Beweisfotos, die den Verstoß klar dokumentieren, und lade sie hoch. Das Fabrikat und das Nummernschild sollten auf den Fotos gut zu erkennen sein. Erstelle eine neue Meldung pro Fahrzeug und vermeide es möglichst, Fotos mit Passanten und Kennzeichen Unbeteiligter zu machen.
       infos:
-        title: beschreiben
+        title: Beschreiben
         description: Um mit Hilfe der Meldung eine Anzeige zu erstatten, werden noch zusätzliche Informationen benötigt. Neben Zeit und Ort des Verstoßes müssen auch noch Details zum Fahrzeug angegeben werden. Diese Informationen werden soweit möglich automatisch aus den Beweisfotos ermittelt.
       charges:
-        title: melden
+        title: Melden
         description: Aus den Daten kann direkt eine Anzeige erstattet werden, die dann an das zuständige Ordnungsamt oder die Polizei gesendet wird. Alle Meldungen werden zudem anonymisiert auf der öffentlich erreichbaren weg-li Karte angezeigt.
 
     callouts:
       send_email:
-        hint: 'Erstatte die Anzeige direkt per E-Mail, Du erhältst eine Kopie per CC.'
+        hint: 'Erstatte die Anzeige direkt per E-Mail, Du erhältst eine Kopie in CC.'
         title: 'Anzeige per E-Mail'
         text: 'Inzwischen ist es fast überall möglich Anzeige per E-Mail zu erstatten, manche Bundesländer bieten sogar eigene Portale an, <a href="https://www.test.de/Gewusst-wie-Online-Anzeige-erstatten-5003664-0/" target="_blank">eine Liste findet sich hier</a>.'
       copy_link:
         hint: 'Per <em>copy &amp; paste</em> den Link zur Meldung z.B. auf Twitter teilen.'
         title: 'Copy &amp; Paste'
-        text: 'Der Link zur Meldung wird in deine Zwischenablage kopiert. Einfügen mit <code>CMD+V</code> auf Mac oder <code>CTRL+V</code> auf Windows, lange Antippen und kopieren für Touch.'
+        text: 'Der Link zur Meldung wird in Deine Zwischenablage kopiert. Einfügen mit <code>CMD+V</code> auf Mac oder <code>CTRL+V</code> auf Windows, lange Antippen und kopieren für Touch.'

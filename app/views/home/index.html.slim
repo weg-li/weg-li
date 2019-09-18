@@ -17,13 +17,13 @@
             span.glyphicon.glyphicon-th-list>
             span zu meinen Meldungen
       - else
-        h2.spacer.text-center
-          == t('home.register_now')
-          .visible-xs== t('home.register_now_xs')
+        h2.text-center Jetzt anmelden und die <span class="label label-primary">&beta;eta</span> ausprobieren!
+        p.muted.text-center Mehr Informationen gibt es in #{link_to('der &beta;eta-Test Einladung'.html_safe, 'https://docs.google.com/document/d/1SQTXXvGY8BzL-NgjXAKm0EVZ3YTqHOMPonWtVJk7vxg/', target: '_blank')} nachzulesen.
         .spacer.text-center
           .btn-group
             button.btn.btn-lg.btn-success.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
               == t('home.register_with_oauth')
+
             ul.dropdown-menu.dropdown-menu-right
               li.dropdown-header= t('home.select_oauth_provider')
               - login_links do |name, path, key|
@@ -36,13 +36,13 @@ hr.spacer-large
     = image_tag 'phoet.jpg', class: "img-circle me-quote"
   .col-lg-10
     blockquote
-      p Verkehrswende selber machen, durch sichere Radwege und freie Bürgersteige, besonders für Kinder!
+      p Verkehrswende selber machen durch sichere Radwege und freie Bürgersteige, besonders für Kinder!
       small #{link_to('Peter Schröder', 'https://twitter.com/phoet', target: '_blank')}, 👨‍👦 besorgter Vater, 🚶‍♂️ Fußgänger, 🛴 E-Scooterer, 🚲 Radler und 🚐 Autofahrer
 
 hr.spacer-large
 
 .well.well-sm
-  p Du kennst das bistimmt auch...
+  p Du kennst das bestimmt auch ...
   p
     em> "Bin nur grad beim Kiosk",
     em> "Muss nur eben das Paket ausliefern",
@@ -51,7 +51,7 @@ hr.spacer-large
     em> "Aber ich wohne doch hier"
 
   p Mit weg-li kannst Du super einfach Falschparker melden:
-  p  📸 Beweisfoto erfassen 📝 Verstoß beschreiben ✊ Ordnugnsamt / Polizei melden 👏😍💪
+  p  📸 Beweisfoto erfassen 📝 Verstoß beschreiben ✊ beim Ordnungsamt melden 👏😍💪
 
 = render 'notices/three_step'
 
@@ -83,13 +83,23 @@ hr.spacer-large
           .progress-bar.progress-bar-warning(style="width: #{[100, current / (goal / 100)].min}%")
 
       li.list-group-item
+        - goal = 400 * 5
+        - statistics = Notice.statistics(Time.zone.today.beginning_of_year)
+        - current = statistics[:shared]
         p
           strong> Jahresziel:
-          span Freie Radwege und Bürgersteige!
+          span #{current} von #{goal} Anzeigen erstattet
+        .progress.progress-striped.active
+          .progress-bar.progress-bar-info(style="width: #{[100, current / (goal / 100)].min}%")
+
+      li.list-group-item
+        p
+          strong> Ziellinie:
+          span Sichere Radwege und freie Bürgersteige!
         .progress.progress-striped.active
           #total-progress.progress-bar.progress-bar-success(style="width: 5%")
           javascript:
-            setInterval(function(element) { element.style.width = Math.min(100, (parseInt(element.style.width) + 2)) + '%' }, 1000, document.getElementById('total-progress'));
+            setInterval(function(element) { element.style.width = Math.min(100, (parseInt(element.style.width) + 2)) + '%' }, 1200, document.getElementById('total-progress'));
 
   .col-lg-6
     h3 📈 Bisherige Daten:

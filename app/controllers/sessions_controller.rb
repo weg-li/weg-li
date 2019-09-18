@@ -4,6 +4,7 @@ class SessionsController < ApplicationController
 
   def create
     auth = request.env['omniauth.auth'].slice('provider', 'uid', 'info')
+    Rails.logger.info(auth) if ENV['VERBOSE_LOGGING']
     if authorization = Authorization.find_by_provider_and_uid(auth['provider'], auth['uid'])
       sign_in(authorization.user)
       redirect_to notices_path, notice: t('sessions.welcome_back', nickname: authorization.user.name)
@@ -30,8 +31,15 @@ class SessionsController < ApplicationController
     redirect_to root_path, notice: flash[:notice] || t('sessions.bye')
   end
 
+  def destroy_alias
+    sign_out_alias if signed_in_alias?
+
+    redirect_to root_path, notice: flash[:notice] || t('sessions.bye')
+  end
+
   def failure
-    redirect_to root_path, alert: t('sessions.ups_something_went_wrong')
+    Rails.logger.warn("oauth failed: #{params[:message]}")
+    redirect_to root_path, alert: "#{t('sessions.ups_something_went_wrong')} (#{params[:message]})"
   end
 
   def offline_login
@@ -60,7 +68,9 @@ class SessionsController < ApplicationController
   def signup
     email = @auth['info']['email']
     check_existing_user(email)
-    @user = User.new(nickname: @auth['info']['nickname'], email: email)
+    nickname = @auth['info']['nickname']
+    @user = User.ghost.find_by(nickname: nickname) || User.new(nickname: nickname)
+    @user.email = email
   end
 
   def ticket
@@ -78,7 +88,10 @@ class SessionsController < ApplicationController
       user_params[:email] = session[:email_auth_address]
       user_params[:validation_date] = Time.now
     end
-    @user = User.new(user_params)
+    nickname = @auth['info']['nickname']
+    @user = User.ghost.find_by(nickname: nickname) || User.new
+    @user.assign_attributes(user_params)
+    @user.access = :user
     @user.authorizations.build provider: @auth['provider'], uid: @auth['uid']
 
     if @user.save
@@ -100,7 +113,7 @@ class SessionsController < ApplicationController
   end
 
   def check_existing_user(email)
-    if existing_user = User.find_by_email(email)
+    if email.present? && existing_user = User.find_by_email(email)
       providers = existing_user.authorizations.map(&:provider)
       flash.now[:alert] = t('sessions.existing_user', email: email, providers: providers.to_sentence)
     end

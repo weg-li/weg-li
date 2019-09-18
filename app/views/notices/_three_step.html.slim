@@ -2,67 +2,97 @@
 
 - if step == :none
   .row
-    .col-lg-4.col-xs-4
-      h3.text-center <span class="step step-top smaller success-step1">1</span> #{t('notices.steps.photos.title')}
-    .col-lg-4.col-xs-4
-      h3.text-center <span class="step step-top smaller success-step2">2</span> #{t('notices.steps.infos.title')}
-    .col-lg-4.col-xs-4
-      h3.text-center <span class="step step-top smaller success-step3">3</span> #{t('notices.steps.charges.title')}
+    .col-xs-1
+      h5.text-right <span class="step step-top smaller success-step1">1</span>
+    .col-xs-3
+      h5= t('notices.steps.photos.title')
+    .col-xs-1
+      h5.text-right <span class="step step-top smaller success-step2">2</span>
+    .col-xs-3
+      h5= t('notices.steps.infos.title')
+    .col-xs-1
+      h5.text-right <span class="step step-top smaller success-step3">3</span>
+    .col-xs-3
+      h5= t('notices.steps.charges.title')
   .row.spacer-large
-    .col-lg-12
-      .progress
+    .col-xs-12
+      .progress.progress-sm
         .progress-bar.success-step1 style="width: 33.33%"
         .progress-bar.success-step2 style="width: 33.33%"
         .progress-bar.success-step3 style="width: 33.33%"
 
 - if step == :first
   .row
-    .col-lg-4.col-xs-4
-      h3.text-center.text-success <span class="step smaller success-step-muted">1</span> #{t('notices.steps.photos.title')}
-    .col-lg-4.col-xs-4
-      h3.text-center <span class="step smaller success-step-muted">2</span> #{t('notices.steps.infos.title')}
-    .col-lg-4.col-xs-4
-      h3.text-center <span class="step smaller success-step-muted">3</span> #{t('notices.steps.charges.title')}
+    .col-xs-1
+      h5.text-success.text-right <span class="step smaller success-step-muted">1</span>
+    .col-xs-3
+      h5.text-success= t('notices.steps.photos.title')
+    .col-xs-1
+      h5.text-right <span class="step smaller success-step-muted">2</span>
+    .col-xs-3
+      h5= t('notices.steps.infos.title')
+    .col-xs-1
+      h5.text-right <span class="step smaller success-step-muted">3</span>
+    .col-xs-3
+      h5= t('notices.steps.charges.title')
   .row.spacer-large
-    .col-lg-12
-      .progress
+    .col-xs-12
+      .progress.progress-sm
         .progress-bar.progress-bar-success style="width: 13.33%"
 
 - if step == :second
   .row
-    .col-lg-4.col-xs-4
-      h3.text-center.text-success <span class="step smaller success-step">1</span> #{t('notices.steps.photos.title')}
-    .col-lg-4.col-xs-4
-      h3.text-center.text-success <span class="step smaller success-step-muted">2</span> #{t('notices.steps.infos.title')}
-    .col-lg-4.col-xs-4
-      h3.text-center <span class="step smaller success-step-muted">3</span> #{t('notices.steps.charges.title')}
+    .col-xs-1
+      h5.text-right <span class="step smaller success-step-muted">1</span>
+    .col-xs-3
+      h5= t('notices.steps.photos.title')
+    .col-xs-1
+      h5.text-success.text-right <span class="step smaller success-step-muted">2</span>
+    .col-xs-3
+      h5.text-success= t('notices.steps.infos.title')
+    .col-xs-1
+      h5.text-right <span class="step smaller success-step-muted">3</span>
+    .col-xs-3
+      h5= t('notices.steps.charges.title')
   .row.spacer-large
-    .col-lg-12
-      .progress
+    .col-xs-12
+      .progress.progress-sm
         .progress-bar.progress-bar-success style="width: 46.66%"
 
 - if step == :third
   .row
-    .col-lg-4.col-xs-4
-      h3.text-center.text-success <span class="step smaller success-step">1</span> #{t('notices.steps.photos.title')}
-    .col-lg-4.col-xs-4
-      h3.text-center.text-success <span class="step smaller success-step">2</span> #{t('notices.steps.infos.title')}
-    .col-lg-4.col-xs-4
-      h3.text-center.text-success <span class="step smaller success-step-muted">3</span> #{t('notices.steps.charges.title')}
+    .col-xs-1
+      h5.text-right <span class="step smaller success-step-muted">1</span>
+    .col-xs-3
+      h5= t('notices.steps.photos.title')
+    .col-xs-1
+      h5.text-right <span class="step smaller success-step-muted">2</span>
+    .col-xs-3
+      h5= t('notices.steps.infos.title')
+    .col-xs-1
+      h5.text-success.text-right <span class="step smaller success-step-muted">3</span>
+    .col-xs-3
+      h5.text-success= t('notices.steps.charges.title')
   .row.spacer-large
-    .col-lg-12
-      .progress
+    .col-xs-12
+      .progress.progress-sm
         .progress-bar.progress-bar-success style="width: 79.99%"
 
 - if step == :success
   .row
-    .col-lg-4.col-xs-4
-      h3.text-center.text-success <span class="step smaller success-step">1</span> #{t('notices.steps.photos.title')}
-    .col-lg-4.col-xs-4
-      h3.text-center.text-success <span class="step smaller success-step">2</span> #{t('notices.steps.infos.title')}
-    .col-lg-4.col-xs-4
-      h3.text-center.text-success <span class="step smaller success-step">3</span> #{t('notices.steps.charges.title')}
+    .col-xs-1
+      h5.text-right <span class="step smaller success-step-muted">1</span>
+    .col-xs-3
+      h5= t('notices.steps.photos.title')
+    .col-xs-1
+      h5.text-right <span class="step smaller success-step-muted">2</span>
+    .col-xs-3
+      h5= t('notices.steps.infos.title')
+    .col-xs-1
+      h5.text-right <span class="step smaller success-step-muted">3</span>
+    .col-xs-3
+      h5= t('notices.steps.charges.title')
   .row.spacer-large
-    .col-lg-12
-      .progress
+    .col-xs-12
+      .progress.progress-sm
         .progress-bar.progress-bar-success style="width: 100%"

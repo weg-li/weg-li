@@ -1,9 +1,8 @@
 source 'https://rubygems.org'
 
-ruby '2.6.3'
+ruby '2.6.4'
 
-gem 'rails', '5.2.3'
-gem 'responders'
+gem 'rails', '6.0.0'
 gem 'puma'
 gem 'sass-rails'
 gem 'jquery-rails'
@@ -24,15 +23,17 @@ gem 'kaminari-bootstrap', '~> 3.0.1'
 gem 'pg'
 gem 'redcarpet'
 gem 'geocoder'
+gem 'image_processing'
 gem 'google-cloud-vision'
-gem "google-cloud-storage", "~> 1.8", require: false
+gem 'google-cloud-storage'
 gem 'mini_magick'
 gem 'color'
-gem 'administrate'
+gem 'twitter'
+gem 'administrate', github: 'thoughtbot/administrate'
 gem 'administrate-field-active_storage'
+gem 'exception_notification'
 
 group :production do
-  gem 'exception_notification'
   gem 'rack-cache'
   gem 'uglifier'
   gem 'rails_12factor'
@@ -51,7 +52,5 @@ group :development, :test do
   gem 'byebug'
   gem 'fabrication'
   gem 'rspec-rails'
-  gem 'rspec-collection_matchers'
-  gem 'rails-controller-testing'
   gem 'faker'
 end

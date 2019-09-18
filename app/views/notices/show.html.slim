@@ -1,23 +1,27 @@
-- set_title @notice.token, t('navigation.notices')
+- set_title "#{@notice.registration} #{@notice.charge}", t('navigation.notices')
 - set_crumbs t('navigation.notices') => notices_path, 'ansehen' => url_for
 
 .panel.panel-default
   .panel-heading
-    strong> Meldung vom #{l(@notice.created_at)}
-    => render 'status', status: @notice.status
-    - if @notice.incomplete?
-      = render 'status', status: :incomplete
+    = render 'actions', notice: @notice, show_text: true
   .panel-body
+    h3 Meldung vom #{l(@notice.created_at)}
     .row
       .col-lg-8
         = render 'details', notice: @notice
 
       .col-lg-4
-        = render 'photos', notice: @notice
+        = render 'photos', notice: @notice, publicly: true
 
-  .panel-footer
-    = render 'actions', notice: @notice
+    hr.spacer
 
+    .row
+      .col-lg-6
+        = button_tag title: t('notices.copy_to_clipboard'), class: "btn btn-default btn-block", onclick: "event.preventDefault(); copyToClipboard('#{t('notices.copy_hint')}', '#{public_charge_url(@notice)}')" do
+          span.glyphicon.glyphicon-list-alt>
+          span Link zur Meldung kopieren
+      .col-lg-6
+        = render 'callout', section: 'notices', key: 'copy_link'
 
 - if @notice.coordinates?
   .row

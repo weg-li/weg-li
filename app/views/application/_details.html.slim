@@ -1,4 +1,11 @@
 dl.dl-horizontal
+  dt= Notice.human_attribute_name(:status)
+  dd
+    => render 'status', status: @notice.status
+    - if @notice.incomplete?
+      = render 'status', status: :incomplete
+  dt= Notice.human_attribute_name(:district)
+  dd= notice.district.display_name
   dt= Notice.human_attribute_name(:charge)
   dd= notice.charge
   dt= Notice.human_attribute_name(:date)
@@ -19,7 +26,9 @@ dl.dl-horizontal
       dd Das Fahrzeug war verlassen
     - if notice.parked?
       dd Das Fahrzeug stand mindestens 3 Minuten.
-    - if notice.parked_long?
+    - if notice.parked_one_hour?
+      dd Das Fahrzeug stand länger als 1 Stunde.
+    - if notice.parked_three_hours?
       dd Das Fahrzeug stand länger als 3 Stunden.
     - if notice.hinder?
       dd Behinderung anderer Verkehrsteilnehmer

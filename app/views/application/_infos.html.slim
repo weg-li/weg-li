@@ -6,6 +6,7 @@ h3= "#{user.nickname} in #{user.district.display_name}"
       .panel-heading Infos zum Account
       ul.list-group
         li.list-group-item Mitglied seit: #{l(user.created_at.to_date)}
+        li.list-group-item Status: #{render('access', access: user.access)}
 
   .col-lg-6
     .panel.panel-default

@@ -4,33 +4,29 @@
   p
     |
       In #{@district.display_name} sind momentan #{@count[@district.name] || 0} aller #{@total} weg-li Knipser unterwegs.
-      Dein Bezirk fehlt? Dann schreib gerne an #{mail_to 'peter@weg-li.de'} und sag uns wo Du testen möchtest. Hast Du die zuständige Stelle und deren E-Mail Adresse schon parat? Dann geht es besonders schnell!
+      Dein Bezirk fehlt? Dann schreib gerne an #{mail_to 'peter@weg-li.de'} und sag uns, wo Du testen möchtest. Hast Du die zuständige Stelle und deren E-Mail Adresse schon parat? Dann geht es besonders schnell!
+
+- if @notices.present?
+  .row
+    .col-lg-4
+      - grouped = @notices.group_by(&:brand).sort_by {|_, group| group.size }.reverse
+      - grouped.each do |key, group|
+        span.label.label-default>= "#{key.presence || 'ohne'} #{group.size}"
+    .col-lg-8
+      - grouped = @notices.group_by(&:charge).sort_by {|_, group| group.size }.reverse
+      - grouped.each do |key, group|
+        span.label.label-default>= "#{key} #{group.size}"
+
+  hr.spacer
 
 .row
-  .col-lg-8
+  .col-lg-4
     dl.dl-horizontal
-      dt Erstatte Anzeigen
+      dt Erstattete Anzeigen
       dd= @notices.size
       dt Aktive Nutzer
       dd= @active
-  .col-lg-4
-    .dropdown
-      button.btn.btn-default.dropdown-toggle type="button" data-toggle="dropdown"
-        span>= "Bezirk #{@district.display_name}"
-        span.caret
-      ul.dropdown-menu
-        - District::ALL.each do |district|
-          li= link_to district.display_name, url_for(district: district.name)
-.row
   .col-lg-8
-    - grouped = @notices.group_by(&:charge).sort_by {|key, _| key}.reverse.to_h
-    - grouped.each do |key, group|
-      span.label.label-default>= "#{key} #{group.size}"
-  .col-lg-4
-    - grouped = @notices.group_by(&:brand).sort_by {|key, _| key }.reverse.to_h
-    - grouped.each do |key, group|
-      span.label.label-default>= "#{key.presence || 'ohne'} #{group.size}"
+    = render('map_filter', district: @district, display: @display, since: @since)
 
-hr.spacer
-
-= render 'multi_map', notices: @notices, init: @district.map_data
+= render "#{@display}_map", notices: @notices, init: @district.map_data

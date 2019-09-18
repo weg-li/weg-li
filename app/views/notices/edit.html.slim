@@ -4,50 +4,51 @@
 = render 'three_step', step: :second
 
 - if @notice.incomplete?
-  - if @notice.photos.blank?
-    = form_for @notice, url: [:upload, @notice], html: {class: "form-horizontal"} do |form|
-      = render 'photos_form', notice: @notice, form: form
+  .row
+    .col-lg-12
+      .well.well-sm.callout
+        p
+          |
+            Aus den Beweisfotos lassen sich automatisch Informationen ermitteln.
+            EXIF-Metadaten liefern Standort und Uhrzeit, Bilderkennung und OCR liefern Kennzeichen, Hersteller, Farben etc.
+            Die Algorithmen sind noch im Training, deshalb müssen lücken- oder fehlerhafte Daten selbst korrigiert werden.
 
-      hr.spacer
+  .row
+    .col-lg-4
+      - if @notice.analyzing?
+        .progress.progress-striped.active
+          #total-progress.progress-bar.progress-bar-success(style="width: 5%")
 
-      .row
-        .col-lg-12
-          .pull-right
-            .btn-group
-              = form.submit 'hochladen', class: "btn btn-success"
+        = link_to url_for, class: 'btn btn-success btn-block' do
+          span.glyphicon.glyphicon-repeat.smaller>
+          span#analyze-progress kurz warten und dann aktualisieren
+        javascript:
+          setInterval(function(element) { element.style.width = Math.min(100, (parseInt(element.style.width) + 25)) + '%' }, 1000, document.getElementById('total-progress'));
 
-  - else
-    .row
-      .col-lg-12
-        .well.well-sm.callout
-          p
-            |
-              Aus den Beweisfotos lassen sich automatisch Informationen ermitteln.
-              EXIF-Metadaten liefern Standort und Uhrzeit, Bilderkennung und OCR liefern Kennzeichen, Hersteller, Farben etc.
-              Die Algorithmen sind noch im Training, deshalb müssen lücken- oder fehlerhafte Daten selbst korrigiert werden.
-
-    .row
-      .col-lg-4
-        - if @notice.analyzing?
-          = link_to url_for, class: 'btn btn-success btn-block' do
-            span.glyphicon.glyphicon-repeat.smaller>
-            span kurz warten und dann aktualisieren
-        - else
-          = link_to [:analyze, @notice], method: :patch, class: 'btn btn-success btn-block' do
-            span.glyphicon.glyphicon-hourglass>
-            span Beweisfotos analysieren
-      .col-lg-8
-        = render 'photos', notice: @notice
-
+      - else
+        = link_to [:analyze, @notice], method: :patch, class: 'btn btn-success btn-block' do
+          span.glyphicon.glyphicon-hourglass>
+          span Beweisfotos analysieren
+    .col-lg-8
+      = render 'photos', notice: @notice, upload: true
 - else
   .row
     .col-lg-12
-      = render 'photos', notice: @notice
+      = render 'photos', notice: @notice, upload: true
+
+- photo_doubles = @notice.photo_doubles
+- if photo_doubles.present?
+  .alert.alert-warning
+    strong
+      | Beweisfotos mit identischem Namen wurden schon benutzt:
+      - photo_doubles.each do |photo|
+        =< link_to photo.filename, photo.record
+
 
 hr.spacer
 
 = form_errors @notice
-= form_for @notice, html: {class: "form-horizontal", autocomplete: :off} do |form|
+= form_for @notice, html: {autocomplete: :off} do |form|
   = render 'notice_form', notice: @notice, form: form
 
   hr.spacer
@@ -55,5 +56,5 @@ hr.spacer
     .col-lg-12
       .pull-right
         .btn-group
-          = form.button 'nur speichern', name: :show, class: "btn btn-default"
+          = form.button 'nur speichern', name: :only_save, class: "btn btn-default"
           = form.submit 'speichern und weiter', class: "btn btn-success"

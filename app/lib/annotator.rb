@@ -2,6 +2,9 @@ require "google/cloud/vision"
 require "google/cloud/storage"
 
 class Annotator
+  def self.unsafe?(result)
+    (result[:safe_search_annotation] || {}).any? { |_, value| [:LIKELY, :VERY_LIKELY].include?(value) }
+  end
 
   def self.grep_text(result)
     result[:text_annotations].flat_map { |match| match[:description].split("\n").map { |token| yield(token) } }.compact.uniq
@@ -48,12 +51,14 @@ class Annotator
     request = [
       {
         image: image,
+        image_context: { language_hints: ['de'] },
         features: [
           {type: 'LABEL_DETECTION'},
-          {type: 'TEXT_DETECTION'},
+          {type: 'DOCUMENT_TEXT_DETECTION'},
           {type: 'LOGO_DETECTION'},
           {type: 'OBJECT_LOCALIZATION'},
           {type: 'IMAGE_PROPERTIES'},
+          {type: 'SAFE_SEARCH_DETECTION'},
         ],
       },
     ]
