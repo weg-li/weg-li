@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Api::NoticesController do
+describe "api", type: :request do
   before do
     @user = Fabricate(:user)
     @notice = Fabricate(:notice, user: @user)
