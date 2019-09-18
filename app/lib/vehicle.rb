@@ -39,7 +39,7 @@ class Vehicle
   end
 
   def self.relaxed_plate_regex
-    @relaxed_plate_regex ||= Regexp.new("^(#{Vehicle.plates.keys.join('|')})([A-Z]{1,3})-(\\d{1,4})$")
+    @relaxed_plate_regex ||= Regexp.new("^O?(#{Vehicle.plates.keys.join('|')})-?O?([A-Z]{1,3})-?(\\d{1,4})$")
   end
 
   def self.brand?(text)
