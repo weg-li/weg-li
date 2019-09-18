@@ -38,6 +38,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
   NUERNBERG = District.new('nuernberg', 'info@zv-kvue.nuernberg.de', 15, 49.450, 11.076)
   NUERTINGEN = District.new('nuertingen', 'ordnungsamt.stadt@nuertingen.de', 15, 48.625, 9.344)
   RAVENSBURG = District.new('ravensburg', 'ordnungsamt@ravensburg.de', 15, 47.781, 9.612)
+  SAARBRUECKEN = District.new('saarbruecken', 'ordnungsamt@saarbruecken.de', 15, 49.233, 6.995)
   SIEGEN = District.new('siegen', 'bussgeldstelle@siegen.de', 14, 50.875, 8.018)
   STUTTGART = District.new('stuttgart', 'verkehrsueberwachung@stuttgart.de', 14, 48.774, 9.176)
   TUEBINGEN = District.new('tuebingen', 'verkehrsabteilung@tuebingen.de', 15, 48.520, 9.053)
@@ -81,6 +82,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
     NUERNBERG,
     NUERTINGEN,
     RAVENSBURG,
+    SAARBRUECKEN,
     SIEGEN,
     STUTTGART,
     TUEBINGEN,
