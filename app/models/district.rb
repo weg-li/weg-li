@@ -17,6 +17,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
   HAMBURG = District.new('hamburg', 'anzeigenbussgeldstelle@eza.hamburg.de', 12, 53.56544, 9.95947)
   HANNOVER = District.new('hannover', '32.41@hannover-stadt.de', 13, 52.374, 9.734)
   HANNOVER_REGION = District.new('hannover_region', 'verkehrsowi@region-hannover.de', 11, 52.374, 9.734)
+  HEIDELBERG = District.new('heidelberg', 'ordnungswidrigkeiten@heidelberg.de', 15, 49.408, 8.691)
   HESSEN_REGION = District.new('hessen_region', 'post@zbs.hessen.de', 10, 50.430, 8.849)
   HILCHENBACH = District.new('hilchenbach', 'c.wandtke@hilchenbach.de', 14, 50.996, 8.110)
   HILDEN = District.new('hilden', 'ordnungsamt@hilden.de', 15, 51.169, 6.932)
@@ -29,6 +30,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
   LEIPZIG = District.new('leipzig', 'ordnungsamt@leipzig.de', 13, 51.340, 12.374)
   LUENEBURG = District.new('lueneburg', 'bussgeldstelle@landkreis.lueneburg.de', 14, 53.249, 10.403)
   MAINZ = District.new('mainz', 'verkehrsueberwachungsamt@stadt.mainz.de', 14, 49.999, 8.268)
+  MANNHEIM = District.new('mannheim', 'bereich31@mannheim.de', 15, 49.487, 8.462)
   MOENCHENGLADBACH = District.new('moenchengladbach', 'bussgeldstelle@moenchengladbach.de', 15, 51.196, 6.439)
   MUENCHEN = District.new('muenchen', 'verkehrsueberwachung.kvr@muenchen.de', 13, 48.133, 11.565)
   MUENSTER = District.new('muenster', 'kod@stadt-muenster.de', 14, 51.961, 7.622)
@@ -59,6 +61,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
     HAMBURG,
     HANNOVER,
     HANNOVER_REGION,
+    HEIDELBERG,
     HESSEN_REGION,
     HILCHENBACH,
     HILDEN,
@@ -70,6 +73,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
     LEIPZIG,
     LUENEBURG,
     MAINZ,
+    MANNHEIM,
     MOENCHENGLADBACH,
     MUENCHEN,
     MUENSTER,
