@@ -142,6 +142,7 @@ class Vehicle
       'Parken, obwohl zwischen Ihrem Fahrzeug und der Fahrstreifenbegrenzung (Zeichen 295/296) ein Abstand von weniger als 3 Metern verblieb',
       'Parken innerhalb einer Grenzmarkierung (Zeichen 299) für ein Parkverbot',
       'Parken bei zulässigem Gehwegparken (Zeichen 315) nicht auf dem Gehweg',
+      'Parkten auf einem Sonderfahrstreifen für Omnibusse des Linienverkehrs (Zeichen 245)',
       'Parken auf einem gekennzeichneten Behindertenparkplatz',
       'Parken mit Verbrenner vor Elektroladesäule',
     ]
