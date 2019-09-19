@@ -2,7 +2,7 @@
   = link_to bulk_upload_path(bulk_upload), class: 'btn btn-primary', title: 'ansehen'
     span.glyphicon.glyphicon-eye-open
   - if bulk_upload.photos.present?
-    = link_to edit_bulk_upload_path(bulk_upload), class: 'btn btn-primary', title: 'bearbeiten'
-      span.glyphicon.glyphicon-edit
+    = link_to edit_bulk_upload_path(bulk_upload), class: 'btn btn-primary', title: 'gruppieren'
+      span.glyphicon.glyphicon-move
   = link_to bulk_upload_path(bulk_upload), method: :delete, remote: true, data: {confirm: 'Der Upload wird entgültig gelöscht'}, class: 'btn btn-primary', title: 'löschen'
     span.glyphicon.glyphicon-trash

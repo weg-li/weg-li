@@ -8,7 +8,7 @@ de:
       truncate: "&hellip;"
   activerecord:
     models:
-      bulk_upload: 'Upload'
+      bulk_upload: 'Massen-Upload'
       user: 'Benutzer'
       notice: 'Meldung'
     attributes:
@@ -72,7 +72,7 @@ de:
     map: 'Kartenansicht'
     draft: 'Erfassen'
     dashboard: 'Übersicht'
-    bulk_uploads: 'Uploads'
+    bulk_uploads: 'Massen-Uploads'
     locale: 'Sprache'
     logout: 'Abmelden'
     profile: 'Profil'
@@ -218,7 +218,7 @@ de:
       done: 'erledigt'
     status-hints:
       open: 'Die Beweisfotos wurden gespeichert, bitte Meldungungen daraus erzeugen, vervollständigen und eine Anzeige erstatten.'
-      done: 'Alle Beweisfotos des Uploads wurden neuen Meldungen zugeordnet.'
+      done: 'Alle Beweisfotos des Massen-Uploads wurden neuen Meldungen zugeordnet.'
   notices:
     new_notice: 'Neue Meldung'
     create_button: 'Meldung erstellen'
@@ -249,7 +249,7 @@ de:
     enabled: 'Die Meldung wurde reaktiviert!'
     disabled: 'Die Meldung wurde deaktiviert!'
     destroyed: 'Die Meldung wurde gelöscht!'
-    sent_via_email: "Deine Meldung wurde an %{recepients} versendet."
+    sent_via_email: "Deine Anzeige wurde an %{recepients} versendet."
     share_message: 'Verschicke deine Anzeige'
     send_email: 'per E-Mail senden'
     copy_to_clipboard: 'in die Zwischenablage kopieren'
