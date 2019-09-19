@@ -2,10 +2,11 @@
   display: none;
 }
 
-@supports (-webkit-text-size-adjust:none) and (not (-ms-ime-align:auto)) and (not (-moz-appearance:none)) {
+@supports (overflow:-webkit-marquee) and (justify-content:inherit) {
   /*
+    https://solvit.io/bcf61b6
     Define here the CSS styles applied only to the Safari 9 version when
-    running in iOS devices (iPhone, iPad, ...) https://solvit.io/bcf61b6
+    running in any device
    */
    .safari-only {
      display: block;
