@@ -11,6 +11,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
   DARMSTADT = District.new('darmstadt', 'buergerordnungsamt@darmstadt.de', 15, 49.871, 8.652)
   DORTMUND = District.new('dortmund', 'fremdanzeigen.verkehrsueberwachung@stadtdo.de', 13, 51.513, 7.460)
   DUESSELDORF = District.new('duesseldorf', 'bussgeldstelle@duesseldorf.de', 13, 51.219, 6.778)
+  ERFURT = District.new('erfurt', 'buergeramt@erfurt.de', 15, 50.977, 11.027)
   FILDERSTADT = District.new('filderstadt', 'amt32@filderstadt.de', 15, 48.676, 9.217)
   FRANKFURT = District.new('frankfurt', 'owi.datenerfassung.amt32@stadt-frankfurt.de', 12, 50.109, 8.675)
   # https://hamburg.adfc.de/verkehr/maengelmelder/falschparker/
@@ -57,6 +58,7 @@ class District < Struct.new(:name, :email, :zoom, :latitude, :longitude)
     DARMSTADT,
     DORTMUND,
     DUESSELDORF,
+    ERFURT,
     FILDERSTADT,
     FRANKFURT,
     HAMBURG,
