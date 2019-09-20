@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/thoughtbot/administrate.git
-  revision: f4e12bc17a5d554191660c67cac002f551a7bda1
+  revision: 8150e08c9bcf398b8adc9373af1a7ebb5afbeb70
   specs:
     administrate (0.12.0)
       actionpack (>= 4.2)
@@ -106,7 +106,7 @@ GEM
     execjs (2.7.0)
     exifr (1.3.6)
     fabrication (2.20.2)
-    faker (2.3.0)
+    faker (2.4.0)
       i18n (~> 1.6.0)
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
@@ -114,7 +114,7 @@ GEM
     geocoder (1.5.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    google-api-client (0.30.10)
+    google-api-client (0.31.0)
       addressable (~> 2.5, >= 2.5.1)
       googleauth (>= 0.5, < 0.10.0)
       httpclient (>= 2.8.1, < 3.0)
@@ -305,7 +305,7 @@ GEM
     rb-inotify (0.10.0)
       ffi (~> 1.0)
     redcarpet (3.5.0)
-    redis (4.1.2)
+    redis (4.1.3)
     representable (3.0.4)
       declarative (< 0.1.0)
       declarative-option (< 0.2.0)
@@ -334,7 +334,7 @@ GEM
     ruby_dep (1.5.0)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
-    sassc (2.2.0)
+    sassc (2.2.1)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
       railties (>= 4.0.0)
@@ -375,7 +375,7 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.9)
     time_splitter (1.1.0)
-    turbolinks (5.2.0)
+    turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
     twitter (6.2.0)
