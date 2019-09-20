@@ -54,4 +54,5 @@ group :development, :test do
   gem 'fabrication'
   gem 'rspec-rails'
   gem 'faker'
+  gem 'rswag', github: 'thiagopradi/rswag', branch: 'rails-6-full-support'
 end

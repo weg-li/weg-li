@@ -1,4 +1,23 @@
 GIT
+  remote: https://github.com/thiagopradi/rswag.git
+  revision: 81f8e0dbaff7aef176991808e31f56054d00856a
+  branch: rails-6-full-support
+  specs:
+    rswag (0.0.0)
+      rswag-api (= 0.0.0)
+      rswag-specs (= 0.0.0)
+      rswag-ui (= 0.0.0)
+    rswag-api (0.0.0)
+      railties (>= 3.1, < 6.1)
+    rswag-specs (0.0.0)
+      activesupport (>= 3.1, < 6.1)
+      json-schema (~> 2.2)
+      railties (>= 3.1, < 6.1)
+    rswag-ui (0.0.0)
+      actionpack (>= 3.1, < 6.1)
+      railties (>= 3.1, < 6.1)
+
+GIT
   remote: https://github.com/thoughtbot/administrate.git
   revision: 8150e08c9bcf398b8adc9373af1a7ebb5afbeb70
   specs:
@@ -145,7 +164,7 @@ GEM
       googleauth (>= 0.6.2, < 0.10.0)
       grpc (>= 1.7.2, < 2.0)
       rly (~> 0.2.3)
-    google-protobuf (3.9.1-universal-darwin)
+    google-protobuf (3.9.1)
     googleapis-common-protos (1.3.9)
       google-protobuf (~> 3.0)
       googleapis-common-protos-types (~> 1.0)
@@ -159,7 +178,7 @@ GEM
       multi_json (~> 1.11)
       os (>= 0.9, < 2.0)
       signet (~> 0.7)
-    grpc (1.23.0-universal-darwin)
+    grpc (1.23.0)
       google-protobuf (~> 3.8)
       googleapis-common-protos-types (~> 1.0)
     hashie (3.6.0)
@@ -184,6 +203,8 @@ GEM
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
+    json-schema (2.8.1)
+      addressable (>= 2.4)
     jwt (2.2.1)
     kaminari (1.1.1)
       activesupport (>= 4.1.0)
@@ -449,6 +470,7 @@ DEPENDENCIES
   rails_12factor
   redcarpet
   rspec-rails
+  rswag!
   sass-rails
   select2-rails
   sidekiq
