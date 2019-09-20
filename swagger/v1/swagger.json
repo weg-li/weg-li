@@ -1,0 +1,67 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API V1",
+    "version": "v1"
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "name": "x-api-key",
+      "in": "header"
+    }
+  },
+  "paths": {
+    "/api/notices/{id}": {
+      "get": {
+        "summary": "Retrieves a notice",
+        "tags": [
+          "Notices"
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "apiKey": "bla"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "name found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string"
+                },
+                "location": {
+                  "type": "string"
+                },
+                "photo_url": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "token",
+                "status"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
