@@ -2,6 +2,7 @@ Fabricator(:user) do
   nickname  { Faker::Internet.user_name }
   email     { Faker::Internet.email }
   token     { SecureRandom.hex(16) }
+  api_token { SecureRandom.hex(32) }
   name      { Faker::Name.name }
   address   { Faker::Address.full_address }
   district  { 'hamburg' }
