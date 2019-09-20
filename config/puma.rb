@@ -25,11 +25,15 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 # Workers do not work on JRuby or Windows (both of which do not support
 # processes).
 #
-workers ENV.fetch("WEB_CONCURRENCY") { 2 }
+workers ENV.fetch("WEB_CONCURRENCY") { 4 }
 # 20 pg connections on hobby and dev.
-# 2 1X dynos * 2 workers * 4 threads = 16 + 4 sidekiq (-c 4)
+# 2 1X dynos * 2 workers * 4 threads = 16 + 4 sidekiq (-c 4) = 20
 # or
-# 1 2X dynos * 2 workers * 8 threads = 16 + 4 sidekiq (-c 4)
+# 1 2X dynos * 2 workers * 8 threads = 16 + 4 sidekiq (-c 4) = 20
+# 120 pg connections on basic-0
+# 1 2X dynos * 4 workers * 8 threads = 32 + 8 sidekiq (-c 8) = 40
+# 2 2X dynos * 4 workers * 8 threads = 32 + 8 sidekiq (-c 10) = 74
+# 3 2X dynos * 4 workers * 8 threads = 32 + 8 sidekiq (-c 14) = 110
 
 # Use the `preload_app!` method when specifying a `workers` number.
 # This directive tells Puma to first boot the application and load code
