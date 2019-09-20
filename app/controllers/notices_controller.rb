@@ -1,5 +1,6 @@
 class NoticesController < ApplicationController
   before_action :authenticate!
+  before_action :authenticate_community_user!, only: [:prepare, :polish]
   before_action :authenticate_admin_user!, only: :inspect
   before_action :validate!, except: [:index]
 
@@ -54,6 +55,21 @@ class NoticesController < ApplicationController
     redirect_to path, notice: message
   end
 
+  def edit
+    @notice = current_user.notices.from_param(params[:id])
+  end
+
+  def update
+    @notice = current_user.notices.from_param(params[:id])
+
+    if @notice.update(notice_params)
+      path = params[:only_save] ? notices_path : [:share, @notice]
+      redirect_to path, notice: 'Meldung wurde gespeichert'
+    else
+      render :edit
+    end
+  end
+
   def import
     tweet = Twttr.client.status(notice_import_params[:tweet_url], tweet_mode: :extended)
     nickname = tweet.user.screen_name
@@ -83,21 +99,20 @@ class NoticesController < ApplicationController
 
     notice.analyze!
 
-    redirect_to public_charge_path(notice), notice: 'Eine Meldung mit Beweisfotos wurde importiert'
+    redirect_to prepare_notice_path(notice), notice: 'Eine Meldung mit Beweisfotos wurde importiert, bitte vervollständigen'
   end
 
-  def edit
-    @notice = current_user.notices.from_param(params[:id])
+  def prepare
+    @notice = Notice.prepared_claim(params[:id])
   end
 
-  def update
-    @notice = current_user.notices.from_param(params[:id])
+  def polish
+    @notice = Notice.prepared_claim(params[:id])
 
     if @notice.update(notice_params)
-      path = params[:only_save] ? notices_path : [:share, @notice]
-      redirect_to path, notice: 'Meldung wurde gespeichert'
+      redirect_to public_charge_path(@notice), notice: 'Meldung wurde gespeichert und kann jetzt weitergeleitet werden'
     else
-      render :edit
+      render :prepare
     end
   end
 

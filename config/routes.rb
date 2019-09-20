@@ -27,6 +27,8 @@ Rails.application.routes.draw do
     member do
       get :inspect
       get :share
+      get :prepare
+      patch :polish
       patch :mail
       patch :enable
       patch :disable

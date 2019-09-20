@@ -43,6 +43,10 @@ class Notice < ActiveRecord::Base
     }
   end
 
+  def self.prepared_claim(token)
+    Notice.joins(:user).where({ users: { access: :ghost} }).find_by(token: token)
+  end
+
   def analyze!
     self.status = :analyzing
     save_incomplete!
