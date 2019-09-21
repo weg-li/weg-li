@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :articles
     resources :authorizations
-    resources :notices
+    resources :notices do
+      post :analyze
+    end
     resources :bulk_uploads
     resources :users do
       post :login
