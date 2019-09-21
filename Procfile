@@ -1,3 +1,3 @@
 release: bundle exec rake db:migrate
 web: bundle exec puma -C config/puma.rb
-worker: bundle exec sidekiq -c 15 -t 10 -q default -q mailers
+worker: RAILS_MAX_THREADS=25 bundle exec sidekiq -c 25 -t 15 -q default -q mailers
