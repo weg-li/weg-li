@@ -124,6 +124,7 @@ class Vehicle
       'Parken an einer engen/unübersichtlichen Straßenstelle',
       'Parken im Bereich einer scharfen Kurve',
       'Parken unzulässig in der zweiten Reihe',
+      'Parkten näher als 10 Meter vor einem Lichtzeichen',
       'Parken vor oder in einer amtlich gekennzeichneten Feuerwehrzufahrt',
       'Parken verbotswidrig im Bereich eines Taxenstandes (Zeichen 229)',
       'Parken verbotswidrig und verhinderten dadurch die Benutzung gekennzeichneter Parkflächen',
