@@ -43,22 +43,22 @@ class BulkUploadsController < ApplicationController
 
     if params[:one_per_photo]
       photos = bulk_upload.photos
-      Notice.transaction do
-        photos.each do |photo|
-          notice = current_user.notices.build(bulk_upload: bulk_upload)
+      photos.each do |photo|
+        notice = current_user.notices.build(bulk_upload: bulk_upload)
+        Notice.transaction do
           notice.save_incomplete!
           photo.update!(record: notice)
-          notice.analyze!
         end
+        notice.analyze!
       end
     else
       photos = bulk_upload.photos.find(params[:bulk_upload][:photos])
+      notice = current_user.notices.build(bulk_upload: bulk_upload)
       Notice.transaction do
-        notice = current_user.notices.build(bulk_upload: bulk_upload)
         notice.save_incomplete!
         photos.each { |photo| photo.update!(record: notice) }
-        notice.analyze!
       end
+      notice.analyze!
     end
 
     redirect_to edit_bulk_upload_path(bulk_upload), notice: 'Neue Meldung aus Fotos erzeugt'
