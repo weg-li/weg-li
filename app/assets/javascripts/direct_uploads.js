@@ -6,6 +6,9 @@ addEventListener("direct-upload:initialize", event => {
     <div id="direct-upload-${id}" class="progress">
       <div id="direct-upload-progress-${id}" class="progress-bar progress-bar-success" style="width: 0%"></div>
     </div>
+    <div id="direct-upload-error-${id}" class="alert alert-warning hidden">
+      ERROR
+    </div>
   `);
 });
 
@@ -26,7 +29,10 @@ addEventListener("direct-upload:error", event => {
   const { id, error } = event.detail;
   const element = document.getElementById(`direct-upload-${id}`);
   element.classList.add("progress-bar-warning");
-  element.setAttribute("title", error);
+
+  const errorEl = document.getElementById(`direct-upload-error-${id}`);
+  errorEl.innerHTML(error);
+  errorEl.classList.remove("hidden");
 });
 
 addEventListener("direct-upload:end", event => {
