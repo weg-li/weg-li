@@ -51,6 +51,8 @@ class BulkUploadsController < ApplicationController
         end
         notice.analyze!
       end
+
+      redirect_to bulk_uploads_path, notice: 'Neue Meldungen wurden erzeugt'
     else
       photos = bulk_upload.photos.find(params[:bulk_upload][:photos])
       notice = current_user.notices.build(bulk_upload: bulk_upload)
@@ -59,9 +61,9 @@ class BulkUploadsController < ApplicationController
         photos.each { |photo| photo.update!(record: notice) }
       end
       notice.analyze!
-    end
 
-    redirect_to edit_bulk_upload_path(bulk_upload), notice: 'Neue Meldung aus Fotos erzeugt'
+      redirect_to edit_bulk_upload_path(bulk_upload), notice: 'Neue Meldung aus Fotos erzeugt'
+    end
   end
 
   def purge
