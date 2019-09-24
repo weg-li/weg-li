@@ -57,9 +57,9 @@ class Notice < ActiveRecord::Base
     other = Notice.shared.since(1.month.ago).find_by(registration: registrations)
     if other
       self.registration = other.registration
-      self.brand = other.brand
-      self.color = other.color
       self.charge = other.charge
+      self.brand = other.brand if other.brand?
+      self.color = other.color if other.color?
     end
   end
 

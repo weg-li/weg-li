@@ -28,7 +28,7 @@ describe Vehicle do
     sample = " RD  WN.200 "
     result = Vehicle.plate?(sample)
     expect(result).to be_truthy
-    expect(result).to eql("RD WN 200")
+    expect(result).to eql(["RD WN 200", 1.0])
 
     expect(Vehicle.plate?("")).to be_falsy
     expect(Vehicle.plate?("RDD WN 200")).to be_falsy
@@ -36,18 +36,33 @@ describe Vehicle do
   end
 
   it "realworld plate matches" do
-    expect(Vehicle.plate?("RD WN.200")).to eql("RD WN 200")
-    expect(Vehicle.plate?("HHTX 1267")).to eql("HHTX 1267")
-    expect(Vehicle.plate?(".HHCG 142")).to eql("HHCG 142")
-    expect(Vehicle.plate?("OHH NK 2121")).to eql("HHNK 2121")
-    expect(Vehicle.plate?("AZ SJ59")).to eql("AZ SJ 59")
-    expect(Vehicle.plate?("H:HS2127")).to eql("H HS 2127")
-    expect(Vehicle.plate?("HHW2071")).to eql("HHW 2071")
-    expect(Vehicle.plate?("„HH RH 2788")).to eql("HH RH 2788")
-    expect(Vehicle.plate?("HHO TR 2607")).to eql("HHTR 2607")
-    expect(Vehicle.plate?("BHH BT 4200")).to eql("HHBT 4200")
+    expect(Vehicle.plate?("RD WN.200")).to eql(["RD WN 200", 1.0])
+    expect(Vehicle.plate?("HHTX 1267")).to eql(["HHTX 1267", 0.8])
+    expect(Vehicle.plate?(".HHCG 142")).to eql(["HHCG 142", 0.8])
+    expect(Vehicle.plate?("OHH NK 2121")).to eql(["HHNK 2121", 0.5])
+    expect(Vehicle.plate?("AZ SJ59")).to eql(["AZ SJ 59", 1.0])
+    expect(Vehicle.plate?("H:HS2127")).to eql(["H HS 2127", 1.0])
+    expect(Vehicle.plate?("HHW2071")).to eql(["HHW 2071", 0.8])
+    expect(Vehicle.plate?("„HH RH 2788")).to eql(["HH RH 2788", 1.0])
+    expect(Vehicle.plate?("HHO TR 2607")).to eql(["HHTR 2607", 0.5])
+    expect(Vehicle.plate?("BHH BT 4200")).to eql(["HHBT 4200", 0.5])
   end
 
+  it "most likely" do
+    plates = [
+      ["RD WN 200", 1.0],
+      ["HHTX 1267", 0.8],
+      ["HHNK 2121", 0.5],
+    ].shuffle!
+    expect(Vehicle.most_likely_plate?(plates)).to eql('RD WN 200')
+
+    plates = [
+      ["RD WN 200", 1.0], ["HHTX 1267", 0.8],
+      ["HHTX 1267", 0.8],
+      ["HHNK 2121", 0.5], ["HHTX 1267", 0.8],
+    ].shuffle!
+    expect(Vehicle.most_likely_plate?(plates)).to eql('HHTX 1267')
+  end
 
   it "it checks possible brand matches" do
     sample = "SEAT"

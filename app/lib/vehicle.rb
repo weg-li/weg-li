@@ -14,14 +14,22 @@ class Vehicle
     data[:plates]
   end
 
+  def self.most_often?(matches)
+     matches.group_by(&:itself).sort_by { |match, group| group.size }.last[0]
+  end
+
+  def self.most_likely_plate?(matches)
+    matches.group_by {|registration, _| registration }.sort_by {|_, group| group.sum { |_, probability| probability } / matches.size }.last[0]
+  end
+
   def self.plate?(text)
     text = normalize(text)
     if text =~ plate_regex
-      "#{$1} #{$2} #{$3}"
+      ["#{$1} #{$2} #{$3}", 1.0]
     elsif text =~ relaxed_plate_regex
-      "#{$1}#{$2} #{$3}"
+      ["#{$1}#{$2} #{$3}", 0.8]
     elsif text =~ quirky_mode_plate_regex
-      "#{$1}#{$2} #{$3}"
+      ["#{$1}#{$2} #{$3}", 0.5]
     end
   end
 
@@ -91,7 +99,7 @@ class Vehicle
       'blue',
       'brown',
       'yellow',
-      'grey',
+      'gray',
       'green',
       'red',
       'black',
