@@ -7,7 +7,7 @@ class HomeController < ApplicationController
     @display = params[:display] || 'cluster'
     @district = District.by_name(params[:district] || current_user&.district_name || 'hamburg')
 
-    @notices = Notice.shared.for_public.since(@since.days.ago).where(user_id: User.for_public.where(district: @district.name).pluck(:id))
+    @notices = Notice.for_public.since(@since.days.ago).where(district: @district.name)
     @active = @notices.map(&:user_id).uniq.size
     @total = User.count
     @count = User.group(:district).count
