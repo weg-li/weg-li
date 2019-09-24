@@ -138,7 +138,7 @@ class NoticesController < ApplicationController
 
     NoticeMailer.charge(current_user, @notice).deliver_later
 
-    redirect_to(notices_path, notice: t('notices.sent_via_email', recepients: @notice.district.email))
+    redirect_to(notices_path, notice: "Deine Anzeige wurde an #{@notice.district.email} versendet.")
   end
 
   def enable
