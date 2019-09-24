@@ -26,7 +26,7 @@ class NoticesController < ApplicationController
   def map
     @since = (params[:since] || '7').to_i
     @display = params[:display] || 'cluster'
-    @district = District.by_name(params[:district] || current_user&.district_name || 'hamburg')
+    @district = DistrictLegacy.by_name(params[:district] || current_user&.district_name || 'hamburg')
 
     @notices = current_user.notices.since(@since.days.ago).where(district: @district.name)
   end
