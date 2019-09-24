@@ -26,7 +26,7 @@
       = render 'callout', section: 'notices', key: 'send_email'
 
   = form_errors @notice
-  = form_for @notice, url: mail_notice_path(@notice) do |form|
+  = form_for @notice, url: mail_notice_path(@notice), method: :patch do |form|
     .row
       .col-lg-12
         .input-group
