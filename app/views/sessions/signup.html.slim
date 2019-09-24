@@ -10,10 +10,10 @@
 
   .row.spacer-large
     .col-lg-4
-      = form.label :nickname, class: "control-label"
+      = form.label :nickname, class: "control-label control-label-required"
       = form.text_field :nickname, placeholder: 'z.B. MasterKnipser', class: "form-control", required: true
     .col-lg-4
-      = form.label :email, class: "control-label"
+      = form.label :email, class: "control-label control-label-required"
       = form.text_field :email, placeholder: 'z.B. me@example.com', class: "form-control", required: true
     .col-lg-4
       = form.label :phone, class: "control-label"
@@ -26,11 +26,11 @@
 
   .row
     .col-lg-6
-      = form.label :name, class: "control-label"
+      = form.label :name, class: "control-label control-label-required"
       = form.text_field :name, placeholder: 'z.B. Hanno Nym', class: "form-control", required: true
       small.help-block Anzeigen müssen mit dem vollständigen Namen erfolgen
     .col-lg-6
-      = form.label :address, class: "control-label"
+      = form.label :address, class: "control-label control-label-required"
       = form.text_field :address, placeholder: 'z.B. Sylvesterallee 7, 22525 Hamburg', class: "form-control", required: true, pattern: '.+ \d{5}.*'
       small.help-block Anzeigen benötigen eine vollständige Anschrift mit PLZ & Ort
     / TODO address, zip, city
