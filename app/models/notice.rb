@@ -79,7 +79,7 @@ class Notice < ActiveRecord::Base
     elsif address
       District.legacy_by_zip(zip)
     else
-      user.disrict
+      user.district
     end
   end
 
