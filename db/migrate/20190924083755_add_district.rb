@@ -2,13 +2,15 @@ class AddDistrict < ActiveRecord::Migration[6.0]
   def change
     create_table :districts do |t|
       t.string :name, null: false, index: true
-      t.string :zip, null: false, unique: true
+      t.string :zip, null: false
       t.string :email, null: false
       t.string :prefix
       t.float :latitude
       t.float :longitude
 
       t.timestamps
+
+      t.index [ :zip ], unique: true
     end
 
     reversible do |dir|

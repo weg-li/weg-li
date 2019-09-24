@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_24_083755) do
+ActiveRecord::Schema.define(version: 2019_09_24_102934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 2019_09_24_083755) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_districts_on_name"
+    t.index ["zip"], name: "index_districts_on_zip", unique: true
   end
 
   create_table "notices", force: :cascade do |t|
@@ -110,7 +111,7 @@ ActiveRecord::Schema.define(version: 2019_09_24_083755) do
     t.integer "flags", default: 0, null: false
     t.string "name"
     t.string "address"
-    t.string "district", default: "hamburg", null: false
+    t.string "district"
     t.string "phone"
     t.float "latitude"
     t.float "longitude"
