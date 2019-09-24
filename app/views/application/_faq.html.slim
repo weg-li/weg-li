@@ -38,7 +38,7 @@
         p
           | Die ursprüngliche Idee für weg-li war eine App, die für Android und iOS in den App-Stores breit stehen soll.
           br
-          | Für die Test-Phase habe ich mich aber explizit dagegen entschieden, da ich den Prototyp so schnell wie möglich in Betrieb nehmen wollte, um die Idee zu validieren.
+          | Für die Test-Phase haben wir uns aber explizit dagegen entschieden, da der Prototyp so schnell wie möglich in Betrieb nehmen wollten, um die Idee zu validieren.
         p
           | Grundsätzlich spricht nichts gegen die Entwicklung von nativen Apps, es könnte sogar aus Marketing-Gründen eine gute Idee sein, in den App-Stores präsent zu sein.
         p
@@ -64,12 +64,7 @@
     panel-collapse.collapse id="collapse-#{i}"
       .panel-body
         p
-          | Derzeit ist die weg-li &beta;eta noch nicht in allen Verwaltungsbezirken nutzbar. Für die nachfolgenden Bezirke sind schon alle Informationen hinterlegt:
-          ul.list-inline
-            - District.all.each do |district|
-              li= district.display_name
-        p
-          | Wenn noch Dein Bezirk fehlt, dann schreib gerne an #{mail_to 'peter@weg-li.de'} und teile uns mit, wo genau Du testen möchtest. Vielleicht hast Du auch schon die zuständige Stelle und deren E-Mail Adresse parat?
+          | Eigentlich überall in Deutschland! Wenn noch Dein Bezirk fehlt, dann schreib gerne an #{mail_to 'peter@weg-li.de'} und teile uns mit, wo genau Du testen möchtest. Vielleicht hast Du auch schon die zuständige Stelle und deren E-Mail Adresse parat?
 
     - i += 1
     a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}"
@@ -81,7 +76,7 @@
             Im Moment ist weg-li nicht viel mehr als eine Seite, über die man Fotos hochladen kann und diese dann per E-Mail verschickt werden. So weit so langweilig!
             Aber mit irgendetwas muss man starten, und dieser Anfang ist nun gemacht. Das MVP ist da.
         p
-          | Zukünftig möchte ich weg-li dahingehend weiterentwickeln, dass man es eigentlich nicht mehr benutzen muss und nach dem Knipsen des Fotos alles vollautomatisch passiert.
+          | Zukünftig möchten wir weg-li dahingehend weiterentwickeln, dass man es eigentlich nicht mehr benutzen muss und nach dem Knipsen des Fotos alles vollautomatisch passiert.
         p
           |
             Um diese Ideen weiter zu treiben, wird weg-li als nächstes lernen, Parkvergehen in Fotos bei Twitter zu erkennen und daraus Meldungen zu erfassen.

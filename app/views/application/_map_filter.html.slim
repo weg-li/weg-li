@@ -3,7 +3,7 @@
     span>= "Bezirk #{district.display_name}"
     span.caret
   ul.dropdown-menu
-    - District::ALL.each do |district|
+    - DistrictLegacy.all.each do |district|
       li= link_to district.display_name, url_for(since: since, district: district.name, display: display)
 .dropdown.pull-right
   button.btn.btn-default.dropdown-toggle type="button" data-toggle="dropdown"

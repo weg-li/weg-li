@@ -26,7 +26,7 @@ class NoticesController < ApplicationController
   def map
     @since = (params[:since] || '7').to_i
     @display = params[:display] || 'cluster'
-    @district = District.by_name(params[:district] || current_user&.district_name || 'hamburg')
+    @district = DistrictLegacy.by_name(params[:district] || current_user&.district_name || 'hamburg')
 
     @notices = current_user.notices.since(@since.days.ago).where(district: @district.name)
   end
@@ -126,26 +126,19 @@ class NoticesController < ApplicationController
 
   def share
     @notice = current_user.notices.from_param(params[:id])
-    @notice.district ||= current_user.district
 
     @mail = NoticeMailer.charge(current_user, @notice)
   end
 
   def mail
     @notice = current_user.notices.from_param(params[:id])
-    @notice.assign_attributes(mail_params)
 
-    if @notice.district.present?
-      @notice.status = :shared
-      @notice.save!
+    @notice.status = :shared
+    @notice.save!
 
-      NoticeMailer.charge(current_user, @notice).deliver_later
+    NoticeMailer.charge(current_user, @notice).deliver_later
 
-      redirect_to(notices_path, notice: t('notices.sent_via_email', recepients: @notice.district.email))
-    else
-      @notice.errors.add(:district, :blank)
-      render :share
-    end
+    redirect_to(notices_path, notice: t('notices.sent_via_email', recepients: @notice.district.email))
   end
 
   def enable
@@ -222,7 +215,7 @@ class NoticesController < ApplicationController
   private
 
   def notice_params
-    params.require(:notice).permit(:charge, :date, :date_date, :date_time, :registration, :make, :brand, :model, :color, :kind, :address, :note, :hinder, :empty, :parked, :parked_one_hour, :parked_three_hours)
+    params.require(:notice).permit(:charge, :date, :date_date, :date_time, :registration, :brand, :color, :address, :note, :hinder, :empty, :parked, :parked_one_hour, :parked_three_hours)
   end
 
   def notice_upload_params
@@ -231,9 +224,5 @@ class NoticesController < ApplicationController
 
   def notice_import_params
     params.require(:notice).permit(:tweet_url)
-  end
-
-  def mail_params
-    params.require(:notice).permit(:district)
   end
 end

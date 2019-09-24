@@ -20,23 +20,33 @@
   .col-lg-12
     = render 'photos', notice: @notice, publicly: true
 
-.row
-  .col-lg-12
-    .well.well-sm.callout
-      p
-        |
-          Ist eine Anzeige einmal erstattet worden, so wird sie verfolgt und kann nicht wieder zurückgenommen werden.
-          Anzeigen sollten niemals leichtfertig und nur mit begründetem Verdacht gemeldet werden.
-
-= form_errors @notice
-= form_for @notice, url: mail_notice_path(@notice) do |form|
-  = render 'share_form', notice: @notice, form: form
-
-  hr.spacer
-
+- if @notice.district.present?
   .row
     .col-lg-12
-      .pull-right
-        .btn-group
-          = link_to 'Daten ändern', edit_notice_path(@notice), class: 'btn btn-default'
-          = link_to 'zurück zur Übersicht', notices_path, class: 'btn btn-default'
+      = render 'callout', section: 'notices', key: 'send_email'
+
+  = form_errors @notice
+  = form_for @notice, url: mail_notice_path(@notice), method: :patch do |form|
+    .row
+      .col-lg-12
+        .input-group
+          = form.text_field :district, value: "#{form.object.district.email} (#{form.object.district.zip} #{form.object.district.display_name})", disabled: true, class: "form-control"
+          span.input-group-btn
+            = button_tag class: "btn btn-success" do
+              span.glyphicon.glyphicon-send>
+              span Anzeige erstatten
+        small.help-block Die zuständige E-Mail-Adresse wurde automatisch anhand der Adresse der Meldung ermittelt. Adresse stimmt nicht? Schreibe gerne an #{mail_to 'peter@weg-li.de'}!
+
+- else
+  .alert.alert-warning
+    strong
+      | Der Bezirk für die PLZ #{@notice.zip} fehlt noch, schreibe gerne an #{mail_to 'peter@weg-li.de'} falls die die E-Mail-Adresse der zuständigen Stelle kennst!
+
+hr.spacer
+
+.row
+  .col-lg-12
+    .pull-right
+      .btn-group
+        = link_to 'Daten ändern', edit_notice_path(@notice), class: 'btn btn-default'
+        = link_to 'zurück zur Übersicht', notices_path, class: 'btn btn-default'

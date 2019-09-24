@@ -2,8 +2,37 @@ require 'spec_helper'
 
 describe 'notices', type: :request do
   let(:user) { Fabricate(:user) }
+  let(:notice) { Fabricate(:notice, user: user) }
 
-  context "create" do
+  before do
+    login(user)
+  end
+
+  context "GET :new" do
+    it "renders the page" do
+      get new_notice_path
+
+      expect(response).to be_successful
+    end
+  end
+
+  context "GET :edit" do
+    it "renders the page" do
+      get edit_notice_path(notice)
+
+      expect(response).to be_successful
+    end
+  end
+
+  context "GET :map" do
+    it "renders the page" do
+      get map_notices_path
+
+      expect(response).to be_successful
+    end
+  end
+
+  context "POST :create" do
     let(:params) {
       {
         notice: {
@@ -11,9 +40,6 @@ describe 'notices', type: :request do
         }
       }
     }
-    before do
-      login(user)
-    end
 
     it "creates a notice with given params" do
       expect {
@@ -22,38 +48,22 @@ describe 'notices', type: :request do
     end
   end
 
-  context "share" do
-    before do
-      @notice = Fabricate(:notice, user: user)
-      @params = {
-        id: @notice.to_param,
-        notice: {
-          disrict: "hamburg",
-        },
-      }
-
-      login(user)
-    end
-
+  context "PATCH :share" do
     it "sends a mail to share recipient" do
       expect {
-        patch mail_notice_path(@notice), params: @params
+        patch mail_notice_path(notice)
 
         expect(response).to be_redirect
       }.to have_enqueued_job(ActionMailer::MailDeliveryJob)
     end
   end
 
-  context "destroy" do
-    before do
-      @notice = Fabricate(:notice, user: user)
-
-      login(user)
-    end
-
+  context "DELTE :destroy" do
     it "should destroy the notice" do
+      notice = Fabricate(:notice, user: user)
+
       expect {
-        delete notice_path(@notice)
+        delete notice_path(notice)
       }.to change { user.notices.count }.by(-1)
     end
   end

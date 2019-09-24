@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :authorizations
 
-  validates :nickname, :email, :token, :name, :address, :district, presence: true
+  validates :nickname, :email, :token, :name, :address, presence: true
   validates :email, :token, uniqueness: true
   validates :time_zone, inclusion: {in: ActiveSupport::TimeZone.all.map(&:name)}, allow_nil: true, allow_blank: true
 
@@ -36,11 +36,19 @@ class User < ActiveRecord::Base
   end
 
   def district
-    District.by_name(self[:district])
+    if self[:district]
+      DistrictLegacy.by_name(self[:district])
+    else
+      District.legacy_by_zip(zip)
+    end
   end
 
   def district_name
     self[:district]
+  end
+
+  def zip
+    address[/(\d{5})/, 1]
   end
 
   def to_label

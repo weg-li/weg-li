@@ -5,7 +5,8 @@ class HomeController < ApplicationController
   def map
     @since = (params[:since] || '7').to_i
     @display = params[:display] || 'cluster'
-    @district = District.by_name(params[:district] || current_user&.district_name || 'hamburg')
+    # TODO search for district
+    @district = DistrictLegacy.by_name(params[:district] || current_user&.district_name || 'hamburg')
 
     @notices = Notice.for_public.since(@since.days.ago).where(district: @district.name)
     @active = @notices.map(&:user_id).uniq.size
