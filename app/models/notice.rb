@@ -39,7 +39,7 @@ class Notice < ActiveRecord::Base
       shared: since(date).shared.count,
       users: User.where(id: since(date).pluck(:user_id)).count,
       all_users: User.since(date).count,
-      districts: District.all.size,
+      districts: District.count,
     }
   end
 
@@ -73,12 +73,18 @@ class Notice < ActiveRecord::Base
     user.photos_attachments.joins(:blob).where('active_storage_attachments.record_id != ?', id).where('active_storage_blobs.filename' => photos.map { |photo| photo.filename.to_s })
   end
 
-  def district=(district)
-    self[:district] = district.to_s
+  def district
+    if self[:district]
+      DistrictLegacy.by_name(self[:district])
+    elsif address
+      District.legacy_by_zip(zip)
+    else
+      user.disrict
+    end
   end
 
-  def district
-    District.by_name(self[:district])
+  def zip
+    address[/(\d{5})/, 1]
   end
 
   def coordinates?
@@ -100,6 +106,5 @@ class Notice < ActiveRecord::Base
 
   def defaults
     self.token ||= SecureRandom.hex(16)
-    self.district ||= user&.district
   end
 end

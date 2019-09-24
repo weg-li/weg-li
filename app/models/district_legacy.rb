@@ -112,6 +112,6 @@ class DistrictLegacy < Struct.new(:display_name, :name, :email, :zip, :latitude,
   end
 
   def to_s
-    name
+    zip
   end
 end
