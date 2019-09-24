@@ -81,11 +81,11 @@ Rails.application.routes.draw do
   # root 'notices#index', as: :authenticated_root, constraints: -> (request) { request.env['rack.session'].has_key?('user_id') || request.env['rack.request.cookie_hash'].has_key?('remember_me') }
   root 'home#index'
 
-  get '/blog',     to: 'articles#index'
-  get '/home',     to: 'home#index'
-  get '/map',      to: 'home#map'
-  get '/faq',      to: 'home#faq'
-  get '/privacy',  to: 'home#privacy'
+  get '/blog',     to: 'articles#index', as: :blog
+  get '/home',     to: 'home#index', as: :home
+  get '/map',      to: 'home#map', as: :map
+  get '/faq',      to: 'home#faq', as: :faq
+  get '/privacy',  to: 'home#privacy', as: :privacy
 
   # dev
   get '/styleguide', to: 'styleguide#index'
