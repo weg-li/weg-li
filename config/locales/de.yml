@@ -11,6 +11,9 @@ de:
       bulk_upload: 'Massen-Upload'
       user: 'Benutzer'
       notice: 'Meldung'
+      district: 'Bezirk'
+      authorization: 'Auth'
+      article: 'Artikel'
     attributes:
       user:
         time_zone: 'Zeitzone'
