@@ -64,6 +64,18 @@ describe Vehicle do
     expect(Vehicle.most_likely_plate?(plates)).to eql('HHTX 1267')
   end
 
+  it "most often" do
+    colors = [
+      'gray',
+      'gray',
+      'gray',
+    ].shuffle!
+    expect(Vehicle.most_often?(colors)).to eql('gray')
+
+    expect(Vehicle.most_often?([])).to be_nil
+    expect(Vehicle.most_often?(nil)).to be_nil
+  end
+
   it "it checks possible brand matches" do
     sample = "SEAT"
     result = Vehicle.brand?(sample)

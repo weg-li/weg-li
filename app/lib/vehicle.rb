@@ -15,7 +15,9 @@ class Vehicle
   end
 
   def self.most_often?(matches)
-     matches.group_by(&:itself).sort_by { |match, group| group.size }.last[0]
+    return nil if matches.blank?
+
+    matches.group_by(&:itself).sort_by { |match, group| group.size }.last[0]
   end
 
   def self.most_likely_plate?(matches)
