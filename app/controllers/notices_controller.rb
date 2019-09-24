@@ -215,7 +215,7 @@ class NoticesController < ApplicationController
   private
 
   def notice_params
-    params.require(:notice).permit(:charge, :date, :date_date, :date_time, :registration, :make, :brand, :model, :color, :kind, :address, :note, :hinder, :empty, :parked, :parked_one_hour, :parked_three_hours)
+    params.require(:notice).permit(:charge, :date, :date_date, :date_time, :registration, :brand, :color, :address, :note, :hinder, :empty, :parked, :parked_one_hour, :parked_three_hours)
   end
 
   def notice_upload_params
@@ -224,9 +224,5 @@ class NoticesController < ApplicationController
 
   def notice_import_params
     params.require(:notice).permit(:tweet_url)
-  end
-
-  def mail_params
-    params.require(:notice).permit(:district)
   end
 end

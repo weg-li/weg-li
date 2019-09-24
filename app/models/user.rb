@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :authorizations
 
-  validates :nickname, :email, :token, :name, :address, :district, presence: true
+  validates :nickname, :email, :token, :name, :address, presence: true
   validates :email, :token, uniqueness: true
   validates :time_zone, inclusion: {in: ActiveSupport::TimeZone.all.map(&:name)}, allow_nil: true, allow_blank: true
 
