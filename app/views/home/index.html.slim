@@ -73,32 +73,32 @@ hr.spacer-large
 
     ul.list-group
       li.list-group-item
-        - goal = 100
+        - goal = 500
         - statistics = Notice.statistics(Time.zone.today.beginning_of_week)
         - current = statistics[:shared]
         p
           strong> Wochenziel:
-          span #{current} von #{goal} Anzeigen erstattet
+          span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen erstattet
         .progress.progress-striped.active
           .progress-bar.progress-bar-danger(style="width: #{[100, current / (goal / 100)].min}%")
 
       li.list-group-item
-        - goal = 400
+        - goal = 2000
         - statistics = Notice.statistics(Time.zone.today.beginning_of_month)
         - current = statistics[:shared]
         p
           strong> Monatsziel:
-          span #{current} von #{goal} Anzeigen erstattet
+          span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen erstattet
         .progress.progress-striped.active
           .progress-bar.progress-bar-warning(style="width: #{[100, current / (goal / 100)].min}%")
 
       li.list-group-item
-        - goal = 400 * 5
+        - goal = 2000 * 5
         - statistics = Notice.statistics(Time.zone.today.beginning_of_year)
         - current = statistics[:shared]
         p
           strong> Jahresziel:
-          span #{current} von #{goal} Anzeigen erstattet
+          span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen erstattet
         .progress.progress-striped.active
           .progress-bar.progress-bar-info(style="width: #{[100, current / (goal / 100)].min}%")
 
@@ -118,4 +118,4 @@ hr.spacer-large
       - statistics.each do |key, value|
         li.list-group-item
           = t(key, scope: 'users.statistics')
-          .badge.pull-right= value
+          .badge.pull-right= number_with_delimiter(value)
