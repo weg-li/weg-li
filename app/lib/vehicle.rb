@@ -20,6 +20,8 @@ class Vehicle
       "#{$1} #{$2} #{$3}"
     elsif text =~ relaxed_plate_regex
       "#{$1}#{$2} #{$3}"
+    elsif text =~ quirky_mode_plate_regex
+      "#{$1}#{$2} #{$3}"
     end
   end
 
@@ -39,7 +41,11 @@ class Vehicle
   end
 
   def self.relaxed_plate_regex
-    @relaxed_plate_regex ||= Regexp.new("^O?(#{Vehicle.plates.keys.join('|')})O?:?-?O?([A-Z]{1,3})-?(\\d{1,4})$")
+    @relaxed_plate_regex ||= Regexp.new("^(#{Vehicle.plates.keys.join('|')}):?-?([A-Z]{1,3})-?(\\d{1,4})$")
+  end
+
+  def self.quirky_mode_plate_regex
+    @quirky_mode_plate_regex ||= Regexp.new("^O?B?(#{Vehicle.plates.keys.join('|')})O?:?-?O?([A-Z]{1,3})-?(\\d{1,4})$")
   end
 
   def self.brand?(text)
