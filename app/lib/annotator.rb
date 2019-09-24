@@ -15,7 +15,7 @@ class Annotator
     Color::RGB::Blue,
     Color::RGB::Brown,
     Color::RGB::Yellow,
-    Color::RGB::Grey,
+    Color::RGB::Gray,
     Color::RGB::Green,
     Color::RGB::Red,
     Color::RGB::Black,
