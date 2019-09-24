@@ -21,9 +21,9 @@ describe User do
   end
 
   it "handles districts" do
-    expect(user.district).to be(District::HAMBURG)
-    user.district = District::LUENEBURG.name
-    expect(user.district).to be(District::LUENEBURG)
+    expect(user.district).to be(DistrictLegacy::HAMBURG)
+    user.district = DistrictLegacy::LUENEBURG.name
+    expect(user.district).to be(DistrictLegacy::LUENEBURG)
   end
 
   context "admin" do

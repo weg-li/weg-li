@@ -25,19 +25,13 @@ describe 'notices', type: :request do
   context "share" do
     before do
       @notice = Fabricate(:notice, user: user)
-      @params = {
-        id: @notice.to_param,
-        notice: {
-          disrict: "hamburg",
-        },
-      }
 
       login(user)
     end
 
     it "sends a mail to share recipient" do
       expect {
-        patch mail_notice_path(@notice), params: @params
+        patch mail_notice_path(@notice)
 
         expect(response).to be_redirect
       }.to have_enqueued_job(ActionMailer::MailDeliveryJob)
