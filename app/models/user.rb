@@ -36,11 +36,19 @@ class User < ActiveRecord::Base
   end
 
   def district
-    District.by_name(self[:district])
+    if self[:district]
+      DistrictLegacy.by_name(self[:district])
+    else
+      District.legacy_by_zip(zip)
+    end
   end
 
   def district_name
     self[:district]
+  end
+
+  def zip
+    address[/(\d{5})/, 1]
   end
 
   def to_label

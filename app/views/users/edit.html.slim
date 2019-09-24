@@ -61,11 +61,6 @@
 
           small.help-block Ist eine Telefonnummer vorhanden, dann wird diese für Rückfragen mit angegeben.
 
-          = form.label :district, class: "control-label control-label-required"
-          = form.select :district, District.all.map { |district| [district.display_name, district.name] }, { include_blank: 'Bitte auswählen' }, { class: "form-control", required: true }
-
-          small.help-block Der Bezirk wird für die Auswahl der jeweilig zuständigen Stelle genutzt und kann bei neuen Meldungen umgeschaltet werden.
-
           - User.bitfields[:flags].keys.each do |key|
               .checkbox
                 label
