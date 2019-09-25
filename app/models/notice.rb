@@ -69,6 +69,12 @@ class Notice < ActiveRecord::Base
     @similar_count ||= Notice.since(since).where(registration: registration).count
   end
 
+  def date_doubles
+    return false if registration.blank?
+
+    user.notices.where('DATE(date) = DATE(?)', date).where(registration: registration).where.not(id: id)
+  end
+
   def photo_doubles
     user.photos_attachments.joins(:blob).where('active_storage_attachments.record_id != ?', id).where('active_storage_blobs.filename' => photos.map { |photo| photo.filename.to_s })
   end

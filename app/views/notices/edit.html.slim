@@ -44,6 +44,14 @@
       - photo_doubles.each do |photo|
         =< link_to photo.filename, photo.record
 
+- date_doubles = @notice.date_doubles
+- if date_doubles.present?
+  .alert.alert-warning
+    strong
+      | Meldungen für den gleichen Tag mit identischem Nummernschild wurden schon erzeugt:
+      - date_doubles.each do |notice|
+        =< link_to "Meldung ##{notice.id}", notice
+
 hr.spacer
 
 = form_errors @notice
