@@ -66,6 +66,7 @@ Rails.application.configure do
 
   config.default_host = 'www.weg-li.de'
 
+  config.action_mailer.deliver_later_queue_name = 'default'
   config.action_mailer.default_url_options = { host: config.default_host }
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
