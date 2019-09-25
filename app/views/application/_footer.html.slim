@@ -21,10 +21,15 @@ footer
         li
           = mail_to 'peter@weg-li.de' do
             <span class="glyphicon glyphicon-send"></span> E-Mail
-        li= link_to 'https://twitter.com/weg_li', title: 'weg-li on Twitter - @weg_li' do
+        li
+          = link_to 'https://twitter.com/weg_li', title: 'weg-li on Twitter - @weg_li', target: '_blank' do
             <span class="glyphicon glyphicon-retweet"></span> Twitter
-        li= link_to 'https://github.com/weg-li', title: 'weg-li on GitHub - We <3 Open-Source!' do
-            <span class="glyphicon glyphicon-heart-empty"></span> GitHub
+        li
+          = link_to 'https://github.com/weg-li', title: 'weg-li on GitHub - We <3 Open-Source!', target: '_blank' do
+            <span class="glyphicon glyphicon-heart"></span> GitHub
+        li
+          = link_to 'https://status.weg-li.de', title: 'weg-li status', target: '_blank' do
+            <span class="glyphicon glyphicon-dashboard"></span> Status
       / hr
       / p.spacer.margin-left-small
       /   em.text-muted.smaller #{t('footer.references')}:
