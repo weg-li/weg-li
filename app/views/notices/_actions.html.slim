@@ -11,14 +11,14 @@
       span.glyphicon.glyphicon-share
 
   - if notice.disabled?
-    = link_to enable_notice_path(notice), remote: true, data: {confirm: 'Die Meldung ist anschließend öffentlich erreichbar'}, method: :patch, class: 'btn btn-primary', title: 'aktivieren'
+    = link_to enable_notice_path(notice), data: {confirm: 'Die Meldung ist anschließend öffentlich erreichbar'}, method: :patch, class: 'btn btn-primary', title: 'aktivieren'
       span.glyphicon.glyphicon-plus-sign
   - else
     = link_to public_charge_path(notice), class: 'btn btn-primary', title: 'als Anzeige ansehen'
       span.glyphicon.glyphicon-globe
-    = link_to disable_notice_path(notice), remote: true, data: {confirm: 'Die Meldung ist anschließend öffentlich nicht mehr erreichbar'}, method: :patch, class: 'btn btn-primary', title: 'deaktivieren'
+    = link_to disable_notice_path(notice), data: {confirm: 'Die Meldung ist anschließend öffentlich nicht mehr erreichbar'}, method: :patch, class: 'btn btn-primary', title: 'deaktivieren'
       span.glyphicon.glyphicon-minus-sign
 
   - unless notice.shared?
-    = link_to notice_path(notice), method: :delete, remote: true, data: {confirm: 'Die Meldung wird entgültig gelöscht'}, class: 'btn btn-primary', title: 'löschen'
+    = link_to notice_path(notice), method: :delete, data: {confirm: 'Die Meldung wird entgültig gelöscht'}, class: 'btn btn-primary', title: 'löschen'
       span.glyphicon.glyphicon-trash
