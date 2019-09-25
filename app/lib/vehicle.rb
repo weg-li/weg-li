@@ -21,6 +21,8 @@ class Vehicle
   end
 
   def self.most_likely_plate?(matches)
+    return nil if matches.blank?
+
     matches.group_by {|registration, _| registration }.sort_by {|_, group| group.sum { |_, probability| probability } / matches.size }.last[0]
   end
 

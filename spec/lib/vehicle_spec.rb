@@ -62,6 +62,8 @@ describe Vehicle do
       ["HHNK 2121", 0.5], ["HHTX 1267", 0.8],
     ].shuffle!
     expect(Vehicle.most_likely_plate?(plates)).to eql('HHTX 1267')
+    expect(Vehicle.most_likely_plate?([])).to eql(nil)
+    expect(Vehicle.most_likely_plate?(nil)).to eql(nil)
   end
 
   it "most often" do
