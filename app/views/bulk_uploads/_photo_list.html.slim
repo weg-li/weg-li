@@ -21,6 +21,9 @@
             .modal-body
               span.zoom(style="position: relative; overflow: hidden; display: inline-block;")
                 = image_tag(url_for_photo(photo, size: :default), class: 'modal-photo')
+              small.help-block
+                => "Dateiname: #{photo.filename}"
+                => "Dateigröße: #{number_to_human_size(photo.blob.byte_size)}"
             .modal-footer
               = link_to(purge_bulk_upload_path(bulk_upload, photo_id: photo.id), method: :patch, remote: true, data: {confirm: t('notices.confirm')}, class: 'btn btn-sm btn-default', title: 'löschen') do
                 span.glyphicon.glyphicon-trash
