@@ -1,0 +1,14 @@
+- replacer ||= false
+
+- if replacer
+  small.help-block Alle Fotos werden sofort heruntergeladen, darum werden die großen Fotos zunächst versteckt.
+  = link_to('#', class: 'btn btn-sm btn-default', title: 'laden', onclick: "event.preventDefault(); $(this).replaceWith('#{j(image_tag(url_for_photo(photo, size: :default), class: 'modal-photo'))}');") do
+    span.glyphicon.glyphicon-eye-open>
+    | Foto nachladen
+- else
+  span.zoom(style="position: relative; overflow: hidden; display: inline-block;")
+    = image_tag(url_for_photo(photo, size: :default), class: 'modal-photo')
+
+small.help-block
+  => "Dateiname: #{photo.filename}"
+  => "Dateigröße: #{number_to_human_size(photo.blob.byte_size)}"
