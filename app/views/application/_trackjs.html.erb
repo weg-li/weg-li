@@ -1,4 +1,4 @@
-<% if access?(:community) %>
+<% if Rails.env.production? && access?(:community) %>
 <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
 <script>
   window.TrackJS && TrackJS.install({
