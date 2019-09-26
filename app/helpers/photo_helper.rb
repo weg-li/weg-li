@@ -2,7 +2,7 @@ module PhotoHelper
   def url_for_photo(photo, size: :default)
     case size
     when :default
-      url_for(photo.variant(resize: "1000x1000", auto_orient: true))
+      url_for(photo.variant(resize: "1024x1024", auto_orient: true))
     when :thumb
       url_for(photo.variant(resize: "100x100", auto_orient: true))
     when :original

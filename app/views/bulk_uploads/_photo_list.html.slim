@@ -20,7 +20,7 @@
               h4.modal-title Beweisfoto ##{index + 1}
             .modal-body
               span.zoom(style="position: relative; overflow: hidden; display: inline-block;")
-                = image_tag(url_for_photo(photo, size: :default), class: 'modal-photo')
+                = image_tag(url_for_photo(photo, size: :thumb), class: 'modal-photo')
               small.help-block
                 => "Dateiname: #{photo.filename}"
                 => "Dateigröße: #{number_to_human_size(photo.blob.byte_size)}"
