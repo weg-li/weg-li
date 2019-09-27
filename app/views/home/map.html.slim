@@ -1,9 +1,8 @@
 .page-header
-  h1 weg-li Karte für #{@district.display_name}
+  h1 weg-li Karte für #{@district}
 
   p
     |
-      In #{@district.display_name} sind momentan #{@count[@district.name] || 0} aller #{@total} weg-li Knipser unterwegs.
       In den letzten #{@since} Tagen wurden #{@notices.size} Anzeigen von #{@active} Benutzern erstattet.
 
 .row
