@@ -13,6 +13,8 @@ class DistrictDashboard < Administrate::BaseDashboard
     name: Field::String,
     zip: Field::String,
     prefix: Field::String,
+    latitude: Field::Number.with_options(decimals: 2),
+    longitude: Field::Number.with_options(decimals: 2),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -37,6 +39,8 @@ class DistrictDashboard < Administrate::BaseDashboard
     :email,
     :zip,
     :prefix,
+    :latitude,
+    :longitude,
     :created_at,
     :updated_at,
   ].freeze
