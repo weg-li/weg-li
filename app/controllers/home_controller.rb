@@ -6,8 +6,8 @@ class HomeController < ApplicationController
     @since = (params[:since] || '7').to_i
     @display = params[:display] || 'cluster'
     # TODO search for district
-    @district = DistrictLegacy.by_name(params[:district] || current_user&.district_name || 'hamburg') || DistrictLegacy::HAMBURG
-
+    @district = DistrictLegacy.by_name(params[:district] || current_user&.district_name) || DistrictLegacy::HAMBURG
+    @init = @district.map_data
     @notices = Notice.shared.since(@since.days.ago).where(district: @district.name)
     @active = @notices.map(&:user_id).uniq.size
     @total = User.count
