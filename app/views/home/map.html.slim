@@ -1,32 +1,32 @@
 .page-header
-  h1 weg-li Karte für #{@district.display_name}
+  h1 weg-li Karte für #{@district}
 
   p
     |
-      In #{@district.display_name} sind momentan #{@count[@district.name] || 0} aller #{@total} weg-li Knipser unterwegs.
-      Dein Bezirk fehlt? Dann schreib gerne an #{mail_to 'peter@weg-li.de'} und sag uns, wo Du testen möchtest. Hast Du die zuständige Stelle und deren E-Mail Adresse schon parat? Dann geht es besonders schnell!
+      In den letzten #{@since} Tagen wurden #{@notices.size} Anzeigen von #{@active} Benutzern erstattet.
+
+.row
+  .col-lg-12
+    = render('map_filter', notices: @notices, district: @district, display: @display, since: @since)
+
+hr.spacer
 
 - if @notices.present?
   .row
-    .col-lg-4
-      - grouped = @notices.group_by(&:brand).sort_by {|_, group| group.size }.reverse
-      - grouped.each do |key, group|
-        span.label.label-default>= "#{key.presence || 'ohne'} #{group.size}"
     .col-lg-8
-      - grouped = @notices.group_by(&:charge).sort_by {|_, group| group.size }.reverse
-      - grouped.each do |key, group|
-        span.label.label-default>= "#{key} #{group.size}"
+      h3 📈 Die häufigsten Vergehen
+      ul.list-group
+        - grouped = @notices.reject { |notice| notice.charge.blank? }.group_by(&:charge).sort_by {|_, group| group.size }.reverse
+        - grouped.first(5).each do |key, group|
+          li.list-group-item
+            = key
+            .badge.pull-right= number_with_delimiter(group.size)
 
-  hr.spacer
-
-.row
-  .col-lg-4
-    dl.dl-horizontal
-      dt Erstattete Anzeigen
-      dd= @notices.size
-      dt Aktive Nutzer
-      dd= @active
-  .col-lg-8
-    = render('map_filter', district: @district, display: @display, since: @since)
-
-= render "#{@display}_map", notices: @notices, init: @district.map_data
+    .col-lg-4
+      h3 📈 Die häufigsten Automarken
+      ul.list-group
+        - grouped = @notices.reject { |notice| notice.brand.blank? }.group_by(&:brand).sort_by {|_, group| group.size }.reverse
+        - grouped.first(5).each do |key, group|
+          li.list-group-item
+            = key
+            .badge.pull-right= number_with_delimiter(group.size)

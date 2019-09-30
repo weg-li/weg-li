@@ -24,11 +24,11 @@ class NoticesController < ApplicationController
   end
 
   def map
-    @since = (params[:since] || '7').to_i
     @display = params[:display] || 'cluster'
-    @district = DistrictLegacy.by_name(params[:district] || current_user&.district_name || 'hamburg')
-
-    @notices = current_user.notices.since(@since.days.ago).where(district: @district.name)
+    @since = (params[:since] || '7').to_i
+    @district = DistrictLegacy.by_name(params[:district].presence) || current_user.district
+    @notices = current_user.notices.shared.since(@since.days.ago).where(district: @district.name)
+    @init = @district.map_data
   end
 
   def show

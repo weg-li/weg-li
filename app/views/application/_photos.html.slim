@@ -1,5 +1,6 @@
 - publicly ||= false
 - upload ||= false
+- replacer ||= false
 .well.well-sm.clearfix
   - if upload
     .pull-right
@@ -23,8 +24,7 @@
               h4.modal-title Beweisfoto ##{index + 1}
 
             .modal-body
-              span.zoom(style="position: relative; overflow: hidden; display: inline-block;")
-                = image_tag(url_for_photo(photo, size: :default), class: 'modal-photo')
+              = render('photo_zoom', photo: photo, replacer: replacer)
             .modal-footer
               - if admin?
                 = link_to(inspect_notice_path(notice, photo_id: photo.id), class: 'btn btn-sm btn-default', title: 'inspect') do

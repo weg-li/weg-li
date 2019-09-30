@@ -67,7 +67,7 @@ class BulkUploadsController < ApplicationController
   end
 
   def purge
-    bulk_upload = current_user.bulk_uploads.from_param(params[:id])
+    bulk_upload = current_user.bulk_uploads.find(params[:id])
     bulk_upload.photos.find(params[:photo_id]).purge
 
     redirect_back fallback_location: edit_bulk_upload_path(bulk_upload), notice: 'Foto gelöscht'
