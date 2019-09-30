@@ -129,7 +129,7 @@ class NoticesController < ApplicationController
   def share
     @notice = current_user.notices.from_param(params[:id])
 
-    @mail = NoticeMailer.charge(current_user, @notice)
+    @mail = NoticeMailer.charge(@notice)
   end
 
   def mail
@@ -138,7 +138,7 @@ class NoticesController < ApplicationController
     @notice.status = :shared
     @notice.save!
 
-    NoticeMailer.charge(current_user, @notice).deliver_later
+    NoticeMailer.charge(@notice).deliver_later
 
     redirect_to(notices_path, notice: "Deine Anzeige wurde an #{@notice.district.email} versendet.")
   end
@@ -178,7 +178,7 @@ class NoticesController < ApplicationController
     case action
     when 'share'
       notices.open.complete.each do |notice|
-        NoticeMailer.charge(current_user, notice).deliver_later
+        NoticeMailer.charge(notice).deliver_later
         notice.update! status: :shared
       end
       flash[:notice] = 'Die noch offenen, vollständigen Meldungen werden im Hintergrund per E-Mail gemeldet'

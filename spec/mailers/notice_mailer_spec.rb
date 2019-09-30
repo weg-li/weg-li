@@ -1,12 +1,12 @@
 require "spec_helper"
 
 describe NoticeMailer do
+  let(:notice) { Fabricate(:notice) }
   let(:user) { notice.user }
-  let(:notice) { Fabricate(:notice, user: user) }
 
   describe "charge" do
     it "renders the mail" do
-      mail = NoticeMailer.charge(user, notice)
+      mail = NoticeMailer.charge(notice)
 
       expect(mail.subject).to match('Anzeige')
       expect(mail.to).to eq([notice.district.email])
