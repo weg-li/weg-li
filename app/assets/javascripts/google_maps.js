@@ -99,11 +99,19 @@ class GMultiMap {
       center: new google.maps.LatLng(this.init.latitude, this.init.longitude),
       mapTypeId: google.maps.MapTypeId.ROADMAP,
     }
+
+    const bounds  = new google.maps.LatLngBounds();
     const map = new google.maps.Map(this.canvas, options);
     this.notices.forEach((notice) => {
       const position = new google.maps.LatLng(notice.latitude, notice.longitude);
-      new google.maps.Marker({position, map, title: notice.location});
+      bounds.extend(position);
+
+      new google.maps.Marker({ position, map, title: notice.charge });
     });
+    if (bounds.length > 0) {
+      map.fitBounds(bounds);
+      map.panToBounds(bounds);
+    }
   }
 }
 
@@ -123,14 +131,20 @@ class GClusterMap {
       mapTypeId: google.maps.MapTypeId.ROADMAP,
     }
 
+    const bounds  = new google.maps.LatLngBounds();
     const map = new google.maps.Map(this.canvas, options);
     const markers = this.notices.map((notice, i) => {
       const position = new google.maps.LatLng(notice.latitude, notice.longitude);
-      return new google.maps.Marker({
-        position,
-        title: notice.location,
-      });
+      bounds.extend(position);
+
+      const marker = new google.maps.Marker({ position, title: notice.charge });
+      return marker;
     });
+    if (bounds.length > 0) {
+      map.fitBounds(bounds);
+      map.panToBounds(bounds);
+    }
+
     new MarkerClusterer(map, markers, {imagePath: '/img/map/m'});
   }
 }

@@ -2,9 +2,8 @@
 - set_crumbs t('navigation.notices') => notices_path, 'Kartenansicht' => url_for
 
 .page-header
-  p In den letzten #{@since} Tagen hast Du #{@notices.size} Falschparker #{"in #{@district.display_name}" if @district.present?} gemeldet.
-
+  p In den letzten #{@since} Tagen hast Du #{@notices.size} Falschparker #{"in #{@district}" if @district.present?} gemeldet.
 
 .row
   .col-lg-12
-    = render('map_filter', notices: @notices, district: @district, display: @display, since: @since, init: @init)
+    = render('map_filter', notices: @notices, district: @district, display: @display, since: @since, init: @default_district.map_data)

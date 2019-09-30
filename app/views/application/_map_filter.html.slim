@@ -15,11 +15,11 @@ ul.nav.nav-tabs.nav-panel
         = hidden_field_tag(:since, since)
         = hidden_field_tag(:display, display)
         = select_tag(:district, options_for_select(District.pluck(:name).uniq, district), class: 'form-control')
-      = submit_tag('Suchen', class: "btn btn-default")
+      = submit_tag('Auswählen', class: "btn btn-default")
 
 .panel.panel-default.panel-nav
   .panel-body
-    = render "#{display}_map", notices: notices, init: @init
+    = render "#{display}_map", notices: notices, init: init
   .panel-footer
     small
       |

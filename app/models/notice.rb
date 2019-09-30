@@ -16,6 +16,7 @@ class Notice < ActiveRecord::Base
   after_validation :geocode
 
   belongs_to :user
+  belongs_to :district
   belongs_to :bulk_upload
   has_many_attached :photos
 
@@ -80,11 +81,11 @@ class Notice < ActiveRecord::Base
   end
 
   def district
-    if self[:district_legacy]
+    if self[:district_id]
+      super
+    else
       legacy = DistrictLegacy.by_name(self[:district_legacy])
       District.from_zip(legacy.zip)
-    else
-      super
     end
   end
 
@@ -100,6 +101,7 @@ class Notice < ActiveRecord::Base
     {
       latitude: latitude,
       longitude: longitude,
+      charge: charge,
     }
   end
 

@@ -4,6 +4,8 @@ class District < ActiveRecord::Base
   geocoded_by :geocode_address
   after_validation :geocode
 
+  has_many :notices
+
   def self.from_zip(zip)
     find_by(zip: zip)
   end
@@ -13,6 +15,14 @@ class District < ActiveRecord::Base
     return nil if district.blank?
 
     DistrictLegacy.new(district.name, district.name.parameterize, district.email, district.zip, district.latitude, district.longitude)
+  end
+
+  def map_data
+    {
+      zoom: 13,
+      latitude: latitude,
+      longitude: longitude,
+    }
   end
 
   def geocode_address

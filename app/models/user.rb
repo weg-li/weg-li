@@ -35,13 +35,12 @@ class User < ActiveRecord::Base
     "#{street}, #{zip}, #{city}, Germany"
   end
 
-  # pp User.not_disabled.not_ghost.map {|user| [user.id] + user.address.match(/(.+?),?\s*(\d{5}),?\s*(.*)/).to_a.last(3).map(&:strip)} and nil
   def prefill_address_fields
     address.match(/(.+?),?\s*(\d{5}),?\s*(.+)/)
 
-    self.street = $1
-    self.zip = $2
-    self.city = $3
+    self.street ||= $1&.strip
+    self.zip ||= $2&.strip
+    self.city ||= $3&.strip
   end
 
   def to_label

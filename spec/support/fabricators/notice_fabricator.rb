@@ -13,4 +13,5 @@ Fabricator(:notice) do
   empty { true }
   parked { true }
   user
+  district
 end
