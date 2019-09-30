@@ -21,6 +21,8 @@ describe "home", type: :request do
 
   context "GET :map" do
     it "shows the page" do
+      Fabricate(:notice)
+
       get map_path
 
       expect(response).to be_successful

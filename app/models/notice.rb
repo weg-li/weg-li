@@ -1,4 +1,6 @@
 class Notice < ActiveRecord::Base
+  ADDRESS_ZIP_PATTERN =/.+(\d{5}).+/
+
   extend TimeSplitter::Accessors
   split_accessor :date
 
@@ -16,10 +18,12 @@ class Notice < ActiveRecord::Base
   after_validation :geocode
 
   belongs_to :user
+  belongs_to :district
   belongs_to :bulk_upload
   has_many_attached :photos
 
   validates :photos, :registration, :charge, :address, :date, presence: :true
+  validates :address, format: { with: ADDRESS_ZIP_PATTERN, message: 'PLZ fehlt' }
 
   enum status: {open: 0, disabled: 1, analyzing: 2, shared: 3}
 
@@ -79,18 +83,8 @@ class Notice < ActiveRecord::Base
     user.photos_attachments.joins(:blob).where('active_storage_attachments.record_id != ?', id).where('active_storage_blobs.filename' => photos.map { |photo| photo.filename.to_s })
   end
 
-  def district
-    if self[:district]
-      DistrictLegacy.by_name(self[:district])
-    elsif address
-      District.legacy_by_zip(zip)
-    else
-      user.district
-    end
-  end
-
   def zip
-    address[/(\d{5})/, 1]
+    address[ADDRESS_ZIP_PATTERN, 1]
   end
 
   def coordinates?
@@ -101,6 +95,7 @@ class Notice < ActiveRecord::Base
     {
       latitude: latitude,
       longitude: longitude,
+      charge: charge,
     }
   end
 
@@ -112,5 +107,6 @@ class Notice < ActiveRecord::Base
 
   def defaults
     self.token ||= SecureRandom.hex(16)
+    self.district ||= District.from_zip(zip) if address?
   end
 end

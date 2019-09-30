@@ -31,7 +31,7 @@
       .col-lg-12
         .form-group
           = form.label :district, class: "control-label control-label-required"
-          = form.text_field :district, value: "#{form.object.district.email} (#{form.object.district.zip} #{form.object.district.display_name})", disabled: true, class: "form-control"
+          = form.text_field :district, value: form.object.district.display_name, disabled: true, class: "form-control"
           small.help-block Die zuständige E-Mail-Adresse wurde automatisch anhand der Adresse der Meldung ermittelt. Adresse stimmt nicht? Schreibe gerne an #{mail_to 'peter@weg-li.de'}!
 
     hr.spacer
@@ -46,4 +46,15 @@
 - else
   .alert.alert-warning
     strong
-      | Der Bezirk für die PLZ #{@notice.zip} fehlt noch, schreibe gerne an #{mail_to 'peter@weg-li.de'} falls die die E-Mail-Adresse der zuständigen Stelle kennst!
+      - if @notice.zip.blank?
+        | Die Adresse der Meldung braucht noch eine PLZ, damit das zuständige Ordnungsamt ausgefüllt werden kann!
+      - else
+        | Der Bezirk für die PLZ #{@notice.zip} fehlt noch, schreibe gerne an #{mail_to 'peter@weg-li.de'} falls die die E-Mail-Adresse der zuständigen Stelle kennst!
+
+  hr.spacer
+
+  .row
+    .col-lg-12
+      .pull-right
+        .btn-group
+          = link_to 'Daten ändern', edit_notice_path(@notice), class: 'btn btn-default'

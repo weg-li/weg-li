@@ -1,21 +1,26 @@
-.dropdown.pull-right
-  button.btn.btn-default.dropdown-toggle type="button" data-toggle="dropdown"
-    span>= "Bezirk #{district.display_name}"
-    span.caret
-  ul.dropdown-menu
-    - DistrictLegacy.all.each do |district|
-      li= link_to district.display_name, url_for(since: since, district: district.name, display: display)
-.dropdown.pull-right
-  button.btn.btn-default.dropdown-toggle type="button" data-toggle="dropdown"
-    span>= "Kartendarstellung"
-    span.caret
-  ul.dropdown-menu
-    li= link_to 'Cluster Karte', url_for(since: since, district: district.name, display: :cluster)
-    li= link_to 'Normale Karte', url_for(since: since, district: district.name, display: :multi)
-.dropdown.pull-right
-  button.btn.btn-default.dropdown-toggle type="button" data-toggle="dropdown"
-    span>= "In den letzten #{since} Tagen"
-    span.caret
-  ul.dropdown-menu
-    - [7, 14, 30, 365].each do |days|
-      li= link_to "#{days} Tagen", url_for(since: days, district: district.name, display: display)
+ul.nav.nav-tabs.nav-panel
+  li(class="#{'active' if display=='cluster'}")= link_to 'Cluster Karte', url_for(since: since, district: district, display: 'cluster')
+  li(class="#{'active' if display=='multi'}")= link_to 'Normale Karte', url_for(since: since, district: district, display: 'multi')
+  li.dropdown
+    a(class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false")
+      => "seit #{since} Tagen"
+      span.caret
+    ul.dropdown-menu
+      - [7, 14, 30, 365].each do |days|
+        li(class="#{'active' if days==since}")= link_to "#{days} Tagen", url_for(since: days, district: district, display: display)
+
+  li
+    = form_tag({url: map_path}, method: :get, class: 'form-inline') do |form|
+      .form-group
+        = hidden_field_tag(:since, since)
+        = hidden_field_tag(:display, display)
+        = select_tag(:district, options_for_select(District.pluck(:name).uniq, district), class: 'form-control')
+      = submit_tag('Auswählen', class: "btn btn-default")
+
+.panel.panel-default.panel-nav
+  .panel-body
+    = render "#{display}_map", notices: notices, init: init
+  .panel-footer
+    small
+      |
+        Dein Bezirk fehlt? Dann schreib gerne an #{mail_to 'peter@weg-li.de'} und sag uns, wo Du testen möchtest. Hast Du die zuständige Stelle und deren E-Mail Adresse schon parat? Dann geht es besonders schnell!

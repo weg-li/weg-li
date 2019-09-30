@@ -26,9 +26,11 @@ class NoticesController < ApplicationController
   def map
     @since = (params[:since] || '7').to_i
     @display = params[:display] || 'cluster'
-    @district = DistrictLegacy.by_name(params[:district] || current_user&.district_name || 'hamburg')
+    @district = params[:district] || current_user.city
 
-    @notices = current_user.notices.since(@since.days.ago).where(district: @district.name)
+    @notices = current_user.notices.shared.since(@since.days.ago).joins(:district).where(districts: {name: @district})
+    @active = @notices.map(&:user_id).uniq.size
+    @default_district = District.from_zip(current_user.zip) || District.first
   end
 
   def show
@@ -127,7 +129,7 @@ class NoticesController < ApplicationController
   def share
     @notice = current_user.notices.from_param(params[:id])
 
-    @mail = NoticeMailer.charge(current_user, @notice)
+    @mail = NoticeMailer.charge(@notice)
   end
 
   def mail
@@ -136,7 +138,7 @@ class NoticesController < ApplicationController
     @notice.status = :shared
     @notice.save!
 
-    NoticeMailer.charge(current_user, @notice).deliver_later
+    NoticeMailer.charge(@notice).deliver_later
 
     redirect_to(notices_path, notice: "Deine Anzeige wurde an #{@notice.district.email} versendet.")
   end
@@ -176,7 +178,7 @@ class NoticesController < ApplicationController
     case action
     when 'share'
       notices.open.complete.each do |notice|
-        NoticeMailer.charge(current_user, notice).deliver_later
+        NoticeMailer.charge(notice).deliver_later
         notice.update! status: :shared
       end
       flash[:notice] = 'Die noch offenen, vollständigen Meldungen werden im Hintergrund per E-Mail gemeldet'

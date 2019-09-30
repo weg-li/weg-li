@@ -22,7 +22,7 @@
   .row
     .col-lg-12
       .well.well-sm.callout
-        | Name und Anschrift werden beim Erstatten von Anzeigen als Zeugen-Adresse verwendet. Die Behörden verfolgen nur Anzeigen mit vollständiger ladungsfähiger Anschrift, anonyme Anzeigen werden verworfen.
+        | Name und Anschrift werden beim Erstatten von Anzeigen als Zeugen-Adresse verwendet. Die Behörden verfolgen nur Anzeigen mit vollständiger, ladungsfähiger Anschrift, anonyme Anzeigen werden nicht verfolgt.
 
   .row
     .col-lg-6
@@ -30,16 +30,18 @@
       = form.text_field :name, placeholder: 'z.B. Hanno Nym', class: "form-control", required: true
       small.help-block Anzeigen müssen mit dem vollständigen Namen erfolgen
     .col-lg-6
-      = form.label :address, class: "control-label control-label-required"
-      = form.text_field :address, placeholder: 'z.B. Sylvesterallee 7, 22525 Hamburg', class: "form-control", required: true, pattern: '.+ \d{5}.*'
-      small.help-block Anzeigen benötigen eine vollständige Anschrift mit PLZ & Ort
-    / TODO address, zip, city
-    / .col-lg-4
-    /   = form.label :district, class: "control-label"
-    /   = form.select :district, District.all.map { |district| [district.display_name, district.name] }, { include_blank: 'Bitte auswählen' }, { class: "form-control", required: true }
-    /   small.help-block Dein Bezirk fehlt? Schreibe an #{mail_to('peter@weg-li.de')} wo Du testen willst.
+      .form-group
+        = form.label :address, class: "control-label control-label-required"
+        .input-group
+          = form.text_field :street, placeholder: 'z.B. Sylvesterallee 7', class: "form-control", required: true
+          label.input-group-addon
+          = form.text_field :zip, placeholder: 'z.B. 22525', class: "form-control", required: true, maxlength: 5, pattern: '\d{5}'
+          label.input-group-addon
+          = form.text_field :city, placeholder: 'z.B. Hamburg', class: "form-control", required: true
+        small.help-block Anzeigen benötigen eine ladungsfähige Anschrift
 
   hr.spacer
+
   .row
     .col-lg-12
       .pull-right

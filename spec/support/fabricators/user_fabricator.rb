@@ -3,8 +3,9 @@ Fabricator(:user) do
   email     { Faker::Internet.email }
   token     { SecureRandom.hex(16) }
   name      { Faker::Name.name }
-  address   { Faker::Address.full_address }
-  district  { 'hamburg' }
+  street    { Faker::Address.street_address }
+  zip       { Faker::Address.zip }
+  city      { Faker::Address.city }
   validation_date { 2.days.ago }
 end
 

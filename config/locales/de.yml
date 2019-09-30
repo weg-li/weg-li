@@ -22,7 +22,9 @@ de:
         address: 'Anschrift'
         email: 'E-Mail'
         phone: 'Telefon'
-        district: 'Bezirk'
+        street: 'Straße'
+        zip: 'PLZ'
+        city: 'Stadt'
       bulk_upload:
         created_at: 'Erstellt'
         photos: 'Beweisfotos'

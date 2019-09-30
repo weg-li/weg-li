@@ -20,12 +20,6 @@ describe User do
     expect(user.wegli_email).to eql('funkta-rd+dd-33@anzeige.weg-li.de')
   end
 
-  it "handles districts" do
-    expect(user.district).to be(DistrictLegacy::HAMBURG)
-    user.district = DistrictLegacy::LUENEBURG.name
-    expect(user.district).to be(DistrictLegacy::LUENEBURG)
-  end
-
   context "admin" do
     it "has the proper role" do
       expect(admin).to be_admin

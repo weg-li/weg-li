@@ -20,7 +20,7 @@ describe "public", type: :request do
       get public_profile_path(token: @user.token)
 
       expect(response).to be_successful
-      assert_select('h3', "#{@user.nickname} in #{@user.district.display_name}")
+      assert_select('h3', "#{@user.nickname} in #{@user.city}")
     end
   end
 end

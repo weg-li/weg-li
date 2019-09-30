@@ -26,6 +26,8 @@ describe 'notices', type: :request do
 
   context "GET :map" do
     it "renders the page" do
+      Fabricate(:notice, user: user)
+
       get map_notices_path
 
       expect(response).to be_successful

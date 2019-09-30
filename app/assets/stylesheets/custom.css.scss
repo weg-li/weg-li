@@ -5,6 +5,19 @@ $warning-color: #f89406;
 $info-color: #5bc0de;
 $danger-color: #ee5f5b;
 
+.panel-nav {
+  border-top: 0px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+.nav-panel {
+  li.active {
+    a {
+      background-color: #2e3338;
+    }
+  }
+}
+
 .well-active {
   background-color: $primary-color;
 }
