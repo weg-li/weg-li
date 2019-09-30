@@ -4,8 +4,12 @@ class District < ActiveRecord::Base
   geocoded_by :geocode_address
   after_validation :geocode
 
+  def self.from_zip(zip)
+    find_by(zip: zip)
+  end
+
   def self.legacy_by_zip(zip)
-    district = find_by(zip: zip)
+    district = from_zip(zip)
     return nil if district.blank?
 
     DistrictLegacy.new(district.name, district.name.parameterize, district.email, district.zip, district.latitude, district.longitude)

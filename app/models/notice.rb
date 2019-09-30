@@ -74,12 +74,11 @@ class Notice < ActiveRecord::Base
   end
 
   def district
-    if self[:district]
-      DistrictLegacy.by_name(self[:district])
-    elsif address
-      District.legacy_by_zip(zip)
+    if self[:district_legacy]
+      legacy = DistrictLegacy.by_name(self[:district_legacy])
+      District.from_zip(legacy.zip)
     else
-      user.district
+      super
     end
   end
 
