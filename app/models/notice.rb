@@ -83,15 +83,6 @@ class Notice < ActiveRecord::Base
     user.photos_attachments.joins(:blob).where('active_storage_attachments.record_id != ?', id).where('active_storage_blobs.filename' => photos.map { |photo| photo.filename.to_s })
   end
 
-  def district
-    if self[:district_id]
-      super
-    else
-      legacy = DistrictLegacy.by_name(self[:district_legacy])
-      District.from_zip(legacy&.zip || user.zip) 
-    end
-  end
-
   def zip
     address[ADDRESS_ZIP_PATTERN, 1]
   end
@@ -116,5 +107,6 @@ class Notice < ActiveRecord::Base
 
   def defaults
     self.token ||= SecureRandom.hex(16)
+    self.district ||= District.from_zip(zip) if address?
   end
 end
