@@ -6,7 +6,7 @@ class AddDistrictToUserAndNotice < ActiveRecord::Migration[6.0]
         rename_column(:notices, :district, :district_legacy)
         Notice.where('district_legacy IS NOT NULL and district_id IS NULL').in_batches(of: 1000) do |notices|
           notices.each do |notice|
-            district = District.from_zip(notice.district.zip)
+            district = District.from_zip(DistrictLegacy.by_name(notice.district_legacy).zip)
             notice.update_attribute(:district_id, district.id)
           end
         end
