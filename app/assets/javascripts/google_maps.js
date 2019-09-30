@@ -112,6 +112,7 @@ class GMultiMap {
       map.panToBounds(bounds);
     } else {
       map.setCenter(new google.maps.LatLng(this.init.latitude, this.init.longitude));
+      map.setZoom(this.init.zoom);
     }
   }
 }
@@ -125,7 +126,6 @@ class GClusterMap {
 
   show() {
     const options = {
-      zoom: this.init.zoom,
       scrollwheel: false,
       streetViewControl: false,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -145,6 +145,7 @@ class GClusterMap {
       map.panToBounds(bounds);
     } else {
       map.setCenter(new google.maps.LatLng(this.init.latitude, this.init.longitude));
+      map.setZoom(this.init.zoom);
     }
 
     new MarkerClusterer(map, markers, {imagePath: '/img/map/m'});
