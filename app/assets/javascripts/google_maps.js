@@ -93,7 +93,6 @@ class GMultiMap {
 
   show() {
     const options = {
-      zoom: this.init.zoom,
       scrollwheel: false,
       streetViewControl: false,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -137,8 +136,7 @@ class GClusterMap {
       const position = new google.maps.LatLng(notice.latitude, notice.longitude);
       bounds.extend(position);
 
-      const marker = new google.maps.Marker({ position, title: notice.charge });
-      return marker;
+      return new google.maps.Marker({ position, title: notice.charge });
     });
     if (bounds.length > 0) {
       map.fitBounds(bounds);
