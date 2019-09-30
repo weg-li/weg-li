@@ -31,6 +31,10 @@ class User < ActiveRecord::Base
     validation_date.present?
   end
 
+  def full_address
+    "#{street}, #{zip} #{city}, Deutschland"
+  end
+
   def geocode_address
     "#{street}, #{zip}, #{city}, Germany"
   end
