@@ -1,4 +1,6 @@
 class Notice < ActiveRecord::Base
+  ADDRESS_ZIP_PATTERN =/.+(\d{5}).+/
+
   extend TimeSplitter::Accessors
   split_accessor :date
 
@@ -21,6 +23,7 @@ class Notice < ActiveRecord::Base
   has_many_attached :photos
 
   validates :photos, :registration, :charge, :address, :date, presence: :true
+  validates :address, format: { with: ADDRESS_ZIP_PATTERN, message: 'PLZ fehlt' }
 
   enum status: {open: 0, disabled: 1, analyzing: 2, shared: 3}
 
@@ -85,12 +88,12 @@ class Notice < ActiveRecord::Base
       super
     else
       legacy = DistrictLegacy.by_name(self[:district_legacy])
-      District.from_zip(legacy.zip)
+      District.from_zip(legacy&.zip || user.zip) 
     end
   end
 
   def zip
-    address[/(\d{5})/, 1]
+    address[ADDRESS_ZIP_PATTERN, 1]
   end
 
   def coordinates?
