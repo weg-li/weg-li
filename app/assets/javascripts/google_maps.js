@@ -96,7 +96,6 @@ class GMultiMap {
       zoom: this.init.zoom,
       scrollwheel: false,
       streetViewControl: false,
-      center: new google.maps.LatLng(this.init.latitude, this.init.longitude),
       mapTypeId: google.maps.MapTypeId.ROADMAP,
     }
 
@@ -111,6 +110,8 @@ class GMultiMap {
     if (bounds.length > 0) {
       map.fitBounds(bounds);
       map.panToBounds(bounds);
+    } else {
+      map.setCenter(new google.maps.LatLng(this.init.latitude, this.init.longitude));
     }
   }
 }
@@ -127,7 +128,6 @@ class GClusterMap {
       zoom: this.init.zoom,
       scrollwheel: false,
       streetViewControl: false,
-      center: new google.maps.LatLng(this.init.latitude, this.init.longitude),
       mapTypeId: google.maps.MapTypeId.ROADMAP,
     }
 
@@ -143,6 +143,8 @@ class GClusterMap {
     if (bounds.length > 0) {
       map.fitBounds(bounds);
       map.panToBounds(bounds);
+    } else {
+      map.setCenter(new google.maps.LatLng(this.init.latitude, this.init.longitude));
     }
 
     new MarkerClusterer(map, markers, {imagePath: '/img/map/m'});
