@@ -108,7 +108,7 @@ class GMultiMap {
 
       new google.maps.Marker({ position, map, title: notice.charge });
     });
-    if (bounds.isEmpty()) {
+    if (!bounds.isEmpty()) {
       map.fitBounds(bounds);
       map.panToBounds(bounds);
     }
@@ -139,7 +139,7 @@ class GClusterMap {
 
       return new google.maps.Marker({ position, title: notice.charge });
     });
-    if (bounds.isEmpty()) {
+    if (!bounds.isEmpty()) {
       map.fitBounds(bounds);
       map.panToBounds(bounds);
     }
