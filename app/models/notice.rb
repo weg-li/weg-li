@@ -87,6 +87,10 @@ class Notice < ActiveRecord::Base
     address[ADDRESS_ZIP_PATTERN, 1]
   end
 
+  def meta
+    photos.map(&:metadata).to_json
+  end
+
   def coordinates?
     latitude? && longitude?
   end

@@ -12,6 +12,7 @@ class NoticeDashboard < Administrate::BaseDashboard
     photos: Field::ActiveStorage,
     id: Field::Number,
     data: Field::String.with_options(searchable: false),
+    meta: Field::String.with_options(searchable: false),
     token: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -65,6 +66,7 @@ class NoticeDashboard < Administrate::BaseDashboard
     :incomplete,
     :note,
     :photos,
+    :meta,
     :data,
   ].freeze
 
