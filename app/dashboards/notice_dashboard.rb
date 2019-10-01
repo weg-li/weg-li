@@ -18,11 +18,9 @@ class NoticeDashboard < Administrate::BaseDashboard
     status: Field::String.with_options(searchable: false),
     flags: Field::Number,
     date: Field::DateTime,
-    district: Field::String,
+    district: Field::BelongsTo,
     charge: Field::String,
-    kind: Field::String,
     brand: Field::String,
-    model: Field::String,
     color: Field::String,
     registration: Field::String,
     address: Field::String,
@@ -49,10 +47,7 @@ class NoticeDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
     :user,
-    :photos,
-    # :photos_blobs,
     :id,
-    :data,
     :token,
     :created_at,
     :updated_at,
@@ -61,9 +56,7 @@ class NoticeDashboard < Administrate::BaseDashboard
     :date,
     :district,
     :charge,
-    :kind,
     :brand,
-    :model,
     :color,
     :registration,
     :address,
@@ -71,6 +64,8 @@ class NoticeDashboard < Administrate::BaseDashboard
     :longitude,
     :incomplete,
     :note,
+    :photos,
+    :data,
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -78,8 +73,6 @@ class NoticeDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :user,
-    :photos,
-    # :photos_blobs,
     :data,
     :token,
     :status,
@@ -87,14 +80,10 @@ class NoticeDashboard < Administrate::BaseDashboard
     :date,
     :district,
     :charge,
-    :kind,
     :brand,
-    :model,
     :color,
     :registration,
     :address,
-    :latitude,
-    :longitude,
     :incomplete,
     :note,
   ].freeze
