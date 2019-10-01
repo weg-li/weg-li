@@ -38,6 +38,8 @@ class Vehicle
   end
 
   def self.normalize(text)
+    return '' if text.blank?
+
     tokens = "[ •„.,:;\"'|_+-]"
     left = Regexp.new("^#{tokens}+")
     right = Regexp.new("#{tokens}+$")
@@ -58,6 +60,11 @@ class Vehicle
 
   def self.quirky_mode_plate_regex
     @quirky_mode_plate_regex ||= Regexp.new("^O?B?(#{Vehicle.plates.keys.join('|')})O?:?-?O?([A-Z]{1,3})-?(\\d{1,4})$")
+  end
+
+  def self.district_for_plate_prefix(text)
+    prefix = normalize(text)[plate_regex, 1]
+    plates[prefix]
   end
 
   def self.brand?(text)

@@ -91,6 +91,20 @@ class Notice < ActiveRecord::Base
     latitude? && longitude?
   end
 
+  def handle_geocoding
+    if coordinates?
+      reverse_geocode
+    else
+      guess_address
+      geocode
+    end
+  end
+
+  def guess_address
+    # TODO moar guessing
+    self.address ||= Vehicle.district_for_plate_prefix(registration) if registration?
+  end
+
   def map_data
     {
       latitude: latitude,
