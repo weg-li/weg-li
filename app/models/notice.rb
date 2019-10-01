@@ -1,4 +1,6 @@
 class Notice < ActiveRecord::Base
+  ADDRESS_ZIP_PATTERN =/.+(\d{5}).+/
+
   extend TimeSplitter::Accessors
   split_accessor :date
 
@@ -16,10 +18,12 @@ class Notice < ActiveRecord::Base
   after_validation :geocode
 
   belongs_to :user
+  belongs_to :district
   belongs_to :bulk_upload
   has_many_attached :photos
 
   validates :photos, :registration, :charge, :address, :date, presence: :true
+  validates :address, format: { with: ADDRESS_ZIP_PATTERN, message: 'PLZ fehlt' }
 
   enum status: {open: 0, disabled: 1, analyzing: 2, shared: 3}
 
@@ -79,28 +83,37 @@ class Notice < ActiveRecord::Base
     user.photos_attachments.joins(:blob).where('active_storage_attachments.record_id != ?', id).where('active_storage_blobs.filename' => photos.map { |photo| photo.filename.to_s })
   end
 
-  def district
-    if self[:district]
-      DistrictLegacy.by_name(self[:district])
-    elsif address
-      District.legacy_by_zip(zip)
-    else
-      user.district
-    end
+  def zip
+    address[ADDRESS_ZIP_PATTERN, 1]
   end
 
-  def zip
-    address[/(\d{5})/, 1]
+  def meta
+    photos.map(&:metadata).to_json
   end
 
   def coordinates?
     latitude? && longitude?
   end
 
+  def handle_geocoding
+    if coordinates?
+      reverse_geocode
+    else
+      guess_address
+      geocode
+    end
+  end
+
+  def guess_address
+    # TODO moar guessing
+    self.address ||= Vehicle.district_for_plate_prefix(registration) if registration?
+  end
+
   def map_data
     {
       latitude: latitude,
       longitude: longitude,
+      charge: charge,
     }
   end
 
@@ -112,5 +125,6 @@ class Notice < ActiveRecord::Base
 
   def defaults
     self.token ||= SecureRandom.hex(16)
+    self.district ||= District.from_zip(zip) if address?
   end
 end

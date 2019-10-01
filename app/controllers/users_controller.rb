@@ -41,6 +41,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit([:email, :nickname, :time_zone, :name, :address, :phone] + User.bitfields[:flags].keys)
+    params.require(:user).permit([:email, :nickname, :time_zone, :name, :street, :zip, :city, :phone] + User.bitfields[:flags].keys)
   end
 end

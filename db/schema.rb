@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_24_102934) do
+ActiveRecord::Schema.define(version: 2019_09_25_095116) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,8 +94,10 @@ ActiveRecord::Schema.define(version: 2019_09_24_102934) do
     t.float "longitude"
     t.boolean "incomplete", default: false, null: false
     t.string "note"
-    t.string "district"
+    t.string "district_legacy"
     t.integer "bulk_upload_id"
+    t.bigint "district_id"
+    t.index ["district_id"], name: "index_notices_on_district_id"
     t.index ["registration"], name: "index_notices_on_registration"
   end
 
@@ -115,6 +117,10 @@ ActiveRecord::Schema.define(version: 2019_09_24_102934) do
     t.string "phone"
     t.float "latitude"
     t.float "longitude"
+    t.string "api_token"
+    t.string "street"
+    t.string "zip"
+    t.string "city"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

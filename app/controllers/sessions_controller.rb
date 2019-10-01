@@ -83,14 +83,14 @@ class SessionsController < ApplicationController
   end
 
   def complete
-    user_params = params.require(:user).permit!
+    attributes = user_params
     if session[:email_auth_address]
-      user_params[:email] = session[:email_auth_address]
-      user_params[:validation_date] = Time.now
+      attributes[:email] = session[:email_auth_address]
+      attributes[:validation_date] = Time.now
     end
     nickname = @auth['info']['nickname']
     @user = User.ghost.find_by(nickname: nickname) || User.new
-    @user.assign_attributes(user_params)
+    @user.assign_attributes(attributes)
     @user.access = :user
     @user.authorizations.build provider: @auth['provider'], uid: @auth['uid']
 
@@ -106,6 +106,10 @@ class SessionsController < ApplicationController
   end
 
   private
+
+  def user_params
+    params.require(:user).permit(:nickname, :email, :phone, :name, :street, :zip, :city)
+  end
 
   def set_auth
     @auth = session[:auth_data]

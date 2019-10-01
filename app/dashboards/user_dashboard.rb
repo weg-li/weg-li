@@ -19,11 +19,13 @@ class UserDashboard < Administrate::BaseDashboard
     token: Field::String,
     validation_date: Field::DateTime,
     access: Field::String.with_options(searchable: false),
-    time_zone: Field::String,
     flags: Field::Number,
     name: Field::String,
-    address: Field::String,
-    district: Field::String,
+    street: Field::String,
+    zip: Field::String,
+    city: Field::String,
+    latitude: Field::Number.with_options(decimals: 2),
+    longitude: Field::Number.with_options(decimals: 2),
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -35,7 +37,7 @@ class UserDashboard < Administrate::BaseDashboard
     :id,
     :nickname,
     :name,
-    :district,
+    :access,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -52,30 +54,29 @@ class UserDashboard < Administrate::BaseDashboard
     :token,
     :validation_date,
     :access,
-    :time_zone,
     :flags,
     :name,
-    :address,
-    :district,
+    :street,
+    :zip,
+    :city,
+    :latitude,
+    :longitude,
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-    :notices,
-    :authorizations,
-    :articles,
     :email,
     :nickname,
     :token,
     :validation_date,
     :access,
-    :time_zone,
     :flags,
     :name,
-    :address,
-    :district,
+    :street,
+    :zip,
+    :city,
   ].freeze
 
   # Overwrite this method to customize how users are displayed

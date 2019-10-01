@@ -20,6 +20,11 @@ describe Vehicle do
     expect([["A", "Augsburg"], ["AA", "Ostalbkreis (Aalen)"], ["AB", "Aschaffenburg"]]).to eql(data)
   end
 
+  it "it gets the district for a plates prefix" do
+    district = Vehicle.district_for_plate_prefix('HH PS 1234')
+    expect(district).to eql('Hansestadt Hamburg')
+  end
+
   it "it normalizes strings" do
     expect(Vehicle.normalize("|_ HH EH 1327")).to eql("HH-EH-1327")
   end

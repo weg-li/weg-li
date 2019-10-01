@@ -34,7 +34,7 @@ class AnalyzerJob < ApplicationJob
     notice.brand ||= Vehicle.most_often?(brands)
     notice.color ||= Vehicle.most_often?(colors)
 
-    notice.reverse_geocode
+    notice.handle_geocoding
     notice.status = :open
     notice.save_incomplete!
   end
