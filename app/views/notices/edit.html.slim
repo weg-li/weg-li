@@ -40,7 +40,7 @@
 - if photo_doubles.present?
   .alert.alert-warning
     strong
-      | Beweisfotos mit identischem Namen wurden schon benutzt:
+      | Achtung, du hast schon Fotos mit identischem Namen hochgeladen, falls es OK ist einfach fortfahren:
       - photo_doubles.each do |photo|
         =< link_to photo.filename, photo.record
 
@@ -48,7 +48,7 @@
 - if date_doubles.present?
   .alert.alert-warning
     strong
-      | Meldungen für den gleichen Tag mit identischem Nummernschild wurden schon erzeugt:
+      | Achtung, du hast schon eine Meldung für dieses Datum mit identischem Nummernschild, falls es OK ist einfach fortfahren:
       - date_doubles.each do |notice|
         =< link_to "Meldung ##{notice.id}", notice
 
