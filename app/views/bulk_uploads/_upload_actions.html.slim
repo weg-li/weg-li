@@ -4,5 +4,5 @@
   - if bulk_upload.photos.present?
     = link_to edit_bulk_upload_path(bulk_upload), class: 'btn btn-primary', title: 'gruppieren'
       span.glyphicon.glyphicon-move
-  = link_to bulk_upload_path(bulk_upload), method: :delete, data: {confirm: 'Der Upload wird entgültig gelöscht'}, class: 'btn btn-primary', title: 'löschen'
+  = link_to bulk_upload_path(bulk_upload), method: :delete, data: {confirm: 'Der Upload wird endgültig gelöscht'}, class: 'btn btn-primary', title: 'löschen'
     span.glyphicon.glyphicon-trash
