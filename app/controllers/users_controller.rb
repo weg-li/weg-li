@@ -1,9 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate!
 
-  def show
-  end
-
   def edit
   end
 
@@ -28,7 +25,7 @@ class UsersController < ApplicationController
   def confirmation_mail
     UserMailer.validate(current_user).deliver_later
 
-    redirect_to current_user, notice: t('users.confirmation_mail', email: current_user.email)
+    redirect_to edit_user_path(current_user), notice: t('users.confirmation_mail', email: current_user.email)
   end
 
   def destroy

@@ -47,7 +47,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users do
+  resources :users, only: [:edit, :update, :destroy] do
     patch :confirmation_mail, on: :member
   end
 

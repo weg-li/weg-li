@@ -5,15 +5,6 @@ describe 'sitemaps', type: :request do
     @user = login
   end
 
-  context "GET :show" do
-    it "renders the page" do
-      get user_path(@user)
-
-      expect(response).to be_successful
-      assert_select('span', 'öffentliches Profil ansehen')
-    end
-  end
-
   context "GET :edit" do
     it "renders the page" do
       get edit_user_path(@user)
