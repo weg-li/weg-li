@@ -19,3 +19,5 @@
 *.DS_Store
 config/secrets
 .byebug_history
+
+config/data/opengeodb.csv
