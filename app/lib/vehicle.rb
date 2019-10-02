@@ -1,29 +1,20 @@
 require 'csv'
 
 class Vehicle
-  def self.data
-    @data ||= {}
-    @data[:cars] ||= JSON.load(Rails.root.join('config/data/cars.json'))
-    @data[:plates] ||= JSON.load(Rails.root.join('config/data/plates.json'))
-    @data[:zip_to_prefix] ||= JSON.load(Rails.root.join('config/data/zip_to_prefix.json'))
-    @data[:opengeodb] ||= CSV.parse(File.read('config/data/opengeodb.csv'), col_sep: "\t", quote_char: nil, headers: true)
-    @data
-  end
-
   def self.opengeodb
-    data[:opengeodb]
+    @opengeodb ||= CSV.parse(File.read('config/data/opengeodb.csv'), col_sep: "\t", quote_char: nil, headers: true)
   end
 
   def self.zip_to_prefix
-    data[:zip_to_prefix]
+    @zip_to_prefix ||= JSON.load(Rails.root.join('config/data/zip_to_prefix.json'))
   end
 
   def self.cars
-    data[:cars]
+    @cars ||= JSON.load(Rails.root.join('config/data/cars.json'))
   end
 
   def self.plates
-    data[:plates]
+    @plates ||= JSON.load(Rails.root.join('config/data/plates.json'))
   end
 
   def self.zip_to_plate_prefix_mapping
