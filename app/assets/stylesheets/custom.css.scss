@@ -13,6 +13,9 @@ $danger-color: #ee5f5b;
 .nav-panel {
   li.active {
     a {
+      background-color: #3e444c;
+    }
+    a:hover {
       background-color: #2e3338;
     }
   }
