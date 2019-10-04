@@ -64,6 +64,7 @@ class Notice < ActiveRecord::Base
       self.charge = other.charge
       self.brand = other.brand if other.brand?
       self.color = other.color if other.color?
+      self.flags = other.flags if other.flags?
     end
   end
 
