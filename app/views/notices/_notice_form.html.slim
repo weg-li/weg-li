@@ -8,7 +8,12 @@
     .form-group
       = form.label :address, class: "control-label control-label-required"
       .input-group
-        = form.text_field :address, placeholder: "z.B. Sylvesterallee 7, 22525 Hamburg", class: "form-control", required: true, pattern: '.+\d{5}.+'
+        = form.text_field :street, placeholder: 'z.B. Sylvesterallee 7', class: "form-control", required: true
+        label.input-group-addon
+        = form.text_field :zip, placeholder: 'z.B. 22525', class: "form-control", required: true, maxlength: 5, pattern: '\d{5}'
+        label.input-group-addon
+        = form.text_field :city, placeholder: 'z.B. Hamburg', class: "form-control", required: true
+
         a.input-group-addon(href="#" data-toggle="modal" data-target="#modal_map")
           span.glyphicon.glyphicon-map-marker
         .modal.fade id="modal_map" tabindex="-1" role="dialog"
@@ -21,7 +26,7 @@
               .modal-body
                 .well.well-sm.callout
                   p Den Marker einfach an die entsprechende Stelle ziehen, oder den aktuellen Standort verwenden, die Adresse wird dann automatisch ausgefüllt.
-                = render('picker_map', notice: notice, target: '#notice_address', trigger: '#geolocation')
+                = render('picker_map', notice: notice, street: '#notice_street', zip: '#notice_zip', city: '#notice_city', trigger: '#geolocation')
               .modal-footer
                 = button_tag type: :button, class: "btn btn-default", id: 'geolocation' do
                   span.glyphicon.glyphicon-map-marker>

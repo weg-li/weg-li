@@ -1,5 +1,5 @@
 - coordinates = notice.coordinates? ? notice.map_data : current_user.map_data
-= content_tag(:div, id: "map_#{dom_id(notice)}", class: "map-canvas", data: { notice: coordinates, target: target, trigger: trigger }) do
+= content_tag(:div, id: "map_#{dom_id(notice)}", class: "map-canvas", data: { notice: coordinates, street: street, zip: zip, city: city, trigger: trigger }) do
   p Enable JS to view Map!
 
 javascript:

@@ -24,7 +24,9 @@ class GPickerMap {
   constructor(canvas) {
     this.canvas = canvas[0];
     this.notice = canvas.data("notice");
-    this.target = canvas.data("target");
+    this.street = canvas.data("street");
+    this.zip = canvas.data("zip");
+    this.city = canvas.data("city");
     this.trigger = canvas.data("trigger");
     this.map = null;
     this.marker = null;
@@ -55,7 +57,11 @@ class GPickerMap {
         if (status === 'OK') {
           if (results.length > 0) {
             const result = (results.filter(result => result.types.includes('street_address')) || results)[0];
-            $(this.target).val(result.formatted_address);
+            const location = Object.fromEntries(result.address_components.map(comp => [comp.types[0], comp.long_name]))
+            console.table(location);
+            $(this.street).val(`${location.route || ''} ${location.street_number || ''}`.trim());
+            $(this.zip).val(location.postal_code || '');
+            $(this.city).val(location.locality || location.administrative_area_level_1 || location.political || '');
           } else {
             window.alert('Es konnten keine Ergebnisse gefunden werden.');
           }
