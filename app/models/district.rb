@@ -33,13 +33,13 @@ class District < ActiveRecord::Base
     "#{email} (#{zip} #{name})"
   end
 
-  def self.attach_prefix
-    District.where(prefix: nil).limit(100).each do |district|
+  def District.attach_prefix
+    District.where(prefix: nil).limit(5000).each do |district|
       prefix = Vehicle.zip_to_prefix[district.zip]
       if prefix.present?
         district.update_attribute(:prefix, prefix)
       else
-        Rails.logger.info("no match for #{district.name}")
+        Rails.logger.info("no match for #{district.name} #{district.zip}")
       end
     end
   end
