@@ -45,16 +45,7 @@ class NoticesController < ApplicationController
     notice = current_user.notices.build(notice_upload_params)
     notice.analyze!
 
-    message = 'Eine Meldung mit Beweisfotos wurde erfasst'
-    path = edit_notice_path(notice)
-    if params[:another]
-      message += ', nun gleich die nächste Meldung erfassen'
-      path = new_notice_path
-    else
-      message += ' und Analyse gestartet'
-    end
-
-    redirect_to path, notice: message
+    redirect_to edit_notice_path(notice), notice: 'Eine Meldung mit Beweisfotos wurde erfasst und die Analyse gestartet'
   end
 
   def edit
@@ -65,8 +56,7 @@ class NoticesController < ApplicationController
     @notice = current_user.notices.from_param(params[:id])
 
     if @notice.update(notice_params)
-      path = params[:only_save] ? notices_path : [:share, @notice]
-      redirect_to path, notice: 'Meldung wurde gespeichert'
+      redirect_to [:share, @notice], notice: 'Meldung wurde gespeichert'
     else
       render :edit
     end

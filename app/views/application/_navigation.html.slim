@@ -25,15 +25,14 @@
                 = link_to new_notice_path do
                   span.glyphicon.glyphicon-plus.smaller>
                   span.margin-left-small Meldung erfassen
-              - if access?(:community)
-                li
-                  = link_to bulk_uploads_path do
-                    span.glyphicon.glyphicon-th-list.smaller>
-                    span.margin-left-small Massen-Uploads
-                li
-                  = link_to new_bulk_upload_path do
-                    span.glyphicon.glyphicon-cloud-upload.smaller>
-                    span.margin-left-small Massen-Upload starten
+              li
+                = link_to bulk_uploads_path do
+                  span.glyphicon.glyphicon-th-list.smaller>
+                  span.margin-left-small Massen-Uploads
+              li
+                = link_to new_bulk_upload_path do
+                  span.glyphicon.glyphicon-cloud-upload.smaller>
+                  span.margin-left-small Massen-Upload starten
 
         - if signed_in? && admin?
           li
