@@ -10,13 +10,6 @@ class District < ActiveRecord::Base
     find_by(zip: zip)
   end
 
-  def self.legacy_by_zip(zip)
-    district = from_zip(zip)
-    return nil if district.blank?
-
-    DistrictLegacy.new(district.name, district.name.parameterize, district.email, district.zip, district.latitude, district.longitude)
-  end
-
   def map_data
     {
       zoom: 13,

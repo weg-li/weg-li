@@ -1,7 +1,6 @@
 include ActionDispatch::TestProcess
 
 Fabricator(:notice) do
-  district_legacy { 'hamburg' }
   photos { [fixture_file_upload(Rails.root.join('spec/support/assets/mercedes.jpg'), 'image/jpeg')] }
   address { "#{Faker::Address.street_address}, 22525 Hamburg" }
   charge { Vehicle.charges.shuffle.first }
