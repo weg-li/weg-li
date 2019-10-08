@@ -3,15 +3,15 @@
 - replacer ||= false
 .well.well-sm.clearfix
   - if upload
-    .pull-right
+    .photos-add-button
       button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_photo_upload"
         span.glyphicon.glyphicon-plus
   ul.photo-list
     - notice.photos.each_with_index do |photo, index|
       li.list-item
-        a(href="#" data-toggle="modal" data-target="#modal_#{dom_id(photo)}")
-          = image_tag(url_for_photo(photo, size: :thumb), class: 'item-photo')
         .flex-buttons.btn-group.btn-group-sm
+          a(href="#" data-toggle="modal" data-target="#modal_#{dom_id(photo)}")
+            = image_tag(url_for_photo(photo, size: :thumb), class: 'item-photo')
           button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal_#{dom_id(photo)}"
             span.glyphicon.glyphicon-eye-open
 

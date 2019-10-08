@@ -85,15 +85,17 @@ class Notice < ActiveRecord::Base
   end
 
   def zip
-    address[ADDRESS_ZIP_PATTERN, 1] if address?
+    super || (address || '')[ADDRESS_ZIP_PATTERN, 1]
   end
 
   def prefill_address_fields
-    address.match(/(.+?),?\s*(\d{5}),?\s*(.+)/)
+    return unless address?
 
-    self.street ||= $1&.strip
-    self.zip ||= $2&.strip
-    self.city ||= $3&.strip
+    address.gsub(/,?\s*(Deutschland|Germany)/, '').match(/(.+?),?\s*(\d{5}),?\s*(.+)/)
+
+    self.street = $1&.strip
+    self.zip = $2&.strip
+    self.city = $3&.strip || user.city
   end
 
   def meta
