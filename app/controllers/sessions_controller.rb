@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       redirect_to notices_path, notice: t('sessions.welcome_back', nickname: authorization.user.name)
     elsif signed_in?
       current_user.authorizations.create! provider: auth['provider'], uid: auth['uid']
-      redirect_to user_path(current_user), notice: t('sessions.connected', provider: auth['provider'].humanize)
+      redirect_to edit_user_path(current_user), notice: t('sessions.connected', provider: auth['provider'].humanize)
     else
       session[:auth_path] = notices_path
       session[:auth_data] = auth
@@ -47,7 +47,7 @@ class SessionsController < ApplicationController
     user = User.find_by_nickname!(params[:nickname])
     sign_in(user)
 
-    redirect_to user_path(user), notice: "Offline Login for #{user.nickname}!"
+    redirect_to edit_user_path(user), notice: "Offline Login for #{user.nickname}!"
   end
 
   def email; end
