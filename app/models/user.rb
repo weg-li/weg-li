@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
   end
 
   def wegli_email
-    "#{nickname.parameterize}+#{token}@anzeige.weg-li.de"
+    "#{token}@anzeige.weg-li.de"
   end
 
   def coordinates?
