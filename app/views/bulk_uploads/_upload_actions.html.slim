@@ -1,8 +1,17 @@
-.flex-buttons.btn-group.btn-group-sm
-  = link_to bulk_upload_path(bulk_upload), class: 'btn btn-primary', title: 'ansehen'
-    span.glyphicon.glyphicon-eye-open
-  - if bulk_upload.photos.present?
-    = link_to edit_bulk_upload_path(bulk_upload), class: 'btn btn-primary', title: 'gruppieren'
-      span.glyphicon.glyphicon-move
-  = link_to bulk_upload_path(bulk_upload), method: :delete, data: {confirm: 'Der Upload wird endgültig gelöscht'}, class: 'btn btn-primary', title: 'löschen'
-    span.glyphicon.glyphicon-trash
+.dropdown
+  button.btn.btn-default.btn-sm.dropdown-toggle type="button" data-toggle="dropdown"
+    | Aktion wählen <span class="caret"></span>
+  ul.dropdown-menu
+    li
+      = link_to bulk_upload_path(bulk_upload)
+        span.glyphicon.glyphicon-eye-open>
+        | Massen-Upload ansehen
+    - if bulk_upload.photos.present?
+      li
+        = link_to edit_bulk_upload_path(bulk_upload)
+          span.glyphicon.glyphicon-move>
+          | Massen-Upload gruppieren
+      li
+        = link_to bulk_upload_path(bulk_upload), method: :delete, data: {confirm: 'Der Upload wird endgültig gelöscht'}
+          span.glyphicon.glyphicon-trash>
+          | Massen-Upload löschen
