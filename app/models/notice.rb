@@ -146,6 +146,6 @@ class Notice < ActiveRecord::Base
 
   def defaults
     self.token ||= SecureRandom.hex(16)
-    self.district ||= District.from_zip(zip) if address?
+    self.district = District.from_zip(zip)
   end
 end
