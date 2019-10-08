@@ -25,6 +25,14 @@ $danger-color: #ee5f5b;
   background-color: $primary-color;
 }
 
+.input-group {
+  width: 100%;
+}
+
+.input-group-addon-xs {
+  padding: 1px;
+}
+
 .progress-sm {
   height: 10px;
 }
@@ -36,6 +44,12 @@ $danger-color: #ee5f5b;
 
 .gravatar {
   border-radius: 5px;
+}
+
+.photos-add-button {
+  position: absolute;
+  right: 25px;
+  z-index: 10;
 }
 
 .map-canvas {

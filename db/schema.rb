@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_25_095116) do
+ActiveRecord::Schema.define(version: 2019_10_07_095328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,9 @@ ActiveRecord::Schema.define(version: 2019_09_25_095116) do
     t.string "district_legacy"
     t.integer "bulk_upload_id"
     t.bigint "district_id"
+    t.string "street"
+    t.string "zip"
+    t.string "city"
     t.index ["district_id"], name: "index_notices_on_district_id"
     t.index ["registration"], name: "index_notices_on_registration"
   end
