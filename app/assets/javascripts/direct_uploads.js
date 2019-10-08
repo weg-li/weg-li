@@ -31,7 +31,7 @@ addEventListener("direct-upload:error", event => {
   element.classList.add("progress-bar-warning");
 
   const errorEl = document.getElementById(`direct-upload-error-${id}`);
-  errorEl.innerHTML(error);
+  errorEl.innerHTML = error;
   errorEl.classList.remove("hidden");
 });
 
