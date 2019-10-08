@@ -8,7 +8,7 @@ hiermit zeige ich, mit der Bitte um Weiterverfolgung, folgende Verkehrsordnungsw
 
 <%= Notice.human_attribute_name(:date) %>: <%= l(@notice.date, default: Time.zone.today) %>
 
-<%= Notice.human_attribute_name(:address) %>: <%= @notice.address %><%= " (lat: #{@notice.latitude} lng: #{@notice.longitude})" if @notice.coordinates? %>
+<%= Notice.human_attribute_name(:address) %>: <%= @notice.full_address %><%= " (lat: #{@notice.latitude} lng: #{@notice.longitude})" if @notice.coordinates? %>
 
 <%= Notice.human_attribute_name(:registration) %>: <%= @notice.registration %>
 <% if @notice.brand? %>

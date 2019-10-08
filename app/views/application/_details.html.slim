@@ -11,7 +11,7 @@ dl.dl-horizontal
   dt= Notice.human_attribute_name(:date)
   dd= d(notice.date)
   dt= Notice.human_attribute_name(:address)
-  dd= notice.address
+  dd= notice.full_address
   dt= Notice.human_attribute_name(:registration)
   dd= notice.registration
   - if notice.brand?

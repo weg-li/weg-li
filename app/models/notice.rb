@@ -123,8 +123,11 @@ class Notice < ActiveRecord::Base
 
   def guess_address
     # TODO moar guessing
-    # TODO use user-address
-    self.address ||= Vehicle.district_for_plate_prefix(registration) if registration?
+    self.city ||= user.city
+  end
+
+  def full_address
+    [street, zip, city].compact.join(' ')
   end
 
   def map_data
