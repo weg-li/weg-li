@@ -51,14 +51,13 @@ class GPickerMap {
     google.maps.event.addListener(this.marker, 'dragend', (event) => {
       const lat = event.latLng.lat();
       const lng = event.latLng.lng();
-      console.log(lat, lng);
+
       var geocoder = new google.maps.Geocoder;
       geocoder.geocode({'location': { lat, lng }}, (results, status) => {
         if (status === 'OK') {
           if (results.length > 0) {
             const result = (results.filter(result => result.types.includes('street_address')) || results)[0];
             const location = Object.fromEntries(result.address_components.map(comp => [comp.types[0], comp.long_name]))
-            console.table(location);
             $(this.street).val(`${location.route || ''} ${location.street_number || ''}`.trim());
             $(this.zip).val(location.postal_code || '');
             $(this.city).val(location.locality || location.administrative_area_level_1 || location.political || '');

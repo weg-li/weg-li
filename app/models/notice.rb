@@ -22,8 +22,8 @@ class Notice < ActiveRecord::Base
   belongs_to :bulk_upload
   has_many_attached :photos
 
-  validates :photos, :registration, :charge, :address, :date, presence: :true
-  validates :address, format: { with: ADDRESS_ZIP_PATTERN, message: 'PLZ fehlt' }
+  validates :photos, :registration, :charge, :street, :zip, :city, :date, presence: :true
+  validates :zip, format: { with: /\d{5}/, message: 'PLZ ist nicht korrekt' }
 
   enum status: {open: 0, disabled: 1, analyzing: 2, shared: 3}
 
