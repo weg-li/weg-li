@@ -1,17 +1,29 @@
+require 'csv'
+
 class Vehicle
-  def self.data
-    @data ||= {}
-    @data[:cars] ||= JSON.load(Rails.root.join('config/data/cars.json'))
-    @data[:plates] ||= JSON.load(Rails.root.join('config/data/plates.json'))
-    @data
+  def self.opengeodb
+    @opengeodb ||= CSV.parse(File.read('config/data/opengeodb.csv'), col_sep: "\t", quote_char: nil, headers: true)
+  end
+
+  def self.zip_to_prefix
+    @zip_to_prefix ||= JSON.load(Rails.root.join('config/data/zip_to_prefix.json'))
   end
 
   def self.cars
-    data[:cars]
+    @cars ||= JSON.load(Rails.root.join('config/data/cars.json'))
   end
 
   def self.plates
-    data[:plates]
+    @plates ||= JSON.load(Rails.root.join('config/data/plates.json'))
+  end
+
+  def self.zip_to_plate_prefix_mapping
+    @zip_to_plate_prefix_mapping ||= opengeodb.each_with_object({}) do |entry, hash|
+      next unless entry['plz']
+
+      zips = entry['plz'].split(',')
+      zips.each { |zip| hash[zip] = entry['kz'] if entry['kz'] }
+    end.to_h
   end
 
   def self.most_often?(matches)
@@ -140,7 +152,7 @@ class Vehicle
       'Parken verbotswidrig auf einem Schutzstreifen für den Radverkehr (Zeichen 340)',
       'Parken verbotswidrig auf einem Gehweg',
       'Parken in einem verkehrsberuhigten Bereich (Zeichen 325.1, 325.2) verbotswidrig außerhalb der zum Parken gekennzeichneten Flächen',
-      'Parken in einem Fußgängerbereich, der durch Zeichen 239/242.1, 242.2/250) gesperrt war',
+      'Parken in einem Fußgängerbereich, der (durch Zeichen 239/242.1, 242.2/250) gesperrt war',
       'Parken in einem Abstand von weniger als 5 Meter vor einem Fußgängerüberweg',
       'Parken weniger als 5 Meter vor/hinter der Kreuzung/Einmündung',
       'Parken im absolutem Haltverbot (Zeichen 283)',
@@ -160,6 +172,7 @@ class Vehicle
       'Parken nicht am rechten Fahrbahnrand',
       'Parken im Fahrraum von Schienenfahrzeugen',
       'Parken links von einer Fahrbahnbegrenzung (Zeichen 295)',
+      'Parken in einem Verkehrsbereich, der (durch Zeichen 250/251/253/255/260) gesperrt war',
       'Parken auf einem durch Richtungspfeile (Zeichen 297) gekennzeichneten Fahrbahnteil',
       'Parken innerhalb einer Grenzmarkierung (Zeichen 299) für ein Haltverbot',
       'Parken näher als 10 Meter vor einem Andreaskreuz (Zeichen 201)/Zeichen 205 (Vorfahrt gewähren!)/Zeichen 206 (Halt! Vorfahrt gewähren!) und verdeckten dieses',

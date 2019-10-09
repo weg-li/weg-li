@@ -38,6 +38,7 @@ describe 'notices', type: :request do
     let(:params) {
       {
         notice: {
+          # TODO this actually should upload a photo
           registration: 'HH XX 123',
         }
       }
@@ -47,6 +48,23 @@ describe 'notices', type: :request do
       expect {
         post notices_path, params: params
       }.to change { user.notices.count }.by(1)
+    end
+  end
+
+  context "PATCH :update" do
+    let(:params) {
+      {
+        notice: {
+          id: notice.id,
+          registration: 'HH XX 123',
+        }
+      }
+    }
+
+    it "creates a notice with given params" do
+      expect {
+        patch notice_path(notice), params: params
+      }.to change { notice.reload.registration }.from(notice.registration).to('HH XX 123')
     end
   end
 

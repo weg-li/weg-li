@@ -8,7 +8,7 @@ hiermit zeige ich, mit der Bitte um Weiterverfolgung, folgende Verkehrsordnungsw
 
 <%= Notice.human_attribute_name(:date) %>: <%= l(@notice.date, default: Time.zone.today) %>
 
-<%= Notice.human_attribute_name(:address) %>: <%= @notice.address %><%= " (lat: #{@notice.latitude} lng: #{@notice.longitude})" if @notice.coordinates? %>
+<%= Notice.human_attribute_name(:address) %>: <%= @notice.full_address %><%= " (lat: #{@notice.latitude} lng: #{@notice.longitude})" if @notice.coordinates? %>
 
 <%= Notice.human_attribute_name(:registration) %>: <%= @notice.registration %>
 <% if @notice.brand? %>
@@ -64,7 +64,8 @@ Falls Sie nicht zuständig sein sollten, leiten Sie bitte meine E-Mail weiter un
 Dabei dürfen Sie auch meine persönlichen Daten weiterleiten und für die Dauer des Verfahrens speichern.
 
 
-Im Anhang befinden sich die Beweisfotos.
+Beweisfotos, aus denen Kennzeichen und Tatvorwurf erkennbar hervorgehen, befinden sich im Anhang.
+Ziehen Sie auch alle anderen Verstöße und Gefährdungen für dieses Kennzeichen in Betracht, die aus den Beweisfotos hervorgehenden.
 
 
 Diese Anzeige können Sie auch online abrufen, dort finden sich auch die Beweisfotos im Original zum Download:

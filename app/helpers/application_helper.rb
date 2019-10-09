@@ -40,6 +40,7 @@ module ApplicationHelper
   PROVIDERS = {
     twitter: 'Twitter',
     google_oauth2: 'Google',
+    telegram: 'Telegram',
     github: 'GitHub',
     email: 'E-Mail',
   }

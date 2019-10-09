@@ -1,24 +1,43 @@
-.flex-buttons.btn-group.btn-group-sm
-  = link_to notice_path(notice), class: 'btn btn-primary', title: 'ansehen'
-    span.glyphicon.glyphicon-eye-open
-  - if notice.incomplete?
-    = link_to edit_notice_path(notice), class: 'btn btn-primary', title: 'bearbeiten'
-      span.glyphicon.glyphicon-edit
-  - elsif notice.open?
-    = link_to edit_notice_path(notice), class: 'btn btn-primary', title: 'bearbeiten'
-      span.glyphicon.glyphicon-edit
-    = link_to share_notice_path(notice), class: 'btn btn-primary', title: 'melden'
-      span.glyphicon.glyphicon-share
+.dropdown
+  button.btn.btn-default.btn-sm.dropdown-toggle type="button" data-toggle="dropdown"
+    | Aktion wählen <span class="caret"></span>
+  ul.dropdown-menu
+    li
+      = link_to notice_path(notice) do
+        span.glyphicon.glyphicon-eye-open>
+        | Meldung ansehen
 
-  - if notice.disabled?
-    = link_to enable_notice_path(notice), data: {confirm: 'Die Meldung ist anschließend öffentlich erreichbar'}, method: :patch, class: 'btn btn-primary', title: 'aktivieren'
-      span.glyphicon.glyphicon-plus-sign
-  - else
-    = link_to public_charge_path(notice), class: 'btn btn-primary', title: 'als Anzeige ansehen'
-      span.glyphicon.glyphicon-globe
-    = link_to disable_notice_path(notice), data: {confirm: 'Die Meldung ist anschließend öffentlich nicht mehr erreichbar'}, method: :patch, class: 'btn btn-primary', title: 'deaktivieren'
-      span.glyphicon.glyphicon-minus-sign
+    - if notice.incomplete?
+      li
+        = link_to edit_notice_path(notice) do
+          span.glyphicon.glyphicon-edit>
+          | Meldung bearbeiten
+    - elsif notice.open?
+      li
+        = link_to edit_notice_path(notice)
+          span.glyphicon.glyphicon-edit>
+          | Meldung bearbeiten
+      li
+        = link_to share_notice_path(notice)
+          span.glyphicon.glyphicon-share>
+          | Anzeige erstatten
 
-  - unless notice.shared?
-    = link_to notice_path(notice), method: :delete, data: {confirm: 'Die Meldung wird entgültig gelöscht'}, class: 'btn btn-primary', title: 'löschen'
-      span.glyphicon.glyphicon-trash
+    - if notice.disabled?
+      li
+        = link_to enable_notice_path(notice), data: {confirm: 'Die Meldung ist anschließend wieder öffentlich erreichbar'}, method: :patch
+          span.glyphicon.glyphicon-plus-sign>
+          | Meldung aktivieren
+    - else
+      li
+        = link_to public_charge_path(notice)
+          span.glyphicon.glyphicon-globe>
+          | Anzeige ansehen
+      li
+        = link_to disable_notice_path(notice), data: {confirm: 'Die Meldung ist anschließend öffentlich nicht mehr erreichbar'}, method: :patch
+          span.glyphicon.glyphicon-minus-sign>
+          | Meldung deaktivieren
+    - unless notice.shared?
+      li
+        = link_to notice_path(notice), method: :delete, data: {confirm: 'Die Meldung wird endgültig gelöscht'}, title: 'löschen'
+          span.glyphicon.glyphicon-trash>
+          | Meldung löschen

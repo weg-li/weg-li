@@ -22,8 +22,8 @@ class Notice < ActiveRecord::Base
   belongs_to :bulk_upload
   has_many_attached :photos
 
-  validates :photos, :registration, :charge, :address, :date, presence: :true
-  validates :address, format: { with: ADDRESS_ZIP_PATTERN, message: 'PLZ fehlt' }
+  validates :photos, :registration, :charge, :street, :zip, :city, :date, presence: :true
+  validates :zip, format: { with: /\d{5}/, message: 'PLZ ist nicht korrekt' }
 
   enum status: {open: 0, disabled: 1, analyzing: 2, shared: 3}
 
@@ -64,6 +64,7 @@ class Notice < ActiveRecord::Base
       self.charge = other.charge
       self.brand = other.brand if other.brand?
       self.color = other.color if other.color?
+      self.flags = other.flags if other.flags?
     end
   end
 
@@ -84,7 +85,17 @@ class Notice < ActiveRecord::Base
   end
 
   def zip
-    address[ADDRESS_ZIP_PATTERN, 1]
+    super || (address || '')[ADDRESS_ZIP_PATTERN, 1]
+  end
+
+  def prefill_address_fields
+    return unless address?
+
+    address.gsub(/,?\s*(Deutschland|Germany)/, '').match(/(.+?),?\s*(\d{5}),?\s*(.+)/)
+
+    self.street = $1&.strip
+    self.zip = $2&.strip
+    self.city = $3&.strip || user.city
   end
 
   def meta
@@ -97,7 +108,13 @@ class Notice < ActiveRecord::Base
 
   def handle_geocoding
     if coordinates?
-      reverse_geocode
+      results = Geocoder.search([latitude, longitude])
+      if results.present?
+        best_result = results.first
+        self.zip = best_result.postal_code
+        self.city = best_result.city
+        self.street = "#{best_result.street} #{best_result.house_number}".strip
+      end
     else
       guess_address
       geocode
@@ -106,7 +123,11 @@ class Notice < ActiveRecord::Base
 
   def guess_address
     # TODO moar guessing
-    self.address ||= Vehicle.district_for_plate_prefix(registration) if registration?
+    self.city ||= user.city
+  end
+
+  def full_address
+    [street, zip, city].compact.join(' ')
   end
 
   def map_data
@@ -125,6 +146,10 @@ class Notice < ActiveRecord::Base
 
   def defaults
     self.token ||= SecureRandom.hex(16)
-    self.district ||= District.from_zip(zip) if address?
+    if zip? && zip_changed?
+      # TODO join on zip
+      district = District.from_zip(zip)
+      self.district = district if district.present?
+    end
   end
 end
