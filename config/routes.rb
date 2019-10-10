@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     root to: "notices#index"
   end
 
+  post "/analyze_direct_upload" => "direct_uploads#analyze", as: :direct_upload_analyze
+
   resources :bulk_uploads do
     member do
       patch :purge
