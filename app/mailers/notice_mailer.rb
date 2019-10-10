@@ -6,7 +6,7 @@ class NoticeMailer < ActionMailer::Base
     @user = notice.user
 
     notice.photos.each do |photo|
-      variant = photo.variant(resize: "1280x1280", quality: '90', auto_orient: true).processed
+      variant = photo.variant(PhotoHelper::CONFIG[:default]).processed
       attachments[photo.filename.to_s] = photo.service.download(variant.key)
     end
 
