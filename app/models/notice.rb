@@ -13,7 +13,7 @@ class Notice < ActiveRecord::Base
 
   before_validation :defaults
 
-  geocoded_by :address, language: Proc.new { |model| I18n.locale }, no_annotations: true
+  geocoded_by :full_address, language: Proc.new { |model| I18n.locale }, no_annotations: true
   reverse_geocoded_by :latitude, :longitude, language: Proc.new { |model| I18n.locale }, no_annotations: true
   after_validation :geocode
 
@@ -116,14 +116,9 @@ class Notice < ActiveRecord::Base
         self.street = "#{best_result.street} #{best_result.house_number}".strip
       end
     else
-      guess_address
+      self.city ||= user.city
       geocode
     end
-  end
-
-  def guess_address
-    # TODO moar guessing
-    self.city ||= user.city
   end
 
   def full_address
