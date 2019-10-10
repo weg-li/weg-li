@@ -1,16 +1,14 @@
 class Thumbnailer < ActiveStorage::Analyzer
   def self.accept?(blob)
-    if blob.content_type == "image/jpeg"
-      Rails.logger.info("thumbnailing #{blob.filename}")
-      Rails.logger.info("thumbnailing #{blob.variant(resize: "100x100", auto_orient: true).processed.service_url}")
-
-      true
-    end
-  rescue
-    Rails.logger.warn("error thumbnailing image #{$!} #{blob.filename}")
+    blob.content_type == "image/jpeg"
   end
 
   def metadata
-    {}
+    Rails.logger.info("thumbnailing #{blob.filename}")
+    PhotoHelper::CONFIG.each do |size, config|
+      Rails.logger.info("thumbnailing #{size} #{blob.variant(config).processed.service_url}")
+    end
+  rescue
+    Rails.logger.warn("error thumbnailing image #{$!} #{blob.filename}")
   end
 end

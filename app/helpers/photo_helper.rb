@@ -5,7 +5,7 @@ module PhotoHelper
   }
   def url_for_photo(photo, size: :default)
     case size
-    when *CONFIG
+    when :thumb, :default
       url_for(photo.variant(CONFIG[size]))
     when :original
       url_for(photo)
