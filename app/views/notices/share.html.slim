@@ -20,6 +20,8 @@
   .col-lg-12
     = render 'photos', notice: @notice, publicly: true
 
+= render 'alerts', notice: @notice
+
 - if @notice.district.present?
   .row
     .col-lg-12
