@@ -78,6 +78,16 @@ describe 'notices', type: :request do
     end
   end
 
+  context "PATCH :duplicate" do
+    it "duplicates a notice" do
+      expect {
+        patch duplicate_notice_path(notice)
+
+        expect(response).to be_redirect
+      }.to change { notice.user.notices.count }.by(1)
+    end
+  end
+
   context "DELTE :destroy" do
     it "should destroy the notice" do
       notice = Fabricate(:notice, user: user)

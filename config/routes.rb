@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       get :inspect
       get :share
       get :prepare
+      patch :duplicate
       patch :polish
       patch :mail
       patch :enable

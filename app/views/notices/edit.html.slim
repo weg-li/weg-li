@@ -36,21 +36,7 @@
     .col-lg-12
       = render 'photos', notice: @notice, upload: true
 
-- photo_doubles = @notice.photo_doubles
-- if photo_doubles.present?
-  .alert.alert-warning
-    strong
-      | Achtung, du hast schon Fotos mit identischem Namen hochgeladen, falls es OK ist einfach fortfahren:
-      - photo_doubles.each do |photo|
-        =< link_to photo.filename, photo.record
-
-- date_doubles = @notice.date_doubles
-- if date_doubles.present?
-  .alert.alert-warning
-    strong
-      | Achtung, du hast schon eine Meldung für dieses Datum mit identischem Nummernschild, falls es OK ist einfach fortfahren:
-      - date_doubles.each do |notice|
-        =< link_to "Meldung ##{notice.id}", notice
+= render 'alerts', notice: @notice
 
 hr.spacer
 

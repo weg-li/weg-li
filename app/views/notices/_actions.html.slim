@@ -3,13 +3,16 @@
     | <span class="glyphicon glyphicon-cog"></span> <span class="caret"></span>
   ul.dropdown-menu
     li
-      = link_to notice_path(notice) do
+      = link_to notice_path(notice)
         span.glyphicon.glyphicon-eye-open>
         | Meldung ansehen
+      = link_to duplicate_notice_path(notice), data: {confirm: 'Die Meldung wird nun duplizieret'}, method: :patch
+        span.glyphicon.glyphicon-duplicate>
+        | Meldung duplizieren
 
     - if notice.incomplete?
       li
-        = link_to edit_notice_path(notice) do
+        = link_to edit_notice_path(notice)
           span.glyphicon.glyphicon-edit>
           | Meldung bearbeiten
     - elsif notice.open?

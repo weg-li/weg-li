@@ -51,6 +51,17 @@ class Notice < ActiveRecord::Base
     Notice.joins(:user).where({ users: { access: :ghost} }).find_by(token: token)
   end
 
+  def duplicate!
+    notice = dup
+    notice.photos_attachments = photos.map(&:dup)
+    notice.registration = nil
+    notice.color = nil
+    notice.brand = nil
+    notice.status = :open
+    notice.save_incomplete!
+    notice.reload
+  end
+
   def analyze!
     self.status = :analyzing
     save_incomplete!

@@ -133,6 +133,13 @@ class NoticesController < ApplicationController
     redirect_to(notices_path, notice: "Deine Anzeige wurde an #{@notice.district.email} versendet.")
   end
 
+  def duplicate
+    notice = current_user.notices.from_param(params[:id])
+    notice = notice.duplicate!
+
+    redirect_to edit_notice_path(notice), notice: 'Die Meldung wurde dupliziert'
+  end
+
   def enable
     notice = current_user.notices.from_param(params[:id])
     notice.status = :open

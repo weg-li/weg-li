@@ -9,6 +9,17 @@ describe Notice do
     end
   end
 
+  context "duplication" do
+    it "duplicates a notice" do
+      notice = Fabricate(:notice)
+      expect {
+        notice.duplicate!
+      }.to change {
+        Notice.count
+      }.by(1)
+    end
+  end
+
   context "apply_favorites" do
     it "applies favorites" do
       existing_notice = Fabricate.create(:notice, status: :shared, registration: 'HH PS 123')
