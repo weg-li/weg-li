@@ -11,6 +11,10 @@ ActiveStorage::DirectUploadsController.instance_eval do
   rescue_from(ActionController::InvalidAuthenticityToken, with: lambda { redirect_to('/', alert: 'Ihre Sitzung ist abgelaufen') })
 end
 
+ActiveStorage::RepresentationsController.instance_eval do
+  rescue_from(MiniMagick::Error, with: lambda { head(404) })
+end
+
 module ActiveStorage
   class Downloader
     def open(key, checksum:, name: "ActiveStorage-", tmpdir: nil)
