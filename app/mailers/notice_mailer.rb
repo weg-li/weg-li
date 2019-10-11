@@ -1,5 +1,5 @@
 class NoticeMailer < ActionMailer::Base
-  default bcc: 'anzeige@weg-li.de'
+  default from: "peter@weg-li.de", bcc: "peter@weg-li.de"
 
   def charge(notice)
     @notice = notice

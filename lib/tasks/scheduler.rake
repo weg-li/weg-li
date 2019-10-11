@@ -3,9 +3,23 @@ namespace :scheduler do
   task restart_analyzers: :environment do
     with_tracking do
       puts "restart analyzers"
+
       Notice.analyzing.where('updated_at > ?', 5.minutes.ago).each do |notice|
         puts "restarting #{notice.token}"
         notice.analyze!
+      end
+    end
+  end
+
+  desc "daily job to send reminders for open notices that are 2 weeks old"
+  task send_notice_reminder: :environment do
+    with_tracking do
+      puts "send reminders"
+
+      open_notices = Notice.open.where(date: [(100.days.ago.beginning_of_day)..(14.days.ago.end_of_day)])
+      groups = open_notices.group_by(&:user)
+      groups.each do |user, notices|
+        UserMailer.reminder(user, notices).deliver_now
       end
     end
   end
