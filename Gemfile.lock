@@ -449,6 +449,7 @@ DEPENDENCIES
   select2-rails
   sidekiq
   slim-rails
+  sprockets (~> 3.7)
   time_splitter
   turbolinks
   twitter
