@@ -19,21 +19,11 @@ hiermit zeige ich, mit der Bitte um Weiterverfolgung, folgende Verkehrsordnungsw
 
 <%= Notice.human_attribute_name(:color) %>: <%= t(@notice.color, scope: "activerecord.attributes.notice.colors") %>
 <% end %>
+
+Das Fahrzeug stand länger als <%= time_ago_in_words(@notice.duration) %>.
 <% if @notice.empty? %>
 
 Das Fahrzeug war verlassen.
-<% end %>
-<% if @notice.parked? %>
-
-Das Fahrzeug stand mindestens 3 Minuten.
-<% end %>
-<% if @notice.parked_one_hour? %>
-
-Das Fahrzeug stand länger als 1 Stunde.
-<% end %>
-<% if @notice.parked_three_hours? %>
-
-Das Fahrzeug stand länger als 3 Stunden.
 <% end %>
 <% if @notice.hinder? %>
 
