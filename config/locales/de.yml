@@ -15,6 +15,12 @@ de:
       authorization: 'Auth'
       article: 'Artikel'
     attributes:
+      district:
+        zip: 'PLZ'
+        name: 'Name'
+        email: 'E-Mail'
+        prefix: 'Kürzel'
+        updated_at: 'aktualisiert'
       user:
         time_zone: 'Zeitzone'
         nickname: 'Spitzname'

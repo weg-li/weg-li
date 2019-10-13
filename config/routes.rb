@@ -55,6 +55,7 @@ Rails.application.routes.draw do
   end
 
   resources :articles
+  resources :districts
 
   resource :sitemap, only: :show
 
