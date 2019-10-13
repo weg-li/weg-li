@@ -136,6 +136,10 @@ de:
     signup: 'Du hast Dich erfolgreich registriert, bitte bestätige Deine E-Mail Adresse!'
     validate: 'Bitte bestätige Deine E-Mail Adresse!'
     email_auth: 'Logge Dich bei weg-li ein.'
+  districts:
+    statistics:
+      notices: 'Meldungen insgesamt'
+      users: 'Benutzer insgesamt'
   users:
     access:
       admin: 'Admin'

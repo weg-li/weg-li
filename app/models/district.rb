@@ -18,6 +18,13 @@ class District < ActiveRecord::Base
     }
   end
 
+  def statistics(date = 100.years.ago)
+    {
+      notices: notices.since(date).count,
+      users: User.where(id: notices.since(date).pluck(:user_id)).count,
+    }
+  end
+
   def geocode_address
     "#{zip}, #{name}, Deutschland"
   end

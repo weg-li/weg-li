@@ -1,15 +1,10 @@
 class DistrictsController < ApplicationController
   def index
     @districts = search_scope
-
-    respond_to do |format|
-      format.html
-      format.rss
-    end
   end
 
   def show
-    @district = District.from_param(params[:id])
+    @district = District.find(params[:id])
   end
 
   private

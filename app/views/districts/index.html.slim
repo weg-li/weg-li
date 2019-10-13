@@ -8,11 +8,11 @@
         / = hidden_field_tag(:since, since)
         / = hidden_field_tag(:display, display)
         = text_field_tag(:term, params[:term], placeholder: 'z.B. 22525', class: 'form-control input-sm')
-        .form-group
-          / - days = [7, 14, 30, 365]
-          / = select_tag(:since, options_for_select(days.map { |duration| ["seit #{duration} Tagen", duration]}, since), class: 'form-control input-sm')
-        .form-group
-          / = select_tag(:district, options_for_select(District.pluck(:name).uniq, district), class: 'form-control input-sm')
+        / .form-group
+        /   - days = [7, 14, 30, 365]
+        /   = select_tag(:since, options_for_select(days.map { |duration| ["seit #{duration} Tagen", duration]}, since), class: 'form-control input-sm')
+        / .form-group
+        /   = select_tag(:district, options_for_select(District.pluck(:name).uniq, district), class: 'form-control input-sm')
         = submit_tag('Suchen', class: "btn btn-default btn-sm")
 
 
