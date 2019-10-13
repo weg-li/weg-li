@@ -855,6 +855,17 @@
     ]
   },
   {
+    "brand": "Tesla",
+    "models": [
+      "Roadster",
+      "Model S",
+      "Model 3",
+      "Model X",
+      "Model Y",
+      "Semi"
+    ]
+  },
+  {
     "brand": "Daihatsu",
     "models": [
       "Applause",
