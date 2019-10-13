@@ -37,6 +37,8 @@
         - if signed_in? && admin?
           li
             = link_to 'Styleguide', styleguide_path
+          li
+            = link_to 'Admin', '/admin', target: '_blank'
 
       ul.nav.navbar-nav.navbar-right
         - if signed_in?
