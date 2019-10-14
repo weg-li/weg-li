@@ -24,7 +24,14 @@ class User < ActiveRecord::Base
   scope :for_public, -> () { not_hide_public_profile }
 
   def validate!
-    update_attributes! validation_date: Time.now
+    auth = authorizations.find_or_initialize_by(provider: 'email')
+    auth.update! uid: email_uid
+
+    self.update! validation_date: Time.now
+  end
+
+  def email_uid
+    Digest::SHA256.new.hexdigest(email)
   end
 
   def validated?
