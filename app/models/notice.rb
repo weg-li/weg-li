@@ -14,7 +14,6 @@ class Notice < ActiveRecord::Base
   before_validation :defaults
 
   geocoded_by :full_address, language: Proc.new { |model| I18n.locale }, no_annotations: true
-  reverse_geocoded_by :latitude, :longitude, language: Proc.new { |model| I18n.locale }, no_annotations: true
   after_validation :geocode
 
   belongs_to :user
