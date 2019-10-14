@@ -98,16 +98,6 @@ class Notice < ActiveRecord::Base
     super || (address || '')[ADDRESS_ZIP_PATTERN, 1]
   end
 
-  def prefill_address_fields
-    return unless address?
-
-    address.gsub(/,?\s*(Deutschland|Germany)/, '').match(/(.+?),?\s*(\d{5}),?\s*(.+)/)
-
-    self.street = $1&.strip
-    self.zip = $2&.strip
-    self.city = $3&.strip || user.city
-  end
-
   def meta
     photos.map(&:metadata).to_json
   end

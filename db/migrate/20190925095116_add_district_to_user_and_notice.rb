@@ -20,10 +20,10 @@ class AddDistrictToUserAndNotice < ActiveRecord::Migration[6.0]
 
     reversible do |dir|
       dir.up do
-        User.not_disabled.not_ghost.where('address IS NOT NULL and city IS NULL').each do |user|
-          user.prefill_address_fields
-          user.save!(validate: false)
-        end
+        # User.not_disabled.not_ghost.where('address IS NOT NULL and city IS NULL').each do |user|
+        #   user.prefill_address_fields
+        #   user.save!(validate: false)
+        # end
       end
     end
   end

@@ -6,10 +6,10 @@ class AddressToNotice < ActiveRecord::Migration[6.0]
 
     reversible do |dir|
       dir.up do
-        Notice.shared.where('address IS NOT NULL and city IS NULL').each do |notice|
-          notice.prefill_address_fields
-          notice.save!(validate: false)
-        end
+        # Notice.shared.where('address IS NOT NULL and city IS NULL').each do |notice|
+        #   notice.prefill_address_fields
+        #   notice.save!(validate: false)
+        # end
       end
     end
   end
