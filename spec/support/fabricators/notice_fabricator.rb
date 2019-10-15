@@ -13,6 +13,8 @@ Fabricator(:notice) do
   color { Vehicle.colors.shuffle.first }
   empty { true }
   parked { true }
+  latitude { 53.57532 }
+  longitude { 10.01534 }
   user
   district
 end

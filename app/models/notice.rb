@@ -18,7 +18,7 @@ class Notice < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :district
-  belongs_to :bulk_upload
+  belongs_to :bulk_upload, optional: true
   has_many_attached :photos
 
   validates :photos, :registration, :charge, :street, :zip, :city, :date, presence: :true

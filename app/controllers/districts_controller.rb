@@ -1,6 +1,9 @@
 class DistrictsController < ApplicationController
   def index
-    @districts = search_scope
+    respond_to do |format|
+      format.html { @districts = search_scope }
+      format.json { render json: District.all.as_api_response(:public_beta) }
+    end
   end
 
   def show

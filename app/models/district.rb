@@ -1,8 +1,15 @@
 class District < ActiveRecord::Base
-  validates :name, :zip, :email, presence: :true
 
   geocoded_by :geocode_address
   after_validation :geocode
+
+  acts_as_api
+
+  api_accessible :public_beta do |template|
+    %i(name zip email prefix latitude longitude created_at updated_at).each { |key| template.add(key) }
+  end
+
+  validates :name, :zip, :email, presence: :true
 
   has_many :notices
 
