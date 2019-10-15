@@ -8,10 +8,19 @@ de:
       truncate: "&hellip;"
   activerecord:
     models:
-      bulk_upload: 'Upload'
+      bulk_upload: 'Massen-Upload'
       user: 'Benutzer'
       notice: 'Meldung'
+      district: 'Bezirk'
+      authorization: 'Auth'
+      article: 'Artikel'
     attributes:
+      district:
+        zip: 'PLZ'
+        name: 'Name'
+        email: 'E-Mail'
+        prefix: 'Kürzel'
+        updated_at: 'aktualisiert'
       user:
         time_zone: 'Zeitzone'
         nickname: 'Spitzname'
@@ -19,7 +28,9 @@ de:
         address: 'Anschrift'
         email: 'E-Mail'
         phone: 'Telefon'
-        district: 'Bezirk'
+        street: 'Straße'
+        zip: 'PLZ'
+        city: 'Stadt'
       bulk_upload:
         created_at: 'Erstellt'
         photos: 'Beweisfotos'
@@ -28,6 +39,9 @@ de:
         district: 'Bezirk'
         photos: 'Beweisfotos'
         address: 'Adresse'
+        street: 'Straße'
+        zip: 'PLZ'
+        city: 'Stadt'
         registration: 'Kennzeichen'
         make: 'Fabrikat'
         brand: 'Marke'
@@ -72,7 +86,7 @@ de:
     map: 'Kartenansicht'
     draft: 'Erfassen'
     dashboard: 'Übersicht'
-    bulk_uploads: 'Uploads'
+    bulk_uploads: 'Massen-Uploads'
     locale: 'Sprache'
     logout: 'Abmelden'
     profile: 'Profil'
@@ -122,6 +136,10 @@ de:
     signup: 'Du hast Dich erfolgreich registriert, bitte bestätige Deine E-Mail Adresse!'
     validate: 'Bitte bestätige Deine E-Mail Adresse!'
     email_auth: 'Logge Dich bei weg-li ein.'
+  districts:
+    statistics:
+      notices: 'Meldungen insgesamt'
+      users: 'Benutzer insgesamt'
   users:
     access:
       admin: 'Admin'
@@ -139,49 +157,6 @@ de:
       users: 'Aktive Benutzer'
       all_users: 'Benutzer insgesamt'
       districts: 'Unterstützte Bezirke'
-    districts:
-      aichtal: 'Aichtal'
-      bamberg: 'Bamberg'
-      berlin: 'Berlin'
-      bielefeld: 'Bielefeld'
-      bochum: 'Bochum'
-      bonn: 'Bonn'
-      braunschweig: 'Braunschweig'
-      bremen: 'Bremen'
-      buxtehude: 'Buxtehude'
-      darmstadt: 'Darmstadt'
-      dortmund: 'Dortmund'
-      duesseldorf: 'Düsseldorf'
-      filderstadt: 'Filderstadt'
-      frankfurt: 'Frankfurt'
-      hamburg: 'Hamburg'
-      hannover: 'Hannover'
-      hannover_region: 'Großraum Hannover'
-      heidelberg: 'Heidelberg'
-      hessen_region: 'Großraum Hessen'
-      hilchenbach: 'Hilchenbach'
-      hilden: 'Hilden'
-      herne: 'Herne'
-      karlsruhe: 'Karlsruhe'
-      kiel: 'Kiel'
-      koeln: 'Köln'
-      kreuztal: 'Kreuztal'
-      leipzig: 'Leipzig'
-      lueneburg: 'Lüneburg'
-      mainz: 'Mainz'
-      mannheim: 'Mannheim'
-      moenchengladbach: 'Mönchengladbach'
-      muenchen: 'München'
-      muenster: 'Münster'
-      neuss: 'Neuss'
-      nuernberg: 'Nürnberg'
-      nuertingen: 'Nürtingen'
-      ravensburg: 'Ravensburg'
-      saarbruecken: 'Saarbrücken'
-      stuttgart: 'Stuttgart'
-      siegen: 'Siegen'
-      tuebingen: 'Tübingen'
-      zweibruecken: 'Zweibrücken'
     confirmation_mail: "Eine Bestätigungs-Mail wurde an %{email} versendet."
     profile_updated_and_confirmation_email: 'Dein Profil wurde aktualisiert und eine Bestätigungs-Mail wurde an Deine E-Mail Adresse versendet!'
     profile_updated: 'Dein Profil wurde aktualisiert.'
@@ -217,7 +192,7 @@ de:
       done: 'erledigt'
     status-hints:
       open: 'Die Beweisfotos wurden gespeichert, bitte Meldungungen daraus erzeugen, vervollständigen und eine Anzeige erstatten.'
-      done: 'Alle Beweisfotos des Uploads wurden neuen Meldungen zugeordnet.'
+      done: 'Alle Beweisfotos des Massen-Uploads wurden neuen Meldungen zugeordnet.'
   notices:
     new_notice: 'Neue Meldung'
     create_button: 'Meldung erstellen'
@@ -248,7 +223,6 @@ de:
     enabled: 'Die Meldung wurde reaktiviert!'
     disabled: 'Die Meldung wurde deaktiviert!'
     destroyed: 'Die Meldung wurde gelöscht!'
-    sent_via_email: "Deine Meldung wurde an %{recepients} versendet."
     share_message: 'Verschicke deine Anzeige'
     send_email: 'per E-Mail senden'
     copy_to_clipboard: 'in die Zwischenablage kopieren'
@@ -269,7 +243,7 @@ de:
       send_email:
         hint: 'Erstatte die Anzeige direkt per E-Mail, Du erhältst eine Kopie in CC.'
         title: 'Anzeige per E-Mail'
-        text: 'Inzwischen ist es fast überall möglich Anzeige per E-Mail zu erstatten, manche Bundesländer bieten sogar eigene Portale an, <a href="https://www.test.de/Gewusst-wie-Online-Anzeige-erstatten-5003664-0/" target="_blank">eine Liste findet sich hier</a>.'
+        text: 'Ist eine Anzeige einmal erstattet worden, so wird sie verfolgt und kann nicht wieder zurückgenommen werden. Anzeigen sollten niemals leichtfertig und nur mit begründetem Verdacht gemeldet werden.'
       copy_link:
         hint: 'Per <em>copy &amp; paste</em> den Link zur Meldung z.B. auf Twitter teilen.'
         title: 'Copy &amp; Paste'

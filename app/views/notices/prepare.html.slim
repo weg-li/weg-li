@@ -1,0 +1,19 @@
+- set_title t('notices.new_notice')
+- set_crumbs t('navigation.notices') => notices_path, 'vervollständigen' => url_for
+
+.row
+  .col-lg-12
+    = render 'photos', notice: @notice, publicly: true
+
+hr.spacer
+
+= form_errors @notice
+= form_for @notice, url: polish_notice_path(@notice), html: {autocomplete: :off} do |form|
+  = render 'notice_form', notice: @notice, form: form
+
+  hr.spacer
+  .row
+    .col-lg-12
+      .pull-right
+        .btn-group
+          = form.submit 'speichern', class: "btn btn-success"

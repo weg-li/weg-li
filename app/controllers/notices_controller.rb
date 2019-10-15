@@ -1,5 +1,6 @@
 class NoticesController < ApplicationController
   before_action :authenticate!
+  before_action :authenticate_community_user!, only: [:prepare, :polish]
   before_action :authenticate_admin_user!, only: :inspect
   before_action :validate!, except: [:index]
 
@@ -25,9 +26,11 @@ class NoticesController < ApplicationController
   def map
     @since = (params[:since] || '7').to_i
     @display = params[:display] || 'cluster'
-    @district = District.by_name(params[:district] || current_user&.district_name || 'hamburg')
+    @district = params[:district] || current_user.city
 
-    @notices = current_user.notices.since(@since.days.ago).where(district: @district.name)
+    @notices = current_user.notices.shared.since(@since.days.ago).joins(:district).where(districts: {name: @district})
+    @active = @notices.map(&:user_id).uniq.size
+    @default_district = District.from_zip(current_user.zip) || District.first
   end
 
   def show
@@ -42,16 +45,21 @@ class NoticesController < ApplicationController
     notice = current_user.notices.build(notice_upload_params)
     notice.analyze!
 
-    message = 'Eine Meldung mit Beweisfotos wurde erfasst'
-    path = edit_notice_path(notice)
-    if params[:another]
-      message += ', nun gleich die nächste Meldung erfassen'
-      path = new_notice_path
-    else
-      message += ' und Analyse gestartet'
-    end
+    redirect_to edit_notice_path(notice), notice: 'Eine Meldung mit Beweisfotos wurde erfasst und die Analyse gestartet'
+  end
 
-    redirect_to path, notice: message
+  def edit
+    @notice = current_user.notices.from_param(params[:id])
+  end
+
+  def update
+    @notice = current_user.notices.from_param(params[:id])
+
+    if @notice.update(notice_params)
+      redirect_to [:share, @notice], notice: 'Meldung wurde gespeichert'
+    else
+      render :edit
+    end
   end
 
   def import
@@ -83,21 +91,20 @@ class NoticesController < ApplicationController
 
     notice.analyze!
 
-    redirect_to public_charge_path(notice), notice: 'Eine Meldung mit Beweisfotos wurde importiert'
+    redirect_to prepare_notice_path(notice), notice: 'Eine Meldung mit Beweisfotos wurde importiert, bitte vervollständigen'
   end
 
-  def edit
-    @notice = current_user.notices.from_param(params[:id])
+  def prepare
+    @notice = Notice.prepared_claim(params[:id])
   end
 
-  def update
-    @notice = current_user.notices.from_param(params[:id])
+  def polish
+    @notice = Notice.prepared_claim(params[:id])
 
     if @notice.update(notice_params)
-      path = params[:only_save] ? notices_path : [:share, @notice]
-      redirect_to path, notice: 'Meldung wurde gespeichert'
+      redirect_to public_charge_path(@notice), notice: 'Meldung wurde gespeichert und kann jetzt weitergeleitet werden'
     else
-      render :edit
+      render :prepare
     end
   end
 
@@ -111,26 +118,26 @@ class NoticesController < ApplicationController
 
   def share
     @notice = current_user.notices.from_param(params[:id])
-    @notice.district ||= current_user.district
 
-    @mail = NoticeMailer.charge(current_user, @notice)
+    @mail = NoticeMailer.charge(@notice)
   end
 
   def mail
     @notice = current_user.notices.from_param(params[:id])
-    @notice.assign_attributes(mail_params)
 
-    if @notice.district.present?
-      @notice.status = :shared
-      @notice.save!
+    @notice.status = :shared
+    @notice.save!
 
-      NoticeMailer.charge(current_user, @notice).deliver_later
+    NoticeMailer.charge(@notice).deliver_later
 
-      redirect_to(notices_path, notice: t('notices.sent_via_email', recepients: @notice.district.email))
-    else
-      @notice.errors.add(:district, :blank)
-      render :share
-    end
+    redirect_to(notices_path, notice: "Deine Anzeige wurde an #{@notice.district.email} versendet.")
+  end
+
+  def duplicate
+    notice = current_user.notices.from_param(params[:id])
+    notice = notice.duplicate!
+
+    redirect_to edit_notice_path(notice), notice: 'Die Meldung wurde dupliziert'
   end
 
   def enable
@@ -168,7 +175,7 @@ class NoticesController < ApplicationController
     case action
     when 'share'
       notices.open.complete.each do |notice|
-        NoticeMailer.charge(current_user, notice).deliver_later
+        NoticeMailer.charge(notice).deliver_later
         notice.update! status: :shared
       end
       flash[:notice] = 'Die noch offenen, vollständigen Meldungen werden im Hintergrund per E-Mail gemeldet'
@@ -207,7 +214,7 @@ class NoticesController < ApplicationController
   private
 
   def notice_params
-    params.require(:notice).permit(:charge, :date, :date_date, :date_time, :registration, :make, :brand, :model, :color, :kind, :address, :note, :hinder, :empty, :parked, :parked_one_hour, :parked_three_hours)
+    params.require(:notice).permit(:charge, :date, :date_date, :date_time, :registration, :brand, :color, :street, :zip, :city, :note, :hinder, :empty, :parked, :parked_one_hour, :parked_three_hours)
   end
 
   def notice_upload_params
@@ -216,9 +223,5 @@ class NoticesController < ApplicationController
 
   def notice_import_params
     params.require(:notice).permit(:tweet_url)
-  end
-
-  def mail_params
-    params.require(:notice).permit(:district)
   end
 end

@@ -36,14 +36,7 @@
     .col-lg-12
       = render 'photos', notice: @notice, upload: true
 
-- photo_doubles = @notice.photo_doubles
-- if photo_doubles.present?
-  .alert.alert-warning
-    strong
-      | Beweisfotos mit identischem Namen wurden schon benutzt:
-      - photo_doubles.each do |photo|
-        =< link_to photo.filename, photo.record
-
+= render 'alerts', notice: @notice
 
 hr.spacer
 
@@ -56,5 +49,4 @@ hr.spacer
     .col-lg-12
       .pull-right
         .btn-group
-          = form.button 'nur speichern', name: :only_save, class: "btn btn-default"
-          = form.submit 'speichern und weiter', class: "btn btn-success"
+          = form.submit 'speichern', class: "btn btn-success"

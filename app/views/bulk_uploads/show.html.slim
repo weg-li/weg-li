@@ -1,4 +1,4 @@
-- set_title 'Upload ansehen', t('navigation.bulk_uploads')
+- set_title t('navigation.bulk_uploads')
 - set_crumbs t('navigation.bulk_uploads') => bulk_uploads_path, 'ansehen' => url_for
 
 .panel.panel-default
@@ -15,7 +15,7 @@
 
       .col-lg-8
         - if @bulk_upload.photos.present?
-          = render 'photos', notice: @bulk_upload, publicly: true
+          = render 'photos', notice: @bulk_upload, publicly: true, replacer: true
 
   - if @bulk_upload.notices.present?
     = render 'notice_list', notices: @bulk_upload.notices

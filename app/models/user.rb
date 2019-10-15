@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
   enum access: {disabled: -99, ghost: -1, user: 0, community: 1, admin: 42}
 
-  geocoded_by :address
+  geocoded_by :full_address
   after_validation :geocode
   before_validation :defaults
 
@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :authorizations
 
-  validates :nickname, :email, :token, :name, :address, :district, presence: true
+  validates :nickname, :email, :token, :name, :street, :zip, :city, presence: true
   validates :email, :token, uniqueness: true
   validates :time_zone, inclusion: {in: ActiveSupport::TimeZone.all.map(&:name)}, allow_nil: true, allow_blank: true
 
@@ -24,40 +24,37 @@ class User < ActiveRecord::Base
   scope :for_public, -> () { not_hide_public_profile }
 
   def validate!
-    update_attributes! validation_date: Time.now
+    auth = authorizations.find_or_initialize_by(provider: 'email')
+    auth.update! uid: email_uid
+
+    self.update! validation_date: Time.now
+  end
+
+  def email_uid
+    Digest::SHA256.new.hexdigest(email)
   end
 
   def validated?
     validation_date.present?
   end
 
-  def district=(district)
-    self[:district] = district.to_s
-  end
-
-  def district
-    District.by_name(self[:district])
-  end
-
-  def district_name
-    self[:district]
+  def full_address
+    "#{street}, #{zip} #{city}, Deutschland"
   end
 
   def to_label
     "#{nickname} (#{email})"
   end
 
+  def wegli_email
+    "#{token}@anzeige.weg-li.de"
+  end
+
   def coordinates?
     latitude? && longitude?
   end
 
-  def wegli_email
-    "#{nickname.parameterize}+#{token}@anzeige.weg-li.de"
-  end
-
   def map_data
-    return district.map_data unless coordinates?
-
     {
       latitude: latitude,
       longitude: longitude,

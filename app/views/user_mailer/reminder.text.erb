@@ -1,0 +1,15 @@
+Hallo <%= @user.name %>,
+
+Du hast noch offene Meldungen die bereits 2 Wochen zurück liegen.
+
+Damit eine Anzeige rechtzeitig bearbeitet werden kann, muss sie rechtzeitig eingereicht werden.
+
+
+Bitte vervollständige Deine Meldungen über die nachfolgenden Links:
+
+<% @notices.each do |notice| %>
+<%= edit_notice_url(notice) %>
+
+<% end %>
+
+<%= render 'mailer/footer' %>

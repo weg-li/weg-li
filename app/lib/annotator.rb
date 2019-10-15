@@ -15,7 +15,7 @@ class Annotator
     Color::RGB::Blue,
     Color::RGB::Brown,
     Color::RGB::Yellow,
-    Color::RGB::Grey,
+    Color::RGB::Gray,
     Color::RGB::Green,
     Color::RGB::Red,
     Color::RGB::Black,
@@ -27,7 +27,10 @@ class Annotator
   ]
 
   def self.dominant_colors(result)
-    rgbs = result.dig(:image_properties_annotation, :dominant_colors, :colors).map { |color| Color::RGB.new(color[:color][:red], color[:color][:green], color[:color][:blue]) }
+    colors = result.dig(:image_properties_annotation, :dominant_colors, :colors)
+    return [] if colors.blank?
+
+    rgbs = colors.map { |color| Color::RGB.new(color[:color][:red], color[:color][:green], color[:color][:blue]) }
     rgbs.map { |rgb| rgb.closest_match(COLORS).name }
   end
 

@@ -1,29 +1,57 @@
+require 'csv'
+
 class Vehicle
-  def self.data
-    @data ||= {}
-    @data[:cars] ||= JSON.load(Rails.root.join('config/data/cars.json'))
-    @data[:plates] ||= JSON.load(Rails.root.join('config/data/plates.json'))
-    @data
+  def self.opengeodb
+    @opengeodb ||= CSV.parse(File.read('config/data/opengeodb.csv'), col_sep: "\t", quote_char: nil, headers: true)
+  end
+
+  def self.zip_to_prefix
+    @zip_to_prefix ||= JSON.load(Rails.root.join('config/data/zip_to_prefix.json'))
   end
 
   def self.cars
-    data[:cars]
+    @cars ||= JSON.load(Rails.root.join('config/data/cars.json'))
   end
 
   def self.plates
-    data[:plates]
+    @plates ||= JSON.load(Rails.root.join('config/data/plates.json'))
+  end
+
+  def self.zip_to_plate_prefix_mapping
+    @zip_to_plate_prefix_mapping ||= opengeodb.each_with_object({}) do |entry, hash|
+      next unless entry['plz']
+
+      zips = entry['plz'].split(',')
+      zips.each { |zip| hash[zip] = entry['kz'] if entry['kz'] }
+    end.to_h
+  end
+
+  def self.most_often?(matches)
+    return nil if matches.blank?
+
+    matches.group_by(&:itself).sort_by { |match, group| group.size }.last[0]
+  end
+
+  def self.most_likely_plate?(matches)
+    return nil if matches.blank?
+
+    matches.group_by {|registration, _| registration }.sort_by {|_, group| group.sum { |_, probability| probability } / matches.size }.last[0]
   end
 
   def self.plate?(text)
     text = normalize(text)
     if text =~ plate_regex
-      "#{$1} #{$2} #{$3}"
+      ["#{$1} #{$2} #{$3}", 1.0]
     elsif text =~ relaxed_plate_regex
-      "#{$1}#{$2} #{$3}"
+      ["#{$1}#{$2} #{$3}", 0.8]
+    elsif text =~ quirky_mode_plate_regex
+      ["#{$1}#{$2} #{$3}", 0.5]
     end
   end
 
   def self.normalize(text)
+    return '' if text.blank?
+
     tokens = "[ •„.,:;\"'|_+-]"
     left = Regexp.new("^#{tokens}+")
     right = Regexp.new("#{tokens}+$")
@@ -39,7 +67,16 @@ class Vehicle
   end
 
   def self.relaxed_plate_regex
-    @relaxed_plate_regex ||= Regexp.new("^O?(#{Vehicle.plates.keys.join('|')}):?-?O?([A-Z]{1,3})-?(\\d{1,4})$")
+    @relaxed_plate_regex ||= Regexp.new("^(#{Vehicle.plates.keys.join('|')}):?-?([A-Z]{1,3})-?(\\d{1,4})$")
+  end
+
+  def self.quirky_mode_plate_regex
+    @quirky_mode_plate_regex ||= Regexp.new("^O?B?(#{Vehicle.plates.keys.join('|')})O?:?-?O?([A-Z]{1,3})-?(\\d{1,4})$")
+  end
+
+  def self.district_for_plate_prefix(text)
+    prefix = normalize(text)[plate_regex, 1]
+    plates[prefix]
   end
 
   def self.brand?(text)
@@ -85,7 +122,7 @@ class Vehicle
       'blue',
       'brown',
       'yellow',
-      'grey',
+      'gray',
       'green',
       'red',
       'black',
@@ -115,7 +152,7 @@ class Vehicle
       'Parken verbotswidrig auf einem Schutzstreifen für den Radverkehr (Zeichen 340)',
       'Parken verbotswidrig auf einem Gehweg',
       'Parken in einem verkehrsberuhigten Bereich (Zeichen 325.1, 325.2) verbotswidrig außerhalb der zum Parken gekennzeichneten Flächen',
-      'Parken in einem Fußgängerbereich, der durch Zeichen 239/242.1, 242.2/250) gesperrt war',
+      'Parken in einem Fußgängerbereich, der (durch Zeichen 239/242.1, 242.2/250) gesperrt war',
       'Parken in einem Abstand von weniger als 5 Meter vor einem Fußgängerüberweg',
       'Parken weniger als 5 Meter vor/hinter der Kreuzung/Einmündung',
       'Parken im absolutem Haltverbot (Zeichen 283)',
@@ -124,6 +161,7 @@ class Vehicle
       'Parken an einer engen/unübersichtlichen Straßenstelle',
       'Parken im Bereich einer scharfen Kurve',
       'Parken unzulässig in der zweiten Reihe',
+      'Parkten näher als 10 Meter vor einem Lichtzeichen',
       'Parken vor oder in einer amtlich gekennzeichneten Feuerwehrzufahrt',
       'Parken verbotswidrig im Bereich eines Taxenstandes (Zeichen 229)',
       'Parken verbotswidrig und verhinderten dadurch die Benutzung gekennzeichneter Parkflächen',
@@ -134,6 +172,7 @@ class Vehicle
       'Parken nicht am rechten Fahrbahnrand',
       'Parken im Fahrraum von Schienenfahrzeugen',
       'Parken links von einer Fahrbahnbegrenzung (Zeichen 295)',
+      'Parken in einem Verkehrsbereich, der (durch Zeichen 250/251/253/255/260) gesperrt war',
       'Parken auf einem durch Richtungspfeile (Zeichen 297) gekennzeichneten Fahrbahnteil',
       'Parken innerhalb einer Grenzmarkierung (Zeichen 299) für ein Haltverbot',
       'Parken näher als 10 Meter vor einem Andreaskreuz (Zeichen 201)/Zeichen 205 (Vorfahrt gewähren!)/Zeichen 206 (Halt! Vorfahrt gewähren!) und verdeckten dieses',
@@ -142,6 +181,7 @@ class Vehicle
       'Parken, obwohl zwischen Ihrem Fahrzeug und der Fahrstreifenbegrenzung (Zeichen 295/296) ein Abstand von weniger als 3 Metern verblieb',
       'Parken innerhalb einer Grenzmarkierung (Zeichen 299) für ein Parkverbot',
       'Parken bei zulässigem Gehwegparken (Zeichen 315) nicht auf dem Gehweg',
+      'Parkten auf einem Sonderfahrstreifen für Omnibusse des Linienverkehrs (Zeichen 245)',
       'Parken auf einem gekennzeichneten Behindertenparkplatz',
       'Parken mit Verbrenner vor Elektroladesäule',
     ]

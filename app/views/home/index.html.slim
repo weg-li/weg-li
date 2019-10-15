@@ -11,11 +11,21 @@
   .col-lg-7
     .well
       - if signed_in?
-        h2.spacer.text-center 📸 📝 ✊ weg-li jetzt ausprobieren:
-        .spacer.text-center
-          = link_to(notices_path, class: 'btn btn-lg btn-success') do
-            span.glyphicon.glyphicon-th-list>
-            span zu meinen Meldungen
+        .text-center
+          h2 📸 📝 ✊ weg-li jetzt ausprobieren:
+
+          .spacer-large
+
+          .btn-group.btn-group-lg.btn-group-justified.spacer-large
+            = link_to(notices_path, class: 'btn btn-success') do
+              span.glyphicon.glyphicon-th-list>
+              span.hidden-xs Ansehen
+            = link_to(new_notice_path, class: 'btn btn-success') do
+              span.glyphicon.glyphicon-plus>
+              span.hidden-xs Melden
+            = link_to(new_bulk_upload_path, class: 'btn btn-success') do
+              span.glyphicon.glyphicon-cloud-upload>
+              span.hidden-xs Hochladen
       - else
         h2.text-center Jetzt anmelden und die <span class="label label-primary">&beta;eta</span> ausprobieren!
         p.muted.text-center Mehr Informationen gibt es in #{link_to('der &beta;eta-Test Einladung'.html_safe, 'https://docs.google.com/document/d/1SQTXXvGY8BzL-NgjXAKm0EVZ3YTqHOMPonWtVJk7vxg/', target: '_blank')} nachzulesen.
@@ -37,7 +47,17 @@ hr.spacer-large
   .col-lg-10
     blockquote
       p Verkehrswende selber machen durch sichere Radwege und freie Bürgersteige, besonders für Kinder!
-      small #{link_to('Peter Schröder', 'https://twitter.com/phoet', target: '_blank')}, 👨‍👦 besorgter Vater, 🚶‍♂️ Fußgänger, 🛴 E-Scooterer, 🚲 Radler und 🚐 Autofahrer
+      small #{link_to('Peter aus Hamburg', 'https://twitter.com/phoet', target: '_blank')}, 👨‍👦 besorgter Vater, 🚶‍♂️ Fußgänger, 🛴 E-Scooterer, 🚲 Radler und 🚐 Autofahrer
+
+hr.spacer-large
+
+.row
+  .col-lg-10
+    blockquote.pull-right
+      p Berlin duldet Falschparker, Diskutieren bringt garnix. Sogar vor meiner Haustür muss ich auf die Straße ausweichen!
+      small ♿️ Rollstuhlfahrerin, 🏎 Formel-1 Fan und 😴 Langschläfer, Anonym aus Berlin
+  .col-lg-2.text-center
+    = image_tag 'unicorn.jpg', class: "img-circle me-quote"
 
 hr.spacer-large
 
@@ -63,32 +83,32 @@ hr.spacer-large
 
     ul.list-group
       li.list-group-item
-        - goal = 100
+        - goal = 500
         - statistics = Notice.statistics(Time.zone.today.beginning_of_week)
         - current = statistics[:shared]
         p
           strong> Wochenziel:
-          span #{current} von #{goal} Anzeigen erstattet
+          span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen erstattet
         .progress.progress-striped.active
           .progress-bar.progress-bar-danger(style="width: #{[100, current / (goal / 100)].min}%")
 
       li.list-group-item
-        - goal = 400
+        - goal = 2000
         - statistics = Notice.statistics(Time.zone.today.beginning_of_month)
         - current = statistics[:shared]
         p
           strong> Monatsziel:
-          span #{current} von #{goal} Anzeigen erstattet
+          span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen erstattet
         .progress.progress-striped.active
           .progress-bar.progress-bar-warning(style="width: #{[100, current / (goal / 100)].min}%")
 
       li.list-group-item
-        - goal = 400 * 5
+        - goal = 2000 * 5
         - statistics = Notice.statistics(Time.zone.today.beginning_of_year)
         - current = statistics[:shared]
         p
           strong> Jahresziel:
-          span #{current} von #{goal} Anzeigen erstattet
+          span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen erstattet
         .progress.progress-striped.active
           .progress-bar.progress-bar-info(style="width: #{[100, current / (goal / 100)].min}%")
 
@@ -108,4 +128,4 @@ hr.spacer-large
       - statistics.each do |key, value|
         li.list-group-item
           = t(key, scope: 'users.statistics')
-          .badge.pull-right= value
+          .badge.pull-right= number_with_delimiter(value)

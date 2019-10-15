@@ -336,6 +336,7 @@
       "Premacy",
       "RX-7",
       "RX-8",
+      "Infiniti",
       "Xedox 6"
     ]
   },
@@ -851,6 +852,17 @@
       "Trajet",
       "Tucson",
       "Veloster"
+    ]
+  },
+  {
+    "brand": "Tesla",
+    "models": [
+      "Roadster",
+      "Model S",
+      "Model 3",
+      "Model X",
+      "Model Y",
+      "Semi"
     ]
   },
   {

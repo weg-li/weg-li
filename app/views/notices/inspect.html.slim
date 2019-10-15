@@ -1,9 +1,13 @@
-= image_tag(url_for_photo(@photo, size: :default), class: 'item-photo')
+p= image_tag(url_for_photo(@photo, size: :default), class: 'item-photo')
 strong gcloud key
 = debug @photo.key
-strong plates
-= debug Annotator.grep_text(@result) { |string| Vehicle.plate?(string) }
-strong result
-= debug @result
 strong metadata
 = debug @photo.metadata
+strong plates
+= debug Annotator.grep_text(@result) { |string| Vehicle.plate?(string) }
+strong brand
+= debug Annotator.grep_text(@result) { |string| Vehicle.brand?(string) }
+strong color
+= debug Annotator.dominant_colors(@result)
+strong result
+= debug @result

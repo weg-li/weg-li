@@ -9,6 +9,12 @@ module UserHandling
     end
   end
 
+  def authenticate_community_user!
+    if !signed_in? || !access?(:community)
+      redirect_to(root_path, notice: 'You are not supposed to see that!')
+    end
+  end
+
   def authenticate_admin_user!
     if !signed_in? || !session_user.admin?
       redirect_to(root_path, notice: 'You are not supposed to see that!')
@@ -30,7 +36,7 @@ module UserHandling
   def access?(kind)
     return false if signed_out?
 
-    User.accesses[kind] <= User.accesses[current_user.access]
+    User.accesses[kind] <= User.accesses[session_user.access]
   end
 
   def current_user?

@@ -11,3 +11,7 @@ test:
   username: postgres
   host: localhost
   encoding: utf8
+
+production:
+  encoding: utf8
+  pool: <%= ENV['RAILS_MAX_THREADS'] || 10 %>

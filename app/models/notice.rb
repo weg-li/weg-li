@@ -1,4 +1,6 @@
 class Notice < ActiveRecord::Base
+  ADDRESS_ZIP_PATTERN =/.+(\d{5}).+/
+
   extend TimeSplitter::Accessors
   split_accessor :date
 
@@ -18,15 +20,16 @@ class Notice < ActiveRecord::Base
 
   before_validation :defaults
 
-  geocoded_by :address, language: Proc.new { |model| I18n.locale }, no_annotations: true
-  reverse_geocoded_by :latitude, :longitude, language: Proc.new { |model| I18n.locale }, no_annotations: true
+  geocoded_by :full_address, language: Proc.new { |model| I18n.locale }, no_annotations: true
   after_validation :geocode
 
   belongs_to :user
+  belongs_to :district
   belongs_to :bulk_upload, optional: true
   has_many_attached :photos
 
-  validates :photos, :registration, :charge, :address, :date, presence: :true
+  validates :photos, :registration, :charge, :street, :zip, :city, :date, presence: :true
+  validates :zip, format: { with: /\d{5}/, message: 'PLZ ist nicht korrekt' }
 
   enum status: {open: 0, disabled: 1, analyzing: 2, shared: 3}
 
@@ -46,8 +49,23 @@ class Notice < ActiveRecord::Base
       shared: since(date).shared.count,
       users: User.where(id: since(date).pluck(:user_id)).count,
       all_users: User.since(date).count,
-      districts: District.all.size,
+      districts: District.count,
     }
+  end
+
+  def self.prepared_claim(token)
+    Notice.joins(:user).where({ users: { access: :ghost} }).find_by(token: token)
+  end
+
+  def duplicate!
+    notice = dup
+    notice.photos_attachments = photos.map(&:dup)
+    notice.registration = nil
+    notice.color = nil
+    notice.brand = nil
+    notice.status = :open
+    notice.save_incomplete!
+    notice.reload
   end
 
   def analyze!
@@ -60,9 +78,10 @@ class Notice < ActiveRecord::Base
     other = Notice.shared.since(1.month.ago).find_by(registration: registrations)
     if other
       self.registration = other.registration
-      self.brand = other.brand
-      self.color = other.color
       self.charge = other.charge
+      self.brand = other.brand if other.brand?
+      self.color = other.color if other.color?
+      self.flags = other.flags if other.flags?
     end
   end
 
@@ -72,26 +91,52 @@ class Notice < ActiveRecord::Base
     @similar_count ||= Notice.since(since).where(registration: registration).count
   end
 
+  def date_doubles
+    return false if registration.blank?
+
+    user.notices.where('DATE(date) = DATE(?)', date).where(registration: registration).where.not(id: id)
+  end
+
   def photo_doubles
     user.photos_attachments.joins(:blob).where('active_storage_attachments.record_id != ?', id).where('active_storage_blobs.filename' => photos.map { |photo| photo.filename.to_s })
   end
 
-  def district=(district)
-    self[:district] = district.to_s
+  def zip
+    super || (address || '')[ADDRESS_ZIP_PATTERN, 1]
   end
 
-  def district
-    District.by_name(self[:district])
+  def meta
+    photos.map(&:metadata).to_json
   end
 
   def coordinates?
     latitude? && longitude?
   end
 
+  def handle_geocoding
+    if coordinates?
+      results = Geocoder.search([latitude, longitude])
+      if results.present?
+        best_result = results.first
+        self.zip = best_result.postal_code
+        self.city = best_result.city
+        self.street = "#{best_result.street} #{best_result.house_number}".strip
+      end
+    else
+      self.city ||= user.city
+      geocode
+    end
+  end
+
+  def full_address
+    [street, zip, city].compact.join(' ')
+  end
+
   def map_data
     {
       latitude: latitude,
       longitude: longitude,
+      charge: charge,
     }
   end
 
@@ -103,6 +148,10 @@ class Notice < ActiveRecord::Base
 
   def defaults
     self.token ||= SecureRandom.hex(16)
-    self.district ||= user&.district
+    if zip? && zip_changed?
+      # TODO join on zip
+      district = District.from_zip(zip)
+      self.district = district if district.present?
+    end
   end
 end

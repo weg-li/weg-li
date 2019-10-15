@@ -9,9 +9,9 @@ footer
         li
           = link_to map_url, title: 'weg-li Karte' do
             <span class="glyphicon glyphicon-map-marker"></span> Karte
-        / li
-        /   = link_to blog_url, title: 'weg-li Blog' do
-        /     <span class="glyphicon glyphicon-book"></span> Blog
+        li
+          = link_to districts_url, title: 'weg-li Bezirke' do
+            <span class="glyphicon glyphicon-list"></span> Bezirke
         li
           = link_to privacy_url, title: 'weg-li Datenschutz' do
             <span class="glyphicon glyphicon-lock"></span> Datenschutz
@@ -21,10 +21,15 @@ footer
         li
           = mail_to 'peter@weg-li.de' do
             <span class="glyphicon glyphicon-send"></span> E-Mail
-        li= link_to 'https://twitter.com/weg_li', title: 'weg-li on Twitter - @weg_li' do
+        li
+          = link_to 'https://twitter.com/weg_li', title: 'weg-li on Twitter - @weg_li', target: '_blank' do
             <span class="glyphicon glyphicon-retweet"></span> Twitter
-        li= link_to 'https://github.com/weg-li', title: 'weg-li on GitHub - We <3 Open-Source!' do
-            <span class="glyphicon glyphicon-heart-empty"></span> GitHub
+        li
+          = link_to 'https://github.com/weg-li', title: 'weg-li on GitHub - We <3 Open-Source!', target: '_blank' do
+            <span class="glyphicon glyphicon-heart"></span> GitHub
+        li
+          = link_to 'https://status.weg-li.de', title: 'weg-li status', target: '_blank' do
+            <span class="glyphicon glyphicon-dashboard"></span> Status
       / hr
       / p.spacer.margin-left-small
       /   em.text-muted.smaller #{t('footer.references')}:
@@ -61,9 +66,7 @@ footer
   .row
     .col-lg-12.text-center
       small.text-muted
-        | Die weg-li &beta;eta ist #{link_to('am 1. August 2019 gestartet', 'https://twitter.com/phoet/status/1156893833105485824', target: '_blank', class: 'text-muted')} und ist jetzt schon in #{District.all.size} Bezirken vefügbar:
-        br
-        - District.all.each do |district|
-          => link_to district.display_name, map_url(district: district.name), class: 'text-muted'
+        | Die weg-li &beta;eta ist #{link_to('am 1. August 2019 gestartet', 'https://twitter.com/phoet/status/1156893833105485824', target: '_blank')} und jetzt #{link_to "in #{number_with_delimiter(District.count)} Bezirken verfügbar", map_url }.
+
 - if defined?(Puma)
   | <!-- served by Puma-#{Puma::Const::PUMA_VERSION} #{Puma::Const::CODE_NAME} Ruby: #{RUBY_VERSION} on Rails #{Rails.version} -->

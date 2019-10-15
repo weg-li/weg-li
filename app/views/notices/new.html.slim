@@ -11,8 +11,7 @@
     .col-lg-12
       .pull-right
         .btn-group
-          = form.button 'hochladen & neu erfassen', name: :another, class: "btn btn-default"
-          = form.submit 'hochladen & weiter', class: "btn btn-success"
+          = form.submit 'hochladen', class: "btn btn-success"
 
 - if access?(:community)
   hr.spacer

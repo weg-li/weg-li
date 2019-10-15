@@ -5,12 +5,11 @@ class HomeController < ApplicationController
   def map
     @since = (params[:since] || '7').to_i
     @display = params[:display] || 'cluster'
-    @district = District.by_name(params[:district] || current_user&.district_name || 'hamburg')
+    @district = params[:district] || current_user&.city || 'Hamburg'
 
-    @notices = Notice.shared.for_public.since(@since.days.ago).where(user_id: User.for_public.where(district: @district.name).pluck(:id))
+    @notices = Notice.shared.since(@since.days.ago).joins(:district).where(districts: {name: @district})
     @active = @notices.map(&:user_id).uniq.size
-    @total = User.count
-    @count = User.group(:district).count
+    @default_district = District.find_by(name: @district) || District.first
   end
 
   def faq

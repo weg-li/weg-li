@@ -24,7 +24,9 @@ class GPickerMap {
   constructor(canvas) {
     this.canvas = canvas[0];
     this.notice = canvas.data("notice");
-    this.target = canvas.data("target");
+    this.street = canvas.data("street");
+    this.zip = canvas.data("zip");
+    this.city = canvas.data("city");
     this.trigger = canvas.data("trigger");
     this.map = null;
     this.marker = null;
@@ -49,13 +51,16 @@ class GPickerMap {
     google.maps.event.addListener(this.marker, 'dragend', (event) => {
       const lat = event.latLng.lat();
       const lng = event.latLng.lng();
-      console.log(lat, lng);
+
       var geocoder = new google.maps.Geocoder;
       geocoder.geocode({'location': { lat, lng }}, (results, status) => {
         if (status === 'OK') {
           if (results.length > 0) {
             const result = (results.filter(result => result.types.includes('street_address')) || results)[0];
-            $(this.target).val(result.formatted_address);
+            const location = Object.fromEntries(result.address_components.map(comp => [comp.types[0], comp.long_name]))
+            $(this.street).val(`${location.route || ''} ${location.street_number || ''}`.trim());
+            $(this.zip).val(location.postal_code || '');
+            $(this.city).val(location.locality || location.administrative_area_level_1 || location.political || '');
           } else {
             window.alert('Es konnten keine Ergebnisse gefunden werden.');
           }
@@ -94,16 +99,24 @@ class GMultiMap {
   show() {
     const options = {
       zoom: this.init.zoom,
+      center: new google.maps.LatLng(this.init.latitude, this.init.longitude),
       scrollwheel: false,
       streetViewControl: false,
-      center: new google.maps.LatLng(this.init.latitude, this.init.longitude),
       mapTypeId: google.maps.MapTypeId.ROADMAP,
     }
+
+    const bounds  = new google.maps.LatLngBounds();
     const map = new google.maps.Map(this.canvas, options);
     this.notices.forEach((notice) => {
       const position = new google.maps.LatLng(notice.latitude, notice.longitude);
-      new google.maps.Marker({position, map, title: notice.location});
+      bounds.extend(position);
+
+      new google.maps.Marker({ position, map, title: notice.charge });
     });
+    if (!bounds.isEmpty()) {
+      map.fitBounds(bounds);
+      map.panToBounds(bounds);
+    }
   }
 }
 
@@ -117,20 +130,25 @@ class GClusterMap {
   show() {
     const options = {
       zoom: this.init.zoom,
+      center: new google.maps.LatLng(this.init.latitude, this.init.longitude),
       scrollwheel: false,
       streetViewControl: false,
-      center: new google.maps.LatLng(this.init.latitude, this.init.longitude),
       mapTypeId: google.maps.MapTypeId.ROADMAP,
     }
 
+    const bounds  = new google.maps.LatLngBounds();
     const map = new google.maps.Map(this.canvas, options);
     const markers = this.notices.map((notice, i) => {
       const position = new google.maps.LatLng(notice.latitude, notice.longitude);
-      return new google.maps.Marker({
-        position,
-        title: notice.location,
-      });
+      bounds.extend(position);
+
+      return new google.maps.Marker({ position, title: notice.charge });
     });
+    if (!bounds.isEmpty()) {
+      map.fitBounds(bounds);
+      map.panToBounds(bounds);
+    }
+
     new MarkerClusterer(map, markers, {imagePath: '/img/map/m'});
   }
 }

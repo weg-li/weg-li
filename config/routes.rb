@@ -4,9 +4,12 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
 
   namespace :admin do
-    resources :articles
+    # resources :articles
+    resources :districts
     resources :authorizations
-    resources :notices
+    resources :notices do
+      post :analyze
+    end
     resources :bulk_uploads
     resources :users do
       post :login
@@ -19,6 +22,8 @@ Rails.application.routes.draw do
     resources :notices
     resources :users
   end
+
+  post "/analyze_direct_upload" => "direct_uploads#analyze", as: :direct_upload_analyze
 
   resources :bulk_uploads do
     member do
@@ -34,6 +39,9 @@ Rails.application.routes.draw do
     member do
       get :inspect
       get :share
+      get :prepare
+      patch :duplicate
+      patch :polish
       patch :mail
       patch :enable
       patch :disable
@@ -49,11 +57,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users do
+  resources :users, only: [:edit, :update, :destroy] do
     patch :confirmation_mail, on: :member
   end
 
   resources :articles
+  resources :districts
 
   resource :sitemap, only: :show
 
@@ -84,11 +93,11 @@ Rails.application.routes.draw do
   # root 'notices#index', as: :authenticated_root, constraints: -> (request) { request.env['rack.session'].has_key?('user_id') || request.env['rack.request.cookie_hash'].has_key?('remember_me') }
   root 'home#index'
 
-  get '/blog',     to: 'articles#index'
-  get '/home',     to: 'home#index'
-  get '/map',      to: 'home#map'
-  get '/faq',      to: 'home#faq'
-  get '/privacy',  to: 'home#privacy'
+  get '/blog',     to: 'articles#index', as: :blog
+  get '/home',     to: 'home#index', as: :home
+  get '/map',      to: 'home#map', as: :map
+  get '/faq',      to: 'home#faq', as: :faq
+  get '/privacy',  to: 'home#privacy', as: :privacy
 
   # dev
   get '/styleguide', to: 'styleguide#index'

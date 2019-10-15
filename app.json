@@ -49,7 +49,6 @@
     "sendgrid",
     "newrelic",
     "heroku-postgresql",
-    "heroku-redis",
     "scheduler"
   ]
 }

@@ -16,14 +16,8 @@ describe User do
   end
 
   it "generates wegli_email" do
-    user = Fabricate.build(:user, token: 'dd-33', nickname: 'Funktä rd--//')
-    expect(user.wegli_email).to eql('funkta-rd+dd-33@anzeige.weg-li.de')
-  end
-
-  it "handles districts" do
-    expect(user.district).to be(District::HAMBURG)
-    user.district = District::LUENEBURG.name
-    expect(user.district).to be(District::LUENEBURG)
+    user = Fabricate.build(:user, token: 'dd-33')
+    expect(user.wegli_email).to eql('dd-33@anzeige.weg-li.de')
   end
 
   context "admin" do

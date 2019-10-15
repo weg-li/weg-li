@@ -2,6 +2,11 @@ class AnalyzerJob < ApplicationJob
   queue_as :default
 
   def perform(notice)
+    Rails.logger.info("current connection is #{ActiveRecord::Base.connection_config[:pool]}")
+    plates = []
+    brands = []
+    colors = []
+
     notice.data ||= {}
     notice.photos.each do |photo|
       notice.latitude ||= photo.metadata[:latitude] if photo.metadata[:latitude].to_f.positive?
@@ -16,16 +21,20 @@ class AnalyzerJob < ApplicationJob
         end
 
         notice.data[photo.record_id] = result
-        registrations = Annotator.grep_text(result) { |string| Vehicle.plate?(string) }
-        notice.apply_favorites(registrations)
-
-        notice.registration ||= registrations.first
-        notice.brand ||= Annotator.grep_text(result) { |string| Vehicle.brand?(string) }.first
-        notice.color ||= Annotator.dominant_colors(result).first
+        plates += Annotator.grep_text(result) { |string| Vehicle.plate?(string) }
+        brands += Annotator.grep_text(result) { |string| Vehicle.brand?(string) }
+        colors += Annotator.dominant_colors(result)
       end
     end
 
-    notice.reverse_geocode
+    most_likely_registraton = Vehicle.most_likely_plate?(plates)
+    notice.apply_favorites(most_likely_registraton)
+
+    notice.registration ||= most_likely_registraton
+    notice.brand ||= Vehicle.most_often?(brands)
+    notice.color ||= Vehicle.most_often?(colors)
+
+    notice.handle_geocoding
     notice.status = :open
     notice.save_incomplete!
   end

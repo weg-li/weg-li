@@ -6,7 +6,7 @@
     .panel-heading
       = link_to new_bulk_upload_path, class: 'btn btn-sm btn-success', title: 'Meldung erfassen' do
         span.glyphicon.glyphicon-cloud-upload>
-        | Fotos hochladen
+        | Massen-Upload starten
     .table-responsive
       table.table.table-striped.table-hover
         thead
@@ -66,5 +66,19 @@
   = paginate @bulk_uploads
 
 .well.well-sm
+  strong Aktionen für Massen-Uploads
+  small
+    ul.list-inline
+      li
+        span.glyphicon.glyphicon-eye-open>
+        | Massen-Upload ansehen
+      li
+        span.glyphicon.glyphicon-move>
+        | Massen-Upload gruppieren
+      li
+        span.glyphicon.glyphicon-trash>
+        | Massen-Upload löschen
+
+  strong Status für Massen-Uploads
   - @filter_status.each do |status|
     p= render 'upload_status', status: status, legend: true

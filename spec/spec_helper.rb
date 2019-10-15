@@ -12,6 +12,10 @@ Geocoder::Lookup::Test.set_default_stub(
     {
       'coordinates'  => [45.1891676, 5.6997775],
       'address'      => '8 Avenue Aristide Briand, 38600 Fontaine, France',
+      'street'       => 'Avenue Aristide Briand',
+      'house_number' => '8',
+      'postal_code'  => '38600',
+      'city'         => 'Fontaine',
       'state'        => 'Rhone-Alpes',
       'state_code'   => 'RA',
       'country'      => 'France',

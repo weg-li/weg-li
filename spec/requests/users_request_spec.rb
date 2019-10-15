@@ -5,15 +5,16 @@ describe 'sitemaps', type: :request do
     @user = login
   end
 
-  context "GET :show" do
-    it "renders the users profile page" do
-      get user_path(@user)
+  context "GET :edit" do
+    it "renders the page" do
+      get edit_user_path(@user)
 
       expect(response).to be_successful
+      assert_select('.panel-heading', 'E-Mail Adresse')
     end
   end
 
-  context "POST :update" do
+  context "PATCH :update" do
     it "resets validation and sends an email when address is changed" do
       @user.update! validation_date: Time.new(2015, 1, 1, 0, 0, 0).utc
       expect {

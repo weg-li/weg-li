@@ -25,29 +25,22 @@
                 = link_to new_notice_path do
                   span.glyphicon.glyphicon-plus.smaller>
                   span.margin-left-small Meldung erfassen
-              - if access?(:community)
-                li
-                  = link_to bulk_uploads_path do
-                    span.glyphicon.glyphicon-th-list.smaller>
-                    span.margin-left-small Uploads
-                li
-                  = link_to new_bulk_upload_path do
-                    span.glyphicon.glyphicon-cloud-upload.smaller>
-                    span.margin-left-small Upload starten
+              li
+                = link_to bulk_uploads_path do
+                  span.glyphicon.glyphicon-th-list.smaller>
+                  span.margin-left-small Massen-Uploads
+              li
+                = link_to new_bulk_upload_path do
+                  span.glyphicon.glyphicon-cloud-upload.smaller>
+                  span.margin-left-small Massen-Upload starten
 
         - if signed_in? && admin?
           li
             = link_to 'Styleguide', styleguide_path
+          li
+            = link_to 'Admin', '/admin', target: '_blank'
 
       ul.nav.navbar-nav.navbar-right
-        / li.dropdown(data-turbolinks="false")
-        /   a class="dropdown-toggle" data-toggle="dropdown" href="#" id="language" title=t('navigation.locale')
-        /     span.glyphicon.glyphicon-globe.small>
-        /     = t('navigation.locale')
-        /     span.caret
-        /   ul.dropdown-menu aria-labelledby="language"
-        /     - I18n.available_locales.each do |locale|
-        /       li= link_to t("locale.#{locale}"), url_for(locale: locale)
         - if signed_in?
           li.dropdown.navbar-user
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">#{gravatar(current_user)} <span class="caret"></span></a>
@@ -57,7 +50,7 @@
                   span.glyphicon.glyphicon-edit.smaller>
                   span.margin-left-small= t('navigation.edit_profile')
               li
-                = link_to current_user do
+                = link_to public_profile_path(current_user.token) do
                   span.glyphicon.glyphicon-user.smaller>
                   span.margin-left-small= t('navigation.view_profile')
           li(data-no-turbolink)

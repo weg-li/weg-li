@@ -2,8 +2,7 @@
 class NoticeMailerPreview < ActionMailer::Preview
   def charge
     notice = Notice.first!
-    user = notice.user
 
-    NoticeMailer.charge(user, notice)
+    NoticeMailer.charge(notice)
   end
 end

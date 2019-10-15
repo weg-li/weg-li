@@ -43,29 +43,31 @@ class BulkUploadsController < ApplicationController
 
     if params[:one_per_photo]
       photos = bulk_upload.photos
-      Notice.transaction do
-        photos.each do |photo|
-          notice = current_user.notices.build(bulk_upload: bulk_upload)
+      photos.each do |photo|
+        notice = current_user.notices.build(bulk_upload: bulk_upload)
+        Notice.transaction do
           notice.save_incomplete!
           photo.update!(record: notice)
-          notice.analyze!
         end
-      end
-    else
-      photos = bulk_upload.photos.find(params[:bulk_upload][:photos])
-      Notice.transaction do
-        notice = current_user.notices.build(bulk_upload: bulk_upload)
-        notice.save_incomplete!
-        photos.each { |photo| photo.update!(record: notice) }
         notice.analyze!
       end
-    end
 
-    redirect_to edit_bulk_upload_path(bulk_upload), notice: 'Neue Meldung aus Fotos erzeugt'
+      redirect_to bulk_uploads_path, notice: 'Neue Meldungen wurden erzeugt'
+    else
+      photos = bulk_upload.photos.find(params[:bulk_upload][:photos])
+      notice = current_user.notices.build(bulk_upload: bulk_upload)
+      Notice.transaction do
+        notice.save_incomplete!
+        photos.each { |photo| photo.update!(record: notice) }
+      end
+      notice.analyze!
+
+      redirect_to edit_bulk_upload_path(bulk_upload), notice: 'Neue Meldung aus Fotos erzeugt'
+    end
   end
 
   def purge
-    bulk_upload = current_user.bulk_uploads.from_param(params[:id])
+    bulk_upload = current_user.bulk_uploads.find(params[:id])
     bulk_upload.photos.find(params[:photo_id]).purge
 
     redirect_back fallback_location: edit_bulk_upload_path(bulk_upload), notice: 'Foto gelöscht'

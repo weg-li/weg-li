@@ -20,17 +20,38 @@
   .col-lg-12
     = render 'photos', notice: @notice, publicly: true
 
-.row
-  .col-lg-12
-    .well.well-sm.callout
-      p
-        |
-          Ist eine Anzeige einmal erstattet worden, so wird sie verfolgt und kann nicht wieder zurückgenommen werden.
-          Anzeigen sollten niemals leichtfertig und nur mit begründetem Verdacht gemeldet werden.
+= render 'alerts', notice: @notice
 
-= form_errors @notice
-= form_for @notice, url: mail_notice_path(@notice) do |form|
-  = render 'share_form', notice: @notice, form: form
+- if @notice.district.present?
+  .row
+    .col-lg-12
+      = render 'callout', section: 'notices', key: 'send_email'
+
+  = form_errors @notice
+  = form_for @notice, url: mail_notice_path(@notice), method: :patch do |form|
+    .row
+      .col-lg-12
+        .form-group
+          = form.label :district, class: "control-label control-label-required"
+          = form.text_field :district, value: form.object.district.display_name, disabled: true, class: "form-control"
+          small.help-block Die zuständige E-Mail-Adresse wurde automatisch anhand der Adresse der Meldung ermittelt. Adresse stimmt nicht? Schreibe gerne an #{mail_to 'peter@weg-li.de'}!
+
+    hr.spacer
+
+    .row
+      .col-lg-12
+        .pull-right
+          .btn-group
+            = link_to 'Daten ändern', edit_notice_path(@notice), class: 'btn btn-default'
+            = form.submit 'Anzeige erstatten', class: "btn btn-success"
+
+- else
+  .alert.alert-warning
+    strong
+      - if @notice.zip.blank?
+        | Die Adresse der Meldung braucht noch eine PLZ, damit das zuständige Ordnungsamt ausgefüllt werden kann!
+      - else
+        | Der Bezirk für die PLZ #{@notice.zip} fehlt noch, schreibe gerne an #{mail_to 'peter@weg-li.de'} falls die die E-Mail-Adresse der zuständigen Stelle kennst!
 
   hr.spacer
 
@@ -39,4 +60,3 @@
       .pull-right
         .btn-group
           = link_to 'Daten ändern', edit_notice_path(@notice), class: 'btn btn-default'
-          = link_to 'zurück zur Übersicht', notices_path, class: 'btn btn-default'

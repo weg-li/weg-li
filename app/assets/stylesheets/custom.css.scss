@@ -5,12 +5,36 @@ $warning-color: #f89406;
 $info-color: #5bc0de;
 $danger-color: #ee5f5b;
 
+.panel-nav {
+  border-top: 0px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+.nav-panel {
+  li.active {
+    a {
+      background-color: #3e444c;
+    }
+    a:hover {
+      background-color: #2e3338;
+    }
+  }
+}
+
 .well-active {
   background-color: $primary-color;
 }
 
+.input-group {
+  width: 100%;
+}
+
+.input-group-addon-xs {
+  padding: 1px;
+}
+
 .progress-sm {
-  height: 10px;
+  height: 12px;
 }
 
 .turbolinks-progress-bar {
@@ -20,6 +44,12 @@ $danger-color: #ee5f5b;
 
 .gravatar {
   border-radius: 5px;
+}
+
+.photos-add-button {
+  position: absolute;
+  right: 25px;
+  z-index: 10;
 }
 
 .map-canvas {
@@ -303,9 +333,9 @@ pre.charge {
 
 .step {
   border-radius: 999999%;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-bottom: 3px;
+  padding-left: 9px;
+  padding-right: 9px;
+  padding-bottom: 4px;
   padding-top: 3px;
   text-shadow: none;
 }
