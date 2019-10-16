@@ -33,36 +33,40 @@
                   li role="separator" class="divider"
                   li= link_to 'kein Filter', url_for(@table_params.merge(filter: nil))
         tbody
-        - if @bulk_uploads.present?
-          - @bulk_uploads.each do |bulk_upload|
+          - if @bulk_uploads.present?
+            - @bulk_uploads.each do |bulk_upload|
+              tr
+                td
+                  .input-group.input-group-sm
+                    .input-group-addon
+                      = check_box_tag "selected[]", bulk_upload.id, false, class: 'select-all'
+                    = render 'upload_actions', bulk_upload: bulk_upload
+                td
+                  - if bulk_upload.photos.present?
+                    = link_to([:edit, bulk_upload]) do
+                      - bulk_upload.photos.first(3).each do |photo|
+                        = image_tag(url_for_photo(photo, size: :thumb), class: 'index-photo')
+                  - else
+                    span -
+                td= d(bulk_upload.created_at)
+                td= render 'upload_status', status: bulk_upload.status
+
+          - else
             tr
-              td
-                .input-group.input-group-sm
-                  .input-group-addon
-                    = check_box_tag "selected[]", bulk_upload.id, false, class: 'select-all'
-                  = render 'upload_actions', bulk_upload: bulk_upload
-              td
-                - if bulk_upload.photos.present?
-                  = link_to([:edit, bulk_upload]) do
-                    - bulk_upload.photos.first(3).each do |photo|
-                      = image_tag(url_for_photo(photo, size: :thumb), class: 'index-photo')
-                - else
-                  span -
-              td= d(bulk_upload.created_at)
-              td= render 'upload_status', status: bulk_upload.status
-          tr
-            td= check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
-            td(colspan=4)
-              small
-                label(for='select_all') Alle Uploads auswählen
-        - else
-          tr
-            td(colspan=7) Es wurden keine Uploads gefunden
+              td(colspan=7) Es wurden keine Uploads gefunden
     .panel-footer
-      .btn-group
-        = button_tag name: :bulk_action, value: :destroy, type: :submit, class: 'btn btn-sm btn-default' do
-          span.glyphicon.glyphicon-trash>
-          span löschen
+      .btn-group.dropup
+        label.btn
+          => check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
+          | alle auswählen
+        button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+          span.caret
+          span.sr-only Aktionen
+        ul.dropdown-menu
+          li
+            = button_tag name: :bulk_action, value: :destroy, type: :submit, class: 'btn btn-sm btn-link' do
+              span.glyphicon.glyphicon-trash>
+              span löschen
 
 .text-center
   = paginate @bulk_uploads

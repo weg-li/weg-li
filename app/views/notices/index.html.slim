@@ -60,12 +60,6 @@
                         = image_tag(url_for_photo(photo, size: :thumb), class: 'index-photo')
                   td= link_to(d(notice.created_at), notice)
                   td= render 'status', status: notice.status
-              tr
-                td(colspan=5)
-                  .btn.btn-default.btn-xs
-                    label
-                      => check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
-                      small Alle Meldungen auswählen
 
             - else
               tr
@@ -73,16 +67,26 @@
       .panel-footer
         .row
           .col-lg-12
-            .btn-group
-              = button_tag name: :bulk_action, value: :analyze, type: :submit, class: 'btn btn-sm btn-default', title: 'Auswahl analysieren' do
-                span.glyphicon.glyphicon-hourglass>
-                span analysieren
-              = button_tag name: :bulk_action, value: :share, type: :submit, class: 'btn btn-sm btn-default', title: 'Auswahl melden' do
-                span.glyphicon.glyphicon-share>
-                span melden
-              = button_tag name: :bulk_action, value: :destroy, type: :submit, class: 'btn btn-sm btn-default', title: 'Auswahl löschen' do
-                span.glyphicon.glyphicon-trash>
-                span löschen
+            .btn-group.dropup
+              label.btn
+                => check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
+                | alle auswählen
+              button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                span.caret
+                span.sr-only Aktionen
+              ul.dropdown-menu
+                li
+                  = button_tag name: :bulk_action, value: :analyze, type: :submit, class: 'btn btn-sm btn-link' do
+                    span.glyphicon.glyphicon-hourglass>
+                    span unvollständige analysieren
+                li
+                  = button_tag name: :bulk_action, value: :share, type: :submit, class: 'btn btn-sm btn-link' do
+                    span.glyphicon.glyphicon-share>
+                    span vollständige melden
+                li
+                  = button_tag name: :bulk_action, value: :destroy, type: :submit, class: 'btn btn-sm btn-link' do
+                    span.glyphicon.glyphicon-trash>
+                    span offene löschen
 
   .text-center
     = paginate @notices
