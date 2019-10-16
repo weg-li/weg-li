@@ -173,6 +173,7 @@ de:
     change_settings: 'Einstellungen ändern'
     flags:
       hide_public_profile: 'öffentliches Profil deaktivieren'
+      disable_reminders: 'Erinnerungen deaktivieren'
   articles:
     title: 'das weg-li Blog'
     wrote_on: 'hat am <em>%{date}</em> geschrieben'

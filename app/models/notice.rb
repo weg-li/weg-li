@@ -30,6 +30,10 @@ class Notice < ActiveRecord::Base
   scope :destroyable, -> () { where.not(status: :shared) }
   scope :for_public, -> () { where.not(status: :disabled) }
 
+  def self.for_reminder
+    open.joins(:user).where(date: [(21.days.ago.beginning_of_day)..(14.days.ago.end_of_day)]).merge(User.not_disable_reminders)
+  end
+
   def self.from_param(token)
     find_by_token!(token)
   end

@@ -16,7 +16,7 @@ namespace :scheduler do
     with_tracking do
       puts "send reminders"
 
-      open_notices = Notice.open.where(date: [(100.days.ago.beginning_of_day)..(14.days.ago.end_of_day)])
+      open_notices = Notice.for_reminder
       groups = open_notices.group_by(&:user)
       groups.each do |user, notices|
         UserMailer.reminder(user, notices).deliver_now

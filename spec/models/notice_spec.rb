@@ -50,4 +50,13 @@ describe Notice do
       expect(notice.token).to be_present
     end
   end
+
+  context "scopes" do
+    it "finds_for_reminder" do
+      notice = Fabricate(:notice, date: 15.days.ago)
+      expect(Notice.for_reminder.to_a).to eql([notice])
+      notice.user.update! disable_reminders: true
+      expect(Notice.for_reminder).to be_empty
+    end
+  end
 end
