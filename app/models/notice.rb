@@ -126,7 +126,7 @@ class Notice < ActiveRecord::Base
   end
 
   def full_address
-    [street, zip, city].compact.join(' ')
+    "#{street}, #{zip} #{city}, Deutschland"
   end
 
   def map_data
