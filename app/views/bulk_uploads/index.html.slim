@@ -32,22 +32,24 @@
                         = render 'upload_status', status: status
                   li role="separator" class="divider"
                   li= link_to 'kein Filter', url_for(@table_params.merge(filter: nil))
-            th
         tbody
         - if @bulk_uploads.present?
           - @bulk_uploads.each do |bulk_upload|
             tr
-              td= check_box_tag "selected[]", bulk_upload.id, false, class: 'select-all'
+              td
+                .input-group.input-group-sm
+                  .input-group-addon
+                    = check_box_tag "selected[]", bulk_upload.id, false, class: 'select-all'
+                  = render 'upload_actions', bulk_upload: bulk_upload
               td
                 - if bulk_upload.photos.present?
-                  = link_to(bulk_upload) do
+                  = link_to([:edit, bulk_upload]) do
                     - bulk_upload.photos.first(3).each do |photo|
                       = image_tag(url_for_photo(photo, size: :thumb), class: 'index-photo')
                 - else
                   span -
               td= d(bulk_upload.created_at)
               td= render 'upload_status', status: bulk_upload.status
-              td= render 'upload_actions', bulk_upload: bulk_upload
           tr
             td= check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
             td(colspan=4)

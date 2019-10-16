@@ -1,6 +1,9 @@
+- button_text ||= false
 .dropdown
   button.btn.btn-default.btn-sm.dropdown-toggle type="button" data-toggle="dropdown"
-    | <span class="glyphicon glyphicon-cog"></span> <span class="caret"></span>
+    | <span class="glyphicon glyphicon-cog"></span>
+    =<> 'Aktionen' if button_text
+    | <span class="caret"></span>
   ul.dropdown-menu
     li
       = link_to bulk_upload_path(bulk_upload)

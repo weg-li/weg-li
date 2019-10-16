@@ -11,12 +11,13 @@
           span.glyphicon.glyphicon-plus>
           | Meldung erfassen
       .table-responsive
-        .visible-xs-block.scroll-indicator
-          a(href="#actions" data-turbolinks="false") ⤳
         table.table.table-striped.table-hover
           thead
             tr
               th
+                .visible-xs-block.pull-right
+                  a(href="#anchor" onclick="event.preventDefault(); document.getElementById('anchor').scrollIntoView({behavior: 'smooth', block: 'end', inline: 'nearest'})" data-turbolinks="false") ⤳
+              th= Notice.human_attribute_name(:registration)
               th= Notice.human_attribute_name(:photos)
               th
                 => Notice.human_attribute_name(:created_at)
@@ -37,23 +38,28 @@
                           = render 'status', status: status
                     li role="separator" class="divider"
                     li= link_to 'kein Filter', url_for(@table_params.merge(filter: nil))
-              th
-                span Aktionen
-                span#actions.pull-right(style="width:0px;")
+                span#anchor.pull-right(style="width:0px;")
           tbody
             - if @notices.present?
               - @notices.each do |notice|
                 tr
-                  td= check_box_tag "selected[]", notice.id, false, class: 'select-all'
+                  td
+                    .input-group.input-group-sm
+                      .input-group-addon
+                        = check_box_tag "selected[]", notice.id, false, class: 'select-all'
+                      = render 'actions', notice: notice
+                  td
+                    - if notice.incomplete?
+                      = link_to([:edit, notice]) do
+                        = render 'status', status: :incomplete
+                    - else
+                      = link_to(notice.registration, notice)
                   td
                     = link_to(notice) do
                       - notice.photos.each do |photo|
                         = image_tag(url_for_photo(photo, size: :thumb), class: 'index-photo')
                   td= link_to(d(notice.created_at), notice)
-                  td
-                    => render 'status', status: notice.status
-                    = render 'status', status: :incomplete if notice.incomplete?
-                  td= render 'actions', notice: notice
+                  td= render 'status', status: notice.status
               tr
                 td= check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
                 td(colspan=4)
