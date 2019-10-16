@@ -67,26 +67,26 @@
       .panel-footer
         .row
           .col-lg-12
-            .btn-group.dropup
+            .btn-group.btn-group-sm.dropup
               label.btn
-                => check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
+                => check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))", style: 'margin: 0px'
                 | alle auswählen
               button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                 span.caret
                 span.sr-only Aktionen
               ul.dropdown-menu
                 li
-                  = button_tag name: :bulk_action, value: :analyze, type: :submit, class: 'btn btn-sm btn-link' do
+                  = button_tag name: :bulk_action, value: :analyze, type: :submit, class: 'btn btn-sm btn-link'
                     span.glyphicon.glyphicon-hourglass>
-                    span unvollständige analysieren
+                    span Auswahl analysieren
                 li
-                  = button_tag name: :bulk_action, value: :share, type: :submit, class: 'btn btn-sm btn-link' do
+                  = button_tag name: :bulk_action, value: :share, type: :submit, class: 'btn btn-sm btn-link'
                     span.glyphicon.glyphicon-share>
-                    span vollständige melden
+                    span Auswahl melden
                 li
-                  = button_tag name: :bulk_action, value: :destroy, type: :submit, class: 'btn btn-sm btn-link' do
+                  = button_tag name: :bulk_action, value: :destroy, type: :submit, class: 'btn btn-sm btn-link', data: {confirm: 'Die Meldungen werden endgültig gelöscht'}
                     span.glyphicon.glyphicon-trash>
-                    span offene löschen
+                    span Auswahl löschen
 
   .text-center
     = paginate @notices

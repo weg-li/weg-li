@@ -55,18 +55,18 @@
             tr
               td(colspan=7) Es wurden keine Uploads gefunden
     .panel-footer
-      .btn-group.dropup
+      .btn-group.btn-group-sm.dropup
         label.btn
-          => check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
+          => check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))", style: 'margin: 0px'
           | alle auswählen
         button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
           span.caret
           span.sr-only Aktionen
         ul.dropdown-menu
           li
-            = button_tag name: :bulk_action, value: :destroy, type: :submit, class: 'btn btn-sm btn-link' do
+            = button_tag name: :bulk_action, value: :destroy, type: :submit, class: 'btn btn-sm btn-link', data: {confirm: 'Die Massen-Uploads werden endgültig gelöscht'}
               span.glyphicon.glyphicon-trash>
-              span löschen
+              span Auswahl löschen
 
 .text-center
   = paginate @bulk_uploads
