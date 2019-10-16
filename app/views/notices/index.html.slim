@@ -61,10 +61,12 @@
                   td= link_to(d(notice.created_at), notice)
                   td= render 'status', status: notice.status
               tr
-                td= check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
-                td(colspan=4)
-                  small
-                    label(for='select_all') Alle Meldungen auswählen
+                td(colspan=5)
+                  .btn.btn-default.btn-xs
+                    label
+                      => check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
+                      small Alle Meldungen auswählen
+
             - else
               tr
                 td(colspan=7)= t('notices.nothing_found')
