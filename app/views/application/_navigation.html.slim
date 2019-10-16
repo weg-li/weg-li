@@ -9,30 +9,33 @@
         span.icon-bar
     #navbar-main.navbar-collapse.collapse
       ul.nav.navbar-nav
-        li.dropdown
-          - if signed_in?
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">#{t('navigation.notices')} <span class="caret"></span></a>
-            ul.dropdown-menu aria-labelledby="login"
+        - if signed_in?
+          li.dropdown
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Meldungen <span class="caret"></span></a>
+            ul.dropdown-menu
               li
                 = link_to notices_path do
-                  span.glyphicon.glyphicon-th-list.smaller>
-                  span.margin-left-small Meldungen
-              li
-                = link_to map_notices_path do
-                  span.glyphicon.glyphicon-map-marker.smaller>
-                  span.margin-left-small Kartenansicht
+                  span.glyphicon.glyphicon-th-list>
+                  span.margin-left-small Übersicht
               li
                 = link_to new_notice_path do
-                  span.glyphicon.glyphicon-plus.smaller>
-                  span.margin-left-small Meldung erfassen
+                  span.glyphicon.glyphicon-plus>
+                  span.margin-left-small Erfassen
+              li
+                = link_to map_notices_path do
+                  span.glyphicon.glyphicon-map-marker>
+                  span.margin-left-small Kartenansicht
+          li.dropdown
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Massen-Uploads <span class="caret"></span></a>
+            ul.dropdown-menu
               li
                 = link_to bulk_uploads_path do
-                  span.glyphicon.glyphicon-th-list.smaller>
-                  span.margin-left-small Massen-Uploads
+                  span.glyphicon.glyphicon-th-list>
+                  span.margin-left-small Übersicht
               li
                 = link_to new_bulk_upload_path do
-                  span.glyphicon.glyphicon-cloud-upload.smaller>
-                  span.margin-left-small Massen-Upload starten
+                  span.glyphicon.glyphicon-cloud-upload>
+                  span.margin-left-small Starten
 
         - if signed_in? && admin?
           li
@@ -44,14 +47,14 @@
         - if signed_in?
           li.dropdown.navbar-user
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">#{gravatar(current_user)} <span class="caret"></span></a>
-            ul.dropdown-menu aria-labelledby="login"
+            ul.dropdown-menu
               li
                 = link_to [:edit, current_user] do
-                  span.glyphicon.glyphicon-edit.smaller>
+                  span.glyphicon.glyphicon-edit>
                   span.margin-left-small= t('navigation.edit_profile')
               li
                 = link_to public_profile_path(current_user.token) do
-                  span.glyphicon.glyphicon-user.smaller>
+                  span.glyphicon.glyphicon-user>
                   span.margin-left-small= t('navigation.view_profile')
           li(data-no-turbolink)
             = link_to logout_path, title: t('navigation.logout') do
