@@ -14,7 +14,7 @@ class Notice < ActiveRecord::Base
   before_validation :defaults
 
   geocoded_by :full_address, language: Proc.new { |model| I18n.locale }, no_annotations: true
-  after_validation :geocode, if: :complete?
+  after_validation :geocode, if: :do_geocoding?
 
   belongs_to :user
   belongs_to :district
@@ -68,7 +68,7 @@ class Notice < ActiveRecord::Base
   def analyze!
     self.status = :analyzing
     save_incomplete!
-    AnalyzerJob.set(wait: 3.seconds).perform_later(self)
+    AnalyzerJob.set(wait: 1.seconds).perform_later(self)
   end
 
   def apply_favorites(registrations)
@@ -98,10 +98,6 @@ class Notice < ActiveRecord::Base
     user.photos_attachments.joins(:blob).where('active_storage_attachments.record_id != ?', id).where('active_storage_blobs.filename' => photos.map { |photo| photo.filename.to_s })
   end
 
-  def zip
-    super || (address || '')[ADDRESS_ZIP_PATTERN, 1]
-  end
-
   def meta
     photos.map(&:metadata).to_json
   end
@@ -110,18 +106,21 @@ class Notice < ActiveRecord::Base
     latitude? && longitude?
   end
 
+  def do_geocoding?
+    Rails.logger.warn("allowing geocoding with #{coordinates?} #{latitude} #{longitude} #{zip} #{city} #{street}")
+    !coordinates? && zip? && city? && street?
+  end
+
   def handle_geocoding
     if coordinates?
       results = Geocoder.search([latitude, longitude])
+      Rails.logger.warn("geocode with #{latitude} #{longitude} and result #{results}")
       if results.present?
         best_result = results.first
         self.zip = best_result.postal_code
         self.city = best_result.city
         self.street = "#{best_result.street} #{best_result.house_number}".strip
       end
-    else
-      self.city ||= user.city
-      geocode
     end
   end
 
