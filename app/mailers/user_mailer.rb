@@ -1,16 +1,14 @@
-class UserMailer < ActionMailer::Base
-  default from: "peter@weg-li.de", bcc: "peter@weg-li.de"
-
+class UserMailer < ApplicationMailer
   def signup(user)
     @user = user
 
-    mail to: @user.email, subject: t('mailers.signup')
+    mail to: email_address_with_name(@user.email, @user.name), subject: t('mailers.signup')
   end
 
   def validate(user)
     @user = user
 
-    mail to: @user.email, subject: t('mailers.validate')
+    mail to: email_address_with_name(@user.email, @user.name), subject: t('mailers.validate')
   end
 
   def email_auth(email, token)
@@ -24,6 +22,6 @@ class UserMailer < ActionMailer::Base
     @notices = notices
 
     subject = "Meldungen jetzt zur Anzeige bringen"
-    mail subject: subject, to: "#{@user.name} <#{@user.email}>"
+    mail subject: subject, to: email_address_with_name(@user.email, @user.name)
   end
 end

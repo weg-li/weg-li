@@ -1,6 +1,4 @@
-class NoticeMailer < ActionMailer::Base
-  default from: "peter@weg-li.de", bcc: "peter@weg-li.de"
-
+class NoticeMailer < ApplicationMailer
   def charge(notice)
     @notice = notice
     @user = notice.user
@@ -11,6 +9,10 @@ class NoticeMailer < ActionMailer::Base
     end
 
     subject = "Anzeige #{@notice.registration} #{@notice.charge}"
-    mail subject: subject, to: notice.district.email, cc: "#{@user.name} <#{@user.email}>", reply_to: "#{@user.name} <#{@user.email}>", from: "#{@user.name} <#{@user.wegli_email}>"
+    mail subject: subject,
+     to: notice.district.email,
+     cc: email_address_with_name(@user.email, @user.name),
+     reply_to: email_address_with_name(@user.email, @user.name),
+     from: email_address_with_name(@user.wegli_email, @user.name)
   end
 end
