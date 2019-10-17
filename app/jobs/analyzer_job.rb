@@ -1,8 +1,15 @@
 class AnalyzerJob < ApplicationJob
+  class NotYetAnalyzedError < StandardError; end
+
+  retry_on NotYetAnalyzedError, attempts: 15, wait: :exponentially_longer
+
   queue_as :default
 
   def perform(notice)
     Rails.logger.info("current connection is #{ActiveRecord::Base.connection_config[:pool]}")
+
+    raise NotYetAnalyzedError unless notice.photos.all?(&:analyzed?)
+
     plates = []
     brands = []
     colors = []
