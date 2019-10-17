@@ -14,7 +14,7 @@ class Notice < ActiveRecord::Base
   before_validation :defaults
 
   geocoded_by :full_address, language: Proc.new { |model| I18n.locale }, no_annotations: true
-  after_validation :geocode
+  after_validation :geocode, if: :complete?
 
   belongs_to :user
   belongs_to :district
