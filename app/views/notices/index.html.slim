@@ -46,7 +46,7 @@
                   td
                     .input-group.input-group-sm
                       .input-group-addon
-                        = check_box_tag "selected[]", notice.id, false, class: 'select-all'
+                        = check_box_tag "selected[]", notice.id, false, class: 'select-all checkbox-addon'
                       = render 'actions', notice: notice
                   td
                     - if notice.incomplete?
@@ -69,7 +69,7 @@
           .col-lg-12
             .btn-group.btn-group-sm.dropup
               label.btn
-                => check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))", style: 'margin: 0px'
+                => check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))", class: 'checkbox-addon'
                 | alle auswählen
               button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                 span.caret
