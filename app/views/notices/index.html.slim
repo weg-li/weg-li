@@ -53,7 +53,10 @@
                       = link_to([:edit, notice]) do
                         = render 'status', status: :incomplete
                     - else
-                      = link_to(notice.registration, notice)
+                      = link_to(notice)
+                        span.label.label-license
+                          span.glyphicon.glyphicon-status
+                          span<= notice.registration
                   td
                     = link_to(notice) do
                       - notice.photos.each do |photo|

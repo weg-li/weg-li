@@ -176,6 +176,13 @@ ul.droppable-list {
   background-color: $success-color;
 }
 
+.label-license {
+  border: 1px solid $default-color;
+  color: $default-color;
+  background: #EEE;
+  // background: linear-gradient(90deg, rgba(11,0,191,1) 0%, rgba(11,0,191,1) 7%, rgba(255,255,255,1) 8%, rgba(255,255,255,1) 100%);
+}
+
 .control-label-required::after {
   content:"*";
 }
