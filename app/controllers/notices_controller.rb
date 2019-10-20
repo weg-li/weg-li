@@ -10,6 +10,7 @@ class NoticesController < ApplicationController
     @table_params = {}
 
     @notices = current_user.notices.page(params[:page])
+    @notices = @notices.where('registration ILIKE :term', term: "%#{params[:term]}%") if params[:term]
     if filter = params[:filter]
       @table_params[:filter] = filter.to_unsafe_hash
       @notices = @notices.where(status: filter[:status]) if filter[:status]

@@ -3,13 +3,17 @@
 
 = render 'activation_popup'
 
-- if @notices.present? || params[:filter]
-  = form_tag bulk_notices_path, method: :post do
-    .panel.panel-default
-      .panel-heading
-        = link_to new_notice_path, class: 'btn btn-sm btn-success', title: 'Meldung erfassen' do
-          span.glyphicon.glyphicon-plus>
-          | Meldung erfassen
+- if current_user.notices.any?
+  .panel.panel-default
+    .panel-heading
+      = link_to new_notice_path, class: 'btn btn-sm btn-success', title: 'Meldung erfassen' do
+        span.glyphicon.glyphicon-plus>
+        | Meldung erfassen
+      .pull-right
+        = form_tag(url_for, method: :get, class: 'form-inline') do
+          = text_field_tag(:term, params[:term], placeholder: 'z.B. HH SV 1887', class: 'form-control input-sm')
+          = submit_tag('Suchen', class: "btn btn-default btn-sm")
+    = form_tag bulk_notices_path, method: :post do
       .table-responsive
         table.table.table-striped.table-hover
           thead
