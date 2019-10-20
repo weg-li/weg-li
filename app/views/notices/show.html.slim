@@ -3,7 +3,8 @@
 
 .panel.panel-default
   .panel-heading
-    = render 'actions', notice: @notice, button_text: true
+    .dropdown
+      = render 'actions', notice: @notice, button_text: true
   .panel-body
     h3 Meldung vom #{l(@notice.created_at)}
     .row

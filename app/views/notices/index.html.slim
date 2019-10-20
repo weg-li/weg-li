@@ -15,8 +15,6 @@
           thead
             tr
               th
-                .visible-xs-block.pull-right
-                  a(href="#anchor" onclick="event.preventDefault(); document.getElementById('anchor').scrollIntoView({behavior: 'smooth', block: 'end', inline: 'nearest'})" data-turbolinks="false") ⤳
               th= Notice.human_attribute_name(:registration)
               th= Notice.human_attribute_name(:photos)
               th
@@ -38,15 +36,14 @@
                           = render 'status', status: status
                     li role="separator" class="divider"
                     li= link_to 'kein Filter', url_for(@table_params.merge(filter: nil))
-                span#anchor.pull-right(style="width:0px;")
           tbody
             - if @notices.present?
               - @notices.each do |notice|
                 tr
-                  td
-                    .input-group.input-group-sm
-                      .input-group-addon
-                        = check_box_tag "selected[]", notice.id, false, class: 'select-all checkbox-addon'
+                  td(style="min-width:100px")
+                    .btn-group.dropup
+                      label.btn.btn-sm.btn-checkbox-addon
+                        = check_box_tag "selected[]", notice.id, false, class: 'select-all'
                       = render 'actions', notice: notice
                   td
                     - if notice.incomplete?
@@ -70,11 +67,11 @@
       .panel-footer
         .row
           .col-lg-12
-            .btn-group.btn-group-sm.dropup
-              label.btn
-                => check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))", class: 'checkbox-addon'
+            .btn-group.dropup
+              label.btn.btn-sm.btn-checkbox-addon
+                => check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
                 | alle auswählen
-              button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+              button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                 span.caret
                 span.sr-only Aktionen
               ul.dropdown-menu

@@ -21,8 +21,13 @@ $danger-color: #ee5f5b;
   }
 }
 
-.checkbox-addon {
-  margin: 0px;
+label.btn-checkbox-addon {
+  padding-top: 4px;
+
+  input {
+    width: 1em;
+    height: 1em;
+  }
 }
 
 .well-active {
