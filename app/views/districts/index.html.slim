@@ -21,6 +21,7 @@
       table.table.table-striped.table-hover
         thead
           tr
+            th
             th= District.human_attribute_name(:zip)
             th= District.human_attribute_name(:prefix)
             th= District.human_attribute_name(:name)
@@ -32,17 +33,16 @@
               /     span.glyphicon.glyphicon-arrow-up.smaller
               /   - else
               /     span.glyphicon.glyphicon-arrow-down.smaller
-            th Aktionen
         tbody
           - if @districts.present?
             - @districts.each do |district|
               tr
-                td= district.zip
-                td= district.prefix
-                td= district.name
-                td= district.email
-                td= l(district.updated_at, format: :short)
                 td= render 'actions', district: district
+                td= link_to district.zip, district
+                td= link_to district.prefix || '-', district
+                td= link_to district.name, district
+                td= link_to district.email, district
+                td= link_to l(district.updated_at, format: :short), district
 
   .text-center
     = paginate @districts

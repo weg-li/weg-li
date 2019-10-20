@@ -5,8 +5,9 @@ h3= "#{@district.name} / #{@district.zip}"
     .panel.panel-default
       .panel-heading Infos zum Bezirk
       ul.list-group
+        li.list-group-item E-Mail: #{mail_to @district.email}
+        li.list-group-item Kennzeichen: #{@district.prefix || '-'}
         li.list-group-item Aktualisiert: #{l(@district.created_at)}
-        / li.list-group-item Status: #{render('access', access: @district.access)}
 
   .col-lg-6
     .panel.panel-default
