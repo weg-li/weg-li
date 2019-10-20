@@ -1,17 +1,1 @@
-.safari-only {
-  display: none;
-}
-
-@supports (overflow:-webkit-marquee) and (justify-content:inherit) {
-  /*
-    https://solvit.io/bcf61b6
-    Define here the CSS styles applied only to the Safari 9 version when
-    running in any device
-   */
-   .safari-only {
-     display: block;
-   }
-   input[type=date], input[type=time] {
-     -webkit-appearance: none;
-   }
 }
