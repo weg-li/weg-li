@@ -6,13 +6,20 @@
 - if current_user.notices.any?
   .panel.panel-default
     .panel-heading
-      = link_to new_notice_path, class: 'btn btn-sm btn-success', title: 'Meldung erfassen' do
-        span.glyphicon.glyphicon-plus>
-        | Meldung erfassen
-      .pull-right
-        = form_tag(url_for, method: :get, class: 'form-inline') do
-          = text_field_tag(:term, params[:term], placeholder: 'z.B. HH SV 1887', class: 'form-control input-sm')
-          = submit_tag('Suchen', class: "btn btn-default btn-sm")
+      .row
+        .col-xs-12.col-lg-8
+          = link_to new_notice_path, class: 'btn btn-sm btn-success', title: 'Meldung erfassen' do
+            span.glyphicon.glyphicon-plus>
+            | Meldung erfassen
+        .col-xs-12.col-lg-4
+          = form_tag(url_for, method: :get)
+            .input-group.input-group-sm
+              = text_field_tag(:term, params[:term], placeholder: 'z.B. HH SV 1887', class: 'form-control')
+              span.input-group-btn
+                span.input-group-btn
+                  = button_tag(class: "btn btn-default btn-sm")
+                    span.glyphicon.glyphicon-search
+
     = form_tag bulk_notices_path, method: :post do
       .table-responsive
         table.table.table-striped.table-hover
@@ -44,9 +51,9 @@
             - if @notices.present?
               - @notices.each do |notice|
                 tr
-                  td(style="min-width:100px")
-                    .btn-group.dropdown
-                      label.btn.btn-sm.btn-checkbox-addon
+                  td
+                    .btn-group.btn-group-checkbox.dropdown
+                      label.btn.btn-sm
                         = check_box_tag "selected[]", notice.id, false, class: 'select-all'
                       = render 'actions', notice: notice
                   td
@@ -71,10 +78,11 @@
       .panel-footer
         .row
           .col-lg-12
-            .btn-group.dropup
-              label.btn.btn-sm.btn-checkbox-addon
+            .input-group.input-group-sm
+              label.input-group-addon
                 => check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
                 | alle auswählen
+
               button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                 span.caret
                 span.sr-only Aktionen
@@ -91,6 +99,27 @@
                   = button_tag name: :bulk_action, value: :destroy, type: :submit, class: 'btn btn-sm btn-link', data: {confirm: 'Die Meldungen werden endgültig gelöscht'}
                     span.glyphicon.glyphicon-trash>
                     span Auswahl löschen
+            /
+            / .btn-group.btn-group-checkbox.dropup
+            /   label.btn.btn-sm.btn-checkbox-addon
+            /     => check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
+            /     | alle auswählen
+            /   button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            /     span.caret
+            /     span.sr-only Aktionen
+            /   ul.dropdown-menu
+            /     li
+            /       = button_tag name: :bulk_action, value: :analyze, type: :submit, class: 'btn btn-sm btn-link'
+            /         span.glyphicon.glyphicon-hourglass>
+            /         span Auswahl analysieren
+            /     li
+            /       = button_tag name: :bulk_action, value: :share, type: :submit, class: 'btn btn-sm btn-link'
+            /         span.glyphicon.glyphicon-share>
+            /         span Auswahl melden
+            /     li
+            /       = button_tag name: :bulk_action, value: :destroy, type: :submit, class: 'btn btn-sm btn-link', data: {confirm: 'Die Meldungen werden endgültig gelöscht'}
+            /         span.glyphicon.glyphicon-trash>
+            /         span Auswahl löschen
 
   .text-center
     = paginate @notices

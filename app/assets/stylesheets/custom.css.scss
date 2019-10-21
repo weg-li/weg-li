@@ -25,12 +25,21 @@ $danger-color: #ee5f5b;
   min-height: 200px;
 }
 
-label.btn-checkbox-addon {
-  padding-top: 4px;
+.btn-group-checkbox {
+  min-width: 100px;
 
-  input {
-    width: 1em;
-    height: 1em;
+  label {
+    padding: 5px 5px 5px 5px;
+
+    input {
+      padding: 0px;
+      margin: 0px;
+      width: 11px;
+      height: 11px;
+    }
+  }
+  button.btn {
+    height: 30px;
   }
 }
 

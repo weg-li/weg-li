@@ -38,7 +38,8 @@
               tr
                 td
                   .btn-group.dropdown
-                    = check_box_tag "selected[]", bulk_upload.id, false, class: 'select-all checkbox-addon'
+                    label.btn.btn-sm.btn-checkbox-addon
+                      = check_box_tag "selected[]", bulk_upload.id, false, class: 'select-all checkbox-addon'
                     = render 'upload_actions', bulk_upload: bulk_upload
                 td
                   - if bulk_upload.photos.present?
