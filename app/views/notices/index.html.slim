@@ -78,8 +78,8 @@
       .panel-footer
         .row
           .col-lg-12
-            .input-group.input-group-sm
-              label.input-group-addon
+            .btn-group.btn-group-checkbox.dropup
+              label.btn.btn-sm
                 => check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
                 | alle auswählen
 

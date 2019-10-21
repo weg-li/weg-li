@@ -22,7 +22,7 @@ $danger-color: #ee5f5b;
 }
 
 .table-responsive {
-  min-height: 200px;
+  padding-bottom: 150px;
 }
 
 .btn-group-checkbox {
@@ -31,11 +31,14 @@ $danger-color: #ee5f5b;
   label {
     padding: 5px 5px 5px 5px;
 
-    input {
+    input[type=checkbox] {
+      border: none;
       padding: 0px;
-      margin: 0px;
-      width: 11px;
-      height: 11px;
+      margin: 0 2px;
+      width: 12px;
+      height: 12px;
+      line-height: 11px;
+      font-size: 11px;
     }
   }
   button.btn {
