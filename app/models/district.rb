@@ -1,8 +1,15 @@
 class District < ActiveRecord::Base
-  validates :name, :zip, :email, presence: :true
 
   geocoded_by :geocode_address
   after_validation :geocode
+
+  acts_as_api
+
+  api_accessible :public_beta do |template|
+    %i(name zip email prefix latitude longitude created_at updated_at).each { |key| template.add(key) }
+  end
+
+  validates :name, :zip, :email, presence: :true
 
   has_many :notices
 
@@ -15,6 +22,13 @@ class District < ActiveRecord::Base
       zoom: 13,
       latitude: latitude,
       longitude: longitude,
+    }
+  end
+
+  def statistics(date = 100.years.ago)
+    {
+      notices: notices.since(date).count,
+      users: User.where(id: notices.since(date).pluck(:user_id)).count,
     }
   end
 

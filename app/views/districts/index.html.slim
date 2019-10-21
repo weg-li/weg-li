@@ -1,0 +1,34 @@
+.panel.panel-default
+  .panel-heading
+    = mail_to "peter@weg-li.de", cc: "ccaddress@domain.com", subject: "Neuen Bezirk erfassen", body: "Bitte folgenden Bezirk einspielen:\n\nPLZ / Kürzel / Name / E-Mail", class: 'btn btn-sm btn-success', title: 'Bezirk erfassen'
+      span.glyphicon.glyphicon-plus>
+      | Neuen Bezirk erfassen
+    .pull-right
+      = form_tag({url: url_for}, method: :get, class: 'form-inline') do
+        = text_field_tag(:term, params[:term], placeholder: 'z.B. 22525', class: 'form-control input-sm')
+        = submit_tag('Suchen', class: "btn btn-default btn-sm")
+
+  - if @districts.present? || params[:filter]
+    .table-responsive
+      table.table.table-striped.table-hover
+        thead
+          tr
+            th
+            th= District.human_attribute_name(:zip)
+            th= District.human_attribute_name(:prefix)
+            th= District.human_attribute_name(:name)
+            th= District.human_attribute_name(:email)
+            th= District.human_attribute_name(:updated_at)
+        tbody
+          - if @districts.present?
+            - @districts.each do |district|
+              tr
+                td= render 'actions', district: district
+                td= link_to district.zip, district
+                td= link_to district.prefix || '-', district
+                td= link_to district.name, district
+                td= link_to district.email, district
+                td= link_to l(district.updated_at, format: :short), district
+
+  .text-center
+    = paginate @districts

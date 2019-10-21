@@ -10,6 +10,7 @@ class NoticesController < ApplicationController
     @table_params = {}
 
     @notices = current_user.notices.page(params[:page])
+    @notices = @notices.where('registration ILIKE :term', term: "%#{params[:term]}%") if params[:term]
     if filter = params[:filter]
       @table_params[:filter] = filter.to_unsafe_hash
       @notices = @notices.where(status: filter[:status]) if filter[:status]
@@ -131,6 +132,13 @@ class NoticesController < ApplicationController
     NoticeMailer.charge(@notice).deliver_later
 
     redirect_to(notices_path, notice: "Deine Anzeige wurde an #{@notice.district.email} versendet.")
+  end
+
+  def duplicate
+    notice = current_user.notices.from_param(params[:id])
+    notice = notice.duplicate!
+
+    redirect_to edit_notice_path(notice), notice: 'Die Meldung wurde dupliziert'
   end
 
   def enable

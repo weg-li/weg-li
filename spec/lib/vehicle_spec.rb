@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Vehicle do
   it "loads all the data" do
-    expect(Vehicle.cars.size).to be(40)
+    expect(Vehicle.cars.size).to be(41)
   end
 
   it "it gets all the brands" do

@@ -9,6 +9,17 @@ describe Notice do
     end
   end
 
+  context "duplication" do
+    it "duplicates a notice" do
+      notice = Fabricate(:notice)
+      expect {
+        notice.duplicate!
+      }.to change {
+        Notice.count
+      }.by(1)
+    end
+  end
+
   context "apply_favorites" do
     it "applies favorites" do
       existing_notice = Fabricate.create(:notice, status: :shared, registration: 'HH PS 123')
@@ -37,6 +48,15 @@ describe Notice do
       notice = Fabricate(:notice)
       expect(notice).to be_open
       expect(notice.token).to be_present
+    end
+  end
+
+  context "scopes" do
+    it "finds_for_reminder" do
+      notice = Fabricate(:notice, date: 15.days.ago)
+      expect(Notice.for_reminder.to_a).to eql([notice])
+      notice.user.update! disable_reminders: true
+      expect(Notice.for_reminder).to be_empty
     end
   end
 end

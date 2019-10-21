@@ -1,10 +1,10 @@
 class User < ActiveRecord::Base
   include Bitfields
-  bitfield :flags, 1 => :hide_public_profile
+  bitfield :flags, 1 => :hide_public_profile, 2 => :disable_reminders
 
   enum access: {disabled: -99, ghost: -1, user: 0, community: 1, admin: 42}
 
-  geocoded_by :geocode_address
+  geocoded_by :full_address
   after_validation :geocode
   before_validation :defaults
 
@@ -24,7 +24,14 @@ class User < ActiveRecord::Base
   scope :for_public, -> () { not_hide_public_profile }
 
   def validate!
-    update_attributes! validation_date: Time.now
+    auth = authorizations.find_or_initialize_by(provider: 'email')
+    auth.update! uid: email_uid
+
+    self.update! validation_date: Time.now
+  end
+
+  def email_uid
+    Digest::SHA256.new.hexdigest(email)
   end
 
   def validated?
@@ -33,18 +40,6 @@ class User < ActiveRecord::Base
 
   def full_address
     "#{street}, #{zip} #{city}, Deutschland"
-  end
-
-  def geocode_address
-    "#{street}, #{zip}, #{city}, Germany"
-  end
-
-  def prefill_address_fields
-    address.match(/(.+?),?\s*(\d{5}),?\s*(.+)/)
-
-    self.street ||= $1&.strip
-    self.zip ||= $2&.strip
-    self.city ||= $3&.strip
   end
 
   def to_label

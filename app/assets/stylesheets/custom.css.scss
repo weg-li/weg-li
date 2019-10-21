@@ -21,6 +21,36 @@ $danger-color: #ee5f5b;
   }
 }
 
+.table-responsive {
+  padding-bottom: 50px;
+}
+@media (max-width: 767px) {
+  .table-responsive {
+    padding-bottom: 100px;
+  }
+}
+
+.btn-group-checkbox {
+  min-width: 100px;
+
+  label {
+    padding: 5px 5px 5px 5px;
+
+    input[type=checkbox] {
+      border: none;
+      padding: 0px;
+      margin: 0 2px;
+      width: 12px;
+      height: 12px;
+      line-height: 11px;
+      font-size: 11px;
+    }
+  }
+  button.btn {
+    height: 30px;
+  }
+}
+
 .well-active {
   background-color: $primary-color;
 }
@@ -34,7 +64,7 @@ $danger-color: #ee5f5b;
 }
 
 .progress-sm {
-  height: 10px;
+  height: 12px;
 }
 
 .turbolinks-progress-bar {
@@ -170,6 +200,13 @@ ul.droppable-list {
 }
 .label-access-admin {
   background-color: $success-color;
+}
+
+.label-license {
+  border: 1px solid $default-color;
+  color: $default-color;
+  background: #EEE;
+  // background: linear-gradient(90deg, rgba(11,0,191,1) 0%, rgba(11,0,191,1) 7%, rgba(255,255,255,1) 8%, rgba(255,255,255,1) 100%);
 }
 
 .control-label-required::after {
@@ -333,9 +370,9 @@ pre.charge {
 
 .step {
   border-radius: 999999%;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-bottom: 3px;
+  padding-left: 9px;
+  padding-right: 9px;
+  padding-bottom: 4px;
   padding-top: 3px;
   text-shadow: none;
 }

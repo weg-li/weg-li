@@ -21,6 +21,7 @@ gem 'omniauth-telegram'
 gem 'slim-rails'
 gem 'kaminari'
 gem 'kaminari-bootstrap', '~> 3.0.1'
+gem 'acts_as_api'
 gem 'pg'
 gem 'redcarpet'
 gem 'geocoder'
@@ -40,6 +41,7 @@ group :production do
   gem 'rails_12factor'
   gem 'heroku-deflater'
   gem 'dalli'
+  gem 'barnes'
 end
 
 group :development do

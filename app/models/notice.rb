@@ -14,12 +14,11 @@ class Notice < ActiveRecord::Base
   before_validation :defaults
 
   geocoded_by :full_address, language: Proc.new { |model| I18n.locale }, no_annotations: true
-  reverse_geocoded_by :latitude, :longitude, language: Proc.new { |model| I18n.locale }, no_annotations: true
-  after_validation :geocode
+  after_validation :geocode, if: :do_geocoding?
 
   belongs_to :user
   belongs_to :district
-  belongs_to :bulk_upload
+  belongs_to :bulk_upload, optional: true
   has_many_attached :photos
 
   validates :photos, :registration, :charge, :street, :zip, :city, :date, :duration, presence: :true
@@ -30,6 +29,10 @@ class Notice < ActiveRecord::Base
   scope :since, -> (date) { where('notices.created_at > ?', date) }
   scope :destroyable, -> () { where.not(status: :shared) }
   scope :for_public, -> () { where.not(status: :disabled) }
+
+  def self.for_reminder
+    open.joins(:user).where(date: [(21.days.ago.beginning_of_day)..(14.days.ago.end_of_day)]).merge(User.not_disable_reminders)
+  end
 
   def self.from_param(token)
     find_by_token!(token)
@@ -51,10 +54,21 @@ class Notice < ActiveRecord::Base
     Notice.joins(:user).where({ users: { access: :ghost} }).find_by(token: token)
   end
 
+  def duplicate!
+    notice = dup
+    notice.photos_attachments = photos.map(&:dup)
+    notice.registration = nil
+    notice.color = nil
+    notice.brand = nil
+    notice.status = :open
+    notice.save_incomplete!
+    notice.reload
+  end
+
   def analyze!
     self.status = :analyzing
     save_incomplete!
-    AnalyzerJob.set(wait: 3.seconds).perform_later(self)
+    AnalyzerJob.set(wait: 1.seconds).perform_later(self)
   end
 
   def apply_favorites(registrations)
@@ -84,20 +98,6 @@ class Notice < ActiveRecord::Base
     user.photos_attachments.joins(:blob).where('active_storage_attachments.record_id != ?', id).where('active_storage_blobs.filename' => photos.map { |photo| photo.filename.to_s })
   end
 
-  def zip
-    super || (address || '')[ADDRESS_ZIP_PATTERN, 1]
-  end
-
-  def prefill_address_fields
-    return unless address?
-
-    address.gsub(/,?\s*(Deutschland|Germany)/, '').match(/(.+?),?\s*(\d{5}),?\s*(.+)/)
-
-    self.street = $1&.strip
-    self.zip = $2&.strip
-    self.city = $3&.strip || user.city
-  end
-
   def meta
     photos.map(&:metadata).to_json
   end
@@ -106,23 +106,26 @@ class Notice < ActiveRecord::Base
     latitude? && longitude?
   end
 
+  def do_geocoding?
+    Rails.logger.warn("allowing geocoding with #{coordinates?} #{latitude} #{longitude} #{zip} #{city} #{street}")
+    !coordinates? && zip? && city? && street?
+  end
+
   def handle_geocoding
     if coordinates?
       results = Geocoder.search([latitude, longitude])
+      Rails.logger.warn("geocode with #{latitude} #{longitude} and result #{results}")
       if results.present?
         best_result = results.first
         self.zip = best_result.postal_code
         self.city = best_result.city
         self.street = "#{best_result.street} #{best_result.house_number}".strip
       end
-    else
-      self.city ||= user.city
-      geocode
     end
   end
 
   def full_address
-    [street, zip, city].compact.join(' ')
+    "#{street}, #{zip} #{city}, Deutschland"
   end
 
   def map_data

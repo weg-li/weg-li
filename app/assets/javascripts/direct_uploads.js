@@ -35,15 +35,22 @@ addEventListener("direct-upload:error", event => {
   errorEl.classList.remove("hidden");
 });
 
-addEventListener("direct-upload:end", (event) => loadEdit(event));
-
-async function loadEdit(event) {
+addEventListener("direct-upload:end", event => {
   const { target, detail } = event;
   const { id } = event.detail;
+  const element = document.getElementById(`direct-upload-${id}`);
+  element.classList.add("active");
+
   const signed_id = target.previousElementSibling.value;
   if (signed_id && fetch) {
     const url = target.attributes['analyze_url'].value;
     const data = { blob: { signed_id } };
+    setTimeout(triggerAnalyzation, 50, url, data);
+  }
+});
+
+// optimization, trigger async processing once its upoaded
+async function triggerAnalyzation(url, data) {
     try {
       const response = await fetch(url, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -52,10 +59,7 @@ async function loadEdit(event) {
         credentials: 'same-origin', // include, *same-origin, omit
         headers: {
           'Content-Type': 'application/json'
-          // 'Content-Type': 'application/x-www-form-urlencoded',
         },
-        redirect: 'follow', // manual, *follow, error
-        referrer: 'no-referrer', // no-referrer, *client
         body: JSON.stringify(data) // body data type must match "Content-Type" header
       });
       const result = await response.json(); // parses JSON response into native JavaScript objects
@@ -63,7 +67,4 @@ async function loadEdit(event) {
     } catch (e) {
       console.log(e);
     }
-  }
-  const element = document.getElementById(`direct-upload-${id}`);
-  element.classList.add("active");
 }

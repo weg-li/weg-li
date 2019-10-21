@@ -15,6 +15,12 @@ de:
       authorization: 'Auth'
       article: 'Artikel'
     attributes:
+      district:
+        zip: 'PLZ'
+        name: 'Name'
+        email: 'E-Mail'
+        prefix: 'Kürzel'
+        updated_at: 'aktualisiert'
       user:
         time_zone: 'Zeitzone'
         nickname: 'Spitzname'
@@ -130,6 +136,10 @@ de:
     signup: 'Du hast Dich erfolgreich registriert, bitte bestätige Deine E-Mail Adresse!'
     validate: 'Bitte bestätige Deine E-Mail Adresse!'
     email_auth: 'Logge Dich bei weg-li ein.'
+  districts:
+    statistics:
+      notices: 'Meldungen insgesamt'
+      users: 'Benutzer insgesamt'
   users:
     access:
       admin: 'Admin'
@@ -163,6 +173,7 @@ de:
     change_settings: 'Einstellungen ändern'
     flags:
       hide_public_profile: 'öffentliches Profil deaktivieren'
+      disable_reminders: 'Erinnerungen deaktivieren'
   articles:
     title: 'das weg-li Blog'
     wrote_on: 'hat am <em>%{date}</em> geschrieben'

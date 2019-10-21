@@ -75,3 +75,8 @@ hr.spacer
       .pull-right
         .btn-group
           = form.submit 'Pro Foto eine Meldung erzeugen', name: 'one_per_photo', class: "btn btn-success"
+
+hr.spacer
+
+- if @bulk_upload.notices.present?
+  = render 'notice_list', notices: @bulk_upload.notices

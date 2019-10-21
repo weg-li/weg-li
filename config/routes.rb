@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       get :inspect
       get :share
       get :prepare
+      patch :duplicate
       patch :polish
       patch :mail
       patch :enable
@@ -54,6 +55,7 @@ Rails.application.routes.draw do
   end
 
   resources :articles
+  resources :districts
 
   resource :sitemap, only: :show
 

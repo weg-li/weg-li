@@ -35,7 +35,7 @@ class BulkUploadsController < ApplicationController
   def edit
     @bulk_upload = current_user.bulk_uploads.find(params[:id])
 
-    redirect_to bulk_uploads_path, notice: 'Es wurden bereits alle Fotos des Uploads verarbeitet' and return if @bulk_upload.photos.blank?
+    redirect_to notices_path, notice: 'Es wurden bereits alle Fotos des Uploads verarbeitet' and return if @bulk_upload.photos.blank?
   end
 
   def update
@@ -52,7 +52,7 @@ class BulkUploadsController < ApplicationController
         notice.analyze!
       end
 
-      redirect_to bulk_uploads_path, notice: 'Neue Meldungen wurden erzeugt'
+      redirect_to notices_path, notice: 'Neue Meldungen wurden erzeugt'
     else
       photos = bulk_upload.photos.find(params[:bulk_upload][:photos])
       notice = current_user.notices.build(bulk_upload: bulk_upload)

@@ -1,0 +1,271 @@
+﻿Parken;;;;;;;;
+Tatbestand;Zusatz;BKat;TBNR;FaP-Pkt;Euro;"Kurztext (""Parken…"")";Zeichen;Konkretisierung noetig
+Sie parkten an einer engen/unübersichtlichen *) Straßenstelle ;;51b;112102;0;15;an enger/unübersichtlichen Straßenstelle;;X
+;mit Behinderung;51b.1;112103;0;25;;;X
+;länger als 1 Stunde;51b.2;112104;0;25;;;X
+;länger als 1 Stunde mit Behinderung;51b.2.1;112105;0;35;;;X
+Sie parkten im Bereich einer scharfen Kurve;;51b;112112;0;15;im Bereich einer scharfen Kurve;;
+;mit Behinderung;51b.1;112113;0;25;;;
+;länger als 1 Stunde;51b.2;112114;0;25;;;
+;länger als 1 Stunde mit Behinderung;51b.2.1;112115;0;35;;;
+Sie parkten vor oder in einer amtlich gekennzeichneten Feuerwehrzufahrt;;53;112216;0;35;vor oder in einer amtlichen Feuerwehrzufahrt;;
+;mit Behinderung;53.1;112612;B - 1;65;;;
+Sie parkten weniger als 5 Meter vor der Kreuzung/Einmündung *);;54;112262;0;10;weniger als 5 Meter vor der Kreuzung/Einmündung;;X
+;mit Behinderung;54.1;112263;0;15;;;X
+;länger als 3 Stunden;54.2;112264;0;20;;;X
+;länger als 3 Stunden mit Behinderung;54.2.1;112265;0;30;;;X
+Sie parkten weniger als 5 Meter hinter der Kreuzung/Einmündung *);;54;112272;0;10;weniger als 5 Meter hinter der Kreuzung/Einmündung;;X
+;mit Behinderung;54.1;112273;0;15;;;X
+;länger als 3 Stunden;54.2;112274;0;20;;;X
+;länger als 3 Stunden mit Behinderung;54.2.1;112275;0;30;;;X
+Sie parkten verbotswidrig und verhinderten dadurch die Benutzung gekennzeichneter Parkflächen;;54;112282;0;10;vor einer gekennzeichneten Parkfläche;;
+;mit Behinderung;54.1;112283;0;15;;;
+;länger als 3 Stunden;54.2;112284;0;20;;;
+;länger als 3 Stunden mit Behinderung;54.2.1;112285;0;30;;;
+Sie parkten im Bereich einer Grundstückseinfahrt bzw. -ausfahrt;;54;112292;0;10;im Bereich einer Grunstücksausfahrt;;
+;mit Behinderung;54.1;112293;0;15;;;
+;länger als 3 Stunden;54.2;112294;0;20;;;
+;länger als 3 Stunden mit Behinderung;54.2.1;112295;0;30;;;
+Sie parkten auf einer schmalen Fahrbahn gegenüber einer Grundstückseinfahrt/Grundstücks­ausfahrt*);;54;112302;0;10;auf einer schmalen Fahrbahn gegenüber einer Grundstücksausfahrt;;X
+;mit Behinderung;54.1;112303;0;15;;;X
+;länger als 3 Stunden;54.2;112304;0;20;;;X
+;länger als 3 Stunden mit Behinderung;54.2.1;112305;0;30;;;X
+Sie parkten auf einem Gehweg, auf dem das Parken erlaubt ist, verbotswidrig über einem Schachtdeckel oder sonstigen Verschluss;;54;112322;0;10;über einem Schachtdeckel auf dem Gehweg;;
+;mit Behinderung;54.1;112323;0;15;;;
+;länger als 3 Stunden;54.2;112324;0;20;;;
+;länger als 3 Stunden mit Behinderung;54.2.1;112325;0;30;;;
+Sie parkten vor einer Bordsteinabsenkung;;54;112372;0;10;vor einer Bordsteinabsenkung;;
+;mit Behinderung;54.1;112373;0;15;;;
+;länger als 3 Stunden;54.2;112374;0;20;;;
+;länger als 3 Stunden mit Behinderung;54.2.1;112375;0;30;;;
+Sie parkten verbotswidrig auf der linken Fahrbahnseite/dem linken Seitenstreifen *).;;--;112042;0;15;auf der linken Fahrbahnseite/dem linken Seitenstreifen;;X
+;mit Behinderung;--;112043;0;25;;;X
+;länger als 1 Stunde;--;112044;0;25;;;X
+;länger als 1 Stunde mit Behinderung;--;112045;0;35;;;X
+Sie parkten verbotswidrig auf einem Gehweg;;52a;112402;0;20;auf dem Gehweg;;
+;mit Behinderung;52a.1;112403;0;30;;;
+;länger als 1 Stunde;52a.2;112404;0;30;;;
+;länger als 1 Stunde mit Behinderung;52a.2.1;112405;0;35;;;
+Sie parkten nicht am rechten Fahrbahnrand;;--;112062;0;15;nicht am rechten Fahrbahnrand;;
+;mit Behinderung;--;112063;0;25;;;
+;länger als 1 Stunde;--;112064;0;25;;;
+;länger als 1 Stunde mit Behinderung;--;112065;0;35;;;
+Sie parkten unzulässig in der zweiten Reihe;;58;112412;0;20;in zweiter Reihe;;
+;mit Behinderung;58.1;112413;0;25;;;
+;länger als 15 Minuten;58.2;112414;0;30;;;
+;länger als  15 Minuten mit Behinderung;58.2.1;112415;0;35;;;
+Sie parkten im Fahrraum von Schienenfahrzeugen;;60;112428;0;25;im Fahrraum von Schienenfahrzeugen;;
+;mit Behinderung;60.1;112429;0;35;;;
+Sie parkten bei zulässigem Gehwegparken (Zeichen 315) nicht auf dem Gehweg;;52a;112432;0;20;trotz erlaubten Gehwegparken nicht auf dem Gehweg;315;
+;mit Behinderung;52a.1;112433;0;30;;;
+;länger als 1 Stunde ;52a.2;112434;0;30;;;
+;länger als 1 Stunde mit Behinderung;52a.2.1;112435;0;35;;;
+Sie parkten auf einem unbeschilderten Radweg;;52a;112442;0;20;auf unbeschildertem Radweg;;
+;mit Behinderung;52a.1;112443;0;30;;;
+;länger als 1 Stunde ;52a.2;112444;0;30;;;
+;länger als 1 Stunde mit Behinderung;52a.2.1;112445;0;35;;;
+Sie parkten auf einem Fußgängerüberweg;;52;141292;0;15;auf einem Fußgängerüberweg (Zebrastreifen);;
+;mit Behinderung;52.1;141293;0;25;;;
+;länger als 1 Stunde;52.2;141294;0;25;;;
+;länger als 1 Stunde mit Behinderung;52.2.1;141295;0;35;;;
+Sie parkten in einem Abstand von weniger als 5 Meter vor einem Fußgängerüberweg;;52;141302;0;15;weniger als 5 Meter vor einem Fußgängerüberweg (Zebrastreifen);;
+;mit Behinderung;52.1;141303;0;25;;;
+;länger als 1 Stunde;52.2;141304;0;25;;;
+;länger als 1 Stunde mit Behinderung;52.2.1;141305;0;35;;;
+Sie parkten im absolutem Haltverbot (Zeichen 283);;52;141312;0;15;im absolutem Halteverbot;283;
+;mit Behinderung;52.1;141313;0;25;;;
+;länger als 1 Stunde;52.2;141314;0;25;;;
+;länger als 1 Stunde mit Behinderung;52.2.1;141315;0;35;;;
+Sie parkten unzulässig im eingeschränkten Haltverbot (Zeichen 286).;;52;141322;0;15;im eingeschränkten Halteverbot;286;
+;mit Behinderung;52.1;141323;0;25;;;
+;länger als 1 Stunde;52.2;141324;0;25;;;
+;länger als 1 Stunde mit Behinderung;52.2.1;141325;0;35;;;
+Sie parkten links von einer Fahrbahnbegrenzung (Zeichen 295);;52;141332;0;15;links von einer Fahrbahnbegrenzung;295;
+;mit Behinderung;52.1;141333;0;25;;;
+;länger als 1 Stunde;52.2;141334;0;25;;;
+;länger als 1 Stunde mit Behinderung;52.2.1;141335;0;35;;;
+Sie parkten auf einem durch Richtungspfeile (Zeichen 297) gekennzeichneten Fahrbahnteil;;52;141342;0;15;auf mit Richtungspfeilen gekennzeichneter Fahrbahnteil;297;
+;mit Behinderung;52.1;141343;0;25;;;
+;länger als 1 Stunde;52.2;141344;0;25;;;
+;länger als 1 Stunde mit Behinderung;52.2.1;141345;0;35;;;
+Sie parkten innerhalb einer Grenzmarkierung (Zeichen 299) für ein Haltverbot;;52;141352;0;15;innerhalb einer Grenzmarkierung für ein Halteverbot;299;
+;mit Behinderung;52.1;141353;0;25;;;
+;länger als 1 Stunde;52.2;141354;0;25;;;
+;länger als 1 Stunde mit Behinderung;52.2.1;141355;0;35;;;
+Sie parkten näher als 10 Meter vor einem Andreaskreuz (Zeichen 201)/Zeichen 205 (Vorfahrt gewähren!)/Zeichen 206 (Halt! Vorfahrt gewähren!) *) und verdeckten dieses;;52;141362;0;15;näher als 10 Meter vor einem Andreaskreuz/Vorfahrt gewähren/Halt! Vorfahrt gewähren! Dabei wurde es verdeckt;201/205/206;X
+;mit Behinderung;52.1;141363;0;25;;;X
+;länger als 1 Stunde;52.2;141364;0;25;;;X
+;länger als 1 Stunde mit Behinderung;52.2.1;141365;0;35;;;X
+Sie parkten innerhalb eines Kreisverkehrs (Zeichen 215);;52;141432;0;15;innerhalb eines Kreisverkehrs;215;
+;mit Behinderung;52.1;141433;0;25;;;
+;länger als 1 Stunde;52.2;141434;0;25;;;
+;länger als 1 Stunde mit Behinderung;52.2.1;141435;0;35;;;
+Sie parkten verbotswidrig im Bereich eines Taxenstandes (Zeichen 229);;52;141382;0;15;im Bereich eines Taxenstandes;229;
+;mit Behinderung;52.1;141383;0;25;;;
+;länger als 1 Stunde;52.2;141384;0;25;;;
+;länger als 1 Stunde mit Behinderung;52.2.1;141385;0;35;;;
+Sie parkten im eingeschränkten Haltverbot (Zeichen 286/290.1, 290.2 *)) mit Zusatzzeichen „Bewohner mit Parkausweis frei“. Ein besonderer Parkausweis lag nicht gut lesbar aus;;52;141392;0;15;"im eingeschränkten Halteverbot mit ZZ ""Bewohner mit Parkausweis frei""";;X
+;mit Behinderung;52.1;141393;0;25;;;X
+;länger als 1 Stunde;52.2;141394;0;25;;;X
+;länger als 1 Stunde mit Behinderung;52.2.1;141395;0;35;;;X
+Sie parkten im eingeschränkten Haltverbot für eine Zone (Zeichen 290.1, 290.2).;;52;141118;0;15;in eingeschränkter Halteverbotszone;290;
+;mit Behinderung;52.1;141119;0;25;;;
+;länger als 1 Stunde;52.2;141121;0;25;;;
+;länger als 1 Stunde mit Behinderung;52.2.1;141122;0;35;;;
+Sie parkten in einem Abstand von weniger als 15 Metern von einem Haltestellenschild ;;54;141402;0;10;weniger als 15 Meter zu einem Haltestellenschild;;
+;mit Behinderung;54.1;141403;0;15;;;
+;länger als 3 Stunden;54.2;141404;0;20;;;
+;länger als 3 Stunden mit Behinderung;54.2.1;141405;0;30;;;
+Sie parkten, obwohl zwischen Ihrem Fahrzeug und der Fahrstreifenbegrenzung (Zeichen 295/296 *)) ein Abstand von weniger als 3 Metern verblieb;;54;141412;0;10;weniger als 3 Meter zwischen Fahrzeug und Fahrstreifenbegrenzung;295/296;X
+;mit Behinderung;54.1;141413;0;15;;;
+;länger als 3 Stunden;54.2;141414;0;20;;;
+;länger als 3 Stunden mit Behinderung;54.2.1;141415;0;30;;;
+Sie parkten innerhalb einer Grenzmarkierung (Zeichen 299) für ein Parkverbot;;54;141422;0;10;innerhalb einer Grenzmarkierung für ein Parkverbot;299;
+;mit Behinderung;54.1;141423;0;15;;;
+;länger als 3 Stunden;54.2;141424;0;20;;;
+;länger als 3 Stunden mit Behinderung;54.2.1;141425;0;30;;;
+Sie parkten auf einem Gehweg, der durch Parkflächenmarkierung zum Gehwegparken freigegeben war, obwohl Ihr Fahrzeug mehr als 2,8 t zulässige Gesamtmasse hat;;--;141042;0;15;auf freigegebenen Gehweg mit mehr als 2,8 t zGG ;;
+;mit Behinderung;--;141043;0;25;;;
+;länger als 1 Stunde;--;141044;0;25;;;
+;länger als 1 Stunde mit Behinderung;--;141045;0;35;;;
+Sie parkten auf einem Radweg (Zeichen 237);;52a;141100;0;20;auf Radweg/Radfahrstreifen (Zeichen 237);237;
+;mit Behinderung;52a.1;141101;0;30;;;
+;länger als 1 Stunde;52a.2;141103;0;30;;;
+;länger als 1 Stunde mit Behinderung;52a.2.1;141104;0;35;;;
+Sie parkten auf einem Geh- und Radweg (Zeichen 240/241);;52a;141112;0;20;auf Geh- und Radweg (Zeichen 240/241);240/241;
+;mit Behinderung;52a.1;141113;0;30;;;
+;länger als 1 Stunde;52a.2;141115;0;30;;;
+;länger als 1 Stunde mit Behinderung;52a.2.1;141116;0;35;;;
+Sie parkten auf einer Fahrradstraße (Zeichen 244.1/244.2);;--;141022;0;15;auf einer Fahrradstraße;244;
+;mit Behinderung;--;141023;0;25;;;
+;länger als 1 Stunde;--;141024;0;25;;;
+;länger als 1 Stunde mit Behinderung;--;141025;0;35;;;
+Sie parkten einem Reitweg (Zeichen 238);;52;141442;0;15;;;
+;mit Behinderung;52.1;141443;0;25;auf einem Reitweg;238;
+;länger als 1 Stunde;52.2;141444;0;25;;;
+;länger als 1 Stunde mit Behinderung;52.2.1;141445;0;35;;;
+Sie parkten im Bereich einer Feuerwehranfahrtszone/einer Feuerwehrzufahrt/eines Rettungsweges *) (Zeichen 283 mit Zusatzzeichen);;--;141056;0;35;im Bereich einer Feuerwehrzufahrt;283 mit ZZ;X
+;mit Behinderung;--;141518;0;65;;;X
+Sie parkten in einem Fußgängerbereich, der durch Zeichen 239/242.1, 242.2/250) gesperrt war.;;144;141106;0;30;im Fußgängerbereich;239/242/250;
+;mit Behinderung;144.1;141107;0;35;;;
+;länger als 3 Stunden;144.2;141109;0;35;;;
+Sie parkten in einem Verkehrsbereich, der durch Zeichen 250/251/253/255/260 *) gesperrt war.;;--;141062;0;30;im gesperrten Verkehrsbereich;250/251/253/255/260;X
+Sie parkten verbotswidrig auf einem Sonderfahrstreifen für Omnibusse des Linienverkehrs (Zeichen 245)..;;--;141377;0;15;auf Busfahrstreifen;245;
+Sie parkten in einem Verkehrsbereich, der durch Zeichen 262/263/264/265/266/267 *) gesperrt war.;;--;141378;0;20;im gesperrten Verkehrsbereich;262/263/264/265/266/267;
+Sie parkten bei Zeichen 315 auf dem Gehweg, obwohl dies durch Zusatzzeichen *) für Sie verboten war;;54;142202;0;10;auf freigegebenen Gehweg obwohl durch ZZ verboten;315;X
+;mit Behinderung;54.1;142203;0;15;;;X
+;länger als 3 Stunden;54.2;142204;0;20;;;X
+;länger als 3 Stunden mit Behinderung;54.2.1;142205;0;30;;;X
+Sie parkten auf einem Gehweg, der durch Zeichen 315 für Fahrzeuge bis zu 2,8 t zum Gehwegparken freigegeben war, obwohl Ihr Fahrzeug mehr als 2,8 t zulässiges Gesamtgewicht hat;;54;142212;0;10;auf freigegebenem Gehweg obwohl Fahrzeug mehr als 2,8t zGG;315;
+;mit Behinderung;54.1;142213;0;15;;;
+;länger als 3 Stunden;54.2;142214;0;20;;;
+;länger als 3 Stunden mit Behinderung;54.2.1;142215;0;30;;;
+Sie parkten auf einem Gehweg entgegen der durch Zeichen 315 vorgeschriebenen Aufstellungsart;;54;142222;0;10;auf freigegebenen Geweg entgegen der Aufstellungsart;315;
+;mit Behinderung;54.1;142223;0;15;;;
+;länger als 3 Stunden;54.2;142224;0;20;;;
+;länger als 3 Stunden mit Behinderung;54.2.1;142225;0;30;;;
+Sie parkten auf einem Gehweg, auf dem das Parken durch Zeichen 315 zugelassen war, über die auf dem Zusatzzeichen angegebene Zeit hinaus;;54;142232;0;10;auf freigegebenen Gehweg ausserhalb der zulässigen Zeit;315;
+;mit Behinderung;54.1;142233;0;15;;;
+;länger als 3 Stunden;54.2;142234;0;20;;;
+;länger als 3 Stunden mit Behinderung;54.2.1;142235;0;30;;;
+Sie parkten außerhalb geschlossener Ortschaft auf einer Vorfahrtsstraße (Zeichen 306);;54;142242;0;10;ausserhalb geschlossener Ortschaft auf Vorfahrtsstraße;306;
+;mit Behinderung;54.1;142243;0;15;;;
+;länger als 3 Stunden;54.2;142244;0;20;;;
+;länger als 3 Stunden mit Behinderung;54.2.1;142245;0;30;;;
+Sie parkten auf einem Sonderparkplatz für Bewohner (Zeichen 314/315 *)) mit Zusatzzeichen für „Bewohner mit besonderem Parkausweis“. Ein besonderer Parkausweis lag nicht gut lesbar aus;;54;142252;0;10;auf Sonderparkplatz für Bewohner;314/315;X
+;mit Behinderung;54.1;142253;0;15;;;X
+;länger als 3 Stunden;54.2;142254;0;20;;;X
+;länger als 3 Stunden mit Behinderung;54.2.1;142255;0;30;;;X
+Sie parkten auf einem Parkplatz (Zeichen 314), obwohl dies durch Zusatzzeichen *) für Sie verboten war;;54;142262;0;10;auf Parkplatz obwohl durch ZZ verboten;314;X
+;mit Behinderung;54.1;142263;0;15;;;X
+;länger als 3 Stunden;54.2;142264;0;20;;;X
+;länger als 3 Stunden mit Behinderung;54.2.1;142265;0;30;;;X
+Sie parkten verbotswidrig auf einem Schutzstreifen für den Radverkehr (Zeichen 340);;54a;142272;0;20;auf Schutzstreifen;340;
+;mit Behinderung;54a.1;142273;0;30;;;
+;länger als 3 Stunden;54a.2;142274;0;30;;;
+;länger als 3 Stunden mit Behinderung;54a.2.1;142275;0;35;;;
+Sie parkten in einem verkehrsberuhigten Bereich (Zeichen 325.1, 325.2) verbotswidrig außerhalb der zum Parken gekennzeichneten Flächen;;159;142103;0;10;im verkehrsberuhigtem Bereich ausserhalb der Parkfläche ;325;
+;mit Behinderung;159.1.1;142104;0;15;;;
+;länger als 3 Stunden;159.2;142106;0;20;;;
+;länger als 3 Stunden mit Behinderung;159.2.1;142107;0;30;;;
+Sie parkten an einer abgelaufenen Parkuhr;- bis 30 Minuten;63.1;113100;0;10;an einer abgelaufenen Parkuhr;;
+;länger als 30 Minuten;63.2;113101;0;15;;;
+;länger als 1 Stunde;63.3;113102;0;20;;;
+;länger als 2 Stunden;63.4;113103;0;25;;;
+;länger als 3 Stunden;63.5;113104;0;30;;;
+Sie überschritten an einer Parkuhr die zulässige/im Bereich eines Parkscheinautomaten die auf dem Parkschein angegebene *) Parkzeit;- bis 30 Minuten;63.1;113120;0;10;an einer Parkuhr mit Überschreitung der zulässigen Parkzeit;;X
+;länger als 30 Minuten;63.2;113121;0;15;;;X
+;länger als 1 Stunde;63.3;113122;0;20;;;X
+;länger als 2 Stunden;63.4;113123;0;25;;;X
+;länger als 3 Stunden;63.5;113124;0;30;;;X
+Sie parkten im Bereich eines Parkscheinautomaten ohne gültigen Parkschein;- bis 30 Minuten;63.1;113140;0;10;im Bereich eines Parkscheinautomaten ohne Parkschein;;
+;länger als 30 Minuten;63.2;113141;0;15;;;
+;länger als 1 Stunde;63.3;113142;0;20;;;
+;länger als 2 Stunden;63.4;113143;0;25;;;
+;länger als 3 Stunden;63.5;113144;0;30;;;
+Sie überschritten an einer nicht funktionsfähigen Parkuhr/im Bereich eines nicht funktionsfähigen Parkscheinautomaten *) bei Verwendung einer Parkscheibe (Bild 318) die zulässige Höchstparkdauer;Zeitüberschreitung;;;;;;;X
+;- bis 30 Minuten;63.1;113160;0;10;;;X
+;länger als 30 Minuten;63.2;113161;0;15;;;X
+;länger als 1 Stunde;63.3;113162;0;20;;;X
+;länger als 2 Stunden;63.4;113163;0;25;;;X
+;länger als 3 Stunden;63.5;113164;0;30;;;X
+Sie parkten an einer nicht funktionsfähigen Parkuhr/im Bereich eines nicht funktionsfähigen Parkscheinautomaten*), ohne eine Parkscheibe (Bild 318) von außen gut lesbar im oder am Fahrzeug angebracht zu haben ;- bis 30 Minuten;63.1;113180;0;10;;;X
+;länger als 30 Minuten;63.2;113181;0;15;;;X
+;länger als 1 Stunde;63.3;113182;0;20;;;X
+;länger als 2 Stunden;63.4;113183;0;25;;;X
+;länger als 3 Stunden;63.5;113184;0;30;;;X
+Sie parkten an einer nicht funktionsfähigen Parkuhr/im Bereich eines nicht funktionsfähigen Parkscheinautomaten *), ohne die Parkscheibe (Bild 318) richtig eingestellt zu haben;- bis 30 Minuten;63.1;113200;0;10;;;X
+;länger als 30 Minuten;63.2;113201;0;15;;;X
+;länger als 1 Stunde;63.3;113202;0;20;;;X
+;länger als 2 Stunden;63.4;113203;0;25;;;X
+;länger als 3 Stunden;63.5;113204;0;30;;;X
+Sie überschritten im Bereich eines eingeschränkten Haltverbots für eine Zone (Zeichen 290.1, 290.2) die zulässige Höchstparkdauer;- bis 30 Minuten;63.1;113220;0;10;;;
+;länger als 30 Minuten;63.2;113221;0;15;;;
+;länger als 1 Stunde;63.3;113222;0;20;;;
+;länger als 2 Stunden;63.4;113223;0;25;;;
+;länger als 3 Stunden;63.5;113224;0;30;;;
+Sie parkten im Bereich eines eingeschränkten Haltverbots für eine Zone (Zeichen 290.1, 290.2), ohne die durch Zusatzzeichen vorgeschriebene Parkscheibe (Bild 318) von außen gut lesbar im oder am Fahrzeug angebracht zu haben;- bis 30 Minuten;63.1;113240;0;10;;;
+;länger als 30 Minuten;63.2;113241;0;15;;;
+;länger als 1 Stunde;63.3;113242;0;20;;;
+;länger als 2 Stunden;63.4;113243;0;25;;;
+;länger als 3 Stunden;63.5;113244;0;30;;;
+Sie parkten im Bereich eines eingeschränkten Haltverbots für eine Zone (Zeichen 290.1, 290.2), ohne die Parkscheibe (Bild 318) richtig eingestellt zu haben;- bis 30 Minuten;63.1;113260;0;10;;;
+;länger als 30 Minuten;63.2;113261;0;15;;;
+;länger als 1 Stunde;63.3;113262;0;20;;;
+;länger als 2 Stunden;63.4;113263;0;25;;;
+;länger als 3 Stunden;63.5;113264;0;30;;;
+Sie überschritten bei Zeichen 314/315 *)  mit Zusatzzeichen die zulässige Höchstparkdauer.;- bis 30 Minuten;63.1;113280;0;10;;;X
+;länger als 30 Minuten;63.2;113281;0;15;;;X
+;länger als 1 Stunde;63.3;113282;0;20;;;X
+;länger als 2 Stunden;63.4;113283;0;25;;;X
+;länger als 3 Stunden;63.5;113284;0;30;;;X
+Sie parkten bei Zeichen 314/315 *), ohne die durch Zusatzzeichen vorgeschriebene Parkscheibe (Bild 318) von außen gut lesbar im oder am Fahrzeug angebracht zu haben;- bis 30 Minuten;63.1;113300;0;10;;;X
+;länger als 30 Minuten;63.2;113301;0;15;;;X
+;länger als 1 Stunde;63.3;113302;0;20;;;X
+;länger als 2 Stunden;63.4;113303;0;25;;;X
+;länger als 3 Stunden;63.5;113304;0;30;;;X
+Sie parkten bei Zeichen 314/315 *), ohne die durch Zusatzzeichen vorgeschriebene Parkscheibe (Bild 318) richtig eingestellt zu haben;- bis 30 Minuten;63.1;113320;0;10;;;X
+;länger als 30 Minuten;63.2;113321;0;15;;;X
+;länger als 1 Stunde;63.3;113322;0;20;;;X
+;länger als 2 Stunden;63.4;113323;0;25;;;X
+;länger als 3 Stunden;63.5;113324;0;30;;;X
+Sie parkten im Bereich eines Parkscheinautomaten, ohne den Parkschein von außen gut lesbar im oder am Fahrzeug angebracht zu haben;- bis 30 Minuten;63.1;113150;0;10;;;
+;länger als 30 Minuten;63.2;113151;0;15;;;
+;länger als 1 Stunde;63.3;113152;0;20;;;
+;länger als 2 Stunden;63.4;113153;0;25;;;
+;länger als 3 Stunden;63.5;113154;0;30;;;
+Sie überschritten im Bereich einer Parkraumbewirtschaftungszone (Zeichen 314.1/314.2) die zulässige Höchstparkdauer;- bis 30 Minuten;63.1;113330;0;10;;;
+;länger als 30 Minuten;63.2;113331;0;15;;;
+;länger als 1 Stunde;63.3;113332;0;20;;;
+;länger als 2 Stunden;63.4;113333;0;25;;;
+;länger als 3 Stunden;63.5;113334;0;30;;;
+Sie parkten im Bereich einer Parkraumbewirtschaftungszone (Zeichen 314.1, 314.2), ohne die durch Zusatzzeichen vorgeschriebene Parkscheibe (Bild 318) von außen gut lesbar im oder am Fahrzeug angebracht zu haben;- bis 30 Minuten;63.1;113340;0;10;;;
+;länger als 30 Minuten;63.2;113341;0;15;;;
+;länger als 1 Stunde;63.3;113342;0;20;;;
+;länger als 2 Stunden;63.4;113343;0;25;;;
+;länger als 3 Stunden;63.5;113344;0;30;;;
+Sie parkten im Bereich einer Parkraumbewirtschaftungszone (Zeichen 314.1, 314.2), ohne die Parkscheibe (Bild 318) richtig eingestellt zu haben;- bis 30 Minuten;63.1;113350;0;10;;;
+;länger als 30 Minuten;63.2;113351;0;15;;;
+;länger als 1 Stunde;63.3;113352;0;20;;;
+;länger als 2 Stunden;63.4;113353;0;25;;;
+;länger als 3 Stunden;63.5;113354;0;30;;;
