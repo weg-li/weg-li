@@ -1,6 +1,6 @@
 class AddDurationToNotice < ActiveRecord::Migration[6.0]
   def change
-    add_column(:notices, :duration, :integer, default: 0)
+    add_column(:notices, :duration, :integer, default: 1)
     add_column(:notices, :severity, :integer, default: 0)
 
     reversible do |dir|
