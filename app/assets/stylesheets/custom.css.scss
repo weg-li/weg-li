@@ -22,7 +22,12 @@ $danger-color: #ee5f5b;
 }
 
 .table-responsive {
-  padding-bottom: 100px;
+  padding-bottom: 50px;
+}
+@media (max-width: 767px) {
+  .table-responsive {
+    padding-bottom: 100px;
+  }
 }
 
 .btn-group-checkbox {
