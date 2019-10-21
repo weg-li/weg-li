@@ -3,13 +3,6 @@ Sehr geehrte Damen und Herren,
 
 hiermit zeige ich, mit der Bitte um Weiterverfolgung, folgende Verkehrsordnungswidrigkeit an:
 
-
-<%= Notice.human_attribute_name(:charge) %>: <%= @notice.charge %>
-
-<%= Notice.human_attribute_name(:date) %>: <%= l(@notice.date, default: Time.zone.today) %>
-
-<%= Notice.human_attribute_name(:address) %>: <%= @notice.full_address %><%= " (lat: #{@notice.latitude} lng: #{@notice.longitude})" if @notice.coordinates? %>
-
 <%= Notice.human_attribute_name(:registration) %>: <%= @notice.registration %>
 <% if @notice.brand? %>
 
@@ -20,14 +13,16 @@ hiermit zeige ich, mit der Bitte um Weiterverfolgung, folgende Verkehrsordnungsw
 <%= Notice.human_attribute_name(:color) %>: <%= t(@notice.color, scope: "activerecord.attributes.notice.colors") %>
 <% end %>
 
-Das Fahrzeug stand länger als <%= time_ago_in_words(@notice.duration) %>.
+<%= Notice.human_attribute_name(:address) %>: <%= @notice.full_address %><%= " (lat: #{@notice.latitude} lng: #{@notice.longitude})" if @notice.coordinates? %>
+
+<%= Notice.human_attribute_name(:charge) %>: <%= @notice.charge %>, <%= Notice.human_attribute_name(@notice.severity) %>
+
+<%= Notice.human_attribute_name(:date) %>: <%= l(@notice.date, default: Time.zone.today) %>
+
+Das Fahrzeug stand länger als <%= Vehicle.durations.to_h.invert[@notice.duration] %>.
 <% if @notice.empty? %>
 
 Das Fahrzeug war verlassen.
-<% end %>
-<% if @notice.hinder? %>
-
-Das Fahrzeug behindert andere Verkehrsteilnehmer.
 <% end %>
 <% if @notice.note? %>
 
@@ -55,7 +50,7 @@ Dabei dürfen Sie auch meine persönlichen Daten weiterleiten und für die Dauer
 
 
 Beweisfotos, aus denen Kennzeichen und Tatvorwurf erkennbar hervorgehen, befinden sich im Anhang.
-Bitte prüfen Sie den Sachverhalt auch auf etwaige andere Verstöße, die aus den Beweisfotos hervorgehen.
+Bitte prüfen Sie den Sachverhalt auch auf etwaige andere Verstöße, die aus den Beweisfotos zu ersehen sind.
 
 
 Diese Anzeige können Sie auch online abrufen, dort finden sich auch die Beweisfotos im Original zum Download:

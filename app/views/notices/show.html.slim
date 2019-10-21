@@ -6,7 +6,6 @@
     .dropdown
       = render 'actions', notice: @notice, button_text: true
   .panel-body
-    h3 Meldung vom #{l(@notice.created_at)}
     .row
       .col-lg-8
         = render 'details', notice: @notice

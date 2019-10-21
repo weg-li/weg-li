@@ -6,6 +6,7 @@ class Notice < ActiveRecord::Base
 
   include Bitfields
   bitfield :flags, 1 => :empty, 2 => :parked, 4 => :hinder, 8 => :parked_three_hours, 16 => :parked_one_hour
+  # bitfield :flags, 1 => :empty
 
   include Incompletable
 
@@ -21,10 +22,11 @@ class Notice < ActiveRecord::Base
   belongs_to :bulk_upload, optional: true
   has_many_attached :photos
 
-  validates :photos, :registration, :charge, :street, :zip, :city, :date, :duration, presence: :true
+  validates :photos, :registration, :charge, :street, :zip, :city, :date, :duration, :severity, presence: :true
   validates :zip, format: { with: /\d{5}/, message: 'PLZ ist nicht korrekt' }
 
   enum status: {open: 0, disabled: 1, analyzing: 2, shared: 3}
+  enum severity: {standard: 0, hinder: 1, endanger: 2}
 
   scope :since, -> (date) { where('notices.created_at > ?', date) }
   scope :destroyable, -> () { where.not(status: :shared) }
