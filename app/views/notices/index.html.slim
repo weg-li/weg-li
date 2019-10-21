@@ -45,7 +45,7 @@
               - @notices.each do |notice|
                 tr
                   td(style="min-width:100px")
-                    .btn-group.dropup
+                    .btn-group.dropdown
                       label.btn.btn-sm.btn-checkbox-addon
                         = check_box_tag "selected[]", notice.id, false, class: 'select-all'
                       = render 'actions', notice: notice

@@ -38,8 +38,7 @@
               tr
                 td
                   .btn-group.dropdown
-                    label.btn.btn-sm.btn-checkbox-addon
-                      = check_box_tag "selected[]", bulk_upload.id, false, class: 'select-all checkbox-addon'
+                    = check_box_tag "selected[]", bulk_upload.id, false, class: 'select-all checkbox-addon'
                     = render 'upload_actions', bulk_upload: bulk_upload
                 td
                   - if bulk_upload.photos.present?
@@ -56,7 +55,7 @@
               td(colspan=7) Es wurden keine Uploads gefunden
     .panel-footer
       .btn-group.btn-group-sm.dropup
-        .btn-group.dropup
+        .btn-group
           label.btn.btn-sm.btn-checkbox-addon
             => check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))", class: 'checkbox-addon'
             | alle auswählen
