@@ -109,7 +109,6 @@ class Notice < ActiveRecord::Base
   end
 
   def do_geocoding?
-    Rails.logger.warn("allowing geocoding with #{coordinates?} #{latitude} #{longitude} #{zip} #{city} #{street}")
     !coordinates? && zip? && city? && street?
   end
 
