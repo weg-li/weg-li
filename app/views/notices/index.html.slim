@@ -99,27 +99,6 @@
                   = button_tag name: :bulk_action, value: :destroy, type: :submit, class: 'btn btn-sm btn-link', data: {confirm: 'Die Meldungen werden endgültig gelöscht'}
                     span.glyphicon.glyphicon-trash>
                     span Auswahl löschen
-            /
-            / .btn-group.btn-group-checkbox.dropup
-            /   label.btn.btn-sm.btn-checkbox-addon
-            /     => check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
-            /     | alle auswählen
-            /   button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-            /     span.caret
-            /     span.sr-only Aktionen
-            /   ul.dropdown-menu
-            /     li
-            /       = button_tag name: :bulk_action, value: :analyze, type: :submit, class: 'btn btn-sm btn-link'
-            /         span.glyphicon.glyphicon-hourglass>
-            /         span Auswahl analysieren
-            /     li
-            /       = button_tag name: :bulk_action, value: :share, type: :submit, class: 'btn btn-sm btn-link'
-            /         span.glyphicon.glyphicon-share>
-            /         span Auswahl melden
-            /     li
-            /       = button_tag name: :bulk_action, value: :destroy, type: :submit, class: 'btn btn-sm btn-link', data: {confirm: 'Die Meldungen werden endgültig gelöscht'}
-            /         span.glyphicon.glyphicon-trash>
-            /         span Auswahl löschen
 
   .text-center
     = paginate @notices
@@ -134,6 +113,9 @@
         li
           span.glyphicon.glyphicon-edit>
           | Meldung bearbeiten
+        li
+          span.glyphicon.glyphicon-duplicate>
+          | Meldung duplizieren
         li
           span.glyphicon.glyphicon-trash>
           | Meldung löschen
