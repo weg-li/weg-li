@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
 
   scope :since, -> (date) { where('users.created_at > ?', date) }
   scope :for_public, -> () { not_hide_public_profile }
+  scope :active, -> () { where('access >= 0') }
 
   def validate!
     auth = authorizations.find_or_initialize_by(provider: 'email')
