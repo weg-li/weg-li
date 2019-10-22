@@ -12,7 +12,8 @@ Fabricator(:notice) do
   model { |attrs| Vehicle.models(attrs[:brand]).shuffle.first }
   color { Vehicle.colors.shuffle.first }
   empty { true }
-  parked { true }
+  duration { 3 }
+  severity { 0 }
   latitude { 53.57532 }
   longitude { 10.01534 }
   user
