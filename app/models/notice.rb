@@ -115,7 +115,6 @@ class Notice < ActiveRecord::Base
   def handle_geocoding
     if coordinates?
       results = Geocoder.search([latitude, longitude])
-      Rails.logger.warn("geocode with #{latitude} #{longitude} and result #{results}")
       if results.present?
         best_result = results.first
         self.zip = best_result.postal_code
