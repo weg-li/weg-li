@@ -19,7 +19,7 @@ hiermit zeige ich, mit der Bitte um Weiterverfolgung, folgende Verkehrsordnungsw
 
 <%= Notice.human_attribute_name(:date) %>: <%= l(@notice.date, default: Time.zone.today) %>
 
-Das Fahrzeug stand länger als <%= Vehicle.durations.to_h.invert[@notice.duration] %>.
+Das Fahrzeug stand <%= Vehicle.durations.to_h.invert[@notice.duration] %>.
 <% if @notice.empty? %>
 
 Das Fahrzeug war verlassen.
