@@ -11,7 +11,7 @@ class AddDurationToNotice < ActiveRecord::Migration[6.0]
         execute "UPDATE notices SET duration = 60, flags = flags - 16 WHERE id IN(#{ids.join(',')})" if ids.present?
         ids = Notice.parked_three_hours.pluck(:id)
         execute "UPDATE notices SET duration = 180, flags = flags - 8 WHERE id IN(#{ids.join(',')})" if ids.present?
-        execute "UPDATE notices SET duration = 60, flags = flags - 16 WHERE id IN(#{ids.join(',')})" if ids.present?
+
         ids = Notice.hinder.pluck(:id)
         execute "UPDATE notices SET severity = 1, flags = flags - 4 WHERE id IN(#{ids.join(',')})" if ids.present?
       end
