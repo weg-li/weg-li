@@ -178,7 +178,7 @@ GEM
     http-form_data (2.1.1)
     http_parser.rb (0.6.0)
     httpclient (2.8.3)
-    i18n (1.7.0)
+    i18n (1.6.0)
       concurrent-ruby (~> 1.0)
     image_processing (1.9.3)
       mini_magick (>= 4.9.5, < 5)
@@ -435,6 +435,7 @@ DEPENDENCIES
   google-cloud-storage
   google-cloud-vision
   heroku-deflater
+  i18n (~> 1.6.0)
   image_processing
   jquery-rails
   kaminari
