@@ -435,7 +435,7 @@ DEPENDENCIES
   google-cloud-storage
   google-cloud-vision
   heroku-deflater
-  i18n (~> 1.6.0)
+  i18n
   image_processing
   jquery-rails
   kaminari
@@ -469,3 +469,6 @@ DEPENDENCIES
 
 RUBY VERSION
    ruby 2.6.4p104
+
+BUNDLED WITH
+   2.0.2
