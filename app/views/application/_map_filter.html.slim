@@ -15,7 +15,7 @@ ul.nav.nav-tabs.nav-panel
       = submit_tag('Auswählen', class: "btn btn-default button-sm")
 
   .panel-body
-    = render "#{display}_map", notices: notices, init: init
+    = render "#{display}_map", notices: notices, init: init if display == 'cluster' || display == 'multi'
   .panel-footer
     small
       |
