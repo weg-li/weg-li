@@ -42,7 +42,7 @@ addEventListener("direct-upload:end", event => {
   element.classList.add("active");
 
   const signed_id = target.previousElementSibling.value;
-  if (signed_id && fetch) {
+  if (signed_id && fetch && target.hasAttribute('analyze_url')) {
     const url = target.attributes['analyze_url'].value;
     const data = { blob: { signed_id } };
     setTimeout(triggerAnalyzation, 50, url, data);
