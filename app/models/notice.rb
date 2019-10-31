@@ -144,7 +144,7 @@ class Notice < ActiveRecord::Base
 
   def defaults
     self.token ||= SecureRandom.hex(16)
-    if zip? && zip_changed?
+    if zip? && (district.nil? || zip_changed?)
       # TODO join on zip
       district = District.from_zip(zip)
       self.district = district if district.present?
