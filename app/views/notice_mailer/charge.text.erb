@@ -18,7 +18,6 @@ hiermit zeige ich, mit der Bitte um Weiterverfolgung, folgende Verkehrsordnungsw
 <%= Notice.human_attribute_name(:charge) %>: <%= @notice.charge %>, <%= Notice.human_attribute_name(@notice.severity) %>
 
 <%= Notice.human_attribute_name(:date) %>: <%= l(@notice.date, default: Time.zone.today) %>
-
 <% if @notice.duration > 1 %>
 
 Das Fahrzeug stand <%= Vehicle.durations.to_h.invert[@notice.duration] %>.
