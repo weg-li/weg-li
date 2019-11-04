@@ -33,10 +33,30 @@ describe Annotator, :vcr do
     )
   end
 
+  it "handles label annotations" do
+    result = with_fixture('annotate') { subject.annotate_file }
+
+    matches = Annotator.grep_label(result) { |key| key }
+    expect(matches).to eql(
+      ["Land vehicle", "Vehicle", "Car", "Luxury vehicle", "Automotive design", "Personal luxury car", "Mode of transport", "Transport", "Family car", "Automotive exterior"]
+    )
+  end
+
   it "handles colors" do
     result = with_fixture('annotate') { subject.annotate_file }
 
-    expected = ["silver", "black", "gray", "silver", "black", "gray", "gray", "white", "black", "gray"]
+    expected = [
+      ["silver", 0.4671035706996918],
+      ["black", 0.18365518748760223],
+      ["gray", 0.004049558658152819],
+      ["silver", 0.153400719165802],
+      ["black", 0.05919218063354492],
+      ["gray", 0.04759815335273743],
+      ["gray", 0.028131773695349693],
+      ["white", 0.022791322320699692],
+      ["black", 0.00767330639064312],
+      ["gray", 0.006161436904221773],
+    ]
     expect(Annotator.dominant_colors(result)).to eql(expected)
   end
 end

@@ -10,6 +10,10 @@ class Annotator
     result[:text_annotations].flat_map { |match| match[:description].split("\n").map { |token| yield(token) } }.compact.uniq
   end
 
+  def self.grep_label(result)
+    result[:label_annotations].flat_map { |match| match[:description].split("\n").map { |token| yield(token) } }.compact.uniq
+  end
+
   COLORS = [
     Color::RGB::Beige,
     Color::RGB::Blue,
@@ -30,8 +34,7 @@ class Annotator
     colors = result.dig(:image_properties_annotation, :dominant_colors, :colors)
     return [] if colors.blank?
 
-    rgbs = colors.map { |color| Color::RGB.new(color[:color][:red], color[:color][:green], color[:color][:blue]) }
-    rgbs.map { |rgb| rgb.closest_match(COLORS).name }
+    colors.map { |color| [Color::RGB.new(color[:color][:red], color[:color][:green], color[:color][:blue]).closest_match(COLORS).name, color[:score]] }
   end
 
   def initialize

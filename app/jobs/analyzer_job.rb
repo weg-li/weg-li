@@ -38,18 +38,19 @@ class AnalyzerJob < ApplicationJob
         notice.data[photo.record_id] = result
         plates += Annotator.grep_text(result) { |string| Vehicle.plate?(string) }
         brands += Annotator.grep_text(result) { |string| Vehicle.brand?(string) }
+        brands += Annotator.grep_label(result) { |string| Vehicle.brand?(string) }
         colors += Annotator.dominant_colors(result)
       end
     end
 
     notice.apply_dates(dates)
 
-    most_likely_registraton = Vehicle.most_likely_plate?(plates)
+    most_likely_registraton = Vehicle.most_likely?(plates)
     notice.apply_favorites(most_likely_registraton)
 
-    notice.registration ||= most_likely_registraton
-    notice.brand ||= Vehicle.most_often?(brands)
-    notice.color ||= Vehicle.most_often?(colors)
+    notice.registration = most_likely_registraton
+    notice.brand = Vehicle.most_often?(brands)
+    notice.color = Vehicle.most_likely?(colors)
 
     notice.handle_geocoding
     notice.status = :open
