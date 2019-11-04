@@ -18,22 +18,24 @@ class NoticesController < ApplicationController
 
     if search = params[:search]
       @table_params[:search] = search.to_unsafe_hash
-      @notices = @notices.where('registration ILIKE :term', term: "%#{search[:term]}%") if search[:term]
+      @notices = @notices.where('registration ILIKE :term', term: "%#{search[:term]}%") if search[:term].present?
     end
     if filter = params[:filter]
       @table_params[:filter] = filter.to_unsafe_hash
-      @notices = @notices.where(status: filter[:status]) if filter[:status]
+      @notices = @notices.where(status: filter[:status]) if filter[:status].present?
     end
     if order = params[:order]
       @table_params[:order] = order.to_unsafe_hash
-      if order[:created_at]
-        @notices = @notices.reorder(created_at: order[:created_at])
+      ordering = {}
+      if order[:created_at].present?
+        ordering[:created_at] = order[:created_at]
         @order_created_at = 'DESC' if order[:created_at] == 'ASC'
       end
-      if order[:registration]
-        @notices = @notices.reorder(registration: order[:registration])
+      if order[:registration].present?
+        ordering[:registration] = order[:registration]
         @order_registration = 'DESC' if order[:registration] == 'ASC'
       end
+      @notices = @notices.reorder(ordering) if ordering.present?
     end
   end
 

@@ -55,7 +55,8 @@
               th
                 .dropdown
                   button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown"
-                    => params[:filter] ? Notice.human_attribute_name(params[:filter][:status]) : Notice.human_attribute_name(:status)
+                    - current_status_filter = params.dig(:filter, :status)
+                    => current_status_filter.present? ? Notice.human_attribute_name(current_status_filter) : Notice.human_attribute_name(:status)
                     span.caret
                   ul.dropdown-menu.dropdown-menu-right
                     - @filter_status.each do |status|
