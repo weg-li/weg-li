@@ -5,9 +5,6 @@ class NoticesController < ApplicationController
   before_action :validate!, except: [:index]
 
   def index
-    @filter_status =  Notice.statuses.keys
-    @order_created_at = 'ASC'
-    @order_registration = 'ASC'
     @table_params = {
       search: {},
       filter: {},
@@ -26,16 +23,9 @@ class NoticesController < ApplicationController
     end
     if order = params[:order]
       @table_params[:order] = order.to_unsafe_hash
-      ordering = {}
-      if order[:created_at].present?
-        ordering[:created_at] = order[:created_at]
-        @order_created_at = 'DESC' if order[:created_at] == 'ASC'
+      if order[:column].present? && order[:value].present?
+        @notices = @notices.reorder(order[:column] => order[:value])
       end
-      if order[:registration].present?
-        ordering[:registration] = order[:registration]
-        @order_registration = 'DESC' if order[:registration] == 'ASC'
-      end
-      @notices = @notices.reorder(ordering) if ordering.present?
     end
   end
 

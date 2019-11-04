@@ -17,8 +17,8 @@
           ul.dropdown-menu.dropdown-menu-right
             = form_tag(url_for, method: :get, class: 'form-dropdown', autocomplete: :off)
               .input-group.input-group-sm
-                = hidden_field_tag('order[created_at]', @table_params[:order][:created_at])
-                = hidden_field_tag('order[registration]', @table_params[:order][:registration])
+                = hidden_field_tag('order[column]', @table_params[:order][:column])
+                = hidden_field_tag('order[value]', @table_params[:order][:value])
                 = hidden_field_tag('filter[status]', @table_params[:filter][:status])
                 = text_field_tag('search[term]', @table_params[:search][:term], placeholder: 'z.B. HH SV 1887', class: 'form-control')
                 span.input-group-btn
@@ -39,19 +39,33 @@
               th
               th
                 => Notice.human_attribute_name(:registration)
-                = link_to url_for(@table_params.deep_merge(order: {registration: @order_registration}))
-                  - if params[:order] && params[:order][:registration] == 'ASC'
-                    span.glyphicon.glyphicon-arrow-up.smaller
+                - if params.dig(:order, :column) == 'registration'
+                  - if params.dig(:order, :value) == 'ASC'
+                    = link_to url_for(@table_params.deep_merge(order: {column: :registration, value: 'DESC'}))
+                      span.glyphicon.glyphicon-arrow-up.smaller
                   - else
-                    span.glyphicon.glyphicon-arrow-down.smaller
+                    = link_to url_for(@table_params.deep_merge(order: {column: :registration, value: 'ASC'}))
+                      span.glyphicon.glyphicon-arrow-down.smaller
+                  = link_to url_for(@table_params.merge(order: {}))
+                    span.text-muted.glyphicon.glyphicon-remove.smaller
+                - else
+                  = link_to url_for(@table_params.deep_merge(order: {column: :registration, value: 'ASC'}))
+                    span.glyphicon.glyphicon-arrow-down.smaller.text-muted
               th= Notice.human_attribute_name(:photos)
               th
                 => Notice.human_attribute_name(:created_at)
-                = link_to url_for(@table_params.deep_merge(order: {created_at: @order_created_at}))
-                  - if params[:order] && params[:order][:created_at] == 'ASC'
-                    span.glyphicon.glyphicon-arrow-up.smaller
+                - if params.dig(:order, :column) == 'created_at'
+                  - if params.dig(:order, :value) == 'ASC'
+                    = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'DESC'}))
+                      span.glyphicon.glyphicon-arrow-up.smaller
                   - else
-                    span.glyphicon.glyphicon-arrow-down.smaller
+                    = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'}))
+                      span.glyphicon.glyphicon-arrow-down.smaller
+                  = link_to url_for(@table_params.merge(order: {}))
+                    span.text-muted.glyphicon.glyphicon-remove.smaller
+                - else
+                  = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'}))
+                    span.glyphicon.glyphicon-arrow-down.smaller.text-muted
               th
                 .dropdown
                   button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown"
@@ -59,12 +73,15 @@
                     => current_status_filter.present? ? Notice.human_attribute_name(current_status_filter) : Notice.human_attribute_name(:status)
                     span.caret
                   ul.dropdown-menu.dropdown-menu-right
-                    - @filter_status.each do |status|
+                    - Notice.statuses.keys.each do |status|
                       li
                         = link_to url_for(@table_params.merge(filter: {status: status})) do
                           = render 'status', status: status
                     li role="separator" class="divider"
-                    li= link_to 'kein Filter', url_for(@table_params.merge(filter: nil))
+                    li
+                      = link_to url_for(@table_params.merge(filter: nil))
+                        span.glyphicon.glyphicon-remove>
+                        | kein Filter
           tbody
             - if @notices.present?
               - @notices.each do |notice|
