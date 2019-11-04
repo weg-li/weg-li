@@ -7,18 +7,29 @@
   .panel.panel-default
     .panel-heading
       .row
-        .col-xs-12.col-lg-8
+        .col-xs-8
           = link_to new_notice_path, class: 'btn btn-sm btn-success', title: 'Meldung erfassen' do
             span.glyphicon.glyphicon-plus>
             | Meldung erfassen
-        .col-xs-12.col-lg-4
-          = form_tag(url_for, method: :get)
-            .input-group.input-group-sm
-              = text_field_tag(:term, params[:term], placeholder: 'z.B. HH SV 1887', class: 'form-control')
-              span.input-group-btn
+        .col-xs-4.text-right
+          button.btn.btn-default.btn-sm.dropdown-toggle type="button" data-toggle="dropdown"
+            | Suche <span class="caret"></span>
+          ul.dropdown-menu.dropdown-menu-right
+            = form_tag(url_for, method: :get, class: 'form-dropdown', autocomplete: :off)
+              .input-group.input-group-sm
+                = hidden_field_tag('order[created_at]', @table_params[:order][:created_at])
+                = hidden_field_tag('order[registration]', @table_params[:order][:registration])
+                = hidden_field_tag('filter[status]', @table_params[:filter][:status])
+                = text_field_tag('search[term]', @table_params[:search][:term], placeholder: 'z.B. HH SV 1887', class: 'form-control')
                 span.input-group-btn
                   = button_tag(class: "btn btn-default btn-sm")
                     span.glyphicon.glyphicon-search
+            - if @table_params[:search][:term].present?
+              li.divider
+              li
+                = link_to url_for(@table_params.merge(search: nil))
+                  span.glyphicon.glyphicon-remove>
+                  | ohne Suche
 
     = form_tag bulk_notices_path, method: :post do
       .table-responsive
@@ -26,21 +37,27 @@
           thead
             tr
               th
-              th= Notice.human_attribute_name(:registration)
+              th
+                => Notice.human_attribute_name(:registration)
+                = link_to url_for(@table_params.deep_merge(order: {registration: @order_registration}))
+                  - if params[:order] && params[:order][:registration] == 'ASC'
+                    span.glyphicon.glyphicon-arrow-up.smaller
+                  - else
+                    span.glyphicon.glyphicon-arrow-down.smaller
               th= Notice.human_attribute_name(:photos)
               th
                 => Notice.human_attribute_name(:created_at)
-                = link_to url_for(@table_params.merge(order: {created_at: @order_created_at}))
+                = link_to url_for(@table_params.deep_merge(order: {created_at: @order_created_at}))
                   - if params[:order] && params[:order][:created_at] == 'ASC'
                     span.glyphicon.glyphicon-arrow-up.smaller
                   - else
                     span.glyphicon.glyphicon-arrow-down.smaller
               th
                 .dropdown
-                  button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+                  button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown"
                     => params[:filter] ? Notice.human_attribute_name(params[:filter][:status]) : Notice.human_attribute_name(:status)
                     span.caret
-                  ul.dropdown-menu aria-labelledby="dropdownMenu1"
+                  ul.dropdown-menu.dropdown-menu-right
                     - @filter_status.each do |status|
                       li
                         = link_to url_for(@table_params.merge(filter: {status: status})) do

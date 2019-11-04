@@ -7,10 +7,19 @@ class NoticesController < ApplicationController
   def index
     @filter_status =  Notice.statuses.keys
     @order_created_at = 'ASC'
-    @table_params = {}
+    @order_registration = 'ASC'
+    @table_params = {
+      search: {},
+      filter: {},
+      order: {},
+    }
 
     @notices = current_user.notices.page(params[:page])
-    @notices = @notices.where('registration ILIKE :term', term: "%#{params[:term]}%") if params[:term]
+
+    if search = params[:search]
+      @table_params[:search] = search.to_unsafe_hash
+      @notices = @notices.where('registration ILIKE :term', term: "%#{search[:term]}%") if search[:term]
+    end
     if filter = params[:filter]
       @table_params[:filter] = filter.to_unsafe_hash
       @notices = @notices.where(status: filter[:status]) if filter[:status]
@@ -20,6 +29,10 @@ class NoticesController < ApplicationController
       if order[:created_at]
         @notices = @notices.reorder(created_at: order[:created_at])
         @order_created_at = 'DESC' if order[:created_at] == 'ASC'
+      end
+      if order[:registration]
+        @notices = @notices.reorder(registration: order[:registration])
+        @order_registration = 'DESC' if order[:registration] == 'ASC'
       end
     end
   end
