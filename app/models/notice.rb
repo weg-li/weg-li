@@ -73,6 +73,23 @@ class Notice < ActiveRecord::Base
     AnalyzerJob.set(wait: 1.seconds).perform_later(self)
   end
 
+  def apply_dates(dates)
+    sorted_dates = dates.compact.sort
+    self.date = sorted_dates.first
+    if date?
+      duration = (sorted_dates.last.to_i - date.to_i)
+      if duration >= 3.hours
+        self.duration = 180
+      elsif duration >= 1.hour
+        self.duration = 60
+      elsif duration >= 3.minutes
+        self.duration = 3
+      else
+        self.duration = 1
+      end
+    end
+  end
+
   def apply_favorites(registrations)
     other = Notice.shared.since(1.month.ago).find_by(registration: registrations)
     if other
