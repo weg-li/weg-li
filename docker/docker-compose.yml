@@ -1,16 +1,16 @@
 version: "3.0"
 services:
   ruby_server:
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile
+    image: ruby:2.6.4
     depends_on:
       - postgres_server
     ports:
       - 3000:3000
-    networks:
-       weg-li_net:
-         ipv4_address: 172.28.1.1
+    command: /weg-li/script/setup_and_serve.sh
+    environment:
+      DATABASE: postgres_server
+    volumes:
+      - ../:/weg-li
 
   postgres_server:
     image: postgres:alpine
@@ -19,13 +19,3 @@ services:
       POSTGRES_DB: weg-li_development
     ports:
       - 5432:5432
-    networks:
-      weg-li_net:
-        ipv4_address: 172.28.1.2
-
-networks:
-  weg-li_net:
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.28.0.0/16
