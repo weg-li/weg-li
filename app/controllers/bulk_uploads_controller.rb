@@ -4,7 +4,6 @@ class BulkUploadsController < ApplicationController
   def index
     @order_created_at = 'ASC'
     @table_params = {}
-    @filter_status = [:open, :done]
 
     @bulk_uploads = current_user.bulk_uploads.page(params[:page])
     if order = params[:order]
@@ -26,16 +25,17 @@ class BulkUploadsController < ApplicationController
 
   def create
     bulk_upload = current_user.bulk_uploads.build(bulk_upload_params)
-
+    bulk_upload.status = :processing
     bulk_upload.save!
+    BulkUploadJob.perform_later(bulk_upload)
 
-    redirect_to edit_bulk_upload_path(bulk_upload), notice: 'Upload wurde angelegt'
+    redirect_to edit_bulk_upload_path(bulk_upload), notice: 'Massen-Upload wurde angelegt'
   end
 
   def edit
     @bulk_upload = current_user.bulk_uploads.find(params[:id])
 
-    redirect_to notices_path, notice: 'Es wurden bereits alle Fotos des Uploads verarbeitet' and return if @bulk_upload.photos.blank?
+    redirect_to notices_path, notice: 'Es wurden bereits alle Fotos des Massen-Uploads verarbeitet' and return if @bulk_upload.photos.blank?
   end
 
   def update
@@ -51,6 +51,7 @@ class BulkUploadsController < ApplicationController
         end
         notice.analyze!
       end
+      bulk_upload.update! status: :done
 
       redirect_to notices_path, notice: 'Neue Meldungen wurden erzeugt'
     else
@@ -62,7 +63,13 @@ class BulkUploadsController < ApplicationController
       end
       notice.analyze!
 
-      redirect_to edit_bulk_upload_path(bulk_upload), notice: 'Neue Meldung aus Fotos erzeugt'
+      if bulk_upload.reload.photos.present?
+        redirect_to edit_bulk_upload_path(bulk_upload), notice: 'Neue Meldung aus Fotos erzeugt'
+      else
+        bulk_upload.update! status: :done
+
+        redirect_to notices_path, notice: 'Neue Meldung aus Fotos erzeugt, der Massen-Upload wurde vollständig zugeordnet'
+      end
     end
   end
 
@@ -77,7 +84,7 @@ class BulkUploadsController < ApplicationController
     notice = current_user.bulk_uploads.find(params[:id])
     notice.destroy!
 
-    redirect_to bulk_uploads_path, notice: 'Upload wurde gelöscht'
+    redirect_to bulk_uploads_path, notice: 'Massen-Upload wurde gelöscht'
   end
 
   def bulk
@@ -86,7 +93,7 @@ class BulkUploadsController < ApplicationController
     case action
     when 'destroy'
       bulk_uploads.destroy_all
-      flash[:notice] = 'Die Uploads wurden gelöscht'
+      flash[:notice] = 'Die Massen-Uploads wurden gelöscht'
     end
 
     redirect_to bulk_uploads_path

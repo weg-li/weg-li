@@ -3,9 +3,7 @@ class BulkUpload < ActiveRecord::Base
   has_many :notices, dependent: :nullify
   has_many_attached :photos
 
-  validates :photos, presence: :true
+  enum status: {initial: 0, processing: 1, open: 2, done: 3}
 
-  def status
-    photos.present? ? :open : :done
-  end
+  validates :photos, presence: :true, unless: ->() { done? }
 end

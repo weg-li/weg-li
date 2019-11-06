@@ -138,6 +138,9 @@ ul.droppable-list {
   margin-top: -5px;
 }
 
+.glyphicon-status-initial:before {
+  content: "\e209";
+}
 .glyphicon-status-incomplete:before {
   content: "\e209";
 }
@@ -153,6 +156,9 @@ ul.droppable-list {
 .glyphicon-status-analyzing:before {
   content: "\231b";
 }
+.glyphicon-status-processing:before {
+  content: "\231b";
+}
 .glyphicon-status-disabled:before {
   content: "\e090";
 }
@@ -160,6 +166,9 @@ ul.droppable-list {
   content: "\e089";
 }
 
+.label-status-initial {
+  background-color: $primary-color;
+}
 .label-status-incomplete {
   background-color: $warning-color;
 }
@@ -173,6 +182,9 @@ ul.droppable-list {
   background-color: $success-color;
 }
 .label-status-analyzing {
+  background-color: $info-color;
+}
+.label-status-processing {
   background-color: $info-color;
 }
 .label-status-disabled {

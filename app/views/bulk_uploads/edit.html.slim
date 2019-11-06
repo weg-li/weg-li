@@ -9,74 +9,89 @@
         span.glyphicon.glyphicon-move<>
         | dorthin bewegen und anschließend eine neue Meldung daraus erstellen.
 
-= form_with model: @bulk_upload do |form|
+- if @bulk_upload.processing?
   .row
-    .col-lg-12
-      fieldset Beweisfotos für neue Meldung
-  .row
-    .col-lg-8
-      = render 'photo_list', bulk_upload: @bulk_upload, photos: [@bulk_upload.photos.first]
     .col-lg-4
-      = form.submit 'neue Meldung erstellen', class: "btn btn-success"
-.row
-  .col-lg-12
-    fieldset Verbleibende Beweisfotos
-.row
-  .col-lg-12
-    = render 'photo_list', bulk_upload: @bulk_upload, photos: @bulk_upload.photos - [@bulk_upload.photos.first]
+      .progress.progress-striped.active
+        #total-progress.progress-bar.progress-bar-success(style="width: 5%")
 
-javascript:
-  function ziehen(ev) {
-    ev.dataTransfer.setData('text', ev.target.id);
-  }
+      = link_to url_for, class: 'btn btn-success btn-block' do
+        span.glyphicon.glyphicon-repeat.smaller>
+        span#analyze-progress kurz warten und dann aktualisieren
+      javascript:
+        setInterval(function(element) { element.style.width = Math.min(100, (parseInt(element.style.width) + 25)) + '%' }, 1000, document.getElementById('total-progress'));
+    .col-lg-8
+      = render 'callout', section: 'bulk_upload', key: 'processing'
 
-  function ablegenErlauben(ev, el) {
-    ev.preventDefault();
-    el.classList.add('well-active');
-  }
-
-  function ablegenLeave(ev, el) {
-    el.classList.remove('well-active');
-  }
-
-  function ablegenEnter(ev, el) {
-  }
-
-  function ablegen(ev, el) {
-    el.classList.remove('well-active');
-    ev.preventDefault();
-    var data = ev.dataTransfer.getData('text');
-    el.children[0].appendChild(document.getElementById(data));
-  }
-
-  function ablegenMove(id) {
-    const el = document.getElementById(id);
-    const first = document.getElementsByClassName('droppable-list')[0];
-    const last = document.getElementsByClassName('droppable-list')[1];
-    if (Array.from(first.childNodes).includes(el)) {
-      last.appendChild(el);
-    } else {
-      first.appendChild(el);
-    }
-  }
-
-hr.spacer
-
-.row
-  .col-lg-12
-    .well.well-sm.callout
-      p
-        |
-          Sollte jedes der Beweisfotos zu einem einzelnen Vergehen gehören, dann kann hier auf Knopfdruck pro Beweisfoto jeweils eine neue Meldung erzeugt werden.
-
-= form_with model: @bulk_upload do |form|
+- else
+  = form_with model: @bulk_upload do |form|
+    .row
+      .col-lg-12
+        fieldset Beweisfotos für neue Meldung
+    .row
+      .col-lg-8
+        = render 'photo_list', bulk_upload: @bulk_upload, photos: [@bulk_upload.photos.first]
+      .col-lg-4
+        = form.submit 'neue Meldung erstellen', class: "btn btn-success"
   .row
     .col-lg-12
-      .pull-right
-        .btn-group
-          = form.submit 'Pro Foto eine Meldung erzeugen', name: 'one_per_photo', class: "btn btn-success"
+      fieldset Verbleibende Beweisfotos
+  .row
+    .col-lg-12
+      = render 'photo_list', bulk_upload: @bulk_upload, photos: @bulk_upload.photos - [@bulk_upload.photos.first]
 
-hr.spacer
+  javascript:
+    function ziehen(ev) {
+      ev.dataTransfer.setData('text', ev.target.id);
+    }
 
-- if @bulk_upload.notices.present?
-  = render 'notice_list', notices: @bulk_upload.notices
+    function ablegenErlauben(ev, el) {
+      ev.preventDefault();
+      el.classList.add('well-active');
+    }
+
+    function ablegenLeave(ev, el) {
+      el.classList.remove('well-active');
+    }
+
+    function ablegenEnter(ev, el) {
+    }
+
+    function ablegen(ev, el) {
+      el.classList.remove('well-active');
+      ev.preventDefault();
+      var data = ev.dataTransfer.getData('text');
+      el.children[0].appendChild(document.getElementById(data));
+    }
+
+    function ablegenMove(id) {
+      const el = document.getElementById(id);
+      const first = document.getElementsByClassName('droppable-list')[0];
+      const last = document.getElementsByClassName('droppable-list')[1];
+      if (Array.from(first.childNodes).includes(el)) {
+        last.appendChild(el);
+      } else {
+        first.appendChild(el);
+      }
+    }
+
+  hr.spacer
+
+  .row
+    .col-lg-12
+      .well.well-sm.callout
+        p
+          |
+            Sollte jedes der Beweisfotos zu einem einzelnen Vergehen gehören, dann kann hier auf Knopfdruck pro Beweisfoto jeweils eine neue Meldung erzeugt werden.
+
+  = form_with model: @bulk_upload do |form|
+    .row
+      .col-lg-12
+        .pull-right
+          .btn-group
+            = form.submit 'Pro Foto eine Meldung erzeugen', name: 'one_per_photo', class: "btn btn-success"
+
+  hr.spacer
+
+  - if @bulk_upload.notices.present?
+    = render 'notice_list', notices: @bulk_upload.notices

@@ -26,7 +26,7 @@
                   => params[:filter] ? BulkUpload.human_attribute_name(params[:filter][:status]) : BulkUpload.human_attribute_name(:status)
                   span.caret
                 ul.dropdown-menu aria-labelledby="dropdownMenu1"
-                  - @filter_status.each do |status|
+                  - BulkUpload.statuses.keys.each do |status|
                     li
                       = link_to url_for(@table_params.merge(filter: {status: status})) do
                         = render 'upload_status', status: status
@@ -88,5 +88,5 @@
         | Massen-Upload löschen
 
   strong Status für Massen-Uploads
-  - @filter_status.each do |status|
+  - BulkUpload.statuses.keys.each do |status|
     p= render 'upload_status', status: status, legend: true
