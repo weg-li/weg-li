@@ -6,7 +6,7 @@ services:
       - postgres_server
     ports:
       - 3000:3000
-    command: /weg-li/script/setup_and_serve.sh
+    command: /weg-li/script/setup_and_serve
     environment:
       DATABASE: postgres_server
     volumes:
