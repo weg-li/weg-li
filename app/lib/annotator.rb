@@ -20,7 +20,7 @@ class Annotator
     Color::RGB::Yellow,
     Color::RGB::Green,
     Color::RGB::Red,
-    Color::RGB::Violet,
+    # Color::RGB::Violet,
     Color::RGB::Orange,
     Color::RGB::Gold,
   ]
