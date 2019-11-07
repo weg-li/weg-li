@@ -15,7 +15,6 @@ class Annotator
   end
 
   COLORS = [
-    Color::RGB::Beige,
     Color::RGB::Blue,
     Color::RGB::Brown,
     Color::RGB::Yellow,
@@ -26,6 +25,7 @@ class Annotator
     Color::RGB::Gold,
   ]
   GRAY_SCALES = [
+    Color::RGB::Beige,
     Color::RGB::Gray,
     Color::RGB::Black,
     Color::RGB::Silver,
