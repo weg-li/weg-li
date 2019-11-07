@@ -52,7 +52,7 @@ class Vehicle
   def self.normalize(text)
     return '' if text.blank?
 
-    tokens = "[ •„.,:;\"'|_+-]"
+    tokens = "[ •„.,:;\"'()|_+-]"
     left = Regexp.new("^#{tokens}+")
     right = Regexp.new("#{tokens}+$")
     text.gsub(left, '').gsub(right, '').gsub(/\W+/,'-')
