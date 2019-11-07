@@ -41,11 +41,11 @@ class Vehicle
   def self.plate?(text)
     text = normalize(text)
     if text =~ plate_regex
-      ["#{$1} #{$2} #{$3}", 1.0]
+      ["#{$1} #{$2} #{$3}#{$4.to_s.gsub('-', ' ')}", 1.0]
     elsif text =~ relaxed_plate_regex
-      ["#{$1}#{$2} #{$3}", 0.8]
+      ["#{$1}#{$2} #{$3}#{$4.to_s.gsub('-', ' ')}", 0.8]
     elsif text =~ quirky_mode_plate_regex
-      ["#{$1}#{$2} #{$3}", 0.5]
+      ["#{$1}#{$2} #{$3}#{$4.to_s.gsub('-', ' ')}", 0.5]
     end
   end
 
@@ -63,15 +63,15 @@ class Vehicle
   end
 
   def self.plate_regex
-    @plate_regex ||= Regexp.new("^(#{Vehicle.plates.keys.join('|')})-([A-Z]{1,3})-?(\\d{1,4})$")
+    @plate_regex ||= Regexp.new("^(#{Vehicle.plates.keys.join('|')})-([A-Z]{1,3})-?(\\d{1,4})(-E)?$")
   end
 
   def self.relaxed_plate_regex
-    @relaxed_plate_regex ||= Regexp.new("^(#{Vehicle.plates.keys.join('|')}):?-?([A-Z]{1,3})-?(\\d{1,4})$")
+    @relaxed_plate_regex ||= Regexp.new("^(#{Vehicle.plates.keys.join('|')}):?-?([A-Z]{1,3})-?(\\d{1,4})(-E)?$")
   end
 
   def self.quirky_mode_plate_regex
-    @quirky_mode_plate_regex ||= Regexp.new("^O?B?(#{Vehicle.plates.keys.join('|')})O?:?-?O?([A-Z]{1,3})-?(\\d{1,4})$")
+    @quirky_mode_plate_regex ||= Regexp.new("^O?B?(#{Vehicle.plates.keys.join('|')})O?:?-?O?([A-Z]{1,3})-?(\\d{1,4})(-E)?$")
   end
 
   def self.district_for_plate_prefix(text)

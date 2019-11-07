@@ -52,6 +52,7 @@ describe Vehicle do
     expect(Vehicle.plate?("HHO TR 2607")).to eql(["HHTR 2607", 0.5])
     expect(Vehicle.plate?("BHH BT 4200")).to eql(["HHBT 4200", 0.5])
     expect(Vehicle.plate?("HK IP 5000")).to eql(["HK IP 5000", 1.0])
+    expect(Vehicle.plate?("BN X 1681 E")).to eql(["BN X 1681 E", 1.0])
   end
 
   it "most likely" do
