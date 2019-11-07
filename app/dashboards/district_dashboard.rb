@@ -13,6 +13,7 @@ class DistrictDashboard < Administrate::BaseDashboard
     name: Field::String,
     zip: Field::String,
     prefix: Field::String,
+    aliases: Field::String,
     latitude: Field::Number.with_options(decimals: 2),
     longitude: Field::Number.with_options(decimals: 2),
     created_at: Field::DateTime,
@@ -39,6 +40,7 @@ class DistrictDashboard < Administrate::BaseDashboard
     :email,
     :zip,
     :prefix,
+    :aliases,
     :latitude,
     :longitude,
     :created_at,
@@ -53,6 +55,7 @@ class DistrictDashboard < Administrate::BaseDashboard
     :email,
     :zip,
     :prefix,
+    :aliases,
   ].freeze
 
   # Overwrite this method to customize how users are displayed

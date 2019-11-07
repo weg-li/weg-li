@@ -10,7 +10,7 @@ class NoticeMailer < ApplicationMailer
 
     subject = "Anzeige #{@notice.registration} #{@notice.charge}"
     mail subject: subject,
-     to: notice.district.email,
+     to: notice.district.all_emails,
      cc: email_address_with_name(@user.email, @user.name),
      reply_to: email_address_with_name(@user.email, @user.name),
      from: email_address_with_name(@user.wegli_email, @user.name)

@@ -17,5 +17,10 @@ module Admin
 
     # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
     # for more information
+
+    def resource_params
+      params[:district][:aliases] = params[:district][:aliases].split(/;|,|\s/)
+      params.require(resource_name).permit(*dashboard.permitted_attributes, aliases: [])
+    end
   end
 end

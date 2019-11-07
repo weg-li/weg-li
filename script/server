@@ -9,5 +9,6 @@ export GOOGLE_CONSUMER_KEY=715814087119-08hv5rj74bmq7burc2dpnt3hbd28jg5t.apps.go
 export GOOGLE_CONSUMER_SECRET=UPq0r1YoKno2cz0e9dYB9sKr
 export GOOGLE_CLOUD_PROJECT=weg-li
 export GOOGLE_CLOUD_KEYFILE=config/secrets/gcloud.json
+export WEB_CONCURRENCY=1
 
 bundle exec rails server -b 0.0.0.0
