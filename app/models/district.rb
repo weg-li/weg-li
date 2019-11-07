@@ -75,14 +75,9 @@ class District < ActiveRecord::Base
       '81675' => ['npp-mue.muenchen.pi22@polizei.bayern.de'],
       '81737' => ['npp-mue.muenchen.pi24@polizei.bayern.de'],
       '81829' => ['npp-mue.muenchen.pi25@polizei.bayern.de'],
-      '82008' => ['npp-mue.muenchen.pi31@polizei.bayern.de'],
-      '82031' => ['npp-mue.muenchen.pi32@polizei.bayern.de'],
-      '82152' => ['npp-mue.muenchen.pi46@polizei.bayern.de'],
-      '85521' => ['npp-mue.muenchen.pi28@polizei.bayern.de'],
-      '85540' => ['npp-mue.muenchen.pi27@polizei.bayern.de'],
-      '85764' => ['npp-mue.muenchen.pi48@polizei.bayern.de'],
     }.each do |zip, aliases|
-      District.from_zip(zip).update(aliases: aliases)
+      Rails.logger.info("updating #{zip} with #{aliases}")
+      District.from_zip(zip).update!(aliases: aliases)
     end
   end
 end
