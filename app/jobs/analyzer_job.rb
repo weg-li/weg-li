@@ -27,7 +27,7 @@ class AnalyzerJob < ApplicationJob
     notice.photos.each do |photo|
       notice.latitude ||= photo.metadata[:latitude] if photo.metadata[:latitude].to_f.positive?
       notice.longitude ||= photo.metadata[:longitude] if photo.metadata[:longitude].to_f.positive?
-      dates << photo.metadata[:date_time].to_s.to_time || AnalyzerJob.time_from_filename(photo.filename.to_s)
+      dates << (photo.metadata[:date_time].to_s.to_time || AnalyzerJob.time_from_filename(photo.filename.to_s))
 
       result = annotator.annotate_object(photo.key)
       if result.present?
