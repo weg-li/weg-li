@@ -146,6 +146,7 @@ class Vehicle
     @durations ||= [
       ['bis zu 3 Minuten', 1],
       ['länger als 3 Minuten', 3],
+      ['länger als 5 Minuten', 5],
       ['länger als 1 Stunde', 60],
       ['länger als 3 Stunden', 180],
     ]

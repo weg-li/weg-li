@@ -82,6 +82,8 @@ class Notice < ActiveRecord::Base
         self.duration = 180
       elsif duration >= 1.hour
         self.duration = 60
+      elsif duration >= 5.minutes
+        self.duration = 5
       elsif duration >= 3.minutes
         self.duration = 3
       else
