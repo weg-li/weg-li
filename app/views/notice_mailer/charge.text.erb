@@ -22,9 +22,13 @@ hiermit zeige ich, mit der Bitte um Weiterverfolgung, folgende Verkehrsordnungsw
 
 Das Fahrzeug stand <%= Vehicle.durations.to_h.invert[@notice.duration] %>, mindestens bis <%= l(@notice.date + @notice.duration.minutes, format: :short) %>
 <% end %>
-<% if @notice.empty? %>
+<% if @notice.vehicle_empty? %>
 
 Das Fahrzeug war verlassen.
+<% end %>
+<% if @notice.hazard_lights? %>
+
+Das Fahrzeug hatte die Warnblinkanlage aktiviert.
 <% end %>
 <% if @notice.note? %>
 

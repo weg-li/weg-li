@@ -24,9 +24,13 @@ dl.dl-horizontal
   dd= d(notice.date)
   dt= Notice.human_attribute_name(:duration)
   dd= Vehicle.durations.to_h.invert[notice.duration]
-  - if notice.empty? || notice.hinder?
+  - if notice.flags.positive?
     dt Details
-    - if notice.empty?
+    - if notice.vehicle_empty?
       dd Das Fahrzeug war verlassen
+    - if notice.hazard_lights?
+      dd Das Fahrzeug hatte die Warnblinkanlage aktiviert
+  - if notice.note?
+    dt Details
     - if notice.note?
       dd= notice.note

@@ -94,5 +94,9 @@ hr.spacer
       label.control-label Details
       .checkbox
         label
-          = form.check_box :empty
+          = form.check_box :vehicle_empty
           span Das Fahrzeug war verlassen
+      .checkbox
+        label
+          = form.check_box :hazard_lights
+          span Das Fahrzeug hatte die Warnblinkanlage aktiviert
