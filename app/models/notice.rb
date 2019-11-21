@@ -11,7 +11,7 @@ class Notice < ActiveRecord::Base
 
   acts_as_api
 
-  api_accessible :public_beta do |template|
+  api_accessible(:public_beta) do |template|
     %i(token status address latitude longitude registration charge date photos).each { |key| template.add(key) }
     Notice.bitfields[:flags].keys.each { |key| template.add(key) }
   end

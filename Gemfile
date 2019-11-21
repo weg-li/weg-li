@@ -35,6 +35,8 @@ gem 'twitter'
 gem 'administrate', github: 'thoughtbot/administrate'
 gem 'administrate-field-active_storage'
 gem 'exception_notification'
+gem 'rswag-api'
+gem 'rswag-ui'
 
 group :production do
   gem 'rack-cache'
@@ -57,5 +59,6 @@ group :development, :test do
   gem 'fabrication'
   gem 'rspec-rails'
   gem 'faker'
-  gem 'rswag', github: 'thiagopradi/rswag', branch: 'rails-6-full-support'
+  gem 'rspec-rails'
+  gem 'rswag-specs'
 end

@@ -1,23 +1,4 @@
 GIT
-  remote: https://github.com/thiagopradi/rswag.git
-  revision: 4bdbd7ed9843e6e1fb10e0e414f53f67e9d71608
-  branch: rails-6-full-support
-  specs:
-    rswag (0.0.0)
-      rswag-api (= 0.0.0)
-      rswag-specs (= 0.0.0)
-      rswag-ui (= 0.0.0)
-    rswag-api (0.0.0)
-      railties (>= 3.1, < 6.1)
-    rswag-specs (0.0.0)
-      activesupport (>= 3.1, < 6.1)
-      json-schema (~> 2.2)
-      railties (>= 3.1, < 6.1)
-    rswag-ui (0.0.0)
-      actionpack (>= 3.1, < 6.1)
-      railties (>= 3.1, < 6.1)
-
-GIT
   remote: https://github.com/thoughtbot/administrate.git
   revision: d6528098fa15e52be7b537559d9f060797165511
   specs:
@@ -360,6 +341,15 @@ GEM
       rspec-mocks (~> 3.9.0)
       rspec-support (~> 3.9.0)
     rspec-support (3.9.0)
+    rswag-api (2.2.0)
+      railties (>= 3.1, < 6.1)
+    rswag-specs (2.2.0)
+      activesupport (>= 3.1, < 6.1)
+      json-schema (~> 2.2)
+      railties (>= 3.1, < 6.1)
+    rswag-ui (2.2.0)
+      actionpack (>= 3.1, < 6.1)
+      railties (>= 3.1, < 6.1)
     ruby-vips (2.0.16)
       ffi (~> 1.9)
     sass-rails (6.0.0)
@@ -479,7 +469,9 @@ DEPENDENCIES
   rails_12factor
   redcarpet
   rspec-rails
-  rswag!
+  rswag-api
+  rswag-specs
+  rswag-ui
   sass-rails
   select2-rails
   sidekiq

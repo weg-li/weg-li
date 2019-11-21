@@ -33,32 +33,41 @@ describe 'Notices API' do
 
   path '/api/notices/{id}' do
 
+    let('x-api-token') { notice.user.api_token }
+
     get 'Retrieves a notice' do
       tags 'Notices'
       produces 'application/json', 'application/xml'
-      parameter name: :id, :in => :path, :type => :string
-      security [ apiKey: 'bla' ]
+      parameter name: :id, in: :path, type: :string
+      security [ apiKey: 'User-Token' ]
 
       response '200', 'name found' do
-        let('x-api-key') { ENV['WEGLI_API_KEY'] }
         schema type: :object,
           properties: {
             token: { type: :string, },
-            location: { type: :string },
-            photo_url: { type: :string },
-            status: { type: :string }
+            status: { type: :string },
+            # registration: { type: :string, },
+            # charge: { type: :string, },
+            # street: { type: :string, },
+            # zip: { type: :string, },
+            # city: { type: :string, },
+            # date: { type: :time, },
+            # duration: { type: :integer, },
+            # severity: { type: :integer, },
+            # location: { type: :string },
+            # photo_url: { type: :string },
           },
           required: [ 'token', 'status' ]
-
-
         let(:id) { notice.to_param }
+
         run_test!
       end
-      #
-      # response '404', 'notice not found' do
-      #   let(:id) { 'invalid' }
-      #   run_test!
-      # end
+
+      response '404', 'notice not found' do
+        let(:id) { 'invalid' }
+
+        run_test!
+      end
     end
   end
 end
