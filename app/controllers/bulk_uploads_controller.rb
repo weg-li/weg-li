@@ -35,7 +35,7 @@ class BulkUploadsController < ApplicationController
   def edit
     @bulk_upload = current_user.bulk_uploads.find(params[:id])
 
-    redirect_to notices_path, notice: 'Es wurden bereits alle Fotos des Massen-Uploads verarbeitet' and return if @bulk_upload.photos.blank?
+    redirect_to notices_path, notice: 'Es wurden alle Fotos des Massen-Uploads verarbeitet' and return if @bulk_upload.photos.blank?
   end
 
   def update
@@ -75,7 +75,7 @@ class BulkUploadsController < ApplicationController
 
   def purge
     bulk_upload = current_user.bulk_uploads.find(params[:id])
-    bulk_upload.photos.find(params[:photo_id]).purge
+    bulk_upload.purge_photo!(params[:photo_id])
 
     redirect_back fallback_location: edit_bulk_upload_path(bulk_upload), notice: 'Foto gelöscht'
   end

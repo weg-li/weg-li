@@ -12,6 +12,7 @@ class BulkUploadDashboard < Administrate::BaseDashboard
     photos: Field::ActiveStorage,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
+    status: Field::String.with_options(searchable: false),
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -21,8 +22,9 @@ class BulkUploadDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :id,
-    :user,
     :created_at,
+    :user,
+    :status,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -34,6 +36,7 @@ class BulkUploadDashboard < Administrate::BaseDashboard
     :photos,
     :created_at,
     :updated_at,
+    :status,
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -45,6 +48,7 @@ class BulkUploadDashboard < Administrate::BaseDashboard
     :photos,
     :created_at,
     :updated_at,
+    :status,
   ].freeze
 
   # Overwrite this method to customize how users are displayed
