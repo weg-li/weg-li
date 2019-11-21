@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_07_095328) do
+ActiveRecord::Schema.define(version: 2019_11_07_145927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 2019_10_07_095328) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0
     t.index ["user_id"], name: "index_bulk_uploads_on_user_id"
   end
 
@@ -70,6 +71,7 @@ ActiveRecord::Schema.define(version: 2019_10_07_095328) do
     t.float "longitude"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "aliases", array: true
     t.index ["name"], name: "index_districts_on_name"
     t.index ["zip"], name: "index_districts_on_zip", unique: true
   end
@@ -100,6 +102,8 @@ ActiveRecord::Schema.define(version: 2019_10_07_095328) do
     t.string "street"
     t.string "zip"
     t.string "city"
+    t.integer "duration", default: 0
+    t.integer "severity", default: 0
     t.index ["district_id"], name: "index_notices_on_district_id"
     t.index ["registration"], name: "index_notices_on_registration"
   end

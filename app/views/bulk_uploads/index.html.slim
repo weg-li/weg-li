@@ -26,41 +26,49 @@
                   => params[:filter] ? BulkUpload.human_attribute_name(params[:filter][:status]) : BulkUpload.human_attribute_name(:status)
                   span.caret
                 ul.dropdown-menu aria-labelledby="dropdownMenu1"
-                  - @filter_status.each do |status|
+                  - BulkUpload.statuses.keys.each do |status|
                     li
                       = link_to url_for(@table_params.merge(filter: {status: status})) do
                         = render 'upload_status', status: status
                   li role="separator" class="divider"
                   li= link_to 'kein Filter', url_for(@table_params.merge(filter: nil))
-            th
         tbody
-        - if @bulk_uploads.present?
-          - @bulk_uploads.each do |bulk_upload|
+          - if @bulk_uploads.present?
+            - @bulk_uploads.each do |bulk_upload|
+              tr
+                td
+                  .btn-group.btn-group-checkbox.dropdown
+                    label.btn.btn-sm
+                      = check_box_tag "selected[]", bulk_upload.id, false, class: 'select-all checkbox-addon'
+                    = render 'upload_actions', bulk_upload: bulk_upload
+                td
+                  - if bulk_upload.photos.present?
+                    = link_to([:edit, bulk_upload]) do
+                      - bulk_upload.photos.first(3).each do |photo|
+                        = image_tag(url_for_photo(photo, size: :thumb), class: 'index-photo')
+                  - else
+                    span -
+                td= d(bulk_upload.created_at)
+                td= render 'upload_status', status: bulk_upload.status
+
+          - else
             tr
-              td= check_box_tag "selected[]", bulk_upload.id, false, class: 'select-all'
-              td
-                - if bulk_upload.photos.present?
-                  = link_to(bulk_upload) do
-                    - bulk_upload.photos.first(3).each do |photo|
-                      = image_tag(url_for_photo(photo, size: :thumb), class: 'index-photo')
-                - else
-                  span -
-              td= d(bulk_upload.created_at)
-              td= render 'upload_status', status: bulk_upload.status
-              td= render 'upload_actions', bulk_upload: bulk_upload
-          tr
-            td= check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
-            td(colspan=4)
-              small
-                label(for='select_all') Alle Uploads auswählen
-        - else
-          tr
-            td(colspan=7) Es wurden keine Uploads gefunden
+              td(colspan=7) Es wurden keine Uploads gefunden
     .panel-footer
-      .btn-group
-        = button_tag name: :bulk_action, value: :destroy, type: :submit, class: 'btn btn-sm btn-default' do
-          span.glyphicon.glyphicon-trash>
-          span löschen
+      .btn-group.btn-group-checkbox.dropup
+        label.btn.btn-sm
+          => check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
+          | alle auswählen
+
+        button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+          span.caret
+          span.sr-only Aktionen
+
+        ul.dropdown-menu
+          li
+            = button_tag name: :bulk_action, value: :destroy, type: :submit, class: 'btn btn-sm btn-link', data: {confirm: 'Die Massen-Uploads werden endgültig gelöscht'}
+              span.glyphicon.glyphicon-trash>
+              span Auswahl löschen
 
 .text-center
   = paginate @bulk_uploads
@@ -80,5 +88,5 @@
         | Massen-Upload löschen
 
   strong Status für Massen-Uploads
-  - @filter_status.each do |status|
+  - BulkUpload.statuses.keys.each do |status|
     p= render 'upload_status', status: status, legend: true

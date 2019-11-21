@@ -49,8 +49,11 @@ describe Vehicle do
     expect(Vehicle.plate?("H:HS2127")).to eql(["H HS 2127", 1.0])
     expect(Vehicle.plate?("HHW2071")).to eql(["HHW 2071", 0.8])
     expect(Vehicle.plate?("„HH RH 2788")).to eql(["HH RH 2788", 1.0])
+    expect(Vehicle.plate?("(.HH GE 216")).to eql(["HH GE 216", 1.0])
     expect(Vehicle.plate?("HHO TR 2607")).to eql(["HHTR 2607", 0.5])
     expect(Vehicle.plate?("BHH BT 4200")).to eql(["HHBT 4200", 0.5])
+    expect(Vehicle.plate?("HK IP 5000")).to eql(["HK IP 5000", 1.0])
+    expect(Vehicle.plate?("BN X 1681 E")).to eql(["BN X 1681 E", 1.0])
   end
 
   it "most likely" do
@@ -59,16 +62,16 @@ describe Vehicle do
       ["HHTX 1267", 0.8],
       ["HHNK 2121", 0.5],
     ].shuffle!
-    expect(Vehicle.most_likely_plate?(plates)).to eql('RD WN 200')
+    expect(Vehicle.most_likely?(plates)).to eql('RD WN 200')
 
     plates = [
       ["RD WN 200", 1.0], ["HHTX 1267", 0.8],
       ["HHTX 1267", 0.8],
       ["HHNK 2121", 0.5], ["HHTX 1267", 0.8],
     ].shuffle!
-    expect(Vehicle.most_likely_plate?(plates)).to eql('HHTX 1267')
-    expect(Vehicle.most_likely_plate?([])).to eql(nil)
-    expect(Vehicle.most_likely_plate?(nil)).to eql(nil)
+    expect(Vehicle.most_likely?(plates)).to eql('HHTX 1267')
+    expect(Vehicle.most_likely?([])).to eql(nil)
+    expect(Vehicle.most_likely?(nil)).to eql(nil)
   end
 
   it "most often" do

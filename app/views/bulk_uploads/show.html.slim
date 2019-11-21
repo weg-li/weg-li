@@ -3,7 +3,8 @@
 
 .panel.panel-default
   .panel-heading
-    = render 'upload_actions', bulk_upload: @bulk_upload
+    .dropdown
+      = render 'upload_actions', bulk_upload: @bulk_upload, button_text: true
   .panel-body
     .row
       .col-lg-4

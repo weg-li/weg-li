@@ -5,7 +5,7 @@ class Notice < ActiveRecord::Base
   split_accessor :date
 
   include Bitfields
-  bitfield :flags, 1 => :empty, 2 => :parked, 4 => :hinder, 8 => :parked_three_hours, 16 => :parked_one_hour
+  bitfield :flags, 1 => :vehicle_empty, 2 => :hazard_lights
 
   include Incompletable
 
@@ -21,21 +21,26 @@ class Notice < ActiveRecord::Base
   before_validation :defaults
 
   geocoded_by :full_address, language: Proc.new { |model| I18n.locale }, no_annotations: true
-  after_validation :geocode
+  after_validation :geocode, if: :do_geocoding?
 
   belongs_to :user
   belongs_to :district
   belongs_to :bulk_upload, optional: true
   has_many_attached :photos
 
-  validates :photos, :registration, :charge, :street, :zip, :city, :date, presence: :true
+  validates :photos, :registration, :charge, :street, :zip, :city, :date, :duration, :severity, presence: :true
   validates :zip, format: { with: /\d{5}/, message: 'PLZ ist nicht korrekt' }
 
   enum status: {open: 0, disabled: 1, analyzing: 2, shared: 3}
+  enum severity: {standard: 0, hinder: 1, endanger: 2}
 
   scope :since, -> (date) { where('notices.created_at > ?', date) }
   scope :destroyable, -> () { where.not(status: :shared) }
   scope :for_public, -> () { where.not(status: :disabled) }
+
+  def self.for_reminder
+    open.joins(:user).where(date: [(21.days.ago.beginning_of_day)..(14.days.ago.end_of_day)]).merge(User.not_disable_reminders).merge(User.active)
+  end
 
   def self.from_param(token)
     find_by_token!(token)
@@ -71,7 +76,26 @@ class Notice < ActiveRecord::Base
   def analyze!
     self.status = :analyzing
     save_incomplete!
-    AnalyzerJob.set(wait: 3.seconds).perform_later(self)
+    AnalyzerJob.set(wait: 1.seconds).perform_later(self)
+  end
+
+  def apply_dates(dates)
+    sorted_dates = dates.compact.sort
+    self.date = sorted_dates.first
+    if date?
+      duration = (sorted_dates.last.to_i - date.to_i)
+      if duration >= 3.hours
+        self.duration = 180
+      elsif duration >= 1.hour
+        self.duration = 60
+      elsif duration >= 5.minutes
+        self.duration = 5
+      elsif duration >= 3.minutes
+        self.duration = 3
+      else
+        self.duration = 1
+      end
+    end
   end
 
   def apply_favorites(registrations)
@@ -101,16 +125,16 @@ class Notice < ActiveRecord::Base
     user.photos_attachments.joins(:blob).where('active_storage_attachments.record_id != ?', id).where('active_storage_blobs.filename' => photos.map { |photo| photo.filename.to_s })
   end
 
-  def zip
-    super || (address || '')[ADDRESS_ZIP_PATTERN, 1]
-  end
-
   def meta
     photos.map(&:metadata).to_json
   end
 
   def coordinates?
     latitude? && longitude?
+  end
+
+  def do_geocoding?
+    !coordinates? && zip? && city? && street?
   end
 
   def handle_geocoding
@@ -122,14 +146,11 @@ class Notice < ActiveRecord::Base
         self.city = best_result.city
         self.street = "#{best_result.street} #{best_result.house_number}".strip
       end
-    else
-      self.city ||= user.city
-      geocode
     end
   end
 
   def full_address
-    [street, zip, city].compact.join(' ')
+    "#{street}, #{zip} #{city}, Deutschland"
   end
 
   def map_data
@@ -148,7 +169,7 @@ class Notice < ActiveRecord::Base
 
   def defaults
     self.token ||= SecureRandom.hex(16)
-    if zip? && zip_changed?
+    if zip? && (district.nil? || zip_changed?)
       # TODO join on zip
       district = District.from_zip(zip)
       self.district = district if district.present?

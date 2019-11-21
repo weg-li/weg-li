@@ -33,6 +33,31 @@ describe Notice do
     end
   end
 
+  context "apply_dates" do
+    it "applies dates" do
+      date = 60.minutes.ago
+      notice.apply_dates([date])
+
+      expect(notice.date).to eql(date)
+      expect(notice.duration).to eql(1)
+
+      notice.apply_dates([date, date.advance(minutes: 3)])
+
+      expect(notice.date).to eql(date)
+      expect(notice.duration).to eql(3)
+
+      notice.apply_dates([date, date.advance(minutes: 60)])
+
+      expect(notice.date).to eql(date)
+      expect(notice.duration).to eql(60)
+
+      notice.apply_dates([date, date.advance(minutes: 180)])
+
+      expect(notice.date).to eql(date)
+      expect(notice.duration).to eql(180)
+    end
+  end
+
   context "incomplete" do
     it "is incomplete" do
       expect(notice).to be_complete
@@ -48,6 +73,15 @@ describe Notice do
       notice = Fabricate(:notice)
       expect(notice).to be_open
       expect(notice.token).to be_present
+    end
+  end
+
+  context "scopes" do
+    it "finds_for_reminder" do
+      notice = Fabricate(:notice, date: 15.days.ago)
+      expect(Notice.for_reminder.to_a).to eql([notice])
+      notice.user.update! disable_reminders: true
+      expect(Notice.for_reminder).to be_empty
     end
   end
 end

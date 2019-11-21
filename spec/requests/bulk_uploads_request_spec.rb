@@ -16,14 +16,6 @@ describe 'bulk_uploads', type: :request do
     end
   end
 
-  context "GET :edit" do
-    it "renders the page" do
-      get edit_bulk_upload_path(bulk_upload)
-
-      expect(response).to be_successful
-    end
-  end
-
   context "POST :create" do
     let(:params) {
       {
@@ -35,8 +27,49 @@ describe 'bulk_uploads', type: :request do
 
     it "creates a bulk_upload with given params" do
       expect {
-        post bulk_uploads_path, params: params
-      }.to change { user.bulk_uploads.count }.by(1)
+        expect {
+          post bulk_uploads_path, params: params
+        }.to change { user.bulk_uploads.count }.by(1)
+      }.to have_enqueued_job(BulkUploadJob)
+    end
+  end
+
+  context "GET :edit" do
+    it "renders the page" do
+      get edit_bulk_upload_path(bulk_upload)
+
+      expect(response).to be_successful
+    end
+  end
+
+  context "PATCH :update" do
+    it "assigns images for notices" do
+      params = {
+        bulk_upload: {
+          photos: [bulk_upload.photos.first.id],
+        },
+      }
+      expect {
+        expect {
+          patch bulk_upload_path(bulk_upload), params: params
+        }.to change { user.notices.count }.by(1)
+      }.to have_enqueued_job(AnalyzerJob)
+
+      expect(response).to be_a_redirect
+    end
+
+    it "assigns images a notice for each image on demand" do
+      params = {
+        one_per_photo: true,
+        bulk_upload: { photos: [] },
+      }
+      expect {
+        expect {
+          patch bulk_upload_path(bulk_upload), params: params
+        }.to change { user.notices.count }.by(1)
+      }.to have_enqueued_job(AnalyzerJob)
+
+      expect(response).to be_a_redirect
     end
   end
 

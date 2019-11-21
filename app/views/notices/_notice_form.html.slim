@@ -1,7 +1,28 @@
 .row
+  .col-lg-4
+    .form-group
+      = form.label :registration, class: "control-label control-label-required"
+      = form.text_field :registration, placeholder: 'z.B. HH SV 1887', class: "form-control", required: true
+      - fair_use_limit = 3
+      - if notice.similar_count > fair_use_limit
+        small.help-block Für dieses Fahrzeug wurden im letzten Monat bereits mehr als #{fair_use_limit} Meldungen erfasst.
+
+  .col-lg-4
+    .form-group
+      = form.label :brand, class: "control-label"
+      = form.select :brand, Vehicle.brands, { include_blank: 'Marke Auswählen' }, { class: "form-control" }
+
+  .col-lg-4
+    .form-group
+      = form.label :color, class: "control-label"
+      = form.select :color, Vehicle.colors.map { |color| [t(color, scope: "activerecord.attributes.notice.colors"), color] }, { include_blank: 'Farbe Auswählen' }, { class: "form-control" }
+
+.row
   .col-lg-12
     .well.well-sm.callout
       p= t('notices.steps.infos.description')
+
+hr.spacer
 
 .row
   .col-lg-12
@@ -35,20 +56,18 @@
       - unless notice.coordinates?
         small.help-block Aus den Beweisfotos konnten leider keine Koordinaten für das automatische Ermitteln der Adresse ausgelesen werden.
 
+.row
+  .col-lg-8
     .form-group
       = form.label :charge, class: "control-label control-label-required"
-      = form.select :charge, Vehicle.charges, { include_blank: 'Tippen zum Auswählen' }, { class: "form-control", required: true }
+      = form.select :charge, Vehicle.charges, { include_blank: 'Verstoß Auswählen' }, { class: "form-control", required: true }
+  .col-lg-4
+    .form-group
+      = form.label :severity, class: "control-label control-label-required"
+      = form.select :severity, Notice.severities.keys.map { |key| [Notice.human_attribute_name(key), key]}, { include_blank: 'Behinderung Auswählen' }, { class: "form-control", required: true }
 
 .row
-  .col-lg-6
-    .form-group
-      = form.label :registration, class: "control-label control-label-required"
-      = form.text_field :registration, placeholder: 'z.B. HH SV 1887', class: "form-control", required: true
-      - fair_use_limit = 5
-      - if notice.similar_count > fair_use_limit
-        small.help-block Für dieses Fahrzeug wurden im letzten Monat bereits mehr als #{fair_use_limit} Meldungen erfasst.
-
-  .col-lg-6
+  .col-lg-8
     .form-group
       = form.label :date, class: "control-label control-label-required"
       .input-group
@@ -59,43 +78,25 @@
         label.input-group-addon(for="notice_date_time")
           span.glyphicon.glyphicon-time
 
-.row
-  .col-lg-6
+  .col-lg-4
     .form-group
-      = form.label :brand, class: "control-label"
-      = form.select :brand, Vehicle.brands, { include_blank: 'Tippen zum Auswählen' }, { class: "form-control" }
-
-  .col-lg-6
-    .form-group
-      = form.label :color, class: "control-label"
-      = form.select :color, Vehicle.colors.map { |color| [t(color, scope: "activerecord.attributes.notice.colors"), color] }, { include_blank: 'Tippen zum Auswählen' }, { class: "form-control" }
+      = form.label :duration, class: "control-label control-label-required"
+      = form.select :duration, Vehicle.durations, { include_blank: 'Dauer Auswählen' }, { class: "form-control" }
 
 .row
-  .col-lg-6
-    .form-group
-      label.control-label Details zum Vorwurf
-      .checkbox
-        label
-          = form.check_box :empty
-          span Das Fahrzeug war verlassen
-      .checkbox
-        label
-          = form.check_box :parked
-          span Das Fahrzeug stand mindestens 3 Minuten
-      .checkbox
-        label
-          = form.check_box :parked_one_hour
-          span Das Fahrzeug stand länger als 1 Stunde
-      .checkbox
-        label
-          = form.check_box :parked_three_hours
-          span Das Fahrzeug stand länger als 3 Stunden
-      .checkbox
-        label
-          = form.check_box :hinder
-          span Behinderung anderer Verkehrsteilnehmer
-
-  .col-lg-6
+  .col-lg-8
     .form-group
       = form.label :note, class: "control-label"
       = form.text_area :note, placeholder: 'Das Fahrzeug war zudem ordnungswidrig mit Rauten verziert', class: "form-control"
+
+  .col-lg-4
+    .form-group
+      label.control-label Details
+      .checkbox
+        label
+          = form.check_box :vehicle_empty
+          span Das Fahrzeug war verlassen
+      .checkbox
+        label
+          = form.check_box :hazard_lights
+          span Das Fahrzeug hatte die Warnblinkanlage aktiviert

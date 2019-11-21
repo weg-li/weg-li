@@ -32,7 +32,7 @@ class Vehicle
     matches.group_by(&:itself).sort_by { |match, group| group.size }.last[0]
   end
 
-  def self.most_likely_plate?(matches)
+  def self.most_likely?(matches)
     return nil if matches.blank?
 
     matches.group_by {|registration, _| registration }.sort_by {|_, group| group.sum { |_, probability| probability } / matches.size }.last[0]
@@ -41,18 +41,18 @@ class Vehicle
   def self.plate?(text)
     text = normalize(text)
     if text =~ plate_regex
-      ["#{$1} #{$2} #{$3}", 1.0]
+      ["#{$1} #{$2} #{$3}#{$4.to_s.gsub('-', ' ')}", 1.0]
     elsif text =~ relaxed_plate_regex
-      ["#{$1}#{$2} #{$3}", 0.8]
+      ["#{$1}#{$2} #{$3}#{$4.to_s.gsub('-', ' ')}", 0.8]
     elsif text =~ quirky_mode_plate_regex
-      ["#{$1}#{$2} #{$3}", 0.5]
+      ["#{$1}#{$2} #{$3}#{$4.to_s.gsub('-', ' ')}", 0.5]
     end
   end
 
   def self.normalize(text)
     return '' if text.blank?
 
-    tokens = "[ •„.,:;\"'|_+-]"
+    tokens = "[ •„.,:;\"'()|_+-]"
     left = Regexp.new("^#{tokens}+")
     right = Regexp.new("#{tokens}+$")
     text.gsub(left, '').gsub(right, '').gsub(/\W+/,'-')
@@ -63,15 +63,15 @@ class Vehicle
   end
 
   def self.plate_regex
-    @plate_regex ||= Regexp.new("^(#{Vehicle.plates.keys.join('|')})-([A-Z]{1,3})-?(\\d{1,4})$")
+    @plate_regex ||= Regexp.new("^(#{Vehicle.plates.keys.join('|')})-([A-Z]{1,3})-?(\\d{1,4})(-E)?$")
   end
 
   def self.relaxed_plate_regex
-    @relaxed_plate_regex ||= Regexp.new("^(#{Vehicle.plates.keys.join('|')}):?-?([A-Z]{1,3})-?(\\d{1,4})$")
+    @relaxed_plate_regex ||= Regexp.new("^(#{Vehicle.plates.keys.join('|')}):?-?([A-Z]{1,3})-?(\\d{1,4})(-E)?$")
   end
 
   def self.quirky_mode_plate_regex
-    @quirky_mode_plate_regex ||= Regexp.new("^O?B?(#{Vehicle.plates.keys.join('|')})O?:?-?O?([A-Z]{1,3})-?(\\d{1,4})$")
+    @quirky_mode_plate_regex ||= Regexp.new("^O?B?(#{Vehicle.plates.keys.join('|')})O?:?-?O?([A-Z]{1,3})-?(\\d{1,4})(-E)?$")
   end
 
   def self.district_for_plate_prefix(text)
@@ -142,8 +142,18 @@ class Vehicle
     ]
   end
 
+  def self.durations
+    @durations ||= [
+      ['bis zu 3 Minuten', 1],
+      ['länger als 3 Minuten', 3],
+      ['länger als 5 Minuten', 5],
+      ['länger als 1 Stunde', 60],
+      ['länger als 3 Stunden', 180],
+    ]
+  end
+
   def self.charges
-    @charges = [
+    @charges ||= [
       'Parken auf einem unbeschilderten Radweg',
       'Parken auf einem Fußgängerüberweg',
       'Parken auf einem Radweg (Zeichen 237)',

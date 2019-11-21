@@ -40,6 +40,9 @@ module ActiveJob
 end
 
 RSpec.configure do |config|
+  config.expect_with :rspec do |rspec|
+    rspec.max_formatted_output_length = 1000
+  end
   config.use_transactional_fixtures = true
   config.infer_base_class_for_anonymous_controllers = false
   config.infer_spec_type_from_file_location!

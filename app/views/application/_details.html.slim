@@ -1,4 +1,6 @@
 dl.dl-horizontal
+  dt= Notice.human_attribute_name(:created_at)
+  dd= d(notice.created_at)
   dt= Notice.human_attribute_name(:status)
   dd
     => render 'status', status: @notice.status
@@ -6,31 +8,29 @@ dl.dl-horizontal
       = render 'status', status: :incomplete
   dt= Notice.human_attribute_name(:district)
   dd= notice.district&.name
-  dt= Notice.human_attribute_name(:charge)
-  dd= notice.charge
-  dt= Notice.human_attribute_name(:date)
-  dd= d(notice.date)
-  dt= Notice.human_attribute_name(:address)
-  dd= notice.full_address
   dt= Notice.human_attribute_name(:registration)
   dd= notice.registration
-  - if notice.brand?
-    dt= Notice.human_attribute_name(:brand)
-    dd= notice.brand
-  - if notice.color?
-    dt= Notice.human_attribute_name(:color)
-    dd= t(notice.color, scope: "activerecord.attributes.notice.colors")
-  - if notice.empty? || notice.parked? || notice.note? || notice.hinder?
+  dt= Notice.human_attribute_name(:brand)
+  dd= notice.brand || '-'
+  dt= Notice.human_attribute_name(:color)
+  dd= t(notice.color.presence, scope: "activerecord.attributes.notice.colors", default: '-')
+  dt= Notice.human_attribute_name(:address)
+  dd= notice.full_address
+  dt= Notice.human_attribute_name(:charge)
+  dd= notice.charge
+  dt= Notice.human_attribute_name(:severity)
+  dd= Notice.human_attribute_name(notice.severity)
+  dt= Notice.human_attribute_name(:date)
+  dd= d(notice.date)
+  dt= Notice.human_attribute_name(:duration)
+  dd= Vehicle.durations.to_h.invert[notice.duration]
+  - if notice.flags.positive?
     dt Details
-    - if notice.empty?
+    - if notice.vehicle_empty?
       dd Das Fahrzeug war verlassen
-    - if notice.parked?
-      dd Das Fahrzeug stand mindestens 3 Minuten.
-    - if notice.parked_one_hour?
-      dd Das Fahrzeug stand länger als 1 Stunde.
-    - if notice.parked_three_hours?
-      dd Das Fahrzeug stand länger als 3 Stunden.
-    - if notice.hinder?
-      dd Behinderung anderer Verkehrsteilnehmer
+    - if notice.hazard_lights?
+      dd Das Fahrzeug hatte die Warnblinkanlage aktiviert
+  - if notice.note?
+    dt Details
     - if notice.note?
       dd= notice.note

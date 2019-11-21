@@ -5,20 +5,26 @@ class NoticesController < ApplicationController
   before_action :validate!, except: [:index]
 
   def index
-    @filter_status =  Notice.statuses.keys
-    @order_created_at = 'ASC'
-    @table_params = {}
+    @table_params = {
+      search: {},
+      filter: {},
+      order: {},
+    }
 
     @notices = current_user.notices.page(params[:page])
+
+    if search = params[:search]
+      @table_params[:search] = search.to_unsafe_hash
+      @notices = @notices.where('registration ILIKE :term', term: "%#{search[:term]}%") if search[:term].present?
+    end
     if filter = params[:filter]
       @table_params[:filter] = filter.to_unsafe_hash
-      @notices = @notices.where(status: filter[:status]) if filter[:status]
+      @notices = @notices.where(status: filter[:status]) if filter[:status].present?
     end
     if order = params[:order]
       @table_params[:order] = order.to_unsafe_hash
-      if order[:created_at]
-        @notices = @notices.reorder(created_at: order[:created_at])
-        @order_created_at = 'DESC' if order[:created_at] == 'ASC'
+      if order[:column].present? && order[:value].present?
+        @notices = @notices.reorder(order[:column] => order[:value])
       end
     end
   end
@@ -159,6 +165,7 @@ class NoticesController < ApplicationController
   def inspect
     @notice = current_user.notices.from_param(params[:id])
     @photo = @notice.photos.find(params[:photo_id])
+    @exif = EXIFAnalyzer.new(@photo.blob).metadata
     @result = Annotator.new.annotate_object(@photo.key)
   end
 
@@ -206,7 +213,7 @@ class NoticesController < ApplicationController
 
   def purge
     notice = current_user.notices.from_param(params[:id])
-    notice.photos.find(params[:photo_id]).purge
+    notice.photos.find(params[:photo_id]).purge_later
 
     redirect_back fallback_location: notice_path(notice), notice: 'Foto gelöscht'
   end
@@ -214,7 +221,7 @@ class NoticesController < ApplicationController
   private
 
   def notice_params
-    params.require(:notice).permit(:charge, :date, :date_date, :date_time, :registration, :brand, :color, :street, :zip, :city, :note, :hinder, :empty, :parked, :parked_one_hour, :parked_three_hours)
+    params.require(:notice).permit(:charge, :date, :date_date, :date_time, :registration, :brand, :color, :street, :zip, :city, :note, :duration, :severity, :vehicle_empty, :hazard_lights)
   end
 
   def notice_upload_params

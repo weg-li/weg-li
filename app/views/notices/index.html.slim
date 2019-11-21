@@ -3,78 +3,137 @@
 
 = render 'activation_popup'
 
-- if @notices.present? || params[:filter]
-  = form_tag bulk_notices_path, method: :post do
-    .panel.panel-default
-      .panel-heading
-        = link_to new_notice_path, class: 'btn btn-sm btn-success', title: 'Meldung erfassen' do
-          span.glyphicon.glyphicon-plus>
-          | Meldung erfassen
+- if current_user.notices.any?
+  .panel.panel-default
+    .panel-heading
+      .row
+        .col-xs-8
+          = link_to new_notice_path, class: 'btn btn-sm btn-success', title: 'Meldung erfassen' do
+            span.glyphicon.glyphicon-plus>
+            | Meldung erfassen
+        .col-xs-4.text-right
+          button.btn.btn-default.btn-sm.dropdown-toggle type="button" data-toggle="dropdown"
+            | Suche <span class="caret"></span>
+          ul.dropdown-menu.dropdown-menu-right
+            = form_tag(url_for, method: :get, class: 'form-dropdown', autocomplete: :off)
+              .input-group.input-group-sm
+                = hidden_field_tag('order[column]', @table_params[:order][:column])
+                = hidden_field_tag('order[value]', @table_params[:order][:value])
+                = hidden_field_tag('filter[status]', @table_params[:filter][:status])
+                = text_field_tag('search[term]', @table_params[:search][:term], placeholder: 'z.B. HH SV 1887', class: 'form-control')
+                span.input-group-btn
+                  = button_tag(class: "btn btn-default btn-sm")
+                    span.glyphicon.glyphicon-search
+            - if @table_params[:search][:term].present?
+              li.divider
+              li
+                = link_to url_for(@table_params.merge(search: nil))
+                  span.glyphicon.glyphicon-remove>
+                  | ohne Suche
+
+    = form_tag bulk_notices_path, method: :post do
       .table-responsive
-        .visible-xs-block.scroll-indicator
-          a(href="#actions" data-turbolinks="false") ⤳
         table.table.table-striped.table-hover
           thead
             tr
               th
+              th
+                => Notice.human_attribute_name(:registration)
+                - if params.dig(:order, :column) == 'registration'
+                  - if params.dig(:order, :value) == 'ASC'
+                    = link_to url_for(@table_params.deep_merge(order: {column: :registration, value: 'DESC'}))
+                      span.glyphicon.glyphicon-arrow-up.smaller
+                  - else
+                    = link_to url_for(@table_params.deep_merge(order: {column: :registration, value: 'ASC'}))
+                      span.glyphicon.glyphicon-arrow-down.smaller
+                  = link_to url_for(@table_params.merge(order: {}))
+                    span.text-muted.glyphicon.glyphicon-remove.smaller
+                - else
+                  = link_to url_for(@table_params.deep_merge(order: {column: :registration, value: 'ASC'}))
+                    span.glyphicon.glyphicon-arrow-down.smaller.text-muted
               th= Notice.human_attribute_name(:photos)
               th
                 => Notice.human_attribute_name(:created_at)
-                = link_to url_for(@table_params.merge(order: {created_at: @order_created_at}))
-                  - if params[:order] && params[:order][:created_at] == 'ASC'
-                    span.glyphicon.glyphicon-arrow-up.smaller
+                - if params.dig(:order, :column) == 'created_at'
+                  - if params.dig(:order, :value) == 'ASC'
+                    = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'DESC'}))
+                      span.glyphicon.glyphicon-arrow-up.smaller
                   - else
-                    span.glyphicon.glyphicon-arrow-down.smaller
+                    = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'}))
+                      span.glyphicon.glyphicon-arrow-down.smaller
+                  = link_to url_for(@table_params.merge(order: {}))
+                    span.text-muted.glyphicon.glyphicon-remove.smaller
+                - else
+                  = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'}))
+                    span.glyphicon.glyphicon-arrow-down.smaller.text-muted
               th
                 .dropdown
-                  button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-                    => params[:filter] ? Notice.human_attribute_name(params[:filter][:status]) : Notice.human_attribute_name(:status)
+                  button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown"
+                    - current_status_filter = params.dig(:filter, :status)
+                    => current_status_filter.present? ? Notice.human_attribute_name(current_status_filter) : Notice.human_attribute_name(:status)
                     span.caret
-                  ul.dropdown-menu aria-labelledby="dropdownMenu1"
-                    - @filter_status.each do |status|
+                  ul.dropdown-menu.dropdown-menu-right
+                    - Notice.statuses.keys.each do |status|
                       li
                         = link_to url_for(@table_params.merge(filter: {status: status})) do
                           = render 'status', status: status
                     li role="separator" class="divider"
-                    li= link_to 'kein Filter', url_for(@table_params.merge(filter: nil))
-              th
-                span Aktionen
-                span#actions.pull-right(style="width:0px;")
+                    li
+                      = link_to url_for(@table_params.merge(filter: nil))
+                        span.glyphicon.glyphicon-remove>
+                        | kein Filter
           tbody
             - if @notices.present?
               - @notices.each do |notice|
                 tr
-                  td= check_box_tag "selected[]", notice.id, false, class: 'select-all'
+                  td
+                    .btn-group.btn-group-checkbox.dropdown
+                      label.btn.btn-sm
+                        = check_box_tag "selected[]", notice.id, false, class: 'select-all'
+                      = render 'actions', notice: notice
+                  td
+                    - if notice.incomplete?
+                      = link_to([:edit, notice]) do
+                        = render 'status', status: :incomplete
+                    - else
+                      = link_to(notice)
+                        span.label.label-license
+                          span.glyphicon.glyphicon-status
+                          span<= notice.registration
                   td
                     = link_to(notice) do
                       - notice.photos.each do |photo|
                         = image_tag(url_for_photo(photo, size: :thumb), class: 'index-photo')
                   td= link_to(d(notice.created_at), notice)
-                  td
-                    => render 'status', status: notice.status
-                    = render 'status', status: :incomplete if notice.incomplete?
-                  td= render 'actions', notice: notice
-              tr
-                td= check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
-                td(colspan=4)
-                  small
-                    label(for='select_all') Alle Meldungen auswählen
+                  td= render 'status', status: notice.status
+
             - else
               tr
                 td(colspan=7)= t('notices.nothing_found')
       .panel-footer
         .row
           .col-lg-12
-            .btn-group
-              = button_tag name: :bulk_action, value: :analyze, type: :submit, class: 'btn btn-sm btn-default', title: 'Auswahl analysieren' do
-                span.glyphicon.glyphicon-hourglass>
-                span analysieren
-              = button_tag name: :bulk_action, value: :share, type: :submit, class: 'btn btn-sm btn-default', title: 'Auswahl melden' do
-                span.glyphicon.glyphicon-share>
-                span melden
-              = button_tag name: :bulk_action, value: :destroy, type: :submit, class: 'btn btn-sm btn-default', title: 'Auswahl löschen' do
-                span.glyphicon.glyphicon-trash>
-                span löschen
+            .btn-group.btn-group-checkbox.dropup
+              label.btn.btn-sm
+                => check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
+                | alle auswählen
+
+              button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                span.caret
+                span.sr-only Aktionen
+              ul.dropdown-menu
+                li
+                  = button_tag name: :bulk_action, value: :analyze, type: :submit, class: 'btn btn-sm btn-link'
+                    span.glyphicon.glyphicon-hourglass>
+                    span Auswahl analysieren
+                li
+                  = button_tag name: :bulk_action, value: :share, type: :submit, class: 'btn btn-sm btn-link'
+                    span.glyphicon.glyphicon-share>
+                    span Auswahl melden
+                li
+                  = button_tag name: :bulk_action, value: :destroy, type: :submit, class: 'btn btn-sm btn-link', data: {confirm: 'Die Meldungen werden endgültig gelöscht'}
+                    span.glyphicon.glyphicon-trash>
+                    span Auswahl löschen
 
   .text-center
     = paginate @notices
@@ -89,6 +148,9 @@
         li
           span.glyphicon.glyphicon-edit>
           | Meldung bearbeiten
+        li
+          span.glyphicon.glyphicon-duplicate>
+          | Meldung duplizieren
         li
           span.glyphicon.glyphicon-trash>
           | Meldung löschen

@@ -4,48 +4,31 @@
       span.glyphicon.glyphicon-plus>
       | Neuen Bezirk erfassen
     .pull-right
-      = form_tag({url: map_path}, method: :get, class: 'form-inline') do |form|
-        / = hidden_field_tag(:since, since)
-        / = hidden_field_tag(:display, display)
+      = form_tag({url: url_for}, method: :get, class: 'form-inline') do
         = text_field_tag(:term, params[:term], placeholder: 'z.B. 22525', class: 'form-control input-sm')
-        / .form-group
-        /   - days = [7, 14, 30, 365]
-        /   = select_tag(:since, options_for_select(days.map { |duration| ["seit #{duration} Tagen", duration]}, since), class: 'form-control input-sm')
-        / .form-group
-        /   = select_tag(:district, options_for_select(District.pluck(:name).uniq, district), class: 'form-control input-sm')
         = submit_tag('Suchen', class: "btn btn-default btn-sm")
-
 
   - if @districts.present? || params[:filter]
     .table-responsive
       table.table.table-striped.table-hover
         thead
           tr
+            th
             th= District.human_attribute_name(:zip)
             th= District.human_attribute_name(:prefix)
             th= District.human_attribute_name(:name)
             th= District.human_attribute_name(:email)
             th= District.human_attribute_name(:updated_at)
-              / => District.human_attribute_name(:created_at)
-              / = link_to url_for(@table_params.merge(order: {created_at: @order_created_at}))
-              /   - if params[:order] && params[:order][:created_at] == 'ASC'
-              /     span.glyphicon.glyphicon-arrow-up.smaller
-              /   - else
-              /     span.glyphicon.glyphicon-arrow-down.smaller
-            th Aktionen
         tbody
           - if @districts.present?
             - @districts.each do |district|
               tr
-                td= district.zip
-                td= district.prefix
-                td= district.name
-                td= district.email
-                td= l(district.updated_at, format: :short)
                 td= render 'actions', district: district
+                td= link_to district.zip, district
+                td= link_to district.prefix || '-', district
+                td= link_to district.name, district
+                td= link_to district.email, district
+                td= link_to l(district.updated_at, format: :short), district
 
   .text-center
     = paginate @districts
-
-  .col-lg-4
-    / = render 'pills', facets: @facets

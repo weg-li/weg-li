@@ -34,6 +34,10 @@ de:
       bulk_upload:
         created_at: 'Erstellt'
         photos: 'Beweisfotos'
+        initial: neu
+        processing: verarbeiten
+        open: offen
+        done: fertig
       notice:
         created_at: 'Erstellt'
         district: 'Bezirk'
@@ -50,12 +54,13 @@ de:
         color: 'Farbe'
         charge: 'Verstoß'
         date: 'Datum & Uhrzeit'
+        duration: 'Dauer'
         note: 'Hinweis'
         empty: 'Verlassen'
-        parked: 'Geparkt'
-        parked_one_hour: 'Länger als 1 Stunde'
-        parked_three_hours: 'Länger als 3 Stunden'
-        hinder: 'Behinderung'
+        severity: 'Behinderung'
+        standard: 'ohne Behinderung'
+        hinder: 'mit Behinderung (Anhalten, Ausweichen, Absteigen)'
+        endanger: 'mit Gefährdung (Ausweichen in Fließverkehr)'
         incomplete: 'unvollständig'
         status: 'Status'
         open: 'offen'
@@ -173,6 +178,7 @@ de:
     change_settings: 'Einstellungen ändern'
     flags:
       hide_public_profile: 'öffentliches Profil deaktivieren'
+      disable_reminders: 'Erinnerungen deaktivieren'
   articles:
     title: 'das weg-li Blog'
     wrote_on: 'hat am <em>%{date}</em> geschrieben'
@@ -188,11 +194,20 @@ de:
       this-week: 'Diese Woche'
   bulk_upload:
     status:
+      initial: 'neu'
+      processing: 'verarbeiten'
       open: 'offen'
       done: 'erledigt'
     status-hints:
-      open: 'Die Beweisfotos wurden gespeichert, bitte Meldungungen daraus erzeugen, vervollständigen und eine Anzeige erstatten.'
+      initial: 'Der Massen-Upload ist noch leer.'
+      processing: 'Die Beweisfotos wurden gespeichert und werden verarbeitet, der Massen-Upload ist in kürze verfügbar.'
+      open: 'Die Beweisfotos wurden verarbeitet, bitte Meldungungen daraus erzeugen, vervollständigen und eine Anzeige erstatten.'
       done: 'Alle Beweisfotos des Massen-Uploads wurden neuen Meldungen zugeordnet.'
+    callouts:
+      processing:
+        hint: 'Der Massen-Upload wird gerade verarbeitet, in kürze stehen all Beweisfotos zur Verfügung.'
+        title: 'Massen-Upload wird verarbeitet'
+        text: 'Die Beweisfotos im Massen-Upload werden im Hintergrund verarbeitet in verschiedenen Größen, z.B. als Thumbnails, bereitgestellt. Dies kann einige Zeit in Anspruch nehemn.'
   notices:
     new_notice: 'Neue Meldung'
     create_button: 'Meldung erstellen'
@@ -238,7 +253,6 @@ de:
       charges:
         title: Melden
         description: Aus den Daten kann direkt eine Anzeige erstattet werden, die dann an das zuständige Ordnungsamt oder die Polizei gesendet wird. Alle Meldungen werden zudem anonymisiert auf der öffentlich erreichbaren weg-li Karte angezeigt.
-
     callouts:
       send_email:
         hint: 'Erstatte die Anzeige direkt per E-Mail, Du erhältst eine Kopie in CC.'

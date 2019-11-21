@@ -6,5 +6,5 @@
 .row.spacer
   .col-lg-12
     = form.label :photos, class: "control-label control-label-required"
-    = form.file_field :photos, id: 'fileupload', required: true, multiple: true, direct_upload: true, class: "form-control-file text-muted", accept: 'image/tiff,image/jpeg'
+    = form.file_field :photos, id: 'fileupload', required: true, multiple: true, direct_upload: true, class: "form-control-file text-muted", accept: 'image/jpeg'
     = render('safari_hint')

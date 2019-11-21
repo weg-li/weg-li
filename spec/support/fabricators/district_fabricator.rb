@@ -5,4 +5,5 @@ Fabricator(:district) do
   prefix    { Vehicle.plates.keys.shuffle.first }
   latitude  { 53.57532 }
   longitude { 10.01534 }
+  aliases   { [Faker::Internet.email] }
 end

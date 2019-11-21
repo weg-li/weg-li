@@ -21,6 +21,41 @@ $danger-color: #ee5f5b;
   }
 }
 
+.table-responsive {
+  padding-bottom: 50px;
+}
+@media (max-width: 767px) {
+  .table-responsive {
+    padding-bottom: 100px;
+  }
+}
+
+.form-dropdown {
+  padding: 3px 20px;
+  min-width: 200px;
+}
+
+.btn-group-checkbox {
+  min-width: 100px;
+
+  label {
+    padding: 5px 5px 5px 5px;
+
+    input[type=checkbox] {
+      border: none;
+      padding: 0px;
+      margin: 0 2px;
+      width: 12px;
+      height: 12px;
+      line-height: 11px;
+      font-size: 11px;
+    }
+  }
+  button.btn {
+    height: 30px;
+  }
+}
+
 .well-active {
   background-color: $primary-color;
 }
@@ -85,6 +120,13 @@ ul.droppable-list {
   }
 }
 
+#notice_zip {
+  min-width: 30px;
+  padding-left: 0px;
+  padding-right: 0px;
+  text-align: center;
+}
+
 .index-photo {
   height: 3em;
   border-radius: 5px;
@@ -96,6 +138,9 @@ ul.droppable-list {
   margin-top: -5px;
 }
 
+.glyphicon-status-initial:before {
+  content: "\e209";
+}
 .glyphicon-status-incomplete:before {
   content: "\e209";
 }
@@ -111,6 +156,9 @@ ul.droppable-list {
 .glyphicon-status-analyzing:before {
   content: "\231b";
 }
+.glyphicon-status-processing:before {
+  content: "\231b";
+}
 .glyphicon-status-disabled:before {
   content: "\e090";
 }
@@ -118,6 +166,9 @@ ul.droppable-list {
   content: "\e089";
 }
 
+.label-status-initial {
+  background-color: $primary-color;
+}
 .label-status-incomplete {
   background-color: $warning-color;
 }
@@ -131,6 +182,9 @@ ul.droppable-list {
   background-color: $success-color;
 }
 .label-status-analyzing {
+  background-color: $info-color;
+}
+.label-status-processing {
   background-color: $info-color;
 }
 .label-status-disabled {
@@ -170,6 +224,13 @@ ul.droppable-list {
 }
 .label-access-admin {
   background-color: $success-color;
+}
+
+.label-license {
+  border: 1px solid $default-color;
+  color: $default-color;
+  background: #EEE;
+  // background: linear-gradient(90deg, rgba(11,0,191,1) 0%, rgba(11,0,191,1) 7%, rgba(255,255,255,1) 8%, rgba(255,255,255,1) 100%);
 }
 
 .control-label-required::after {
@@ -249,7 +310,7 @@ pre.charge {
     padding: 1px;
     border: 1px;
     vertical-align: bottom;
-    border-radius: 5px;
+    border-radius: 1px;
   }
   em {
     padding-left: 5px;

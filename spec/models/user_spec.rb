@@ -25,4 +25,17 @@ describe User do
       expect(admin).to be_admin
     end
   end
+
+  context "scopes" do
+    it "finds active users" do
+      user.save!
+      expect(User.active.to_a).to eql([user])
+      user.update! access: :ghost
+      expect(User.active.to_a).to eql([])
+      user.update! access: :community
+      expect(User.active.to_a).to eql([user])
+      user.update! access: :disabled
+      expect(User.active.to_a).to eql([])
+    end
+  end
 end

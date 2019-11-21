@@ -23,6 +23,7 @@ gem 'kaminari'
 gem 'kaminari-bootstrap', '~> 3.0.1'
 gem 'acts_as_api'
 gem 'pg'
+gem 'i18n'
 gem 'redcarpet'
 gem 'geocoder'
 gem 'image_processing'
@@ -41,6 +42,7 @@ group :production do
   gem 'rails_12factor'
   gem 'heroku-deflater'
   gem 'dalli'
+  gem 'barnes'
 end
 
 group :development do

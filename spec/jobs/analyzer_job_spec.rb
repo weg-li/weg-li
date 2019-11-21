@@ -11,6 +11,17 @@ describe AnalyzerJob do
 
       expect { job.perform(notice) }.to change { notice.reload.data }.from(NilClass).to(Hash)
     end
+
+    it "should raise an error when not yet analyzed" do
+      expect { AnalyzerJob.new.perform(notice) }.to raise_error(AnalyzerJob::NotYetAnalyzedError)
+    end
+  end
+
+  context "helpers" do
+    it "parses filenames as dated" do
+      expect(AnalyzerJob.time_from_filename('IMG_20190929_164947.jpg').to_s).to eql('2019-09-29 16:49:47 +0200')
+      expect(AnalyzerJob.time_from_filename('photo_2019-08-22_21-57-26.jpg').to_s).to eql('2019-08-22 21:57:26 +0200')
+    end
   end
 
   def annotate_object(key)
