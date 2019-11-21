@@ -165,6 +165,7 @@ class NoticesController < ApplicationController
   def inspect
     @notice = current_user.notices.from_param(params[:id])
     @photo = @notice.photos.find(params[:photo_id])
+    @exif = EXIFAnalyzer.new(@photo.blob).metadata
     @result = Annotator.new.annotate_object(@photo.key)
   end
 
