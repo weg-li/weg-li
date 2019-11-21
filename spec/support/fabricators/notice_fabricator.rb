@@ -11,7 +11,7 @@ Fabricator(:notice) do
   brand { Vehicle.car_brands.shuffle.first }
   model { |attrs| Vehicle.models(attrs[:brand]).shuffle.first }
   color { Vehicle.colors.shuffle.first }
-  empty { true }
+  vehicle_empty { true }
   duration { 3 }
   severity { 0 }
   latitude { 53.57532 }
