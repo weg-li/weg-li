@@ -10,5 +10,7 @@ export GOOGLE_CONSUMER_SECRET=UPq0r1YoKno2cz0e9dYB9sKr
 export GOOGLE_CLOUD_PROJECT=weg-li
 export GOOGLE_CLOUD_KEYFILE=config/secrets/gcloud.json
 export WEB_CONCURRENCY=1
+export VERBOSE_LOGGING=1
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 bundle exec rails server -b 0.0.0.0
