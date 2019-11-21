@@ -76,6 +76,7 @@ class User < ActiveRecord::Base
   def defaults
     if new_record?
       self.token = SecureRandom.hex(16)
+      self.api_token = SecureRandom.hex(32)
     end
   end
 

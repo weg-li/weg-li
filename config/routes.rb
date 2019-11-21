@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
   mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
 
   namespace :admin do
@@ -14,6 +16,11 @@ Rails.application.routes.draw do
     end
 
     root to: "notices#index"
+  end
+
+  namespace :api do
+    resources :notices
+    resources :users
   end
 
   post "/analyze_direct_upload" => "direct_uploads#analyze", as: :direct_upload_analyze

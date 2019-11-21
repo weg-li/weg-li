@@ -25,6 +25,9 @@ Geocoder::Lookup::Test.set_default_stub(
 )
 I18n.locale = :de
 
+
+ENV['WEGLI_API_KEY'] = 'dingSbums'
+
 module ActiveJob
   module QueueAdapters
     class InlineAdapter

@@ -1,0 +1,41 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+securityDefinitions:
+  apiKey:
+    type: apiKey
+    name: x-api-token
+    in: header
+paths:
+  "/api/notices/{id}":
+    get:
+      summary: Retrieves a notice
+      tags:
+      - Notices
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - name: id
+        in: path
+        type: string
+        required: true
+      security:
+      - apiKey: User-Token
+      responses:
+        '200':
+          description: name found
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+              status:
+                type: string
+            required:
+            - token
+            - status
+        '404':
+          description: notice not found
