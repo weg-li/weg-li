@@ -3,7 +3,8 @@
     ul.breadcrumb
       - @crumbs.each do |name, path|
         - if path == url_for
-          li.active= name
+          li.active
+            = link_to name, path
         - else
           li
             = link_to name, path
