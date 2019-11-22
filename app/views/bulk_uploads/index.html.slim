@@ -47,7 +47,7 @@
                       - bulk_upload.photos.first(3).each do |photo|
                         = image_tag(url_for_photo(photo, size: :thumb), class: 'index-photo')
                   - else
-                    span -
+                    = link_to('-', [:edit, bulk_upload])
                 td= d(bulk_upload.created_at)
                 td= render 'upload_status', status: bulk_upload.status
 
