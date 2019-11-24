@@ -2,6 +2,7 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+require 'action_mailbox/test_helper'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
@@ -48,6 +49,7 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.order = "random"
   config.include ActiveSupport::Testing::TimeHelpers
+  config.include ActionMailbox::TestHelper
   config.include RequestHelper, type: :controller
   config.include LoginHelper, type: :request
   config.include DataHelper

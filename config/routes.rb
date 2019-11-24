@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     # resources :articles
+    resources :replies
     resources :districts
     resources :authorizations
     resources :notices do
@@ -55,6 +56,8 @@ Rails.application.routes.draw do
       post :bulk
       post :import
     end
+
+    resources :replies, shallow: true
   end
 
   resources :users, only: [:edit, :update, :destroy] do

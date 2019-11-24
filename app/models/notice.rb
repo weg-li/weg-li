@@ -27,6 +27,7 @@ class Notice < ActiveRecord::Base
   belongs_to :district
   belongs_to :bulk_upload, optional: true
   has_many_attached :photos
+  has_many :replies
 
   validates :photos, :registration, :charge, :street, :zip, :city, :date, :duration, :severity, presence: :true
   validates :zip, format: { with: /\d{5}/, message: 'PLZ ist nicht korrekt' }
@@ -46,6 +47,11 @@ class Notice < ActiveRecord::Base
     find_by_token!(token)
   end
 
+  def self.from_email_address(email)
+    token = email[/^([^-]+)-.+/, 1]
+    find_by_token!(token)
+  end
+
   def self.statistics(date = 100.years.ago)
     {
       photos: since(date).joins(photos_attachments: :blob).count,
@@ -60,6 +66,10 @@ class Notice < ActiveRecord::Base
 
   def self.prepared_claim(token)
     Notice.joins(:user).where({ users: { access: :ghost} }).find_by(token: token)
+  end
+
+  def unique_email_address
+    "#{token}-#{user.wegli_email}"
   end
 
   def duplicate!

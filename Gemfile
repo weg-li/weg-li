@@ -56,9 +56,8 @@ end
 
 group :development, :test do
   gem 'byebug'
-  gem 'fabrication'
-  gem 'rspec-rails'
   gem 'faker'
+  gem 'fabrication'
   gem 'rspec-rails'
   gem 'rswag-specs'
 end

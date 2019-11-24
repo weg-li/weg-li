@@ -9,6 +9,16 @@ describe Notice do
     end
   end
 
+  context "unique_email_address" do
+    it "creates and reads the proper notice" do
+      notice =  Fabricate.create(:notice)
+
+      email_address = notice.unique_email_address
+      notice = Notice.from_email_address(email_address)
+      expect(notice).to eql(notice)
+    end
+  end
+
   context "duplication" do
     it "duplicates a notice" do
       notice = Fabricate(:notice)
