@@ -18,6 +18,10 @@ class AnalyzerJob < ApplicationJob
 
     raise NotYetAnalyzedError unless notice.photos.all?(&:analyzed?)
 
+    analyze(notice)
+  end
+
+  def analyze(notice)
     plates = []
     brands = []
     colors = []

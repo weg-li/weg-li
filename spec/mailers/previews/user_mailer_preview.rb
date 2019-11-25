@@ -1,5 +1,11 @@
 # Preview all emails at http://localhost:3000/rails/mailers/
 class UserMailerPreview < ActionMailer::Preview
+  def email_auth
+    email = 'uschi@sushi.de'
+    token = 'MMuuRRkkSS'
+    UserMailer.email_auth(email, token)
+  end
+
   def signup
     user = User.first!
     UserMailer.signup(user)
@@ -16,9 +22,9 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.reminder(user, [notice])
   end
 
-  def email_auth
-    email = 'uschi@sushi.de'
-    token = 'MMuuRRkkSS'
-    UserMailer.email_auth(email, token)
+  def autoreply
+    reply = Reply.first!
+    user = reply.notice.user
+    UserMailer.autoreply(user, reply)
   end
 end

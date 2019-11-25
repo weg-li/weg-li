@@ -1,0 +1,17 @@
+Hallo <%= @user.name %>,
+
+Es ist eine E-Mail Antwort zu Deiner Anzeige vom <%= l(@notice.created_at, format: :short) %> eingegangen.
+
+Absender: <%= @reply.sender %>
+Betreff: <%= @reply.subject %>
+
+Den Inhalt der Antwort kannst Du über den nachfolgenden Link anschauen:
+
+<%= notice_url(@notice) %>
+
+
+Wenn Du diese Benachrichtigung nicht mehr bekommen möchtest, dann markiere bitte die "Eingangsbenachrichtigung deaktivieren" Box in Deinem Profil:
+
+<%= url_for([:edit, @user]) %>
+
+<%= render 'mailer/footer' %>

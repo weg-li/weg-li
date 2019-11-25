@@ -24,4 +24,13 @@ class UserMailer < ApplicationMailer
     subject = "Meldungen jetzt zur Anzeige bringen"
     mail subject: subject, to: email_address_with_name(@user.email, @user.name)
   end
+
+  def autoreply(user, reply)
+    @user = user
+    @reply = reply
+    @notice = reply.notice
+
+    subject = "Automatische Antwort auf Anzeige #{@notice.registration} #{@notice.charge}"
+    mail subject: subject, to: email_address_with_name(@user.email, @user.name)
+  end
 end

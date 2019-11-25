@@ -9,7 +9,7 @@ describe AnalyzerJob do
       this = self
       job.define_singleton_method(:annotator) { this }
 
-      expect { job.perform(notice) }.to change { notice.reload.data }.from(NilClass).to(Hash)
+      expect { job.analyze(notice) }.to change { notice.reload.data }.from(NilClass).to(Hash)
     end
 
     it "should raise an error when not yet analyzed" do

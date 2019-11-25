@@ -9,11 +9,11 @@ describe Notice do
     end
   end
 
-  context "unique_email_address" do
+  context "wegli_email" do
     it "creates and reads the proper notice" do
       notice =  Fabricate.create(:notice)
 
-      email_address = notice.unique_email_address
+      email_address = notice.wegli_email
       notice = Notice.from_email_address(email_address)
       expect(notice).to eql(notice)
     end

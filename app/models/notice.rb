@@ -48,7 +48,7 @@ class Notice < ActiveRecord::Base
   end
 
   def self.from_email_address(email)
-    token = email[/^([^-]+)-.+/, 1]
+    token = email[/^([^-]+)@.+/, 1]
     find_by_token!(token)
   end
 
@@ -68,8 +68,8 @@ class Notice < ActiveRecord::Base
     Notice.joins(:user).where({ users: { access: :ghost} }).find_by(token: token)
   end
 
-  def unique_email_address
-    "#{token}-#{user.wegli_email}"
+  def wegli_email
+    "#{token}@anzeige.weg-li.de"
   end
 
   def duplicate!

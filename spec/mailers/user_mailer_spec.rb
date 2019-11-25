@@ -45,4 +45,16 @@ describe UserMailer do
       expect(mail.body.encoded).to match("rechtzeitig")
     end
   end
+
+  describe "autoreply" do
+    let(:reply) { Fabricate(:reply) }
+    let(:user) { reply.notice.user }
+    let(:mail) { UserMailer.autoreply(user, reply) }
+
+    it "renders the mail" do
+      expect(mail.subject).to_not be_nil
+      expect(mail.to).to eq([user.email])
+      expect(mail.body.encoded).to match("eingegangen")
+    end
+  end
 end

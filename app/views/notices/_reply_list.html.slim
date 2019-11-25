@@ -1,0 +1,34 @@
+.table-responsive
+  table.table.table-striped.table-hover
+    thead
+      tr
+        th= Reply.human_attribute_name(:created_at)
+        th= Reply.human_attribute_name(:sender)
+        th= Reply.human_attribute_name(:subject)
+        th= Reply.human_attribute_name(:content)
+        th
+    tbody
+      - replies.each_with_index do |reply, index|
+        tr
+          td= l(reply.created_at, format: :short)
+          td= mail_to(reply.sender)
+          td= reply.subject
+          td
+            pre
+              = truncate(reply.content)
+          td
+            button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_#{dom_id(reply)}"
+              span.glyphicon.glyphicon-eye-open>
+              | Inhalt Ansehen
+
+        .modal.fade id="modal_#{dom_id(reply)}" tabindex="-1" role="dialog"
+          .modal-dialog
+            .modal-content
+              .modal-header
+                button type="button" class="close" data-dismiss="modal" aria-label="Schließen"
+                  span aria-hidden="true" &times;
+                h4.modal-title Antwort ##{index + 1}
+              .modal-body
+                = simple_format(reply.content)
+              .modal-footer
+                button type="button" class="btn btn-sm btn-default" data-dismiss="modal" Schließen

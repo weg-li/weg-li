@@ -31,6 +31,11 @@ de:
         street: 'Straße'
         zip: 'PLZ'
         city: 'Stadt'
+      reply:
+        created_at: Eingang
+        sender: Absender
+        subject: Betreff
+        content: Inhalt
       bulk_upload:
         created_at: 'Erstellt'
         photos: 'Beweisfotos'
@@ -179,6 +184,7 @@ de:
     flags:
       hide_public_profile: 'öffentliches Profil deaktivieren'
       disable_reminders: 'Erinnerungen deaktivieren'
+      disable_autoreply_notifications: 'Eingangsbenachrichtigung deaktivieren'
   articles:
     title: 'das weg-li Blog'
     wrote_on: 'hat am <em>%{date}</em> geschrieben'
