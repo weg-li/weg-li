@@ -13,6 +13,6 @@ class NoticeMailer < ApplicationMailer
      to: notice.district.all_emails,
      cc: email_address_with_name(@user.email, @user.name),
      reply_to: email_address_with_name(@user.email, @user.name),
-     from: email_address_with_name(@user.wegli_email, @user.name)
+     from: @notice.wegli_email
   end
 end
