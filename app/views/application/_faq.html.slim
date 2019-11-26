@@ -32,6 +32,13 @@
 
     - i += 1
     a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}"
+      h4.text-warning Wie funktioniert weg-li im einzelnen?
+    panel-collapse.collapse id="collapse-#{i}"
+      .panel-body
+        p Zum Glück hat #{link_to('Natenom', 'https://twitter.com/natenom', target: '_blank')} in seinem Wiki eine #{link_to('detailierte Anleitung geschrieben', 'https://wiki.natenom.de/verkehr/projekte/weg-li', target: '_blank')}, auch wenn wir versuchen eine selbsterklärende Software zur Verfügung zu stellen.
+
+    - i += 1
+    a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}"
       h4.text-warning Gibt es keine App für iOS und Android?
     panel-collapse.collapse id="collapse-#{i}"
       .panel-body
