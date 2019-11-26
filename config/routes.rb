@@ -103,5 +103,6 @@ Rails.application.routes.draw do
   # dev
   get '/styleguide', to: 'styleguide#index'
 
+  get '/404', to: "errors#not_found"
   get '/ping', to: -> (env) { [200, {'Content-Type' => 'text/html'}, ['pong']] }
 end
