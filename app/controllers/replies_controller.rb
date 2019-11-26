@@ -1,2 +1,0 @@
-class RepliesController < ApplicationController
-end

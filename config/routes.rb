@@ -56,8 +56,6 @@ Rails.application.routes.draw do
       post :bulk
       post :import
     end
-
-    resources :replies, shallow: true
   end
 
   resources :users, only: [:edit, :update, :destroy] do

@@ -12,6 +12,7 @@ de:
       user: 'Benutzer'
       notice: 'Meldung'
       district: 'Bezirk'
+      reply: 'Antwort'
       authorization: 'Auth'
       article: 'Artikel'
     attributes:
