@@ -6,7 +6,6 @@
         th= Reply.human_attribute_name(:sender)
         th= Reply.human_attribute_name(:subject)
         th= Reply.human_attribute_name(:content)
-        th
     tbody
       - replies.each_with_index do |reply, index|
         tr
@@ -14,10 +13,7 @@
           td= mail_to(reply.sender)
           td= reply.subject
           td
-            pre
-              = truncate(reply.content)
-          td
-            button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_#{dom_id(reply)}"
+            button type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#modal_#{dom_id(reply)}"
               span.glyphicon.glyphicon-eye-open>
               | Inhalt Ansehen
 
@@ -31,4 +27,8 @@
               .modal-body
                 = simple_format(reply.content)
               .modal-footer
+                - if reply.action_mailbox_inbound_email.present?
+                  = link_to(rails_blob_path(reply.action_mailbox_inbound_email.raw_email.blob, disposition: "attachment"), class: 'btn btn-sm btn-default', title: 'Original herunterladen') do
+                    span.glyphicon.glyphicon-download>
+                    | Original herunterladen
                 button type="button" class="btn btn-sm btn-default" data-dismiss="modal" Schließen

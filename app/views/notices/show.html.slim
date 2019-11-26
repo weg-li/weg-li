@@ -13,11 +13,11 @@
       .col-lg-4
         = render 'photos', notice: @notice, publicly: true
 
-    - replies = @notice.replies
-    - if replies.present?
-      .panel-heading
-        strong E-Mail Eingang
-      = render 'reply_list', replies: replies
+  - replies = @notice.replies
+  - if replies.present?
+    .panel-heading
+      strong E-Mail Postfach
+    = render 'reply_list', replies: replies
 
 - if @notice.coordinates?
   .row
