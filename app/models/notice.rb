@@ -75,9 +75,6 @@ class Notice < ActiveRecord::Base
   def duplicate!
     notice = dup
     notice.photos_attachments = photos.map(&:dup)
-    notice.registration = nil
-    notice.color = nil
-    notice.brand = nil
     notice.status = :open
     notice.save_incomplete!
     notice.reload
