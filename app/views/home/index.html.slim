@@ -39,41 +39,48 @@
               - login_links do |name, path, key|
                 li= link_to(name, path, method: :post, data: { turbolinks: false })
 
-hr.spacer-large
 
-.row
-  .col-lg-2.text-center
-    = image_tag 'phoet.jpg', class: "img-circle me-quote"
-  .col-lg-10
-    blockquote
-      p Verkehrswende selber machen durch sichere Radwege und freie Bürgersteige, besonders für Kinder!
-      small #{link_to('Peter aus Hamburg', 'https://twitter.com/phoet', target: '_blank')}, 👨‍👦 besorgter Vater, 🚶‍♂️ Fußgänger, 🛴 E-Scooterer, 🚲 Radler und 🚐 Autofahrer
+- if !signed_in?
+  hr.spacer-large
 
-hr.spacer-large
+  .row
+    .col-lg-2.text-center
+      = image_tag 'phoet.jpg', class: "img-circle me-quote"
+    .col-lg-10
+      blockquote
+        p Verkehrswende selber machen durch sichere Radwege und freie Bürgersteige, besonders für Kinder!
+        small #{link_to('Peter aus Hamburg', 'https://twitter.com/phoet', target: '_blank')}, 👨‍👦 besorgter Vater, 🚶‍♂️ Fußgänger, 🛴 E-Scooterer, 🚲 Radler und 🚐 Autofahrer
 
-.row
-  .col-lg-10
-    blockquote.pull-right
-      p Berlin duldet Falschparker, Diskutieren bringt garnix. Sogar vor meiner Haustür muss ich auf die Straße ausweichen!
-      small ♿️ Rollstuhlfahrerin, 🏎 Formel-1 Fan und 😴 Langschläfer, Anonym aus Berlin
-  .col-lg-2.text-center
-    = image_tag 'unicorn.jpg', class: "img-circle me-quote"
+  hr.spacer-large
 
-hr.spacer-large
+  .row
+    .col-lg-10
+      blockquote.pull-right
+        p Berlin duldet Falschparker, Diskutieren bringt garnix. Sogar vor meiner Haustür muss ich auf die Straße ausweichen!
+        small ♿️ Rollstuhlfahrerin, 🏎 Formel-1 Fan und 😴 Langschläfer, Anonym aus Berlin
+    .col-lg-2.text-center
+      = image_tag 'unicorn.jpg', class: "img-circle me-quote"
 
-.well.well-sm
-  p Du kennst das bestimmt auch ...
-  p
-    em> "Bin nur grad beim Kiosk",
-    em> "Muss nur eben das Paket ausliefern",
-    em> "War sonst kein Parkplatz frei",
-    em> "Da hab ich schon immer geparkt",
-    em> "Aber ich wohne doch hier"
+  hr.spacer-large
 
-  p Mit weg-li kannst Du super einfach Falschparker melden:
-  p  📸 Beweisfoto erfassen 📝 Verstoß beschreiben ✊ beim Ordnungsamt melden 👏😍💪
+  .well.well-sm
+    p
+      strong Du kennst das bestimmt auch ...
+    p
+      em> "Bin nur grad beim Kiosk",
+      em> "Muss nur eben das Paket ausliefern",
+      em> "War sonst kein Parkplatz frei",
+      em> "Da hab ich schon immer geparkt",
+      em> "Aber ich wohne doch hier"
 
-= render 'notices/three_step'
+    .spacer
+    p
+      strong Mit weg-li kannst Du super einfach Falschparker melden:
+    p  📸 Beweisfoto erfassen 📝 Verstoß beschreiben ✊ beim Ordnungsamt melden 👏😍💪
+
+  .well.well-sm
+    = render 'notices/three_step'
+    = render 'home/carousel'
 
 hr.spacer-large
 
