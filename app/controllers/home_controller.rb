@@ -15,8 +15,8 @@ class HomeController < ApplicationController
   def stats
     @months = 6
 
-    @user_stats = User.count_by_month(nil, months: @months)
-    @active_user_stats = User.count_by_month(User.active, months: @months)
+    @user_stats = User.count_by_month(User.active, months: @months)
+    @active_user_stats = User.count_by_month(User.active.joins(:notices), months: @months)
     @notice_stats = Notice.count_by_month(nil, months: @months)
     @shared_notice_stats = Notice.count_by_month(Notice.shared, months: @months)
   end

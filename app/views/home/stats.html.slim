@@ -19,28 +19,28 @@
 
 javascript:
   new Chartist.Line('.chart-users', {
-    labels: #{@user_stats.keys.map {|date| l(date, format: :short)}.to_json.html_safe},
+    labels: #{@user_stats.keys.map {|date| l(date.to_date, format: :short)}.to_json.html_safe},
     series: #{[@user_stats.values].to_json.html_safe}
   }, {
     low: 0,
     showArea: true
   });
   new Chartist.Line('.chart-users-active', {
-    labels: #{@active_user_stats.keys.map {|date| l(date, format: :short)}.to_json.html_safe},
+    labels: #{@active_user_stats.keys.map {|date| l(date.to_date, format: :short)}.to_json.html_safe},
     series: #{[@active_user_stats.values].to_json.html_safe}
   }, {
     low: 0,
     showArea: true
   });
   new Chartist.Line('.chart-notices', {
-    labels: #{@notice_stats.keys.map {|date| l(date, format: :short)}.to_json.html_safe},
+    labels: #{@notice_stats.keys.map {|date| l(date.to_date, format: :short)}.to_json.html_safe},
     series: #{[@notice_stats.values].to_json.html_safe}
   }, {
     low: 0,
     showArea: true
   });
   new Chartist.Line('.chart-notices-shared', {
-    labels: #{@shared_notice_stats.keys.map {|date| l(date, format: :short)}.to_json.html_safe},
+    labels: #{@shared_notice_stats.keys.map {|date| l(date.to_date, format: :short)}.to_json.html_safe},
     series: #{[@shared_notice_stats.values].to_json.html_safe}
   }, {
     low: 0,
