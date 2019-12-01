@@ -1,4 +1,6 @@
 class Notice < ActiveRecord::Base
+  include Statisticable
+
   ADDRESS_ZIP_PATTERN =/.+(\d{5}).+/
 
   extend TimeSplitter::Accessors

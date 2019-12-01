@@ -2,7 +2,7 @@
   "dependencies": {
     "@google/markerclusterer": "^1.0.3",
     "bootstrap": "^3.4.1",
-    "jquery-zoom": "^1.7.21",
-    "vue": "^2.5.16"
+    "chartist": "^0.11.4",
+    "jquery-zoom": "^1.7.21"
   }
 }

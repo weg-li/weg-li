@@ -4,10 +4,9 @@
 //= require activestorage
 //= require bootstrap/dist/js/bootstrap
 //= require select2
+//= require chartist/dist/chartist
 //= require jquery-zoom/jquery.zoom
 //= require custom
 //= require direct_uploads
 //= require google_maps
 //= require styleguide
-//= require_directory ./vues/
-//= require analytics
