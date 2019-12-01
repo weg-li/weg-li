@@ -38,10 +38,11 @@
                   span.margin-left-small Starten
 
         - if signed_in? && admin?
-          li
-            = link_to 'Styleguide', styleguide_path
-          li
-            = link_to 'Admin', '/admin', target: '_blank'
+          li.dropdown
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin <span class="caret"></span></a>
+            ul.dropdown-menu
+              li= link_to 'Styleguide', styleguide_path, target: '_blank'
+              li= link_to 'Backoffice', '/admin', target: '_blank'
 
       ul.nav.navbar-nav.navbar-right
         - if signed_in?
