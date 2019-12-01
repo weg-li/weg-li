@@ -7,6 +7,9 @@ footer
           = link_to map_url, title: 'weg-li Karte' do
             <span class="glyphicon glyphicon-map-marker"></span> Karte
         li
+          = link_to stats_url, title: 'weg-li Statistik' do
+            <span class="glyphicon glyphicon-stats"></span> Statistik
+        li
           = link_to districts_url, title: 'weg-li Bezirke' do
             <span class="glyphicon glyphicon-list"></span> Bezirke
         li
@@ -15,9 +18,6 @@ footer
         li
           = link_to faq_url, title: 'weg-li FAQ' do
             <span class="glyphicon glyphicon-info-sign"></span> FAQ
-        li
-          = mail_to 'peter@weg-li.de' do
-            <span class="glyphicon glyphicon-send"></span> E-Mail
         li
           = link_to 'https://twitter.com/weg_li', title: 'weg-li on Twitter - @weg_li', target: '_blank' do
             <span class="glyphicon glyphicon-retweet"></span> Twitter
@@ -35,18 +35,6 @@ footer
           = link_to 'https://www.radioeins.de/programm/sendungen/der_schoene_morgen/rad/app-fuer-aktiv-buerger.html' do
             = image_tag 'radioeins-logo.png'
             em bei radioeins
-      /   li.references
-      /     = link_to 'http://www.n24.de/n24/Nachrichten/Netzwelt/d/5613888/verschluesselte-nachrichten-bequem-verschicken.html' do
-      /       = image_tag 'N24_logo.svg'
-      /       em N24
-      /   li.references
-      /     = link_to 'http://www.focus.de/digital/internet/surftipp-der-woche/internet-verschluesselte-nachrichten-verschicken_id_4229160.html' do
-      /       = image_tag 'focus.jpg'
-      /       em Focus
-      /   li.references
-      /     = link_to 'http://www.wn.de/Freizeit/Ratgeber/Digitales/Surftipp-der-Woche/1770096-Internet-Verschluesselte-Nachrichten-verschicken' do
-      /       = image_tag 'wn.jpg'
-      /       em Westfälische Nachrichten
     .col-lg-4.col-xs-12
       address.well.gray-ish
         .pull-left

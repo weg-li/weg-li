@@ -74,16 +74,16 @@ Rails.application.routes.draw do
 
   scope '/auth' do
     get  '/offline_login/:nickname', to: 'sessions#offline_login' unless Rails.env.production?
-    get  '/:provider/callback',      to: 'sessions#create',     as: :provider_callback
-    get  '/failure',                 to: 'sessions#failure'
-    get  '/destroy_alias_session',   to: 'sessions#destroy_alias',    as: :logout_alias
-    get  '/destroy_session',         to: 'sessions#destroy',    as: :logout
-    get  '/validation/:token',       to: 'sessions#validation', as: :validation
-    get  '/signup',                  to: 'sessions#signup',     as: :signup
-    get  '/ticket',                  to: 'sessions#ticket',     as: :ticket
-    get  '/login',                   to: 'sessions#login',      as: :login
-    get  '/email',                   to: 'sessions#email',      as: :email_login
-    post '/complete',                to: 'sessions#complete',   as: :complete
+    get  '/:provider/callback', to: 'sessions#create', as: :provider_callback
+    get  '/failure', to: 'sessions#failure'
+    get  '/destroy_alias_session', to: 'sessions#destroy_alias', as: :logout_alias
+    get  '/destroy_session', to: 'sessions#destroy', as: :logout
+    get  '/validation/:token', to: 'sessions#validation', as: :validation
+    get  '/signup', to: 'sessions#signup', as: :signup
+    get  '/ticket', to: 'sessions#ticket', as: :ticket
+    get  '/login', to: 'sessions#login', as: :login
+    get  '/email', to: 'sessions#email', as: :email_login
+    post '/complete', to: 'sessions#complete', as: :complete
   end
 
   scope '/sessions' do
@@ -91,14 +91,14 @@ Rails.application.routes.draw do
     post '/email_signup', to: 'sessions#email_signup'
   end
 
-  # root 'notices#index', as: :authenticated_root, constraints: -> (request) { request.env['rack.session'].has_key?('user_id') || request.env['rack.request.cookie_hash'].has_key?('remember_me') }
   root 'home#index'
 
-  get '/blog',     to: 'articles#index', as: :blog
-  get '/home',     to: 'home#index', as: :home
-  get '/map',      to: 'home#map', as: :map
-  get '/faq',      to: 'home#faq', as: :faq
-  get '/privacy',  to: 'home#privacy', as: :privacy
+  get '/blog', to: 'articles#index', as: :blog
+  get '/home', to: 'home#index', as: :home
+  get '/map', to: 'home#map', as: :map
+  get '/stats', to: 'home#stats', as: :stats
+  get '/faq', to: 'home#faq', as: :faq
+  get '/privacy', to: 'home#privacy', as: :privacy
 
   # dev
   get '/styleguide', to: 'styleguide#index'

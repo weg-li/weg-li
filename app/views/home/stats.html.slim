@@ -1,0 +1,48 @@
+.page-header
+  h1 weg-li Statistiken für die letzten #{@months} Monate
+
+.row
+  .col-lg-6
+    h3 Registrierte Benutzer
+    .well.well-chart.ct-chart.chart-users
+  .col-lg-6
+    h3 Aktive Benutzer
+    .well.well-chart.ct-chart.chart-users-active
+
+.row
+  .col-lg-6
+    h3 Erzeugte Meldungen
+    .well.well-chart.ct-chart.chart-notices
+  .col-lg-6
+    h3 Versendete Anzeigen
+    .well.well-chart.ct-chart.chart-notices-shared
+
+javascript:
+  new Chartist.Line('.chart-users', {
+    labels: #{@user_stats.keys.map {|date| l(date, format: :short)}.to_json.html_safe},
+    series: #{[@user_stats.values].to_json.html_safe}
+  }, {
+    low: 0,
+    showArea: true
+  });
+  new Chartist.Line('.chart-users-active', {
+    labels: #{@active_user_stats.keys.map {|date| l(date, format: :short)}.to_json.html_safe},
+    series: #{[@active_user_stats.values].to_json.html_safe}
+  }, {
+    low: 0,
+    showArea: true
+  });
+  new Chartist.Line('.chart-notices', {
+    labels: #{@notice_stats.keys.map {|date| l(date, format: :short)}.to_json.html_safe},
+    series: #{[@notice_stats.values].to_json.html_safe}
+  }, {
+    low: 0,
+    showArea: true
+  });
+  new Chartist.Line('.chart-notices-shared', {
+    labels: #{@shared_notice_stats.keys.map {|date| l(date, format: :short)}.to_json.html_safe},
+    series: #{[@shared_notice_stats.values].to_json.html_safe}
+  }, {
+    low: 0,
+    showArea: true
+  });

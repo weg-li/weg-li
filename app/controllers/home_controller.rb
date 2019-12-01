@@ -12,6 +12,15 @@ class HomeController < ApplicationController
     @default_district = District.find_by(name: @district) || District.first
   end
 
+  def stats
+    @months = 6
+
+    @user_stats = User.count_by_month(nil, months: @months)
+    @active_user_stats = User.count_by_month(User.active, months: @months)
+    @notice_stats = Notice.count_by_month(nil, months: @months)
+    @shared_notice_stats = Notice.count_by_month(Notice.shared, months: @months)
+  end
+
   def faq
   end
 
