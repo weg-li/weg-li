@@ -9,5 +9,3 @@
 //= require direct_uploads
 //= require google_maps
 //= require styleguide
-//= require_directory ./vues/
-//= require analytics
