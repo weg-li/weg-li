@@ -11,11 +11,11 @@
 
 .row
   .col-lg-6
-    h3 Erzeugte Meldungen
+    h3 Versendete Anzeigen
     .well.well-chart.ct-chart.chart-notices
   .col-lg-6
-    h3 Versendete Anzeigen
-    .well.well-chart.ct-chart.chart-notices-shared
+    h3 Hochgeladene Beweisfotos
+    .well.well-chart.ct-chart.chart-photos
 
 javascript:
   new Chartist.Line('.chart-users', {
@@ -39,9 +39,9 @@ javascript:
     low: 0,
     showArea: true
   });
-  new Chartist.Line('.chart-notices-shared', {
-    labels: #{@shared_notice_stats.keys.map {|date| l(date.to_date, format: :short)}.to_json.html_safe},
-    series: #{[@shared_notice_stats.values].to_json.html_safe}
+  new Chartist.Line('.chart-photos', {
+    labels: #{@photo_stats.keys.map {|date| l(date.to_date, format: :short)}.to_json.html_safe},
+    series: #{[@photo_stats.values].to_json.html_safe}
   }, {
     low: 0,
     showArea: true

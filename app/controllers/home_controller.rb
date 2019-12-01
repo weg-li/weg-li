@@ -17,8 +17,8 @@ class HomeController < ApplicationController
 
     @user_stats = User.count_by_month(User.active, months: @months)
     @active_user_stats = User.count_by_month(User.active.joins(:notices), months: @months)
-    @notice_stats = Notice.count_by_month(nil, months: @months)
-    @shared_notice_stats = Notice.count_by_month(Notice.shared, months: @months)
+    @notice_stats = Notice.count_by_month(Notice.shared, months: @months)
+    @photo_stats = Notice.count_by_month(Notice.left_joins(:photos_attachments), months: @months)
   end
 
   def faq
