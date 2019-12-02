@@ -4,48 +4,65 @@
 .row
   .col-lg-6
     h3 Registrierte Benutzer
-    .well.well-chart.ct-chart.chart-users
+    .well.well-chart.ct-chart.chart-users-count
+    .well.well-chart.ct-chart.chart-users-sum
   .col-lg-6
     h3 Aktive Benutzer
-    .well.well-chart.ct-chart.chart-users-active
+    .well.well-chart.ct-chart.chart-users-active-count
+    .well.well-chart.ct-chart.chart-users-active-sum
 
 .row
   .col-lg-6
     h3 Versendete Anzeigen
-    .well.well-chart.ct-chart.chart-notices
+    .well.well-chart.ct-chart.chart-notices-count
+    .well.well-chart.ct-chart.chart-notices-sum
   .col-lg-6
     h3 Hochgeladene Beweisfotos
-    .well.well-chart.ct-chart.chart-photos
+    .well.well-chart.ct-chart.chart-photos-count
+    .well.well-chart.ct-chart.chart-photos-sum
 
 javascript:
-  new Chartist.Line('.chart-users', {
-    labels: #{@user_stats.keys.map {|date| l(date.to_date, format: :short)}.to_json.html_safe},
-    series: #{[{name: :counts, data: @user_stats.values}, {name: :sums, data: @user_sums.values}].to_json.html_safe}
-  }, {
-    low: 0,
-    series: {
-      counts: {showArea: true},
-      sums: {lineSmooth: Chartist.Interpolation.step()}
-    }
-  });
-  new Chartist.Line('.chart-users-active', {
-    labels: #{@active_user_stats.keys.map {|date| l(date.to_date, format: :short)}.to_json.html_safe},
-    series: #{[@active_user_stats.values].to_json.html_safe}
+  new Chartist.Line('.chart-users-count', {
+    labels: #{@user_counts.keys.map {|date| l(date.to_date, format: :short)}.to_json.html_safe},
+    series: #{[@user_counts.values].to_json.html_safe}
   }, {
     low: 0,
     showArea: true
   });
-  new Chartist.Line('.chart-notices', {
-    labels: #{@notice_stats.keys.map {|date| l(date.to_date, format: :short)}.to_json.html_safe},
-    series: #{[@notice_stats.values].to_json.html_safe}
+  new Chartist.Bar('.chart-users-sum', {
+    labels: #{@user_sums.keys.map {|date| l(date.to_date, format: :short)}.to_json.html_safe},
+    series: #{[@user_sums.values].to_json.html_safe}
+  });
+  new Chartist.Line('.chart-users-active-count', {
+    labels: #{@active_user_counts.keys.map {|date| l(date.to_date, format: :short)}.to_json.html_safe},
+    series: #{[@active_user_counts.values].to_json.html_safe}
   }, {
     low: 0,
     showArea: true
   });
-  new Chartist.Line('.chart-photos', {
-    labels: #{@photo_stats.keys.map {|date| l(date.to_date, format: :short)}.to_json.html_safe},
-    series: #{[@photo_stats.values].to_json.html_safe}
+  new Chartist.Bar('.chart-users-active-sum', {
+    labels: #{@active_user_sums.keys.map {|date| l(date.to_date, format: :short)}.to_json.html_safe},
+    series: #{[@active_user_sums.values].to_json.html_safe}
+  });
+  new Chartist.Line('.chart-notices-count', {
+    labels: #{@notice_counts.keys.map {|date| l(date.to_date, format: :short)}.to_json.html_safe},
+    series: #{[@notice_counts.values].to_json.html_safe}
   }, {
     low: 0,
     showArea: true
+  });
+  new Chartist.Bar('.chart-notices-sum', {
+    labels: #{@notice_sums.keys.map {|date| l(date.to_date, format: :short)}.to_json.html_safe},
+    series: #{[@notice_sums.values].to_json.html_safe}
+  });
+  new Chartist.Line('.chart-photos-count', {
+    labels: #{@photo_counts.keys.map {|date| l(date.to_date, format: :short)}.to_json.html_safe},
+    series: #{[@photo_counts.values].to_json.html_safe}
+  }, {
+    low: 0,
+    showArea: true
+  });
+  new Chartist.Bar('.chart-photos-sum', {
+    labels: #{@photo_sums.keys.map {|date| l(date.to_date, format: :short)}.to_json.html_safe},
+    series: #{[@photo_sums.values].to_json.html_safe}
   });

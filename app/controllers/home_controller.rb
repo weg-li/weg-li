@@ -15,11 +15,14 @@ class HomeController < ApplicationController
   def stats
     @months = 6
 
-    @user_stats = User.count_by_month(User.active, months: @months)
+    @user_counts = User.count_by_month(User.active, months: @months)
     @user_sums = User.sum_by_month(User.active, months: @months)
-    @active_user_stats = User.count_by_month(User.active.joins(:notices), months: @months)
-    @notice_stats = Notice.count_by_month(Notice.shared, months: @months)
-    @photo_stats = Notice.count_by_month(ActiveStorage::Attachment.where(record_type: 'Notice', name: 'photos'), months: @months)
+    @active_user_counts = User.count_by_month(User.active.joins(:notices), months: @months)
+    @active_user_sums = User.sum_by_month(User.active.joins(:notices), months: @months)
+    @notice_counts = Notice.count_by_month(Notice.shared, months: @months)
+    @notice_sums = Notice.sum_by_month(Notice.shared, months: @months)
+    @photo_counts = Notice.count_by_month(ActiveStorage::Attachment.where(record_type: 'Notice', name: 'photos'), months: @months)
+    @photo_sums = Notice.sum_by_month(ActiveStorage::Attachment.where(record_type: 'Notice', name: 'photos'), months: @months)
   end
 
   def faq
