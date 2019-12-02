@@ -5,7 +5,7 @@ $warning-color: #f89406;
 $info-color: #5bc0de;
 $danger-color: #ee5f5b;
 
-$white: rgb(200, 200, 200);
+$white: rgb(255, 255, 255);
 
 .panel-nav {
   border-top: 0px;
@@ -63,7 +63,7 @@ $white: rgb(200, 200, 200);
 }
 
 .well-chart {
-  background-color: $white;
+  background-color: white;
 }
 
 .input-group {
