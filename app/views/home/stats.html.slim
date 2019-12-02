@@ -20,10 +20,13 @@
 javascript:
   new Chartist.Line('.chart-users', {
     labels: #{@user_stats.keys.map {|date| l(date.to_date, format: :short)}.to_json.html_safe},
-    series: #{[@user_stats.values].to_json.html_safe}
+    series: #{[{name: :counts, data: @user_stats.values}, {name: :sums, data: @user_sums.values}].to_json.html_safe}
   }, {
     low: 0,
-    showArea: true
+    series: {
+      counts: {showArea: true},
+      sums: {lineSmooth: Chartist.Interpolation.step()}
+    }
   });
   new Chartist.Line('.chart-users-active', {
     labels: #{@active_user_stats.keys.map {|date| l(date.to_date, format: :short)}.to_json.html_safe},
