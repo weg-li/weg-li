@@ -7,11 +7,11 @@ class Annotator
   end
 
   def self.grep_text(result)
-    result[:text_annotations].flat_map { |match| match[:description].split("\n").map { |token| yield(token) } }.compact.uniq
+    result[:text_annotations].flat_map { |entry| entry[:description].split("\n").map { |token| yield(token) } }.compact.uniq
   end
 
   def self.grep_label(result)
-    result[:label_annotations].flat_map { |match| match[:description].split("\n").map { |token| yield(token) } }.compact.uniq
+    result[:label_annotations].flat_map { |entry| entry[:description].split("\n").map { |token| yield(token) } }.compact.uniq
   end
 
   COLORS = [

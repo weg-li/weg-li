@@ -1086,6 +1086,9 @@
   },
   {
     "brand": "MINI",
+    "falsepositives": [
+      "Minivan"
+    ],
     "models": [
       "Cooper",
       "Cooper Cabrio",

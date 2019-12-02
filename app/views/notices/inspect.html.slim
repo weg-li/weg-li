@@ -23,6 +23,7 @@ p
 p
   strong brand
   = debug Annotator.grep_text(@result) { |string| Vehicle.brand?(string) }
+  = debug Annotator.grep_label(@result) { |string| Vehicle.brand?(string) }
 
 p
   strong color
