@@ -82,17 +82,17 @@ class Vehicle
   def self.brand?(text)
     text = text.strip.downcase
     res = cars.find { |entry| text.match?(entry['brand'].strip.downcase) }
-    return res['brand'] if res.present?
+    return [res['brand'], 1.0] if res.present?
 
     res = cars.find do |entry|
       (entry['aliases'] || []).find { |ali| text.match?(ali.strip.downcase) }
     end
-    return res['brand'] if res.present?
+    return [res['brand'], 1.0] if res.present?
 
     res = cars.find do |entry|
       entry['models'].find { |model| model =~ /\D+/ && text == model.strip.downcase }
     end
-    return res['brand'] if res.present?
+    return [res['brand'], 0.5] if res.present?
   end
 
   def self.brands

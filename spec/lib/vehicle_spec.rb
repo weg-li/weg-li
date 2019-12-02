@@ -90,12 +90,12 @@ describe Vehicle do
     sample = "SEAT"
     result = Vehicle.brand?(sample)
     expect(result).to be_truthy
-    expect(result).to eql("Seat")
+    expect(result).to eql(["Seat", 1.0])
 
     sample = "323 Combi"
     result = Vehicle.brand?(sample)
     expect(result).to be_truthy
-    expect(result).to eql("Mazda")
+    expect(result).to eql(["Mazda", 0.5])
 
     expect(Vehicle.brand?("")).to be_falsy
     expect(Vehicle.brand?("RDD WN 200")).to be_falsy
@@ -103,10 +103,6 @@ describe Vehicle do
   end
 
   it "alias brand matches" do
-    expect(Vehicle.brand?("vw")).to eql("Volkswagen")
+    expect(Vehicle.brand?("vw")).to eql(["Volkswagen", 1.0])
   end
-
-  # it "realworld brand matches" do
-  #   expect(Vehicle.brand?("vw")).to eql("RD WN 200")
-  # end
 end

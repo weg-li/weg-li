@@ -53,7 +53,7 @@ class AnalyzerJob < ApplicationJob
     notice.apply_favorites(most_likely_registraton)
 
     notice.registration = most_likely_registraton
-    notice.brand = Vehicle.most_often?(brands)
+    notice.brand = Vehicle.most_likely?(brands)
     notice.color = Vehicle.most_likely?(colors)
 
     notice.handle_geocoding
