@@ -30,6 +30,17 @@ describe "home", type: :request do
     end
   end
 
+  context "GET :stats" do
+    it "shows the page" do
+      Fabricate(:notice)
+
+      get stats_path
+
+      expect(response).to be_successful
+      assert_select('h1', "weg-li Statistiken der letzten 6 Monate")
+    end
+  end
+
   context "GET :privacy" do
     it "shows the page" do
       get privacy_path
