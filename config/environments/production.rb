@@ -87,12 +87,6 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
 
-  config.middleware.use ExceptionNotification::Rack, email: {
-    email_prefix: '[weg-li ERROR] ',
-    sender_address: %("weg-li error-notifier" <errors@weg-li.de>),
-    exception_recipients: %w(peter@weg-li.de)
-  }
-
   config.cache_store = :dalli_store,
                     (ENV["MEMCACHIER_SERVERS"] || "").split(","),
                     {

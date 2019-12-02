@@ -34,7 +34,7 @@ gem 'color'
 gem 'twitter'
 gem 'administrate', github: 'thoughtbot/administrate'
 gem 'administrate-field-active_storage'
-gem 'exception_notification'
+gem 'appsignal'
 gem 'rswag-api'
 gem 'rswag-ui'
 
