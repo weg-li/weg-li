@@ -93,7 +93,6 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
-  get '/blog', to: 'articles#index', as: :blog
   get '/home', to: 'home#index', as: :home
   get '/map', to: 'home#map', as: :map
   get '/stats', to: 'home#stats', as: :stats

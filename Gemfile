@@ -43,7 +43,6 @@ group :production do
   gem 'uglifier'
   gem 'rails_12factor'
   gem 'heroku-deflater'
-  gem 'dalli'
   gem 'barnes'
 end
 

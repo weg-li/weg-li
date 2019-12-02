@@ -186,19 +186,6 @@ de:
       hide_public_profile: 'öffentliches Profil deaktivieren'
       disable_reminders: 'Erinnerungen deaktivieren'
       disable_autoreply_notifications: 'Eingangsbenachrichtigung deaktivieren'
-  articles:
-    title: 'das weg-li Blog'
-    wrote_on: 'hat am <em>%{date}</em> geschrieben'
-    chronic: 'Chronologisch'
-    posts_per: 'weg-li Artikel im Zeitraum: %{period}'
-    tagged: 'Tags'
-    posts_for: 'weg-li Artikel für %{tag}'
-    nothing_to_see: 'Leider gibt es hier im Moment nichts zu sehen!'
-    nothing_found: 'Leider konnten wir für <em>%{phrase}</em> keine Artikel finden, versuche es später noch einmal!'
-    period:
-      this-year: 'Dieses Jahr'
-      this-month: 'Diesen Monat'
-      this-week: 'Diese Woche'
   bulk_upload:
     status:
       initial: 'neu'
