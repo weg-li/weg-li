@@ -11,7 +11,6 @@ html lang=I18n.locale
     = render 'twitter_card'
     = tag :link, rel: 'shortcut icon', href: image_path("favicon.ico")
     = tag :link, rel: 'apple-touch-icon-precomposed', href: image_path("favicon.ico")
-    = auto_discovery_link_tag :rss, articles_path(format: :rss), title: "Rss-Feed"
     = render 'i18njs'
   body
     = render 'navigation'

@@ -14,7 +14,6 @@ de:
       district: 'Bezirk'
       reply: 'Antwort'
       authorization: 'Auth'
-      article: 'Artikel'
     attributes:
       district:
         zip: 'PLZ'

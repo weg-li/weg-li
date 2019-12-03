@@ -12,7 +12,6 @@ class User < ActiveRecord::Base
   has_many :bulk_uploads, -> { order('created_at DESC') }, dependent: :destroy
   has_many :notices, -> { order('created_at DESC') }, dependent: :destroy
   has_many :authorizations, dependent: :destroy
-  has_many :articles, dependent: :destroy
   has_many :photos_attachments, through: :notices
 
   accepts_nested_attributes_for :authorizations

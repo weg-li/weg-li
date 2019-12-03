@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
 
   namespace :admin do
-    # resources :articles
     resources :replies
     resources :districts
     resources :authorizations
@@ -62,7 +61,6 @@ Rails.application.routes.draw do
     patch :confirmation_mail, on: :member
   end
 
-  resources :articles
   resources :districts
 
   resource :sitemap, only: :show

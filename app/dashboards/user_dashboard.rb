@@ -10,7 +10,6 @@ class UserDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     notices: Field::HasMany,
     authorizations: Field::HasMany,
-    articles: Field::HasMany,
     id: Field::Number,
     email: Field::String,
     nickname: Field::String,
@@ -45,7 +44,7 @@ class UserDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
     :notices,
     :authorizations,
-    :articles,
+  
     :id,
     :email,
     :nickname,
