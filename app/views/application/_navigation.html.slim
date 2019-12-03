@@ -50,7 +50,7 @@
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">#{gravatar(current_user)} <span class="caret"></span></a>
             ul.dropdown-menu
               li
-                = link_to [:edit, current_user] do
+                = link_to edit_user_path do
                   span.glyphicon.glyphicon-edit>
                   span.margin-left-small= t('navigation.edit_profile')
               li
