@@ -3,6 +3,34 @@
 
 .row
   .col-lg-6
+    = form_for current_user, html: {class: "form-horizontal"} do |form|
+      .panel.panel-default
+        .panel-heading Persönliche Daten
+        .panel-body
+          = form.label :name, class: "control-label control-label-required"
+          = form.text_field :name, class: "form-control", required: true
+
+          = form.label :street, class: "control-label control-label-required"
+          = form.text_field :street, class: "form-control", required: true
+
+          = form.label :zip, class: "control-label control-label-required"
+          = form.text_field :zip, class: "form-control", required: true
+
+          = form.label :city, class: "control-label control-label-required"
+          = form.text_field :city, class: "form-control", required: true
+
+          small.help-block Name und Anschrift werden beim Erstatten von Anzeigen als Zeugen-Adresse verwendet.
+
+          = form.label :phone, class: "control-label"
+          = form.text_field :phone, class: "form-control", placeholder: 'z.B. 040 600 90 76 98'
+
+          small.help-block Ist eine Telefonnummer vorhanden, dann wird diese für Rückfragen mit angegeben.
+
+        .panel-footer.clearfix
+          .pull-right
+            = form.submit "speichern", class: "btn btn-sm btn-success"
+
+
     .panel.panel-default
       .panel-heading E-Mail Adresse
 
@@ -12,6 +40,7 @@
             = form.email_field :email, class: 'form-control', required: true
             span.input-group-btn
               = form.submit t('users.change_email'), class: "btn btn-default"
+          small.help-block Nach dem ändern der E-Mail Adresse muss diese anschließend bestätigt werden.
       .panel-body
         - if current_user.validated?
           = link_to "#", class: "btn btn-default btn-block disabled"
@@ -19,6 +48,26 @@
             span.glyphicon.glyphicon-ok
         - else
           = button_to t('users.confirm_email'), confirmation_mail_user_path(current_user), method: :patch, remote: true, class: "btn btn-primary btn-block"
+
+  .col-lg-6
+    = form_for current_user, html: {class: "form-horizontal"} do |form|
+      .panel.panel-default
+        .panel-heading Einstellungen
+        .panel-body
+          = form.label :nickname, class: "control-label control-label-required"
+          = form.text_field :nickname, class: "form-control", required: true
+          small.help-block Der Spitzname wird im öffentlichen Profil verwendet.
+
+          - User.bitfields[:flags].keys.each do |key|
+              .checkbox
+                label
+                  = form.check_box key
+                  = t("users.flags.#{key}")
+
+        .panel-footer.clearfix
+          .pull-right
+            = form.submit "speichern", class: "btn btn-sm btn-success"
+
 
     .panel.panel-default
       .panel-heading= t('users.authorizations')
@@ -48,41 +97,3 @@
       .panel-heading= t('users.actions')
       .panel-body
         = button_to t('users.delete_account'), user_path(current_user), method: :delete, class: "btn btn-danger btn-block"
-
-  .col-lg-6
-    = form_for current_user, html: {class: "form-horizontal"} do |form|
-      .panel.panel-default
-        .panel-heading Persönliche Daten
-        .panel-body
-          = form.label :name, class: "control-label control-label-required"
-          = form.text_field :name, class: "form-control", required: true
-
-          = form.label :street, class: "control-label control-label-required"
-          = form.text_field :street, class: "form-control", required: true
-
-          = form.label :zip, class: "control-label control-label-required"
-          = form.text_field :zip, class: "form-control", required: true
-
-          = form.label :city, class: "control-label control-label-required"
-          = form.text_field :city, class: "form-control", required: true
-
-          small.help-block Name und Anschrift werden beim Erstatten von Anzeigen als Zeugen-Adresse verwendet.
-
-          = form.label :phone, class: "control-label"
-          = form.text_field :phone, class: "form-control", placeholder: 'z.B. 040 600 90 76 98'
-
-          small.help-block Ist eine Telefonnummer vorhanden, dann wird diese für Rückfragen mit angegeben.
-
-          = form.label :nickname, class: "control-label control-label-required"
-          = form.text_field :nickname, class: "form-control", required: true
-          small.help-block Der Spitzname wird im öffentlichen Profil verwendet.
-
-          - User.bitfields[:flags].keys.each do |key|
-              .checkbox
-                label
-                  = form.check_box key
-                  = t("users.flags.#{key}")
-
-        .panel-footer.clearfix
-          .pull-right
-            = form.submit "speichern", class: "btn btn-success"
