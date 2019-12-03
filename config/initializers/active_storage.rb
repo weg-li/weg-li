@@ -7,11 +7,12 @@ require 'active_storage/downloader'
 require 'active_storage/direct_uploads_controller'
 
 ActiveStorage::DirectUploadsController.instance_eval do
-  rescue_from(ActionController::InvalidAuthenticityToken, with: lambda { redirect_to('/', alert: 'Ihre Sitzung ist abgelaufen') })
+  rescue_from(ActionController::InvalidAuthenticityToken, with: lambda { redirect_to('/', alert: 'Deine Sitzung wurde unerwartet beendet!') })
 end
 
 ActiveStorage::RepresentationsController.instance_eval do
   rescue_from(MiniMagick::Error, with: lambda { head(404) })
+  rescue_from(ActiveRecord::RecordNotFound, with: lambda { head(404) })
 end
 
 module ActiveStorage
