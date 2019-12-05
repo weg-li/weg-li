@@ -21,20 +21,22 @@
         },
         tags: true,
         minimumInputLength: 1,
-        templateResult: function(state) {
-          if (!state.id) {
-            return state.text;
+        templateResult: function(data) {
+          if (!data.id) {
+            return data.text;
           }
-          var text = state.text;
-          if (state.brand) {
-            text += ' / ' + state.brand;
+
+          var text = '<span class="label label-license">' + data.text + '</span>';
+
+          if (data.brand) {
+            text += ' <small>' + data.brand + '</span>';
           }
-          if (state.color) {
+          if (data.color) {
             var colors = #{ t("activerecord.attributes.notice.colors").to_json.html_safe }
-            text += ' / ' + colors[state.color];
+            text += ' <small>' + colors[data.color] + '</span>';
           }
-          var template = '<span>' + text + '</span>';
-          return $(template);
+
+          return $('<span>' + text + '</span>');
         },
         ajax: {
           delay: 250,
