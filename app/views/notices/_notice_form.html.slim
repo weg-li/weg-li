@@ -3,7 +3,7 @@
     .form-group
       = form.label :registration, class: "control-label control-label-required"
 
-      - if access?(:admin)
+      - if access?(:community)
         = form.select :registration, [notice.registration].compact, { include_blank: 'z.B. HH SV 1887' }, { class: "form-control", required: true, data: {'select2-disabled' => true} }
       - else
         = form.text_field :registration, placeholder: 'z.B. HH SV 1887', class: "form-control", required: true
