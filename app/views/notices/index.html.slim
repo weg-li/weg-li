@@ -98,8 +98,7 @@
                     - else
                       = link_to(notice)
                         span.label.label-license
-                          span.glyphicon.glyphicon-status
-                          span<= notice.registration
+                          span= notice.registration
                   td
                     = link_to(notice) do
                       - notice.photos.each do |photo|
