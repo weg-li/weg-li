@@ -1,4 +1,6 @@
 class District < ActiveRecord::Base
+  include Bitfields
+  bitfield :flags, 1 => :email_hidden
 
   geocoded_by :geocode_address
   after_validation :geocode
@@ -42,6 +44,26 @@ class District < ActiveRecord::Base
 
   def display_name
     "#{email} (#{zip} #{name})"
+  end
+
+  def display_email
+    anonymize_email(email)
+  end
+
+  def anonymize_email(email)
+    return '-' unless email.present?
+
+    return email unless email_hidden?
+
+    address, domain = email.split('@')
+
+    "#{address.first}#{'.' * (address.size - 1)}@#{domain}"
+  end
+
+  def display_aliases
+    return '-' unless aliases.present?
+
+    aliases.map {|email| anonymize_email(email) }.compact.join(', ')
   end
 
   def District.attach_prefix

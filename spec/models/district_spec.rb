@@ -15,6 +15,24 @@ describe District do
       district.aliases = nil
       expect(district.all_emails).to eql([district.email])
     end
+
+    it "shows email" do
+      district.email = 'uschi@sushi.de'
+      expect(district.display_email).to eql('uschi@sushi.de')
+      district.email_hidden = true
+      expect(district.display_email).to eql('u....@sushi.de')
+      district.email = ''
+      expect(district.display_email).to eql('-')
+    end
+
+    it "shows aliases" do
+      district.aliases = ['uschi@sushi.de']
+      expect(district.display_aliases).to eql('uschi@sushi.de')
+      district.email_hidden = true
+      expect(district.display_aliases).to eql('u....@sushi.de')
+      district.aliases = []
+      expect(district.display_aliases).to eql('-')
+    end
   end
 
   context "acts_as_api" do
