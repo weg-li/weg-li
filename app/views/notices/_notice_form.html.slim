@@ -128,7 +128,7 @@ hr.spacer
   .col-lg-4
     .form-group
       = form.label :duration, class: "control-label control-label-required"
-      = form.select :duration, Vehicle.durations, { include_blank: 'Dauer Auswählen' }, { class: "form-control" }
+      = form.select :duration, Vehicle.durations, { include_blank: 'Dauer Auswählen' }, { class: "form-control", required: true }
 
 .row
   .col-lg-8
