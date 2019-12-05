@@ -40,6 +40,7 @@ class Notice < ActiveRecord::Base
   scope :since, -> (date) { where('notices.created_at > ?', date) }
   scope :destroyable, -> () { where.not(status: :shared) }
   scope :for_public, -> () { where.not(status: :disabled) }
+  scope :search, -> (term) { where('registration ILIKE :term', term: "%#{term}%") }
 
   def self.for_reminder
     open.joins(:user).where(date: [(21.days.ago.beginning_of_day)..(14.days.ago.end_of_day)]).merge(User.not_disable_reminders).merge(User.active)

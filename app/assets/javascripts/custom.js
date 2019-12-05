@@ -5,8 +5,9 @@ document.copyToClipboard = function(hint, text) {
 $(document).on('turbolinks:load', function() {
   $('[data-toggle="popover"]').popover();
   $('[data-toggle="tooltip"]').tooltip();
-  $('select').select2({ theme: 'bootstrap' });
+  $('select[data-select2-disabled!="true"]').select2({ theme: 'bootstrap' });
   $('.zoom').zoom();
+
 });
 
 // destroy select2 before caching

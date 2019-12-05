@@ -2,10 +2,50 @@
   .col-lg-4
     .form-group
       = form.label :registration, class: "control-label control-label-required"
-      = form.text_field :registration, placeholder: 'z.B. HH SV 1887', class: "form-control", required: true
-      - fair_use_limit = 3
-      - if notice.similar_count > fair_use_limit
-        small.help-block Für dieses Fahrzeug wurden im letzten Monat bereits mehr als #{fair_use_limit} Meldungen erfasst.
+
+      - if access?(:admin)
+        = form.select :registration, [notice.registration].compact, { include_blank: 'z.B. HH SV 1887' }, { class: "form-control", required: true, data: {'select2-disabled' => true} }
+      - else
+        = form.text_field :registration, placeholder: 'z.B. HH SV 1887', class: "form-control", required: true
+
+    javascript:
+      $('select#notice_registration').select2({
+        theme: 'bootstrap',
+        language: {
+          inputTooShort: function () {
+            return "Tippen zum vervollständigen";
+          }
+        },
+        tags: true,
+        minimumInputLength: 1,
+        templateResult: function(state) {
+          if (!state.id) {
+            return state.text;
+          }
+          var text = state.text;
+          if (state.brand) {
+            text += ' / ' + state.brand;
+          }
+          if (state.color) {
+            var colors = #{ t("activerecord.attributes.notice.colors").to_json.html_safe }
+            text += ' / ' + colors[state.color];
+          }
+          var template = '<span>' + text + '</span>';
+          return $(template);
+        },
+        ajax: {
+          url: '#{ suggest_notice_path(notice) }',
+          dataType: 'json'
+        }
+      }).on('select2:select', function (e) {
+          var data = e.params.data;
+          if (data.brand) {
+            $('#notice_brand').val(data.brand).trigger('change');
+          }
+          if (data.color) {
+            $('#notice_color').val(data.color).trigger('change');
+          }
+      });
 
   .col-lg-4
     .form-group

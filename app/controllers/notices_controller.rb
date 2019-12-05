@@ -15,7 +15,7 @@ class NoticesController < ApplicationController
 
     if search = params[:search]
       @table_params[:search] = search.to_unsafe_hash
-      @notices = @notices.where('registration ILIKE :term', term: "%#{search[:term]}%") if search[:term].present?
+      @notices = @notices.search(search[:term]) if search[:term].present?
     end
     if filter = params[:filter]
       @table_params[:filter] = filter.to_unsafe_hash
@@ -27,6 +27,22 @@ class NoticesController < ApplicationController
         @notices = @notices.reorder(order[:column] => order[:value])
       end
     end
+  end
+
+  def suggest
+    notices = current_user.notices.search(params[:term])
+
+    results = notices.pluck(:registration, :brand, :color).map do |registration, brand, color|
+      {
+        id: registration,
+        text: registration,
+        brand: brand,
+        color: color,
+      }
+    end
+    results += [{ id: params[:term], text: params[:term] }]
+
+    render json: { results: results }.to_json
   end
 
   def map
