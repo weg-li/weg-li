@@ -30,9 +30,9 @@ class NoticesController < ApplicationController
   end
 
   def suggest
-    notices = current_user.notices.search(params[:term])
+    notices = current_user.notices.search(params[:term]).order(:registration).limit(25)
 
-    results = notices.pluck(:registration, :brand, :color).map do |registration, brand, color|
+    results = notices.pluck(:registration, :brand, :color).uniq.map do |registration, brand, color|
       {
         id: registration,
         text: registration,
