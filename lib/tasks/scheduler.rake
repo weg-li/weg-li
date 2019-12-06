@@ -9,6 +9,17 @@ namespace :scheduler do
     end
   end
 
+  desc "monthly job to make users activate"
+  task send_activation_reminder: :environment do
+    puts "send activation reminders"
+
+    not_validated = User.user.where(validation_date: nil)
+    not_validated.each do |user|
+      puts "sending email validation to #{user.id} #{user.name} #{user.email}"
+      UserMailer.validate(user).deliver_now
+    end
+  end
+
   desc "daily job to send reminders for open notices that are 2 weeks old"
   task send_notice_reminder: :environment do
     puts "send reminders"
