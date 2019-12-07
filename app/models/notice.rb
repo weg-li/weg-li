@@ -47,12 +47,12 @@ class Notice < ActiveRecord::Base
   end
 
   def self.from_param(token)
-    find_by_token!(token)
+    find_by!(token: token)
   end
 
   def self.from_email_address(email)
     token = email[/^([^-]+)@.+/, 1]
-    find_by_token!(token)
+    find_by!(token: token)
   end
 
   def self.statistics(date = 100.years.ago)
