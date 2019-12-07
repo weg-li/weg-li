@@ -109,10 +109,10 @@ class Notice < ActiveRecord::Base
   end
 
   def apply_favorites(registrations)
-    other = Notice.shared.since(1.month.ago).find_by(registration: registrations)
+    other = Notice.shared.since(1.month.ago).order(created_at: :desc).find_by(registration: registrations)
     if other
       self.registration = other.registration
-      self.charge = other.charge
+      self.charge = other.charge if other.charge?
       self.brand = other.brand if other.brand?
       self.color = other.color if other.color?
       self.flags = other.flags if other.flags?

@@ -52,9 +52,9 @@ class AnalyzerJob < ApplicationJob
     most_likely_registraton = Vehicle.most_likely?(plates)
     notice.apply_favorites(most_likely_registraton)
 
-    notice.registration = most_likely_registraton
-    notice.brand = Vehicle.most_likely?(brands)
-    notice.color = Vehicle.most_likely?(colors)
+    notice.registration ||= most_likely_registraton
+    notice.brand ||= Vehicle.most_likely?(brands)
+    notice.color ||= Vehicle.most_likely?(colors)
 
     notice.handle_geocoding
     notice.status = :open
