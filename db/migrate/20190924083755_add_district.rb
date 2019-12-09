@@ -13,12 +13,12 @@ class AddDistrict < ActiveRecord::Migration[6.0]
       t.index [ :zip ], unique: true
     end
 
-    reversible do |dir|
-      dir.up do
-        CSV.parse(File.read('config/data/publicaffairsoffice.csv'), col_sep: ';') do |line|
-          execute "INSERT INTO districts (name, zip, email, created_at, updated_at) VALUES ('#{line[0]}', '#{line[1]}', '#{line[2]}', NOW(), NOW())"
-        end
-      end
-    end
+    # reversible do |dir|
+    #   dir.up do
+    #     CSV.parse(File.read('config/data/publicaffairsoffice.csv'), col_sep: ';') do |line|
+    #       execute "INSERT INTO districts (name, zip, email, created_at, updated_at) VALUES ('#{line[0]}', '#{line[1]}', '#{line[2]}', NOW(), NOW())"
+    #     end
+    #   end
+    # end
   end
 end
