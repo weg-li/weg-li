@@ -3,14 +3,13 @@ html lang=I18n.locale
   head
     = render('meta')
     title= title
-    = stylesheet_link_tag("application", media: "all")
-    = render 'trackjs'
-    = javascript_include_tag("//maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDvgVnoO2zQ_K_dDhAFiz2nENTQSH4TivY&language=de&region=DE")
-    = javascript_include_tag("application")
+    = stylesheet_link_tag('application', media: 'all')
+    = javascript_include_tag('//maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDvgVnoO2zQ_K_dDhAFiz2nENTQSH4TivY&language=de&region=DE')
+    = javascript_pack_tag('application', 'data-turbolinks-track': 'reload')
     = csrf_meta_tags
     = render 'twitter_card'
-    = tag :link, rel: 'shortcut icon', href: image_path("favicon.ico")
-    = tag :link, rel: 'apple-touch-icon-precomposed', href: image_path("favicon.ico")
+    = tag :link, rel: 'shortcut icon', href: image_path('favicon.ico')
+    = tag :link, rel: 'apple-touch-icon-precomposed', href: image_path('favicon.ico')
     = render 'i18njs'
   body
     = render 'navigation'

@@ -281,6 +281,8 @@ GEM
       rack (>= 0.4)
     rack-protection (2.0.7)
       rack
+    rack-proxy (0.6.5)
+      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (6.0.1)
@@ -364,8 +366,6 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    select2-rails (4.0.3)
-      thor (~> 0.14)
     selectize-rails (0.12.6)
     sidekiq (6.0.3)
       connection_pool (>= 2.2.2)
@@ -398,9 +398,6 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.10)
     time_splitter (1.1.0)
-    turbolinks (5.2.1)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
     twitter (6.2.0)
       addressable (~> 2.3)
       buftok (~> 0.2.0)
@@ -415,8 +412,6 @@ GEM
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uber (0.1.0)
-    uglifier (4.2.0)
-      execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.6)
@@ -425,6 +420,10 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    webpacker (4.2.2)
+      activesupport (>= 4.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 4.2)
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
@@ -452,7 +451,6 @@ DEPENDENCIES
   heroku-deflater
   i18n
   image_processing
-  jquery-rails
   kaminari
   kaminari-bootstrap (~> 3.0.1)
   letter_opener
@@ -475,15 +473,12 @@ DEPENDENCIES
   rswag-specs
   rswag-ui
   sass-rails
-  select2-rails
   sidekiq
   slim-rails
-  sprockets (~> 3.7)
   time_splitter
-  turbolinks
   twitter
-  uglifier
   web-console
+  webpacker
 
 RUBY VERSION
    ruby 2.6.4p104

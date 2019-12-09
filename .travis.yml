@@ -11,6 +11,7 @@ bundler_args: "--without development production"
 before_install:
   - gem update --system
   - gem install bundler
+  - yarn install  --ignore-engines
 before_script:
   - psql --version
   - psql -c 'create database "weg-li_test";' -U postgres
