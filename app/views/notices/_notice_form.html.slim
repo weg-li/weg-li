@@ -114,6 +114,7 @@ hr.spacer
     .form-group
       = form.label :severity, class: "control-label control-label-required"
       = form.select :severity, Notice.severities.keys.map { |key| [Notice.human_attribute_name(key), key]}, { include_blank: 'Behinderung Auswählen' }, { class: "form-control", required: true }
+      small.help-block Details zur Behinderung/Gefährdung im Hinweis angeben
 
 .row
   .col-lg-8
