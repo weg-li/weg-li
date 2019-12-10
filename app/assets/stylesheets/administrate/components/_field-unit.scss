@@ -1,0 +1,36 @@
+.field-unit {
+  @include administrate-clearfix;
+  align-items: center;
+  display: flex;
+  margin-bottom: $base-spacing;
+  position: relative;
+  width: 100%;
+}
+
+.field-unit__label {
+  float: left;
+  margin-left: 1rem;
+  text-align: right;
+  width: calc(15% - 1rem);
+}
+
+.field-unit__field {
+  float: left;
+  margin-left: 2rem;
+  width: 45%;
+}
+
+.field-unit--nested {
+  border: $base-border;
+  margin-left: 7.5%;
+  padding: $small-spacing;
+  width: 50%;
+
+  .field-unit__field {
+    width: calc(75% - 1rem);
+  }
+
+  .field-unit__label {
+    width: calc(25% - 1rem);
+  }
+}

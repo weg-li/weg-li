@@ -1,0 +1,19 @@
+.pagination {
+  margin-top: $base-spacing;
+  padding-left: $base-spacing;
+  padding-right: $base-spacing;
+  text-align: center;
+
+  .first,
+  .prev,
+  .page,
+  .next,
+  .last {
+    margin: $small-spacing;
+    display: inline;
+  }
+
+  .current {
+    font-weight: $bold-font-weight;
+  }
+}
