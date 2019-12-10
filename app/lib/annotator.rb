@@ -68,7 +68,6 @@ class Annotator
           {type: 'LABEL_DETECTION'},
           {type: 'DOCUMENT_TEXT_DETECTION'},
           {type: 'LOGO_DETECTION'},
-          {type: 'OBJECT_LOCALIZATION'},
           {type: 'IMAGE_PROPERTIES'},
           {type: 'SAFE_SEARCH_DETECTION'},
         ],
