@@ -98,7 +98,7 @@ class Vehicle
     return [res['brand'], 0.8] if res.present?
 
     res = cars.find do |entry|
-      entry['models'].find { |model| model =~ /\D+/ && text == model.strip.downcase }
+      entry['models'].find { |model| model =~ /\D{3,}/ && text == model.strip.downcase }
     end
     return [res['brand'], 0.5] if res.present?
   end
