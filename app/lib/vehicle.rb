@@ -86,9 +86,6 @@ class Vehicle
 
     text = text.strip.downcase
 
-    res = truck_brands.find { |brand| text == brand.strip.downcase }
-    return [res, 1.0] if res.present?
-
     res = cars.find { |entry| text == entry['brand'].strip.downcase }
     return [res['brand'], 1.0] if res.present?
 
@@ -96,6 +93,9 @@ class Vehicle
       (entry['aliases'] || []).find { |ali| text == ali.strip.downcase }
     end
     return [res['brand'], 1.0] if res.present?
+
+    res = truck_brands.find { |brand| text == brand.strip.downcase }
+    return [res, 1.0] if res.present?
 
     res = cars.find { |entry| text.match?(entry['brand'].strip.downcase) }
     return [res['brand'], 0.8] if res.present?
