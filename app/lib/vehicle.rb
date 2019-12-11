@@ -86,6 +86,9 @@ class Vehicle
 
     text = text.strip.downcase
 
+    res = truck_brands.find { |brand| text == brand.strip.downcase }
+    return [res, 1.0] if res.present?
+
     res = cars.find { |entry| text == entry['brand'].strip.downcase }
     return [res['brand'], 1.0] if res.present?
 
@@ -114,7 +117,7 @@ class Vehicle
   def self.truck_brands
     [
       'MAN',
-      'Iveco',
+      'IVECO',
       'CANIA',
       'DAF',
     ]

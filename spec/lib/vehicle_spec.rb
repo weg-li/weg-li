@@ -93,6 +93,11 @@ describe Vehicle do
     expect(result).to be_truthy
     expect(result).to eql(["Seat", 1.0])
 
+    sample = "Iveco"
+    result = Vehicle.brand?(sample)
+    expect(result).to be_truthy
+    expect(result).to eql(["IVECO", 1.0])
+
     sample = "Volkswagen transporter t5"
     result = Vehicle.brand?(sample)
     expect(result).to be_truthy
