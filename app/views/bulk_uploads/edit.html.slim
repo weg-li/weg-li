@@ -24,21 +24,36 @@
       = render 'callout', section: 'bulk_upload', key: 'processing'
 
 - else
+  - photos = @bulk_upload.ordered_photos(@order_column, @order_direction)
   = form_with model: @bulk_upload do |form|
+    = hidden_field_tag :order_column, @order_column
+    = hidden_field_tag :order_direction, @order_direction
     .row
       .col-lg-12
         fieldset Beweisfotos für neue Meldung
     .row
       .col-lg-8
-        = render 'photo_list', bulk_upload: @bulk_upload, photos: [@bulk_upload.photos.first]
+        = render 'photo_list', bulk_upload: @bulk_upload, photos: [photos.first]
       .col-lg-4
-        = form.submit 'neue Meldung erstellen', class: "btn btn-success"
+        p= form.submit 'neue Meldung erstellen', class: "btn btn-success"
+
+        .btn-group
+          button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"
+            | sortiert #{@order_direction == 'asc' ? '⬆' : '⬇'} #{@order_column == 'filename' ? 'nach Dateinamen' : 'wie hochgeladen'}
+            <span class="caret"></span>
+          ul.dropdown-menu
+            li
+              = link_to '⬆ nach Dateinamen', url_for(order_column: 'filename', order_direction: 'asc')
+              = link_to '⬇ nach Dateinamen', url_for(order_column: 'filename', order_direction: 'desc')
+              = link_to '⬆ wie hochgeladen', url_for(order_column: 'created_at', order_direction: 'asc')
+              = link_to '⬇ wie hochgeladen', url_for(order_column: 'created_at', order_direction: 'desc')
+
   .row
     .col-lg-12
       fieldset Verbleibende Beweisfotos
   .row
     .col-lg-12
-      = render 'photo_list', bulk_upload: @bulk_upload, photos: @bulk_upload.photos - [@bulk_upload.photos.first]
+      = render 'photo_list', bulk_upload: @bulk_upload, photos: photos - [photos.first]
 
   javascript:
     function ziehen(ev) {

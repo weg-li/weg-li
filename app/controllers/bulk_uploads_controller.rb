@@ -33,6 +33,8 @@ class BulkUploadsController < ApplicationController
   end
 
   def edit
+    session[:bulk_upload_order_column] = @order_column = params[:order_column] || session[:bulk_upload_order_column] || 'filename'
+    session[:bulk_upload_order_direction] = @order_direction = params[:order_direction] || session[:bulk_upload_order_direction] || 'asc'
     @bulk_upload = current_user.bulk_uploads.find(params[:id])
 
     redirect_to notices_path, notice: 'Es wurden alle Fotos des Massen-Uploads verarbeitet' and return if @bulk_upload.photos.blank?

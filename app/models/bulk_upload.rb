@@ -7,6 +7,15 @@ class BulkUpload < ActiveRecord::Base
 
   validates :photos, presence: :true, unless: ->() { done? }
 
+  def ordered_photos(order_column = 'filename', order_direction = 'asc')
+    case order_column
+    when 'filename'
+      photos_attachments.joins(:blob).order('active_storage_blobs.filename' => order_direction)
+    else
+      photos_attachments.joins(:blob).order('active_storage_blobs.created_at' => order_direction)
+    end
+  end
+
   def purge_photo!(photo_id)
     photos.find(photo_id).purge_later
 
