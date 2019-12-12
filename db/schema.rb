@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_05_091138) do
+ActiveRecord::Schema.define(version: 2019_12_11_163359) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,15 +88,12 @@ ActiveRecord::Schema.define(version: 2019_12_05_091138) do
     t.string "charge"
     t.string "kind"
     t.string "brand"
-    t.string "model"
     t.string "color"
     t.string "registration"
-    t.string "address"
     t.float "latitude"
     t.float "longitude"
     t.boolean "incomplete", default: false, null: false
     t.string "note"
-    t.string "district_legacy"
     t.integer "bulk_upload_id"
     t.bigint "district_id"
     t.string "street"
@@ -128,10 +125,8 @@ ActiveRecord::Schema.define(version: 2019_12_05_091138) do
     t.string "token", limit: 255
     t.datetime "validation_date"
     t.integer "access", default: 0
-    t.string "time_zone"
     t.integer "flags", default: 0, null: false
     t.string "name"
-    t.string "address"
     t.string "district"
     t.string "phone"
     t.float "latitude"

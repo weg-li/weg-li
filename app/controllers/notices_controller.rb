@@ -92,7 +92,7 @@ class NoticesController < ApplicationController
       return
     end
 
-    import_user = User.new(nickname: nickname, name: tweet.user.name, address: tweet.user.location, access: :ghost)
+    import_user = User.new(nickname: nickname, name: tweet.user.name, city: tweet.user.location, access: :ghost)
     import_user.save(validate: false)
 
     notice = import_user.notices.build(notice_import_params)
