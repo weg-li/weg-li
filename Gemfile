@@ -34,6 +34,7 @@ gem 'administrate-field-active_storage'
 gem 'appsignal'
 gem 'rswag-api'
 gem 'rswag-ui'
+gem 'email_verifier'
 gem 'webpacker'
 
 group :production do
