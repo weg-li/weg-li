@@ -33,12 +33,12 @@
       .form-group
         = form.label :address, class: "control-label control-label-required"
         .input-group
-          = form.text_field :street, placeholder: 'z.B. Sylvesterallee 7', class: "form-control", required: true
+          = form.text_field :street, placeholder: 'Straße & Nr.', class: "form-control", required: true
           label.input-group-addon.input-group-addon-xs
-          = form.text_field :zip, placeholder: 'z.B. 22525', class: "form-control", required: true, maxlength: 5, pattern: '\d{5}'
+          = form.text_field :city, placeholder: 'Ort', class: "form-control", required: true
           label.input-group-addon.input-group-addon-xs
-          = form.text_field :city, placeholder: 'z.B. Hamburg', class: "form-control", required: true
-        small.help-block Anzeigen benötigen eine ladungsfähige Anschrift (Straße & Nr., PLZ, Ort)
+          = form.text_field :zip, placeholder: 'PLZ', class: "form-control", required: true, maxlength: 5, pattern: '\d{5}'
+        small.help-block Anzeigen benötigen eine ladungsfähige Anschrift
 
   hr.spacer
 
