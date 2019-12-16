@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       post :login
     end
 
-    root to: "notices#index"
+    root to: "users#index"
   end
 
   namespace :api do
