@@ -21,7 +21,7 @@
             .modal-body
               = render('photo_zoom', photo: photo, replacer: true)
             .modal-footer
-              = link_to(purge_bulk_upload_path(bulk_upload, photo_id: photo.id), method: :patch, remote: true, data: {confirm: t('notices.confirm')}, class: 'btn btn-sm btn-default', title: 'löschen') do
+              = link_to(purge_bulk_upload_path(bulk_upload, photo_id: photo.id), method: :patch, data: {confirm: t('notices.confirm')}, class: 'btn btn-sm btn-default', title: 'löschen') do
                 span.glyphicon.glyphicon-trash
               = link_to(rails_blob_path(photo, disposition: "attachment"), class: 'btn btn-sm btn-default', title: 'herunterladen') do
                 span.glyphicon.glyphicon-download
