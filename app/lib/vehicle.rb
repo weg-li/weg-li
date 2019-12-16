@@ -205,6 +205,8 @@ class Vehicle
       'Parkten auf einem Sonderfahrstreifen für Omnibusse des Linienverkehrs (Zeichen 245)',
       'Parken auf einem gekennzeichneten Behindertenparkplatz',
       'Parken mit Verbrenner vor Elektroladesäule',
+      'Parken auf einer Grünfläche',
+      'Parken auf einer Baumscheibe',
     ]
   end
 end
