@@ -51,7 +51,7 @@ footer
   .row
     .col-lg-12.text-center
       small.text-muted
-        | Die #{link_to('weg-li &beta;eta'.html_safe, 'https://www.weg-li.de')} ist #{link_to('am 1. August 2019 gestartet', 'https://twitter.com/phoet/status/1156893833105485824', target: '_blank')} und jetzt #{link_to "in #{number_with_delimiter(District.count)} Bezirken verfügbar", map_url }.
+        | Die weg-li &beta;eta ist #{link_to('am 1. August 2019 gestartet', 'https://twitter.com/phoet/status/1156893833105485824', target: '_blank')} und jetzt für alle #{link_to "in über 2.000 Bezirken verfügbar", districts_url }.
 
 - if defined?(Puma)
   | <!-- served by Puma-#{Puma::Const::PUMA_VERSION} #{Puma::Const::CODE_NAME} Ruby: #{RUBY_VERSION} on Rails #{Rails.version} -->
