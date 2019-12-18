@@ -42,6 +42,16 @@ describe 'notices', type: :request do
     end
   end
 
+  context "GET :stats" do
+    it "renders the page" do
+      Fabricate(:notice, user: user)
+
+      get stats_notices_path
+
+      expect(response).to be_successful
+    end
+  end
+
   context "POST :create" do
     let(:params) {
       {

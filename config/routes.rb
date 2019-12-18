@@ -52,6 +52,7 @@ Rails.application.routes.draw do
     end
 
     collection do
+      get :stats
       get :map
       post :bulk
       post :import

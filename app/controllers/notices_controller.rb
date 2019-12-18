@@ -47,12 +47,19 @@ class NoticesController < ApplicationController
 
   def map
     @since = (params[:since] || '7').to_i
-    @display = params[:display] || 'cluster'
+    @display = params[:display] || 'stats'
     @district = params[:district] || current_user.city
 
     @notices = current_user.notices.shared.since(@since.days.ago).joins(:district).where(districts: {name: @district})
-    @active = @notices.map(&:user_id).uniq.size
     @default_district = District.from_zip(current_user.zip) || District.first
+  end
+
+  def stats
+    @months = 6
+    @notice_counts = Notice.count_by_month(current_user.notices.shared, months: @months)
+    @notice_sums = Notice.sum_by_month(current_user.notices.shared, months: @months)
+    @photo_counts = Notice.count_by_month(ActiveStorage::Attachment.where(record_type: 'Notice', record_id: current_user.notices.shared.pluck(:id), name: 'photos'), months: @months)
+    @photo_sums = Notice.sum_by_month(ActiveStorage::Attachment.where(record_type: 'Notice', record_id: current_user.notices.shared.pluck(:id), name: 'photos'), months: @months)
   end
 
   def show

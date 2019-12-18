@@ -1,0 +1,16 @@
+.well.well-chart(id=name)
+  .ct-chart.chart-count
+  .ct-chart.chart-sum
+
+javascript:
+  new Chartist.Line('##{name} .chart-count', {
+    labels: #{counts.keys.map {|date| l(date.to_date, format: :short)}.to_json.html_safe},
+    series: #{[counts.values].to_json.html_safe}
+  }, {
+    low: 0,
+    showArea: true
+  });
+  new Chartist.Bar('##{name} .chart-sum', {
+    labels: #{sums.keys.map {|date| l(date.to_date, format: :short)}.to_json.html_safe},
+    series: #{[sums.values].to_json.html_safe}
+  });

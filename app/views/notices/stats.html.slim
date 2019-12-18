@@ -1,0 +1,13 @@
+- set_title t('navigation.notices')
+- set_crumbs t('navigation.notices') => notices_path, 'Statistik' => url_for
+
+.page-header
+  p Du hast in den letzten #{@months} Monaten #{@notice_sums.values.sum} Falschparker gemeldet.
+
+.row
+  .col-lg-6
+    h3 Versendete Anzeigen
+    = render('chart', name: :notices, counts: @notice_counts, sums: @notice_sums)
+  .col-lg-6
+    h3 Hochgeladene Beweisfotos
+    = render('chart', name: :photos, counts: @photo_counts, sums: @photo_sums)
