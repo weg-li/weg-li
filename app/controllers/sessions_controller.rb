@@ -117,6 +117,7 @@ class SessionsController < ApplicationController
   end
 
   def check_existing_user(email)
+    email = email.to_s.downcase
     if email.present? && existing_user = User.find_by_email(email)
       providers = existing_user.authorizations.map(&:provider)
       flash.now[:alert] = t('sessions.existing_user', email: email, providers: providers.to_sentence)

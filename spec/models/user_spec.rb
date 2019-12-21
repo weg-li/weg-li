@@ -10,6 +10,13 @@ describe User do
     end
   end
 
+  context "normalization" do
+    it "downcases the email" do
+      user.update!(email: 'E-mail@uschi.de')
+      expect(user.reload.email).to eql('e-mail@uschi.de')
+    end
+  end
+
   it "generates wegli_email" do
     user = Fabricate.build(:user, token: 'dd-33')
     expect(user.wegli_email).to eql('dd-33@anzeige.weg-li.de')

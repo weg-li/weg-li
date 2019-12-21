@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
   geocoded_by :full_address
   after_validation :geocode
+  after_validation :normalize
   before_validation :defaults
 
   has_many :bulk_uploads, -> { order('created_at DESC') }, dependent: :destroy
@@ -71,6 +72,10 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def normalize
+    self.email = email.to_s.downcase
+  end
 
   def defaults
     if new_record?
