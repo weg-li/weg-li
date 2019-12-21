@@ -53,7 +53,7 @@ class SessionsController < ApplicationController
   def email; end
 
   def email_signup
-    email = params[:email]
+    email = params[:email].to_s.downcase
     if email.present?
       token = Token.generate(email)
       UserMailer.email_auth(email, token).deliver_later

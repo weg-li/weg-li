@@ -14,7 +14,7 @@ module OmniAuth
 
         begin
           decoded_token = Token.decode(request[:token])
-          @email = decoded_token['iss']
+          @email = decoded_token['iss'].to_s.downcase
 
           fail!(:invalid_credentials) and return if @email.blank?
 
