@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
   end
 
   def validation
-    user = User.find_by_token(params[:token])
+    user = User.find_by!(token: params[:token])
     user.validate!
 
     redirect_to notices_path, notice: t('sessions.validation_successful')
