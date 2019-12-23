@@ -1,9 +1,10 @@
 Hallo,
 
-zum Anmelden/Registrieren klicke einfach auf den nachfolgenden Link:
+zum Anmelden/Registrieren bei weg-li.de klicke einfach auf den nachfolgenden Link:
 
 <%= provider_callback_url(provider: :email, token: @token) %>
 
-Der Link ist nur 5 Minuten gültig, danach bitte einen neuen Link anfordern.
+
+Der Link ist nur 5 Minuten gültig, danach bitte einen neuen Link über die Webseite anfordern.
 
 <%= render 'mailer/footer' %>
