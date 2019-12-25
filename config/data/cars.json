@@ -1186,6 +1186,25 @@
     ]
   },
   {
+    "brand": "Aston Martin",
+    "models": [
+      "DB7 Vantage",
+      "V12 Vanquish",
+      "DB9 Coupé",
+      "DB AR1",
+      "V8 Vantage",
+      "DBS",
+      "Lola-Aston Martin LMP1",
+      "Rapide",
+      "Virage",
+      "Vanquish",
+      "Lagonda Taraf",
+      "DB11",
+      "V8 Vantage",
+      "DBS Superleggera"
+    ]
+  },
+  {
     "brand": "Smart",
     "models": [
       "Cabrio",
