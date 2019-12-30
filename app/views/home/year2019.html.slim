@@ -1,0 +1,66 @@
+.page-header.spacer-large
+  h1 weg-li das Jahr 2019
+
+.row
+  .col-lg-2.text-center
+    = image_tag 'phoet.jpg', class: "img-circle me-quote"
+  .col-lg-10
+    blockquote
+      p In 2019 wurden sensationelle #{@count} Anzeigen von #{@active} Benutzern erstattet - vielen Dank!
+      small= "weg-li 🚲💨 #{t('slogan_1')} #{t('slogan_2')}"
+
+
+hr.spacer-large
+
+.alert.alert-success
+  p
+    <span style="font-weight: bold; display: inline-block; white-space: nowrap; width: 140px; margin-right: 5px; text-align:right">1. August 2019</span> weg-li startet in die <a href="https://docs.google.com/document/d/1SQTXXvGY8BzL-NgjXAKm0EVZ3YTqHOMPonWtVJk7vxg/edit" target="_blank">Beta-Phase</a> für den <strong>Bezirk Hamburg</strong> 📸
+  p
+    <span style="font-weight: bold; display: inline-block; white-space: nowrap; width: 140px; margin-right: 5px; text-align:right">11. August 2019</span> die Tester erreichen das <strong>1. Wochenziel</strong> von <strong>100 Anzeigen</strong> 🥰
+  p
+    <span style="font-weight: bold; display: inline-block; white-space: nowrap; width: 140px; margin-right: 5px; text-align:right">20. August 2019</span> die <strong>ersten 💯</strong> Tester haben sich registriert 🚀
+  p
+    <span style="font-weight: bold; display: inline-block; white-space: nowrap; width: 140px; margin-right: 5px; text-align:right">22. September 2019</span> weg-li erreicht durchweg mehr als 100 Meldungen erhöht das Wochenziel auf <strong>500 Anzeigen</strong> 💪
+
+.row
+  .col-lg-8
+    h3 📈 Top Orte
+    ul.list-group
+      - @grouped_cities.each do |notice|
+        li.list-group-item
+          = notice.city
+          .badge.pull-right= number_with_delimiter(notice.city_count)
+
+  .col-lg-4
+    h3 📈 Top Postleitzahlen
+    ul.list-group
+      - @grouped_zips.each do |notice|
+        li.list-group-item
+          = notice.zip
+          .badge.pull-right= number_with_delimiter(notice.zip_count)
+
+.alert.alert-success
+  p
+    <span style="font-weight: bold; display: inline-block; white-space: nowrap; width: 140px; margin-right: 5px; text-align:right">1. Oktober 2019</span> dank der Unterstützung von <a href="https://www.wegeheld.org" target="_blank">wegeheld.org</a> ist weg-li in <strong>2825 Bezirken</strong> verfügbar 😍
+  p
+    <span style="font-weight: bold; display: inline-block; white-space: nowrap; width: 140px; margin-right: 5px; text-align:right">1. Dezember 2019</span> die Tester erreichen das <strong>2. Wochenziel</strong> von <strong>500 Anzeigen</strong> 🤘🏻
+  p
+    <span style="font-weight: bold; display: inline-block; white-space: nowrap; width: 140px; margin-right: 5px; text-align:right">18. Dezember 2019</span> weg-li verlässt den Beta-Test 🥳
+
+
+.row
+  .col-lg-8
+    h3 📈 Top Vergehen
+    ul.list-group
+      - @grouped_charges.each do |notice|
+        li.list-group-item
+          = notice.charge
+          .badge.pull-right= number_with_delimiter(notice.charge_count)
+
+  .col-lg-4
+    h3 📈 Top Automarken
+    ul.list-group
+      - @grouped_brands.each do |notice|
+        li.list-group-item
+          = notice.brand
+          .badge.pull-right= number_with_delimiter(notice.brand_count)
