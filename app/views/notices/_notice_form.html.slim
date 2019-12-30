@@ -121,7 +121,7 @@ hr.spacer
     .form-group
       = form.label :date, class: "control-label control-label-required"
       .input-group
-        = form.date_field :date_date, class: "form-control", required: true, placeholder: Time.zone.now.strftime('%d.%m.%Y')
+        = form.date_field :date_date, class: "form-control", required: true
         label.input-group-addon(for="notice_date_date")
           span.glyphicon.glyphicon-calendar
         = form.time_field :date_time, class: "form-control", required: true, step: 1, value: form.object.date_time&.strftime('%H:%M')
@@ -137,7 +137,7 @@ hr.spacer
   .col-lg-8
     .form-group
       = form.label :note, class: "control-label"
-      = form.text_area :note, placeholder: 'Das Fahrzeug war zudem ordnungswidrig mit Rauten verziert', class: "form-control"
+      = form.text_area :note, placeholder: 'z.B. Behinderung oder Gefährdung beschreiben', class: "form-control"
 
   .col-lg-4
     .form-group
