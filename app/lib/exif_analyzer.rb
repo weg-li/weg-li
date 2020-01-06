@@ -24,7 +24,10 @@ class EXIFAnalyzer < ActiveStorage::Analyzer
           meta[:altitude] = gps.fields[:gps_altitude].to_f
         end
 
-        meta[:dump] = exif.fields if ENV['VERBOSE_LOGGING']
+        if ENV['VERBOSE_LOGGING']
+          meta[:dump] = exif.fields
+          Rails.logger.info("exif of blob #{blob.id} has #{exif.fields}")
+        end
       end
     end
 
