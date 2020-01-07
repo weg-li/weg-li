@@ -9,14 +9,19 @@ namespace :scheduler do
     end
   end
 
-  desc "monthly job to make users activate"
+  desc "daily job to make users activate"
   task send_activation_reminder: :environment do
     puts "send activation reminders"
 
     not_validated = User.user.where(validation_date: nil)
     not_validated.each do |user|
-      puts "sending email validation to #{user.id} #{user.name} #{user.email}"
-      UserMailer.validate(user).deliver_now
+      if user.updated_at < 1.month.ago && user.notices.blank?
+        puts "destroying unvalidated user #{user.id} #{user.name} #{user.email}"
+        user.destroy!
+      else
+        puts "sending email validation to #{user.id} #{user.name} #{user.email}"
+        UserMailer.validate(user).deliver_now
+      end
     end
   end
 
