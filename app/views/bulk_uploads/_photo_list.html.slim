@@ -3,7 +3,7 @@
     - photos.each_with_index do |photo, index|
       li.list-item(draggable="true" id="drag_#{dom_id(photo)}" ondragstart="ziehen(event)")
         a(href="#" data-toggle="modal" data-target="#modal_#{dom_id(photo)}" draggable="false")
-          = image_tag(url_for_photo(photo, size: :thumb), class: 'item-photo', draggable: "false")
+          = image_tag(url_for_photo(photo, size: :preview), class: 'item-photo', draggable: "false")
           = hidden_field_tag('bulk_upload[photos][]', photo.id)
         .flex-buttons.btn-group.btn-group-sm
           button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal_#{dom_id(photo)}"
