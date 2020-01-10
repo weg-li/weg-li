@@ -86,7 +86,7 @@ class Notice < ActiveRecord::Base
   def analyze!
     self.status = :analyzing
     save_incomplete!
-    AnalyzerJob.set(wait: 1.seconds).perform_later(self)
+    AnalyzerJob.perform_later(self)
   end
 
   def apply_dates(dates)
