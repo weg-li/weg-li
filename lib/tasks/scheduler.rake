@@ -9,6 +9,16 @@ namespace :scheduler do
     end
   end
 
+  desc "prerender variants"
+  task prerender_variants: :environment do
+    puts "prerender variants"
+
+    User.where("date_part('day', created_at) = ?", Date.today.day).each_with_index do |user, i|
+      puts "prerendering user #{user.token}"
+      UserUploadJob.set(wait: i.minutes).perform_later(user)
+    end
+  end
+
   desc "daily job to make users activate"
   task send_activation_reminder: :environment do
     puts "send activation reminders"
