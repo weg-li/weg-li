@@ -14,8 +14,6 @@ class AnalyzerJob < ApplicationJob
   queue_as :default
 
   def perform(notice)
-    Rails.logger.info("current connection is #{ActiveRecord::Base.connection_config[:pool]}")
-
     raise NotYetAnalyzedError unless notice.photos.all?(&:analyzed?)
 
     analyze(notice)
