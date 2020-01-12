@@ -97,8 +97,7 @@ describe 'notices', type: :request do
     let(:params) {
       {
         notice: {
-          # TODO this actually should upload a photo
-          registration: 'HH XX 123',
+          photos: [fixture_file_upload(Rails.root.join('spec/support/assets/mercedes.jpg'), 'image/jpeg')],
         }
       }
     }
