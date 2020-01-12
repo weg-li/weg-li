@@ -52,6 +52,47 @@ describe 'notices', type: :request do
     end
   end
 
+  context "POST :bulk" do
+    it "destroys notices en bulk" do
+      notice = Fabricate(:notice, user: user)
+      params = {
+        bulk_action: 'destroy',
+        selected: [notice.id]
+      }
+
+      expect {
+        post bulk_notices_path, params: params
+      }.to change { user.notices.count }.by(-1)
+    end
+
+    it "analyzes notices en bulk" do
+      notice = Fabricate(:notice, user: user)
+      notice.city = nil
+      notice.save_incomplete!
+
+      params = {
+        bulk_action: 'analyze',
+        selected: [notice.id]
+      }
+
+      expect {
+        post bulk_notices_path, params: params
+      }.to have_enqueued_job(AnalyzerJob)
+    end
+
+    it "shares notices en bulk" do
+      notice = Fabricate(:notice, user: user)
+      params = {
+        bulk_action: 'share',
+        selected: [notice.id]
+      }
+
+      expect {
+        post bulk_notices_path, params: params
+      }.to have_enqueued_job(ActionMailer::MailDeliveryJob)
+    end
+  end
+
   context "POST :create" do
     let(:params) {
       {

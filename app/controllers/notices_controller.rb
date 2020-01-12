@@ -200,23 +200,38 @@ class NoticesController < ApplicationController
   end
 
   def bulk
-    action = params[:bulk_action] || 'analyze'
-    notices = current_user.notices.where(id: params[:selected])
+    action = params[:bulk_action]
+    notices = current_user.notices.open.where(id: params[:selected])
+
     case action
     when 'share'
-      notices.open.complete.each do |notice|
-        NoticeMailer.charge(notice).deliver_later
-        notice.update! status: :shared
+      notices = notices.complete
+      if notices.present?
+        notices.each do |notice|
+          NoticeMailer.charge(notice).deliver_later
+          notice.update! status: :shared
+        end
+        flash[:notice] = 'Die noch offenen, vollständigen Meldungen werden im Hintergrund per E-Mail gemeldet'
+      else
+        flash[:notice] = 'Keine vollständigen Meldungen zum melden gefunden!'
       end
-      flash[:notice] = 'Die noch offenen, vollständigen Meldungen werden im Hintergrund per E-Mail gemeldet'
     when 'analyze'
-      notices.open.incomplete.each do |notice|
-        notice.analyze!
+      notices = notices.incomplete
+      if notices.present?
+        notices.each do |notice|
+          notice.analyze!
+        end
+        flash[:notice] = 'Die Fotos der unvollständigen Meldungen werden im Hintergrund analysiert'
+      else
+        flash[:notice] = 'Keine unvollständigen Meldungen zum analysieren gefunden!'
       end
-      flash[:notice] = 'Die Fotos der unvollständigen Meldungen werden im Hintergrund analysiert'
     when 'destroy'
-      notices.open.destroy_all
-      flash[:notice] = 'Die offenen Meldungen wurden gelöscht'
+      if notices.present?
+        notices.destroy_all
+        flash[:notice] = 'Die offenen Meldungen wurden gelöscht'
+      else
+        flash[:notice] = 'Keine offenen Meldungen zum löschen gefunden!'
+      end
     end
 
     redirect_to notices_path
