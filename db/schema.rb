@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_11_163359) do
+ActiveRecord::Schema.define(version: 2020_01_12_133558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(version: 2019_12_11_163359) do
     t.integer "severity", default: 0
     t.index ["district_id"], name: "index_notices_on_district_id"
     t.index ["registration"], name: "index_notices_on_registration"
+    t.index ["zip"], name: "index_notices_on_zip"
   end
 
   create_table "replies", force: :cascade do |t|

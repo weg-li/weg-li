@@ -13,7 +13,7 @@ class District < ActiveRecord::Base
 
   validates :name, :zip, :email, presence: :true
 
-  has_many :notices
+  has_many :notices, foreign_key: :zip, primary_key: :zip
 
   def self.from_zip(zip)
     find_by(zip: zip)

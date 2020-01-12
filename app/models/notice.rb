@@ -26,7 +26,7 @@ class Notice < ActiveRecord::Base
   after_validation :geocode, if: :do_geocoding?
 
   belongs_to :user
-  belongs_to :district
+  belongs_to :district, optional: true, foreign_key: :zip, primary_key: :zip
   belongs_to :bulk_upload, optional: true
   has_many_attached :photos
   has_many :replies, -> { order('created_at DESC') }, dependent: :destroy
@@ -179,10 +179,5 @@ class Notice < ActiveRecord::Base
 
   def defaults
     self.token ||= SecureRandom.hex(16)
-    if zip? && (district.nil? || zip_changed?)
-      # TODO join on zip
-      district = District.from_zip(zip)
-      self.district = district if district.present?
-    end
   end
 end
