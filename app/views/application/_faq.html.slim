@@ -6,7 +6,7 @@
   .panel.panel-info
 
     - i += 1
-    a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}"
+    a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}" name="faq-#{i}"
       h4.text-warning Was ist die Mission von weg-li?
     panel-collapse.collapse id="collapse-#{i}"
       .panel-body
@@ -23,7 +23,7 @@
         p Es werden automatisch (zukünftig hoffentlich auch zuverlässig) so viele Informationen wie möglich – mit Hilfe von Bilderkennung und Machine-Learning – aus den Fotos extrahiert. Zunächst musst Du sicherlich noch einige Informationen selbst ausfüllen.
 
     - i += 1
-    a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}"
+    a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}" name="faq-#{i}"
       h4.text-warning Was ist der Unterschied zur Wegeheld-App?
     panel-collapse.collapse id="collapse-#{i}"
       .panel-body
@@ -31,14 +31,14 @@
         p Gerne selber vergleichen und auch die #{link_to('Wegeheld-App', 'https://www.wegeheld.org/', target: '_blank')} ausprobieren!
 
     - i += 1
-    a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}"
+    a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}" name="faq-#{i}"
       h4.text-warning Wie funktioniert weg-li im einzelnen?
     panel-collapse.collapse id="collapse-#{i}"
       .panel-body
         p Zum Glück hat #{link_to('Natenom', 'https://twitter.com/natenom', target: '_blank')} in seinem Wiki eine #{link_to('detailierte Anleitung geschrieben', 'https://wiki.natenom.de/verkehr/projekte/weg-li', target: '_blank')}, auch wenn wir versuchen eine selbsterklärende Software zur Verfügung zu stellen.
 
     - i += 1
-    a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}"
+    a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}" name="faq-#{i}"
       h4.text-warning Gibt es keine App für iOS und Android?
     panel-collapse.collapse id="collapse-#{i}"
       .panel-body
@@ -55,7 +55,7 @@
             Diese kann man dann bequem in Ruhe, mit Empfang bzw. per WLAN hochladen.
 
     - i += 1
-    a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}"
+    a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}" name="faq-#{i}"
       h4.text-warning Gibt es wirklich keine App für iOS und Android?
     panel-collapse.collapse id="collapse-#{i}"
       .panel-body
@@ -66,7 +66,7 @@
         p Unter Android macht man das im Firefox z.B. über das Seiten-Menü (3 Pünktchen neben der URL-Leiste) <code><span class="glyphicon glyphicon-option-vertical"></span> > Seite > Seitenverknüpfung hinzufügen</code>.
 
     - i += 1
-    a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}"
+    a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}" name="faq-#{i}"
       h4.text-warning Wo kann ich weg-li nutzen?
     panel-collapse.collapse id="collapse-#{i}"
       .panel-body
@@ -74,30 +74,30 @@
           | Eigentlich überall in Deutschland! Wenn noch Dein Bezirk fehlt, dann schreib gerne an #{mail_to 'peter@weg-li.de'} und teile uns mit, wo genau Du testen möchtest. Vielleicht hast Du auch schon die zuständige Stelle und deren E-Mail Adresse parat?
 
     - i += 1
-    a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}"
-      h4.text-warning Kommt da in Zukunft noch mehr?
-    panel-collapse.collapse id="collapse-#{i}"
-      .panel-body
-        p
-          |
-            Im Moment ist weg-li nicht viel mehr als eine Seite, über die man Fotos hochladen kann und diese dann per E-Mail verschickt werden. So weit so langweilig!
-            Aber mit irgendetwas muss man starten, und dieser Anfang ist nun gemacht. Das MVP ist da.
-        p
-          | Zukünftig möchten wir weg-li dahingehend weiterentwickeln, dass man es eigentlich nicht mehr benutzen muss und nach dem Knipsen des Fotos alles vollautomatisch passiert.
-        p
-          |
-            Um diese Ideen weiter zu treiben, wird weg-li als nächstes lernen, Parkvergehen in Fotos bei Twitter zu erkennen und daraus Meldungen zu erfassen.
-            Der Twitter-User wird dann über die vorbereitete Meldung informiert, kann sie per OAuth claimen und dann direkt eine Anzeige erstatten.
-
-    - i += 1
-    a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}"
+    a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}" name="faq-#{i}"
       h4.text-warning Was passiert, nachdem Anzeige erstattet wurde?
     panel-collapse.collapse id="collapse-#{i}"
       .panel-body
         p
           |
-            Wie Anzeigen per E-Mail behandelt werden, ist von Bezirk zu Bezirk unterschiedlich.
-            In Hamburg bekommt man initial eine Art "Eingangsbestätigung" mit der folgenden Passage:
+            Wie Anzeigen per E-Mail im Einzelfall behandelt werden, ist von Bezirk zu Bezirk unterschiedlich.
+            Einige Ordnungsämter verweigern die Bearbeitung von Anzeigen per E-Mail, sie fordern diese per Post und mit Unterschrift einzureichen.
+            Falls das zuständige Amt die Anzeigen bearbeitet, so muss dies binnen 3 Monaten geschehen, da sonst das Vergehen verjährt.
+            Als Anzeigender wird man nicht über den weiteren Verlauf der Anzeige informiert, es sei denn das Amt hat Rückfragen, oder man wird als Zeuge in einem Prozess geladen.
+        p In Hamburg bekommt man zum Beispiel initial eine Art "Eingangsbestätigung" mit der folgenden Passage:
         blockquote.small Auskünfte zur weiteren Bearbeitung Ihrer Anzeige werden aus datenschutzrechtlichen Gründen nicht erteilt.
-        p Transparenz sieht anders aus ...
-        p Durch den Einsatz von weg-li könnte genug Handlungsdruck entstehen, dass die Behörden die technischen Möglichkeiten nutzen und damit auch nachvollziehbar agieren.
+
+    - i += 1
+    a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}" name="faq-#{i}"
+      h4.text-warning Werden meine Anzeigen überhaupt bearbeitet?
+    panel-collapse.collapse id="collapse-#{i}"
+      .panel-body
+        p Wegen der intransparenten und verzögerten Bearbeitung der Ordnungsämter kann der Eindruck entstehen, dass die eigenen Anzeigen garnicht bearbeitet werden.
+        p Es gibt jedoch einige Quellen, durch die sich ein paar mehr Informationen und Statistiken in Erfahrung bringen lassen:
+        ul
+          li= link_to 'in Hamburg (Grüne Hamburg: Bis Ende August zeigten Hamburger bereits 27.162 Mal Verstöße gegen Halte- und Parkverbote an)', 'https://www.welt.de/regionales/hamburg/article201624298/Strassenverkehr-Hamburger-zeigen-immer-mehr-Falschparker-an.html', target: '_blank'
+          li= link_to 'in Berlin (Polizei: Mit Stand 11/2019 werden mehr als 50 Prozent der aufgrund von privaten Anzeigen eingeleiteten Verfahren durch sofortige Zahlung angebotener Verwarnungsgelder abgeschlossen.)', 'https://www.berlin.de/polizei/aufgaben/bussgeldstelle/anzeigenerstattung/', target: '_blank'
+          li= link_to 'in Dresden (FragDenStaat: Ordnungswidrigkeiten im Bereich der Verkehrsordnungswidrigkeit)', 'https://fragdenstaat.de/anfrage/ordnungswidrigkeiten-im-bereich-der-verkehrsordnungswidrigkeit/', target: '_blank'
+          li= link_to 'in Köln (Offene Daten Köln: Bußgelddaten)', 'https://www.offenedaten-koeln.de/dataset/bu%C3%9Fgelddaten-koeln-2018', target: '_blank'
+
+p Mehr Fragen und Antworten zum Thema Falschparker findet man auch beim #{link_to 'ADFC', 'https://hamburg.adfc.de/verkehr/maengelmelder/falschparker/#c11652', target: '_blank'}.
