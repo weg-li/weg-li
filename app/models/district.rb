@@ -11,7 +11,8 @@ class District < ActiveRecord::Base
     %i(name zip email prefix latitude longitude created_at updated_at).each { |key| template.add(key) }
   end
 
-  validates :name, :zip, :email, presence: :true
+  validates :name, :zip, :email, presence: true
+  validates :zip, uniqueness: true
 
   has_many :notices, foreign_key: :zip, primary_key: :zip
 
