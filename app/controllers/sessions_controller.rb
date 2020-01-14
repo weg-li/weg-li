@@ -7,13 +7,16 @@ class SessionsController < ApplicationController
     Rails.logger.info(auth) if ENV['VERBOSE_LOGGING']
     if authorization = Authorization.find_by_provider_and_uid(auth['provider'], auth['uid'])
       sign_in(authorization.user)
+
       redirect_to notices_path, notice: t('sessions.welcome_back', nickname: authorization.user.name)
     elsif signed_in?
-      current_user.authorizations.create! provider: auth['provider'], uid: auth['uid']
+      current_user.authorizations.create!(provider: auth['provider'], uid: auth['uid'])
+
       redirect_to edit_user_path(current_user), notice: t('sessions.connected', provider: auth['provider'].humanize)
     else
       session[:auth_path] = notices_path
       session[:auth_data] = auth
+
       redirect_to auth['provider'] == 'email' ? ticket_path : signup_path
     end
   end
@@ -61,6 +64,7 @@ class SessionsController < ApplicationController
       redirect_to root_path, notice: t('users.confirmation_mail', email: email)
     else
       flash.now[:alert] = 'Bitte gebe eine E-Mail-Adresse ein!'
+
       render :email
     end
   end
@@ -68,6 +72,7 @@ class SessionsController < ApplicationController
   def signup
     email = @auth['info']['email']
     check_existing_user(email)
+
     nickname = @auth['info']['nickname']
     @user = User.ghost.find_by(nickname: nickname) || User.new(nickname: nickname)
     @user.email = email
@@ -98,9 +103,11 @@ class SessionsController < ApplicationController
       session.delete(:auth_data)
       UserMailer.signup(@user).deliver_later
       sign_in(@user)
+
       redirect_to session.delete(:auth_path), notice: t('sessions.welcome', nickname: @user.nickname)
     else
       check_existing_user(params[:user][:email])
+
       render :signup
     end
   end
