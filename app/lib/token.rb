@@ -1,5 +1,5 @@
 class Token
-  def self.generate(email, expiration: 5.minutes, secret: Rails.application.secrets.secret_key_base)
+  def self.generate(email, expiration: 15.minutes, secret: Rails.application.secrets.secret_key_base)
     now_seconds = Time.now.to_i
     payload = {
         iss: email,

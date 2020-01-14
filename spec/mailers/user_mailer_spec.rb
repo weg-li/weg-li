@@ -30,7 +30,7 @@ describe UserMailer do
     it "renders the mail" do
       expect(mail.subject).to_not be_nil
       expect(mail.to).to eq([email])
-      expect(mail.body.encoded).to match("nur 5 Minuten")
+      expect(mail.body.encoded).to match("nur 15 Minuten")
     end
   end
 
