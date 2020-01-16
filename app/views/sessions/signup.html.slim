@@ -25,11 +25,11 @@
         | Name und Anschrift werden beim Erstatten von Anzeigen als Zeugen-Adresse verwendet. Die Behörden verfolgen nur Anzeigen mit vollständiger, ladungsfähiger Anschrift, anonyme Anzeigen werden nicht verfolgt.
 
   .row
-    .col-lg-6
+    .col-lg-4
       = form.label :name, class: "control-label control-label-required"
       = form.text_field :name, placeholder: 'z.B. Hanno Nym', class: "form-control", required: true
       small.help-block Anzeigen müssen mit dem vollständigen Namen erfolgen
-    .col-lg-6
+    .col-lg-8
       .form-group
         = form.label :address, class: "control-label control-label-required"
         .input-group
