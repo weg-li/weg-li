@@ -100,4 +100,12 @@
           li= link_to 'in Dresden (FragDenStaat: Ordnungswidrigkeiten im Bereich der Verkehrsordnungswidrigkeit)', 'https://fragdenstaat.de/anfrage/ordnungswidrigkeiten-im-bereich-der-verkehrsordnungswidrigkeit/', target: '_blank'
           li= link_to 'in Köln (Offene Daten Köln: Bußgelddaten)', 'https://www.offenedaten-koeln.de/dataset/bu%C3%9Fgelddaten-koeln-2018', target: '_blank'
 
+    - i += 1
+    a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}" name="faq-#{i}"
+      h4.text-warning Wieso werden meine Standortdaten nicht erkannt?
+    panel-collapse.collapse id="collapse-#{i}"
+      .panel-body
+        p Für die Erkennung des Standortes auf iOS muss vor dem Aufnehmen von Beweisfotos folgende Einstellung konfiguriert werden:
+        <code>Einstellungen > Kamera > Formate > Maximale Kompatibilität</code>
+
 p Mehr Fragen und Antworten zum Thema Falschparker findet man auch beim #{link_to 'ADFC', 'https://hamburg.adfc.de/verkehr/maengelmelder/falschparker/#c11652', target: '_blank'}.

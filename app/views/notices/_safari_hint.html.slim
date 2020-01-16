@@ -1,12 +1,7 @@
-small#safari_hint.help-block.hidden
-  |
-    iOS
-    #{link_to('entfernt unter bestimmten Umständen die Metadaten', 'https://apple.stackexchange.com/questions/326789/gps-exif-from-iphone-photo-upload-in-safari', target: '_blank')},
-    die für eine automatische Standort-Ermittlung benötigt werden. Deshalb empfehlen wir
-    #{link_to('einen', 'https://apps.apple.com/de/app/internet-browser-firefox/id989804926', target: '_blank')}
-    #{link_to('anderen', 'https://apps.apple.com/de/app/duckduckgo-privacy-browser/id663592361', target: '_blank')}
-    #{link_to('Browser', 'https://apps.apple.com/de/app/google-chrome/id535886823', target: '_blank')}
-    als Safari beim Hochladen zu benutzen.
+.well.well-sm.callout#safari_hint.hidden
+  p Für die Erkennung des Standortes auf iOS muss vor dem Aufnehmen von Beweisfotos folgende Einstellung konfiguriert werden:
+  <code>Einstellungen > Kamera > Formate > Maximale Kompatibilität</code>
+
 
 javascript:
   if (!!navigator.userAgent.match(/iphone|ipad/i)) {

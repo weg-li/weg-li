@@ -1,10 +1,10 @@
-.row
-  .col-lg-12
-    .well.well-sm.callout
-      p= t('notices.steps.photos.description')
+.well.well-sm.callout
+  p= t('notices.steps.photos.description')
 
 .row.spacer
   .col-lg-12
-    = form.label :photos, class: "control-label control-label-required"
-    = form.file_field :photos, id: 'fileupload', required: true, multiple: true, direct_upload: true, class: "form-control-file text-muted", accept: 'image/jpeg'
-    = render('safari_hint')
+    .well
+      = form.label :photos, class: "control-label control-label-required"
+      = form.file_field :photos, id: 'fileupload', required: true, multiple: true, direct_upload: true, class: "form-control-file text-muted", accept: 'image/jpeg'
+
+= render('safari_hint')
