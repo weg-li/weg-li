@@ -122,11 +122,11 @@
                 span.sr-only Aktionen
               ul.dropdown-menu
                 li
-                  = button_tag name: :bulk_action, value: :share, type: :submit, class: 'btn btn-sm btn-link'
+                  = button_tag name: :bulk_action, value: :share, type: :submit, class: 'btn btn-sm btn-link', data: {confirm: 'Bei offenen Meldungen jetzt Anzeige erstatten?'}
                     span.glyphicon.glyphicon-share>
-                    span Auswahl melden
+                    span Auswahl anzeigen
                 li
-                  = button_tag name: :bulk_action, value: :destroy, type: :submit, class: 'btn btn-sm btn-link', data: {confirm: 'Die Meldungen werden endgültig gelöscht'}
+                  = button_tag name: :bulk_action, value: :destroy, type: :submit, class: 'btn btn-sm btn-link', data: {confirm: 'Die offenen Meldungen endgültig löschen?'}
                     span.glyphicon.glyphicon-trash>
                     span Auswahl löschen
 
