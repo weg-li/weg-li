@@ -22,7 +22,7 @@
       - date_doubles.each do |notice|
         =< link_to "Meldung ##{notice.id}", notice
 
-- if notice.date < 2.months.ago
+- if 2.months.ago > notice.date
   .alert.alert-warning
     .pull-right
       = button_to @notice, method: :delete, class: 'btn btn-xs btn-warning', data: {confirm: 'Die Meldung wird endgültig gelöscht'}
