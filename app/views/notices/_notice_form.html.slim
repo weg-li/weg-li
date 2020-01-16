@@ -69,15 +69,11 @@
 hr.spacer
 
 .row
-  .col-lg-12
+  .col-lg-4
     .form-group
       = form.label :address, class: "control-label control-label-required"
       .input-group
         = form.text_field :street, placeholder: 'z.B. Sylvesterallee 7', class: "form-control", required: true
-        label.input-group-addon.input-group-addon-xs
-        = form.text_field :zip, placeholder: 'z.B. 22525', class: "form-control", required: true, maxlength: 5, pattern: '\d{5}'
-        label.input-group-addon.input-group-addon-xs
-        = form.text_field :city, placeholder: 'z.B. Hamburg', class: "form-control", required: true
 
         a.input-group-addon(href="#" data-toggle="modal" data-target="#modal_map")
           span.glyphicon.glyphicon-map-marker
@@ -99,6 +95,16 @@ hr.spacer
                 button type="button" class="btn btn-default" data-dismiss="modal" Schließen
       - unless notice.coordinates?
         small.help-block Aus den Beweisfotos konnten leider keine Koordinaten für das automatische Ermitteln der Adresse ausgelesen werden.
+
+  .col-lg-4
+    .form-group
+      = form.label :city, class: "control-label control-label-required"
+      = form.text_field :city, placeholder: 'z.B. Hamburg', class: "form-control", required: true
+
+  .col-lg-4
+    .form-group
+      = form.label :zip, class: "control-label control-label-required"
+      = form.text_field :zip, placeholder: 'z.B. 22525', class: "form-control", required: true, maxlength: 5, pattern: '\d{5}'
 
 .row
   .col-lg-8
