@@ -215,16 +215,6 @@ class NoticesController < ApplicationController
       else
         flash[:notice] = 'Keine vollständigen Meldungen zum melden gefunden!'
       end
-    when 'analyze'
-      notices = notices.incomplete
-      if notices.present?
-        notices.each do |notice|
-          notice.analyze!
-        end
-        flash[:notice] = 'Die Fotos der unvollständigen Meldungen werden im Hintergrund analysiert'
-      else
-        flash[:notice] = 'Keine unvollständigen Meldungen zum analysieren gefunden!'
-      end
     when 'destroy'
       if notices.present?
         notices.destroy_all

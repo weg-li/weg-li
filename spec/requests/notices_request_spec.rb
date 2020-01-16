@@ -65,21 +65,6 @@ describe 'notices', type: :request do
       }.to change { user.notices.count }.by(-1)
     end
 
-    it "analyzes notices en bulk" do
-      notice = Fabricate(:notice, user: user)
-      notice.city = nil
-      notice.save_incomplete!
-
-      params = {
-        bulk_action: 'analyze',
-        selected: [notice.id]
-      }
-
-      expect {
-        post bulk_notices_path, params: params
-      }.to have_enqueued_job(AnalyzerJob)
-    end
-
     it "shares notices en bulk" do
       notice = Fabricate(:notice, user: user)
       params = {
