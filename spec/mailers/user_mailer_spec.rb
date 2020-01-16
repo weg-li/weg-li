@@ -47,14 +47,17 @@ describe UserMailer do
   end
 
   describe "autoreply" do
+    let(:inbound_email) { create_inbound_email_from_fixture('example.eml', status: :delivered) }
     let(:reply) { Fabricate(:reply) }
     let(:user) { reply.notice.user }
-    let(:mail) { UserMailer.autoreply(user, reply) }
 
     it "renders the mail" do
+      reply.update! action_mailbox_inbound_email: inbound_email
+      mail = UserMailer.autoreply(user, reply)
+
       expect(mail.subject).to_not be_nil
       expect(mail.to).to eq([user.email])
-      expect(mail.body.encoded).to match("eingegangen")
+      expect(mail.attachments.size).to be(1)
     end
   end
 end

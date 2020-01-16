@@ -30,6 +30,10 @@ class UserMailer < ApplicationMailer
     @reply = reply
     @notice = reply.notice
 
+    attachments['original.eml'] = {
+      mime_type: 'application/octet-stream',
+      content: reply.action_mailbox_inbound_email.raw_email.download.to_s
+    }
     subject = "Automatische Antwort auf Anzeige #{@notice.registration} #{@notice.charge}"
     mail subject: subject, to: email_address_with_name(@user.email, @user.name)
   end
