@@ -21,3 +21,11 @@
       | Achtung, du hast schon eine Meldung für dieses Datum mit identischem Nummernschild, falls es OK ist einfach fortfahren:
       - date_doubles.each do |notice|
         =< link_to "Meldung ##{notice.id}", notice
+
+- if notice.date < 2.months.ago
+  .alert.alert-warning
+    .pull-right
+      = button_to @notice, method: :delete, class: 'btn btn-xs btn-warning', data: {confirm: 'Die Meldung wird endgültig gelöscht'}
+        | Meldung löschen
+
+    strong Achtung, die Verjährungsfrist von Parkvergehen beträgt nur 3 Monate. Es ist fraglich, ob diese Anzeige noch rechtzeitig bearbeitet wird.
