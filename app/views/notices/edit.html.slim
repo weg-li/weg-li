@@ -12,35 +12,24 @@
           EXIF-Metadaten liefern Standort und Uhrzeit, Bilderkennung und OCR liefern Kennzeichen, Hersteller, Farben etc.
           Die Algorithmen sind noch im Training, deshalb müssen lücken- oder fehlerhafte Daten selbst korrigiert werden.
 
-- if @notice.analyzing?
-  .row
-    .col-lg-4
-      .progress.progress-striped.active
-        #total-progress.progress-bar.progress-bar-success(style="width: 5%")
 
-      = link_to url_for, class: 'btn btn-success btn-block' do
-        span.glyphicon.glyphicon-repeat.smaller>
-        span#analyze-progress kurz warten und dann aktualisieren
-      javascript:
-        setInterval(function(element) { element.style.width = Math.min(100, (parseInt(element.style.width) + 25)) + '%' }, 1000, document.getElementById('total-progress'));
-    .col-lg-8
+.row
+  .col-lg-12
+    - if @notice.analyzing? || true
+      = render('reload')
+    - else
       = render 'photos', notice: @notice, upload: true
-- else
-  .row
-    .col-lg-12
-      = render 'photos', notice: @notice, upload: true
+      = render 'alerts', notice: @notice
 
-= render 'alerts', notice: @notice
+      hr.spacer
 
-hr.spacer
+      = form_errors @notice
+      = form_for @notice, html: {autocomplete: :off} do |form|
+        = render 'notice_form', notice: @notice, form: form
 
-= form_errors @notice
-= form_for @notice, html: {autocomplete: :off} do |form|
-  = render 'notice_form', notice: @notice, form: form
-
-  hr.spacer
-  .row
-    .col-lg-12
-      .pull-right
-        .btn-group
-          = form.submit 'Daten speichern', class: "btn btn-success"
+        hr.spacer
+        .row
+          .col-lg-12
+            .pull-right
+              .btn-group
+                = form.submit 'Daten speichern', class: "btn btn-success"

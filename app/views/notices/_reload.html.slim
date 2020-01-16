@@ -1,0 +1,24 @@
+.progress.progress-striped.active
+  #total-progress.progress-bar.progress-bar-success(style="width: 10%")
+
+= link_to url_for, class: 'btn btn-success btn-block' do
+  span.glyphicon.glyphicon-hourglass.smaller>
+  span#analyze-progress Analyse läuft ...
+javascript:
+  setInterval(
+    function(element) {
+      const currentWidth = parseInt(element.style.width);
+      const width = Math.min(100, (currentWidth + 20));
+      element.style.width = `${width}%`;
+      if (width === 100) {
+        const textElement = document.getElementById('analyze-progress');
+        textElement.innerHTML = 'Status aktualisieren ...';
+        setTimeout(
+          function() { document.location.reload() },
+          250
+        );
+      }
+    },
+    800,
+    document.getElementById('total-progress')
+  );
