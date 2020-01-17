@@ -13,7 +13,7 @@
             | Meldung erfassen
         .col-xs-4.text-right
           button.btn.btn-default.btn-sm.dropdown-toggle type="button" data-toggle="dropdown"
-            | Suche <span class="caret"></span>
+            | <span class="glyphicon glyphicon-search"></span> Suche <span class="caret"></span>
           ul.dropdown-menu.dropdown-menu-right
             li
               = form_tag(url_for, method: :get, class: 'form-dropdown', autocomplete: :off)
