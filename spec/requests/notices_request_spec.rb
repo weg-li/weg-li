@@ -30,6 +30,15 @@ describe 'notices', type: :request do
 
       expect(response).to be_successful
     end
+
+    it "renders the page with incomplete data" do
+      notice = user.notices.build
+      notice.save_incomplete!
+
+      get edit_notice_path(notice)
+
+      expect(response).to be_successful
+    end
   end
 
   context "GET :map" do
