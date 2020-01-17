@@ -1,12 +1,28 @@
 .panel.panel-default
   .panel-heading
-    = mail_to "peter@weg-li.de", cc: "ccaddress@domain.com", subject: "Neuen Bezirk erfassen", body: "Bitte folgenden Bezirk einspielen:\n\nPLZ / Kürzel / Name / E-Mail", class: 'btn btn-sm btn-success', title: 'Bezirk erfassen'
-      span.glyphicon.glyphicon-plus>
-      | Neuen Bezirk erfassen
-    .pull-right
-      = form_tag({url: url_for}, method: :get, class: 'form-inline') do
-        = text_field_tag(:term, params[:term], placeholder: 'z.B. 22525', class: 'form-control input-sm')
-        = submit_tag('Suchen', class: "btn btn-default btn-sm")
+    .row
+      .col-xs-8
+        = mail_to "peter@weg-li.de", cc: "ccaddress@domain.com", subject: "Neuen Bezirk erfassen", body: "Bitte folgenden Bezirk einspielen:\n\nPLZ / Kürzel / Name / E-Mail", class: 'btn btn-sm btn-success', title: 'Bezirk erfassen'
+          span.glyphicon.glyphicon-plus>
+          | Neuen Bezirk erfassen
+      .col-xs-4.text-right
+        button.btn.btn-default.btn-sm.dropdown-toggle type="button" data-toggle="dropdown"
+          | Suche <span class="caret"></span>
+        ul.dropdown-menu.dropdown-menu-right
+          li
+            = form_tag({url: url_for}, method: :get, class: 'form-dropdown', autocomplete: :off) do
+              .input-group.input-group-sm
+                = text_field_tag(:term, params[:term], placeholder: 'z.B. 22525', class: 'form-control input-sm')
+                span.input-group-btn
+                  = button_tag(class: "btn btn-default btn-sm")
+                    span.glyphicon.glyphicon-search
+
+          - if params[:term].present?
+            li.divider
+            li
+              = link_to url_for
+                span.glyphicon.glyphicon-remove>
+                | ohne Suche
 
   - if @districts.present? || params[:filter]
     .table-responsive

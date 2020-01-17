@@ -15,15 +15,16 @@
           button.btn.btn-default.btn-sm.dropdown-toggle type="button" data-toggle="dropdown"
             | Suche <span class="caret"></span>
           ul.dropdown-menu.dropdown-menu-right
-            = form_tag(url_for, method: :get, class: 'form-dropdown', autocomplete: :off)
-              .input-group.input-group-sm
-                = hidden_field_tag('order[column]', @table_params[:order][:column])
-                = hidden_field_tag('order[value]', @table_params[:order][:value])
-                = hidden_field_tag('filter[status]', @table_params[:filter][:status])
-                = text_field_tag('search[term]', @table_params[:search][:term], placeholder: 'z.B. HH SV 1887', class: 'form-control')
-                span.input-group-btn
-                  = button_tag(class: "btn btn-default btn-sm")
-                    span.glyphicon.glyphicon-search
+            li
+              = form_tag(url_for, method: :get, class: 'form-dropdown', autocomplete: :off)
+                .input-group.input-group-sm
+                  = hidden_field_tag('order[column]', @table_params[:order][:column])
+                  = hidden_field_tag('order[value]', @table_params[:order][:value])
+                  = hidden_field_tag('filter[status]', @table_params[:filter][:status])
+                  = text_field_tag('search[term]', @table_params[:search][:term], placeholder: 'z.B. HH SV 1887', class: 'form-control')
+                  span.input-group-btn
+                    = button_tag(class: "btn btn-default btn-sm")
+                      span.glyphicon.glyphicon-search
             - if @table_params[:search][:term].present?
               li.divider
               li
