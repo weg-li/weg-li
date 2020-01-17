@@ -1,0 +1,58 @@
+name: Rails Tests Ubuntu
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:11.5
+        ports: ["5432:5432"]
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+      - uses: actions/cache@preview
+        id: cache
+        with:
+          path: ~/local/rubies
+          key: ruby-2.6.5
+      - uses: clupprich/ruby-build-action@master
+        id: ruby
+        with:
+          ruby-version: 2.6.5
+          cache-available: ${{ steps.cache.outputs.cache-hit == 'true' }}
+
+      - name: Print version
+        run: ${{ steps.ruby.outputs.ruby-path }} --version
+
+      - name: Install PostgreSQL 11 client
+        run: sudo apt-get install postgresql postgresql-contrib libpq-dev
+
+      - name: Install yarn && dependencies
+        run:  yarn install --ignore-engines
+
+      - name: Install bundle
+        run:  |
+          bundle config set without 'development production'
+          bundle install
+
+      - name: Create database
+        env:
+          PGHOST: localhost
+          RAILS_ENV: test
+        run: |
+          psql -c 'create database "weg-li_test";' -U postgres
+          bundle exec rake db:test:prepare
+
+      - name: Run Tests
+        env:
+          PGHOST: localhost
+          PGUSER: postgres
+          RAILS_ENV: test
+        run: bundle exec rake
+
