@@ -8,7 +8,13 @@ ActiveStorage::DirectUploadsController.instance_eval do
 end
 
 ActiveStorage::RepresentationsController.instance_eval do
-  rescue_from(MiniMagick::Error, with: lambda { redirect_to(request.url) })
+  rescue_from(
+    MiniMagick::Error,
+    with: lambda {
+      response.set_header('Retry-After', 2)
+      redirect_to(request.url, status: 302)
+    }
+  )
   rescue_from(ActiveRecord::RecordNotFound, with: lambda { head(404) })
 end
 
