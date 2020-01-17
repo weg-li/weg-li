@@ -41,7 +41,24 @@
 
 
 - if !signed_in?
-  hr.spacer-large
+  .spacer-large
+
+  .well.well-sm
+    p
+      strong Du kennst das bestimmt auch ...
+    p
+      em> "Bin nur grad beim Kiosk",
+      em> "Muss nur eben das Paket ausliefern",
+      em> "War sonst kein Parkplatz frei",
+      em> "Da hab ich schon immer geparkt",
+      em> "Aber ich wohne doch hier"
+
+    .spacer
+    p
+      strong Mit weg-li kannst Du super einfach Falschparker melden:
+    p  📸 Beweisfoto erfassen 📝 Verstoß beschreiben ✊ beim Ordnungsamt melden 👏😍💪
+
+  .spacer-large
 
   .row
     .col-lg-2.text-center
@@ -63,26 +80,11 @@
 
   hr.spacer-large
 
+  = render 'notices/three_step'
   .well.well-sm
-    p
-      strong Du kennst das bestimmt auch ...
-    p
-      em> "Bin nur grad beim Kiosk",
-      em> "Muss nur eben das Paket ausliefern",
-      em> "War sonst kein Parkplatz frei",
-      em> "Da hab ich schon immer geparkt",
-      em> "Aber ich wohne doch hier"
-
-    .spacer
-    p
-      strong Mit weg-li kannst Du super einfach Falschparker melden:
-    p  📸 Beweisfoto erfassen 📝 Verstoß beschreiben ✊ beim Ordnungsamt melden 👏😍💪
-
-  .well.well-sm
-    = render 'notices/three_step'
     = render 'home/carousel'
 
-hr.spacer-large
+.spacer-large
 
 .row
   .col-lg-6
