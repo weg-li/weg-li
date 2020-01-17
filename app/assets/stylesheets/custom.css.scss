@@ -24,7 +24,7 @@ $white: rgb(255, 255, 255);
 }
 
 .table-responsive {
-  padding-bottom: 50px;
+  min-height: 25vh;
 }
 @media (max-width: 767px) {
   .table-responsive {
