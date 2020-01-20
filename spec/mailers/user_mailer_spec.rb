@@ -37,12 +37,24 @@ describe UserMailer do
   describe "reminder" do
     let(:notice) { Fabricate(:notice) }
     let(:user) { notice.user }
-    let(:mail) { UserMailer.reminder(user, [notice]) }
+    let(:mail) { UserMailer.reminder(user, [notice.id]) }
 
     it "renders the mail" do
       expect(mail.subject).to_not be_nil
       expect(mail.to).to eq([user.email])
       expect(mail.body.encoded).to match("rechtzeitig")
+    end
+  end
+
+  describe "pdf" do
+    let(:notice) { Fabricate(:notice) }
+    let(:user) { notice.user }
+    let(:mail) { UserMailer.pdf(user, [notice.id]) }
+
+    it "renders the mail" do
+      expect(mail.subject).to_not be_nil
+      expect(mail.to).to eq([user.email])
+      expect(mail.attachments.size).to be(1)
     end
   end
 

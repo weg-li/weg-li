@@ -151,6 +151,13 @@ class NoticesController < ApplicationController
     @mail = NoticeMailer.charge(@notice)
   end
 
+  def status
+    @notice = current_user.notices.from_param(params[:id])
+    @notice.update!(status: :shared)
+
+    redirect_to(notices_path, notice: "Deine Anzeige wurde an als 'gemeldet' markiert.")
+  end
+
   def mail
     @notice = current_user.notices.from_param(params[:id])
 
@@ -214,6 +221,22 @@ class NoticesController < ApplicationController
         flash[:notice] = 'Die noch offenen, vollständigen Meldungen werden im Hintergrund per E-Mail gemeldet'
       else
         flash[:notice] = 'Keine vollständigen Meldungen zum melden gefunden!'
+      end
+    when 'pdf'
+      notices = notices.complete
+      if notices.present?
+        UserMailer.pdf(current_user, notices.pluck(:id)).deliver_later
+        flash[:notice] = 'Die offenen, vollständigen Meldungen wurden als PDF generiert und per E-Mail zugeschickt'
+      else
+        flash[:notice] = 'Keine offenen, vollständigen Meldungen zum generieren gefunden!'
+      end
+    when 'status'
+      notices = notices.complete
+      if notices.present?
+        notices.update(status: :shared)
+        flash[:notice] = 'Die offenen, vollständigen Meldungen wurden als "gemeldet" markiert'
+      else
+        flash[:notice] = 'Keine offenen, vollständigen Meldungen zum markieren gefunden!'
       end
     when 'destroy'
       if notices.present?

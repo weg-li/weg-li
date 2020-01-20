@@ -42,7 +42,7 @@ namespace :scheduler do
     open_notices = Notice.for_reminder
     groups = open_notices.group_by(&:user)
     groups.each do |user, notices|
-      UserMailer.reminder(user, notices).deliver_now
+      UserMailer.reminder(user, notices.pluck(:id)).deliver_now
     end
   end
 
