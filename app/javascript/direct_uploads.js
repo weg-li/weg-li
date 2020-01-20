@@ -1,3 +1,14 @@
+$(document).on('turbolinks:load', function() {
+  $(document).on('change', '#fileupload', event => {
+    const target = event.target;
+    const files = Array.from(target.files);
+    if (files.some(file => file.type != 'image/jpeg')) {
+      alert('Es werden nur Fotos im JPEG Format unterstützt!');
+      target.value = '';
+    }
+  });
+});
+
 addEventListener("direct-upload:initialize", event => {
   const { target, detail } = event;
   const { id, file } = detail;

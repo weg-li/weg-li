@@ -7,7 +7,6 @@ $(document).on('turbolinks:load', function() {
   $('[data-toggle="tooltip"]').tooltip();
   $('select[data-select2-disabled!="true"]').select2({ theme: 'bootstrap' });
   $('.zoom').zoom();
-
 });
 
 // destroy select2 before caching
