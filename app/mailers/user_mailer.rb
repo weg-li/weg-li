@@ -17,11 +17,22 @@ class UserMailer < ApplicationMailer
     mail to: email, subject: t('mailers.email_auth')
   end
 
-  def reminder(user, notices)
+  def reminder(user, notice_ids)
     @user = user
-    @notices = notices
+    @notices = user.notices.find(notice_ids)
 
     subject = "Meldungen jetzt zur Anzeige bringen"
+    mail subject: subject, to: email_address_with_name(@user.email, @user.name)
+  end
+
+  def pdf(user, notice_ids)
+    @user = user
+    @notices = user.notices.find(notice_ids)
+
+    @notices.each do |notice|
+      attachments["#{notice.token}.pdf"] = PDFGenerator.new.generate(notice)
+    end
+    subject = "#{@notices.size} Anzeige(n) wurden als PDF generiert"
     mail subject: subject, to: email_address_with_name(@user.email, @user.name)
   end
 

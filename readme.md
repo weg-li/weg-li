@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/weg-li/weg-li.svg?branch=master)](https://travis-ci.org/weg-li/weg-li)
+![Build Status](https://github.com/weg-li/weg-li/workflows/build/badge.svg)
 
 # 📸 📝 ✊ weg-li: 1, 2, 3 - Macht die Bahn frei!
 

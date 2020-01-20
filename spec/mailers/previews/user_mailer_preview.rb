@@ -19,7 +19,13 @@ class UserMailerPreview < ActionMailer::Preview
   def reminder
     notice = Notice.first!
     user = notice.user
-    UserMailer.reminder(user, [notice])
+    UserMailer.reminder(user, [notice.id])
+  end
+
+  def pdf
+    notice = Notice.first!
+    user = notice.user
+    UserMailer.pdf(user, [notice.id])
   end
 
   def autoreply
