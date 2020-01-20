@@ -1,4 +1,4 @@
-![Build Status](https://github.com/MarlonSchultz/weg-li/workflows/Rails%20Tests%20Ubuntu/badge.svg)
+![Build Status](https://github.com/weg-li/weg-li/workflows/build/badge.svg)
 
 # 📸 📝 ✊ weg-li: 1, 2, 3 - Macht die Bahn frei!
 
