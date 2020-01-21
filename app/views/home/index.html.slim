@@ -41,7 +41,7 @@
 
 .spacer-large
 
-- if signed_in? && (access?(:admin) || current_user.city.to_s.downcase == 'berlin')
+- if signed_in? && (access?(:community) || current_user.city.to_s.downcase == 'berlin')
   .page-header
     h2 Was gibt es neues bei weg-li?
 

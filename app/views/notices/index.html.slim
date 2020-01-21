@@ -141,7 +141,7 @@
                   = button_tag name: :bulk_action, value: :share, type: :submit, class: 'btn btn-link', data: {confirm: 'Bei offenen Meldungen jetzt Anzeige erstatten?'}
                     span.glyphicon.glyphicon-share>
                     span Auswahl anzeigen
-                - if access?(:admin)
+                - if access?(:community)
                   li
                     = button_tag name: :bulk_action, value: :pdf, type: :submit, class: 'btn btn-link', data: {confirm: 'Die vollständigen Meldungen als PDF per E-Mail zuschicken?'}
                       span.glyphicon.glyphicon-save-file>
