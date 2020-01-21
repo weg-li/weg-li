@@ -54,4 +54,4 @@ footer
         | Die weg-li &beta;eta ist #{link_to('am 1. August 2019 gestartet', 'https://twitter.com/phoet/status/1156893833105485824', target: '_blank')} und jetzt für alle #{link_to "in über 2.000 Bezirken verfügbar", districts_url }.
 
 - if defined?(Puma)
-  | <!-- served by Puma-#{Puma::Const::PUMA_VERSION} #{Puma::Const::CODE_NAME} Ruby: #{RUBY_VERSION} on Rails #{Rails.version} -->
+  | <!-- served Revision #{ENV['HEROKU_SLUG_COMMIT']} by Puma-#{Puma::Const::PUMA_VERSION} #{Puma::Const::CODE_NAME} Ruby: #{RUBY_VERSION} on Rails #{Rails.version} -->
