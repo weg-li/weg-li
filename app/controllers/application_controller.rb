@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   helper_method :signed_in_alias?, :signed_in?, :admin?, :access?, :current_user
 
   rescue_from ActionController::InvalidAuthenticityToken, with: :session_expired
+  rescue_from ActionController::UnknownFormat, with: -> () { head(:not_found) }
 
   private
 
