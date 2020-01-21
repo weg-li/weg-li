@@ -11,7 +11,7 @@
       li.list-item
         .flex-buttons.btn-group.btn-group-sm
           a(href="#" data-toggle="modal" data-target="#modal_#{dom_id(photo)}")
-            = image_tag(url_for_photo(photo, size: :thumb), class: 'item-photo')
+            = image_tag(url_for_photo(photo, size: :preview), class: 'item-photo')
           button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal_#{dom_id(photo)}"
             span.glyphicon.glyphicon-eye-open
 
@@ -24,7 +24,7 @@
               h4.modal-title Beweisfoto ##{index + 1}
 
             .modal-body
-              = render('photo_zoom', photo: photo, replacer: replacer)
+              = render('components/photo_zoom', photo: photo, replacer: replacer)
             .modal-footer
               - if admin?
                 = link_to(inspect_notice_path(notice, photo_id: photo.id), class: 'btn btn-sm btn-default', title: 'inspect') do
@@ -47,7 +47,7 @@
 
         = form_for notice, url: [:upload, notice] do |form|
           .modal-body
-            = render 'photos_form', notice: notice, form: form
+            = render 'components/photos_form', form: form
           .modal-footer
             = form.submit 'hochladen', class: "btn btn-sm btn-success" do
             button type="button" class="btn btn-sm btn-default" data-dismiss="modal" Schließen

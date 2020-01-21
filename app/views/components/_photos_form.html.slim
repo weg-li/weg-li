@@ -1,0 +1,11 @@
+- description ||= false
+
+- if description
+  .well.well-sm.callout-info
+    small= description
+
+.well
+  = form.label :photos, class: "control-label control-label-required"
+  = form.file_field :photos, id: 'fileupload', required: true, multiple: true, direct_upload: true, class: "form-control-file text-muted", accept: 'image/jpeg', analyze_url: direct_upload_analyze_path
+
+= render('components/safari_hint')

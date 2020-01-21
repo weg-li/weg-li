@@ -23,6 +23,10 @@ $white: rgb(255, 255, 255);
   }
 }
 
+.help-block {
+  color: #c8c8c8;
+}
+
 .table-responsive {
   min-height: 25vh;
 }
@@ -258,7 +262,7 @@ ul.droppable-list {
 
 pre.charge {
   overflow-y: scroll;
-  height: 20vh;
+  height: 25vh;
   min-height: 100px;
 }
 
@@ -338,7 +342,13 @@ pre.charge {
 }
 
 .callout {
-  border-left: 5px solid #f89406;
+  border-left: 5px solid $warning-color;
+}
+.callout-warning {
+  border-left: 5px solid $warning-color;
+}
+.callout-info {
+  border-left: 5px solid $info-color;
 }
 
 .margin-left {

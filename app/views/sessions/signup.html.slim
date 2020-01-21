@@ -5,40 +5,47 @@
       fieldset
         legend= t('sessions.enter_data')
 
-      .well.well-sm.callout
-        | Der Spitzname wird als Pseudonym im öffentlichen Profil verwendet. Die E-Mail-Adresse wird für den Kontakt zum Ordnungsamt genutzt, dafür kann auch optional die Telefonnummer hinterlegt werden.
+      .well.well-sm.callout-info
+        small Der Spitzname wird als Pseudonym im öffentlichen Profil verwendet. Die E-Mail-Adresse wird für den Kontakt zum Ordnungsamt genutzt.
 
   .row.spacer-large
-    .col-lg-4
+    .col-lg-6
       = form.label :nickname, class: "control-label control-label-required"
       = form.text_field :nickname, placeholder: 'z.B. MasterKnipser', class: "form-control", required: true
-    .col-lg-4
+    .col-lg-6
       = form.label :email, class: "control-label control-label-required"
       = form.text_field :email, placeholder: 'z.B. me@example.com', class: "form-control", required: true
-    .col-lg-4
-      = form.label :phone, class: "control-label"
-      = form.text_field :phone, placeholder: 'z.B. 040 600 90 76 98', class: "form-control"
 
   .row
     .col-lg-12
-      .well.well-sm.callout
-        | Name und Anschrift werden beim Erstatten von Anzeigen als Zeugen-Adresse verwendet. Die Behörden verfolgen nur Anzeigen mit vollständiger, ladungsfähiger Anschrift, anonyme Anzeigen werden nicht verfolgt.
+      .well.well-sm.callout-info
+        small Name und Anschrift werden beim Erstatten von Anzeigen als Zeugen-Adresse verwendet. Die Behörden verfolgen nur Anzeigen mit vollständiger, ladungsfähiger Anschrift, keine anonyme Anzeigen.
+
+  .row
+    .col-lg-6
+      = form.label :name, class: "control-label control-label-required"
+      = form.text_field :name, placeholder: 'z.B. Hanno Nym', class: "form-control", required: true
+      = hint do
+        | Anzeigen müssen mit dem vollständigen Namen erfolgen
+    .col-lg-6
+      = form.label :phone, class: "control-label"
+      = form.text_field :phone, placeholder: 'z.B. 040 600 90 76 98', class: "form-control"
+      = hint do
+        | Für den Kontakt zum Ordnungsamt kann optional die Telefonnummer hinterlegt werden.
 
   .row
     .col-lg-4
-      = form.label :name, class: "control-label control-label-required"
-      = form.text_field :name, placeholder: 'z.B. Hanno Nym', class: "form-control", required: true
-      small.help-block Anzeigen müssen mit dem vollständigen Namen erfolgen
-    .col-lg-8
       .form-group
-        = form.label :address, class: "control-label control-label-required"
-        .input-group
-          = form.text_field :street, placeholder: 'Straße & Nr.', class: "form-control", required: true
-          label.input-group-addon.input-group-addon-xs
-          = form.text_field :city, placeholder: 'Ort', class: "form-control", required: true
-          label.input-group-addon.input-group-addon-xs
-          = form.text_field :zip, placeholder: 'PLZ', class: "form-control", required: true, maxlength: 5, pattern: '\d{5}'
-        small.help-block Anzeigen benötigen eine ladungsfähige Anschrift
+        = form.label :street, class: "control-label control-label-required"
+        = form.text_field :street, placeholder: 'z.B. Sylvesterallee 7', class: "form-control", required: true
+    .col-lg-4
+      .form-group
+        = form.label :city, class: "control-label control-label-required"
+        = form.text_field :city, placeholder: 'z.B. Hamburg', class: "form-control", required: true
+    .col-lg-4
+      .form-group
+        = form.label :zip, class: "control-label control-label-required"
+        = form.text_field :zip, placeholder: 'z.B. 22525', class: "form-control", required: true, maxlength: 5, pattern: '\d{5}'
 
   hr.spacer
 

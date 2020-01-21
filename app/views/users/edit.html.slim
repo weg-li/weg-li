@@ -19,12 +19,14 @@
           = form.label :zip, class: "control-label control-label-required"
           = form.text_field :zip, class: "form-control", required: true
 
-          small.help-block Name und Anschrift werden beim Erstatten von Anzeigen als Zeugen-Adresse verwendet.
+          = hint do
+            | Name und Anschrift werden beim Erstatten von Anzeigen als Zeugen-Adresse verwendet.
 
           = form.label :phone, class: "control-label"
           = form.text_field :phone, class: "form-control", placeholder: 'z.B. 040 600 90 76 98'
 
-          small.help-block Ist eine Telefonnummer vorhanden, dann wird diese für Rückfragen mit angegeben.
+          = hint do
+            | Ist eine Telefonnummer vorhanden, dann wird diese für Rückfragen mit angegeben.
 
         .panel-footer.clearfix
           .pull-right
@@ -40,7 +42,8 @@
             = form.email_field :email, class: 'form-control', required: true
             span.input-group-btn
               = form.submit t('users.change_email'), class: "btn btn-default"
-          small.help-block Nach dem ändern der E-Mail Adresse muss diese anschließend bestätigt werden.
+          = hint do
+            | Nach dem ändern der E-Mail Adresse muss diese anschließend bestätigt werden.
       .panel-body
         - if current_user.validated?
           = link_to "#", class: "btn btn-default btn-block disabled"
@@ -56,7 +59,8 @@
         .panel-body
           = form.label :nickname, class: "control-label control-label-required"
           = form.text_field :nickname, class: "form-control", required: true
-          small.help-block Der Spitzname wird im öffentlichen Profil verwendet.
+          = hint do
+            | Der Spitzname wird im öffentlichen Profil verwendet.
 
           - User.bitfields[:flags].keys.each do |key|
               .checkbox

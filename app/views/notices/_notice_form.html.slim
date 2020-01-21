@@ -1,3 +1,6 @@
+.well.well-sm.callout-info
+  small= t('notices.steps.infos.description')
+
 .row
   .col-lg-4
     .form-group
@@ -62,13 +65,6 @@
       = form.select :color, Vehicle.colors.map { |color| [t(color, scope: "activerecord.attributes.notice.colors"), color] }, { include_blank: 'Farbe Auswählen' }, { class: "form-control" }
 
 .row
-  .col-lg-12
-    .well.well-sm.callout
-      p= t('notices.steps.infos.description')
-
-hr.spacer
-
-.row
   .col-lg-4
     .form-group
       = form.label :address, class: "control-label control-label-required"
@@ -85,7 +81,7 @@ hr.spacer
                   span aria-hidden="true" &times;
                 h4.modal-title Adresse auswählen
               .modal-body
-                .well.well-sm.callout
+                .well.well-sm.callout-info
                   p Den Marker einfach an die entsprechende Stelle ziehen, oder den aktuellen Standort verwenden, die Adresse wird dann automatisch ausgefüllt.
                 = render('picker_map', notice: notice, street: '#notice_street', zip: '#notice_zip', city: '#notice_city', trigger: '#geolocation')
               .modal-footer
@@ -93,8 +89,6 @@ hr.spacer
                   span.glyphicon.glyphicon-map-marker>
                   | Aktuellen Standort verwenden
                 button type="button" class="btn btn-default" data-dismiss="modal" Schließen
-      - unless notice.coordinates?
-        small.help-block Aus den Beweisfotos konnten leider keine Koordinaten für das automatische Ermitteln der Adresse ausgelesen werden.
 
   .col-lg-4
     .form-group
@@ -111,12 +105,14 @@ hr.spacer
     .form-group
       = form.label :charge, class: "control-label control-label-required"
       = form.select :charge, Vehicle.charges, { include_blank: 'Verstoß Auswählen' }, { class: "form-control", required: true }
-      small.help-block Mehr Informationen finden sich im aktuellen #{link_to 'Bußgeldkatalog (bkat_owi Stand 01.11.2017)', '/pdf/bkat_owi_01_11_2017_pdf.pdf', target: '_blank'}.
+      = hint do
+        | Informationen finden sich im aktuellen #{link_to 'Bußgeldkatalog (bkat_owi Stand 01.11.2017)', '/pdf/bkat_owi_01_11_2017_pdf.pdf', target: '_blank'}
   .col-lg-4
     .form-group
       = form.label :severity, class: "control-label control-label-required"
       = form.select :severity, Notice.severities.keys.map { |key| [Notice.human_attribute_name(key), key]}, { include_blank: 'Behinderung Auswählen' }, { class: "form-control", required: true }
-      small.help-block Details zur Behinderung/Gefährdung im Hinweis angeben
+      = hint do
+        | Details zur Behinderung/Gefährdung im Hinweis angeben
 
 .row
   .col-lg-8
@@ -134,12 +130,14 @@ hr.spacer
     .form-group
       = form.label :duration, class: "control-label control-label-required"
       = form.select :duration, Vehicle.durations, { include_blank: 'Dauer Auswählen' }, { class: "form-control", required: true }
+      = hint do
+        | bis 3 Minuten: Halten / ab 3 Minuten: Parken
 
 .row
   .col-lg-8
     .form-group
       = form.label :note, class: "control-label"
-      = form.text_area :note, placeholder: 'z.B. Behinderung oder Gefährdung beschreiben', class: "form-control"
+      = form.text_area :note, placeholder: 'z.B. konkrete Behinderung / Gefährdung beschreiben', class: "form-control"
 
   .col-lg-4
     .form-group

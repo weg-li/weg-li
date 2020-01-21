@@ -29,3 +29,8 @@
         | Meldung löschen
 
     strong Achtung, die Verjährungsfrist von Parkvergehen beträgt nur 3 Monate. Es ist fraglich, ob diese Anzeige noch rechtzeitig bearbeitet wird.
+
+- unless notice.coordinates?
+  .alert.alert-info.alert-dismissable
+    button type="button" class="close" data-dismiss="alert" ×
+    strong Aus den Beweisfotos konnten leider keine Koordinaten für das automatische Ermitteln der Adresse ausgelesen werden.
