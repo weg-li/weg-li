@@ -39,13 +39,43 @@
               - login_links do |name, path, key|
                 li= link_to(name, path, method: :post, data: { turbolinks: false })
 
+.spacer-large
 
-- if !signed_in?
+- if signed_in? && (access?(:admin) || current_user.city.to_s.downcase == 'berlin')
+  .page-header
+    h2 Was gibt es neues bei weg-li?
+
+  .row
+    .col-lg-2.text-center
+      = image_tag 'phoet.jpg', class: "img-circle me-quote"
+    .col-lg-10
+      blockquote
+        p Es gibt viele tolle Projekte rund um die Themen Verkehr und Mobilität, hier ein paar interessante Tips:
+        small Peter aus Hamburg, 👨‍👦 besorgter Vater, 🚶‍♂️ Fußgänger, 🛴 E-Scooterer, 🚲 Radler und 🚐 Autofahrer
+
   .spacer-large
 
+  .row
+    .col-lg-12
+      h3 🤩 Aktuelle Tips:
+
+      ul.list-group
+        li.list-group-item
+          span.badge Berlin
+          | 😤 Sicherheit im Radverkehr! Sammelt Forschungsdaten zu gefährlichen Situationen im Straßenverkehr per App bei #{link_to 'SimRa', 'https://www.digital-future.berlin/forschung/projekte/simra/'}.
+        li.list-group-item
+          span.badge Berlin
+          | 🚴‍♀️ Wie wird Berlin zur Fahrradstadt? Helft beim Umbau Berlins zur Fahrradstadt bei #{link_to 'FixMyBerlin', 'https://fixmyberlin.de/'}.
+        li.list-group-item
+          span.badge Überall
+          | 👍 Diese und viele weitere tolle Projekte rund um das Thema Radfahren findet ihr bei #{link_to 'Awesome Bikeprojects', 'https://github.com/mltbnz/awesome-bikeprojects'}.
+
+- else
+  .page-header
+    h2 Was macht weg-li?
   .well.well-sm
     p
-      strong Du kennst das bestimmt auch:
+      strong Diese Reaktionen von Falschparkern kennst das bestimmt auch:
     p
       em> "Bin nur grad beim Bäcker",
       em> "Muss nur eben das Paket ausliefern",
@@ -55,18 +85,20 @@
 
     .spacer
     p
-      strong Mit weg-li kannst Du supereinfach Falschparker melden:
-    p  📸 Beweisfoto erfassen 📝 Verstoß beschreiben ✊ beim Ordnungsamt melden 👏😍💪
+      strong Mit der Webseite weg-li kannst Du supereinfach Falschparker melden:
+    p  📸 Beweisfoto mit dem Handy erfassen 📝 Hochladen & Verstoß beschreiben ✊ per E-Mail beim Ordnungsamt melden 👏😍💪
 
   .spacer-large
 
+  .page-header
+    h2 Warum gibt es weg-li?
   .row
     .col-lg-2.text-center
       = image_tag 'phoet.jpg', class: "img-circle me-quote"
     .col-lg-10
       blockquote
         p Verkehrswende selber machen durch sichere Radwege und freie Bürgersteige, besonders für Kinder!
-        small #{link_to('Peter aus Hamburg', 'https://twitter.com/phoet', target: '_blank')}, 👨‍👦 besorgter Vater, 🚶‍♂️ Fußgänger, 🛴 E-Scooterer, 🚲 Radler und 🚐 Autofahrer
+        small Peter aus Hamburg, 👨‍👦 besorgter Vater, 🚶‍♂️ Fußgänger, 🛴 E-Scooterer, 🚲 Radler und 🚐 Autofahrer
 
   hr.spacer-large
 
@@ -80,12 +112,16 @@
 
   hr.spacer-large
 
+  .page-header
+    h2 Wie funktioniert weg-li?
   = render 'notices/three_step'
   .well.well-sm
     = render 'home/carousel'
 
 .spacer-large
 
+.page-header
+  h2 Was schafft weg-li?
 .row
   .col-lg-6
     h3 🥇 Aktuelle Ziele:
