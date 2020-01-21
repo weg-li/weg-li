@@ -3,25 +3,23 @@
 
 = render 'three_step', step: :second
 
-.row
-  .col-lg-12
-    .well.well-sm.callout
-      p
-        |
-          Aus den Beweisfotos lassen sich automatisch Informationen ermitteln.
-          EXIF-Metadaten liefern Standort und Uhrzeit, Bilderkennung und OCR liefern Kennzeichen, Hersteller, Farben etc.
-          Die Algorithmen sind noch im Training, deshalb müssen lücken- oder fehlerhafte Daten selbst korrigiert werden.
+.well.well-sm.callout-info
+  small
+    |
+      Aus den Beweisfotos lassen sich automatisch Informationen ermitteln.
+      EXIF-Metadaten liefern Standort und Uhrzeit, Bilderkennung und OCR liefern Kennzeichen, Hersteller, Farben etc.
+      Die Algorithmen sind noch im Training, deshalb müssen lücken- oder fehlerhafte Daten selbst korrigiert werden.
 
 
 .row
   .col-lg-12
     - if @notice.analyzing?
-      = render('reload')
+      = render('components/reload')
     - else
-      = render 'photos', notice: @notice, upload: true
+      = render 'components/photos', notice: @notice, upload: true
       = render 'alerts', notice: @notice
 
-      hr.spacer
+      .spacer-large
 
       = form_errors @notice
       = form_for @notice, html: {autocomplete: :off} do |form|

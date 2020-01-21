@@ -16,7 +16,7 @@
 
       .col-lg-8
         - if @bulk_upload.photos.present?
-          = render 'photos', notice: @bulk_upload, publicly: true, replacer: true
+          = render 'components/photos', notice: @bulk_upload, publicly: true, replacer: true
 
   - if @bulk_upload.notices.present?
     = render 'notice_list', notices: @bulk_upload.notices

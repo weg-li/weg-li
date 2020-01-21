@@ -3,8 +3,8 @@
 
 = form_errors @bulk_upload
 = form_for @bulk_upload do |form|
-  = render 'photos_form', bulk_upload: @bulk_upload, form: form
-  hr.spacer
+  = render 'components/photos_form', form: form, description: t('bulk_upload.steps.photos.description')
+
   .row
     .col-lg-12
       .pull-right

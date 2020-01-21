@@ -11,7 +11,7 @@
         = render 'details', notice: @notice
 
       .col-lg-4
-        = render 'photos', notice: @notice, publicly: true
+        = render 'components/photos', notice: @notice, publicly: true
 
   - replies = @notice.replies
   - if replies.present?

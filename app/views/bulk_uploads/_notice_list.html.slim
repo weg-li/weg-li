@@ -1,22 +1,26 @@
-.table-responsive
-  table.table.table-striped.table-hover
-    thead
-      tr
-        th= Notice.human_attribute_name(:registration)
-        th= Notice.human_attribute_name(:photos)
-        th= Notice.human_attribute_name(:created_at)
-        th= Notice.human_attribute_name(:status)
-    tbody
-      - notices.each do |notice|
+.panel.panel-default
+  .table-responsive
+    table.table.table-striped.table-hover
+      thead
         tr
-          td
-            = link_to(notice)
-              span.label.label-license
-                span.glyphicon.glyphicon-status
-                span<= notice.registration || '-'
-          td
-            = link_to(notice) do
-              - notice.photos.each do |photo|
-                = image_tag(url_for_photo(photo, size: :thumb), class: 'index-photo')
-          td= link_to(d(notice.created_at), notice)
-          td= render 'status', status: notice.status
+          th= Notice.human_attribute_name(:registration)
+          th= Notice.human_attribute_name(:photos)
+          th= Notice.human_attribute_name(:created_at)
+          th= Notice.human_attribute_name(:status)
+      tbody
+        - notices.each do |notice|
+          tr
+            td
+              = link_to(notice)
+                - if notice.registration.present?
+                  span.label.label-license
+                    span.glyphicon.glyphicon-status
+                    span<= notice.registration
+                - else
+                  = '-'
+            td
+              = link_to(notice) do
+                - notice.photos.each do |photo|
+                  = image_tag(url_for_photo(photo, size: :thumb), class: 'index-photo')
+            td= link_to(d(notice.created_at), notice)
+            td= render 'status', status: notice.status

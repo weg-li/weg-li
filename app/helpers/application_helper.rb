@@ -24,6 +24,11 @@ module ApplicationHelper
     parts.join(' · ')
   end
 
+
+  def hint(&block)
+    content_tag(:small, class: 'help-block', &block)
+  end
+
   def markdown(text)
     @markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(autolink: true, space_after_headers: true, hard_wrap: true))
     @markdown.render(text)

@@ -6,7 +6,7 @@
         = render 'details', notice: @notice
 
       .col-lg-4
-        = render 'photos', notice: @notice, publicly: true
+        = render 'components/photos', notice: @notice, publicly: true
   - if @notice.user.ghost?
     .panel-footer.clearfix
       .pull-right

@@ -3,12 +3,8 @@
 
 = render 'three_step', step: :third
 
-.row
-  .col-lg-12
-    .well.well-sm.callout
-      p
-        |
-          Kontrolliere die erfassten Informationen und Beweisfotos in der Vorschau. Danach kann die Anzeige direkt per E-Mail beim Ordnungsamt erstattet werden.
+.well.well-sm.callout-info
+  small Kontrolliere die erfassten Informationen und Beweisfotos in der Vorschau. Danach kann die Anzeige direkt per E-Mail beim Ordnungsamt erstattet werden.
 
 .row
   .col-lg-12
@@ -18,7 +14,7 @@
 
 .row
   .col-lg-12
-    = render 'photos', notice: @notice, publicly: true
+    = render 'components/photos', notice: @notice, publicly: true
 
 = render 'alerts', notice: @notice
 
@@ -34,7 +30,8 @@
         .form-group
           = form.label :district, class: "control-label control-label-required"
           = form.text_field :district, value: form.object.district.display_name, disabled: true, class: "form-control"
-          small.help-block Die zuständige E-Mail-Adresse wurde automatisch anhand der Adresse der Meldung ermittelt. Adresse stimmt nicht? Schreibe gerne an #{mail_to 'peter@weg-li.de'}!
+          = hint do
+            | Die zuständige E-Mail-Adresse wurde automatisch anhand der Adresse der Meldung ermittelt. Adresse stimmt nicht? Schreibe gerne an #{mail_to 'peter@weg-li.de'}!
 
     hr.spacer
 
@@ -52,8 +49,6 @@
         | Die Adresse der Meldung braucht noch eine PLZ, damit das zuständige Ordnungsamt ausgefüllt werden kann!
       - else
         | Der Bezirk für die PLZ #{@notice.zip} fehlt noch, schreibe gerne an #{mail_to 'peter@weg-li.de'} falls die die E-Mail-Adresse der zuständigen Stelle kennst!
-
-  hr.spacer
 
   .row
     .col-lg-12
