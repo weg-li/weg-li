@@ -5,6 +5,7 @@ ruby '2.6.5'
 gem 'rails', '~> 6.0.0'
 gem 'rack', github: 'rack/rack', branch: 'master' # 2.1.1 breaks it
 gem 'sprockets', '~> 3.7.2'
+gem 'bootsnap', require: false
 gem 'puma'
 gem 'sass-rails'
 gem 'sidekiq'
