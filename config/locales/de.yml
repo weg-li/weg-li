@@ -237,13 +237,13 @@ de:
     steps:
       photos:
         title: Erfassen
-        description: Mache ein oder mehrere Beweisfotos, die den Verstoß klar dokumentieren, und lade sie hoch. Das Fabrikat und das Nummernschild sollten auf den Fotos gut zu erkennen sein. Erstelle eine neue Meldung pro Fahrzeug und vermeide es möglichst, Fotos mit Passanten und Kennzeichen Unbeteiligter zu machen.
+        description: Mache ein oder mehrere Beweisfotos, die den Verstoß klar dokumentieren, und lade sie hoch. Das Nummernschild sollten auf den Fotos gut zu erkennen sein. Erstelle eine neue Meldung pro Fahrzeug und vermeide es möglichst, Fotos mit Passanten und Kennzeichen Unbeteiligter zu machen.
       infos:
         title: Beschreiben
         description: Um mit Hilfe der Meldung eine Anzeige zu erstatten, werden noch zusätzliche Informationen benötigt. Neben Zeit und Ort des Verstoßes müssen auch noch Details zum Fahrzeug angegeben werden. Diese Informationen werden soweit möglich automatisch aus den Beweisfotos ermittelt.
       charges:
         title: Melden
-        description: Aus den Daten kann direkt eine Anzeige erstattet werden, die dann an das zuständige Ordnungsamt oder die Polizei gesendet wird. Alle Meldungen werden zudem anonymisiert auf der öffentlich erreichbaren weg-li Karte angezeigt.
+        description: Aus den Daten kann direkt eine Anzeige erstattet werden, die dann an das zuständige Stelle gesendet wird. Alle Meldungen werden zudem anonymisiert auf der öffentlich erreichbaren weg-li Karte angezeigt.
     callouts:
       send_email:
         hint: 'Erstatte die Anzeige direkt per E-Mail, Du erhältst eine Kopie in CC.'
