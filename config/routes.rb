@@ -41,6 +41,7 @@ Rails.application.routes.draw do
       get :share
       get :prepare
       get :suggest
+      get :pdf
       patch :duplicate
       patch :polish
       patch :mail

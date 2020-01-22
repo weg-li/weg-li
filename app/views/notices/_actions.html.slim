@@ -18,7 +18,11 @@ ul.dropdown-menu
       = link_to share_notice_path(notice)
         span.glyphicon.glyphicon-share>
         | Anzeige erstatten
-
+    - if access?(:community)
+      li
+        = link_to pdf_notice_path(notice)
+          span.glyphicon.glyphicon-save-file>
+          | Anzeige als PDF
   li
     = link_to notice_path(notice)
       span.glyphicon.glyphicon-eye-open>

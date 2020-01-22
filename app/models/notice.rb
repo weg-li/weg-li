@@ -159,6 +159,10 @@ class Notice < ActiveRecord::Base
     end
   end
 
+  def file_name(extension = :pdf)
+    "#{date.strftime('%d.%m.%Y-%H:%M')}_#{charge.parameterize}.#{extension}"
+  end
+
   def full_address
     "#{street}, #{zip} #{city}, Deutschland"
   end

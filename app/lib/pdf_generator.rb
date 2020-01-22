@@ -10,6 +10,10 @@ class PDFGenerator
     )
 
     pdf = Prawn::Document.new do |document|
+      qr_code = qr_code(notice)
+      document.render_qr_code(qr_code, pos: [document.bounds.width - 50, document.cursor])
+
+      document.move_cursor_to(document.bounds.height)
       document.font_size(10)
       document.text(content)
 
@@ -17,9 +21,6 @@ class PDFGenerator
       document.font_size(10)
       document.text("_" * 40)
       document.text("#{user.city}, #{I18n.l(Date.today)}")
-
-      qr_code = qr_code(notice)
-      document.render_qr_code(qr_code, pos: [document.bounds.width - 50, document.bounds.height])
 
       notice.photos.each do |photo|
         photo.service.download_file(photo.key) { |file| document.image(file, fit: [document.bounds.width, document.bounds.height]) }

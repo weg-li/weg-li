@@ -206,6 +206,12 @@ class NoticesController < ApplicationController
     redirect_to notices_path, notice: t('notices.destroyed')
   end
 
+  def pdf
+    notice = current_user.notices.open.complete.from_param(params[:id])
+    data = PDFGenerator.new.generate(notice)
+    send_data data, filename: notice.file_name
+  end
+
   def bulk
     action = params[:bulk_action]
     notices = current_user.notices.open.where(id: params[:selected])

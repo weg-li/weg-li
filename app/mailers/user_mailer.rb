@@ -30,7 +30,7 @@ class UserMailer < ApplicationMailer
     @notices = user.notices.find(notice_ids)
 
     @notices.each do |notice|
-      attachments["#{notice.token}.pdf"] = PDFGenerator.new.generate(notice)
+      attachments[notice.file_name] = PDFGenerator.new.generate(notice)
     end
     subject = "#{@notices.size} Anzeige(n) wurden als PDF generiert"
     mail subject: subject, to: email_address_with_name(@user.email, @user.name)
