@@ -101,6 +101,7 @@ Rails.application.routes.draw do
   get '/faq', to: 'home#faq', as: :faq
   get '/privacy', to: 'home#privacy', as: :privacy
   get '/year2019', to: 'home#year2019', as: :year2019
+  get '/year2020', to: 'home#year2020', as: :year2020
 
   # dev
   get '/styleguide', to: 'styleguide#index'

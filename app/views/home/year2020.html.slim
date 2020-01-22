@@ -1,0 +1,59 @@
+.page-header
+  h1 weg-li das Jahr 2020
+
+.spacer
+
+.row
+  .col-lg-2.text-center
+    = image_tag 'phoet.jpg', class: "img-circle me-quote"
+  .col-lg-10
+    blockquote
+      p In 2020 wurden bereits #{@count} Anzeigen von #{@active} Benutzern erstattet - vielen Dank!
+      small= "weg-li 🚲💨 #{t('slogan_1')} #{t('slogan_2')}"
+
+hr.spacer-large
+
+.alert.alert-success
+  dl.dl-horizontal
+    dt 1. Januar 2020
+    dd weg-li erreicht durchweg mehr als 500 Meldungen und erhöht das Wochenziel auf <strong>1000 Anzeigen</strong> 💪
+    dt 22. Januar 2020
+    dd weg-li hilft auch offline, Anzeigen kann man nun <a href="https://twitter.com/weg_li/status/1219640084980535296" target="_blank">als PDF Herunterladen</a> 📃
+
+.spacer
+
+.row
+  .col-lg-8
+    h3 📈 Top Orte
+    ul.list-group
+      - @grouped_cities.each do |notice|
+        li.list-group-item
+          = notice.city
+          .badge.pull-right= number_with_delimiter(notice.city_count)
+
+  .col-lg-4
+    h3 📈 Top Postleitzahlen
+    ul.list-group
+      - @grouped_zips.each do |notice|
+        li.list-group-item
+          = notice.zip
+          .badge.pull-right= number_with_delimiter(notice.zip_count)
+
+.spacer-large
+
+.row
+  .col-lg-8
+    h3 📈 Top Vergehen
+    ul.list-group
+      - @grouped_charges.each do |notice|
+        li.list-group-item
+          = notice.charge
+          .badge.pull-right= number_with_delimiter(notice.charge_count)
+
+  .col-lg-4
+    h3 📈 Top Automarken
+    ul.list-group
+      - @grouped_brands.each do |notice|
+        li.list-group-item
+          = notice.brand
+          .badge.pull-right= number_with_delimiter(notice.brand_count)
