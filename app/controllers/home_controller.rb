@@ -26,7 +26,7 @@ class HomeController < ApplicationController
   end
 
   def year2019
-    notices = Notice.shared.where(date: ('01.01.2019'.to_time..'31.12.2019'.to_time.end_of_year))
+    notices = Notice.shared.where(date: ((Time.zone.now - 1.year).beginning_of_year..(Time.zone.now - 1.year).end_of_year))
     @count = notices.count
     @active = notices.pluck(:user_id).uniq.size
     @grouped_cities = notices.select('count(city) as city_count, city').group(:city).order('city_count DESC').limit(5)
@@ -36,7 +36,7 @@ class HomeController < ApplicationController
   end
 
   def year2020
-    notices = Notice.shared.where(date: ('01.01.2020'.to_time..'31.12.2020'.to_time.end_of_year))
+    notices = Notice.shared.where(date: (Time.zone.now.beginning_of_year..Time.zone.now.end_of_year))
     @count = notices.count
     @active = notices.pluck(:user_id).uniq.size
     @grouped_cities = notices.select('count(city) as city_count, city').group(:city).order('city_count DESC').limit(5)

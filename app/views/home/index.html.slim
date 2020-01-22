@@ -130,7 +130,7 @@
     ul.list-group
       li.list-group-item
         - goal = weekly_goal
-        - statistics = Notice.statistics(Time.zone.today.beginning_of_week)
+        - statistics = Notice.statistics(Time.zone.now.beginning_of_week)
         - current = statistics[:shared]
         p
           strong> Wochenziel:
@@ -140,7 +140,7 @@
 
       li.list-group-item
         - goal = weekly_goal * 4
-        - statistics = Notice.statistics(Time.zone.today.beginning_of_month)
+        - statistics = Notice.statistics(Time.zone.now.beginning_of_month)
         - current = statistics[:shared]
         p
           strong> Monatsziel:
@@ -150,7 +150,7 @@
 
       li.list-group-item
         - goal = weekly_goal * 52
-        - statistics = Notice.statistics(Time.zone.today.beginning_of_year)
+        - statistics = Notice.statistics(Time.zone.now.beginning_of_year)
         - current = statistics[:shared]
         p
           strong> Jahresziel:
