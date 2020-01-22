@@ -1,5 +1,92 @@
 [
   {
+    "brand": "Wiesmann",
+    "models": []
+  },
+  {
+    "brand": "Venturi",
+    "models": []
+  },
+  {
+    "brand": "Tata",
+    "models": []
+  },
+  {
+    "brand": "Spyker",
+    "models": []
+  },
+  {
+    "brand": "Saleen",
+    "models": []
+  },
+  {
+    "brand": "Qoros",
+    "models": []
+  },
+  {
+    "brand": "Pagani",
+    "models": []
+  },
+  {
+    "brand": "Morgan",
+    "models": []
+  },
+  {
+    "brand": "Maybach",
+    "models": []
+  },
+  {
+    "brand": "Lotus",
+    "models": []
+  },
+  {
+    "brand": "Lada",
+    "models": []
+  },
+  {
+    "brand": "Isuzu",
+    "models": []
+  },
+  {
+    "brand": "Genesis",
+    "models": []
+  },
+  {
+    "brand": "Cupra",
+    "models": []
+  },
+  {
+    "brand": "Cadillac",
+    "models": []
+  },
+  {
+    "brand": "Brabus",
+    "models": []
+  },
+  {
+    "brand": "Corvette",
+    "models": []
+  },
+  {
+    "brand": "Bentley",
+    "models": [
+      "Bentayga",
+      "Continental GT",
+      "Flying Spur",
+      "Mulsanne"
+    ]
+  },
+  {
+    "brand": "Maserati",
+    "models": [
+      "Ghibli",
+      "Levante Q4",
+      "Quattroporte",
+      "GranTurismo",
+      "GranCabrio"
+    ]
+  },
+  {
     "brand": "Seat",
     "models": [
       "Alhambra",

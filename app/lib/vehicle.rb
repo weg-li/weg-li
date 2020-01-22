@@ -94,6 +94,9 @@ class Vehicle
     end
     return [res['brand'], 1.0] if res.present?
 
+    res = camper_brands.find { |brand| text == brand.strip.downcase }
+    return [res, 1.0] if res.present?
+
     res = truck_brands.find { |brand| text == brand.strip.downcase }
     return [res, 1.0] if res.present?
 
@@ -107,11 +110,17 @@ class Vehicle
   end
 
   def self.brands
-    (car_brands + truck_brands).sort
+    (car_brands + truck_brands + camper_brands).sort
   end
 
   def self.car_brands
     cars.map { |entry| entry['brand'] }
+  end
+
+  def self.camper_brands
+    [
+      'Adria',
+    ]
   end
 
   def self.truck_brands
