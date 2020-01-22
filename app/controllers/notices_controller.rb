@@ -209,6 +209,7 @@ class NoticesController < ApplicationController
   def pdf
     notice = current_user.notices.open.complete.from_param(params[:id])
     data = PDFGenerator.new.generate(notice)
+
     send_data data, filename: notice.file_name
   end
 

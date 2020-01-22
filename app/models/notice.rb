@@ -160,7 +160,7 @@ class Notice < ActiveRecord::Base
   end
 
   def file_name(extension = :pdf)
-    "#{date.strftime('%d.%m.%Y-%H:%M')}_#{registration.parameterize}.#{extension}"
+    "#{date.strftime('%Y-%m-%d %H-%M')} #{registration.gsub(' ', '-')}.#{extension}"
   end
 
   def full_address
