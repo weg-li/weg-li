@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rack/rack.git
-  revision: ba2b9b4cce6c7a4a8e64b128bb7b5af95e01ba4e
+  revision: 01556901e519159982c28a8511b18ffb22f0454d
   branch: master
   specs:
     rack (2.2.0)
@@ -97,7 +97,7 @@ GEM
       msgpack (~> 1.0)
     buftok (0.2.0)
     builder (3.2.4)
-    byebug (11.0.1)
+    byebug (11.1.1)
     chunky_png (1.3.11)
     color (1.8)
     concurrent-ruby (1.1.5)
@@ -125,7 +125,7 @@ GEM
     faraday (0.17.3)
       multipart-post (>= 1.2, < 3)
     ffi (1.12.1)
-    geocoder (1.6.0)
+    geocoder (1.6.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     google-api-client (0.36.4)
@@ -149,7 +149,7 @@ GEM
       google-cloud-core (~> 1.2)
       googleauth (~> 0.9)
       mini_mime (~> 1.0)
-    google-cloud-vision (0.37.1)
+    google-cloud-vision (0.37.2)
       google-gax (~> 1.8)
       googleapis-common-protos (>= 1.3.9, < 2.0)
       googleapis-common-protos-types (>= 1.0.4, < 2.0)
