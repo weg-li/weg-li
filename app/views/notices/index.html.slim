@@ -158,34 +158,6 @@
     = paginate @notices
 
   .well.well-sm
-    strong Aktionen für Meldungen
-    small
-      ul.list-inline
-        li
-          span.glyphicon.glyphicon-eye-open>
-          | Meldung ansehen
-        li
-          span.glyphicon.glyphicon-edit>
-          | Meldung bearbeiten
-        li
-          span.glyphicon.glyphicon-duplicate>
-          | Meldung duplizieren
-        li
-          span.glyphicon.glyphicon-trash>
-          | Meldung löschen
-        li
-          span.glyphicon.glyphicon-share>
-          | Anzeige erstatten
-        li
-          span.glyphicon.glyphicon-globe>
-          | Anzeige ansehen
-        li
-          span.glyphicon.glyphicon-minus-sign>
-          | Anzeige deaktivieren
-        li
-          span.glyphicon.glyphicon-plus-sign>
-          | Anzeige aktivieren
-
     strong Status für Meldungen
     - (Notice.statuses.keys + [:incomplete]).each do |status|
       p= render 'status', status: status, legend: true
