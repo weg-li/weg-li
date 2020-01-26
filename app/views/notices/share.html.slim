@@ -13,8 +13,16 @@
       = render template: '/notice_mailer/charge.text.erb'
 
 .row
-  .col-lg-12
+  .col-lg-10
     = render 'components/photos', notice: @notice, publicly: true
+  .col-lg-2.text-right
+    .btn-group.btn-group-vertical
+      = link_to pdf_notice_path(@notice), class: 'btn btn-sm btn-default'
+        span.glyphicon.glyphicon-save-file>
+        | Anzeige als PDF
+      = link_to public_charge_path(@notice), class: 'btn btn-sm btn-default', target: '_blank'
+        span.glyphicon.glyphicon-globe>
+        | Anzeige ansehen
 
 = render 'alerts', notice: @notice
 
