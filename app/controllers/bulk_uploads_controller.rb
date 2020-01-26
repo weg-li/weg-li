@@ -57,7 +57,7 @@ class BulkUploadsController < ApplicationController
 
       redirect_to notices_path, notice: 'Neue Meldungen wurden erzeugt'
     else
-      photos = bulk_upload.photos.find(bulk_upload_update_params)
+      photos = bulk_upload.photos.find(bulk_upload_update_photo_ids)
       notice = current_user.notices.build(bulk_upload: bulk_upload)
       Notice.transaction do
         notice.save_incomplete!
@@ -103,8 +103,8 @@ class BulkUploadsController < ApplicationController
 
   private
 
-  def bulk_upload_update_params
-    params.require(:bulk_upload).permit(photos: [])
+  def bulk_upload_update_photo_ids
+    params.require(:bulk_upload).require(:photos)
   end
 
   def bulk_upload_params
