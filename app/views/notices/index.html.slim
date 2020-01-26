@@ -130,12 +130,12 @@
           .col-lg-12
             .btn-group.btn-group-checkbox.dropup
               label.btn.btn-sm
-                => check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
+                .hidden= check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
                 | alle auswählen
 
               button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                span> Aktionen
                 span.caret
-                span.sr-only Aktionen
               ul.dropdown-menu
                 li
                   = button_tag name: :bulk_action, value: :share, type: :submit, class: 'btn btn-link', data: {confirm: 'Bei offenen Meldungen jetzt Anzeige erstatten?'}
