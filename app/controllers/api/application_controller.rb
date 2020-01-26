@@ -5,13 +5,13 @@ class Api::ApplicationController < ActionController::Base
 
   private
 
-  def api_user
-    @api_user
+  def current_user
+    @current_user
   end
 
   def api_sign_in
     api_token = request.headers['x-api-token'] || params['x-api-token']
-    @api_user = User.find_by(api_token: api_token)
-    head :unauthorized if @api_user.blank?
+    @current_user = User.find_by(api_token: api_token)
+    head :unauthorized if @current_user.blank?
   end
 end
