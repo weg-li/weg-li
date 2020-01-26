@@ -25,7 +25,7 @@ namespace :scheduler do
 
     not_validated = User.user.where(validation_date: nil)
     not_validated.each do |user|
-      if user.updated_at < 1.month.ago && user.notices.blank?
+      if user.updated_at < 2.weeks.ago && user.notices.blank?
         puts "destroying unvalidated user #{user.id} #{user.name} #{user.email}"
         user.destroy!
       else
