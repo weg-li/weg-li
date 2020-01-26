@@ -2,7 +2,7 @@ require 'prawn'
 require 'prawn/qrcode'
 
 class PDFGenerator
-  def generate(notice)
+  def generate(notice, quality: :default)
     user = notice.user
     content = renderer.render(
       template: '/notice_mailer/charge.text.erb',
@@ -23,7 +23,7 @@ class PDFGenerator
       document.text("#{user.city}, #{I18n.l(Date.today)}")
 
       notice.photos.each do |photo|
-        variant = photo.variant(PhotoHelper::CONFIG[:default]).processed
+        variant = quality == :original ? photo : photo.variant(PhotoHelper::CONFIG[quality]).processed
         photo.service.download_file(variant.key) { |file| document.image(file, fit: [document.bounds.width, document.bounds.height]) }
       end
     end

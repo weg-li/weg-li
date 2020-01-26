@@ -10,10 +10,9 @@ describe PDFGenerator, :vcr do
       notice = Fabricate.build(:notice, user: user, charge: 'doof parken', brand: 'märzer', color: 'black', registration: 'HH AB 123', city: 'Dorf', street: 'Am Weiher 123', zip: '12345', district: district, token: 'xxxxxxx')
       notice.save!
 
-      result = PDFGenerator.new.generate(notice)
+      result = PDFGenerator.new.generate(notice, quality: :original)
 
       # File.open('anzeige.pdf', 'wb') {|f| f.write(result)}
-
       expect(example.size).to eql(result.size)
     end
   end
