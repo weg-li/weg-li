@@ -1,5 +1,4 @@
 class ThumbnailerJob < ApplicationJob
-  queue_as :default
 
   def perform(blob)
     Rails.logger.info("analyzing #{blob.filename}")
