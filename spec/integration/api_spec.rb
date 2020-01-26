@@ -37,9 +37,9 @@ describe 'Notices API' do
 
     get 'Retrieves a notice' do
       tags 'Notices'
-      produces 'application/json', 'application/xml'
+      produces 'application/json'
       parameter name: :id, in: :path, schema: { type: :string }
-      security [ apiKey: 'X-API-KEY' ]
+      security [ ApiKeyAuth: 'X-API-KEY' ]
 
       response '200', 'name found' do
         schema type: :object,

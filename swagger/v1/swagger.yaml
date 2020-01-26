@@ -5,14 +5,15 @@ info:
   version: v1
 components:
   securitySchemes:
-    ApiKeyAuth:        # arbitrary name for the security scheme
+    ApiKeyAuth:
       type: apiKey
-      in: header       # can be "header", "query" or "cookie"
-      name: X-API-KEY  # name of the header, query parameter or cookie
-
-security:
-  - ApiKeyAuth: 'X-API-KEY'
-
+      in: header
+      name: X-API-KEY
+securityDefinitions:
+  ApiKeyAuth:
+    type: apiKey
+    name: X-API-KEY
+    in: header
 paths:
   "/api/notices/{id}":
     get:
@@ -21,7 +22,6 @@ paths:
       - Notices
       produces:
       - application/json
-      - application/xml
       parameters:
       - name: id
         in: path

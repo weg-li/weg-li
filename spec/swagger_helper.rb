@@ -19,8 +19,17 @@ RSpec.configure do |config|
         title: 'API V1',
         version: 'v1'
       },
+      components: {
+        securitySchemes: {
+          ApiKeyAuth: {
+            type: :apiKey,
+            in: :header,
+            name: 'X-API-KEY',
+          }
+        }
+      },
       securityDefinitions: {
-        apiKey: {
+        ApiKeyAuth: {
           type: :apiKey,
           name: 'X-API-KEY',
           in: :header
