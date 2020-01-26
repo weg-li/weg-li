@@ -21,13 +21,18 @@ class Api::NoticesController < Api::ApplicationController
     render json: notice.as_api_response(:public_beta)
   end
 
+  def mail
+    notice = current_user.notices.from_param(params[:id])
+    notice.update!(status: :shared)
+
+    NoticeMailer.charge(notice).deliver_later
+
+    render json: notice.as_api_response(:public_beta)
+  end
+
   private
 
   def notice_params
-    params.require(:notice).permit(photos: [])
-  end
-
-  def notice_update_params
-    params.require(:notice).permit(:charge, :date, :date_date, :date_time, :registration, :brand, :color, :street, :zip, :city, :latitude, :longitude, :note, :duration, :severity, :vehicle_empty, :hazard_lights)
+    params.require(:notice).permit(:charge, :date, :date_date, :date_time, :registration, :brand, :color, :street, :zip, :city, :latitude, :longitude, :note, :duration, :severity, :vehicle_empty, :hazard_lights, photos: [])
   end
 end

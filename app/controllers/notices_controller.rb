@@ -159,14 +159,12 @@ class NoticesController < ApplicationController
   end
 
   def mail
-    @notice = current_user.notices.from_param(params[:id])
+    notice = current_user.notices.from_param(params[:id])
+    notice.update!(status: :shared)
 
-    @notice.status = :shared
-    @notice.save!
+    NoticeMailer.charge(notice).deliver_later
 
-    NoticeMailer.charge(@notice).deliver_later
-
-    redirect_to(notices_path, notice: "Deine Anzeige wurde an #{@notice.district.email} versendet.")
+    redirect_to(notices_path, notice: "Deine Anzeige wurde an #{notice.district.email} versendet.")
   end
 
   def duplicate

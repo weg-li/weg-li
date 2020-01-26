@@ -8,7 +8,6 @@ describe "api/notices", type: :request do
 
   # TODO
   # proper json for photos_attachments
-  # missing rest endpoints
 
   context "GET: index" do
     it "index works" do
@@ -53,7 +52,7 @@ describe "api/notices", type: :request do
       @notice = Fabricate(:notice, user: @user)
     end
 
-    it "creates a notice with given params" do
+    it "updates a notice with given params" do
       params = {
         notice: {
           registration: 'HH XX 123',
@@ -63,6 +62,18 @@ describe "api/notices", type: :request do
       expect {
         patch api_notice_path(@notice), params: params, headers: @headers
       }.to change { @notice.reload.registration }.from(@notice.registration).to('HH XX 123')
+    end
+  end
+
+  context "PATCH :mail" do
+    before do
+      @notice = Fabricate(:notice, user: @user)
+    end
+
+    it "mails a notice to the district" do
+      expect {
+        patch mail_api_notice_path(@notice), headers: @headers
+      }.to have_enqueued_job(ActionMailer::MailDeliveryJob)
     end
   end
 end
