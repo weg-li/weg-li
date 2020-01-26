@@ -1,6 +1,9 @@
 class AnalyzerJob < ApplicationJob
   class NotYetAnalyzedError < StandardError; end
 
+  # ignore jobs with broken images
+  discard_on EXIFR::MalformedJPEG
+
   def self.time_from_filename(filename)
     token = filename[/.*(20\d{6}_\d{6})/, 1]
     token ||= filename[/.*(20\d{2}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2})/, 1]

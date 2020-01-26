@@ -1,4 +1,6 @@
 class ThumbnailerJob < ApplicationJob
+  # ignore images that are broken
+  discard_on MiniMagick::Error
 
   def perform(blob)
     Rails.logger.info("analyzing #{blob.filename}")
