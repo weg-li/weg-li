@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "api", type: :request do
+describe "api/notices", type: :request do
   before do
     @notice = Fabricate(:notice)
   end

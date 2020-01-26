@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   namespace :api do
     resources :notices
     resources :users
+    resources :uploads
   end
 
   post "/analyze_direct_upload" => "direct_uploads#analyze", as: :direct_upload_analyze
