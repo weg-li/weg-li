@@ -64,6 +64,8 @@
       = form.label :color, class: "control-label"
       = form.select :color, Vehicle.colors.map { |color| [t(color, scope: "activerecord.attributes.notice.colors"), color] }, { include_blank: 'Farbe Auswählen' }, { class: "form-control" }
 
+= form.hidden_field :latitude
+= form.hidden_field :longitude
 .row
   .col-lg-4
     .form-group
@@ -83,7 +85,7 @@
               .modal-body
                 .well.well-sm.callout-info
                   p Den Marker einfach an die entsprechende Stelle ziehen, oder den aktuellen Standort verwenden, die Adresse wird dann automatisch ausgefüllt.
-                = render('picker_map', notice: notice, street: '#notice_street', zip: '#notice_zip', city: '#notice_city', trigger: '#geolocation')
+                = render('picker_map', notice: notice, street: '#notice_street', zip: '#notice_zip', city: '#notice_city', latitude: '#notice_latitude', longitude: '#notice_longitude', trigger: '#geolocation')
               .modal-footer
                 = button_tag type: :button, class: "btn btn-default", id: 'geolocation' do
                   span.glyphicon.glyphicon-map-marker>

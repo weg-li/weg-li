@@ -27,6 +27,8 @@ class GPickerMap {
     this.street = canvas.data("street");
     this.zip = canvas.data("zip");
     this.city = canvas.data("city");
+    this.latitude = canvas.data("latitude");
+    this.longitude = canvas.data("longitude");
     this.trigger = canvas.data("trigger");
     this.map = null;
     this.marker = null;
@@ -61,6 +63,8 @@ class GPickerMap {
             $(this.street).val(`${location.route || ''} ${location.street_number || ''}`.trim());
             $(this.zip).val(location.postal_code || '');
             $(this.city).val(location.locality || location.administrative_area_level_1 || location.political || '');
+            $(this.latitude).val(lat);
+            $(this.longitude).val(lng);
           } else {
             window.alert('Es konnten keine Ergebnisse gefunden werden.');
           }
