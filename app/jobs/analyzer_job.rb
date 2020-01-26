@@ -1,6 +1,4 @@
 class AnalyzerJob < ApplicationJob
-  class NotYetAnalyzedError < StandardError; end
-
   # ignore jobs with broken images
   discard_on EXIFR::MalformedJPEG
 
@@ -11,10 +9,6 @@ class AnalyzerJob < ApplicationJob
     return nil unless token
     Time.zone.parse(token.gsub('-', '')) rescue nil
   end
-
-  retry_on NotYetAnalyzedError, attempts: 15, wait: :exponentially_longer
-
-  queue_as :default
 
   def perform(notice)
     raise NotYetAnalyzedError unless notice.photos.all?(&:analyzed?)

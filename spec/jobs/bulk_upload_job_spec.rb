@@ -7,7 +7,7 @@ describe BulkUploadJob do
     it "should process the bulk-upload" do
       expect {
         BulkUploadJob.perform_now(bulk_upload)
-      }.to change { bulk_upload.status }.from('processing').to('open')
+      }.to have_enqueued_job(BulkUploadUpdateJob)
     end
   end
 end

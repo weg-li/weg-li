@@ -1,9 +1,10 @@
 class BulkUploadJob < ApplicationJob
   def perform(bulk_upload)
     bulk_upload.photos.each do |photo|
-      ThumbnailerJob.perform_now(photo.blob)
+      ThumbnailerJob.perform_later(photo.blob)
     end
 
-    bulk_upload.update! status: :open
+    wait = bulk_upload.photos.size.seconds
+    BulkUploadUpdateJob.set(wait: wait).perform_later(bulk_upload)
   end
 end
