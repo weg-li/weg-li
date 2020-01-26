@@ -10,7 +10,9 @@ class Api::ApplicationController < ActionController::Base
   end
 
   def api_sign_in
-    api_token = request.headers['x-api-token'] || params['x-api-token']
+    api_token = request.headers['X-API-KEY'] || params['X-API-KEY']
+    head :unauthorized if api_token.blank?
+
     @current_user = User.find_by(api_token: api_token)
     head :unauthorized if @current_user.blank?
   end

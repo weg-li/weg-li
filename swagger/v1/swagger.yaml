@@ -3,11 +3,16 @@ openapi: 3.0.1
 info:
   title: API V1
   version: v1
-securityDefinitions:
-  apiKey:
-    type: apiKey
-    name: x-api-token
-    in: header
+components:
+  securitySchemes:
+    ApiKeyAuth:        # arbitrary name for the security scheme
+      type: apiKey
+      in: header       # can be "header", "query" or "cookie"
+      name: X-API-KEY  # name of the header, query parameter or cookie
+
+security:
+  - ApiKeyAuth: 'X-API-KEY'
+
 paths:
   "/api/notices/{id}":
     get:
@@ -20,10 +25,11 @@ paths:
       parameters:
       - name: id
         in: path
-        type: string
+        schema:
+          type: string
         required: true
       security:
-      - apiKey: User-Token
+      - ApiKeyAuth: X-API-KEY
       responses:
         '200':
           description: name found

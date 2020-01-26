@@ -22,7 +22,7 @@ RSpec.configure do |config|
       securityDefinitions: {
         apiKey: {
           type: :apiKey,
-          name: 'x-api-token',
+          name: 'X-API-KEY',
           in: :header
         }
       },

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "api/notices", type: :request do
   before do
     @user = Fabricate(:user)
-    @headers = { 'x-api-token' => @user.api_token }
+    @headers = { 'X-API-KEY' => @user.api_token }
   end
 
   # TODO
