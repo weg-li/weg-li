@@ -23,7 +23,8 @@ class PDFGenerator
       document.text("#{user.city}, #{I18n.l(Date.today)}")
 
       notice.photos.each do |photo|
-        photo.service.download_file(photo.key) { |file| document.image(file, fit: [document.bounds.width, document.bounds.height]) }
+        variant = photo.variant(PhotoHelper::CONFIG[:default]).processed
+        photo.service.download_file(variant.key) { |file| document.image(file, fit: [document.bounds.width, document.bounds.height]) }
       end
     end
     pdf.render
