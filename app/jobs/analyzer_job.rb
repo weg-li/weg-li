@@ -1,6 +1,5 @@
 class AnalyzerJob < ApplicationJob
-  # ignore jobs with broken images
-  discard_on EXIFR::MalformedJPEG
+  retry_on EXIFR::MalformedJPEG, attempts: 15, wait: :exponentially_longer
 
   def self.time_from_filename(filename)
     token = filename[/.*(20\d{6}_\d{6})/, 1]

@@ -1,6 +1,6 @@
 class ThumbnailerJob < ApplicationJob
-  # ignore images that are broken
-  discard_on MiniMagick::Error
+  retry_on ActiveStorage::FileNotFoundError, attempts: 15, wait: :exponentially_longer
+  retry_on MiniMagick::Error, attempts: 15, wait: :exponentially_longer
 
   def perform(blob)
     Rails.logger.info("analyzing #{blob.filename}")
