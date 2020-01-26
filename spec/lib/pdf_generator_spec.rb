@@ -12,9 +12,9 @@ describe PDFGenerator, :vcr do
 
       result = PDFGenerator.new.generate(notice)
 
-      # File.open('example.pdf', 'wb') {|f| f.write(result)}
+      # File.open('anzeige.pdf', 'wb') {|f| f.write(result)}
 
-      expect(example).to eql(result)
+      expect(example.size).to eql(result.size)
     end
   end
 end
