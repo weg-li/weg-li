@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "peter@weg-li.de"
+  default from: "peter@weg-li.de", bcc: "peter@weg-li.de"
 
   private
 
