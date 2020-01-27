@@ -41,7 +41,7 @@
 
 .spacer-large
 
-- if signed_in? && (access?(:community) || current_user.city.to_s.downcase == 'berlin')
+- if signed_in?
   .page-header
     h2 Was gibt es neues bei weg-li?
 
@@ -69,6 +69,9 @@
         li.list-group-item
           span.badge Überall
           | 👍 Diese und viele weitere tolle Projekte rund um das Thema Radfahren findet ihr bei #{link_to 'Awesome Bikeprojects', 'https://github.com/mltbnz/awesome-bikeprojects'}.
+        li.list-group-item
+          span.badge weg-li
+          | 📃 Dein Ordnungsamt verweigert die Annahme von Anzeigen per E-Mail? Einfach Meldung als PDF herunterladen und offline anzeigen!
 
 - else
   .page-header
