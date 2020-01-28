@@ -107,7 +107,6 @@ describe 'notices', type: :request do
     let(:params) {
       {
         notice: {
-          id: notice.id,
           registration: 'HH XX 123',
         }
       }

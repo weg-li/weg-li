@@ -84,7 +84,7 @@ class NoticesController < ApplicationController
   def update
     @notice = current_user.notices.from_param(params[:id])
 
-    if @notice.update(notice_params)
+    if @notice.update(notice_update_params)
       redirect_to [:share, @notice], notice: 'Meldung wurde gespeichert'
     else
       render :edit
@@ -130,7 +130,7 @@ class NoticesController < ApplicationController
   def polish
     @notice = Notice.prepared_claim(params[:id])
 
-    if @notice.update(notice_params)
+    if @notice.update(notice_update_params)
       redirect_to public_charge_path(@notice), notice: 'Meldung wurde gespeichert und kann jetzt weitergeleitet werden'
     else
       render :prepare
@@ -159,14 +159,12 @@ class NoticesController < ApplicationController
   end
 
   def mail
-    @notice = current_user.notices.from_param(params[:id])
+    notice = current_user.notices.from_param(params[:id])
+    notice.update!(status: :shared)
 
-    @notice.status = :shared
-    @notice.save!
+    NoticeMailer.charge(notice).deliver_later
 
-    NoticeMailer.charge(@notice).deliver_later
-
-    redirect_to(notices_path, notice: "Deine Anzeige wurde an #{@notice.district.email} versendet.")
+    redirect_to(notices_path, notice: "Deine Anzeige wurde an #{notice.district.email} versendet.")
   end
 
   def duplicate
@@ -278,7 +276,7 @@ class NoticesController < ApplicationController
 
   private
 
-  def notice_params
+  def notice_update_params
     params.require(:notice).permit(:charge, :date, :date_date, :date_time, :registration, :brand, :color, :street, :zip, :city, :latitude, :longitude, :note, :duration, :severity, :vehicle_empty, :hazard_lights)
   end
 

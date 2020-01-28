@@ -1,9 +1,38 @@
 class Api::NoticesController < Api::ApplicationController
   def index
-    render json: api_user.notices.as_api_response(:public_beta)
+    render json: current_user.notices.as_api_response(:public_beta)
   end
 
   def show
-    render json: api_user.notices.from_param(params[:id]).as_api_response(:public_beta)
+    render json: current_user.notices.from_param(params[:id]).as_api_response(:public_beta)
+  end
+
+  def create
+    notice = current_user.notices.build(notice_params)
+    notice.analyze!
+
+    render json: notice.as_api_response(:public_beta), status: :created
+  end
+
+  def update
+    notice = current_user.notices.open.from_param(params[:id])
+    notice.update!(notice_params)
+
+    render json: notice.as_api_response(:public_beta)
+  end
+
+  def mail
+    notice = current_user.notices.from_param(params[:id])
+    notice.update!(status: :shared)
+
+    NoticeMailer.charge(notice).deliver_later
+
+    render json: notice.as_api_response(:public_beta)
+  end
+
+  private
+
+  def notice_params
+    params.require(:notice).permit(:charge, :date, :date_date, :date_time, :registration, :brand, :color, :street, :zip, :city, :latitude, :longitude, :note, :duration, :severity, :vehicle_empty, :hazard_lights, photos: [])
   end
 end

@@ -19,8 +19,12 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-    resources :notices
-    resources :users
+    resources :notices do
+      member do
+        patch :mail
+      end
+    end
+    resources :uploads
   end
 
   post "/analyze_direct_upload" => "direct_uploads#analyze", as: :direct_upload_analyze

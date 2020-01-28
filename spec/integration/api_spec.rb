@@ -33,13 +33,13 @@ describe 'Notices API' do
 
   path '/api/notices/{id}' do
 
-    let('x-api-token') { notice.user.api_token }
+    let('X-API-KEY') { notice.user.api_token }
 
     get 'Retrieves a notice' do
       tags 'Notices'
-      produces 'application/json', 'application/xml'
-      parameter name: :id, in: :path, type: :string
-      security [ apiKey: 'User-Token' ]
+      produces 'application/json'
+      parameter name: :id, in: :path, schema: { type: :string }
+      security [ ApiKeyAuth: 'X-API-KEY' ]
 
       response '200', 'name found' do
         schema type: :object,
