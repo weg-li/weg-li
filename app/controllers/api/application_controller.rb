@@ -13,7 +13,7 @@ class Api::ApplicationController < ActionController::Base
     api_token = request.headers['X-API-KEY'] || params['X-API-KEY']
     head :unauthorized if api_token.blank?
 
-    @current_user = User.find_by(api_token: api_token)
+    @current_user = User.active.find_by(api_token: api_token)
     head :unauthorized if @current_user.blank?
   end
 end
