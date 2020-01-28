@@ -16,23 +16,33 @@
   .col-lg-10
     = render 'components/photos', notice: @notice, publicly: true
   .col-lg-2.text-right
-    .btn-group.btn-group-vertical
-      = link_to pdf_notice_path(@notice), class: 'btn btn-sm btn-default'
-        span.glyphicon.glyphicon-save-file>
-        | Anzeige als PDF
-      = link_to public_charge_path(@notice), class: 'btn btn-sm btn-default', target: '_blank'
-        span.glyphicon.glyphicon-globe>
-        | Anzeige ansehen
+    .dropdown
+      button.btn.btn-default.btn-sm.dropdown-toggle type="button" data-toggle="dropdown"
+        | <span class="glyphicon glyphicon-cog"></span> Aktionen <span class="caret"></span>
+      ul.dropdown-menu
+        li
+          = link_to edit_notice_path(@notice)
+            span.glyphicon.glyphicon-edit>
+            | Meldung bearbeiten
+        li
+          = link_to pdf_notice_path(@notice)
+            span.glyphicon.glyphicon-save-file>
+            | Anzeige als PDF
+        li
+          = link_to public_charge_path(@notice)
+            span.glyphicon.glyphicon-globe>
+            | Anzeige ansehen
+
 
 = render 'alerts', notice: @notice
 
-- if @notice.district.present?
-  .row
-    .col-lg-12
-      = render 'callout', section: 'notices', key: 'send_email'
+= form_errors @notice
+= form_for @notice, url: mail_notice_path(@notice), method: :patch do |form|
+  - if @notice.district.present?
+    .row
+      .col-lg-12
+        = render 'callout', section: 'notices', key: 'send_email'
 
-  = form_errors @notice
-  = form_for @notice, url: mail_notice_path(@notice), method: :patch do |form|
     .row
       .col-lg-12
         .form-group
@@ -42,24 +52,16 @@
             | Die zuständige E-Mail-Adresse wurde automatisch anhand der Adresse der Meldung ermittelt. Adresse stimmt nicht? Schreibe gerne an #{mail_to 'peter@weg-li.de'}!
 
     hr.spacer
-
     .row
       .col-lg-12
         .pull-right
           .btn-group
-            = link_to 'Daten ändern', edit_notice_path(@notice), class: 'btn btn-default'
             = form.submit 'Anzeige erstatten', class: "btn btn-success"
 
-- else
-  .alert.alert-warning
-    strong
-      - if @notice.zip.blank?
-        | Die Adresse der Meldung braucht noch eine PLZ, damit das zuständige Ordnungsamt ausgefüllt werden kann!
-      - else
-        | Der Bezirk für die PLZ #{@notice.zip} fehlt noch, schreibe gerne an #{mail_to 'peter@weg-li.de'} falls die die E-Mail-Adresse der zuständigen Stelle kennst!
-
-  .row
-    .col-lg-12
-      .pull-right
-        .btn-group
-          = link_to 'Daten ändern', edit_notice_path(@notice), class: 'btn btn-default'
+  - else
+    .alert.alert-warning
+      strong
+        - if @notice.zip.blank?
+          | Die Adresse der Meldung braucht noch eine PLZ, damit das zuständige Ordnungsamt ausgefüllt werden kann!
+        - else
+          | Der Bezirk für die PLZ #{@notice.zip} fehlt noch, schreibe gerne an #{mail_to 'peter@weg-li.de'} falls die die E-Mail-Adresse der zuständigen Stelle kennst!
