@@ -10,8 +10,7 @@ class UsersController < ApplicationController
       current_user.validation_date = nil
       if current_user.save
         UserMailer.validate(current_user).deliver_later
-        flash[:notice] = t('users.profile_updated_and_confirmation_email')
-        redirect_to edit_user_path(current_user), notice: t('users.profile_updated')
+        redirect_to edit_user_path(current_user), notice: t('users.profile_updated_and_confirmation_email')
       else
         redirect_to edit_user_path(current_user), alert: current_user.errors.full_messages.to_sentence
       end
