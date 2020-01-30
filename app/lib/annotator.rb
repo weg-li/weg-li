@@ -16,20 +16,19 @@ class Annotator
 
   COLORS = [
     Color::RGB::Blue,
-    Color::RGB::Brown,
     Color::RGB::Yellow,
     Color::RGB::Green,
     Color::RGB::Red,
-    # Color::RGB::Violet,
     Color::RGB::Orange,
     Color::RGB::Gold,
   ]
   GRAY_SCALES = [
+    Color::RGB::White,
+    Color::RGB::Brown,
     Color::RGB::Beige,
     Color::RGB::Gray,
     Color::RGB::Black,
     Color::RGB::Silver,
-    Color::RGB::White,
   ]
 
   def self.dominant_colors(result)
@@ -38,8 +37,8 @@ class Annotator
 
     colors.map do |color|
       rgb = Color::RGB.new(color[:color][:red], color[:color][:green], color[:color][:blue])
-      name = (rgb.closest_match(COLORS, 50) || rgb.closest_match(GRAY_SCALES)).name
-      [name, color[:score]]
+      name = (rgb.closest_match(COLORS, 75) || rgb.closest_match(GRAY_SCALES)).name
+      [name, color[:score].to_f * color[:pixel_fraction].to_f]
     end
   end
 
