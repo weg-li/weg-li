@@ -1,4 +1,4 @@
-name: Rails Tests Ubuntu
+name: build
 
 on: [push]
 
