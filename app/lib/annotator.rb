@@ -14,11 +14,25 @@ class Annotator
     result[:label_annotations].flat_map { |entry| entry[:description].split("\n").map { |token| yield(token) } }.compact.uniq
   end
 
-  COLORS = [
+  MAPPINGS = {
+    Color::RGB::Azure => Color::RGB::Blue,
+    Color::RGB::DarkBlue => Color::RGB::Blue,
+    Color::RGB::LightBlue => Color::RGB::Blue,
+    Color::RGB::DarkRed => Color::RGB::Red,
+    Color::RGB::Pink => Color::RGB::Red,
+  }
+  BRIGHT_COLORS = [
+    Color::RGB::Azure,
     Color::RGB::Blue,
+    Color::RGB::DarkBlue,
+    Color::RGB::LightBlue,
     Color::RGB::Yellow,
     Color::RGB::Green,
+    Color::RGB::LightGreen,
+    Color::RGB::DarkGreen,
     Color::RGB::Red,
+    Color::RGB::DarkRed,
+    Color::RGB::Pink,
     Color::RGB::Orange,
     Color::RGB::Gold,
   ]
@@ -37,8 +51,9 @@ class Annotator
 
     colors.map do |color|
       rgb = Color::RGB.new(color[:color][:red], color[:color][:green], color[:color][:blue])
-      name = (rgb.closest_match(COLORS, 75) || rgb.closest_match(GRAY_SCALES)).name
-      [name, color[:score].to_f * color[:pixel_fraction].to_f]
+      match = (rgb.closest_match(BRIGHT_COLORS, 50) || rgb.closest_match(BRIGHT_COLORS + GRAY_SCALES))
+      name = (MAPPINGS[match] || match).name
+      [name, (color[:score].to_f + color[:pixel_fraction].to_f).fdiv(2)]
     end
   end
 
