@@ -710,6 +710,9 @@
   },
   {
     "brand": "Mercedes-Benz",
+    "aliases": [
+      "MERCEDES"
+    ],
     "models": [
       "100 D",
       "115",
