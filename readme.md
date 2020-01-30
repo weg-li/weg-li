@@ -8,6 +8,8 @@ https://www.weg-li.de/
 
 ## Installation
 
+### No Docker
+
 Please follow [this guide if you have not ever installed Ruby on your computer](https://guides.railsgirls.com/install).
 
 The TL;DR for Mac:
@@ -28,6 +30,13 @@ bin/setup
 # run this to start the rails process
 script/server
 ```
+
+### Docker
+
+```bash
+docker-compose up
+```
+
 
 ## License
 
