@@ -78,6 +78,15 @@ $white: rgb(255, 255, 255);
   padding: 1px;
 }
 
+.input-droppable {
+  color: $primary-color;
+  border: 1px dashed $primary-color;
+  border-radius: 5px;
+  padding: 20px;
+  width: 100%;
+  cursor: copy;
+}
+
 .progress-sm {
   height: 12px;
 }
