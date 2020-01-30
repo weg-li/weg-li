@@ -45,18 +45,7 @@ describe Annotator, :vcr do
   it "handles colors" do
     result = with_fixture('annotate') { subject.annotate_file }
 
-    expected = [
-      ["silver", 0.4671035706996918],
-      ["black", 0.18365518748760223],
-      ["green", 0.004049558658152819],
-      ["silver", 0.153400719165802],
-      ["black", 0.05919218063354492],
-      ["gray", 0.04759815335273743],
-      ["gray", 0.028131773695349693],
-      ["white", 0.022791322320699692],
-      ["black", 0.00767330639064312],
-      ["brown", 0.006161436904221773],
-    ]
+    expected = [["green", 0.07079581508600219], ["black", 0.011712757905458115], ["green", 9.747609883366086e-05], ["green", 0.00820852205658884], ["green", 0.0049693492691105234], ["green", 0.005661231598786953], ["green", 0.008403018787346173], ["white", 0.002472757692439098], ["green", 1.0412155768190021e-05], ["green", 9.887379997145819e-05]]
     expect(Annotator.dominant_colors(result)).to eql(expected)
   end
 end
