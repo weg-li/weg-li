@@ -148,6 +148,8 @@ class Vehicle
       'black',
       'silver',
       'violet',
+      'purple',
+      'pink',
       'white',
       'orange',
       'gold',

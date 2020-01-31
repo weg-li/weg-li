@@ -1,7 +1,7 @@
 class NoticesController < ApplicationController
   before_action :authenticate!
   before_action :authenticate_community_user!, only: [:prepare, :polish]
-  before_action :authenticate_admin_user!, only: :inspect
+  before_action :authenticate_admin_user!, only: [:inspect, :colors]
   before_action :validate!, except: [:index]
 
   def index
@@ -195,6 +195,11 @@ class NoticesController < ApplicationController
     @photo = @notice.photos.find(params[:photo_id])
     @exif = @photo.service.download_file(@photo.key) { |file| EXIFAnalyzer.new.metadata(file) }
     @result = Annotator.new.annotate_object(@photo.key)
+  end
+
+  def colors
+    @notice = current_user.notices.from_param(params[:id])
+    @photo = @notice.photos.find(params[:photo_id])
   end
 
   def destroy

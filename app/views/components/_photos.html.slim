@@ -29,6 +29,8 @@
               - if admin?
                 = link_to(inspect_notice_path(notice, photo_id: photo.id), class: 'btn btn-sm btn-default', title: 'inspect') do
                   span.glyphicon.glyphicon-flash
+                = link_to(colors_notice_path(notice, photo_id: photo.id), class: 'btn btn-sm btn-default', title: 'colors') do
+                  span.glyphicon.glyphicon-tint
               - unless publicly
                 = link_to(purge_notice_path(notice, photo_id: photo.id), method: :patch, data: {confirm: t('notices.confirm')}, class: 'btn btn-sm btn-default', title: 'löschen') do
                   span.glyphicon.glyphicon-trash

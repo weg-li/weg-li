@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   resources :notices do
     member do
       get :inspect
+      get :colors
       get :share
       get :prepare
       get :suggest
