@@ -19,29 +19,29 @@ footer
           = link_to faq_url, title: 'weg-li FAQ' do
             <span class="glyphicon glyphicon-info-sign"></span> FAQ
         li
-          = link_to 'https://twitter.com/weg_li', title: 'weg-li on Twitter - @weg_li', target: '_blank' do
-            <span class="glyphicon glyphicon-retweet"></span> Twitter
+          = link_to 'https://status.weg-li.de', title: 'weg-li status', target: '_blank' do
+            <span class="glyphicon glyphicon-dashboard"></span> Status
         li
           = link_to 'https://github.com/weg-li', title: 'weg-li on GitHub - We <3 Open-Source!', target: '_blank' do
             <span class="glyphicon glyphicon-heart"></span> GitHub
         li
-          = link_to 'https://status.weg-li.de', title: 'weg-li status', target: '_blank' do
-            <span class="glyphicon glyphicon-dashboard"></span> Status
+          = link_to 'https://github.com/sponsors/phoet/', title: 'weg-li Sponsor werden', target: '_blank' do
+            <span class="glyphicon glyphicon-piggy-bank"></span> Spenden
       hr
       p.spacer.margin-left-small
         em.text-muted.smaller #{t('footer.references')}:
       ul.list-unstyled
         li.references
-          = link_to 'https://www.radioeins.de/programm/sendungen/der_schoene_morgen/rad/app-fuer-aktiv-buerger.html' do
+          = link_to 'https://www.radioeins.de/programm/sendungen/der_schoene_morgen/rad/app-fuer-aktiv-buerger.html', target: '_blank' do
             = image_tag 'radioeins-logo.png'
             em bei radioeins
     .col-lg-4.col-xs-12
       address.well.gray-ish
         .pull-left
-          = link_to 'https://github.com/phoet/' do
+          = link_to 'https://twitter.com/weg_li/', target: '_blank' do
             = image_tag 'phoet.jpg', class: "img-circle me-thumb"
         div
-          strong= link_to 'Peter Schröder', 'https://github.com/phoet/'
+          strong= link_to 'Peter Schröder', 'https://twitter.com/weg_li/', target: '_blank'
           <br>
           |
             Tigerstr. 32<br>
