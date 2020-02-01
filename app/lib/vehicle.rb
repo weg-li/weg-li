@@ -127,7 +127,7 @@ class Vehicle
     [
       'MAN',
       'IVECO',
-      'CANIA',
+      'SCANIA',
       'DAF',
     ]
   end
