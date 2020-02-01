@@ -16,7 +16,9 @@ class GMap {
     }
     const map = new google.maps.Map(this.canvas, options);
     const position = new google.maps.LatLng(this.notice.latitude, this.notice.longitude);
-    new google.maps.Marker({position, map, title: this.notice.location});
+    const marker = new google.maps.Marker({position, map, title: this.notice.location});
+    let recentWindow;
+    addInfoWindow(map, marker, recentWindow, this.notice);
   }
 }
 
@@ -111,17 +113,47 @@ class GMultiMap {
 
     const bounds  = new google.maps.LatLngBounds();
     const map = new google.maps.Map(this.canvas, options);
+    let recentWindow;
     this.notices.forEach((notice) => {
       const position = new google.maps.LatLng(notice.latitude, notice.longitude);
       bounds.extend(position);
 
-      new google.maps.Marker({ position, map, title: notice.charge });
+      const marker = new google.maps.Marker({ position, map, title: notice.charge });
+      addInfoWindow(map, marker, recentWindow, notice);
     });
     if (!bounds.isEmpty()) {
       map.fitBounds(bounds);
       map.panToBounds(bounds);
     }
   }
+}
+
+function addInfoWindow(map, marker, recentWindow, notice) {
+  if (!notice.token) {
+    return;
+  }
+  google.maps.event.addListener(marker, 'click', () => {
+    let content = `
+    <div>
+      <dl class="dl-horizontal">
+        <dt>Datum</dt>
+        <dd>${notice.date || '-'}</dd>
+        <dt>Kennzeichen</dt>
+        <dd>${notice.registration || '-'}</dd>
+        <dt>Verstoß</dt>
+        <dd>${notice.charge || '-'}</dd>
+        <dt>Adresse</dt>
+        <dd>${notice.full_address || '-'}</dd>
+      </dl>
+      <a href="/notices/${notice.token}" class="btn btn-default btn-sm pull-right">ansehen</a>
+    </div>
+    `;
+    if (recentWindow) {
+      recentWindow.close();
+    }
+    recentWindow = new google.maps.InfoWindow({content: content});
+    recentWindow.open(map, marker);
+  });
 }
 
 class GClusterMap {
@@ -142,11 +174,14 @@ class GClusterMap {
 
     const bounds  = new google.maps.LatLngBounds();
     const map = new google.maps.Map(this.canvas, options);
+    let recentWindow;
     const markers = this.notices.map((notice, i) => {
       const position = new google.maps.LatLng(notice.latitude, notice.longitude);
       bounds.extend(position);
 
-      return new google.maps.Marker({ position, title: notice.charge });
+      const marker = new google.maps.Marker({ position, title: notice.charge });
+      addInfoWindow(map, marker, recentWindow, notice);
+      return marker;
     });
     if (!bounds.isEmpty()) {
       map.fitBounds(bounds);

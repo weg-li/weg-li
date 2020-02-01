@@ -167,12 +167,28 @@ class Notice < ActiveRecord::Base
     "#{street}, #{zip} #{city}, Deutschland"
   end
 
-  def map_data
-    {
+  def map_data(kind = :public)
+    basic = {
       latitude: latitude,
       longitude: longitude,
       charge: charge,
+      date: date,
     }
+
+    case kind
+    when :public
+      basic
+    when :private
+      basic.merge(
+        {
+          registration: registration,
+          full_address: full_address,
+          token: token,
+        }
+      )
+    else
+      raise "kind #{kind} not surported"
+    end
   end
 
   def to_param

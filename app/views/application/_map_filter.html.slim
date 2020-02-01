@@ -1,3 +1,4 @@
+- kind ||= :public
 ul.nav.nav-tabs.nav-panel
   li(class="#{'active' if display=='cluster'}")= link_to 'Cluster Karte', url_for(since: since, district: district, display: 'cluster')
   li(class="#{'active' if display=='multi'}")= link_to 'Normale Karte', url_for(since: since, district: district, display: 'multi')
@@ -15,7 +16,7 @@ ul.nav.nav-tabs.nav-panel
       = submit_tag('Auswählen', class: "btn btn-default button-sm")
 
   .panel-body
-    = render "#{display}_map", notices: notices, init: init if display == 'cluster' || display == 'multi'
+    = render "#{display}_map", notices: notices, init: init, kind: kind if display == 'cluster' || display == 'multi'
   .panel-footer
     small
       |
