@@ -1,0 +1,44 @@
+<%= Notice.human_attribute_name(:registration) %>: <%= notice.registration %>
+<% if notice.brand? %>
+
+<%= Notice.human_attribute_name(:brand) %>: <%= notice.brand %>
+<% end %>
+<% if notice.color? %>
+
+<%= Notice.human_attribute_name(:color) %>: <%= t(notice.color, scope: "activerecord.attributes.notice.colors") %>
+<% end %>
+
+<%= Notice.human_attribute_name(:address) %>: <%= notice.full_address %><%= " (lat: #{notice.latitude} lng: #{notice.longitude})" if notice.coordinates? %>
+
+<%= Notice.human_attribute_name(:charge) %>: <%= notice.charge %>, <%= Notice.human_attribute_name(notice.severity) %>
+
+<%= Notice.human_attribute_name(:date) %>: <%= l(notice.date, format: :short) %>
+<% if notice.duration > 1 %>
+
+Das Fahrzeug stand <%= Vehicle.durations.to_h.invert[notice.duration] %>, mindestens bis <%= l(notice.date + notice.duration.minutes, format: :short) %>
+<% end %>
+<% if notice.vehicle_empty? %>
+
+Das Fahrzeug war verlassen.
+<% end %>
+<% if notice.hazard_lights? %>
+
+Das Fahrzeug hatte die Warnblinkanlage aktiviert.
+<% end %>
+<% if notice.note? %>
+
+<%= notice.note %>
+<% end %>
+
+
+Zeuge:
+
+Name: <%= user.name %>
+
+Anschrift: <%= user.full_address %>
+
+E-Mail: <%= user.email %>
+<% if user.phone? %>
+
+Telefon: <%= user.phone %>
+<% end %>

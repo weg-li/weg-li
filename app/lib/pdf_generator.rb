@@ -5,7 +5,7 @@ class PDFGenerator
   def generate(notice, quality: :default)
     user = notice.user
     content = renderer.render(
-      template: '/notice_mailer/charge.text.erb',
+      template: '/notice_mailer/pdf.text.erb',
       locals: { :@notice => notice, :@user => user }
     )
 
