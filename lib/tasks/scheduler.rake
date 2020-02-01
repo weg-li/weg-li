@@ -53,7 +53,7 @@ namespace :scheduler do
     query = "
     select * from (
     select notices.id, 2 * 3961 * asin(sqrt((sin(radians((districts.latitude - notices.latitude) / 2))) ^ 2 + cos(radians(notices.latitude)) * cos(radians(districts.latitude)) * (sin(radians((districts.longitude - notices.longitude) / 2))) ^ 2)) as distance from notices join districts on notices.district_id = districts.id where notices.incomplete = FALSE and notices.latitude IS NOT NULL and districts.latitude IS NOT NULL
-    ) as res where res.distance > 100;
+    ) as res where res.distance > 50;
     "
     cursor = Notice.connection.execute(query)
     cursor.each do |row|
