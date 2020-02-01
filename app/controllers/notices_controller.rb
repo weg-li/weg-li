@@ -47,7 +47,7 @@ class NoticesController < ApplicationController
 
   def map
     @since = (params[:since] || '7').to_i
-    @display = params[:display] || 'stats'
+    @display = params[:display] || 'cluster'
     @district = params[:district] || current_user.city
 
     @notices = current_user.notices.shared.since(@since.days.ago).joins(:district).where(districts: {name: @district})
