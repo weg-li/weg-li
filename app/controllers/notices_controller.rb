@@ -50,7 +50,7 @@ class NoticesController < ApplicationController
     @display = params[:display] || 'cluster'
     @district = params[:district] || current_user.city
 
-    @notices = current_user.notices.shared.since(@since.days.ago).joins(:district).where(districts: {name: @district})
+    @notices = current_user.notices.since(@since.days.ago).joins(:district).where(districts: {name: @district})
     @default_district = District.from_zip(current_user.zip) || District.first
   end
 
