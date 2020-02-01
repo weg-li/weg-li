@@ -26,7 +26,7 @@ describe "home", type: :request do
       get map_path
 
       expect(response).to be_successful
-      assert_select('h1', "weg-li Karte für Hamburg")
+      assert_select('h1', "weg-li Karte")
     end
   end
 
@@ -37,7 +37,7 @@ describe "home", type: :request do
       get stats_path
 
       expect(response).to be_successful
-      assert_select('h1', "weg-li Statistiken der letzten 6 Monate")
+      assert_select('h1', "weg-li Statistiken")
     end
   end
 

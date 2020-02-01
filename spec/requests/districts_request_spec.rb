@@ -10,7 +10,7 @@ describe "districts", type: :request  do
       get districts_path
 
       expect(response).to be_successful
-      assert_select 'h2', 'weg-li Bezirk-Daten'
+      assert_select 'h2', 'weg-li Bezirke'
     end
   end
 
@@ -19,7 +19,7 @@ describe "districts", type: :request  do
       get district_path(@district)
 
       expect(response).to be_successful
-      assert_select 'h2', 'weg-li Bezirk-Daten'
+      assert_select 'h2', 'weg-li Bezirke'
     end
   end
 end
