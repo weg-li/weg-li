@@ -77,8 +77,8 @@ class Notice < ActiveRecord::Base
 
   def duplicate!
     notice = dup
-    notice.photos_attachments = photos.map(&:dup)
     notice.status = :open
+    photos.each { |photo| notice.photos.attach(photo.blob) }
     notice.save_incomplete!
     notice.reload
   end
