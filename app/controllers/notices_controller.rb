@@ -155,7 +155,7 @@ class NoticesController < ApplicationController
     @notice = current_user.notices.from_param(params[:id])
     @notice.update!(status: :shared)
 
-    redirect_to(notices_path, notice: "Deine Anzeige wurde an als 'gemeldet' markiert.")
+    redirect_to(notices_path, notice: "Deine Anzeige wurde als 'gemeldet' markiert.")
   end
 
   def mail
