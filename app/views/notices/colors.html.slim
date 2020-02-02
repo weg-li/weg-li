@@ -4,7 +4,7 @@ p
     => "Dateiname: #{@photo.filename}"
     => "Dateigröße: #{number_to_human_size(@photo.blob.byte_size)}"
 
-- @notice.data.each do |_, result|
+- @notice.data[@photo.id.to_s].each do |_, result|
   - dominant_colors = result['image_properties_annotation']['dominant_colors']['colors']
   table.table.table-striped.table-hover
     thead
