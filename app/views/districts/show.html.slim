@@ -24,4 +24,4 @@ h3= "#{@district.name} / #{@district.zip}"
 
 hr.spacer
 
-= render('multi_map', notices: @district.notices.for_public, init: @district.map_data)
+= render('multi_map', notices: @district.notices.for_public, init: @district.map_data, kind: :public)
