@@ -11,28 +11,9 @@
     pre.charge
       - @user = current_user
       = render template: '/notice_mailer/charge.text.erb'
-
-.row
-  .col-lg-10
     = render 'components/photos', notice: @notice, publicly: true
-  .col-lg-2.text-right
-    .dropdown
-      button.btn.btn-default.btn-sm.dropdown-toggle type="button" data-toggle="dropdown"
-        | <span class="glyphicon glyphicon-cog"></span> Aktionen <span class="caret"></span>
-      ul.dropdown-menu
-        li
-          = link_to edit_notice_path(@notice)
-            span.glyphicon.glyphicon-edit>
-            | Meldung bearbeiten
-        li
-          = link_to pdf_notice_path(@notice)
-            span.glyphicon.glyphicon-save-file>
-            | Anzeige als PDF
-        li
-          = link_to public_charge_path(@notice)
-            span.glyphicon.glyphicon-globe>
-            | Anzeige ansehen
 
+hr.spacer
 
 = render 'alerts', notice: @notice
 
@@ -43,20 +24,15 @@
       .col-lg-12
         = render 'callout', section: 'notices', key: 'send_email'
 
-    .row
-      .col-lg-12
         .form-group
           = form.label :district, class: "control-label control-label-required"
-          = form.text_field :district, value: form.object.district.display_name, disabled: true, class: "form-control"
+          - if @notice.district.aliases.present?
+            = select_tag :send_to, options_for_select(@notice.district.all_emails, @notice.district.email), {include_blank: 'E-Mail Auswählen', class: "form-control", required: true }
+
+          - else
+            = form.text_field :district, value: form.object.district.display_name, disabled: true, class: "form-control"
           = hint do
             | Die zuständige E-Mail-Adresse wurde automatisch anhand der Adresse der Meldung ermittelt. Adresse stimmt nicht? Schreibe gerne an #{mail_to 'peter@weg-li.de'}!
-
-    hr.spacer
-    .row
-      .col-lg-12
-        .pull-right
-          .btn-group
-            = form.submit 'Anzeige erstatten', class: "btn btn-success"
 
   - else
     .alert.alert-warning
@@ -65,3 +41,28 @@
           | Die Adresse der Meldung braucht noch eine PLZ, damit das zuständige Ordnungsamt ausgefüllt werden kann!
         - else
           | Der Bezirk für die PLZ #{@notice.zip} fehlt noch, schreibe gerne an #{mail_to 'peter@weg-li.de'} falls die die E-Mail-Adresse der zuständigen Stelle kennst!
+
+  hr.spacer
+
+  .row
+    .col-lg-12
+      .pull-right
+        .btn-group
+          .btn-group
+            .dropdown
+              button.btn.btn-default.dropdown-toggle type="button" data-toggle="dropdown"
+                | <span class="glyphicon glyphicon-cog"></span> Aktionen <span class="caret"></span>
+              ul.dropdown-menu
+                li
+                  = link_to edit_notice_path(@notice)
+                    span.glyphicon.glyphicon-edit>
+                    | Meldung bearbeiten
+                li
+                  = link_to pdf_notice_path(@notice)
+                    span.glyphicon.glyphicon-save-file>
+                    | Anzeige als PDF
+                li
+                  = link_to public_charge_path(@notice)
+                    span.glyphicon.glyphicon-globe>
+                    | Anzeige ansehen
+          = form.submit 'Anzeige erstatten', class: "btn btn-success", disabled: @notice.district.blank?

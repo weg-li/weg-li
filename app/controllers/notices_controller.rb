@@ -162,9 +162,11 @@ class NoticesController < ApplicationController
     notice = current_user.notices.from_param(params[:id])
     notice.update!(status: :shared)
 
-    NoticeMailer.charge(notice).deliver_later
+    to = notice.district.all_emails.find {|email| email == params[:send_to]} || notice.district.email
 
-    redirect_to(notices_path, notice: "Deine Anzeige wurde an #{notice.district.email} versendet.")
+    NoticeMailer.charge(notice, to).deliver_later
+
+    redirect_to(notices_path, notice: "Deine Anzeige wird per E-Mail an #{to} versendet und als 'gemeldet' markiert.")
   end
 
   def duplicate
