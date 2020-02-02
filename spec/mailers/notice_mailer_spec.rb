@@ -9,7 +9,7 @@ describe NoticeMailer do
       mail = NoticeMailer.charge(notice)
 
       expect(mail.subject).to match('Anzeige')
-      expect(mail.to).to eq(notice.district.email)
+      expect(mail.to).to eq([notice.district.email])
       expect(mail.cc).to eq([user.email])
       expect(mail.reply_to).to eq([user.email])
       expect(mail.attachments.size).to be(1)
