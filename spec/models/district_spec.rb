@@ -20,7 +20,7 @@ describe District do
       district.email = 'uschi@sushi.de'
       expect(district.display_email).to eql('uschi@sushi.de')
       district.email_hidden = true
-      expect(district.display_email).to eql('u....@sushi.de')
+      expect(district.display_email).to eql('u...i@sushi.de')
       district.email = ''
       expect(district.display_email).to eql('-')
     end
@@ -29,7 +29,7 @@ describe District do
       district.aliases = ['uschi@sushi.de']
       expect(district.display_aliases).to eql('uschi@sushi.de')
       district.email_hidden = true
-      expect(district.display_aliases).to eql('u....@sushi.de')
+      expect(district.display_aliases).to eql('u...i@sushi.de')
       district.aliases = []
       expect(district.display_aliases).to eql('-')
     end
