@@ -14,19 +14,13 @@ addEventListener("direct-upload:initialize", event => {
   const { id, file } = detail;
   target.insertAdjacentHTML("beforebegin", `
     <p>${file.name} (${(file.size / 1048576).toFixed(2)} MB)</p>
-    <div id="direct-upload-${id}" class="progress">
-      <div id="direct-upload-progress-${id}" class="progress-bar progress-bar-info progress-striped" style="width: 0%"></div>
+    <div id="direct-upload-${id}" class="progress progress-striped active">
+      <div id="direct-upload-progress-${id}" class="progress-bar progress-bar-info" style="width: 0%"></div>
     </div>
     <div id="direct-upload-error-${id}" class="alert alert-warning hidden">
       ERROR
     </div>
   `);
-});
-
-addEventListener("direct-upload:start", event => {
-  const { id } = event.detail;
-  const element = document.getElementById(`direct-upload-${id}`);
-  element.classList.remove("progress-striped");
 });
 
 addEventListener("direct-upload:progress", event => {
@@ -48,10 +42,7 @@ addEventListener("direct-upload:error", event => {
 });
 
 addEventListener("direct-upload:end", event => {
-  const { target, detail } = event;
-  const { id } = event.detail;
-  const element = document.getElementById(`direct-upload-${id}`);
-  element.classList.add("active");
+  const { target } = event;
 
   const signed_id = target.previousElementSibling.value;
   if (signed_id && fetch && target.hasAttribute('analyze_url')) {
@@ -75,7 +66,8 @@ async function triggerAnalyzation(url, data) {
         body: JSON.stringify(data) // body data type must match "Content-Type" header
       });
       const result = await response.json(); // parses JSON response into native JavaScript objects
-      console.log(result);
+      // console.log(result);
+      return result
     } catch (e) {
       console.log(e);
     }
