@@ -244,7 +244,7 @@ ul.droppable-list {
   color: $dark-color;
   background: #EEE;
   padding-left: 10px;
-  background: linear-gradient(90deg, rgba(50,50,255,1) 0%, rgba(50,50,255,1) 8%, rgba(255,255,255,1) 9%, rgba(255,255,255,1) 100%);
+  background: linear-gradient(90deg, rgba(50,50,255,0.9) 0%, rgba(50,50,255,0.9) 8%, $white 9%, $white 100%);
 }
 
 .control-label-required::after {
