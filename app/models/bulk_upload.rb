@@ -7,6 +7,12 @@ class BulkUpload < ActiveRecord::Base
 
   validates :photos, presence: :true, unless: ->() { done? }
 
+  def analyze!
+    update! status: :processing
+
+    BulkUploadJob.perform_later(self)
+  end
+
   def ordered_photos(order_column = 'filename', order_direction = 'asc')
     case order_column
     when 'filename'

@@ -25,9 +25,7 @@ class BulkUploadsController < ApplicationController
 
   def create
     bulk_upload = current_user.bulk_uploads.build(bulk_upload_params)
-    bulk_upload.status = :processing
-    bulk_upload.save!
-    BulkUploadJob.perform_later(bulk_upload)
+    bulk_upload.analyze!
 
     redirect_to edit_bulk_upload_path(bulk_upload), notice: 'Massen-Upload wurde angelegt'
   end
