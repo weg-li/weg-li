@@ -1,11 +1,11 @@
 dl.dl-horizontal
-  dt= Notice.human_attribute_name(:created_at)
-  dd= d(notice.created_at)
   dt= Notice.human_attribute_name(:status)
   dd
     => render 'status', status: @notice.status
     - if @notice.incomplete?
       = render 'status', status: :incomplete
+  dt= Notice.human_attribute_name(:created_at)
+  dd= d(notice.created_at)
   dt= Notice.human_attribute_name(:district)
   dd= notice.district.present? ? "#{notice.district.zip} #{notice.district.name}" : '-'
   dt= Notice.human_attribute_name(:registration)

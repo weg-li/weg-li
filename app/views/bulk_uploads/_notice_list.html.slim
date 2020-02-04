@@ -14,8 +14,7 @@
               = link_to(notice)
                 - if notice.registration.present?
                   span.label.label-license
-                    span.glyphicon.glyphicon-status
-                    span<= notice.registration
+                    span= notice.registration
                 - else
                   = '-'
             td

@@ -4,6 +4,7 @@ $success-color: #62c462;
 $warning-color: #f89406;
 $info-color: #5bc0de;
 $danger-color: #ee5f5b;
+$dark-color: darken($default-color, 10);
 
 $white: rgb(255, 255, 255);
 
@@ -239,10 +240,11 @@ ul.droppable-list {
 }
 
 .label-license {
-  border: 1px solid $default-color;
-  color: $default-color;
+  border: 1px solid $dark-color;
+  color: $dark-color;
   background: #EEE;
-  // background: linear-gradient(90deg, rgba(11,0,191,1) 0%, rgba(11,0,191,1) 7%, rgba(255,255,255,1) 8%, rgba(255,255,255,1) 100%);
+  padding-left: 10px;
+  background: linear-gradient(90deg, rgba(50,50,255,1) 0%, rgba(50,50,255,1) 8%, rgba(255,255,255,1) 9%, rgba(255,255,255,1) 100%);
 }
 
 .control-label-required::after {
