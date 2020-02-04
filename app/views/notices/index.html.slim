@@ -118,8 +118,8 @@
                     = link_to(notice) do
                       - notice.photos.each do |photo|
                         = image_tag(url_for_photo(photo, size: :thumb), class: 'index-photo')
-                  td= link_to(d(notice.created_at), notice)
-                  td= notice.date.present? ? link_to(d(notice.date), notice) : '-'
+                  td(nowrap)= link_to(d(notice.created_at), notice)
+                  td(nowrap)= notice.date.present? ? link_to(d(notice.date), notice) : '-'
                   td= render 'status', status: notice.status
 
             - else

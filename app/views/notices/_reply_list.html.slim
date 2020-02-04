@@ -13,7 +13,7 @@
       tbody
         - replies.each_with_index do |reply, index|
           tr
-            td= l(reply.created_at, format: :short)
+            td(nowrap)= l(reply.created_at, format: :short)
             td= mail_to(reply.sender)
             td= reply.subject
             td
