@@ -16,6 +16,11 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.validate(user)
   end
 
+  def activate
+    user = User.first!
+    UserMailer.activate(user)
+  end
+
   def reminder
     notice = Notice.first!
     user = notice.user

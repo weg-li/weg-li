@@ -23,6 +23,17 @@ describe UserMailer do
     end
   end
 
+  describe "activate" do
+    let(:user) { Fabricate(:user) }
+    let(:mail) { UserMailer.activate(user) }
+
+    it "renders the mail" do
+      expect(mail.subject).to_not be_nil
+      expect(mail.to).to eq([user.email])
+      expect(mail.body.encoded).to match("löschen")
+    end
+  end
+
   describe "email_auth" do
     let(:email) { 'mursksi@furksi.de' }
     let(:mail) { UserMailer.email_auth(email, '123ABC') }

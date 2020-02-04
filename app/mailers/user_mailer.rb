@@ -11,6 +11,12 @@ class UserMailer < ApplicationMailer
     mail to: email_address_with_name(@user.email, @user.name), subject: t('mailers.validate')
   end
 
+  def activate(user)
+    @user = user
+
+    mail to: email_address_with_name(@user.email, @user.name), subject: t('mailers.activate')
+  end
+
   def email_auth(email, token)
     @token = token
 

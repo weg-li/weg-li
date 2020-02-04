@@ -146,7 +146,8 @@ de:
   mailers:
     signup: 'Du hast Dich erfolgreich registriert, bitte bestätige Deine E-Mail Adresse!'
     validate: 'Bitte bestätige Deine E-Mail Adresse!'
-    email_auth: 'Logge Dich bei weg-li ein.'
+    activate: 'Dein Zugang wird demnächst deaktiviert!'
+    email_auth: 'Logge Dich bei weg-li ein!'
   districts:
     statistics:
       notices: 'Meldungen insgesamt'
