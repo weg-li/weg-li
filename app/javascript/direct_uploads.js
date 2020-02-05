@@ -2,7 +2,8 @@ $(document).on('turbolinks:load', function() {
   $(document).on('change', '#fileupload', event => {
     const target = event.target;
     const files = Array.from(target.files);
-    if (files.some(file => file.type != 'image/jpeg')) {
+    const accepts = target.accept.split(',') || ['image/jpeg'];
+    if (files.some(file => !accepts.includes(file.type) )) {
       alert('Es werden nur Fotos im JPEG Format unterstützt!');
       target.value = '';
     }
