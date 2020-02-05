@@ -19,10 +19,6 @@ ul.dropdown-menu
         span.glyphicon.glyphicon-share>
         | Anzeige erstatten
     li
-      = link_to pdf_notice_path(notice)
-        span.glyphicon.glyphicon-save-file>
-        | Meldung als PDF
-    li
       = link_to status_notice_path(notice), data: {confirm: 'Die Meldung wird als gemeldet markiert'}, method: :patch
         span.glyphicon.glyphicon-status-shared>
         span Meldung als gemeldet
@@ -41,6 +37,12 @@ ul.dropdown-menu
       = link_to notice_path(notice), method: :delete, data: {confirm: 'Die Meldung wird endgültig gelöscht'}, title: 'löschen'
         span.glyphicon.glyphicon-trash>
         | Meldung löschen
+
+  - unless notice.incomplete?
+    li
+      = link_to pdf_notice_path(notice)
+        span.glyphicon.glyphicon-save-file>
+        | Meldung als PDF
 
   - if notice.disabled?
     li
