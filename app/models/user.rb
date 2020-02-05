@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   has_many :authorizations, dependent: :destroy
   has_many :photos_attachments, through: :notices
 
+  has_one_attached :signature
+
   accepts_nested_attributes_for :authorizations
 
   validates :nickname, :email, :token, :name, :street, :zip, :city, presence: true

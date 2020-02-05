@@ -4,6 +4,12 @@ class UsersController < ApplicationController
   def edit
   end
 
+  def signature
+    current_user.update(signature_params)
+
+    redirect_to edit_user_path(current_user), notice: 'Unterschrift wurde gespeichert'
+  end
+
   def update
     current_user.attributes = user_params
     if current_user.email_changed?
@@ -35,6 +41,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def signature_params
+    params.require(:user).permit(:signature)
+  end
 
   def user_params
     params.require(:user).permit([:email, :nickname, :name, :street, :zip, :city, :phone] + User.bitfields[:flags].keys)
