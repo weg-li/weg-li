@@ -36,7 +36,7 @@ class AnalyzerJob < ApplicationJob
           notice.user.update(access: :disabled)
         end
 
-        notice.data[photo.id] = result.merge({ exif: metadata })
+        notice.data[photo.id.to_s] = result.merge({ exif: metadata })
         plates += Annotator.grep_text(result) { |string| Vehicle.plate?(string) }
         brands += Annotator.grep_text(result) { |string| Vehicle.brand?(string) }
         brands += Annotator.grep_label(result) { |string| Vehicle.brand?(string) }
