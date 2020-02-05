@@ -7,15 +7,14 @@
       = render 'actions', notice: @notice, button_text: true
   .panel-body
     .row
-      .col-lg-8
+      .col-lg-6
         = render 'details', notice: @notice
-
-      .col-lg-4
+      .col-lg-6
         = render 'components/photos', notice: @notice, publicly: true
 
 - if @notice.replies.present?
   = render 'reply_list', replies: @notice.replies
-  
+
 - if @notice.coordinates?
   .row
     .col-lg-12
