@@ -107,11 +107,14 @@ $white: rgb(255, 255, 255);
   z-index: 10;
 }
 
-.map-canvas {
+.map-canvas, .mini-map-canvas {
   width: auto;
-  margin: 0 5%;
-  height: 400px;
   border-radius: 5px;
+  height: 150px;
+}
+
+.map-canvas {
+  height: 400px;
 }
 
 .modal-photo {

@@ -22,7 +22,7 @@ class Notice < ActiveRecord::Base
 
   before_validation :defaults
 
-  geocoded_by :full_address, language: Proc.new { |model| I18n.locale }, no_annotations: true
+  geocoded_by :geocode_address, language: Proc.new { |model| I18n.locale }, no_annotations: true
   after_validation :geocode, if: :do_geocoding?
 
   belongs_to :user
@@ -164,7 +164,12 @@ class Notice < ActiveRecord::Base
   end
 
   def full_address
-    "#{street}, #{zip} #{city}, Deutschland"
+    "#{street}, #{zip} #{city}"
+  end
+
+  def geocode_address
+    # https://github.com/OpenCageData/opencagedata-misc-docs/blob/master/query-formatting.md
+    "#{street}, #{zip}, #{city}, Deutschland"
   end
 
   def map_data(kind = :public)

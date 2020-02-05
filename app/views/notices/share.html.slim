@@ -21,7 +21,7 @@ hr.spacer
 = form_for @notice, url: mail_notice_path(@notice), method: :patch do |form|
   - if @notice.district.present?
     .row
-      .col-lg-12
+      .col-lg-8
         = render 'callout', section: 'notices', key: 'send_email'
 
         .form-group
@@ -32,7 +32,9 @@ hr.spacer
           - else
             = form.text_field :district, value: form.object.district.display_name, disabled: true, class: "form-control"
           = hint do
-            | Die zuständige E-Mail-Adresse wurde automatisch anhand der Adresse der Meldung ermittelt. Adresse stimmt nicht? Schreibe gerne an #{mail_to 'peter@weg-li.de'}!
+            | Die E-Mail-Adresse der zuständigen Stelle wurde anhand der Postleitzahl ermittelt. Adresse stimmt nicht? Schreibe an #{mail_to 'peter@weg-li.de'}!
+      .col-lg-4
+        = render 'map', notice: @notice, kind: :private, css_class: 'mini-map-canvas'
 
   - else
     .alert.alert-warning
