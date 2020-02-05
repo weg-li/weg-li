@@ -24,7 +24,7 @@ class PDFGenerator
 
       notice.photos.each do |photo|
         variant = quality == :original ? photo : photo.variant(PhotoHelper::CONFIG[quality]).processed
-        photo.service.download_file(variant.key) { |file| document.image(file, fit: [document.bounds.width, document.bounds.height]) }
+        photo.service.download_file(variant.key) { |file| document.image(file, fit: [document.bounds.width, document.bounds.height / 2]) }
       end
     end
     pdf.render
