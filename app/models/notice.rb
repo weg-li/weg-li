@@ -173,6 +173,7 @@ class Notice < ActiveRecord::Base
       longitude: longitude,
       charge: charge,
       date: date,
+      zip: zip,
     }
 
     case kind
