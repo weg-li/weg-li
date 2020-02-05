@@ -54,7 +54,7 @@ class BulkUploadsController < ApplicationController
       bulk_upload.update! status: :done
 
       redirect_to notices_path, notice: 'Neue Meldungen wurden erzeugt'
-    else
+    elsif params[:bulk_upload]
       photos = bulk_upload.photos.find(bulk_upload_update_photo_ids)
       notice = current_user.notices.build(bulk_upload: bulk_upload)
       Notice.transaction do
@@ -70,6 +70,8 @@ class BulkUploadsController < ApplicationController
 
         redirect_to notices_path, notice: 'Neue Meldung aus Fotos erzeugt, der Massen-Upload wurde vollständig zugeordnet'
       end
+    else
+      redirect_to edit_bulk_upload_path(bulk_upload), alert: 'Es wurde kein Foto ausgewählt'
     end
   end
 
