@@ -17,6 +17,10 @@ class PDFGenerator
       document.font_size(10)
       document.text(content)
 
+      if user.signature.present?
+        document.move_cursor_to(100)
+        user.signature.service.download_file(user.signature.key) { |file| document.image(file, fit: [300, 50]) }
+      end
       document.move_cursor_to(50)
       document.font_size(10)
       document.text("_" * 40)
