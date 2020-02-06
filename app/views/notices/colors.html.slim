@@ -20,9 +20,9 @@ table.table.table-striped.table-hover
       tr
         - color = Color::RGB.new(entry['color']['red'], entry['color']['green'], entry['color']['blue'])
         td(style="background-color: #{color.html}")= color.html
-        - closest = color.closest_match(Annotator::COLORS.keys, 20) || color.closest_match(Annotator::TOTALS.keys)
+        - closest = color.closest_match(Colorizor::COLORS.keys, 20) || color.closest_match(Colorizor::TOTALS.keys)
         td(style="background-color: #{closest.html}")= closest.name
-        - actual = Annotator::TOTALS[closest]
+        - actual = Colorizor::TOTALS[closest]
         td(style="background-color: #{actual.html}")= actual.name
         td= entry['score']
         td= entry['pixel_fraction']
@@ -34,7 +34,7 @@ table.table.table-striped.table-hover
       th Color
       th Actual
   tbody
-    - Annotator::TOTALS.each do |color, actual|
+    - Colorizor::TOTALS.each do |color, actual|
       tr
         td(style="background-color: #{color.html}")= color.name
         td(style="background-color: #{actual.html}")= actual.name
