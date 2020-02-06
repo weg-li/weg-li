@@ -44,6 +44,7 @@ gem 'email_verifier'
 gem 'webpacker'
 
 group :production do
+  gem 'rails_autoscale_agent'
   gem 'rack-cache'
   gem 'rails_12factor'
   gem 'heroku-deflater'
