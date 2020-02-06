@@ -9,6 +9,7 @@ gem 'bootsnap', require: false
 gem 'puma'
 gem 'sass-rails'
 gem 'sidekiq'
+gem 'sidekiq-scheduler'
 gem 'time_splitter'
 gem 'bitfields'
 gem 'exifr'

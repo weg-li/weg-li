@@ -1,0 +1,6 @@
+restart_job:
+   every: '5m'
+   class: 'Scheduled::RestartJob'
+  # hello_world:
+  #   cron: '0 30 8 * * * Europe/Berlin'
+  #   class: HelloWorld
