@@ -32,10 +32,10 @@ class Vehicle
     matches.group_by(&:itself).sort_by { |match, group| group.size }.last[0]
   end
 
-  def self.most_likely?(matches)
+  def self.most_likely?(matches, threshold: 0.5)
     return nil if matches.blank?
 
-    matches.group_by {|registration, _| registration }.sort_by {|_, group| group.sum { |_, probability| probability } / matches.size }.last[0]
+    matches.select {|_, probability| probability >= threshold }.group_by {|key, _| key }.sort_by {|_, group| group.sum { |_, probability| probability } / matches.size }.last[0]
   end
 
   def self.plate?(text)

@@ -71,6 +71,7 @@ describe Vehicle do
       ["HHNK 2121", 0.5], ["HHTX 1267", 0.8],
     ].shuffle!
     expect(Vehicle.most_likely?(plates)).to eql('HHTX 1267')
+    expect(Vehicle.most_likely?(plates, threshold: 1.0)).to eql('RD WN 200')
     expect(Vehicle.most_likely?([])).to eql(nil)
     expect(Vehicle.most_likely?(nil)).to eql(nil)
   end
