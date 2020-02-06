@@ -12,7 +12,7 @@ describe PDFGenerator, :vcr do
 
       result = PDFGenerator.new.generate(notice, quality: :original)
 
-      # File.open('anzeige.pdf', 'wb') {|f| f.write(result)}
+      # file_fixture('anzeige.pdf').binwrite(result)
       expect(example.size).to eql(result.size)
     end
   end
