@@ -169,7 +169,7 @@ class Notice < ActiveRecord::Base
 
   def geocode_address
     # https://github.com/OpenCageData/opencagedata-misc-docs/blob/master/query-formatting.md
-    "#{street}, #{zip}, #{city}, Deutschland"
+    "#{street.split(',').first}, #{zip}, #{city}, Deutschland"
   end
 
   def map_data(kind = :public)
