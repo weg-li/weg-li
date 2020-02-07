@@ -31,6 +31,14 @@ class UserMailer < ApplicationMailer
     mail subject: subject, to: email_address_with_name(@user.email, @user.name)
   end
 
+  def reminder_bulk_upload(user, bulk_upload_ids)
+    @user = user
+    @bulk_uploads = user.bulk_uploads.find(bulk_upload_ids)
+
+    subject = "Massen-Uploads jetzt verarbeiten und zur Anzeige bringen"
+    mail subject: subject, to: email_address_with_name(@user.email, @user.name)
+  end
+
   def pdf(user, notice_ids)
     @user = user
     @notices = user.notices.find(notice_ids)

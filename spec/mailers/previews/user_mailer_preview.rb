@@ -27,6 +27,12 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.reminder(user, [notice.id])
   end
 
+  def reminder_bulk_upload
+    bulk_upload = BulkUpload.first!
+    user = bulk_upload.user
+    UserMailer.reminder_bulk_upload(user, [bulk_upload.id])
+  end
+
   def pdf
     notice = Notice.first!
     user = notice.user

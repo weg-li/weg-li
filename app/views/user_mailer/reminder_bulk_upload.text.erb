@@ -1,0 +1,21 @@
+Hallo <%= @user.name %>,
+
+Du hast noch offene Massen-Uploads, die bereits 2 Wochen zurück liegen 🤔
+Damit eine Anzeige fristgerecht bearbeitet werden kann, muss sie rechtzeitig eingereicht werden!
+
+
+Bitte verarbeite Deine Massen-Uploads über die nachfolgenden Links:
+
+<% @bulk_uploads.each do |bulk_upload| %>
+<%= edit_bulk_upload_url(bulk_upload) %>
+
+<% end %>
+
+
+Wenn Du diese E-Mail nicht mehr bekommen möchtest, dann kannst Du veraltete Massen-Uploads einfach löschen.
+
+Möchtest Du garkeine Erinnerungen mehr bekommen, dann markiere bitte die "Erinnerungen deaktivieren" Box in Deinem Profil:
+
+<%= edit_user_url %>
+
+<%= render 'mailer/footer' %>

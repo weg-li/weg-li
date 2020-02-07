@@ -1,0 +1,21 @@
+require 'spec_helper'
+
+describe Scheduled::ExpiringReminderJob do
+  context "perform" do
+    it "should remind users of notices" do
+      Fabricate.create(:notice, date: 3.weeks.ago, status: :open)
+
+      expect {
+        Scheduled::ExpiringReminderJob.perform_now
+      }.to change { ActionMailer::Base.deliveries.count }.by(1)
+    end
+
+    it "should remind users of bulk_uploads" do
+      Fabricate.create(:bulk_upload, created_at: 3.weeks.ago, status: :open)
+
+      expect {
+        Scheduled::ExpiringReminderJob.perform_now
+      }.to change { ActionMailer::Base.deliveries.count }.by(1)
+    end
+  end
+end

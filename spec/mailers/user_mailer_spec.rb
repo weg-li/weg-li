@@ -57,6 +57,18 @@ describe UserMailer do
     end
   end
 
+  describe "reminder_bulk_upload" do
+    let(:bulk_upload) { Fabricate(:bulk_upload) }
+    let(:user) { bulk_upload.user }
+    let(:mail) { UserMailer.reminder_bulk_upload(user, [bulk_upload.id]) }
+
+    it "renders the mail" do
+      expect(mail.subject).to_not be_nil
+      expect(mail.to).to eq([user.email])
+      expect(mail.body.encoded).to match("rechtzeitig")
+    end
+  end
+
   describe "pdf" do
     let(:notice) { Fabricate(:notice) }
     let(:user) { notice.user }

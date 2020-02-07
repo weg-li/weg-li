@@ -2,5 +2,11 @@ restart:
    every: '5m'
    class: 'Scheduled::RestartJob'
 activation_reminder:
-  cron: '0 30 8 * * * Europe/Berlin'
+  cron: '0 10 8 * * * Europe/Berlin'
   class: 'Scheduled::ActivationReminderJob'
+usage_reminder:
+  cron: '0 20 8 * * * Europe/Berlin'
+  class: 'Scheduled::UsageReminderJob'
+expiring_reminder:
+  cron: '0 30 8 * * * Europe/Berlin'
+  class: 'Scheduled::ExpiringReminderJob'
