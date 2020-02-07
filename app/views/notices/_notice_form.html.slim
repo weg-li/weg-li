@@ -38,13 +38,14 @@
                 h4.modal-title Adresse auswählen
               .modal-body
                 .well.well-sm.callout-info
-                  p Den Marker einfach an die entsprechende Stelle ziehen, oder den aktuellen Standort verwenden, die Adresse wird dann automatisch ausgefüllt.
+                  small Den Marker einfach an die entsprechende Stelle ziehen, oder den aktuellen Standort verwenden, die Adresse wird dann automatisch ausgefüllt.
                 = render('picker_map', notice: notice, street: '#notice_street', zip: '#notice_zip', city: '#notice_city', latitude: '#notice_latitude', longitude: '#notice_longitude', trigger: '#geolocation')
               .modal-footer
-                = button_tag type: :button, class: "btn btn-default", id: 'geolocation' do
-                  span.glyphicon.glyphicon-map-marker>
-                  | Aktuellen Standort verwenden
-                button type="button" class="btn btn-default" data-dismiss="modal" Schließen
+                .btn-group
+                  = button_tag type: :button, class: "btn btn-default btn-sm", id: 'geolocation' do
+                    span.glyphicon.glyphicon-map-marker>
+                    | aktueller Standort
+                  button type="button" class="btn btn-default btn-sm" data-dismiss="modal" Schließen
 
   .col-lg-4
     .form-group
