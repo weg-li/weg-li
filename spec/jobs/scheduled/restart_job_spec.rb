@@ -1,14 +1,14 @@
 require 'spec_helper'
 
-describe RestartJob do
-  let(:notice) { Fabricate.create(:notice, status: :analyzing, updated_at: 1.hour.ago) }
-  let(:bulk_upload) { Fabricate.create(:bulk_upload, status: :processing, updated_at: 1.hour.ago) }
-
+describe Scheduled::RestartJob do
   context "perform" do
     it "should process the bulk-upload" do
+      Fabricate.create(:notice, status: :analyzing, updated_at: 1.hour.ago)
+      Fabricate.create(:bulk_upload, status: :processing, updated_at: 1.hour.ago)
+
       expect {
         expect {
-          RestartJob.perform_now
+          Scheduled::RestartJob.perform_now
         }.to have_enqueued_job(AnalyzerJob)
       }.to have_enqueued_job(BulkUploadJob)
     end

@@ -2,12 +2,12 @@ class Scheduled::RestartJob < ApplicationJob
   def perform
     Rails.logger.info("reschedule aborted processors")
     Notice.analyzing.where('updated_at > ?', 5.minutes.ago).each do |notice|
-      puts "restarting notice #{notice.token}"
+      Rails.logger.info "restarting notice #{notice.id}"
       notice.analyze!
     end
 
     BulkUpload.processing.where('updated_at > ?', 15.minutes.ago).each do |bulk_upload|
-      puts "restarting bulk #{bulk_upload.token}"
+      Rails.logger.info "restarting bulk #{bulk_upload.id}"
       bulk_upload.analyze!
     end
   end
