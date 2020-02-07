@@ -7,7 +7,7 @@ class Scheduled::RestartJob < ApplicationJob
     end
 
     BulkUpload.processing.where('updated_at > ?', 15.minutes.ago).each do |bulk_upload|
-      puts "restarting bulk #{notice.token}"
+      puts "restarting bulk #{bulk_upload.token}"
       bulk_upload.analyze!
     end
   end
