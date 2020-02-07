@@ -4,16 +4,16 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
 
   namespace :admin do
-    resources :replies
+    resources :users do
+      post :login
+    end
     resources :districts
-    resources :authorizations
     resources :notices do
       post :analyze
     end
     resources :bulk_uploads
-    resources :users do
-      post :login
-    end
+    resources :replies
+    resources :authorizations
 
     root to: "users#index"
   end
