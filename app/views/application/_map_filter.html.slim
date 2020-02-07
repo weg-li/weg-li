@@ -1,6 +1,6 @@
 - kind ||= :public
 ul.nav.nav-tabs.nav-panel
-  li(class="#{'active' if display=='cluster'}")= link_to 'Cluster Karte', url_for(since: since, district: district, display: 'cluster')
+  li(class="#{'active' if display=='cluster'}")= link_to 'Gruppierte Karte', url_for(since: since, district: district, display: 'cluster')
   li(class="#{'active' if display=='multi'}")= link_to 'Normale Karte', url_for(since: since, district: district, display: 'multi')
 
 .panel.panel-default.panel-nav
@@ -16,7 +16,7 @@ ul.nav.nav-tabs.nav-panel
             = select_tag(:district, options_for_select(District.pluck(:name).uniq, district), class: 'form-control')
             = submit_tag('Los', class: "btn btn-default btn-sm")
 
-  .panel-body
+  .panel-body.panel-body-map
     = render "#{display}_map", notices: notices, init: init, kind: kind if display == 'cluster' || display == 'multi'
   .panel-footer
     small

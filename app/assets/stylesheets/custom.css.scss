@@ -13,6 +13,12 @@ $white: rgb(255, 255, 255);
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
 }
+.panel-body-map {
+  padding: 0px;
+  .map-canvas {
+    border-radius: 0px;
+  }
+}
 .nav-panel {
   margin-left: 1em;
   li.active {
@@ -442,7 +448,7 @@ pre.charge {
   padding-rop: 100px;
 }
 
-.navbar, .page-header, .lead, .panel, footer, .dropdown {
+.navbar, .nav, .page-header, .lead, .panel, footer, .dropdown {
   a {
     text-decoration: none;
   }
