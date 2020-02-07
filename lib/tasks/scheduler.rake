@@ -1,45 +1,4 @@
 namespace :scheduler do
-  desc "reschedule aborted analyzers"
-  task restart_analyzers: :environment do
-    puts "restart analyzers"
-
-    Notice.analyzing.where('updated_at > ?', 5.minutes.ago).each do |notice|
-      puts "restarting notice #{notice.token}"
-      notice.analyze!
-    end
-
-    BulkUpload.processing.where('updated_at > ?', 15.minutes.ago).each do |bulk_upload|
-      puts "restarting bulk #{notice.token}"
-      bulk_upload.analyze!
-    end
-  end
-
-  desc "prerender variants"
-  task prerender_variants: :environment do
-    puts "prerender variants"
-
-    User.where("date_part('day', created_at) = ?", Date.today.day).each_with_index do |user, i|
-      puts "prerendering user #{user.token}"
-      UserUploadJob.set(wait: i.minutes).perform_later(user)
-    end
-  end
-
-  desc "daily job to make users activate"
-  task send_activation_reminder: :environment do
-    puts "send activation reminders"
-
-    not_validated = User.user.where(validation_date: nil)
-    not_validated.each do |user|
-      if user.updated_at < 2.weeks.ago && user.notices.blank?
-        puts "destroying unvalidated user #{user.id} #{user.name} #{user.email}"
-        user.destroy!
-      else
-        puts "sending email validation to #{user.id} #{user.name} #{user.email}"
-        UserMailer.validate(user).deliver_now
-      end
-    end
-  end
-
   desc "daily job to deaktivate old users"
   task deactivate_old_users: :environment do
     puts "deaktivate old users"

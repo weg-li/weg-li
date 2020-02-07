@@ -1,6 +1,6 @@
-restart_job:
+restart:
    every: '5m'
    class: 'Scheduled::RestartJob'
-  # hello_world:
-  #   cron: '0 30 8 * * * Europe/Berlin'
-  #   class: HelloWorld
+activation_reminder:
+  cron: '0 30 8 * * * Europe/Berlin'
+  class: 'Scheduled::ActivationReminderJob'
