@@ -94,6 +94,8 @@ class NoticeDashboard < Administrate::BaseDashboard
     :city,
     :incomplete,
     :note,
+    :latitude,
+    :longitude,
   ].freeze
 
   # Overwrite this method to customize how notices are displayed
