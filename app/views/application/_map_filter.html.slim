@@ -4,16 +4,17 @@ ul.nav.nav-tabs.nav-panel
   li(class="#{'active' if display=='multi'}")= link_to 'Normale Karte', url_for(since: since, district: district, display: 'multi')
 
 .panel.panel-default.panel-nav
-  .panel-heading.clearfix
-    = form_tag({url: map_path}, method: :get, class: 'form-inline pull-right') do |form|
-      = hidden_field_tag(:since, since)
-      = hidden_field_tag(:display, display)
-      .form-group
-        - days = [7, 14, 30, 365]
-        = select_tag(:since, options_for_select(days.map { |duration| ["seit #{duration} Tagen", duration]}, since), class: 'form-control input-sm')
-      .form-group
-        = select_tag(:district, options_for_select(District.pluck(:name).uniq, district), class: 'form-control input-sm')
-      = submit_tag('Auswählen', class: "btn btn-default button-sm")
+  .panel-heading
+    .row
+      .col-lg-12
+        = form_tag({url: map_path}, method: :get, class: 'form-inline pull-right') do |form|
+          = hidden_field_tag(:since, since)
+          = hidden_field_tag(:display, display)
+          .form-group.form-group-sm.text-right
+            - days = [7, 14, 30, 365]
+            = select_tag(:since, options_for_select(days.map { |duration| ["seit #{duration} Tagen", duration]}, since), class: 'form-control')
+            = select_tag(:district, options_for_select(District.pluck(:name).uniq, district), class: 'form-control')
+            = submit_tag('Los', class: "btn btn-default btn-sm")
 
   .panel-body
     = render "#{display}_map", notices: notices, init: init, kind: kind if display == 'cluster' || display == 'multi'
