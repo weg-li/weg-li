@@ -1,0 +1,46 @@
+javascript:
+  $('select#notice_registration').select2({
+    theme: 'bootstrap',
+    language: {
+      inputTooShort: function () {
+        return "Tippen zum vervollständigen";
+      },
+      searching: function () {
+        return "Kurz warten, es wird gesucht";
+      }
+    },
+    tags: true,
+    minimumInputLength: 1,
+    templateResult: function(data) {
+      if (!data.id) {
+        return data.text;
+      }
+
+      var text = '<span class="label label-license">' + data.text + '</span>';
+
+      if (data.brand) {
+        text += ' <small>' + data.brand + '</span>';
+      }
+      if (data.color) {
+        var colors = #{ t("activerecord.attributes.notice.colors").to_json.html_safe }
+        text += ' <small>' + colors[data.color] + '</span>';
+      }
+
+      return $('<span>' + text + '</span>');
+    },
+    ajax: {
+      delay: 250,
+      url: '#{ suggest_notice_path(notice) }',
+      dataType: 'json'
+    }
+  }).on('select2:open', function (e) {
+    $('.select2-search__field').val($('#notice_registration').val());
+  }).on('select2:select', function (e) {
+    var data = e.params.data;
+    if (data.brand) {
+      $('#notice_brand').val(data.brand).trigger('change');
+    }
+    if (data.color) {
+      $('#notice_color').val(data.color).trigger('change');
+    }
+  });
