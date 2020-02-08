@@ -1,7 +1,7 @@
 class NoticesController < ApplicationController
   before_action :authenticate!
-  before_action :authenticate_community_user!, only: [:prepare, :polish]
-  before_action :authenticate_admin_user!, only: [:inspect, :colors]
+  before_action :authenticate_community_user!, only: [:prepare, :polish, :colors]
+  before_action :authenticate_admin_user!, only: [:inspect]
   before_action :validate!, except: [:index]
 
   def index
