@@ -141,6 +141,9 @@ class Colorizor
     Color::RGB::WhiteSmoke => Color::RGB::White,
     Color::RGB::Yellow => Color::RGB::Yellow,
     Color::RGB::YellowGreen => Color::RGB::Green,
+    Color::RGB::Metallic::CoolCopper => Color::RGB::Gold,
+    Color::RGB::Metallic::Copper => Color::RGB::Gold,
+    Color::RGB::Metallic::Poly => Color::RGB::Brown,
   }
 
   TOTALS = {
@@ -153,6 +156,17 @@ class Colorizor
     Color::RGB::Gray70 => Color::RGB::Gray,
     Color::RGB::Gray80 => Color::RGB::Gray,
     Color::RGB::Gray90 => Color::RGB::Gray,
+
+    Color::RGB::Metallic::Aluminum => Color::RGB::Silver,
+    Color::RGB::Metallic::Iron => Color::RGB::Silver,
+    Color::RGB::Metallic::Lead => Color::RGB::Black,
+    Color::RGB::Metallic::Magnesium => Color::RGB::Silver,
+    Color::RGB::Metallic::Mercury => Color::RGB::Silver,
+    Color::RGB::Metallic::Nickel => Color::RGB::Silver,
+    Color::RGB::Metallic::Silver => Color::RGB::Silver,
+    Color::RGB::Metallic::Steel => Color::RGB::Silver,
+    Color::RGB::Metallic::Tin => Color::RGB::Silver,
+    Color::RGB::Metallic::Tungsten => Color::RGB::Silver,
   }.merge(COLORS)
 
   def self.closest_match(color)
