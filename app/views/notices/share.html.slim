@@ -27,7 +27,7 @@ hr.spacer
         .form-group
           = form.label :district, class: "control-label control-label-required"
           - if @notice.district.aliases.present?
-            = select_tag :send_to, options_for_select(@notice.district.all_emails, @notice.district.email), {include_blank: 'E-Mail Auswählen', class: "form-control", required: true }
+            = select_tag :send_to, options_for_select(@notice.district.all_emails.append(["Als Verteiler an alle #{@notice.district.all_emails.size} Adressen", 'all']), @notice.district.email), {include_blank: 'E-Mail Auswählen', class: "form-control", required: true }
 
           - else
             = form.text_field :district, value: form.object.district.display_name, disabled: true, class: "form-control"
