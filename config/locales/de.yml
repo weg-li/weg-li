@@ -187,7 +187,7 @@ de:
       hide_public_profile: 'öffentliches Profil deaktivieren'
       disable_reminders: 'Erinnerungen deaktivieren'
       disable_autoreply_notifications: 'Eingangsbenachrichtigung deaktivieren'
-  bulk_upload:
+  bulk_uploads:
     status:
       initial: 'neu'
       processing: 'verarbeiten'

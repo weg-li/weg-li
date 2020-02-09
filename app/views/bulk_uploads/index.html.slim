@@ -74,6 +74,8 @@
   = paginate @bulk_uploads
 
 .well.well-sm
-  strong Status für Massen-Uploads
-  - BulkUpload.statuses.keys.each do |status|
-    p= render 'upload_status', status: status, legend: true
+  h5 Status für Massen-Uploads
+  dl.dl-horizontal
+    - BulkUpload.statuses.keys.each do |status|
+      dt= render 'upload_status', status: status
+      dd= t(status, scope: 'bulk_uploads.status-hints', default: '')
