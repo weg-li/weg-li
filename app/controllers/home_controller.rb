@@ -1,9 +1,9 @@
 class HomeController < ApplicationController
   def index
     @goals = {
-      week: Notice.since(Time.zone.now.beginning_of_week).count,
-      month: Notice.since(Time.zone.now.beginning_of_month).count,
-      year: Notice.since(Time.zone.now.beginning_of_year).count,
+      week: Notice.shared.since(Time.zone.now.beginning_of_week).count,
+      month: Notice.shared.since(Time.zone.now.beginning_of_month).count,
+      year: Notice.shared.since(Time.zone.now.beginning_of_year).count,
     }
     @statistics = Notice.statistics
   end
