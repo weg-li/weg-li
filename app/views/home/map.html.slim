@@ -9,9 +9,9 @@
   .col-lg-12
     = render('map_filter', notices: @notices, district: @district, display: @display, since: @since, init: @default_district.map_data)
 
-hr.spacer
-
 - if @notices.present?
+  hr.spacer
+
   .row
     .col-lg-8
       h3 📈 Die häufigsten Vergehen
