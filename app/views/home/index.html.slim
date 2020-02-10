@@ -139,7 +139,7 @@
         - current = @goals[:week]
         p
           strong> Wochenziel:
-          span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen erstattet
+          span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen
         .progress.progress-striped.active
           .progress-bar.progress-bar-danger(style="width: #{[100, current / (goal / 100)].min}%")
 
@@ -148,7 +148,7 @@
         - current = @goals[:month]
         p
           strong> Monatsziel:
-          span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen erstattet
+          span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen
         .progress.progress-striped.active
           .progress-bar.progress-bar-warning(style="width: #{[100, current / (goal / 100)].min}%")
 
@@ -157,7 +157,7 @@
         - current = @goals[:year]
         p
           strong> Jahresziel:
-          span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen erstattet
+          span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen
         .progress.progress-striped.active
           .progress-bar.progress-bar-info(style="width: #{[100, current / (goal / 100)].min}%")
 
