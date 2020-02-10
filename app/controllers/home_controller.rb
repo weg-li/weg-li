@@ -1,5 +1,11 @@
 class HomeController < ApplicationController
   def index
+    @goals = {
+      week: Notice.since(Time.zone.now.beginning_of_week).count,
+      month: Notice.since(Time.zone.now.beginning_of_month).count,
+      year: Notice.since(Time.zone.now.beginning_of_year).count,
+    }
+    @statistics = Notice.statistics
   end
 
   def map
@@ -7,7 +13,7 @@ class HomeController < ApplicationController
     @display = params[:display] || 'cluster'
     @district = params[:district] || current_user&.city || 'Hamburg'
 
-    @notices = Notice.since(@since.days.ago).joins(:district).where(districts: {name: @district})
+    @notices = Notice.shared.since(@since.days.ago).joins(:district).where(districts: {name: @district})
     @active = @notices.map(&:user_id).uniq.size
     @default_district = District.find_by(name: @district) || District.first
   end

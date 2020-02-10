@@ -136,8 +136,7 @@
     ul.list-group
       li.list-group-item
         - goal = weekly_goal
-        - statistics = Notice.statistics(Time.zone.now.beginning_of_week)
-        - current = statistics[:shared]
+        - current = @goals[:week]
         p
           strong> Wochenziel:
           span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen erstattet
@@ -146,8 +145,7 @@
 
       li.list-group-item
         - goal = weekly_goal * 4
-        - statistics = Notice.statistics(Time.zone.now.beginning_of_month)
-        - current = statistics[:shared]
+        - current = @goals[:month]
         p
           strong> Monatsziel:
           span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen erstattet
@@ -156,8 +154,7 @@
 
       li.list-group-item
         - goal = weekly_goal * 52
-        - statistics = Notice.statistics(Time.zone.now.beginning_of_year)
-        - current = statistics[:shared]
+        - current = @goals[:year]
         p
           strong> Jahresziel:
           span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen erstattet
@@ -176,8 +173,7 @@
   .col-lg-6
     h3 📈 Bisherige Daten:
     ul.list-group
-      - statistics = Notice.statistics
-      - statistics.each do |key, value|
+      - @statistics.each do |key, value|
         li.list-group-item
           = t(key, scope: 'users.statistics')
           .badge.pull-right= number_with_delimiter(value)
