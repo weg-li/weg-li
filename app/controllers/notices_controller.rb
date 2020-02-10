@@ -55,7 +55,7 @@ class NoticesController < ApplicationController
   end
 
   def stats
-    @months = 6
+    @months = 3
     @notice_counts = Notice.count_by_month(current_user.notices.shared, months: @months)
     @notice_sums = Notice.sum_by_month(current_user.notices.shared, months: @months)
     @photo_counts = Notice.count_by_month(ActiveStorage::Attachment.where(record_type: 'Notice', record_id: current_user.notices.shared.pluck(:id), name: 'photos'), months: @months)

@@ -13,7 +13,7 @@ class HomeController < ApplicationController
   end
 
   def stats
-    @months = 6
+    @months = 3
 
     @user_counts = User.count_by_month(User.active, months: @months)
     @user_sums = User.sum_by_month(User.active, months: @months)
