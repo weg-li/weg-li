@@ -55,7 +55,7 @@ class NoticesController < ApplicationController
   end
 
   def stats
-    @weeks = 3
+    @weeks = 12
     @notice_counts = Notice.count_over(current_user.notices.shared, weeks: @weeks)
     @notice_sums = Notice.sum_over(current_user.notices.shared, weeks: @weeks)
     @photo_counts = Notice.count_over(ActiveStorage::Attachment.where(record_type: 'Notice', record_id: current_user.notices.shared.pluck(:id), name: 'photos'), weeks: @weeks)
