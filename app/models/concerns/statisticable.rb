@@ -4,10 +4,10 @@ module Statisticable
   extend ActiveSupport::Concern
 
   class_methods do
-    def count_by_month(included_scope = nil, months: 12)
+    def count_over(included_scope = nil, weeks: 52)
       included_scope ||= self
       sql = "SELECT d, count(#{included_scope.table_name}.id) AS c
-             FROM generate_series('#{Date.today.beginning_of_week}'::timestamp - interval '#{months} months', '#{Date.today.end_of_week}'::timestamp, '1 week') d
+             FROM generate_series('#{Date.today.beginning_of_week}'::timestamp - interval '#{weeks} weeks', '#{Date.today.end_of_week}'::timestamp, '1 week') d
              LEFT JOIN #{included_scope.table_name} ON #{included_scope.table_name}.created_at <= d AND (#{included_scope.table_name}.id IN(#{included_scope.select(:id).to_sql}))
              GROUP BY 1 ORDER BY d;"
 
@@ -15,10 +15,10 @@ module Statisticable
       Hash[result]
     end
 
-    def sum_by_month(included_scope = nil, months: 12)
+    def sum_over(included_scope = nil, weeks: 52)
       included_scope ||= self
       sql = "SELECT d, count(#{included_scope.table_name}.id) AS c
-             FROM generate_series('#{Date.today.beginning_of_week}'::timestamp - interval '#{months} months', '#{Date.today.end_of_week}'::timestamp, '1 week') d
+             FROM generate_series('#{Date.today.beginning_of_week}'::timestamp - interval '#{weeks} weeks', '#{Date.today.end_of_week}'::timestamp, '1 week') d
              LEFT JOIN #{included_scope.table_name} ON #{included_scope.table_name}.created_at BETWEEN d AND d + interval '1 week'  AND (#{included_scope.table_name}.id IN(#{included_scope.select(:id).to_sql}))
              GROUP BY 1 ORDER BY d;"
 

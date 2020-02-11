@@ -19,16 +19,16 @@ class HomeController < ApplicationController
   end
 
   def stats
-    @months = 3
+    @weeks = 3
 
-    @user_counts = User.count_by_month(User.active, months: @months)
-    @user_sums = User.sum_by_month(User.active, months: @months)
-    @active_user_counts = User.count_by_month(User.active.joins(:notices), months: @months)
-    @active_user_sums = User.sum_by_month(User.active.joins(:notices), months: @months)
-    @notice_counts = Notice.count_by_month(Notice.shared, months: @months)
-    @notice_sums = Notice.sum_by_month(Notice.shared, months: @months)
-    @photo_counts = Notice.count_by_month(ActiveStorage::Attachment.where(record_type: 'Notice', name: 'photos'), months: @months)
-    @photo_sums = Notice.sum_by_month(ActiveStorage::Attachment.where(record_type: 'Notice', name: 'photos'), months: @months)
+    @user_counts = User.count_over(User.active, weeks: @weeks)
+    @user_sums = User.sum_over(User.active, weeks: @weeks)
+    @active_user_counts = User.count_over(User.active.joins(:notices), weeks: @weeks)
+    @active_user_sums = User.sum_over(User.active.joins(:notices), weeks: @weeks)
+    @notice_counts = Notice.count_over(Notice.shared, weeks: @weeks)
+    @notice_sums = Notice.sum_over(Notice.shared, weeks: @weeks)
+    @photo_counts = Notice.count_over(ActiveStorage::Attachment.where(record_type: 'Notice', name: 'photos'), weeks: @weeks)
+    @photo_sums = Notice.sum_over(ActiveStorage::Attachment.where(record_type: 'Notice', name: 'photos'), weeks: @weeks)
   end
 
   def year2019

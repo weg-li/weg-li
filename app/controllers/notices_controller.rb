@@ -55,11 +55,11 @@ class NoticesController < ApplicationController
   end
 
   def stats
-    @months = 3
-    @notice_counts = Notice.count_by_month(current_user.notices.shared, months: @months)
-    @notice_sums = Notice.sum_by_month(current_user.notices.shared, months: @months)
-    @photo_counts = Notice.count_by_month(ActiveStorage::Attachment.where(record_type: 'Notice', record_id: current_user.notices.shared.pluck(:id), name: 'photos'), months: @months)
-    @photo_sums = Notice.sum_by_month(ActiveStorage::Attachment.where(record_type: 'Notice', record_id: current_user.notices.shared.pluck(:id), name: 'photos'), months: @months)
+    @weeks = 3
+    @notice_counts = Notice.count_over(current_user.notices.shared, weeks: @weeks)
+    @notice_sums = Notice.sum_over(current_user.notices.shared, weeks: @weeks)
+    @photo_counts = Notice.count_over(ActiveStorage::Attachment.where(record_type: 'Notice', record_id: current_user.notices.shared.pluck(:id), name: 'photos'), weeks: @weeks)
+    @photo_sums = Notice.sum_over(ActiveStorage::Attachment.where(record_type: 'Notice', record_id: current_user.notices.shared.pluck(:id), name: 'photos'), weeks: @weeks)
   end
 
   def show
