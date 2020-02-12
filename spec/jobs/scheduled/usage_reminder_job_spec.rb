@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Scheduled::UsageReminderJob do
   context "perform" do
     it "should remind users" do
-      Fabricate.create(:user, updated_at: 5.weeks.ago)
+      Fabricate.create(:user, updated_at: 9.weeks.ago)
 
       expect {
         Scheduled::UsageReminderJob.perform_now
@@ -11,7 +11,7 @@ describe Scheduled::UsageReminderJob do
     end
 
     it "should disable users" do
-      Fabricate.create(:user, updated_at: 9.weeks.ago)
+      Fabricate.create(:user, updated_at: 14.weeks.ago)
 
       expect {
         Scheduled::UsageReminderJob.perform_now
