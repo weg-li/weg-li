@@ -75,7 +75,7 @@ class Colorizor
     Color::RGB::LightSeaGreen => Color::RGB::Green,
     Color::RGB::LightSkyBlue => Color::RGB::Blue,
     Color::RGB::LightSlateBlue => Color::RGB::Blue,
-    Color::RGB::LightSteelBlue => Color::RGB::Silver,
+    Color::RGB::LightSteelBlue => Color::RGB::Blue,
     Color::RGB::LightYellow => Color::RGB::Yellow,
     Color::RGB::Lime => Color::RGB::Green,
     Color::RGB::LimeGreen => Color::RGB::Green,
