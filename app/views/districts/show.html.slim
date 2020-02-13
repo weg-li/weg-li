@@ -10,7 +10,7 @@ h3= "#{@district.name} / #{@district.zip}"
         li.list-group-item Aktualisiert: #{l(@district.created_at)}
         - if @district.aliases.present?
           li.list-group-item Alternative Adressen: #{@district.display_aliases}
-          - if @district.email_hidden?
+          - if @district.personal_email?
             li.list-group-item
               small.text-muted Individualisierte E-Mail-Adressen sind zum Schutz der Personendaten maskiert.
 

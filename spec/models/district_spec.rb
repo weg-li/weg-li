@@ -19,7 +19,7 @@ describe District do
     it "shows email" do
       district.email = 'uschi@sushi.de'
       expect(district.display_email).to eql('uschi@sushi.de')
-      district.email_hidden = true
+      district.personal_email = true
       expect(district.display_email).to eql('u...i@sushi.de')
       district.email = ''
       expect(district.display_email).to eql('-')
@@ -28,7 +28,7 @@ describe District do
     it "shows aliases" do
       district.aliases = ['uschi@sushi.de']
       expect(district.display_aliases).to eql('uschi@sushi.de')
-      district.email_hidden = true
+      district.personal_email = true
       expect(district.display_aliases).to eql('u...i@sushi.de')
       district.aliases = []
       expect(district.display_aliases).to eql('-')
@@ -37,7 +37,7 @@ describe District do
 
   context "acts_as_api" do
     it "generates proper results" do
-      expect(district.as_api_response(:public_beta).keys).to eql(%i(name zip email prefix latitude longitude created_at updated_at))
+      expect(district.as_api_response(:public_beta).keys).to eql(%i(name zip email prefix latitude longitude aliases personal_email created_at updated_at))
     end
   end
 end

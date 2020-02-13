@@ -1,6 +1,6 @@
 class District < ActiveRecord::Base
   include Bitfields
-  bitfield :flags, 1 => :email_hidden
+  bitfield :flags, 1 => :personal_email
 
   geocoded_by :geocode_address
   after_validation :geocode
@@ -8,7 +8,7 @@ class District < ActiveRecord::Base
   acts_as_api
 
   api_accessible :public_beta do |template|
-    %i(name zip email prefix latitude longitude created_at updated_at).each { |key| template.add(key) }
+    %i(name zip email prefix latitude longitude aliases personal_email created_at updated_at).each { |key| template.add(key) }
   end
 
   validates :name, :zip, :email, presence: true
@@ -54,7 +54,7 @@ class District < ActiveRecord::Base
   def anonymize_email(email)
     return '-' unless email.present?
 
-    return email unless email_hidden?
+    return email unless personal_email?
 
     address, domain = email.split('@')
 
