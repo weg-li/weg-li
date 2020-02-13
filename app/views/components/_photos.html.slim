@@ -27,10 +27,11 @@
               = render('components/photo_zoom', photo: photo, replacer: replacer)
             .modal-footer
               - if access?(:admin)
-                = link_to(inspect_notice_path(notice, photo_id: photo.id), class: 'btn btn-sm btn-default', title: 'inspect') do
+                = link_to(inspect_notice_path(notice, photo_id: photo.id), class: 'btn btn-sm btn-default', title: 'inspect', target: '_blank') do
                   span.glyphicon.glyphicon-flash
+
               - if access?(:community)
-                = link_to(colors_notice_path(notice, photo_id: photo.id), class: 'btn btn-sm btn-default', title: 'colors') do
+                = link_to(colors_notice_path(notice, photo_id: photo.id), class: 'btn btn-sm btn-default', title: 'colors', target: '_blank') do
                   span.glyphicon.glyphicon-tint
 
               - unless publicly
