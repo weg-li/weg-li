@@ -52,13 +52,13 @@ class HomeController < ApplicationController
   end
 
   def leaderboard
-    @weekly_leaders = Notice.since(Time.zone.now.beginning_of_week).shared.joins(:user).merge(User.for_public).group(:user_id).count
+    @weekly_leaders = Notice.since(Time.zone.now.beginning_of_week).shared.joins(:user).merge(User.for_public).group(:user_id).limit(10).count
     @weekly_leaders.transform_keys! { |user_id| User.find(user_id) }
-    @monthly_leaders = Notice.since(Time.zone.now.beginning_of_month).shared.joins(:user).merge(User.for_public).group(:user_id).count
+    @monthly_leaders = Notice.since(Time.zone.now.beginning_of_month).shared.joins(:user).merge(User.for_public).group(:user_id).limit(10).count
     @monthly_leaders.transform_keys! { |user_id| User.find(user_id) }
-    @yearly_leaders = Notice.since(Time.zone.now.beginning_of_year).shared.joins(:user).merge(User.for_public).group(:user_id).count
+    @yearly_leaders = Notice.since(Time.zone.now.beginning_of_year).shared.joins(:user).merge(User.for_public).group(:user_id).limit(10).count
     @yearly_leaders.transform_keys! { |user_id| User.find(user_id) }
-    @total_leaders = Notice.shared.joins(:user).merge(User.for_public).group(:user_id).count
+    @total_leaders = Notice.shared.joins(:user).merge(User.for_public).group(:user_id).limit(10).count
     @total_leaders.transform_keys! { |user_id| User.find(user_id) }
   end
 
