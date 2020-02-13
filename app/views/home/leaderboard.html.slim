@@ -8,9 +8,9 @@
       - @weekly_leaders.each_with_index do |(user, current), index|
         li.list-group-item
           - goal = @weekly_leaders.first.last
+          .badge.pull-right #{number_with_delimiter(current)} Anzeigen
           p
-            strong=> "#{index+1}. Platz:"
-            span #{user.nickname} mit #{number_with_delimiter(current)} Anzeigen
+            strong=> "#{index+1}. #{user.public_nickname}"
           .progress.progress-striped.active
             .progress-bar.progress-bar-danger(style="width: #{[100, current / (goal.fdiv(100))].min}%")
   .col-lg-6
@@ -19,9 +19,9 @@
       - @monthly_leaders.each_with_index do |(user, current), index|
         li.list-group-item
           - goal = @monthly_leaders.first.last
+          .badge.pull-right #{number_with_delimiter(current)} Anzeigen
           p
-            strong=> "#{index+1}. Platz:"
-            span #{user.nickname} mit #{number_with_delimiter(current)} Anzeigen
+            strong=> "#{index+1}. #{user.public_nickname}"
           .progress.progress-striped.active
             .progress-bar.progress-bar-warning(style="width: #{[100, current / (goal.fdiv(100))].min}%")
 
@@ -32,9 +32,9 @@
       - @yearly_leaders.each_with_index do |(user, current), index|
         li.list-group-item
           - goal = @yearly_leaders.first.last
+          .badge.pull-right #{number_with_delimiter(current)} Anzeigen
           p
-            strong=> "#{index+1}. Platz:"
-            span #{user.nickname} mit #{number_with_delimiter(current)} Anzeigen
+            strong=> "#{index+1}. #{user.public_nickname}"
           .progress.progress-striped.active
             .progress-bar.progress-bar-info(style="width: #{[100, current / (goal.fdiv(100))].min}%")
   .col-lg-6
@@ -43,8 +43,8 @@
       - @total_leaders.each_with_index do |(user, current), index|
         li.list-group-item
           - goal = @total_leaders.first.last
+          .badge.pull-right #{number_with_delimiter(current)} Anzeigen
           p
-            strong=> "#{index+1}. Platz:"
-            span #{user.nickname} mit #{number_with_delimiter(current)} Anzeigen
+            strong=> "#{index+1}. #{user.public_nickname}"
           .progress.progress-striped.active
             .progress-bar.progress-bar-success(style="width: #{[100, current / (goal.fdiv(100))].min}%")

@@ -30,6 +30,17 @@ describe "home", type: :request do
     end
   end
 
+  context "GET :leaderboard" do
+    it "shows the page" do
+      Fabricate(:notice)
+
+      get leaderboard_path
+
+      expect(response).to be_successful
+      assert_select('h1', "weg-li Leaderboard")
+    end
+  end
+
   context "GET :stats" do
     it "shows the page" do
       Fabricate(:notice)

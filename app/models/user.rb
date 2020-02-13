@@ -49,6 +49,10 @@ class User < ActiveRecord::Base
     "#{nickname} (#{email})"
   end
 
+  def public_nickname
+    hide_public_profile? ? "Anonymous #{nickname.first.upcase}" : nickname
+  end
+
   def wegli_email
     "#{token}@anzeige.weg-li.de"
   end
