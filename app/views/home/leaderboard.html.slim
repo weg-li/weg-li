@@ -48,3 +48,16 @@
             strong=> "#{index+1}. #{user.public_nickname}"
           .progress
             .progress-bar.progress-bar-success(style="width: #{[100, current / (goal.fdiv(100))].min}%")
+
+.row
+  .col-lg-6
+    h3 🥇 2019-Winner:
+    ul.list-group
+      - @year2019_leaders.each_with_index do |(user, current), index|
+        li.list-group-item
+          - goal = @year2019_leaders.first.last
+          .badge.pull-right #{number_with_delimiter(current)} Anzeigen
+          p
+            strong=> "#{index+1}. #{user.public_nickname}"
+          .progress
+            .progress-bar.progress-bar-info(style="width: #{[100, current / (goal.fdiv(100))].min}%")

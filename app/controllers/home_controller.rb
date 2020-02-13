@@ -60,6 +60,8 @@ class HomeController < ApplicationController
     @yearly_leaders.transform_keys! { |user_id| User.find(user_id) }
     @total_leaders = Notice.shared.group(:user_id).order(count_all: :desc).limit(5).count
     @total_leaders.transform_keys! { |user_id| User.find(user_id) }
+    @year2019_leaders = Notice.where(date: ((Time.zone.now - 1.year).beginning_of_year..(Time.zone.now - 1.year).end_of_year)).shared.group(:user_id).order(count_all: :desc).limit(5).count
+    @year2019_leaders.transform_keys! { |user_id| User.find(user_id) }
   end
 
   def faq
