@@ -51,6 +51,17 @@ class HomeController < ApplicationController
     @grouped_brands = notices.select('count(brand) as brand_count, brand').where("brand != ''").group(:brand).order('brand_count DESC').limit(5)
   end
 
+  def leaderboard
+    @weekly_leaders = Notice.since(Time.zone.now.beginning_of_week).shared.joins(:user).merge(User.for_public).group(:user_id).count
+    @weekly_leaders.transform_keys! { |user_id| User.find(user_id) }
+    @monthly_leaders = Notice.since(Time.zone.now.beginning_of_month).shared.joins(:user).merge(User.for_public).group(:user_id).count
+    @monthly_leaders.transform_keys! { |user_id| User.find(user_id) }
+    @yearly_leaders = Notice.since(Time.zone.now.beginning_of_year).shared.joins(:user).merge(User.for_public).group(:user_id).count
+    @yearly_leaders.transform_keys! { |user_id| User.find(user_id) }
+    @total_leaders = Notice.shared.joins(:user).merge(User.for_public).group(:user_id).count
+    @total_leaders.transform_keys! { |user_id| User.find(user_id) }
+  end
+
   def faq
   end
 

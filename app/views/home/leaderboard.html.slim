@@ -1,0 +1,50 @@
+.page-header
+  h1 weg-li Leaderboard
+
+.row
+  .col-lg-6
+    h3 🥇 Wochen-Lead:
+    ul.list-group
+      - @weekly_leaders.each_with_index do |(user, current), index|
+        li.list-group-item
+          - goal = @weekly_leaders.first.last
+          p
+            strong=> "#{index+1}. Platz:"
+            span #{user.nickname} mit #{number_with_delimiter(current)} Anzeigen
+          .progress.progress-striped.active
+            .progress-bar.progress-bar-danger(style="width: #{[100, current / (goal.fdiv(100))].min}%")
+  .col-lg-6
+    h3 🥇 Monats-Lead:
+    ul.list-group
+      - @monthly_leaders.each_with_index do |(user, current), index|
+        li.list-group-item
+          - goal = @monthly_leaders.first.last
+          p
+            strong=> "#{index+1}. Platz:"
+            span #{user.nickname} mit #{number_with_delimiter(current)} Anzeigen
+          .progress.progress-striped.active
+            .progress-bar.progress-bar-warning(style="width: #{[100, current / (goal.fdiv(100))].min}%")
+
+.row
+  .col-lg-6
+    h3 🥇 Jahres-Lead:
+    ul.list-group
+      - @yearly_leaders.each_with_index do |(user, current), index|
+        li.list-group-item
+          - goal = @yearly_leaders.first.last
+          p
+            strong=> "#{index+1}. Platz:"
+            span #{user.nickname} mit #{number_with_delimiter(current)} Anzeigen
+          .progress.progress-striped.active
+            .progress-bar.progress-bar-info(style="width: #{[100, current / (goal.fdiv(100))].min}%")
+  .col-lg-6
+    h3 🥇 All-Time-Lead:
+    ul.list-group
+      - @total_leaders.each_with_index do |(user, current), index|
+        li.list-group-item
+          - goal = @total_leaders.first.last
+          p
+            strong=> "#{index+1}. Platz:"
+            span #{user.nickname} mit #{number_with_delimiter(current)} Anzeigen
+          .progress.progress-striped.active
+            .progress-bar.progress-bar-success(style="width: #{[100, current / (goal.fdiv(100))].min}%")

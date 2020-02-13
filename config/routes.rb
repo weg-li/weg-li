@@ -105,6 +105,7 @@ Rails.application.routes.draw do
 
   get '/home', to: 'home#index', as: :home
   get '/map', to: 'home#map', as: :map
+  get '/leaderboard', to: 'home#leaderboard', as: :leaderboard
   get '/stats', to: 'home#stats', as: :stats
   get '/faq', to: 'home#faq', as: :faq
   get '/privacy', to: 'home#privacy', as: :privacy
