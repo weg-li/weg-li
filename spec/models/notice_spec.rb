@@ -6,6 +6,7 @@ describe Notice do
   context "validation" do
     it "is valid" do
       expect(notice).to be_valid
+      expect(notice.photos.first.filename.to_s).to eql('mercedes.jpg')
     end
   end
 

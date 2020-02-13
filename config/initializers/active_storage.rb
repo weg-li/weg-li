@@ -18,16 +18,8 @@ ActiveStorage::RepresentationsController.instance_eval do
   rescue_from(ActiveRecord::RecordNotFound, with: lambda { head(404) })
 end
 
-require 'active_storage/blob'
 require 'active_storage/service/gcs_service'
 require 'active_storage/service/disk_service'
-
-class ActiveStorage::Blob < ActiveRecord::Base
-  before_validation :set_usable_key_not_the_shait_from_active_storate
-  def set_usable_key_not_the_shait_from_active_storate
-    self[:key] ||= "#{SecureRandom.base36(28)}#{File.extname(self[:filename])}" if self[:filename].present?
-  end
-end
 
 class ActiveStorage::Service::GCSService
   def download_file(key)
@@ -46,6 +38,17 @@ class ActiveStorage::Service::DiskService
       File.open(path_for(key), "rb") do |file|
         yield file
       end
+    end
+  end
+end
+
+ActiveSupport::Reloader.to_prepare do
+  require 'active_storage/blob'
+
+  class ActiveStorage::Blob < ActiveRecord::Base
+    before_validation :set_usable_key_not_the_shait_from_active_storate
+    def set_usable_key_not_the_shait_from_active_storate
+      self[:key] ||= "#{SecureRandom.base36(28)}#{File.extname(self[:filename])}" if self[:filename].present?
     end
   end
 end
