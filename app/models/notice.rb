@@ -94,18 +94,12 @@ class Notice < ActiveRecord::Base
     self.date = sorted_dates.first
     if date?
       duration = (sorted_dates.last.to_i - date.to_i)
-      if duration >= 3.hours
-        self.duration = 180
-      elsif duration >= 1.hour
-        self.duration = 60
-      elsif duration >= 5.minutes
-        self.duration = 5
-      elsif duration >= 3.minutes
-        self.duration = 3
-      else
-        self.duration = 1
-      end
+      self.duration = durations.find { |d| duration >= d.minutes } || 1
     end
+  end
+
+  def durations
+    Vehicle.durations.to_h.values.reverse
   end
 
   def apply_favorites(registrations)

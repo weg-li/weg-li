@@ -169,6 +169,10 @@ class Vehicle
       ['bis zu 3 Minuten', 1],
       ['länger als 3 Minuten', 3],
       ['länger als 5 Minuten', 5],
+      ['länger als 10 Minuten', 10],
+      ['länger als 15 Minuten', 15],
+      ['länger als 30 Minuten', 30],
+      ['länger als 45 Minuten', 45],
       ['länger als 1 Stunde', 60],
       ['länger als 3 Stunden', 180],
     ]

@@ -53,17 +53,18 @@ describe Notice do
       expect(notice.duration).to eql(1)
 
       notice.apply_dates([date, date.advance(minutes: 3)])
-
       expect(notice.date).to eql(date)
       expect(notice.duration).to eql(3)
 
-      notice.apply_dates([date, date.advance(minutes: 60)])
+      notice.apply_dates([date, date.advance(minutes: 45)])
+      expect(notice.date).to eql(date)
+      expect(notice.duration).to eql(45)
 
+      notice.apply_dates([date, date.advance(minutes: 60)])
       expect(notice.date).to eql(date)
       expect(notice.duration).to eql(60)
 
       notice.apply_dates([date, date.advance(minutes: 180)])
-
       expect(notice.date).to eql(date)
       expect(notice.duration).to eql(180)
     end
