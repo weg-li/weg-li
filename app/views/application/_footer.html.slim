@@ -2,39 +2,41 @@ footer
   hr.spacer
   .row
     .col-lg-8.col-xs-12
-      ul.clearfix.list-unstyled
+      ul.list-unstyled.clearfix
         li
-          = link_to map_url, title: 'weg-li Karte' do
+          = link_to map_path, title: 'weg-li Karte' do
             <span class="glyphicon glyphicon-map-marker"></span> Karte
         li
-          = link_to stats_url, title: 'weg-li Statistik' do
+          = link_to stats_path, title: 'weg-li Statistik' do
             <span class="glyphicon glyphicon-stats"></span> Statistik
         li
-          = link_to districts_url, title: 'weg-li Bezirke' do
+          = link_to leaderboard_path, title: 'weg-li Leaderboard' do
+            <span class="glyphicon glyphicon-blackboard"></span> Leaderboard
+        li
+          = link_to districts_path, title: 'weg-li Bezirke' do
             <span class="glyphicon glyphicon-list"></span> Bezirke
         li
-          = link_to privacy_url, title: 'weg-li Datenschutz' do
+          = link_to privacy_path, title: 'weg-li Datenschutz' do
             <span class="glyphicon glyphicon-lock"></span> Datenschutz
         li
-          = link_to faq_url, title: 'weg-li FAQ' do
+          = link_to faq_path, title: 'weg-li FAQ' do
             <span class="glyphicon glyphicon-info-sign"></span> FAQ
+
+      hr
+      ul.list-unstyled.clearfix
         li
           = link_to 'https://status.weg-li.de', title: 'weg-li status', target: '_blank' do
             <span class="glyphicon glyphicon-dashboard"></span> Status
+        li
+          = link_to 'https://twitter.com/weg_li', title: '@weg_li on Twitter', target: '_blank' do
+            <span class="glyphicon glyphicon-comment"></span> Twitter
         li
           = link_to 'https://github.com/weg-li', title: 'weg-li on GitHub - We <3 Open-Source!', target: '_blank' do
             <span class="glyphicon glyphicon-heart"></span> GitHub
         li
           = link_to 'https://github.com/sponsors/phoet/', title: 'weg-li Sponsor werden', target: '_blank' do
             <span class="glyphicon glyphicon-piggy-bank"></span> Spenden
-      hr
-      p.spacer.margin-left-small
-        em.text-muted.smaller #{t('footer.references')}:
-      ul.list-unstyled
-        li.references
-          = link_to 'https://www.radioeins.de/programm/sendungen/der_schoene_morgen/rad/app-fuer-aktiv-buerger.html', target: '_blank' do
-            = image_tag 'radioeins-logo.png'
-            em bei radioeins
+
     .col-lg-4.col-xs-12
       address.well.gray-ish
         .pull-left
@@ -52,7 +54,7 @@ footer
     .col-lg-12.text-center
       small.text-muted
         |
-          Die weg-li &beta;eta ist #{link_to('am 1. August 2019 gestartet', 'https://twitter.com/phoet/status/1156893833105485824', target: '_blank')} und jetzt für jeden #{link_to "in über 2.000 Bezirken verfügbar", districts_url }.
+          Die weg-li &beta;eta ist #{link_to('am 1. August 2019 gestartet', 'https://twitter.com/phoet/status/1156893833105485824', target: '_blank')} und jetzt für jeden #{link_to "in über 2.000 Bezirken verfügbar", districts_path }.
           So ist bei weg-li #{link_to "das Jahr 2019 gelaufen", year2019_url } und so #{link_to "läuft es in 2020", year2020_url }.
 
 - if defined?(Puma)
