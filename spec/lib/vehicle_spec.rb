@@ -42,6 +42,7 @@ describe Vehicle do
 
   it "realworld plate matches" do
     expect(Vehicle.plate?("RD WN.200")).to eql(["RD WN 200", 1.0])
+    expect(Vehicle.plate?("»HH GB 382")).to eql(["HH GB 382", 1.0])
     expect(Vehicle.plate?("HHTX 1267")).to eql(["HHTX 1267", 0.8])
     expect(Vehicle.plate?(".HHCG 142")).to eql(["HHCG 142", 0.8])
     expect(Vehicle.plate?("OHH NK 2121")).to eql(["HHNK 2121", 0.5])
