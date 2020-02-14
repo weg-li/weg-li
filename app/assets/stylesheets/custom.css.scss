@@ -126,6 +126,11 @@ $white: rgb(255, 255, 255);
 
 .modal-photo {
   width: 100%;
+  border-radius: 5px;
+}
+
+.item-photo {
+  border-radius: 5px;
 }
 
 ul.photo-list {
@@ -135,9 +140,6 @@ ul.photo-list {
     float: left;
     padding: 0px 5px 5px 0px;
     list-style: none;
-    img.item-photo {
-      border-radius: 5px;
-    }
   }
 }
 ul.droppable-list {
