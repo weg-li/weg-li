@@ -69,7 +69,7 @@
       = form.label :severity, class: "control-label control-label-required"
       = form.select :severity, Notice.severities.keys.map { |key| [Notice.human_attribute_name(key), key]}, { include_blank: 'Behinderung Auswählen' }, { class: "form-control", required: true }
       = hint do
-        | Details zur Behinderung/Gefährdung im Hinweis angeben
+        | Beweisfotos und Hinweise zur Behinderung/Gefährdung beifügen
 
 .row
   .col-lg-8
@@ -88,7 +88,7 @@
       = form.label :duration, class: "control-label control-label-required"
       = form.select :duration, Vehicle.durations, { include_blank: 'Dauer Auswählen' }, { class: "form-control", required: true }
       = hint do
-        | bis 3 Minuten: Halten / ab 3 Minuten: Parken
+        | Halten, bis 3 Minuten / Parken, ab 3 Minuten (Daumenregel)
 
 .row
   .col-lg-8
@@ -102,8 +102,14 @@
       .checkbox
         label
           = form.check_box :vehicle_empty
-          span Das Fahrzeug war verlassen
+          span Das Fahrzeug war verlassen.
       .checkbox
         label
           = form.check_box :hazard_lights
-          span Das Fahrzeug hatte die Warnblinkanlage aktiviert
+          span Das Fahrzeug hatte die Warnblinkanlage aktiviert.
+      .checkbox
+        label
+          = form.check_box :expired_checks
+          span Das Fahrzeug hatte eine abgelaufene TÜV-Plakette.
+      = hint do
+        | Beweisfotos und Hinweise zu den Details beifügen

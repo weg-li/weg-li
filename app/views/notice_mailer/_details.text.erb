@@ -25,6 +25,10 @@ Das Fahrzeug war verlassen.
 
 Das Fahrzeug hatte die Warnblinkanlage aktiviert.
 <% end %>
+<% if notice.expired_checks? %>
+
+Das Fahrzeug hatte eine abgelaufene TÜV-Plakette.
+<% end %>
 <% if notice.note? %>
 
 <%= notice.note %>

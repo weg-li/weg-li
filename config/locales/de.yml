@@ -60,7 +60,7 @@ de:
         charge: 'Verstoß'
         date: 'Datum & Uhrzeit'
         duration: 'Dauer'
-        note: 'Hinweis'
+        note: 'Hinweise'
         empty: 'Verlassen'
         severity: 'Behinderung'
         standard: 'ohne Behinderung'
