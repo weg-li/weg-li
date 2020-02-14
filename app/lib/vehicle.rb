@@ -218,6 +218,7 @@ class Vehicle
       'Parken mit Verbrenner vor Elektroladesäule',
       'Parken auf einer Grünfläche',
       'Parken auf einer Baumscheibe',
+      'Sonstiges Parkvergehen (siehe Hinweise)',
     ]
   end
 end
