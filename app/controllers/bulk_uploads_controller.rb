@@ -83,8 +83,8 @@ class BulkUploadsController < ApplicationController
   end
 
   def destroy
-    notice = current_user.bulk_uploads.find(params[:id])
-    notice.destroy!
+    bulk_upload = current_user.bulk_uploads.find(params[:id])
+    bulk_upload.destroy!
 
     redirect_to bulk_uploads_path, notice: 'Massen-Upload wurde gelöscht'
   end
