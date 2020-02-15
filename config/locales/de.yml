@@ -58,7 +58,7 @@ de:
         kind: 'Art'
         color: 'Farbe'
         charge: 'Verstoß'
-        date: 'Datum & Uhrzeit'
+        date: 'Tatzeitpunkt'
         duration: 'Dauer'
         note: 'Hinweise'
         empty: 'Verlassen'
