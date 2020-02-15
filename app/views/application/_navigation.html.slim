@@ -13,13 +13,17 @@
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Meldungen <span class="caret"></span></a>
             ul.dropdown-menu
               li
+                = link_to new_notice_path do
+                  span.glyphicon.glyphicon-plus>
+                  span.margin-left-small Erfassen
+              li
                 = link_to notices_path do
                   span.glyphicon.glyphicon-th-list>
                   span.margin-left-small Übersicht
               li
-                = link_to new_notice_path do
-                  span.glyphicon.glyphicon-plus>
-                  span.margin-left-small Erfassen
+                = link_to replies_path do
+                  span.glyphicon.glyphicon-inbox>
+                  span.margin-left-small Antworten
               li
                 = link_to map_notices_path do
                   span.glyphicon.glyphicon-map-marker>
@@ -33,13 +37,13 @@
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Massen-Uploads <span class="caret"></span></a>
             ul.dropdown-menu
               li
-                = link_to bulk_uploads_path do
-                  span.glyphicon.glyphicon-th-list>
-                  span.margin-left-small Übersicht
-              li
                 = link_to new_bulk_upload_path do
                   span.glyphicon.glyphicon-cloud-upload>
                   span.margin-left-small Hochladen
+              li
+                = link_to bulk_uploads_path do
+                  span.glyphicon.glyphicon-th-list>
+                  span.margin-left-small Übersicht
 
         - if signed_in? && admin?
           li.dropdown

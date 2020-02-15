@@ -1,0 +1,21 @@
+button type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#modal_#{dom_id(reply)}"
+  span.glyphicon.glyphicon-eye-open>
+  | Ansehen
+
+.modal.fade id="modal_#{dom_id(reply)}" tabindex="-1" role="dialog"
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        button type="button" class="close" data-dismiss="modal" aria-label="Schließen"
+          span aria-hidden="true" &times;
+        h4.modal-title= reply.subject
+      .modal-body
+        = simple_format(reply.content)
+      .modal-footer
+        - if reply.action_mailbox_inbound_email.present?
+          = link_to(rails_blob_path(reply.action_mailbox_inbound_email.raw_email.blob, disposition: "attachment"), class: 'btn btn-sm btn-default', title: 'herunterladen') do
+            span.glyphicon.glyphicon-download>
+            | Herunterladen
+        button type="button" class="btn btn-sm btn-default" data-dismiss="modal"
+          span.glyphicon.glyphicon-remove>
+          | Schließen

@@ -1,6 +1,6 @@
 .panel.panel-default
   .panel-heading
-    strong E-Mail Posteingang
+    strong Antworten
 
   .table-responsive
     table.table.table-striped.table-hover
@@ -11,28 +11,9 @@
           th= Reply.human_attribute_name(:subject)
           th= Reply.human_attribute_name(:content)
       tbody
-        - replies.each_with_index do |reply, index|
+        - replies.each_with_index do |reply|
           tr
             td(nowrap)= l(reply.created_at, format: :short)
             td= mail_to(reply.sender)
             td= reply.subject
-            td
-              button type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#modal_#{dom_id(reply)}"
-                span.glyphicon.glyphicon-eye-open>
-                | Ansehen
-
-          .modal.fade id="modal_#{dom_id(reply)}" tabindex="-1" role="dialog"
-            .modal-dialog.modal-lg
-              .modal-content
-                .modal-header
-                  button type="button" class="close" data-dismiss="modal" aria-label="Schließen"
-                    span aria-hidden="true" &times;
-                  h4.modal-title Antwort ##{index + 1}
-                .modal-body
-                  = simple_format(reply.content)
-                .modal-footer
-                  - if reply.action_mailbox_inbound_email.present?
-                    = link_to(rails_blob_path(reply.action_mailbox_inbound_email.raw_email.blob, disposition: "attachment"), class: 'btn btn-sm btn-default', title: 'Original herunterladen') do
-                      span.glyphicon.glyphicon-download>
-                      | Original herunterladen
-                  button type="button" class="btn btn-sm btn-default" data-dismiss="modal" Schließen
+            td= render('reply_modal_button', reply: reply)

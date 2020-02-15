@@ -94,6 +94,7 @@ de:
   slogan_2: "Macht die Bahn frei!"
   navigation:
     notices: 'Meldungen'
+    replies: 'Antworten'
     map: 'Kartenansicht'
     draft: 'Erfassen'
     dashboard: 'Übersicht'
@@ -202,11 +203,13 @@ de:
       photos:
         title: Hochladen
         description: Der Massen-Upload ermöglicht es viele Beweisfotos für unterschiedliche Meldungen auf einmal hochzuladen. Durch die Gruppierungsfunktion können anschließend schnell neue Meldungen erzeugt werden.
+  replies:
+    nothing_found: 'Keine Antworten gefunden'
   notices:
     new_notice: 'Neue Meldung'
     create_button: 'Meldung erstellen'
     manage_your_history: 'Verwalte Deine Meldungen'
-    nothing_found: 'Leider gibt es für diesen Filter keine Ergebnisse.'
+    nothing_found: 'Keine Meldungen gefunden'
     status:
       open: 'offen'
       disabled: 'deaktiviert'

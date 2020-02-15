@@ -28,19 +28,25 @@
             .modal-footer
               - if access?(:admin)
                 = link_to(inspect_notice_path(notice, photo_id: photo.id), class: 'btn btn-sm btn-default', title: 'inspect', target: '_blank') do
-                  span.glyphicon.glyphicon-flash
+                  span.glyphicon.glyphicon-flash>
+                  | Analyse
 
               - if access?(:community)
                 = link_to(colors_notice_path(notice, photo_id: photo.id), class: 'btn btn-sm btn-default', title: 'colors', target: '_blank') do
-                  span.glyphicon.glyphicon-tint
+                  span.glyphicon.glyphicon-tint>
+                  | Palette
 
               - unless publicly
                 = link_to(purge_notice_path(notice, photo_id: photo.id), method: :patch, data: {confirm: t('notices.confirm')}, class: 'btn btn-sm btn-default', title: 'löschen') do
-                  span.glyphicon.glyphicon-trash
+                  span.glyphicon.glyphicon-trash>
+                  | Löschen
 
               = link_to(rails_blob_path(photo, disposition: "attachment"), class: 'btn btn-sm btn-default', title: 'herunterladen') do
-                span.glyphicon.glyphicon-download
-              button type="button" class="btn btn-sm btn-default" data-dismiss="modal" Schließen
+                span.glyphicon.glyphicon-download>
+                | Herunterladen
+              button type="button" class="btn btn-sm btn-default" data-dismiss="modal"
+                span.glyphicon.glyphicon-remove>
+                | Schließen
 
 - if upload
   .modal.fade id="modal_photo_upload" tabindex="-1" role="dialog"
@@ -56,4 +62,6 @@
             = render 'components/photos_form', form: form
           .modal-footer
             = form.submit 'hochladen', class: "btn btn-sm btn-success" do
-            button type="button" class="btn btn-sm btn-default" data-dismiss="modal" Schließen
+            button type="button" class="btn btn-sm btn-default" data-dismiss="modal"
+              span.glyphicon.glyphicon-remove>
+              | Schließen

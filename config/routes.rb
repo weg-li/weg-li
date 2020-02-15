@@ -29,6 +29,8 @@ Rails.application.routes.draw do
 
   post "/analyze_direct_upload" => "direct_uploads#analyze", as: :direct_upload_analyze
 
+  resources :replies
+
   resources :bulk_uploads do
     member do
       patch :purge
