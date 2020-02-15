@@ -18,7 +18,7 @@ class Notice < ActiveRecord::Base
     Notice.bitfields[:flags].keys.each { |key| template.add(key) }
   end
 
-  attr_accessor :tweet_url
+  attribute :tweet_url, type: :string
 
   before_validation :defaults
 
