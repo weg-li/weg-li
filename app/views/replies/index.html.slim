@@ -55,8 +55,8 @@
                 td(nowrap)= l(reply.created_at, format: :short, default: '-')
                 td= mail_to(reply.sender)
                 td= reply.subject
-                td= link_to l(reply.notice.date, format: :short, default: '-'), reply.notice
-                td= link_to reply.notice.registration, reply.notice
+                td(nowrap)= link_to l(reply.notice.date, format: :short, default: '-'), reply.notice
+                td(nowrap)= link_to reply.notice.registration, reply.notice
                 td= render('notices/reply_modal_button', reply: reply)
 
           - else
