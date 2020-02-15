@@ -114,4 +114,4 @@
     .panel.panel-default
       .panel-heading= t('users.actions')
       .panel-body
-        = button_to t('users.delete_account'), user_path(current_user), method: :delete, class: "btn btn-danger btn-block"
+        = button_to t('users.delete_account'), user_path(current_user), method: :delete, data: {confirm: 'Den Account und alle Daten wirklich löschen?'}, class: "btn btn-danger btn-block"
