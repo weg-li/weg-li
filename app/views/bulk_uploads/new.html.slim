@@ -10,3 +10,25 @@
       .pull-right
         .btn-group
           = form.submit 'hochladen & zuordnen', class: "btn btn-success"
+
+- if access?(:community)
+  hr.spacer
+
+  .well.well-sm.callout-info
+    small
+      |
+        Bla
+
+  = form_for @bulk_upload, url: import_bulk_uploads_path, method: :post do |form|
+    .row
+      .col-lg-12
+        = form.label :shared_album_url, 'Photo-Album', class: "control-label control-label-required"
+        = form.text_field :shared_album_url, class: "form-control", required: true, placeholder: 'https://photos.app.goo.gl/X4KX7AXNjXXu69Uf9'
+
+    hr
+
+    .row
+      .col-lg-12
+        .pull-right
+          .btn-group
+            = form.submit "Bilder aus Album importieren", class: "btn btn-success"

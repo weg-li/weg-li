@@ -5,6 +5,8 @@ class BulkUpload < ActiveRecord::Base
 
   enum status: {initial: 0, processing: 1, open: 2, done: 3}
 
+  attribute :shared_album_url, type: :string
+
   validates :photos, presence: :true, unless: ->() { done? }
 
   def self.for_reminder
