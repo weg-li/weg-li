@@ -115,7 +115,7 @@ class NoticesController < ApplicationController
 
       next unless filename =~ /jpg|jpeg/
 
-      notice.photos.attach(io: open(media.media_url_https), filename: filename, content_type: "image/jpg")
+      notice.photos.attach(io: open(media.media_url_https), filename: filename, content_type: "image/jpeg")
     end
 
     notice.analyze!
