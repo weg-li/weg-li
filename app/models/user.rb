@@ -27,6 +27,10 @@ class User < ActiveRecord::Base
   scope :for_public, -> () { not_hide_public_profile }
   scope :active, -> () { where('access >= 0') }
 
+  def self.from_param(token)
+    find_by!(token: token)
+  end
+
   def validate!
     auth = authorizations.find_or_initialize_by(provider: 'email')
     auth.update! uid: email_uid
