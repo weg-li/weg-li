@@ -64,7 +64,7 @@
                   span.glyphicon.glyphicon-edit>
                   span.margin-left-small= t('navigation.edit_profile')
               li
-                = link_to public_profile_path(current_user.token) do
+                = link_to public_profile_path(current_user) do
                   span.glyphicon.glyphicon-user>
                   span.margin-left-small= t('navigation.view_profile')
           li(data-no-turbolink)

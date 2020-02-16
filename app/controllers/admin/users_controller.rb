@@ -1,10 +1,10 @@
 module Admin
-  class UsersController < Admin::ApplicationController  
+  class UsersController < Admin::ApplicationController
     # To customize the behavior of this controller,
     # you can overwrite any of the RESTful actions. For example:
     #
     def login
-      user = User.find(params[:user_id])
+      user = User.from_param(params[:user_id])
       sign_in_alias(user)
 
       redirect_to root_path, notice: "Signed in as #{user.name}"

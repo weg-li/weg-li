@@ -34,6 +34,8 @@ class UserDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :id,
+    :token,
+    :created_at,
     :nickname,
     :name,
     :access,
@@ -44,7 +46,6 @@ class UserDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
     :notices,
     :authorizations,
-  
     :id,
     :email,
     :nickname,
