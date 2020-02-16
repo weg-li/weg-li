@@ -166,6 +166,8 @@ class NoticesController < ApplicationController
     notice.update! user: current_user
 
     redirect_to(notice, notice: "Meldung wurde in Deinen Account übernommen.")
+  rescue JWT::ExpiredSignature
+    redirect_to(notices_path, alert: "Der Link ist leider schon abgelaufen!")
   end
 
   def status
