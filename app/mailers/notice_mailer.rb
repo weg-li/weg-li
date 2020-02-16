@@ -15,4 +15,13 @@ class NoticeMailer < ApplicationMailer
      reply_to: email_address_with_name(@user.email, @user.name),
      from: email_address_with_name(@notice.wegli_email, @user.name)
   end
+
+  def forward(notice, token)
+    @notice = notice
+    @user = notice.user
+    @token = token
+
+    subject = "Anzeige weiterleiten: #{@notice.registration} #{@notice.charge}"
+    mail subject: subject, to: email_address_with_name(@user.email, @user.name)
+  end
 end

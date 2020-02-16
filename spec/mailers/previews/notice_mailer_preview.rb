@@ -5,4 +5,11 @@ class NoticeMailerPreview < ActionMailer::Preview
 
     NoticeMailer.charge(notice)
   end
+
+  def forward
+    notice = Notice.shared.first!
+
+    token = '12345t5r65t4regafsvcbsgasfdffdf'
+    NoticeMailer.forward(notice, token)
+  end
 end

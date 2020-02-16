@@ -151,6 +151,23 @@ class NoticesController < ApplicationController
     @mail = NoticeMailer.charge(@notice)
   end
 
+  def forward
+    notice = current_user.notices.from_param(params[:id])
+    token = Token.generate(current_user.token)
+    NoticeMailer.forward(notice, token).deliver_later
+
+    redirect_to(notices_path, notice: "Eine E-Mail mit einem geheimen Link zum Weiterleiten ist zu Dir unterwegs.")
+  end
+
+  def retrieve
+    token = Token.decode(params[:token])
+    user = User.from_param(token['iss'])
+    notice = user.notices.open.from_param(params[:id])
+    notice.update! user: current_user
+
+    redirect_to(notice, notice: "Meldung wurde in Deinen Account übernommen.")
+  end
+
   def status
     @notice = current_user.notices.from_param(params[:id])
     @notice.update!(status: :shared)

@@ -50,6 +50,8 @@ Rails.application.routes.draw do
       get :prepare
       get :suggest
       get :pdf
+      get :retrieve
+      patch :forward
       patch :status
       patch :duplicate
       patch :polish

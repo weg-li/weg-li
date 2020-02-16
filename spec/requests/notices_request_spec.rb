@@ -119,13 +119,47 @@ describe 'notices', type: :request do
     end
   end
 
-  context "PATCH :share" do
-    it "sends a mail to share recipient" do
+  context "GET :share" do
+    it "renders the share preview" do
+      get share_notice_path(notice)
+
+      expect(response).to be_successful
+    end
+  end
+
+  context "PATCH :mail" do
+    it "sends a mail to recipient" do
       expect {
         patch mail_notice_path(notice)
 
         expect(response).to be_redirect
       }.to have_enqueued_job(ActionMailer::MailDeliveryJob)
+    end
+  end
+
+  context "PATCH :forward" do
+    it "sends a mail for forwarding" do
+      expect {
+        patch forward_notice_path(notice)
+
+        expect(response).to be_redirect
+      }.to have_enqueued_job(ActionMailer::MailDeliveryJob)
+    end
+  end
+
+  context "GET :retrieve" do
+    let(:other_notice) { Fabricate(:notice) }
+    let(:other_user) { other_notice.user }
+    let(:token) { Token.generate(other_user.token) }
+
+    it "retrieves a forwarded notice" do
+      expect {
+        get retrieve_notice_path(other_notice), params: { token: token }
+
+        expect(response).to be_redirect
+      }.to change {
+        other_notice.reload.user
+      }.from(other_user).to(user)
     end
   end
 
@@ -139,7 +173,7 @@ describe 'notices', type: :request do
     end
   end
 
-  context "DELTE :destroy" do
+  context "DELETE :destroy" do
     it "should destroy the notice" do
       notice = Fabricate(:notice, user: user)
 

@@ -15,4 +15,14 @@ describe NoticeMailer do
       expect(mail.attachments.size).to be(1)
     end
   end
+
+  describe "forward" do
+    let(:token) { 'adlsfkjadskfjhdshkajndfasl' }
+    it "renders the mail" do
+      mail = NoticeMailer.forward(notice, token)
+
+      expect(mail.subject).to match('Anzeige weiterleiten')
+      expect(mail.to).to eq([user.email])
+    end
+  end
 end
