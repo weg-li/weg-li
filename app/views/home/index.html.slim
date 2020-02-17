@@ -69,12 +69,29 @@
         li.list-group-item
           span.badge Überall
           | 👍 Diese und viele weitere tolle Projekte rund um das Thema Radfahren findet ihr bei #{link_to 'Awesome Bikeprojects', 'https://github.com/mltbnz/awesome-bikeprojects'}.
+
+  .spacer-large
+
+  .row
+    .col-lg-12
+      h3 🌟 Neue Funktionen:
+
+      ul.list-group
         li.list-group-item
-          span.badge weg-li
-          | 📃 Dein Ordnungsamt verweigert die Annahme von Anzeigen per E-Mail? Einfach Meldung als PDF herunterladen und offline anzeigen!
-        li.list-group-item
-          span.badge weg-li
+          span.badge neu
           | 💖 Als Sponsor kannst Du jetzt weg-li direkt mit #{link_to 'einer monatlichen Spende', 'https://github.com/sponsors/phoet/'} unterstützen.
+        li.list-group-item
+          span.badge neu
+          | 🎁 Unerfahrenen Benutzern kannst Du als alter weg-li Haase jetzt direkt Helfen und eine Meldung für sie vorbereiten und dann an ihren Account weiterleiten!
+        li.list-group-item
+          span.badge neu
+          | 🌇 Als Benutzer von Google-Photos kannst Du nun Beweisfotos direkt über ein geteiltes Album in einen #{link_to 'Massen-Upload', new_bulk_upload_path} importieren!
+        li.list-group-item
+          span.badge neu
+          | 📃 Dein Ordnungsamt verweigert die Annahme von Anzeigen per E-Mail? Einfach Meldungen in der Übersicht als PDF herunterladen und Anzeige erstatten!
+        li.list-group-item
+          span.badge neu
+          | ✍️ Für die generierten PDFs kannst Du #{link_to 'in Deinem Profil', edit_user_path} eine Unterschrift hinterlegen!
 
 - else
   .page-header
