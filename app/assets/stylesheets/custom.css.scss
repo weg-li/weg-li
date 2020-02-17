@@ -227,9 +227,6 @@ ul.droppable-list {
 .glyphicon-access-disabled:before {
   content: "\e090";
 }
-.glyphicon-access-ghost:before {
-  content: "\002a";
-}
 .glyphicon-access-user:before {
   content: "\e008";
 }
@@ -242,9 +239,6 @@ ul.droppable-list {
 
 .label-access-disabled {
   background-color: $warning-color;
-}
-.label-access-ghost {
-  background-color: $default-color;
 }
 .label-access-user {
   background-color: $primary-color;

@@ -67,10 +67,6 @@ class Notice < ActiveRecord::Base
     }
   end
 
-  def self.prepared_claim(token)
-    Notice.joins(:user).where({ users: { access: :ghost} }).find_by(token: token)
-  end
-
   def wegli_email
     "#{token}@anzeige.weg-li.de"
   end

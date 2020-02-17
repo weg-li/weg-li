@@ -158,7 +158,6 @@ de:
       admin: 'Admin'
       community: 'Community'
       user: 'User'
-      ghost: 'Ghost'
       disabled: 'Disabled'
     statistics:
       all: 'Meldungen insgesamt'

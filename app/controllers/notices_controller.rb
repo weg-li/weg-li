@@ -1,6 +1,6 @@
 class NoticesController < ApplicationController
   before_action :authenticate!
-  before_action :authenticate_community_user!, only: [:prepare, :polish, :colors]
+  before_action :authenticate_community_user!, only: [:colors]
   before_action :authenticate_admin_user!, only: [:inspect]
   before_action :validate!, except: [:index]
 
@@ -88,52 +88,6 @@ class NoticesController < ApplicationController
       redirect_to [:share, @notice], notice: 'Meldung wurde gespeichert'
     else
       render :edit
-    end
-  end
-
-  def import
-    tweet = Twttr.client.status(notice_import_params[:tweet_url], tweet_mode: :extended)
-    nickname = tweet.user.screen_name
-    if User.where(nickname: nickname).any?
-      redirect_to new_notice_path, notice: "Der Nutzer #{nickname} besteht bereits im System"
-      return
-    end
-
-    import_user = User.new(nickname: nickname, name: tweet.user.name, city: tweet.user.location, access: :ghost)
-    import_user.save(validate: false)
-
-    notice = import_user.notices.build(notice_import_params)
-    notice.date = tweet.created_at
-    notice.note = tweet.attrs[:full_text]
-    coordinates = (tweet.geo || tweet.coordinates)&.coordinates
-    if coordinates.present?
-      notice.longitude = coordinates.first
-      notice.latitude = coordinates.last
-    end
-    tweet.media.each do |media|
-      filename = media.media_url_https.basename
-
-      next unless filename =~ /jpg|jpeg/
-
-      notice.photos.attach(io: open(media.media_url_https), filename: filename, content_type: "image/jpeg")
-    end
-
-    notice.analyze!
-
-    redirect_to prepare_notice_path(notice), notice: 'Eine Meldung mit Beweisfotos wurde importiert, bitte vervollständigen'
-  end
-
-  def prepare
-    @notice = Notice.prepared_claim(params[:id])
-  end
-
-  def polish
-    @notice = Notice.prepared_claim(params[:id])
-
-    if @notice.update(notice_update_params)
-      redirect_to public_charge_path(@notice), notice: 'Meldung wurde gespeichert und kann jetzt weitergeleitet werden'
-    else
-      render :prepare
     end
   end
 

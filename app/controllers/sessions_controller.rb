@@ -74,7 +74,7 @@ class SessionsController < ApplicationController
     check_existing_user(email)
 
     nickname = @auth['info']['nickname']
-    @user = User.ghost.find_by(nickname: nickname) || User.new(nickname: nickname)
+    @user = User.new(nickname: nickname)
     @user.email = email
   end
 
@@ -93,10 +93,7 @@ class SessionsController < ApplicationController
       attributes[:email] = session[:email_auth_address]
       attributes[:validation_date] = Time.now
     end
-    nickname = @auth['info']['nickname']
-    @user = User.ghost.find_by(nickname: nickname) || User.new
-    @user.assign_attributes(attributes)
-    @user.access = :user
+    @user = User.new(attributes)
     @user.authorizations.build provider: @auth['provider'], uid: @auth['uid']
 
     if @user.save

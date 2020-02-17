@@ -1,5 +1,5 @@
 - set_title t('navigation.bulk_uploads')
-- set_crumbs t('navigation.bulk_uploads') => bulk_uploads_path, 'hochladen' => url_for
+- set_crumbs t('navigation.bulk_uploads') => bulk_uploads_path, 'Hochladen' => url_for
 
 = form_errors @bulk_upload
 = form_for @bulk_upload do |form|
@@ -9,7 +9,7 @@
     .col-lg-12
       .pull-right
         .btn-group
-          = form.submit 'hochladen & zuordnen', class: "btn btn-success"
+          = form.submit 'Hochladen & Zuordnen', class: "btn btn-success"
 
 hr.spacer
 
@@ -31,4 +31,4 @@ hr.spacer
     .col-lg-12
       .pull-right
         .btn-group
-          = form.submit "importieren & zuordnen", class: "btn btn-success"
+          = form.submit "Importieren & Zuordnen", class: "btn btn-success"

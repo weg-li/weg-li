@@ -1,5 +1,5 @@
 - set_title t('notices.new_notice')
-- set_crumbs t('navigation.notices') => notices_path, 'erfassen' => url_for
+- set_crumbs t('navigation.notices') => notices_path, 'Erfassen' => url_for
 
 = render 'three_step', step: :first
 
@@ -11,28 +11,4 @@
     .col-lg-12
       .pull-right
         .btn-group
-          = form.submit 'hochladen', class: "btn btn-success"
-
-- if access?(:community)
-  hr.spacer
-
-  .well.well-sm.callout-info
-    small
-      |
-        Die Daten des Tweets werden kopiert und es wird ein neuer Nutzer dem Twitter-User entsprechend angelegt.
-        Der Twitter-User hat dann über die öffentlich erreichbare Meldung den möglichkeit diese zu claimen.
-        Dafür muss er nur den Button drücken und sich anschließend per Twitter-OAuth registrieren.
-
-  = form_for @notice, url: import_notices_path, method: :post do |form|
-    .row
-      .col-lg-12
-        = form.label :tweet_url, 'Tweet', class: "control-label control-label-required"
-        = form.text_field :tweet_url, class: "form-control", required: true, placeholder: 'https://twitter.com/AlbrechtSelge/status/1010844968255148032'
-
-    hr
-
-    .row
-      .col-lg-12
-        .pull-right
-          .btn-group
-            = form.submit "fürs claimen importieren", class: "btn btn-success"
+          = form.submit 'Hochladen', class: "btn btn-success"
