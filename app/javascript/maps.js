@@ -118,7 +118,12 @@ class GMultiMap {
       const position = new google.maps.LatLng(notice.latitude, notice.longitude);
       bounds.extend(position);
 
-      const marker = new google.maps.Marker({ position, map, title: notice.charge });
+      const options = { position, map, title: notice.charge };
+      if (notice.current_user) {
+        options.label = 'U';
+        options.opacity = 0.8;
+      }
+      const marker = new google.maps.Marker(options);
       addInfoWindow(map, marker, recentWindow, notice);
     });
     if (!bounds.isEmpty()) {

@@ -162,13 +162,14 @@ class Notice < ActiveRecord::Base
     "#{street.split(',').first}, #{zip}, #{city}, Deutschland"
   end
 
-  def map_data(kind = :public)
+  def map_data(kind = :public, current_user: nil)
     basic = {
       latitude: latitude,
       longitude: longitude,
       charge: charge,
       date: date,
       zip: zip,
+      current_user: current_user == user,
     }
 
     case kind
