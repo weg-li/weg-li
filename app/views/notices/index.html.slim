@@ -140,19 +140,19 @@
                 li
                   = button_tag name: :bulk_action, value: :share, type: :submit, class: 'btn btn-link', data: {confirm: 'Bei offenen Meldungen jetzt Anzeige erstatten?'}
                     span.glyphicon.glyphicon-share>
-                    span Auswahl anzeigen
+                    span bei Auswahl Anzeigen erstatten
                 li
                   = button_tag name: :bulk_action, value: :pdf, type: :submit, class: 'btn btn-link', data: {confirm: 'Die vollständigen Meldungen als PDF per E-Mail zuschicken?'}
                     span.glyphicon.glyphicon-save-file>
-                    span Auswahl als PDF
+                    span bei Auswahl als PDF zuschicken
                 li
                   = button_tag name: :bulk_action, value: :status, type: :submit, class: 'btn btn-link', data: {confirm: 'Die vollständigen Meldungen als gemeldet markieren?'}
                     span.glyphicon.glyphicon-status-shared>
-                    span Auswahl gemeldet
+                    span bei Auswahl 'gemeldet' markieren
                 li
                   = button_tag name: :bulk_action, value: :destroy, type: :submit, class: 'btn btn-link', data: {confirm: 'Die offenen Meldungen endgültig löschen?'}
                     span.glyphicon.glyphicon-trash>
-                    span Auswahl löschen
+                    span bei Auswahl endgültig löschen
 
   .text-center
     = paginate @notices
