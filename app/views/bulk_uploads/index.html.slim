@@ -15,11 +15,18 @@
             th= BulkUpload.human_attribute_name(:photos)
             th
               => BulkUpload.human_attribute_name(:created_at)
-              = link_to url_for(@table_params.merge(order: {created_at: @order_created_at}))
-                - if params[:order] && params[:order][:created_at] == 'ASC'
-                  span.glyphicon.glyphicon-arrow-up.smaller
+              - if params.dig(:order, :column) == 'created_at'
+                - if params.dig(:order, :value) == 'ASC'
+                  = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'DESC'}))
+                    span.glyphicon.glyphicon-arrow-up.smaller
                 - else
-                  span.glyphicon.glyphicon-arrow-down.smaller
+                  = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'}))
+                    span.glyphicon.glyphicon-arrow-down.smaller
+                = link_to url_for(@table_params.merge(order: {}))
+                  span.text-muted.glyphicon.glyphicon-remove.smaller
+              - else
+                = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'}))
+                  span.glyphicon.glyphicon-arrow-up.smaller.text-muted
             th
               .dropdown
                 button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"

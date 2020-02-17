@@ -42,7 +42,7 @@
                   span.text-muted.glyphicon.glyphicon-remove.smaller
               - else
                 = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'}))
-                  span.glyphicon.glyphicon-arrow-down.smaller.text-muted
+                  span.glyphicon.glyphicon-arrow-up.smaller.text-muted
             th= Reply.human_attribute_name(:sender)
             th= Reply.human_attribute_name(:subject)
             th= Notice.human_attribute_name(:date)

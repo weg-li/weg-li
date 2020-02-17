@@ -8,9 +8,8 @@ class BulkUploadsController < ApplicationController
     @bulk_uploads = current_user.bulk_uploads.page(params[:page])
     if order = params[:order]
       @table_params[:order] = order.to_unsafe_hash
-      if order[:created_at]
-        @bulk_uploads = @bulk_uploads.reorder(created_at: order[:created_at])
-        @order_created_at = 'DESC' if order[:created_at] == 'ASC'
+      if order[:column].present? && order[:value].present?
+        @bulk_uploads = @bulk_uploads.reorder(order[:column] => order[:value])
       end
     end
   end

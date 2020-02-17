@@ -38,20 +38,7 @@
           thead
             tr
               th
-              th
-                => Notice.human_attribute_name(:registration)
-                - if params.dig(:order, :column) == 'registration'
-                  - if params.dig(:order, :value) == 'ASC'
-                    = link_to url_for(@table_params.deep_merge(order: {column: :registration, value: 'DESC'}))
-                      span.glyphicon.glyphicon-arrow-up.smaller
-                  - else
-                    = link_to url_for(@table_params.deep_merge(order: {column: :registration, value: 'ASC'}))
-                      span.glyphicon.glyphicon-arrow-down.smaller
-                  = link_to url_for(@table_params.merge(order: {}))
-                    span.text-muted.glyphicon.glyphicon-remove.smaller
-                - else
-                  = link_to url_for(@table_params.deep_merge(order: {column: :registration, value: 'ASC'}))
-                    span.glyphicon.glyphicon-arrow-down.smaller.text-muted
+              th= Notice.human_attribute_name(:registration)
               th= Notice.human_attribute_name(:photos)
               th
                 => Notice.human_attribute_name(:created_at)
@@ -66,7 +53,7 @@
                     span.text-muted.glyphicon.glyphicon-remove.smaller
                 - else
                   = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'}))
-                    span.glyphicon.glyphicon-arrow-down.smaller.text-muted
+                    span.glyphicon.glyphicon-arrow-up.smaller.text-muted
               th
                 => Notice.human_attribute_name(:date)
                 - if params.dig(:order, :column) == 'date'
@@ -80,7 +67,7 @@
                     span.text-muted.glyphicon.glyphicon-remove.smaller
                 - else
                   = link_to url_for(@table_params.deep_merge(order: {column: :date, value: 'ASC'}))
-                    span.glyphicon.glyphicon-arrow-down.smaller.text-muted
+                    span.glyphicon.glyphicon-arrow-up.smaller.text-muted
               th
                 .dropdown
                   button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown"
