@@ -8,7 +8,7 @@
     .panel-heading
       .row
         .col-xs-8
-          = link_to new_notice_path, class: 'btn btn-sm btn-success', title: 'Meldung erfassen' do
+          = link_to new_notice_path, class: 'btn btn-sm btn-success', title: 'Meldung erfassen'
             span.glyphicon.glyphicon-plus>
             | Meldung erfassen
         .col-xs-4.text-right
@@ -32,7 +32,7 @@
                   span.glyphicon.glyphicon-remove>
                   | ohne Suche
 
-    = form_tag bulk_notices_path, method: :post do
+    = form_tag bulk_notices_path, method: :post
       .table-responsive
         table.table.table-striped.table-hover
           thead
@@ -90,7 +90,7 @@
                   ul.dropdown-menu.dropdown-menu-right
                     - Notice.statuses.keys.each do |status|
                       li
-                        = link_to url_for(@table_params.merge(filter: {status: status})) do
+                        = link_to url_for(@table_params.merge(filter: {status: status}))
                           = render 'status', status: status
                     li role="separator" class="divider"
                     li
@@ -108,14 +108,18 @@
                       = render 'actions', notice: notice
                   td
                     - if notice.incomplete?
-                      = link_to([:edit, notice]) do
+                      = link_to([:edit, notice])
                         = render 'status', status: :incomplete
-                    - else
+                    - elsif notice.shared?
                       = link_to(notice)
                         span.label.label-license
                           span= notice.registration
+                    - else
+                      = link_to([:edit, notice])
+                        span.label.label-license
+                          span= notice.registration
                   td
-                    = link_to(notice) do
+                    = link_to(notice)
                       - notice.photos.each do |photo|
                         = image_tag(url_for_photo(photo, size: :thumb), class: 'index-photo')
                   td(nowrap)= link_to(d(notice.created_at), notice)
