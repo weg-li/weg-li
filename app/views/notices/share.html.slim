@@ -63,11 +63,10 @@ hr.spacer
                   = link_to pdf_notice_path(@notice)
                     span.glyphicon.glyphicon-save-file>
                     | Meldung als PDF
-                - if access?(:community)
-                  li
-                    = link_to forward_notice_path(@notice), method: :patch
-                      span.glyphicon.glyphicon-forward>
-                      | Meldung weiterleiten
+                li
+                  = link_to forward_notice_path(@notice), method: :patch
+                    span.glyphicon.glyphicon-forward>
+                    | Meldung weiterleiten
                 li
                   = link_to public_charge_path(@notice)
                     span.glyphicon.glyphicon-globe>

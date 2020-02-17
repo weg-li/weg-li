@@ -11,17 +11,21 @@ ul.dropdown-menu
         | Meldung bearbeiten
   - elsif notice.open?
     li
-      = link_to edit_notice_path(notice)
-        span.glyphicon.glyphicon-edit>
-        | Meldung bearbeiten
-    li
       = link_to share_notice_path(notice)
         span.glyphicon.glyphicon-share>
         | Anzeige erstatten
     li
+      = link_to edit_notice_path(notice)
+        span.glyphicon.glyphicon-edit>
+        | Meldung bearbeiten
+    li
+      = link_to forward_notice_path(notice), method: :patch
+        span.glyphicon.glyphicon-forward>
+        | Meldung weiterleiten
+    li
       = link_to status_notice_path(notice), data: {confirm: 'Die Meldung wird als gemeldet markiert'}, method: :patch
         span.glyphicon.glyphicon-status-shared>
-        span Meldung als gemeldet
+        span als gemeldet markieren
 
   li
     = link_to notice_path(notice)
