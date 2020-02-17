@@ -11,24 +11,24 @@
         .btn-group
           = form.submit 'hochladen & zuordnen', class: "btn btn-success"
 
-- if access?(:community)
-  hr.spacer
+hr.spacer
 
-  .well.well-sm.callout-info
-    small
-      |
-        Massen-Uploads können auch via Google-Photos mittels eines geteilten Albums erzeugt werden. Einfach Link zur Shared-Library einfügen und importiern lassen!
+.well.well-sm.callout-info
+  small
+    |
+      Massen-Uploads können auch via Google-Photos mittels eines geteilten Albums erzeugt werden. Einfach Link zur Shared-Library einfügen und importiern lassen!
+      In den Einstellungen von Google-Photos sollte bei Teilen die Checkbox "Standortinformationen entfernen" deaktiviert sein.
 
-  = form_for @bulk_upload, url: import_bulk_uploads_path, method: :post do |form|
-    .row
-      .col-lg-12
-        = form.label :shared_album_url, 'Photo-Album', class: "control-label control-label-required"
-        = form.text_field :shared_album_url, class: "form-control", required: true, placeholder: 'https://photos.app.goo.gl/X4KX7AXNjXXu69Uf9'
+= form_for @bulk_upload, url: import_bulk_uploads_path, method: :post do |form|
+  .row
+    .col-lg-12
+      = form.label :shared_album_url, 'Photo-Album', class: "control-label control-label-required"
+      = form.text_field :shared_album_url, class: "form-control", required: true, placeholder: 'https://photos.app.goo.gl/X4KX7AXNjXXu69Uf9'
 
-    hr
+  hr
 
-    .row
-      .col-lg-12
-        .pull-right
-          .btn-group
-            = form.submit "Bilder aus Album importieren", class: "btn btn-success"
+  .row
+    .col-lg-12
+      .pull-right
+        .btn-group
+          = form.submit "Bilder aus Album importieren", class: "btn btn-success"
