@@ -15,6 +15,13 @@ ActiveStorage::RepresentationsController.instance_eval do
       redirect_to(request.url, status: 302)
     }
   )
+  rescue_from(
+    ActiveStorage::FileNotFoundError,
+    with: lambda {
+      response.set_header('Retry-After', 2)
+      redirect_to(request.url, status: 302)
+    }
+  )
   rescue_from(ActiveRecord::RecordNotFound, with: lambda { head(404) })
 end
 
