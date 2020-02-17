@@ -27,6 +27,7 @@ describe Vehicle do
 
   it "it normalizes strings" do
     expect(Vehicle.normalize("|_ HH EH 1327")).to eql("HH-EH-1327")
+    expect(Vehicle.normalize("MAR 37:42")).to eql("MAR-3742")
   end
 
   it "it checks possible plate matches" do
@@ -56,6 +57,7 @@ describe Vehicle do
     expect(Vehicle.plate?("HK IP 5000")).to eql(["HK IP 5000", 1.0])
     expect(Vehicle.plate?("BN X 1681 E")).to eql(["BN X 1681 E", 1.0])
     expect(Vehicle.plate?("MODX 7106")).to eql(["MDX 7106", 0.8])
+    expect(Vehicle.plate?("MAR 37:42")).to eql(["MAR 3742", 0.8])
   end
 
   it "most likely" do

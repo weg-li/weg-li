@@ -55,7 +55,8 @@ class Vehicle
     tokens = "[ •»„.,:;\"'()|_+-]"
     left = Regexp.new("^#{tokens}+")
     right = Regexp.new("#{tokens}+$")
-    text.gsub(left, '').gsub(right, '').gsub(/\W+/,'-')
+    middle = Regexp.new("(\\d+)#{tokens}+(\\d+)")
+    text.gsub(left, '').gsub(right, '').gsub(middle, '\1\2').gsub(/\W+/,'-')
   end
 
   def self.clean_regex
