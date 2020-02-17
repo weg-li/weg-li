@@ -2,10 +2,10 @@
   .panel-heading Anzeige: #{@notice.registration} #{@notice.charge}
   .panel-body
     .row
-      .col-lg-8
+      .col-lg-6
         = render 'details', notice: @notice
 
-      .col-lg-4
+      .col-lg-6
         = render 'components/photos', notice: @notice, publicly: true
 
 - if @notice.coordinates?
