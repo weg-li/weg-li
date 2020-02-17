@@ -41,7 +41,7 @@ describe 'Notices API' do
       parameter name: :id, in: :path, schema: { type: :string }
       security [ ApiKeyAuth: 'X-API-KEY' ]
 
-      response '200', 'name found' do
+      response '200', 'notice found' do
         schema type: :object,
           properties: {
             token: { type: :string, },
@@ -58,8 +58,8 @@ describe 'Notices API' do
             # photo_url: { type: :string },
           },
           required: [ 'token', 'status' ]
-        let(:id) { notice.to_param }
 
+        let(:id) { notice.to_param }
         run_test!
       end
 

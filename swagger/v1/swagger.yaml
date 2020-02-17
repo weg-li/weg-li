@@ -32,7 +32,7 @@ paths:
       - ApiKeyAuth: X-API-KEY
       responses:
         '200':
-          description: name found
+          description: notice found
           schema:
             type: object
             properties:
