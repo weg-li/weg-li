@@ -41,6 +41,10 @@ class NoticesController < ApplicationController
       }
     end
     results += [{ id: params[:term], text: params[:term] }]
+    if access?(:admin)
+      notice = current_user.notices.from_param(params[:id])
+      results += notice.possible_registrations.map { |registration| { id: registration, text: registration } }
+    end
 
     render json: { results: results }.to_json
   end

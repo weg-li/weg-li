@@ -110,6 +110,12 @@ class Notice < ActiveRecord::Base
     end
   end
 
+  def possible_registrations
+    registrations = [registration]
+    registrations += data.flat_map {|_, result| Annotator.grep_text(result.deep_symbolize_keys) { |string| Vehicle.plate?(string) } }.map(&:first)
+    registrations.flatten.compact.uniq
+  end
+
   def similar_count(since: 1.month.ago)
     return 0 if registration.blank?
 
