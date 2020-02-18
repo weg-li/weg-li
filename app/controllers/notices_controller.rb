@@ -262,7 +262,7 @@ class NoticesController < ApplicationController
   end
 
   def notice_upload_params
-    params.require(:notice).permit(photos: [])
+    params.require(:notice).permit(:charge, :flags, :severity, :duration, :note, photos: [])
   end
 
   def notice_import_params

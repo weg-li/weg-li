@@ -1,0 +1,26 @@
+.well.well-sm.callout-info
+  small Über die getätigte Vorauswahl können häufig benutzte Einstellungen beim Erzeugen der neuen Meldung übernommen werden.
+
+.row
+  - notices.each_with_index do |notice, index|
+    .col-lg-4.text-center
+      label.small(style="font-weight:normal;width:100%;")
+        .panel.panel-default
+          .panel-heading
+            .dropdown
+              = radio_button_tag 'gender', index, false, onchange: "toggleFieldsets(#{index})"
+              strong< Vorauswahl wie #{notice.registration}
+          .panel-body
+            = render('preview_details', notice: notice)
+            fieldset(disabled='disabled' id="fieldset_#{index}" class="disabled-fieldsets")
+              = form.hidden_field :charge, value: notice.charge
+              = form.hidden_field :duration, value: notice.duration
+              = form.hidden_field :severity, value: notice.severity
+              = form.hidden_field :flags, value: notice.flags
+              = form.hidden_field :note, value: notice.note
+
+javascript:
+  function toggleFieldsets(index) {
+    $('.disabled-fieldsets').attr('disabled', 'disabled');
+    $(`#fieldset_${index}`).removeAttr('disabled');
+  }

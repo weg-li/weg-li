@@ -12,3 +12,8 @@
       .pull-right
         .btn-group
           = form.submit 'Hochladen', class: "btn btn-success"
+
+  - if access?(:community)
+    hr
+
+    = render 'components/preselect_form', form: form, notices: current_user.notices.preselect
