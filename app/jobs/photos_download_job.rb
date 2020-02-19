@@ -27,7 +27,7 @@ class PhotosDownloadJob < ApplicationJob
       bulk_upload.photos.attach(io: album, filename: album.path, content_type: "image/jpeg")
       BulkUploadJob.perform_later(bulk_upload)
     else
-      Rails.logger.warn("could not process #{album.metas['content-type']}")
+      Rails.logger.warn("could not process #{album.metas['content-type']} for #{bulk_upload.id}")
       bulk_upload.update! status: :error
     end
   end
