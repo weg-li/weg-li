@@ -12,10 +12,11 @@ button type="button" class="btn btn-sm btn-default" data-toggle="modal" data-tar
       .modal-body
         = simple_format(reply.content)
       .modal-footer
-        - if reply.action_mailbox_inbound_email.present?
-          = link_to(rails_blob_path(reply.action_mailbox_inbound_email.raw_email.blob, disposition: "attachment"), class: 'btn btn-sm btn-default', title: 'herunterladen') do
-            span.glyphicon.glyphicon-download>
-            | Herunterladen
-        button type="button" class="btn btn-sm btn-default" data-dismiss="modal"
-          span.glyphicon.glyphicon-remove>
-          | Schließen
+        .btn-group
+          - if reply.action_mailbox_inbound_email.present?
+            = link_to(rails_blob_path(reply.action_mailbox_inbound_email.raw_email.blob, disposition: "attachment"), class: 'btn btn-sm btn-default', title: 'herunterladen') do
+              span.glyphicon.glyphicon-download>
+              | Herunterladen
+          button type="button" class="btn btn-sm btn-default" data-dismiss="modal"
+            span.glyphicon.glyphicon-remove>
+            | Schließen
