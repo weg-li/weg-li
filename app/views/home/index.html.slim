@@ -186,9 +186,20 @@
           strong> Ziellinie:
           span Sichere Radwege und freie Bürgersteige!
         .progress
-          #total-progress.progress-bar.progress-bar-nyan(style="width: 5%")
+          #total-progress.progress-bar.progress-bar-nyan(style="width: 2%")
           javascript:
-            setInterval(function(element) { element.style.width = Math.min(100, (parseInt(element.style.width) + 2)) + '%' }, 1200, document.getElementById('total-progress'));
+            setInterval(
+              function(element) {
+                var val = parseInt(element.style.width);
+                if (val >= 100) {
+                  element.style.width = '2%';
+                } else {
+                  element.style.width = Math.min(100, (val + 2)) + '%';
+                }
+              },
+              1200,
+              document.getElementById('total-progress')
+            );
 
   .col-lg-6
     h3 📈 Bisherige Daten:
