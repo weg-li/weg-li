@@ -43,6 +43,10 @@ de:
         processing: verarbeiten
         open: offen
         done: fertig
+        error: fehlerhaft
+        importing: importieren
+        error_message: Fehler
+        shared_album_url: Album
       notice:
         created_at: 'Erstellt'
         district: 'Bezirk'
@@ -194,11 +198,14 @@ de:
       open: 'offen'
       done: 'erledigt'
       error: 'fehlerhaft'
+      importing: 'importiern'
     status-hints:
       initial: 'Der Massen-Upload ist noch leer.'
       processing: 'Die Beweisfotos wurden gespeichert und werden verarbeitet, der Massen-Upload ist in kürze verfügbar.'
       open: 'Die Beweisfotos wurden verarbeitet, bitte Meldungungen daraus erzeugen, vervollständigen und eine Anzeige erstatten.'
       done: 'Alle Beweisfotos des Massen-Uploads wurden neuen Meldungen zugeordnet.'
+      error: 'Die Verarbeitung des Massen-Uploads wurde nach einem Fehler abgebrochen.'
+      importing: 'Die Beweisfotos werden aus einem Album importiert.'
     steps:
       photos:
         title: Hochladen

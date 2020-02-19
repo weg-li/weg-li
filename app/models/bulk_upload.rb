@@ -3,11 +3,10 @@ class BulkUpload < ActiveRecord::Base
   has_many :notices, dependent: :nullify
   has_many_attached :photos
 
-  enum status: {initial: 0, processing: 1, open: 2, done: 3, error: -99}
+  enum status: {initial: 0, processing: 1, open: 2, done: 3, importing: 4, error: -99}
 
-  attribute :shared_album_url, type: :string
-
-  validates :photos, presence: :true, unless: ->() { done? || error? }
+  validates :photos, presence: :true, unless: ->() { done? || importing? || error? }
+  validates :shared_album_url, presence: :true, if: ->() { importing? }
 
   def self.for_reminder
     open.joins(:user).where(created_at: [(21.days.ago.beginning_of_day)..(14.days.ago.end_of_day)]).merge(User.not_disable_reminders).merge(User.active)

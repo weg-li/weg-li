@@ -99,11 +99,10 @@ class BulkUploadsController < ApplicationController
   end
 
   def import
-    bulk_upload = current_user.bulk_uploads.build(status: :processing)
-    bulk_upload.save(validate: false)
-    shared_album_url = params.require(:bulk_upload).require(:shared_album_url)
-
-    PhotosDownloadJob.perform_later(bulk_upload, shared_album_url)
+    bulk_upload = current_user.bulk_uploads.create(bulk_upload_import_params)
+    bulk_upload.status = :importing
+    bulk_upload.save!
+    PhotosDownloadJob.perform_later(bulk_upload)
 
     redirect_to edit_bulk_upload_path(bulk_upload), notice: 'Massen-Upload wurde angelegt, Beweisfotos werden importiert'
   end
@@ -116,5 +115,9 @@ class BulkUploadsController < ApplicationController
 
   def bulk_upload_params
     params.require(:bulk_upload).permit(photos: [])
+  end
+
+  def bulk_upload_import_params
+    params.require(:bulk_upload).permit(:shared_album_url)
   end
 end

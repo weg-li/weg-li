@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_13_114748) do
+ActiveRecord::Schema.define(version: 2020_02_19_143404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,8 @@ ActiveRecord::Schema.define(version: 2020_01_13_114748) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 0
+    t.string "error_message"
+    t.string "shared_album_url"
     t.index ["user_id"], name: "index_bulk_uploads_on_user_id"
   end
 
@@ -74,6 +76,14 @@ ActiveRecord::Schema.define(version: 2020_01_13_114748) do
     t.integer "flags", default: 0
     t.index ["name"], name: "index_districts_on_name"
     t.index ["zip"], name: "index_districts_on_zip", unique: true
+  end
+
+  create_table "identities", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "password_digest"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "notices", force: :cascade do |t|
