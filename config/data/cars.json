@@ -1249,6 +1249,7 @@
   {
     "brand": "MINI",
     "falsepositives": [
+      "Minibus",
       "Minivan"
     ],
     "models": [
