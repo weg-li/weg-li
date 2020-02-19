@@ -19,6 +19,17 @@ $white: rgb(255, 255, 255);
     border-radius: 0px;
   }
 }
+.panel-sm {
+  .panel-heading {
+    padding: 5px 10px;
+  }
+  .panel-body {
+    padding: 5px;
+    dl {
+      margin-bottom: 5px;
+    }
+  }
+}
 .nav-panel {
   margin-left: 1em;
   li.active {

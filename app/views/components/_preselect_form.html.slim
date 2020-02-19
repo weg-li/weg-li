@@ -5,7 +5,7 @@
   - notices.each_with_index do |notice, index|
     .col-lg-4.text-center
       label.small(style="font-weight:normal;width:100%;")
-        .panel.panel-default
+        .panel.panel-default.panel-sm
           .panel-heading
             .dropdown
               = radio_button_tag 'gender', index, false, onchange: "toggleFieldsets(#{index})"
