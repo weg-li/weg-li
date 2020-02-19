@@ -13,6 +13,8 @@ class BulkUploadDashboard < Administrate::BaseDashboard
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     status: Field::String.with_options(searchable: false),
+    error_message: Field::String,
+    shared_album_url: Field::String,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -37,6 +39,8 @@ class BulkUploadDashboard < Administrate::BaseDashboard
     :created_at,
     :updated_at,
     :status,
+    :error_message,
+    :shared_album_url,
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -49,6 +53,8 @@ class BulkUploadDashboard < Administrate::BaseDashboard
     :created_at,
     :updated_at,
     :status,
+    :error_message,
+    :shared_album_url,
   ].freeze
 
   # Overwrite this method to customize how users are displayed
