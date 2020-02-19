@@ -110,6 +110,21 @@ $white: rgb(255, 255, 255);
   height: 12px;
 }
 
+.progress {
+  .progress-bar-nyan {
+    background-image: asset-url('rainbow.png');
+    &::after {
+      content: "";
+      width: 32px;
+      height: 20px;
+      display: block;
+      float: right;
+      margin-right: -30px;
+      background: asset-url('nyanCat.png') no-repeat;
+    }
+  }
+}
+
 .turbolinks-progress-bar {
   background-color: $success-color;
   height: 5px !important;
