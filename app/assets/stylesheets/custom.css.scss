@@ -221,6 +221,9 @@ ul.droppable-list {
 .glyphicon-status-shared:before {
   content: "\e089";
 }
+.glyphicon-status-error:before {
+  content: "\e104";
+}
 
 .label-status-initial {
   background-color: $primary-color;
@@ -248,6 +251,9 @@ ul.droppable-list {
 }
 .label-status-shared {
   background-color: $success-color;
+}
+.label-status-error {
+  background-color: $danger-color;
 }
 
 .glyphicon-access-disabled:before {

@@ -14,17 +14,21 @@ class PhotosDownloadJob < ApplicationJob
       Zip::File.open(album.path) do |zipfile|
         zipfile.each do |entry|
           Rails.logger.info("uploading photo #{entry.name} for #{bulk_upload.id}")
+
           io = StringIO.new(entry.get_input_stream.read)
           bulk_upload.photos.attach(io: io, filename: entry.name, content_type: "image/jpeg")
         end
       end
+
+      BulkUploadJob.perform_later(bulk_upload)
     elsif album.metas['content-type'].include?('image/jpeg')
       Rails.logger.info("uploading photo #{album.path} for #{bulk_upload.id}")
+
       bulk_upload.photos.attach(io: album, filename: album.path, content_type: "image/jpeg")
+      BulkUploadJob.perform_later(bulk_upload)
     else
       Rails.logger.warn("could not process #{album.metas['content-type']}")
+      bulk_upload.update! status: :error
     end
-
-    BulkUploadJob.perform_later(bulk_upload)
   end
 end

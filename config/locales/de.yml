@@ -193,6 +193,7 @@ de:
       processing: 'verarbeiten'
       open: 'offen'
       done: 'erledigt'
+      error: 'fehlerhaft'
     status-hints:
       initial: 'Der Massen-Upload ist noch leer.'
       processing: 'Die Beweisfotos wurden gespeichert und werden verarbeitet, der Massen-Upload ist in kürze verfügbar.'
