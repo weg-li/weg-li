@@ -192,7 +192,7 @@ class Vehicle
       'Parken in einem Fußgängerbereich, der (durch Zeichen 239/242.1, 242.2/250) gesperrt war',
       'Parken in einem Abstand von weniger als 5 Meter vor einem Fußgängerüberweg',
       'Parken weniger als 5 Meter vor/hinter der Kreuzung/Einmündung',
-      'Parken im absolutem Haltverbot (Zeichen 283)',
+      'Parken im absoluten Haltverbot (Zeichen 283)',
       'Parken unzulässig im eingeschränkten Haltverbot (Zeichen 286)',
       'Parken unzulässig auf einer Sperrfläche (Zeichen 298)',
       'Parken an einer engen/unübersichtlichen Straßenstelle',
