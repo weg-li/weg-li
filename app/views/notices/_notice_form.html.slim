@@ -96,7 +96,16 @@
   .col-lg-8
     .form-group
       = form.label :note, class: "control-label"
-      = form.text_area :note, placeholder: 'z.B. konkrete Behinderung / Gefährdung beschreiben', class: "form-control"
+      .snippets(style="position:relative;")
+        = form.text_area :note, placeholder: 'z.B. konkrete Behinderung / Gefährdung beschreiben', class: "form-control"
+        .text-center
+          ul.pagination.pagination-sm(style="position:absolute;bottom:0px;margin:0px;")
+            li.previous
+              a.text-muted(href="#" onclick="return false;" style="text-decoration: none;") <
+            li
+              a.text-muted(href="#" onclick="return false;" style="text-decoration: none;") +
+            li.next
+              a.text-muted(href="#" onclick="return false;" style="text-decoration: none;") >
 
   .col-lg-4
     .form-group
