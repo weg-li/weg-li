@@ -32,7 +32,7 @@ class AnalyzerJob < ApplicationJob
       result = annotator.annotate_object(photo.key)
       if result.present?
         if Annotator.unsafe?(result)
-          Rails.logger.info("safe search violated for notice #{notice.id} with photo #{photo.id}")
+          Rails.logger.warn("safe search violated for notice #{notice.id} with photo #{photo.id}")
           notice.user.update(access: :disabled)
         end
 
