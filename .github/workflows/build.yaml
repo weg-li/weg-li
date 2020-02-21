@@ -31,7 +31,7 @@ jobs:
         run: ${{ steps.ruby.outputs.ruby-path }} --version
 
       - name: Install PostgreSQL 11 client
-        run: sudo apt-get install postgresql postgresql-contrib libpq-dev --fix-missing
+        run: sudo apt-get update && sudo apt-get install postgresql postgresql-contrib libpq-dev --fix-missing
 
       - name: Get yarn cache
         id: yarn-cache
