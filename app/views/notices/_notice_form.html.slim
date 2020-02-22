@@ -96,16 +96,37 @@
   .col-lg-8
     .form-group
       = form.label :note, class: "control-label"
-      .snippets(style="position:relative;")
+      - unless access?(:community)
         = form.text_area :note, placeholder: 'z.B. konkrete Behinderung / Gefährdung beschreiben', class: "form-control"
-        .text-center
-          ul.pagination.pagination-sm(style="position:absolute;bottom:0px;margin:0px;")
-            li.previous
-              a.text-muted(href="#" onclick="return false;" style="text-decoration: none;") <
-            li
-              a.text-muted(href="#" onclick="return false;" style="text-decoration: none;") +
-            li.next
-              a.text-muted(href="#" onclick="return false;" style="text-decoration: none;") >
+      - else
+        .snippets(style="position:relative;")
+          = form.text_area :note, placeholder: 'z.B. konkrete Behinderung / Gefährdung beschreiben', class: "form-control"
+          - if current_user.snippets.present?
+            .text-center
+              .btn-group(style="position:absolute;bottom:-10px;margin:0px;margin-left:-30px;")
+                a.text-muted(href="#" class='btn btn-default btn-xs' onclick="setSnippet(-1); return false;") <
+                a.text-muted(href="#" class='btn btn-default btn-xs' onclick="$('#notice_note').val(''); return false;") x
+                a.text-muted(href="#" class='btn btn-default btn-xs' onclick="setSnippet(1); return false;") >
+
+            javascript:
+              var snippetIndex = null;
+              var snippets = #{current_user.snippets.pluck(:content).to_json.html_safe}
+              function setSnippet(direction) {
+                if (snippetIndex === null) {
+                  snippetIndex = direction > 0 ? 0 : snippets.length - 1;
+                } else {
+                  if (snippetIndex >= snippets.length - 1) {
+                    snippetIndex = 0;
+                  } else if (snippetIndex <= 0) {
+                    snippetIndex = snippets.length - 1;
+                  } else {
+                    snippetIndex += direction;
+                  }
+                }
+                $('#notice_note').val(snippets[snippetIndex]);
+              }
+        = hint do
+          | Für die Hinweise können #{link_to 'Texte als Vorlagen', snippets_path}  hinterlegt werden.
 
   .col-lg-4
     .form-group

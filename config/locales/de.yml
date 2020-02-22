@@ -13,6 +13,7 @@ de:
       notice: 'Meldung'
       district: 'Bezirk'
       reply: 'Antwort'
+      snippet: 'Vorlage'
       authorization: 'Auth'
     attributes:
       district:
@@ -35,6 +36,9 @@ de:
         created_at: Eingang
         sender: Absender
         subject: Betreff
+        content: Inhalt
+      snippet:
+        created_at: Erstellt
         content: Inhalt
       bulk_upload:
         created_at: 'Erstellt'
@@ -99,6 +103,7 @@ de:
   navigation:
     notices: 'Meldungen'
     replies: 'Antworten'
+    snippets: 'Vorlagen'
     map: 'Kartenansicht'
     draft: 'Erfassen'
     dashboard: 'Übersicht'
@@ -212,6 +217,8 @@ de:
         description: Der Massen-Upload ermöglicht es viele Beweisfotos für unterschiedliche Meldungen auf einmal hochzuladen. Durch die Gruppierungsfunktion können anschließend schnell neue Meldungen erzeugt werden.
   replies:
     nothing_found: 'Keine Antworten gefunden'
+  snippets:
+    nothing_found: 'Keine Vorlagen gefunden'
   notices:
     new_notice: 'Neue Meldung'
     create_button: 'Meldung erstellen'

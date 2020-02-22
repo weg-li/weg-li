@@ -1,0 +1,4 @@
+- set_title t('navigation.snippets')
+- set_crumbs t('navigation.snippets') => snippets_path, 'Bearbeiten' => url_for
+
+= render('form', snippet: @snippet)

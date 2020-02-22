@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     end
     resources :bulk_uploads
     resources :replies
+    resources :snippets
     resources :authorizations
 
     root to: "users#index"
@@ -30,6 +31,7 @@ Rails.application.routes.draw do
   post "/analyze_direct_upload" => "direct_uploads#analyze", as: :direct_upload_analyze
 
   resources :replies
+  resources :snippets
 
   resources :bulk_uploads do
     member do
