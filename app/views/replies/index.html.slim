@@ -1,71 +1,70 @@
 - set_title t('navigation.replies')
 - set_crumbs t('navigation.replies') => replies_path, 'Übersicht' => url_for
 
-- if current_user.replies.any?
-  .panel.panel-default
-    .panel-heading
-      .row
-        .col-lg-12.text-right
-          button.btn.btn-default.btn-sm.dropdown-toggle type="button" data-toggle="dropdown"
-            | <span class="glyphicon glyphicon-search"></span> Suche <span class="caret"></span>
-          ul.dropdown-menu.dropdown-menu-right
+.panel.panel-default
+  .panel-heading
+    .row
+      .col-lg-12.text-right
+        button.btn.btn-default.btn-sm.dropdown-toggle type="button" data-toggle="dropdown"
+          | <span class="glyphicon glyphicon-search"></span> Suche <span class="caret"></span>
+        ul.dropdown-menu.dropdown-menu-right
+          li
+            = form_tag(url_for, method: :get, class: 'form-dropdown', autocomplete: :off)
+              .input-group.input-group-sm
+                = hidden_field_tag('order[column]', @table_params[:order][:column])
+                = hidden_field_tag('order[value]', @table_params[:order][:value])
+                = text_field_tag('search[term]', @table_params[:search][:term], placeholder: 'z.B. HH SV 1887', class: 'form-control')
+                span.input-group-btn
+                  = button_tag(class: "btn btn-default btn-sm")
+                    span.glyphicon.glyphicon-search
+          - if @table_params[:search][:term].present?
+            li.divider
             li
-              = form_tag(url_for, method: :get, class: 'form-dropdown', autocomplete: :off)
-                .input-group.input-group-sm
-                  = hidden_field_tag('order[column]', @table_params[:order][:column])
-                  = hidden_field_tag('order[value]', @table_params[:order][:value])
-                  = text_field_tag('search[term]', @table_params[:search][:term], placeholder: 'z.B. HH SV 1887', class: 'form-control')
-                  span.input-group-btn
-                    = button_tag(class: "btn btn-default btn-sm")
-                      span.glyphicon.glyphicon-search
-            - if @table_params[:search][:term].present?
-              li.divider
-              li
-                = link_to url_for(@table_params.merge(search: nil))
-                  span.glyphicon.glyphicon-remove>
-                  | ohne Suche
+              = link_to url_for(@table_params.merge(search: nil))
+                span.glyphicon.glyphicon-remove>
+                | ohne Suche
 
-    .table-responsive
-      table.table.table-striped.table-hover
-        thead
-          tr
-            th
-              => Reply.human_attribute_name(:created_at)
-              - if params.dig(:order, :column) == 'created_at'
-                - if params.dig(:order, :value) == 'ASC'
-                  = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'DESC'}))
-                    span.glyphicon.glyphicon-arrow-up.smaller
-                - else
-                  = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'}))
-                    span.glyphicon.glyphicon-arrow-down.smaller
-                = link_to url_for(@table_params.merge(order: {}))
-                  span.text-muted.glyphicon.glyphicon-remove.smaller
+  .table-responsive
+    table.table.table-striped.table-hover
+      thead
+        tr
+          th
+            => Reply.human_attribute_name(:created_at)
+            - if params.dig(:order, :column) == 'created_at'
+              - if params.dig(:order, :value) == 'ASC'
+                = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'DESC'}))
+                  span.glyphicon.glyphicon-arrow-up.smaller
               - else
                 = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'}))
-                  span.glyphicon.glyphicon-arrow-up.smaller.text-muted
-            th= Reply.human_attribute_name(:sender)
-            th= Reply.human_attribute_name(:subject)
-            th= Notice.human_attribute_name(:date)
-            th= Notice.human_attribute_name(:registration)
-            th
-        tbody
-          - if @replies.present?
-            - @replies.each do |reply|
-              tr
-                td(nowrap)= l(reply.created_at, format: :short, default: '-')
-                td= mail_to(reply.sender)
-                td= reply.subject
-                td(nowrap)= link_to l(reply.notice.date, format: :short, default: '-'), reply.notice
-                td
-                  = link_to reply.notice
-                    span.label.label-license
-                      span= reply.notice.registration
-
-                td= render('notices/reply_modal_button', reply: reply)
-
-          - else
+                  span.glyphicon.glyphicon-arrow-down.smaller
+              = link_to url_for(@table_params.merge(order: {}))
+                span.text-muted.glyphicon.glyphicon-remove.smaller
+            - else
+              = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'}))
+                span.glyphicon.glyphicon-arrow-up.smaller.text-muted
+          th= Reply.human_attribute_name(:sender)
+          th= Reply.human_attribute_name(:subject)
+          th= Notice.human_attribute_name(:date)
+          th= Notice.human_attribute_name(:registration)
+          th
+      tbody
+        - if @replies.present?
+          - @replies.each do |reply|
             tr
-              td(colspan=7)= t('replies.nothing_found')
+              td(nowrap)= l(reply.created_at, format: :short, default: '-')
+              td= mail_to(reply.sender)
+              td= reply.subject
+              td(nowrap)= link_to l(reply.notice.date, format: :short, default: '-'), reply.notice
+              td
+                = link_to reply.notice
+                  span.label.label-license
+                    span= reply.notice.registration
 
-  .text-center
-    = paginate @replies
+              td= render('notices/reply_modal_button', reply: reply)
+
+        - else
+          tr
+            td(colspan=7)= t('replies.nothing_found')
+
+.text-center
+  = paginate @replies
