@@ -36,7 +36,7 @@
                   - BulkUpload.statuses.keys.each do |status|
                     li
                       = link_to url_for(@table_params.merge(filter: {status: status})) do
-                        = render 'upload_status', status: status
+                        = render 'bulk_upload_status', status: status
                   li role="separator" class="divider"
                   li= link_to 'kein Filter', url_for(@table_params.merge(filter: nil))
         tbody
@@ -47,7 +47,7 @@
                   .btn-group.btn-group-checkbox.dropdown
                     label.btn.btn-sm
                       = check_box_tag "selected[]", bulk_upload.id, false, class: 'select-all checkbox-addon'
-                    = render 'upload_actions', bulk_upload: bulk_upload
+                    = render 'bulk_upload_actions', bulk_upload: bulk_upload
                 td
                   - if bulk_upload.photos.present?
                     = link_to([:edit, bulk_upload]) do
@@ -56,7 +56,7 @@
                   - else
                     = link_to('-', [:edit, bulk_upload])
                 td= d(bulk_upload.created_at)
-                td= render 'upload_status', status: bulk_upload.status
+                td= render 'bulk_upload_status', status: bulk_upload.status
 
           - else
             tr
@@ -84,5 +84,5 @@
   h5 Status für Massen-Uploads
   dl.dl-horizontal
     - BulkUpload.statuses.keys.each do |status|
-      dt= render 'upload_status', status: status
+      dt= render 'bulk_upload_status', status: status
       dd= t(status, scope: 'bulk_uploads.status-hints', default: '')
