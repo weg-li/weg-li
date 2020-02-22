@@ -4,7 +4,7 @@
 .panel.panel-default
   .panel-heading
     .dropdown
-      = render 'upload_actions', bulk_upload: @bulk_upload, button_text: true
+      = render 'bulk_upload_actions', bulk_upload: @bulk_upload, button_text: true
   .panel-body
     .row
       .col-lg-4
@@ -12,7 +12,7 @@
           dt= BulkUpload.human_attribute_name(:created_at)
           dd= d(@bulk_upload.created_at)
           dt= BulkUpload.human_attribute_name(:status)
-          dd= render 'upload_status', status: @bulk_upload.status
+          dd= render 'bulk_upload_status', status: @bulk_upload.status
           - if @bulk_upload.error?
             dt= BulkUpload.human_attribute_name(:error_message)
             dd= @bulk_upload.error_message

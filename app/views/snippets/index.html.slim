@@ -1,10 +1,14 @@
-- set_title t('navigation.replies')
-- set_crumbs t('navigation.replies') => replies_path, 'Übersicht' => url_for
+- set_title t('navigation.snippets')
+- set_crumbs t('navigation.snippets') => snippets_path, 'Übersicht' => url_for
 
 .panel.panel-default
   .panel-heading
     .row
-      .col-lg-12.text-right
+      .col-xs-8
+        = link_to new_snippet_path, class: 'btn btn-sm btn-success', title: 'Vorlage anlegen'
+          span.glyphicon.glyphicon-plus>
+          | Vorlage anlegen
+      .col-xs-4.text-right
         button.btn.btn-default.btn-sm.dropdown-toggle type="button" data-toggle="dropdown"
           | <span class="glyphicon glyphicon-search"></span> Suche <span class="caret"></span>
         ul.dropdown-menu.dropdown-menu-right
@@ -13,7 +17,7 @@
               .input-group.input-group-sm
                 = hidden_field_tag('order[column]', @table_params[:order][:column])
                 = hidden_field_tag('order[value]', @table_params[:order][:value])
-                = text_field_tag('search[term]', @table_params[:search][:term], placeholder: 'z.B. HH SV 1887', class: 'form-control')
+                = text_field_tag('search[term]', @table_params[:search][:term], placeholder: 'z.B. Blechdose', class: 'form-control')
                 span.input-group-btn
                   = button_tag(class: "btn btn-default btn-sm")
                     span.glyphicon.glyphicon-search
@@ -29,7 +33,8 @@
       thead
         tr
           th
-            => Reply.human_attribute_name(:created_at)
+          th
+            => Snippet.human_attribute_name(:created_at)
             - if params.dig(:order, :column) == 'created_at'
               - if params.dig(:order, :value) == 'ASC'
                 = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'DESC'}))
@@ -42,29 +47,24 @@
             - else
               = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'}))
                 span.glyphicon.glyphicon-arrow-up.smaller.text-muted
-          th= Reply.human_attribute_name(:sender)
-          th= Reply.human_attribute_name(:subject)
-          th= Notice.human_attribute_name(:date)
-          th= Notice.human_attribute_name(:registration)
-          th
+          th= Snippet.human_attribute_name(:name)
+          th= Snippet.human_attribute_name(:content)
       tbody
-        - if @replies.present?
-          - @replies.each do |reply|
+        - if @snippets.present?
+          - @snippets.each do |snippet|
             tr
-              td(nowrap)= l(reply.created_at, format: :short, default: '-')
-              td= mail_to(reply.sender)
-              td= reply.subject
-              td(nowrap)= link_to l(reply.notice.date, format: :short, default: '-'), reply.notice
               td
-                = link_to reply.notice
-                  span.label.label-license
-                    span= reply.notice.registration
-
-              td= render('notices/reply_modal_button', reply: reply)
+                .btn-group.btn-group-checkbox.dropdown
+                  label.btn.btn-sm
+                    = check_box_tag "selected[]", snippet.id, false, class: 'select-all checkbox-addon'
+                  = render('snippet_actions', snippet: snippet)
+              td(nowrap)= link_to l(snippet.created_at, format: :short, default: '-'), snippet_path(snippet)
+              td= link_to snippet.name, snippet_path(snippet)
+              td= link_to truncate(snippet.content), snippet_path(snippet)
 
         - else
           tr
-            td(colspan=7)= t('replies.nothing_found')
+            td(colspan=7)= t('snippets.nothing_found')
 
 .text-center
-  = paginate @replies
+  = paginate @snippets

@@ -9,7 +9,7 @@ describe 'replies', type: :request do
     login(user)
   end
 
-  context "index" do
+  context "GET :index" do
     it "index works" do
       get replies_path
 
