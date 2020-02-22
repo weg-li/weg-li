@@ -1,4 +1,9 @@
 - set_title t('navigation.snippets')
 - set_crumbs t('navigation.snippets') => snippets_path, 'Anlegen' => url_for
 
+.well.well-sm.callout-info
+  small
+    |
+      Häufig verwendete Texte für Hinweise können als Vorlagen hinterlegt werden.
+
 = render('form', snippet: @snippet)
