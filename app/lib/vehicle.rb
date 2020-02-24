@@ -72,7 +72,7 @@ class Vehicle
   end
 
   def self.quirky_mode_plate_regex
-    @quirky_mode_plate_regex ||= Regexp.new("^O?B?(#{Vehicle.plates.keys.join('|')})O?:?-?0?([A-Z]{1,3})-?(\\d{1,4})(-E)?$")
+    @quirky_mode_plate_regex ||= Regexp.new("^C?O?B?(#{Vehicle.plates.keys.join('|')})O?:?-?0?([A-Z]{1,3})-?(\\d{1,4})(-E)?$")
   end
 
   def self.district_for_plate_prefix(text)
