@@ -3,7 +3,7 @@ class BulkUpload < ActiveRecord::Base
   has_many :notices, dependent: :nullify
   has_many_attached :photos
 
-  enum status: {initial: 0, processing: 1, open: 2, done: 3, importing: 4, error: -99}
+  enum status: {initial: 0, importing: 4, processing: 1, open: 2, done: 3, error: -99}
 
   validates :photos, presence: :true, unless: ->() { done? || importing? || error? }
   validates :shared_album_url, presence: :true, if: ->() { importing? }
@@ -12,7 +12,7 @@ class BulkUpload < ActiveRecord::Base
     open.joins(:user).where(created_at: [(21.days.ago.beginning_of_day)..(14.days.ago.end_of_day)]).merge(User.not_disable_reminders).merge(User.active)
   end
 
-  def analyze!
+  def process!
     update! status: :processing
 
     BulkUploadJob.perform_later(self)

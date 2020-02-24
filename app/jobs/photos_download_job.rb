@@ -20,12 +20,13 @@ class PhotosDownloadJob < ApplicationJob
         end
       end
 
-      BulkUploadJob.perform_later(bulk_upload)
+      bulk_upload.process!
     elsif album.metas['content-type'].include?('image/jpeg')
       Rails.logger.info("uploading photo #{album.path} for #{bulk_upload.id}")
 
       bulk_upload.photos.attach(io: album, filename: album.path, content_type: "image/jpeg")
-      BulkUploadJob.perform_later(bulk_upload)
+
+      bulk_upload.process!
     else
       Rails.logger.info("could not process #{album.metas['content-type']} for #{bulk_upload.id}")
       error_message = "Der Datei-Typ #{album.metas['content-type']} wird nicht unterstützt!"

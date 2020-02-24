@@ -212,6 +212,9 @@ ul.droppable-list {
 .glyphicon-status-analyzing:before {
   content: "\231b";
 }
+.glyphicon-status-importing:before {
+  content: "\e197";
+}
 .glyphicon-status-processing:before {
   content: "\231b";
 }
@@ -241,6 +244,9 @@ ul.droppable-list {
   background-color: $success-color;
 }
 .label-status-analyzing {
+  background-color: $info-color;
+}
+.label-status-importing {
   background-color: $info-color;
 }
 .label-status-processing {

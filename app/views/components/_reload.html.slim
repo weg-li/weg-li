@@ -1,3 +1,4 @@
+- note ||= 'Analyse läuft'
 .well.well-sm.callout-info
   small= info
 
@@ -7,7 +8,7 @@
 
   = link_to url_for, class: 'btn btn-default btn-block' do
     span.glyphicon.glyphicon-hourglass.smaller>
-    span#analyze-progress Analyse läuft ...
+    span#analyze-progress= "#{note} ..."
   javascript:
     setInterval(
       function(element) {
