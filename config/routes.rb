@@ -49,14 +49,12 @@ Rails.application.routes.draw do
       get :inspect
       get :colors
       get :share
-      get :prepare
       get :suggest
       get :pdf
       get :retrieve
       patch :forward
       patch :status
       patch :duplicate
-      patch :polish
       patch :mail
       patch :enable
       patch :disable
