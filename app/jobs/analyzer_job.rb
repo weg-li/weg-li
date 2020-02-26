@@ -32,8 +32,7 @@ class AnalyzerJob < ApplicationJob
       result = annotator.annotate_object(photo.key)
       if result.present?
         if Annotator.unsafe?(result)
-          Rails.logger.warn("safe search violated for notice #{notice.id} with photo #{photo.id}")
-          notice.user.update(access: :disabled)
+          notify("safe search violated for notice #{notice.id} with photo #{photo.id} on user #{notice.user.id}")
         end
 
         notice.data[photo.id.to_s] = result.merge({ exif: metadata })

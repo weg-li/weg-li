@@ -8,6 +8,15 @@ class ApplicationJob < ActiveJob::Base
   # Most jobs are safe to ignore if the underlying records are no longer available
   discard_on ActiveJob::DeserializationError
 
-
   queue_as :default
+
+  private
+
+  def notify(text)
+    slack_client.say(text)
+  end
+
+  def slack_client
+    @slack_client ||= Slack.new
+  end
 end
