@@ -13,6 +13,7 @@
 
       .spacer-large
 
+      = render('snippet_modal')
       = form_errors @notice
       = form_for @notice, html: {autocomplete: :off} do |form|
         = render 'notice_form', notice: @notice, form: form

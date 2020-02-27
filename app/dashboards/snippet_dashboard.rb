@@ -25,6 +25,7 @@ class SnippetDashboard < Administrate::BaseDashboard
     :id,
     :created_at,
     :name,
+    :user,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES

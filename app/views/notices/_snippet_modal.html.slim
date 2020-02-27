@@ -1,0 +1,27 @@
+.modal.fade id="modal_snippet" tabindex="-1" role="dialog"
+  = form_for(current_user.snippets.build, remote: true) do |form|
+    .modal-dialog.modal-lg
+      .modal-content
+        .modal-header
+          button type="button" class="close" data-dismiss="modal" aria-label="Schließen"
+            span aria-hidden="true" &times;
+          h4.modal-title Vorlage speichern
+        .modal-body
+          .row
+            .col-lg-12
+              .form-group
+                = form.label :name, class: "control-label control-label-required"
+                = form.text_field :name, class: "form-control", required: true, placeholder: 'z.B. Behinderung'
+
+          .row
+            .col-lg-12
+              .form-group
+                = form.label :content, class: "control-label control-label-required"
+                = form.text_area :content, required: true, placeholder: 'z.B. konkrete Behinderung / Gefährdung beschreiben', class: "form-control"
+
+        .modal-footer
+          .btn-group
+            = form.submit "Vorlage speichern", class: "btn btn-sm btn-success"
+            button type="button" class="btn btn-default btn-sm" data-dismiss="modal"
+              span.glyphicon.glyphicon-remove>
+              | Schließen

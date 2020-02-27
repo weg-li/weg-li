@@ -33,7 +33,10 @@ class SnippetsController < ApplicationController
     @snippet = current_user.snippets.build(snippet_params)
 
     if @snippet.save
-      redirect_to(snippets_path, notice: 'Vorlage wurde angelegt')
+      respond_to do |format|
+        format.js { render(layout: false) }
+        format.html { redirect_to(snippets_path, notice: 'Vorlage wurde angelegt') }
+      end
     else
       render(:new)
     end
