@@ -51,6 +51,10 @@ class District < ActiveRecord::Base
     anonymize_email(email)
   end
 
+  def shit_hole_munich?
+    all_emails.any? { |email| email =~ /polizei.bayern.de/ }
+  end
+
   def anonymize_email(email)
     return '-' unless email.present?
 
