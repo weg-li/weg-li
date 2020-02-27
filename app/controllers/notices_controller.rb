@@ -268,8 +268,4 @@ class NoticesController < ApplicationController
   def notice_upload_params
     params.require(:notice).permit(:charge, :flags, :severity, :duration, :note, photos: [])
   end
-
-  def notice_import_params
-    params.require(:notice).permit(:tweet_url)
-  end
 end

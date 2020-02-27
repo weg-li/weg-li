@@ -18,8 +18,6 @@ class Notice < ActiveRecord::Base
     Notice.bitfields[:flags].keys.each { |key| template.add(key) }
   end
 
-  attribute :tweet_url, type: :string
-
   before_validation :defaults
 
   geocoded_by :geocode_address, language: Proc.new { |model| I18n.locale }, no_annotations: true
@@ -33,6 +31,7 @@ class Notice < ActiveRecord::Base
 
   validates :photos, :registration, :charge, :street, :zip, :city, :date, :duration, :severity, presence: :true
   validates :zip, format: { with: /\d{5}/, message: 'PLZ ist nicht korrekt' }
+  validates :token, uniqueness: true
 
   enum status: {open: 0, disabled: 1, analyzing: 2, shared: 3}
   enum severity: {standard: 0, hinder: 1, endanger: 2}
@@ -74,6 +73,7 @@ class Notice < ActiveRecord::Base
 
   def duplicate!
     notice = dup
+    notice.token = nil
     notice.status = :open
     notice.photos.attach(photos.map(&:blob))
     notice.save_incomplete!
