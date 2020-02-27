@@ -116,14 +116,14 @@
                 if (snippetIndex === null) {
                   snippetIndex = direction > 0 ? 0 : snippets.length - 1;
                 } else {
-                  if (snippetIndex >= snippets.length - 1) {
+                  snippetIndex += direction;
+                  if (snippetIndex >= snippets.length) {
                     snippetIndex = 0;
-                  } else if (snippetIndex <= 0) {
+                  } else if (snippetIndex < 0) {
                     snippetIndex = snippets.length - 1;
-                  } else {
-                    snippetIndex += direction;
                   }
                 }
+                console.log(snippetIndex);
                 $('#notice_note').val(snippets[snippetIndex]);
               }
         = hint do

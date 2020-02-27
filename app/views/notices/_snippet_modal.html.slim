@@ -1,5 +1,5 @@
 .modal.fade id="modal_snippet" tabindex="-1" role="dialog"
-  = form_for(current_user.snippets.build, remote: true) do |form|
+  = form_for(Snippet.new(user: current_user), remote: true) do |form|
     .modal-dialog.modal-lg
       .modal-content
         .modal-header
