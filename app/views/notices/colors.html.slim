@@ -5,36 +5,37 @@ p
     => "Dateigröße: #{number_to_human_size(@photo.blob.byte_size)}"
 
 - result = @notice.data[@photo.id.to_s]
-- dominant_colors = result['image_properties_annotation']['dominant_colors']['colors']
-table.table.table-striped.table-hover
-  thead
-    tr
-      th Color
-      th Closest
-      th Actual
-      th Score
-      th Fraction
-      th Likely
-  tbody
-    - dominant_colors.each do |entry|
+- if result.present? && result['image_properties_annotation']
+  - dominant_colors = result['image_properties_annotation']['dominant_colors']['colors']
+  table.table.table-striped.table-hover
+    thead
       tr
-        - color = Color::RGB.new(entry['color']['red'], entry['color']['green'], entry['color']['blue'])
-        td(style="background-color: #{color.html}")= color.html
-        - closest = color.closest_match(Colorizor::COLORS.keys, 20) || color.closest_match(Colorizor::TOTALS.keys)
-        td(style="background-color: #{closest.html}")= closest.name
-        - actual = Colorizor::TOTALS[closest]
-        td(style="background-color: #{actual.html}")= actual.name
-        td= entry['score']
-        td= entry['pixel_fraction']
-        td= (entry['score'].to_f + entry['pixel_fraction'].to_f) / 2.0
+        th Color
+        th Closest
+        th Actual
+        th Score
+        th Fraction
+        th Likely
+    tbody
+      - dominant_colors.each do |entry|
+        tr
+          - color = Color::RGB.new(entry['color']['red'], entry['color']['green'], entry['color']['blue'])
+          td(style="background-color: #{color.html}")= color.html
+          - closest = color.closest_match(Colorizor::COLORS.keys, 20) || color.closest_match(Colorizor::TOTALS.keys)
+          td(style="background-color: #{closest.html}")= closest.name
+          - actual = Colorizor::TOTALS[closest]
+          td(style="background-color: #{actual.html}")= actual.name
+          td= entry['score']
+          td= entry['pixel_fraction']
+          td= (entry['score'].to_f + entry['pixel_fraction'].to_f) / 2.0
 
-table.table.table-striped.table-hover
-  thead
-    tr
-      th Color
-      th Actual
-  tbody
-    - Colorizor::TOTALS.each do |color, actual|
+  table.table.table-striped.table-hover
+    thead
       tr
-        td(style="background-color: #{color.html}")= color.name
-        td(style="background-color: #{actual.html}")= actual.name
+        th Color
+        th Actual
+    tbody
+      - Colorizor::TOTALS.each do |color, actual|
+        tr
+          td(style="background-color: #{color.html}")= color.name
+          td(style="background-color: #{actual.html}")= actual.name
