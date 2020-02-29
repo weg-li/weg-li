@@ -32,35 +32,47 @@ class HomeController < ApplicationController
   end
 
   def year2019
+    @limit = params[:limit] || 5
+
     notices = Notice.shared.where(date: ((Time.zone.now - 1.year).beginning_of_year..(Time.zone.now - 1.year).end_of_year))
     @count = notices.count
     @active = notices.pluck(:user_id).uniq.size
-    @grouped_cities = notices.select('count(city) as city_count, city').group(:city).order('city_count DESC').limit(5)
-    @grouped_zips = notices.select('count(zip) as zip_count, zip').group(:zip).order('zip_count DESC').limit(5)
-    @grouped_charges = notices.select('count(charge) as charge_count, charge').group(:charge).order('charge_count DESC').limit(5)
-    @grouped_brands = notices.select('count(brand) as brand_count, brand').where("brand != ''").group(:brand).order('brand_count DESC').limit(5)
+
+    @grouped_cities = notices.select('count(city) as city_count, city').group(:city).order('city_count DESC').limit(@limit)
+    @grouped_zips = notices.select('count(zip) as zip_count, zip').group(:zip).order('zip_count DESC').limit(@limit)
+    @grouped_charges = notices.select('count(charge) as charge_count, charge').group(:charge).order('charge_count DESC').limit(@limit)
+    @grouped_brands = notices.select('count(brand) as brand_count, brand').where("brand != ''").group(:brand).order('brand_count DESC').limit(@limit)
   end
 
   def year2020
+    @limit = params[:limit] || 5
+
     notices = Notice.shared.where(date: (Time.zone.now.beginning_of_year..Time.zone.now.end_of_year))
     @count = notices.count
     @active = notices.pluck(:user_id).uniq.size
-    @grouped_cities = notices.select('count(city) as city_count, city').group(:city).order('city_count DESC').limit(5)
-    @grouped_zips = notices.select('count(zip) as zip_count, zip').group(:zip).order('zip_count DESC').limit(5)
-    @grouped_charges = notices.select('count(charge) as charge_count, charge').group(:charge).order('charge_count DESC').limit(5)
-    @grouped_brands = notices.select('count(brand) as brand_count, brand').where("brand != ''").group(:brand).order('brand_count DESC').limit(5)
+
+    @grouped_cities = notices.select('count(city) as city_count, city').group(:city).order('city_count DESC').limit(@limit)
+    @grouped_zips = notices.select('count(zip) as zip_count, zip').group(:zip).order('zip_count DESC').limit(@limit)
+    @grouped_charges = notices.select('count(charge) as charge_count, charge').group(:charge).order('charge_count DESC').limit(@limit)
+    @grouped_brands = notices.select('count(brand) as brand_count, brand').where("brand != ''").group(:brand).order('brand_count DESC').limit(@limit)
   end
 
   def leaderboard
-    @weekly_leaders = Notice.since(Time.zone.now.beginning_of_week).shared.group(:user_id).order(count_all: :desc).limit(5).count
+    @limit = params[:limit] || 5
+
+    @weekly_leaders = Notice.since(Time.zone.now.beginning_of_week).shared.group(:user_id).order(count_all: :desc).limit(@limit).count
     @weekly_leaders.transform_keys! { |user_id| User.find(user_id) }
-    @monthly_leaders = Notice.since(Time.zone.now.beginning_of_month).shared.group(:user_id).order(count_all: :desc).limit(5).count
+
+    @monthly_leaders = Notice.since(Time.zone.now.beginning_of_month).shared.group(:user_id).order(count_all: :desc).limit(@limit).count
     @monthly_leaders.transform_keys! { |user_id| User.find(user_id) }
-    @yearly_leaders = Notice.since(Time.zone.now.beginning_of_year).shared.group(:user_id).order(count_all: :desc).limit(5).count
+
+    @yearly_leaders = Notice.since(Time.zone.now.beginning_of_year).shared.group(:user_id).order(count_all: :desc).limit(@limit).count
     @yearly_leaders.transform_keys! { |user_id| User.find(user_id) }
-    @total_leaders = Notice.shared.group(:user_id).order(count_all: :desc).limit(5).count
+
+    @total_leaders = Notice.shared.group(:user_id).order(count_all: :desc).limit(@limit).count
     @total_leaders.transform_keys! { |user_id| User.find(user_id) }
-    @year2019_leaders = Notice.where(date: ((Time.zone.now - 1.year).beginning_of_year..(Time.zone.now - 1.year).end_of_year)).shared.group(:user_id).order(count_all: :desc).limit(5).count
+
+    @year2019_leaders = Notice.where(date: ((Time.zone.now - 1.year).beginning_of_year..(Time.zone.now - 1.year).end_of_year)).shared.group(:user_id).order(count_all: :desc).limit(@limit).count
     @year2019_leaders.transform_keys! { |user_id| User.find(user_id) }
   end
 
