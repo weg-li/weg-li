@@ -73,7 +73,7 @@
                   span.margin-left-small= t('navigation.view_profile')
               - unless current_user.hide_public_profile?
                 li
-                  = link_to public_profile_path(current_user) do
+                  = link_to public_profile_path(current_user), target: '_blank' do
                     span.glyphicon.glyphicon-globe>
                     span.margin-left-small= t('navigation.view_public_profile')
           li(data-no-turbolink)
