@@ -24,6 +24,14 @@ describe 'snippets', type: :request do
     end
   end
 
+  context "GET :edit" do
+    it "new works" do
+      get edit_snippet_path(snippet)
+
+      expect(response).to be_ok
+    end
+  end
+
   context "POST :create" do
     let(:params) {
       {
@@ -38,6 +46,29 @@ describe 'snippets', type: :request do
       expect {
         post snippets_path, params: params
       }.to change { user.snippets.count }.by(1)
+    end
+  end
+
+  context "PATCH :create" do
+    it "creates a snippet with given params" do
+      params = {
+        id: snippet.id,
+        snippet: {
+          name: 'dubbi',
+        }
+      }
+      expect {
+        patch snippet_path(snippet.id), params: params
+      }.to change { snippet.reload.name }.to('dubbi')
+    end
+  end
+
+  context "DELETE :destroy" do
+    it "creates a snippet with given params" do
+      id = snippet.id
+      expect {
+        delete snippet_path(id)
+      }.to change { user.snippets.count }.by(-1)
     end
   end
 end

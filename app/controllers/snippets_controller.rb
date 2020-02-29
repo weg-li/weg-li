@@ -56,6 +56,13 @@ class SnippetsController < ApplicationController
     end
   end
 
+  def destroy
+    snippet = current_user.snippets.find(params[:id])
+    snippet.destroy!
+
+    redirect_to(snippets_path, notice: 'Vorlage wurde gelöscht')
+  end
+
   private
 
   def snippet_params
