@@ -1,0 +1,23 @@
+- if notes.present?
+  .btn-group
+    a.text-muted(href="#" class='btn btn-default btn-xs' onclick="setSnippet(-1); return false;") <
+    a.text-muted(href="#" data-toggle="modal" data-target="#modal_snippet" onclick="$('#snippet_content').val($('#notice_note').val()); return false;" class='btn btn-default btn-xs') +
+    a.text-muted(href="#" class='btn btn-default btn-xs' onclick="$('#notice_note').val(''); return false;") x
+    a.text-muted(href="#" class='btn btn-default btn-xs' onclick="setSnippet(1); return false;") >
+
+  javascript:
+    var snippetIndex = null;
+    var notes = #{notes.to_json.html_safe}
+    function setSnippet(direction) {
+      if (snippetIndex === null) {
+        snippetIndex = direction > 0 ? 0 : notes.length - 1;
+      } else {
+        snippetIndex += direction;
+        if (snippetIndex >= notes.length) {
+          snippetIndex = 0;
+        } else if (snippetIndex < 0) {
+          snippetIndex = notes.length - 1;
+        }
+      }
+      $('#notice_note').val(notes[snippetIndex]);
+    }

@@ -59,11 +59,10 @@
           li.dropdown.navbar-user
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">#{gravatar(current_user)} <span class="caret"></span></a>
             ul.dropdown-menu
-              - if access?(:community)
-                li
-                  = link_to snippets_path do
-                    span.glyphicon.glyphicon-pencil>
-                    span.margin-left-small Vorlagen verwalten
+              li
+                = link_to snippets_path do
+                  span.glyphicon.glyphicon-pencil>
+                  span.margin-left-small Vorlagen verwalten
               li
                 = link_to edit_user_path do
                   span.glyphicon.glyphicon-edit>

@@ -96,38 +96,10 @@
   .col-lg-8
     .form-group
       = form.label :note, class: "control-label"
-      - unless access?(:community)
-        = form.text_area :note, placeholder: 'z.B. konkrete Behinderung / Gefährdung beschreiben', class: "form-control"
-      - else
-        .snippets(style="position:relative;")
-          = form.text_area :note, placeholder: 'z.B. konkrete Behinderung / Gefährdung beschreiben', class: "form-control"
-          - if current_user.snippets.present?
-            .text-center
-              .btn-group(style="position:absolute;bottom:-10px;margin:0px;margin-left:-30px;")
-                a.text-muted(href="#" class='btn btn-default btn-xs' onclick="setSnippet(-1); return false;") <
-                a.text-muted(href="#" data-toggle="modal" data-target="#modal_snippet" onclick="$('#snippet_content').val($('#notice_note').val()); return false;" class='btn btn-default btn-xs') +
-                a.text-muted(href="#" class='btn btn-default btn-xs' onclick="$('#notice_note').val(''); return false;") x
-                a.text-muted(href="#" class='btn btn-default btn-xs' onclick="setSnippet(1); return false;") >
-
-            javascript:
-              var snippetIndex = null;
-              var snippets = #{current_user.snippets.pluck(:content).to_json.html_safe}
-              function setSnippet(direction) {
-                if (snippetIndex === null) {
-                  snippetIndex = direction > 0 ? 0 : snippets.length - 1;
-                } else {
-                  snippetIndex += direction;
-                  if (snippetIndex >= snippets.length) {
-                    snippetIndex = 0;
-                  } else if (snippetIndex < 0) {
-                    snippetIndex = snippets.length - 1;
-                  }
-                }
-                console.log(snippetIndex);
-                $('#notice_note').val(snippets[snippetIndex]);
-              }
-        = hint do
-          | Für die Hinweise können #{link_to 'Texte als Vorlagen', snippets_path}  hinterlegt werden.
+      = form.text_area :note, placeholder: 'z.B. konkrete Behinderung / Gefährdung beschreiben', class: "form-control"
+      = hint do
+        .pull-right= render('snippet_buttons', notes: current_user.snippets.pluck(:content))
+        | Für die Hinweise können #{link_to 'Texte als Vorlagen', snippets_path}  hinterlegt werden.
 
   .col-lg-4
     .form-group
