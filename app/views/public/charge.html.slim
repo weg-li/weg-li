@@ -7,8 +7,6 @@
 
       .col-lg-6
         = render 'components/photos', notice: @notice, publicly: true
-
-- if @notice.coordinates?
-  .row
-    .col-lg-12
+  - if @notice.coordinates?
+    .panel-body.panel-body-map
       = render 'map', notice: @notice, kind: :public

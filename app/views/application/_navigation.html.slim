@@ -68,9 +68,14 @@
                   span.glyphicon.glyphicon-edit>
                   span.margin-left-small= t('navigation.edit_profile')
               li
-                = link_to public_profile_path(current_user) do
+                = link_to user_path do
                   span.glyphicon.glyphicon-user>
                   span.margin-left-small= t('navigation.view_profile')
+              - unless current_user.hide_public_profile?
+                li
+                  = link_to public_profile_path(current_user) do
+                    span.glyphicon.glyphicon-globe>
+                    span.margin-left-small= t('navigation.view_public_profile')
           li(data-no-turbolink)
             = link_to logout_path, title: t('navigation.logout') do
               span.glyphicon.glyphicon-log-out.small>

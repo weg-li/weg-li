@@ -11,11 +11,8 @@
         = render 'details', notice: @notice
       .col-lg-6
         = render 'components/photos', notice: @notice, publicly: true
-
-- if @notice.replies.present?
-  = render 'reply_list', replies: @notice.replies
-
-- if @notice.coordinates?
-  .row
-    .col-lg-12
+  - if @notice.replies.present?
+    = render 'reply_list', replies: @notice.replies
+  - if @notice.coordinates?
+    .panel-body.panel-body-map
       = render 'map', notice: @notice, kind: :private

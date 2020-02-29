@@ -1,0 +1,18 @@
+.row
+  .col-lg-6
+    .panel.panel-default
+      .panel-heading Infos zum Account
+      ul.list-group
+        li.list-group-item Mitglied seit: #{l(current_user.created_at.to_date)}
+        li.list-group-item Status: #{render('access', access: current_user.access)}
+
+  .col-lg-6
+    .panel.panel-default
+      .panel-heading Statistik
+      ul.list-group
+        - current_user.statistics.each do |key, value|
+          li.list-group-item
+            = t(key, scope: 'users.statistics')
+            .badge.pull-right= value
+
+= render('multi_map', notices: current_user.notices, init: current_user.map_data, kind: :private)

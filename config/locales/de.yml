@@ -113,6 +113,7 @@ de:
     profile: 'Profil'
     edit_profile: 'Profil bearbeiten'
     view_profile: 'Profil ansehen'
+    view_public_profile: 'öffentliches Profil'
   footer:
     references: 'In den Medien und im Netz'
   locale:
