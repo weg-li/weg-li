@@ -32,7 +32,7 @@ class AnalyzerJob < ApplicationJob
       result = annotator.annotate_object(photo.key)
       if result.present?
         if Annotator.unsafe?(result)
-          notify("safe search violated for notice #{notice.id} with photo #{photo.id} on user #{notice.user.id}")
+          notify("safe search violated for notice #{notice.id} with photo #{photo.id} on user #{notice.user.id}: https://www.weg-li.de/admin/notices/#{notice.token}")
         end
 
         notice.data[photo.id.to_s] = result.merge({ exif: metadata })
