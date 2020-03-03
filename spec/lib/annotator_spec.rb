@@ -48,4 +48,13 @@ describe Annotator do
     expected = [["silver", 0.3093334957957268], ["black", 0.12371549755334854], ["silver", 0.10345552116632462]]
     expect(Annotator.dominant_colors(result)).to eql(expected)
   end
+
+  it "handles unsafe" do
+    result = with_fixture('annotate') { subject.annotate_file }
+
+    expect(Annotator.unsafe?(result)).to be_falsey
+
+    result = { safe_search_annotation: { adult: :LIKELY } }
+    expect(Annotator.unsafe?(result)).to be_truthy
+  end
 end
