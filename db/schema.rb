@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_27_190658) do
+ActiveRecord::Schema.define(version: 2020_03_03_142614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,14 +76,6 @@ ActiveRecord::Schema.define(version: 2020_02_27_190658) do
     t.integer "flags", default: 0
     t.index ["name"], name: "index_districts_on_name"
     t.index ["zip"], name: "index_districts_on_zip", unique: true
-  end
-
-  create_table "identities", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "password_digest"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "notices", force: :cascade do |t|
@@ -156,6 +148,9 @@ ActiveRecord::Schema.define(version: 2020_02_27_190658) do
     t.string "street"
     t.string "zip"
     t.string "city"
+    t.index ["api_token"], name: "index_users_on_api_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["token"], name: "index_users_on_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
