@@ -13,6 +13,6 @@ expiring_reminder:
 geocoding_cleanup:
   cron: '0 0 7 * * * Europe/Berlin'
   class: 'Scheduled::GeocodingCleanupJob'
-export:
-  cron: '0 0 0 MON * * Europe/Berlin'
-  class: 'Scheduled::ExportJob'
+# export:
+#   cron: '0 0 0 MON * * Europe/Berlin'
+#   class: 'Scheduled::ExportJob'
