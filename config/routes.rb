@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :users do
       post :login
     end
+    resources :exports
     resources :districts
     resources :notices do
       post :analyze
@@ -78,6 +79,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :exports
   resources :districts
 
   resource :sitemap, only: :show

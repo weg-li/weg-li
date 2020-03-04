@@ -11,5 +11,4 @@
     = image_tag(url_for_photo(photo, size: :default), class: 'modal-photo')
 
 = hint do
-  => "Dateiname: #{photo.filename}"
-  => "Dateigröße: #{number_to_human_size(photo.blob.byte_size)}"
+  = "#{photo.filename} / #{number_to_human_size(photo.byte_size)}"

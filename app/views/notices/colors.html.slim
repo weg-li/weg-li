@@ -1,8 +1,7 @@
 p
   = image_tag(url_for_photo(@photo, size: :default), class: 'item-photo')
   = hint do
-    => "Dateiname: #{@photo.filename}"
-    => "Dateigröße: #{number_to_human_size(@photo.blob.byte_size)}"
+    = "#{@photo.filename} / #{number_to_human_size(@photo.byte_size)}"
 
 - result = @notice.data[@photo.id.to_s]
 - if result.present? && result['image_properties_annotation']
