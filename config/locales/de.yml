@@ -16,12 +16,19 @@ de:
       snippet: 'Vorlage'
       authorization: 'Auth'
     attributes:
+      export:
+        export_type: 'Art'
+        interval: 'Kalenderwoche'
+        created_at: 'Erstellt'
+        archive: 'Archiv'
+        export_types:
+          notices: Meldungen
       district:
         zip: 'PLZ'
         name: 'Name'
         email: 'E-Mail'
         prefix: 'Kürzel'
-        updated_at: 'aktualisiert'
+        updated_at: 'Aktualisiert'
       user:
         time_zone: 'Zeitzone'
         nickname: 'Spitzname'

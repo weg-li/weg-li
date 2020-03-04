@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_03_142614) do
+ActiveRecord::Schema.define(version: 2020_03_03_211718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,13 @@ ActiveRecord::Schema.define(version: 2020_03_03_142614) do
     t.integer "flags", default: 0
     t.index ["name"], name: "index_districts_on_name"
     t.index ["zip"], name: "index_districts_on_zip", unique: true
+  end
+
+  create_table "exports", force: :cascade do |t|
+    t.integer "export_type", default: 0, null: false
+    t.integer "interval", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "notices", force: :cascade do |t|

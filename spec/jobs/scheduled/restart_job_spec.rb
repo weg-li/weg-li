@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Scheduled::RestartJob do
   context "perform" do
-    it "should process the bulk-upload" do
+    it "should restart the jobs" do
       notice = Fabricate.create(:notice, status: :analyzing)
       bulk_upload = Fabricate.create(:bulk_upload, status: :processing)
 
