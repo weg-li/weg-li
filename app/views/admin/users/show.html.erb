@@ -23,8 +23,16 @@ as well as a link to its edit page.
     <%= content_for(:title) %>
   </h1>
 
+  <%
+  source = User.where('name = :name AND id != :id', name: page.resource.name, id: page.resource.id).first
+  if source.present?
+  %>
   <div>
-    <%= link_to("Login as #{page.resource.name}", admin_user_login_path(page.resource), method: :post, class: "button") %>
+    <%= link_to("Merge with #{source.id}", [namespace, page.resource, :merge, {source_id: source.id}], method: :patch, class: "button") %>
+  </div>
+  <% end %>
+  <div>
+    <%= link_to("Login as #{page.resource.name}", admin_user_login_path(page.resource), class: "button") %>
   </div>
   <div>
     <%= link_to(

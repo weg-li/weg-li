@@ -5,7 +5,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users do
-      post :login
+      get :login
+      patch :merge
     end
     resources :exports
     resources :districts

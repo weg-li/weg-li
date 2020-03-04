@@ -17,6 +17,21 @@ describe User do
     end
   end
 
+  context "merging" do
+    it "merges a source" do
+      user = Fabricate.create(:user)
+      notice = Fabricate.create(:notice)
+      source = notice.user
+      Fabricate.create(:bulk_upload, user: source)
+
+      expect {
+        expect {
+          user.merge(source)
+        }.to change { user.notices.count }.by(1)
+      }.to change { user.bulk_uploads.count }.by(1)
+    end
+  end
+
   it "generates wegli_email" do
     user = Fabricate.build(:user, token: 'dd-33')
     expect(user.wegli_email).to eql('dd-33@anzeige.weg-li.de')

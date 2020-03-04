@@ -36,6 +36,13 @@ class User < ActiveRecord::Base
     token
   end
 
+  def merge(source)
+    User.transaction do
+      source.notices.update_all(user_id: id)
+      source.bulk_uploads.update_all(user_id: id)
+    end
+  end
+
   def validate!
     auth = authorizations.find_or_initialize_by(provider: 'email')
     auth.update! uid: email_uid

@@ -10,6 +10,14 @@ module Admin
       redirect_to root_path, notice: "Signed in as #{user.name}"
     end
 
+    def merge
+      user = User.from_param(params[:user_id])
+      source = User.find(params[:source_id])
+      user.merge(source)
+
+      redirect_to [:admin, user], notice: "Merged with #{source.id}"
+    end
+
     # Define a custom finder by overriding the `find_resource` method:
     # def find_resource(param)
     #   User.find_by!(slug: param)
