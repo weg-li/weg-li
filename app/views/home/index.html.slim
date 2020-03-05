@@ -162,7 +162,7 @@
         - current = @goals[:week]
         p
           strong> Wochenziel:
-          span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen
+          span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen (#{number_with_delimiter(current / 7)} vs. #{number_with_delimiter(goal / 7)} pro Tag)
         .progress.progress-striped.active
           .progress-bar.progress-bar-danger(style="width: #{[100, current / (goal / 100)].min}%")
 
@@ -171,7 +171,7 @@
         - current = @goals[:month]
         p
           strong> Monatsziel:
-          span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen
+          span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen (#{number_with_delimiter(current / 4)} vs. #{number_with_delimiter(goal / 4)} pro Woche)
         .progress.progress-striped.active
           .progress-bar.progress-bar-warning(style="width: #{[100, current / (goal / 100)].min}%")
 
@@ -180,7 +180,7 @@
         - current = @goals[:year]
         p
           strong> Jahresziel:
-          span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen
+          span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen (#{number_with_delimiter(current / 12)} vs. #{number_with_delimiter(goal / 12)} pro Monat)
         .progress.progress-striped.active
           .progress-bar.progress-bar-info(style="width: #{[100, current / (goal / 100)].min}%")
 
