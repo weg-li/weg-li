@@ -1,29 +1,12 @@
 require 'csv'
 
 class Vehicle
-  def self.opengeodb
-    @opengeodb ||= CSV.parse(File.read('config/data/opengeodb.csv'), col_sep: "\t", quote_char: nil, headers: true)
-  end
-
-  def self.zip_to_prefix
-    @zip_to_prefix ||= JSON.load(Rails.root.join('config/data/zip_to_prefix.json'))
-  end
-
   def self.cars
     @cars ||= JSON.load(Rails.root.join('config/data/cars.json'))
   end
 
   def self.plates
     @plates ||= JSON.load(Rails.root.join('config/data/plates.json'))
-  end
-
-  def self.zip_to_plate_prefix_mapping
-    @zip_to_plate_prefix_mapping ||= opengeodb.each_with_object({}) do |entry, hash|
-      next unless entry['plz']
-
-      zips = entry['plz'].split(',')
-      zips.each { |zip| hash[zip] = entry['kz'] if entry['kz'] }
-    end.to_h
   end
 
   def self.most_often?(matches)
