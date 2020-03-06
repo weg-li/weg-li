@@ -32,11 +32,8 @@ class District < ActiveRecord::Base
       zip = row['plz']
       district = from_zip(zip)
       if district.present?
-        Rails.logger.info("found #{zip}: #{district.id}")
-        district.osm_id = row['osm_id']
-        district.state = row['bundesland']
-        district.prefix = zip_to_prefix[zip]
-        district.save!
+        Rails.logger.info("found #{zip}: #{district.id}")        
+        district.update_columns(osm_id: row['osm_id'], state: row['bundesland'], prefix: zip_to_prefix[zip])
       else
         name = row['bundesland']
         source = District.where('name = :name AND zip LIKE :zip', name: name, zip: "#{zip[0, 3]}%").first
