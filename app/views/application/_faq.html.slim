@@ -101,6 +101,8 @@
           li= link_to 'in Köln (Offene Daten Köln: Bußgelddaten)', 'https://www.offenedaten-koeln.de/dataset/bu%C3%9Fgelddaten-koeln-2018', target: '_blank'
           li= link_to 'in Frankfurt (Frankfurter Rundschau: mussten fünf Prozent der Parkverstoß-Verfahren eingestellt werden)', 'https://www.fr.de/frankfurt/frankfurt-mehr-anzeigen-gegen-falschparker-zr-13055099.html', target: '_blank'
           li= link_to 'in Mainz (SWR: 40 private Meldungen am Tag wegen Falschparkern)', 'https://www.swr.de/swraktuell/rheinland-pfalz/mainz/Falschparken-in-Mainz-Falschparker-Mehr-Anzeigen-durch-Privatpersonen,falschparken-104.html', target: '_blank'
+          li= link_to 'in Duisburg (RP: 2019 gingen rund 2500 Anzeigen ein, rund 1000 Meldungen konnten nicht bearbeitet werden konnten)', 'https://rp-online.de/nrw/panorama/nrw-falschparker-werden-haeufig-von-buergern-ordnungsamt-gemeldet_aid-49421499', target: '_blank'
+          li= link_to 'in Düsseldorf (WDR: 29.700 Verfahren auf Anzeigen von Bürgern hin eingeleitet, etwa dreiviertel aller Anzeigen werde auch verfolgt)', 'https://www1.wdr.de/nachrichten/falschparker-anzeigen-100.html', target: '_blank'
 
     - i += 1
     a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}" name="faq-#{i}"
@@ -109,5 +111,21 @@
       .panel-body
         p Für die Erkennung des Standortes auf iOS muss vor dem Aufnehmen von Beweisfotos folgende Einstellung konfiguriert werden:
         <code>Einstellungen > Kamera > Formate > Maximale Kompatibilität</code>
+
+    - i += 1
+    a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}" name="faq-#{i}"
+      h4.text-warning Werden meine persönlichen Daten bei einer Anzeige öffentlich?
+    panel-collapse.collapse id="collapse-#{i}"
+      .panel-body
+        p
+          |
+            Damit eine Anzeige auch zu einem Bußgeldbescheid führen kann, muss der Tatvorgang bezeugt werden.
+            Die Daten des Zeugen, also vollstäniger Name und eine ladungsfähige Anschrift, müssen deshalb mit angegeben werden.
+            Anonyme Anzeigen werden nicht verfolgt und umgehend gelöscht.
+            Sollte die Anzeige verfolgt werden, dann erhält der Halter des Fahrzeugs einen Anhörungsbogen zum Vorwurf.
+            Laut #{link_to 'dem Datenschutzbeauftragten von Hessen', 'https://twitter.com/DavidGruenewald/status/1143445226935201792'} sollte der Anhörungsbogen keine Informationen zum Zeugen enthalten.
+            Falls der Beschuldigte Widerspruch einlegt und das Bußgeldverfahren aktenkundig wird, so hat er die Möglichkeit kostenpflichtig Akteneinsicht zu verlangen.
+            Die persönlichen Daten des Zeugen sind dann in der Akte enthalten.
+            Allerdings besteht für den Zeugen die Möglichkeit eine beliebige ladungsfähige Anschrift, z.B. die seiner Arbeit, anzugeben, es muss nicht seine Meldeadresse sein.
 
 p Mehr Fragen und Antworten zum Thema Falschparker findet man auch beim #{link_to 'ADFC', 'https://hamburg.adfc.de/verkehr/maengelmelder/falschparker/#c11652', target: '_blank'}.
