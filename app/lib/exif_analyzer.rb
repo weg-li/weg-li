@@ -20,5 +20,8 @@ class EXIFAnalyzer
     end
 
     meta
+  rescue EXIFR::MalformedJPEG => error
+    Rails.logger.warn("could not process #{image.id}: #{error}")
+    {}
   end
 end
