@@ -30,24 +30,18 @@ class District < ActiveRecord::Base
   def self.extend_data
     zips.each do |row|
       zip = row['plz']
-      district = from_zip(zip)
-      if district.present?
-        Rails.logger.info("found #{zip}: #{district.id}")        
-        district.update_columns(osm_id: row['osm_id'], state: row['bundesland'], prefix: zip_to_prefix[zip])
+      name = row['ort']
+      source = District.where('name = :name AND zip LIKE :zip', name: name, zip: "#{zip.first}%").first
+      if source.present?
+        Rails.logger.info("found source for #{zip}: #{source.id}")
+        district = source.dup
+        district.zip = zip
+        district.osm_id = row['osm_id']
+        district.state = row['bundesland']
+        district.prefix = zip_to_prefix[zip]
+        district.save!
       else
-        name = row['bundesland']
-        source = District.where('name = :name AND zip LIKE :zip', name: name, zip: "#{zip[0, 3]}%").first
-        if source.present?
-          Rails.logger.info("found source for #{zip}: #{source.id}")
-          district = source.dup
-          district.zip = zip
-          district.osm_id = row['osm_id']
-          district.state = row['bundesland']
-          district.prefix = zip_to_prefix[zip]
-          district.save!
-        else
-          Rails.logger.info("could not find anything for #{zip}")
-        end
+        Rails.logger.info("could not find anything for #{zip}")
       end
     end
   end
