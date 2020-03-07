@@ -30,18 +30,22 @@ class District < ActiveRecord::Base
   def self.extend_data
     zips.each do |row|
       zip = row['plz']
-      name = row['ort']
-      source = District.where('name = :name AND zip LIKE :zip', name: name, zip: "#{zip.first}%").first
-      if source.present?
-        Rails.logger.info("found source for #{zip}: #{source.id}")
-        district = source.dup
-        district.zip = zip
-        district.osm_id = row['osm_id']
-        district.state = row['bundesland']
-        district.prefix = zip_to_prefix[zip]
-        district.save!
+      district = from_zip(zip)
+      if district.present?
+        Rails.logger.info("found #{zip}: #{district.id}")
       else
-        Rails.logger.info("could not find anything for #{zip}")
+        source = District.where('name = :name AND zip LIKE :zip', name: row['ort'], zip: "#{zip.first}%").first
+        if source.present?
+          Rails.logger.info("found source for #{zip}: #{source.id}")
+          district = source.dup
+          district.zip = zip
+          district.osm_id = row['osm_id']
+          district.state = row['bundesland']
+          district.prefix = zip_to_prefix[zip]
+          district.save!
+        else
+          Rails.logger.info("could not find anything for #{zip}")
+        end
       end
     end
   end
