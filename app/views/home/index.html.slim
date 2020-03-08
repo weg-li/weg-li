@@ -162,7 +162,7 @@
         - current = @goals[:week]
         p
           strong> Wochenziel:
-          span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen (#{number_with_delimiter(current / Date.today.wday)} vs. #{number_with_delimiter(goal / 7)} pro Tag)
+          span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen (#{number_with_delimiter(current / Date.today.wday == 0 ? 7 : Date.today.wday)} vs. #{number_with_delimiter(goal / 7)} pro Tag)
         .progress.progress-striped.active
           .progress-bar.progress-bar-danger(style="width: #{[100, current / (goal / 100)].min}%")
 
