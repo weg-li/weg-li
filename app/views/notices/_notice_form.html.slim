@@ -81,7 +81,7 @@
         = form.date_field :date_date, class: "form-control", required: true
         label.input-group-addon(for="notice_date_date")
           span.glyphicon.glyphicon-calendar
-        = form.time_field :date_time, class: "form-control", required: true, step: 1, value: form.object.date_time&.strftime('%H:%M')
+        = form.time_field :date_time, class: "form-control", required: true, value: form.object.date_time&.strftime('%H:%M')
         label.input-group-addon(for="notice_date_time")
           span.glyphicon.glyphicon-time
 
