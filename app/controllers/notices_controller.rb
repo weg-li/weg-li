@@ -114,7 +114,7 @@ class NoticesController < ApplicationController
     token = Token.generate(current_user.token)
     NoticeMailer.forward(notice, token).deliver_later
 
-    redirect_to(notices_path, notice: "Eine E-Mail mit einem geheimen Link zum Weiterleiten ist zu Dir unterwegs.")
+    redirect_to(notices_path, notice: "Eine E-Mail mit einem geheimen Link zum Übertragen ist zu Dir unterwegs.")
   end
 
   def retrieve

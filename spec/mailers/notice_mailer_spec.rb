@@ -21,7 +21,7 @@ describe NoticeMailer do
     it "renders the mail" do
       mail = NoticeMailer.forward(notice, token)
 
-      expect(mail.subject).to match('Anzeige weiterleiten')
+      expect(mail.subject).to match('Meldung übertragen')
       expect(mail.to).to eq([user.email])
     end
   end

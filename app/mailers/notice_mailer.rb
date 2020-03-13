@@ -21,7 +21,7 @@ class NoticeMailer < ApplicationMailer
     @user = notice.user
     @token = token
 
-    subject = "Anzeige weiterleiten: #{@notice.registration} #{@notice.charge}"
+    subject = "Meldung übertragen: #{@notice.registration} #{@notice.charge}"
     mail subject: subject, to: email_address_with_name(@user.email, @user.name)
   end
 end
