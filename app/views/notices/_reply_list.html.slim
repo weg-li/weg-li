@@ -1,14 +1,15 @@
-table.table.table-striped.table-hover
-  thead
-    tr
-      th= Reply.human_attribute_name(:created_at)
-      th= Reply.human_attribute_name(:sender)
-      th= Reply.human_attribute_name(:subject)
-      th= Reply.human_attribute_name(:content)
-  tbody
-    - replies.each_with_index do |reply|
+.table-responsive
+  table.table.table-striped.table-hover
+    thead
       tr
-        td(nowrap)= l(reply.created_at, format: :short)
-        td= mail_to(reply.sender)
-        td= reply.subject
-        td= render('reply_modal_button', reply: reply)
+        th= Reply.human_attribute_name(:created_at)
+        th= Reply.human_attribute_name(:sender)
+        th= Reply.human_attribute_name(:subject)
+        th= Reply.human_attribute_name(:content)
+    tbody
+      - replies.each_with_index do |reply|
+        tr
+          td(nowrap)= l(reply.created_at, format: :short)
+          td= mail_to(reply.sender)
+          td= reply.subject
+          td= render('reply_modal_button', reply: reply)
