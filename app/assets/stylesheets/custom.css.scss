@@ -8,6 +8,10 @@ $dark-color: darken($default-color, 10);
 
 $white: rgb(255, 255, 255);
 
+select {
+  font-size: 50px;
+}
+
 .panel-nav {
   border-top: 0px;
   border-top-left-radius: 0px;
