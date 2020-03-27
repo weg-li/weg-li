@@ -7,6 +7,13 @@ class PhotosDownloadJob < ApplicationJob
     content = album.read
     content.match(/"(https:\/\/video-downloads\.googleusercontent\.com\/[^"]*)"/)
     download_url = $1
+
+    if download_url.blank?
+      error_message = "Es konnte kein Bilder-Archiv zum herunterladen gefunden werden!"
+      bulk_upload.update! status: :error, error_message: error_message
+      return
+    end
+
     Rails.logger.info("downloading photos for #{bulk_upload.id} from #{download_url}")
     album = open(download_url)
 
@@ -32,5 +39,8 @@ class PhotosDownloadJob < ApplicationJob
       error_message = "Der Datei-Typ #{album.metas['content-type']} wird nicht unterstützt!"
       bulk_upload.update! status: :error, error_message: error_message
     end
+  rescue OpenURI::HTTPError => e
+    error_message = "Die Datei konnte nicht heruntergeladen werden: #{e.message}"
+    bulk_upload.update! status: :error, error_message: error_message
   end
 end
