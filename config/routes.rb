@@ -80,9 +80,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :exports
-  resources :districts
+  resources :districts do
+    member do
+      get :wegeheld
+    end
+  end
 
+  resources :exports
   resource :sitemap, only: :show
 
   scope '/p' do

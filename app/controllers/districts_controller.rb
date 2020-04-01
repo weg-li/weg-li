@@ -8,6 +8,19 @@ class DistrictsController < ApplicationController
 
   def show
     @district = District.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @district.as_api_response(:public_beta) }
+    end
+  end
+
+  def wegeheld
+    district = District.find_by(zip: params[:id])
+
+    respond_to do |format|
+      format.json { render json: district.as_api_response(:wegeheld) }
+    end
   end
 
   private

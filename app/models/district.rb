@@ -13,6 +13,13 @@ class District < ActiveRecord::Base
     %i(name zip email prefix latitude longitude aliases personal_email created_at updated_at).each { |key| template.add(key) }
   end
 
+  api_accessible :wegeheld do |template|
+    template.add :id
+    template.add :name
+    template.add :email
+    template.add :zip, as: :postalcode
+  end
+
   validates :name, :zip, :email, presence: true
   validates :zip, uniqueness: true
 
