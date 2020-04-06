@@ -22,3 +22,8 @@ p.text-primary
   .col-lg-6
     h3 Hochgeladene Beweisfotos
     = render('chart', name: :photos, counts: @photo_counts, sums: @photo_sums)
+
+.row
+  .col-lg-12
+    h3 Tägliche Anzeigen
+    = render('chart', name: :daily_notices, counts: @daily_notice_counts, sums: @daily_notice_sums)
