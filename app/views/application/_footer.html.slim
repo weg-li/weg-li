@@ -18,6 +18,9 @@ footer
           = link_to privacy_path, title: 'weg-li Datenschutz' do
             <span class="glyphicon glyphicon-lock"></span> Datenschutz
         li
+          = link_to privacy_path, title: 'weg-li Impressumg' do
+            <span class="glyphicon glyphicon-asterisk"></span> Impressumg
+        li
           = link_to faq_path, title: 'weg-li FAQ' do
             <span class="glyphicon glyphicon-info-sign"></span> FAQ
 
@@ -37,17 +40,7 @@ footer
             <span class="glyphicon glyphicon-piggy-bank"></span> Spenden
 
     .col-lg-4.col-xs-12
-      address.well.gray-ish
-        .pull-left
-          = link_to 'https://twitter.com/weg_li/', target: '_blank' do
-            = image_tag 'phoet.jpg', class: "img-circle me-thumb"
-        div
-          strong= link_to 'Peter Schröder', 'https://twitter.com/weg_li/', target: '_blank'
-          <br>
-          |
-            Tigerstr. 32<br>
-            22525 Hamburg, Germany<br>
-          <abbr title="E-Mail">E:</abbr> #{mail_to 'peter@weg-li.de'}
+      = render('short_imprint')
   hr
   .row
     .col-lg-12.text-center

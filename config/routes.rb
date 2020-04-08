@@ -116,6 +116,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   get '/home', to: 'home#index', as: :home
+  get '/imprint', to: 'home#imprint', as: :imprint
   get '/map', to: 'home#map', as: :map
   get '/leaderboard', to: 'home#leaderboard', as: :leaderboard
   get '/stats', to: 'home#stats', as: :stats
