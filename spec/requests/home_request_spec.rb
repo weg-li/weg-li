@@ -52,6 +52,15 @@ describe "home", type: :request do
     end
   end
 
+  context "GET :imprint" do
+    it "shows the page" do
+      get imprint_path
+
+      expect(response).to be_successful
+      assert_select('h1', "weg-li Impressum")
+    end
+  end
+
   context "GET :privacy" do
     it "shows the page" do
       get privacy_path
