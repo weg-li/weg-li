@@ -35,12 +35,10 @@ ul.dropdown-menu
     = link_to duplicate_notice_path(notice), data: {confirm: 'Die Meldung wird nun duplizieret'}, method: :patch
       span.glyphicon.glyphicon-duplicate>
       | Meldung duplizieren
-
-  - unless notice.shared?
-    li
-      = link_to notice_path(notice), method: :delete, data: {confirm: 'Die Meldung wird endgültig gelöscht'}, title: 'löschen'
-        span.glyphicon.glyphicon-trash>
-        | Meldung löschen
+  li
+    = link_to notice_path(notice), method: :delete, data: {confirm: 'Die Meldung wird endgültig gelöscht'}, title: 'löschen'
+      span.glyphicon.glyphicon-trash>
+      | Meldung löschen
 
   - unless notice.incomplete?
     li

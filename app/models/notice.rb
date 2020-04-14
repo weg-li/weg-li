@@ -37,7 +37,6 @@ class Notice < ActiveRecord::Base
   enum severity: {standard: 0, hinder: 1, endanger: 2}
 
   scope :since, -> (date) { where('notices.created_at > ?', date) }
-  scope :destroyable, -> () { where.not(status: :shared) }
   scope :for_public, -> () { where.not(status: :disabled) }
   scope :search, -> (term) { where('registration ILIKE :term', term: "%#{term}%") }
   scope :preselect, -> () { shared.limit(3) }

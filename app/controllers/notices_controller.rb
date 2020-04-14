@@ -183,7 +183,7 @@ class NoticesController < ApplicationController
   end
 
   def destroy
-    notice = current_user.notices.destroyable.from_param(params[:id])
+    notice = current_user.notices.from_param(params[:id])
     notice.destroy!
 
     redirect_to notices_path, notice: t('notices.destroyed')
