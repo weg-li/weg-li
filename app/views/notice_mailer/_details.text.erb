@@ -13,10 +13,8 @@
 <%= Notice.human_attribute_name(:charge) %>: <%= notice.charge %>, <%= Notice.human_attribute_name(notice.severity) %>
 
 <%= Notice.human_attribute_name(:date) %>: <%= l(notice.date, format: :short) %>
-<% if notice.duration > 1 %>
 
-Das Fahrzeug stand <%= Vehicle.durations.to_h.invert[notice.duration] %>, mindestens bis <%= l(notice.date + notice.duration.minutes, format: :short) %>
-<% end %>
+<%= Notice.human_attribute_name(:duration) %>: <%= l(notice.date, format: :time) %> ~ <%= l(notice.date + notice.duration.minutes, format: :time) %> (<%= Vehicle.durations.to_h.invert[notice.duration] %>)
 <% if notice.vehicle_empty? %>
 
 Das Fahrzeug war verlassen.
