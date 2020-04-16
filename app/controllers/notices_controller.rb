@@ -215,7 +215,9 @@ class NoticesController < ApplicationController
     when 'pdf'
       notices = notices.complete
       if notices.present?
-        UserMailer.pdf(current_user, notices.pluck(:id)).deliver_later
+         notices.pluck(:id).each_slice(5) do |notice_ids|
+           UserMailer.pdf(current_user, notice_ids).deliver_later
+         end
         flash[:notice] = 'Die offenen, vollständigen Meldungen wurden als PDF generiert und per E-Mail zugeschickt'
       else
         flash[:notice] = 'Keine offenen, vollständigen Meldungen zum generieren gefunden!'
