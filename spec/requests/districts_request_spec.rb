@@ -45,5 +45,11 @@ describe "districts", type: :request  do
       expect(response).to be_successful
       expect(JSON.parse(response.body)).to eql({"postalcode" => "41460", "name" => "Neuss", "id" => 42, "email" => "verkehrslenkung@stadt.neuss.de"})
     end
+
+    it "404s for unknown zips" do
+      get wegeheld_district_path('unknown', format: :json)
+
+      expect(response).to be_not_found
+    end
   end
 end

@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActionController::InvalidAuthenticityToken, with: :session_expired
   rescue_from ActionController::UnknownFormat, with: -> () { head(:not_found) }
+  rescue_from ActiveRecord::RecordNotFound, with: -> () { head(:not_found) }
 
   private
 

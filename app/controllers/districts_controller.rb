@@ -16,7 +16,7 @@ class DistrictsController < ApplicationController
   end
 
   def wegeheld
-    district = District.find_by(zip: params[:id])
+    district = District.find_by!(zip: params[:id])
 
     respond_to do |format|
       format.json { render json: district.as_api_response(:wegeheld) }
