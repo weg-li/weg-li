@@ -1,5 +1,6 @@
 class AnalyzerJob < ApplicationJob
   retry_on EXIFR::MalformedJPEG, attempts: 15, wait: :exponentially_longer
+  retry_on ActiveStorage::FileNotFoundError, attempts: 15, wait: :exponentially_longer
 
   def self.time_from_filename(filename)
     token = filename[/.*(20\d{6}_\d{6})/, 1]
