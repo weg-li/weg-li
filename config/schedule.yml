@@ -14,5 +14,5 @@ geocoding_cleanup:
   cron: '0 7 * * * Europe/Berlin'
   class: 'Scheduled::GeocodingCleanupJob'
 export:
-  cron: '0 1 * * mon Europe/Berlin'
+  cron: '0 3 * * mon Europe/Berlin'
   class: 'Scheduled::ExportJob'
