@@ -19,6 +19,13 @@ describe "districts", type: :request  do
       expect(response).to be_successful
       assert JSON.parse(response.body)
     end
+
+    it "renders districts as csv" do
+      get districts_path(format: :csv)
+
+      expect(response).to be_successful
+      assert CSV.parse(response.body)
+    end
   end
 
   context "districts#show" do

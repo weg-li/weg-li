@@ -3,6 +3,15 @@ class DistrictsController < ApplicationController
     respond_to do |format|
       format.html { @districts = search_scope }
       format.json { render json: District.all.as_api_response(:public_beta) }
+      format.csv do
+        csv_data = CSV.generate(force_quotes: true) do |csv|
+          csv << ["plz","name","email"]
+          District.in_batches do |relation|
+            relation.each { |district| csv << [district.name, district.zip, district.email] }
+          end
+        end
+        send_data csv_data, type: 'text/csv; charset=UTF-8; header=present', disposition: "attachment; filename=districts-#{Time.now.to_i}.csv"
+      end
     end
   end
 
