@@ -7,7 +7,7 @@ class DistrictsController < ApplicationController
         csv_data = CSV.generate(force_quotes: true) do |csv|
           csv << ["plz","name","email"]
           District.in_batches do |relation|
-            relation.each { |district| csv << [district.name, district.zip, district.email] }
+            relation.each { |district| csv << [district.zip, district.name, district.email] }
           end
         end
         send_data csv_data, type: 'text/csv; charset=UTF-8; header=present', disposition: "attachment; filename=districts-#{Time.now.to_i}.csv"
