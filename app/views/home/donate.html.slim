@@ -1,0 +1,48 @@
+.page-header
+  h1 Spenden für weg-li
+
+.spacer
+
+.row
+  .col-lg-2.text-center
+    = image_tag 'phoet.jpg', class: "img-circle me-quote"
+  .col-lg-10
+    blockquote
+      p Mit Deiner Spende unterstützt Du uns dabei weg-li überhaupt möglich zu machen - vielen Dank 🥰
+      small= "weg-li 🚲💨 #{t('slogan_1')} #{t('slogan_2')}"
+
+.spacer-large
+
+.well.well-lg
+  p
+    |
+      Vielen Dank für Dein Interesse an weg-li 😻 Wir freuen uns sehr darüber, dass wir alle gemeinsam einen Beitrag dazu leisten können,
+      die Bürgersteige frei und die Radwege sicher zu machen 💪 In Kürze haben die weg-li Nutzer 25.000 Anzeigen an Ordnungsämter verschickt,
+      von solchen Zahlen hätten wir vor ein paar Monaten nicht zu träumen gewagt 🚀
+  p
+    |
+      Dieser Erfolg bringt allerdings auch einige Dinge mitsich, denn natürlich steigen mit höhrere Nutzung auch die Kosten für den Betrieb der Plattform,
+      der Support-Aufwand und der Wunsch nach neuen Features benötigt viele Entwicklungsresourcen. Ohne die Hilfe von Freiwilligen und den Einsatz von Freizeit
+      würde so ein Projekt schnell einen 6-Stelligen Kostenrahmen erreichen 💸
+  p
+    |
+      Die Betriebskosten sind am einfachsten zu beziffern. Derzeit belaufen sie sich auf knapp 250 EUR:<br>
+      ~ 200 EUR / month Heroku (Dynos, Database, Redis)<br>
+      ~ 50 EUR / month GCloud (Storage, Vision-API, Geolocation)<br>
+      ~ 2 EUR / month Domain- and DNS-management (Cloudflare, Domainfactory)<br>
+  p
+    |
+      Seien es Geld-Spenden, die Recherche von Melde-Adressen der Ordnungsämter, Mund-zu-Mund-Propaganda via Twitter - wir freuen uns über jede Art der Unterstützung 🥳
+
+.spacer-large
+
+.row
+  .col-lg-6
+    = link_to('https://opencollective.com/weg-li', target: '_blank', class: 'btn btn-success btn-lg btn-block')
+      <span class="glyphicon glyphicon-piggy-bank"></span> Spenden per OpenCollective
+    small Hier kannst Du individuell festlegen wie Du spenden möchtest, auch einmalige Spenden sind möglich.
+
+  .col-lg-6
+    = link_to('https://github.com/sponsors/phoet/', target: '_blank', class: 'btn btn-success btn-lg btn-block')
+      <span class="glyphicon glyphicon-piggy-bank"></span> Sponsoring per GitHub
+    small Hier kannst Du monatliche Beiträge festlegen, das hilft uns den Betrieb der Plattform sicherzustellen.

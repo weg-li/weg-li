@@ -15,16 +15,23 @@ footer
           = link_to districts_path, title: 'weg-li Bezirke' do
             <span class="glyphicon glyphicon-list"></span> Bezirke
         li
-          = link_to privacy_path, title: 'weg-li Datenschutz' do
-            <span class="glyphicon glyphicon-lock"></span> Datenschutz
+          = link_to exports_path, title: 'weg-li Exporte' do
+            <span class="glyphicon glyphicon-compressed"></span> Exporte
+
+      ul.list-unstyled.clearfix
         li
           = link_to imprint_path, title: 'weg-li Impressum' do
             <span class="glyphicon glyphicon-asterisk"></span> Impressum
         li
+          = link_to privacy_path, title: 'weg-li Datenschutz' do
+            <span class="glyphicon glyphicon-lock"></span> Datenschutz
+        li
           = link_to faq_path, title: 'weg-li FAQ' do
             <span class="glyphicon glyphicon-info-sign"></span> FAQ
+        li
+          = link_to donate_path, title: 'weg-li Sponsor werden' do
+            <span class="glyphicon glyphicon-piggy-bank"></span> Spenden
 
-      hr
       ul.list-unstyled.clearfix
         li
           = link_to 'https://status.weg-li.de', title: 'weg-li status', target: '_blank' do
@@ -35,9 +42,6 @@ footer
         li
           = link_to 'https://github.com/weg-li/weg-li', title: 'weg-li on GitHub - We <3 Open-Source!', target: '_blank' do
             <span class="glyphicon glyphicon-heart"></span> GitHub
-        li
-          = link_to 'https://github.com/sponsors/phoet/', title: 'weg-li Sponsor werden', target: '_blank' do
-            <span class="glyphicon glyphicon-piggy-bank"></span> Spenden
 
     .col-lg-4.col-xs-12
       = render('short_imprint')

@@ -122,6 +122,7 @@ Rails.application.routes.draw do
   get '/stats', to: 'home#stats', as: :stats
   get '/faq', to: 'home#faq', as: :faq
   get '/privacy', to: 'home#privacy', as: :privacy
+  get '/donate', to: 'home#donate', as: :donate
   get '/year2019', to: 'home#year2019', as: :year2019
   get '/year2020', to: 'home#year2020', as: :year2020
 
