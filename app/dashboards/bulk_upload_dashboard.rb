@@ -9,7 +9,7 @@ class BulkUploadDashboard < Administrate::BaseDashboard
     id: Field::Number,
     notices: Field::HasMany,
     user: Field::BelongsTo,
-    photos: Field::ActiveStorage,
+    photos: Field::ActiveStorage.with_options(destroy_url: nil),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     status: Field::String.with_options(searchable: false),

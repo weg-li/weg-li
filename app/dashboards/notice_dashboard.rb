@@ -9,7 +9,7 @@ class NoticeDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     user: Field::BelongsTo,
-    photos: Field::ActiveStorage,
+    photos: Field::ActiveStorage.with_options(destroy_url: nil),
     id: Field::Number,
     data: Field::String.with_options(searchable: false),
     meta: Field::String.with_options(searchable: false),
