@@ -11,5 +11,8 @@ module PhotoHelper
     else
       url_for(photo.variant(CONFIG[size]))
     end
+  rescue ActiveStorage::InvariableError => e
+    Rails.logger.warn("rendering broken image #{photo.id}: #{e.message}")
+    url_for(photo)
   end
 end
