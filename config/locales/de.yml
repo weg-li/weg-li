@@ -27,7 +27,7 @@ de:
         zip: 'PLZ'
         name: 'Name'
         email: 'E-Mail'
-        prefix: 'Kürzel'
+        prefix: 'Kennzeichen'
         updated_at: 'Aktualisiert'
       user:
         time_zone: 'Zeitzone'
