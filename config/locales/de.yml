@@ -37,6 +37,7 @@ de:
         email: 'E-Mail'
         phone: 'Telefon'
         street: 'Straße'
+        appendix: 'Adresszusatz'
         zip: 'PLZ'
         city: 'Stadt'
       reply:
