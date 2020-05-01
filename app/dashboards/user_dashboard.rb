@@ -17,6 +17,7 @@ class UserDashboard < Administrate::BaseDashboard
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     token: Field::String,
+    last_login: Field::DateTime,
     validation_date: Field::DateTime,
     access: Field::String.with_options(searchable: false),
     flags: Field::Number,
@@ -24,6 +25,7 @@ class UserDashboard < Administrate::BaseDashboard
     street: Field::String,
     zip: Field::String,
     city: Field::String,
+    appendix: Field::String,
     latitude: Field::Number.with_options(decimals: 2),
     longitude: Field::Number.with_options(decimals: 2),
   }.freeze
@@ -35,8 +37,8 @@ class UserDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :id,
-    :token,
     :created_at,
+    :last_login,
     :nickname,
     :name,
     :access,
@@ -51,6 +53,7 @@ class UserDashboard < Administrate::BaseDashboard
     :created_at,
     :updated_at,
     :token,
+    :last_login,
     :validation_date,
     :access,
     :flags,
@@ -58,6 +61,7 @@ class UserDashboard < Administrate::BaseDashboard
     :street,
     :zip,
     :city,
+    :appendix,
     :latitude,
     :longitude,
     :notices,
@@ -72,6 +76,7 @@ class UserDashboard < Administrate::BaseDashboard
     :email,
     :nickname,
     :token,
+    :last_login,
     :validation_date,
     :access,
     :flags,
@@ -79,6 +84,7 @@ class UserDashboard < Administrate::BaseDashboard
     :street,
     :zip,
     :city,
+    :appendix,
   ].freeze
 
   # Overwrite this method to customize how users are displayed

@@ -6,6 +6,7 @@ class SessionsController < ApplicationController
     auth = request.env['omniauth.auth'].slice('provider', 'uid', 'info')
     Rails.logger.info(auth) if ENV['VERBOSE_LOGGING']
     if authorization = Authorization.find_by_provider_and_uid(auth['provider'], auth['uid'])
+      authorization.user.touch(:last_login)
       sign_in(authorization.user)
 
       redirect_to notices_path, notice: t('sessions.welcome_back', nickname: authorization.user.name)
