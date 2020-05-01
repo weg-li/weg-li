@@ -8,23 +8,26 @@
         .panel-heading Persönliche Daten
         .panel-body
           = form.label :name, class: "control-label control-label-required"
-          = form.text_field :name, class: "form-control", required: true
+          = form.text_field :name, class: "form-control", required: true, placeholder: 'z.B. Hanno Nym'
+            = hint do
+              | Vollständiger Name und ladungsfähige Adresse werden als Zeugendaten benötigt.
 
           = form.label :street, class: "control-label control-label-required"
-          = form.text_field :street, class: "form-control", required: true
+          = form.text_field :street, class: "form-control", required: true, placeholder: 'z.B. Sylvesterallee 7'
 
           = form.label :city, class: "control-label control-label-required"
-          = form.text_field :city, class: "form-control", required: true
+          = form.text_field :city, class: "form-control", required: true, placeholder: 'z.B. Hamburg'
 
           = form.label :zip, class: "control-label control-label-required"
-          = form.text_field :zip, class: "form-control", required: true
+          = form.text_field :zip, class: "form-control", required: true, placeholder: 'z.B. 22525'
 
+          = form.label :appendix, class: "control-label control-label-required"
+          = form.text_field :appendix, class: "form-control", placeholder: 'z.B. Müller GmbH'
           = hint do
-            | Name und Anschrift werden beim Erstatten von Anzeigen als Zeugen-Adresse verwendet.
+            | Als ladungsfähige Adresse kann auch z.B. die des Arbeitgebers genutzt werden.
 
           = form.label :phone, class: "control-label"
           = form.text_field :phone, class: "form-control", placeholder: 'z.B. 040 600 90 76 98'
-
           = hint do
             | Ist eine Telefonnummer vorhanden, dann wird diese für Rückfragen mit angegeben.
 

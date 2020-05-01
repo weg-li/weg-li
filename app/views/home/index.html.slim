@@ -17,13 +17,13 @@
           .spacer-large
 
           .btn-group.btn-group-lg.btn-group-justified.spacer-large
-            = link_to(notices_path, class: 'btn btn-success') do
+            = link_to(notices_path, class: 'btn btn-default') do
               span.glyphicon.glyphicon-th-list>
               span.hidden-xs Ansehen
-            = link_to(new_notice_path, class: 'btn btn-success') do
+            = link_to(new_notice_path, class: 'btn btn-default') do
               span.glyphicon.glyphicon-plus>
               span.hidden-xs Melden
-            = link_to(new_bulk_upload_path, class: 'btn btn-success') do
+            = link_to(new_bulk_upload_path, class: 'btn btn-default') do
               span.glyphicon.glyphicon-cloud-upload>
               span.hidden-xs Hochladen
       - else
@@ -44,6 +44,30 @@
 - if signed_in?
   .page-header
     h2 Was gibt es Neues bei weg-li?
+
+  .row
+    .col-lg-12
+      h3 🌟 Neue Funktionen:
+
+      ul.list-group
+        li.list-group-item
+          span.badge neu
+          | 🏢 In #{link_to 'Deinem Profil', edit_user_path} kannst Du jetzt einen Adresszusatz angeben!
+        li.list-group-item
+          span.badge neu
+          | 💾 Datensätze können als anonymisiertes Archiv #{link_to 'als Export', exports_path} heruntergeladen werden.
+        li.list-group-item
+          span.badge neu
+          | 📝 Mit Hilfe von #{link_to 'Vorlagen', snippets_path} kannst Du häufig genutzte Texte für Hinweise hinterlegen.
+        li.list-group-item
+          span.badge neu
+          | 🌇 Als Benutzer von Google-Photos kannst Du nun Beweisfotos direkt über ein geteiltes Album in einen #{link_to 'Massen-Upload', new_bulk_upload_path} importieren.
+
+  .spacer-large
+
+  .well= render('donate_buttons')
+
+  .spacer-large
 
   .row
     .col-lg-2.text-center
@@ -69,26 +93,6 @@
         li.list-group-item
           span.badge Überall
           | 👍 Diese und viele weitere tolle Projekte rund um das Thema Radfahren findet ihr bei #{link_to 'Awesome Bikeprojects', 'https://github.com/mltbnz/awesome-bikeprojects'}.
-
-  .spacer-large
-
-  .row
-    .col-lg-12
-      h3 🌟 Neue Funktionen:
-
-      ul.list-group
-        li.list-group-item
-          span.badge neu
-          | 💖 Unterstütze weg-li direkt mit #{link_to 'Deiner Spende', donate_path}!
-        li.list-group-item
-          span.badge neu
-          | 💾 Datensätze können als anonymisiertes Archiv #{link_to 'als Export', exports_path} heruntergeladen werden.
-        li.list-group-item
-          span.badge neu
-          | 📝 Mit Hilfe von #{link_to 'Vorlagen', snippets_path} kannst Du häufig genutzte Texte für Hinweise hinterlegen.
-        li.list-group-item
-          span.badge neu
-          | 🌇 Als Benutzer von Google-Photos kannst Du nun Beweisfotos direkt über ein geteiltes Album in einen #{link_to 'Massen-Upload', new_bulk_upload_path} importieren.
 
 - else
   .page-header

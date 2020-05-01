@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
 
   enum access: {disabled: -99, user: 0, community: 1, admin: 42}
 
-  geocoded_by :full_address
+  geocoded_by :geocode_address, language: Proc.new { |model| I18n.locale }, no_annotations: true
   after_validation :geocode
   after_validation :normalize
   before_validation :defaults
@@ -58,8 +58,12 @@ class User < ActiveRecord::Base
     validation_date.present?
   end
 
+  def geocode_address
+    "#{street}, #{zip}, #{city}, Deutschland"
+  end
+
   def full_address
-    "#{street}, #{zip} #{city}, Deutschland"
+    "#{"#{appendix}, " if appendix.present?}#{street}, #{zip} #{city}"
   end
 
   def to_label

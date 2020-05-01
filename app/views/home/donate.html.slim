@@ -36,13 +36,4 @@
 
 .spacer-large
 
-.row
-  .col-lg-6
-    = link_to('https://opencollective.com/weg-li', target: '_blank', class: 'btn btn-success btn-lg btn-block')
-      <span class="glyphicon glyphicon-piggy-bank"></span> Spenden per OpenCollective
-    small Hier kannst Du individuell festlegen wie Du spenden möchtest, auch einmalige Spenden sind möglich.
-
-  .col-lg-6
-    = link_to('https://github.com/sponsors/phoet/', target: '_blank', class: 'btn btn-success btn-lg btn-block')
-      <span class="glyphicon glyphicon-piggy-bank"></span> Sponsoring per GitHub
-    small Hier kannst Du monatliche Beiträge festlegen, das hilft uns den Betrieb der Plattform sicherzustellen.
+= render('donate_buttons')
