@@ -2,6 +2,12 @@ class NoticeMailer < ApplicationMailer
   def charge(notice, to = nil)
     @notice = notice
     @user = notice.user
+    @district = notice.district
+
+    if @district.blank?
+      notify("no district found with zip #{notice.zip} for #{notice.id}")
+      return
+    end
 
     notice.photos.each do |photo|
       variant = photo.variant(PhotoHelper::CONFIG[:default]).processed
@@ -10,7 +16,7 @@ class NoticeMailer < ApplicationMailer
 
     subject = "Anzeige #{@notice.registration} #{@notice.charge}"
     mail subject: subject,
-     to: to || notice.district.email,
+     to: to || @district.email,
      cc: email_address_with_name(@user.email, @user.name),
      reply_to: email_address_with_name(@user.email, @user.name),
      from: email_address_with_name(@notice.wegli_email, @user.name)
