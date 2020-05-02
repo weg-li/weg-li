@@ -42,6 +42,13 @@ describe Annotator do
     )
   end
 
+  it "handles logo annotations" do
+    result = with_fixture('annotate') { subject.annotate_file }
+
+    matches = Annotator.grep_logo(result) { |key| key }
+    expect(matches).to eql([])
+  end
+
   it "handles colors" do
     result = with_fixture('annotate') { subject.annotate_file }
 

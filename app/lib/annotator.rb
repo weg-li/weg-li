@@ -14,6 +14,10 @@ class Annotator
     result[:label_annotations].flat_map { |entry| entry[:description].split("\n").map { |token| yield(token) } }.compact.uniq
   end
 
+  def self.grep_logo(result)
+    result[:logo_annotations].flat_map { |entry| entry[:description].split("\n").map { |token| yield(token) } }.compact.uniq
+  end
+
   def self.dominant_colors(result, threshold: 0.1)
     colors = result.dig(:image_properties_annotation, :dominant_colors, :colors)
     return [] if colors.blank?
@@ -47,7 +51,6 @@ class Annotator
         image: image,
         image_context: { language_hints: ['de'] },
         features: [
-          {type: 'LABEL_DETECTION'},
           {type: 'DOCUMENT_TEXT_DETECTION'},
           {type: 'IMAGE_PROPERTIES'},
           {type: 'SAFE_SEARCH_DETECTION'},
