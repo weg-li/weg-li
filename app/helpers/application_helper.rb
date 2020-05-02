@@ -24,6 +24,11 @@ module ApplicationHelper
     parts.join(' · ')
   end
 
+  def callout(&block)
+    content_tag(:div, class: 'well well-sm callout-info') do
+      content_tag(:small, &block)
+    end
+  end
 
   def hint(&block)
     content_tag(:small, class: 'help-block', &block)
