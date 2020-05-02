@@ -19,7 +19,7 @@ class HomeController < ApplicationController
   end
 
   def stats
-    @weeks = 12
+    @weeks = (params[:since] || '12').to_i
 
     @user_counts = User.count_over(User.active, weeks: @weeks)
     @user_sums = User.sum_over(User.active, weeks: @weeks)
@@ -29,8 +29,8 @@ class HomeController < ApplicationController
     @notice_sums = Notice.sum_over(Notice.shared, weeks: @weeks)
     @photo_counts = Notice.count_over(ActiveStorage::Attachment.where(record_type: 'Notice', name: 'photos'), weeks: @weeks)
     @photo_sums = Notice.sum_over(ActiveStorage::Attachment.where(record_type: 'Notice', name: 'photos'), weeks: @weeks)
-    @daily_notice_counts = Notice.count_over(Notice.shared, weeks: 4, interval: '1 day')
-    @daily_notice_sums = Notice.sum_over(Notice.shared, weeks: 4, interval: '1 day')
+    @daily_notice_counts = Notice.count_over(Notice.shared, weeks: (@weeks / 4), interval: '1 day', beginning: 1.week.ago, ending: Date.today.end_of_day)
+    @daily_notice_sums = Notice.sum_over(Notice.shared, weeks: (@weeks / 4), interval: '1 day', beginning: 1.week.ago, ending: Date.today.end_of_day)
   end
 
   def year2019
