@@ -49,7 +49,6 @@ class Annotator
         features: [
           {type: 'LABEL_DETECTION'},
           {type: 'DOCUMENT_TEXT_DETECTION'},
-          {type: 'LOGO_DETECTION'},
           {type: 'IMAGE_PROPERTIES'},
           {type: 'SAFE_SEARCH_DETECTION'},
         ],
