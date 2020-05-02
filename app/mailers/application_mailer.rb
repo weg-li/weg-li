@@ -1,4 +1,6 @@
 class ApplicationMailer < ActionMailer::Base
+  include Slack::Slackable
+
   default from: "peter@weg-li.de", bcc: "peter@weg-li.de"
 
   private
