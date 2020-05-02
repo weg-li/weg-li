@@ -1,8 +1,12 @@
+.well
+  |
+    Bei weg-li sind inzwischen #{District.count} Bezirke aus ganz Deutschland hinterlegt. Wir brauchen Deine Hilfe um weitere E-Mail-Adressen der zuständigen Stellen zu recherchieren.
+
 .panel.panel-default
   .panel-heading
     .row
       .col-xs-8
-        = mail_to "peter@weg-li.de", cc: "ccaddress@domain.com", subject: "Neuen Bezirk erfassen", body: "Bitte folgenden Bezirk einspielen:\n\nPLZ / Kennzeichen / Name / Bundesland / E-Mail", class: 'btn btn-sm btn-success', title: 'Bezirk erfassen'
+        = mail_to "peter@weg-li.de", subject: "Neuen Bezirk erfassen", body: "Bitte folgenden Bezirk einspielen:\n\nPLZ / Kennzeichen / Name / Bundesland / E-Mail", class: 'btn btn-sm btn-success', title: 'Bezirk erfassen'
           span.glyphicon.glyphicon-plus>
           | Neuen Bezirk erfassen
       .col-xs-4.text-right

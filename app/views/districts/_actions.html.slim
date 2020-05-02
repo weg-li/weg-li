@@ -6,6 +6,6 @@
       = link_to district_path(district)
         span.glyphicon.glyphicon-eye-open>
         | Bezirk ansehen
-      = mail_to "peter@weg-li.de", cc: "ccaddress@domain.com", subject: "Bezirk aktualisieren: #{district.zip} #{district.name} (#{district.id})", body: "Bitte folgende Änderungen für den Bezirk einspielen:\n\n"
+      = mail_to "peter@weg-li.de", subject: "Bezirk aktualisieren: #{district.zip} #{district.name} (#{district.id})", body: "Bitte folgende Änderungen für den Bezirk einspielen:\n\n"
         span.glyphicon.glyphicon-edit>
         | Bezirk aktualisieren
