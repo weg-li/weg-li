@@ -15,6 +15,7 @@ de:
       reply: 'Antwort'
       snippet: 'Vorlage'
       authorization: 'Auth'
+      export: 'Export'
     attributes:
       export:
         export_type: 'Art'
