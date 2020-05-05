@@ -109,8 +109,7 @@
       h4.text-warning Wieso werden meine Standortdaten nicht erkannt?
     panel-collapse.collapse id="collapse-#{i}"
       .panel-body
-        p Für die Erkennung des Standortes auf iOS muss vor dem Aufnehmen von Beweisfotos folgende Einstellung konfiguriert werden:
-        <code>Einstellungen > Kamera > Formate > Maximale Kompatibilität</code>
+        = render('components/geocoding_hint')
 
     - i += 1
     a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}" name="faq-#{i}"
