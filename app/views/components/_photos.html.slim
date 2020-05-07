@@ -1,6 +1,5 @@
 - publicly ||= false
 - upload ||= false
-- replacer ||= false
 .well.well-sm.clearfix
   - if upload
     .photos-add-button
@@ -24,7 +23,7 @@
               h4.modal-title Beweisfoto ##{index + 1}
 
             .modal-body
-              = render('components/photo_zoom', photo: photo, replacer: replacer)
+              = render('components/photo_zoom', photo: photo)
             .modal-footer
               .btn-group
                 - if access?(:admin)

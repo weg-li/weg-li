@@ -19,7 +19,7 @@
                 span aria-hidden="true" &times;
               h4.modal-title Beweisfoto ##{index + 1}
             .modal-body
-              = render('components/photo_zoom', photo: photo, replacer: true)
+              = render('components/photo_zoom', photo: photo)
             .modal-footer
               .btn-group
                 = link_to(purge_bulk_upload_path(bulk_upload, photo_id: photo.id), method: :patch, data: {confirm: t('notices.confirm')}, class: 'btn btn-sm btn-default', title: 'löschen') do
