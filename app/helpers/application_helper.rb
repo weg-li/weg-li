@@ -34,6 +34,22 @@ module ApplicationHelper
     content_tag(:small, class: 'help-block', &block)
   end
 
+  def registration_label(registration)
+    content_tag(:span, class: 'label label-license') do
+      content_tag(:span, registration)
+    end
+  end
+
+  def link_to_notice(notice, &block)
+    if notice.incomplete?
+      link_to([:edit, notice], &block)
+    elsif notice.open?
+      link_to([:share, notice], &block)
+    else
+      link_to(notice, &block)
+    end
+  end
+
   def markdown(text)
     @markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(autolink: true, space_after_headers: true, hard_wrap: true))
     @markdown.render(text)

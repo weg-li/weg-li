@@ -94,24 +94,25 @@
                         = check_box_tag "selected[]", notice.id, false, class: 'select-all'
                       = render 'actions', notice: notice
                   td
-                    - if notice.incomplete?
-                      = link_to([:edit, notice])
+                    = link_to_notice(notice) do
+                      - if notice.incomplete?
                         = render 'status', status: :incomplete
-                    - elsif notice.shared?
-                      = link_to(notice)
-                        span.label.label-license
-                          span= notice.registration
-                    - else
-                      = link_to([:edit, notice])
-                        span.label.label-license
-                          span= notice.registration
+                      - else
+                        = registration_label(notice.registration)
+
                   td
-                    = link_to(notice)
+                    = link_to_notice(notice) do
                       - notice.photos.each do |photo|
                         = image_tag(url_for_photo(photo, size: :thumb), class: 'index-photo')
-                  td(nowrap)= link_to(d(notice.created_at), notice)
-                  td(nowrap)= notice.date.present? ? link_to(d(notice.date), notice) : '-'
-                  td= render 'status', status: notice.status
+                  td(nowrap)
+                    = link_to_notice(notice) do
+                      = d(notice.created_at)
+                  td(nowrap)
+                    = link_to_notice(notice) do
+                      = d(notice.date, default: '-')
+                  td
+                    = link_to_notice(notice) do
+                      = render 'status', status: notice.status
 
             - else
               tr

@@ -12,8 +12,7 @@
           td
             = link_to(notice)
               - if notice.registration.present?
-                span.label.label-license
-                  span= notice.registration
+                = registration_label(notice.registration)
               - else
                 = '-'
           td
