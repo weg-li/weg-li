@@ -36,7 +36,7 @@ class Vehicle
     return '' if text.blank?
 
     tokens = "[ •»„.,:;\"'()|_+-]"
-    left = Regexp.new("^#{tokens}+")
+    left = Regexp.new("^\\d?#{tokens}+")
     right = Regexp.new("#{tokens}+$")
     middle = Regexp.new("(\\d+)#{tokens}+(\\d+)")
     text.gsub(left, '').gsub(right, '').gsub(middle, '\1\2').gsub(/\W+/,'-')
@@ -55,7 +55,7 @@ class Vehicle
   end
 
   def self.quirky_mode_plate_regex
-    @quirky_mode_plate_regex ||= Regexp.new("^C?O?B?(#{Vehicle.plates.keys.join('|')})O?:?-?0?([A-Z]{1,3})-?(\\d{1,4})(-E)?$")
+    @quirky_mode_plate_regex ||= Regexp.new("^P?D?C?O?B?(#{Vehicle.plates.keys.join('|')})O?:?-?0?([A-Z]{1,3})-?(\\d{1,4})(-E)?$")
   end
 
   def self.district_for_plate_prefix(text)
