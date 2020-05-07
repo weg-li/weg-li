@@ -156,12 +156,10 @@
   .text-center
     = paginate @notices
 
-  .well.well-sm
-    h5 Status für Meldungen
-    dl.dl-horizontal
-      - (Notice.statuses.keys + [:incomplete]).each do |status|
-        dt= render 'status', status: status
-        dd= t(status, scope: 'notices.status-hints', default: '')
+  dl.dl-horizontal.well
+    - (Notice.statuses.keys + [:incomplete]).each do |status|
+      dt= render 'status', status: status
+      dd= t(status, scope: 'notices.status-hints', default: '')
 
 - else
   = render 'blank_slate'
