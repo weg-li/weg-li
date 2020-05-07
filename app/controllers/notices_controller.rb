@@ -173,7 +173,7 @@ class NoticesController < ApplicationController
   def inspect
     @notice = current_user.notices.from_param(params[:id])
     @photo = @notice.photos.find(params[:photo_id])
-    @exif = @photo.service.download_file(@photo.key) { |file| EXIFAnalyzer.new.metadata(file) }
+    @exif = @photo.service.download_file(@photo.key) { |file| EXIFAnalyzer.new.metadata(file, debug: true) }
     @result = Annotator.new.annotate_object(@photo.key)
   end
 

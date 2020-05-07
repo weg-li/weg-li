@@ -1,15 +1,15 @@
 require 'exifr/jpeg'
 
 class EXIFAnalyzer
-  def metadata(image)
+  def metadata(image, debug: false)
     meta = {}
 
     if exif = EXIFR::JPEG.new(image).exif
       deepexif = exif.fields[:exif]
-      if exif.fields[:date_time]
-        meta[:date_time] = exif.fields[:date_time]
-      elsif deepexif
+      if deepexif
         meta[:date_time] = deepexif.fields[:date_time_original] || deepexif.fields[:date_time_digitized]
+      elsif exif.fields[:date_time]
+        meta[:date_time] = exif.fields[:date_time]
       end
 
       if gps = exif.fields[:gps]
@@ -17,6 +17,7 @@ class EXIFAnalyzer
         meta[:longitude] = gps.fields[:gps_longitude].to_f
         meta[:altitude] = gps.fields[:gps_altitude].to_f
       end
+      meta[:dump] = exif.fields.to_h if debug
     end
 
     meta
