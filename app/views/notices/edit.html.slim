@@ -1,26 +1,28 @@
-- set_title t('notices.new_notice')
-- set_crumbs t('navigation.notices') => notices_path, 'beschreiben' => url_for
+- set_title(t('notices.new_notice'))
+- set_crumbs(t('navigation.notices') => notices_path, 'beschreiben' => url_for)
 
-= render 'three_step', step: :second
+= render('three_step', step: :second)
 
 .row
   .col-lg-12
     - if @notice.analyzing?
-      = render('components/reload', info: 'Aus den Beweisfotos lassen sich automatisch Informationen ermitteln. EXIF-Metadaten liefern Standort und Uhrzeit, Bilderkennung und OCR liefern Kennzeichen, Hersteller, Farben etc. Die Algorithmen sind noch im Training, deshalb müssen lücken- oder fehlerhafte Daten selbst korrigiert werden.')
+      - info = 'Aus den Beweisfotos lassen sich automatisch Informationen ermitteln. EXIF-Metadaten liefern Standort und Uhrzeit, Bilderkennung und OCR liefern Kennzeichen, Hersteller, Farben etc. Die Algorithmen sind noch im Training, deshalb müssen lücken- oder fehlerhafte Daten selbst korrigiert werden.'
+      - note = "Analyse der Beweisfotos läuft: 1 von #{@notice.photos.size}"
+      = render('components/reload', note: note, info: info)
     - else
-      = render 'components/photos', notice: @notice, upload: true
-      = render 'alerts', notice: @notice
+      = render('components/photos', notice: @notice, upload: true)
+      = render('alerts', notice: @notice)
 
       .spacer-large
 
       = render('snippet_modal')
-      = form_errors @notice
-      = form_for @notice, html: {autocomplete: :off} do |form|
-        = render 'notice_form', notice: @notice, form: form
+      = form_errors(@notice)
+      = form_for(@notice, html: {autocomplete: :off}) do |form|
+        = render('notice_form', notice: @notice, form: form)
 
         hr.spacer
         .row
           .col-lg-12
             .pull-right
               .btn-group
-                = form.submit 'Daten speichern', class: "btn btn-success"
+                = form.submit('Daten speichern', class: "btn btn-success")
