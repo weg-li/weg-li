@@ -85,6 +85,7 @@ module UserHandling
 
   def current_user=(user)
     @current_user = user
+    @current_user.touch(:last_login)
     session[:user_id] = user.id
     cookies.encrypted[:remember_me] = { value: [user.id, user.token], expires: 1.month, httponly: true, secure: Rails.env.production? }
   end
