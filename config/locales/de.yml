@@ -29,6 +29,9 @@ de:
         name: 'Name'
         email: 'E-Mail'
         prefix: 'Kennzeichen'
+        state: 'Bundesland'
+        aliases: 'Alternative Adressen'
+        osm_id: 'OpenStreetmap-ID'
         updated_at: 'Aktualisiert'
       user:
         time_zone: 'Zeitzone'

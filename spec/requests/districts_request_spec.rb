@@ -5,6 +5,25 @@ describe "districts", type: :request  do
     @district = Fabricate(:district)
   end
 
+  context "districts#new" do
+    it "renders the form" do
+      get new_district_path
+
+      expect(response).to be_successful
+      assert_select 'h2', 'weg-li Bezirke'
+    end
+  end
+
+  context "districts#create" do
+    it "creates a district" do
+      params = { district: Fabricate.attributes_for(:district) }
+
+      expect {
+        post districts_path, params: params
+      }.to change { District.count }.by(1)
+    end
+  end
+
   context "districts#index" do
     it "paginates districts" do
       get districts_path

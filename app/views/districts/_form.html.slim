@@ -1,0 +1,41 @@
+= form_for(district) do |form|
+  .row
+    .col-lg-6
+      .form-group
+        = form.label :name, class: "control-label control-label-required"
+        = form.text_field :name, class: "form-control", required: true, placeholder: 'z.B. Hamburg'
+    .col-lg-6
+      .form-group
+        = form.label :email, class: "control-label control-label-required"
+        = form.text_field :email, class: "form-control", required: true, placeholder: 'z.B. anzeigen@hamburg.de'
+
+  .row
+    .col-lg-6
+      .form-group
+        = form.label :zip, class: "control-label control-label-required"
+        = form.text_field :zip, class: "form-control", required: true, placeholder: 'z.B. 22525', maxlength: 5, pattern: '\d{5}'
+    .col-lg-6
+      .form-group
+        = form.label :state, class: "control-label control-label-required"
+        = form.select :state, District::STATES, { include_blank: 'Bundesland Auswählen' }, { class: "form-control", required: true }
+
+  .row
+    .col-lg-6
+      .form-group
+        = form.label :prefix, class: "control-label"
+        = form.text_field :prefix, class: "form-control", placeholder: 'z.B. HH'
+        = hint do
+          | Optional ein örtliches Kennzeichen
+    .col-lg-6
+      .form-group
+        = form.label :osm_id, class: "control-label"
+        = form.text_field :osm_id, class: "form-control", placeholder: 'z.B. 62782'
+        = hint do
+          | Optional die OpenStreetmap-ID des Ortes
+  hr
+
+  .row
+    .col-lg-12
+      .pull-right
+        .btn-group
+          = form.submit "Bezirk erfassen", class: "btn btn-success"

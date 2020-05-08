@@ -1,6 +1,25 @@
 require 'csv'
 
 class District < ActiveRecord::Base
+  STATES = [
+    'Baden-Württemberg',
+    'Bayern',
+    'Berlin',
+    'Brandenburg',
+    'Bremen',
+    'Hamburg',
+    'Hessen',
+    'Mecklenburg-Vorpommern',
+    'Niedersachsen',
+    'Nordrhein-Westfalen',
+    'Rheinland-Pfalz',
+    'Saarland',
+    'Sachsen',
+    'Sachsen-Anhalt',
+    'Schleswig-Holstein',
+    'Thüringen',
+  ]
+
   include Bitfields
   bitfield :flags, 1 => :personal_email
 
@@ -8,8 +27,9 @@ class District < ActiveRecord::Base
 
   has_many :notices, foreign_key: :zip, primary_key: :zip
 
-  validates :name, :zip, :email, presence: true
+  validates :name, :zip, :email, :state, presence: true
   validates :zip, uniqueness: true
+  validates :state, inclusion: {in: STATES} 
 
   geocoded_by :geocode_address
   after_validation :geocode

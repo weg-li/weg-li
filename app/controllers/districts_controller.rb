@@ -1,4 +1,6 @@
 class DistrictsController < ApplicationController
+  include Slack::Slackable
+
   def index
     respond_to do |format|
       format.html { @districts = search_scope }
@@ -24,6 +26,21 @@ class DistrictsController < ApplicationController
     end
   end
 
+  def new
+    @district = District.new
+  end
+
+  def create
+    @district = District.new(district_params.merge(status: :proposed))
+    if @district.save
+      notify("new district proposed: #{admin_district_url(@district)}")
+
+      redirect_to(districts_path, notice: 'Bezirk wurde erfasst und wartet nun auf Freischaltung')
+    else
+      render(:new)
+    end
+  end
+
   def wegeheld
     district = District.active.find_by!(zip: params[:id])
 
@@ -33,6 +50,10 @@ class DistrictsController < ApplicationController
   end
 
   private
+
+  def district_params
+    params.require(:district).permit(:name, :email, :zip, :state, :prefix, :osm_id)
+  end
 
   def search_scope
     scope = District.active.order(params[:order] || 'zip ASC').page(params[:page])

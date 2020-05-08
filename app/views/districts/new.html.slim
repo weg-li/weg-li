@@ -1,0 +1,20 @@
+.well.well-sm.callout-info
+  small
+    |
+      Der Bezirk wird gespeichert und kann benutzt werden sobald er vom Support aktiviert wurde.
+
+= render('form', district: @district)
+
+hr.spacer-large
+
+.row
+  .col-lg-3
+    - body = "Bitte folgenden Bezirk einspielen:\n\nPLZ / Kennzeichen / Name / Bundesland / E-Mail"
+    = mail_to "peter@weg-li.de", subject: "Neuen Bezirk erfassen", body: body, class: 'btn btn-block btn-default', title: 'Bezirk erfassen'
+      | E-Mail schreiben
+
+  .col-lg-9
+    .well.well-sm.callout-info
+      small
+        |
+          Alternativ kannst Du uns Informationen zu Bezirken auch weiterhin per E-Mail mitteilen.
