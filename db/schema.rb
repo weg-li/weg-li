@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_01_173901) do
+ActiveRecord::Schema.define(version: 2020_05_08_113846) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,7 +76,9 @@ ActiveRecord::Schema.define(version: 2020_05_01_173901) do
     t.integer "flags", default: 0
     t.integer "osm_id"
     t.string "state"
+    t.integer "status", default: 0
     t.index ["name"], name: "index_districts_on_name"
+    t.index ["status"], name: "index_districts_on_status"
     t.index ["zip"], name: "index_districts_on_zip", unique: true
   end
 

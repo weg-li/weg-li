@@ -55,7 +55,7 @@ class NoticesController < ApplicationController
     @district = params[:district] || current_user.city
 
     @notices = current_user.notices.since(@since.days.ago).joins(:district).where(districts: {name: @district})
-    @default_district = District.from_zip(current_user.zip) || District.first
+    @default_district = District.from_zip(current_user.zip) || District.active.first
   end
 
   def stats

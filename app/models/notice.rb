@@ -62,7 +62,7 @@ class Notice < ActiveRecord::Base
       shared: since(date).shared.count,
       users: User.where(id: since(date).pluck(:user_id)).count,
       all_users: User.since(date).count,
-      districts: District.count,
+      districts: District.active.count,
     }
   end
 

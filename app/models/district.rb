@@ -4,6 +4,13 @@ class District < ActiveRecord::Base
   include Bitfields
   bitfield :flags, 1 => :personal_email
 
+  enum status: {active: 0, proposed: 1}
+
+  has_many :notices, foreign_key: :zip, primary_key: :zip
+
+  validates :name, :zip, :email, presence: true
+  validates :zip, uniqueness: true
+
   geocoded_by :geocode_address
   after_validation :geocode
 
@@ -20,13 +27,8 @@ class District < ActiveRecord::Base
     template.add :zip, as: :postalcode
   end
 
-  validates :name, :zip, :email, presence: true
-  validates :zip, uniqueness: true
-
-  has_many :notices, foreign_key: :zip, primary_key: :zip
-
   def self.from_zip(zip)
-    find_by(zip: zip)
+    active.find_by(zip: zip)
   end
 
   def self.zips
@@ -41,7 +43,7 @@ class District < ActiveRecord::Base
       if district.present?
         Rails.logger.info("found #{zip}: #{district.id}")
       else
-        source = District.where('name = :name AND zip LIKE :zip', name: row['ort'], zip: "#{zip.first}%").first
+        source = District.active.where('name = :name AND zip LIKE :zip', name: row['ort'], zip: "#{zip.first}%").first
         if source.present?
           Rails.logger.info("found source for #{zip}: #{source.id}")
           district = source.dup

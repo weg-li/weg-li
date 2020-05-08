@@ -12,6 +12,7 @@ Fabricator(:notice) do
   vehicle_empty { true }
   duration { 3 }
   severity { 0 }
+  status   { 0 }
   latitude { 53.57532 }
   longitude { 10.01534 }
   user

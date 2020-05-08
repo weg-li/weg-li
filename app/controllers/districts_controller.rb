@@ -2,7 +2,7 @@ class DistrictsController < ApplicationController
   def index
     respond_to do |format|
       format.html { @districts = search_scope }
-      format.json { render json: District.all.as_api_response(:public_beta) }
+      format.json { render json: District.active.as_api_response(:public_beta) }
       format.csv do
         csv_data = CSV.generate(force_quotes: true) do |csv|
           csv << ["plz","name","email"]
@@ -16,7 +16,7 @@ class DistrictsController < ApplicationController
   end
 
   def show
-    @district = District.find(params[:id])
+    @district = District.active.find(params[:id])
 
     respond_to do |format|
       format.html
@@ -25,7 +25,7 @@ class DistrictsController < ApplicationController
   end
 
   def wegeheld
-    district = District.find_by!(zip: params[:id])
+    district = District.active.find_by!(zip: params[:id])
 
     respond_to do |format|
       format.json { render json: district.as_api_response(:wegeheld) }
@@ -35,7 +35,7 @@ class DistrictsController < ApplicationController
   private
 
   def search_scope
-    scope = District.order(params[:order] || 'zip ASC').page(params[:page])
+    scope = District.active.order(params[:order] || 'zip ASC').page(params[:page])
     scope = scope.where('zip ILIKE :term OR name ILIKE :term', term: "%#{params[:term]}%") if params[:term]
     scope
   end

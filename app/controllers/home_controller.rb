@@ -15,7 +15,7 @@ class HomeController < ApplicationController
 
     @notices = Notice.shared.since(@since.days.ago).joins(:district).where(districts: {name: @district})
     @active = @notices.map(&:user_id).uniq.size
-    @default_district = District.find_by(name: @district) || District.first
+    @default_district = District.active.find_by(name: @district) || District.active.first
   end
 
   def stats
