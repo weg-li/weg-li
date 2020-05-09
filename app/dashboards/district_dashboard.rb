@@ -19,6 +19,7 @@ class DistrictDashboard < Administrate::BaseDashboard
     latitude: Field::Number.with_options(decimals: 2),
     longitude: Field::Number.with_options(decimals: 2),
     flags: Field::Number,
+    status:  Field::String.with_options(searchable: false),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -49,6 +50,7 @@ class DistrictDashboard < Administrate::BaseDashboard
     :latitude,
     :longitude,
     :flags,
+    :status,
     :created_at,
     :updated_at,
   ].freeze
@@ -65,6 +67,7 @@ class DistrictDashboard < Administrate::BaseDashboard
     :state,
     :osm_id,
     :flags,
+    :status,
   ].freeze
 
   # Overwrite this method to customize how users are displayed

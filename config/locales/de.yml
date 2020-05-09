@@ -33,6 +33,7 @@ de:
         aliases: 'Alternative Adressen'
         osm_id: 'OpenStreetmap-ID'
         updated_at: 'Aktualisiert'
+        status: 'Status'
       user:
         time_zone: 'Zeitzone'
         nickname: 'Spitzname'
