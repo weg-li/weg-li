@@ -174,6 +174,7 @@ class Vehicle
       'Parken in einem verkehrsberuhigten Bereich (Zeichen 325.1, 325.2) verbotswidrig außerhalb der zum Parken gekennzeichneten Flächen',
       'Parken in einem Fußgängerbereich, der (durch Zeichen 239/242.1, 242.2/250) gesperrt war',
       'Parken in einem Abstand von weniger als 5 Meter vor einem Fußgängerüberweg',
+      'Parken weniger als 8 Meter vor der Kreuzung/Einmündung, obwohl in Fahrtrichtung rechts neben der Fahrbahn ein Radweg baulich angelegt ist',
       'Parken weniger als 5 Meter vor/hinter der Kreuzung/Einmündung',
       'Parken im absolutem Haltverbot (Zeichen 283)',
       'Parken unzulässig im eingeschränkten Haltverbot (Zeichen 286)',
