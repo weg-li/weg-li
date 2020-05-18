@@ -35,7 +35,7 @@ class Notice < ActiveRecord::Base
   validate :valid_date?
 
   def valid_date?
-    if date > Time.zone.now || date < 3.month.ago
+    if date.to_i > Time.zone.now.to_i || date.to_i < 3.month.ago.to_i
       errors.add(:date, :invalid)
     end
   end
