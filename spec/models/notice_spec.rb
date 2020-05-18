@@ -8,6 +8,16 @@ describe Notice do
       expect(notice).to be_valid
       expect(notice.photos.first.filename.to_s).to eql('mercedes.jpg')
     end
+
+    it "validates the date" do
+      expect(notice).to be_valid
+      notice.date = 2.minutes.from_now
+      expect(notice).to_not be_valid
+      notice.date = 2.months.ago
+      expect(notice).to be_valid
+      notice.date = 4.months.ago
+      expect(notice).to_not be_valid
+    end
   end
 
   context "wegli_email" do

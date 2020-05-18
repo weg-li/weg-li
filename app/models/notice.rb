@@ -32,6 +32,13 @@ class Notice < ActiveRecord::Base
   validates :photos, :registration, :charge, :street, :zip, :city, :date, :duration, :severity, presence: :true
   validates :zip, format: { with: /\d{5}/, message: 'PLZ ist nicht korrekt' }
   validates :token, uniqueness: true
+  validate :valid_date?
+
+  def valid_date?
+    if date > Time.zone.now || date < 3.month.ago
+      errors.add(:date, :invalid)
+    end
+  end
 
   enum status: {open: 0, disabled: 1, analyzing: 2, shared: 3}
   enum severity: {standard: 0, hinder: 1, endanger: 2}
