@@ -46,11 +46,14 @@ hr.spacer
 
   - else
     .alert.alert-warning
-      strong
-        - if @notice.zip.blank?
+      - if @notice.zip.blank?
+        strong
           | Die Adresse der Meldung braucht noch eine PLZ, damit das zuständige Ordnungsamt ausgefüllt werden kann!
-        - else
-          | Der Bezirk für die PLZ #{@notice.zip} fehlt noch, schreibe gerne an #{mail_to 'peter@weg-li.de'}, falls Du die E-Mail-Adresse der zuständigen Stelle kennst!
+      - else
+        .pull-right
+          = link_to 'Neuen Bezirk erfassen', new_district_path, class: 'btn btn-xs btn-default'
+        strong
+          | Ein Bezirk für die PLZ #{@notice.zip} ist noch nicht hinterlegt! Füge diesen hinzu, falls Du die E-Mail-Adresse der zuständigen Stelle kennst.
 
   hr.spacer
 
