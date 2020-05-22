@@ -29,7 +29,7 @@ class AnalyzerJob < ApplicationJob
 
       notice.latitude ||= metadata[:latitude] if metadata[:latitude].to_f.positive?
       notice.longitude ||= metadata[:longitude] if metadata[:longitude].to_f.positive?
-      dates << (metadata[:date_time].to_s.to_time || AnalyzerJob.time_from_filename(photo.filename.to_s))
+      dates << (time_from_meta(metadata[:date_time]) || AnalyzerJob.time_from_filename(photo.filename.to_s))
 
       result = annotator.annotate_object(photo.key)
       if result.present?
@@ -59,6 +59,12 @@ class AnalyzerJob < ApplicationJob
   end
 
   private
+
+  def time_from_meta(timestamp)
+    timestamp.to_s.to_time
+  rescue
+    nil
+  end
 
   def exifer
     @exifer ||= EXIFAnalyzer.new
