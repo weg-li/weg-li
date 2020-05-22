@@ -1,5 +1,5 @@
 ![Build Status](https://github.com/weg-li/weg-li/workflows/build/badge.svg)
-[![Financial Contributors on Open Collective](https://opencollective.com/weg-li/all/badge.svg?label=financial+contributors)](https://opencollective.com/weg-li) 
+[![Financial Contributors on Open Collective](https://opencollective.com/weg-li/all/badge.svg?label=financial+contributors)](https://opencollective.com/weg-li)
 
 # 📸 📝 ✊ weg-li: 1, 2, 3 - Macht die Bahn frei!
 
@@ -21,6 +21,8 @@ brew install rbenv # ruby environemnt
 rbenv install 2.6.5 # install ruby runtime
 
 brew install postgresql # database
+createuser -s postgres # create general purpose postgres user
+
 brew install imagemagick # image-processing
 
 # project setup
@@ -42,7 +44,7 @@ docker-compose up
 
 ### Code Contributors
 
-Dieses Projekt existiert dank aller Menschen, die dazu beitragen. 
+Dieses Projekt existiert dank aller Menschen, die dazu beitragen.
 
 <a href="https://github.com/weg-li/weg-li/graphs/contributors"><img src="https://opencollective.com/weg-li/contributors.svg?width=890&button=false" /></a>
 
