@@ -1,3 +1,4 @@
+= form_errors(district)
 = form_for(district) do |form|
   .row
     .col-lg-6
@@ -7,7 +8,7 @@
     .col-lg-6
       .form-group
         = form.label :email, class: "control-label control-label-required"
-        = form.text_field :email, class: "form-control", required: true, placeholder: 'z.B. anzeigen@hamburg.de'
+        = form.email_field :email, class: "form-control", required: true, placeholder: 'z.B. anzeigen@hamburg.de'
 
   .row
     .col-lg-6
