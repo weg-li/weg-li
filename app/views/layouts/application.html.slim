@@ -15,6 +15,7 @@ html lang=I18n.locale
     = render 'navigation'
     .container
       = render 'header'
+      = render 'application/flash/alert', message: 'Das monatliche E-Mail Kontingent ist voll und derzeit können keine E-Mails verschickt werden! Die E-Mails gehen nicht verloren, der Stau wird spätestens am 1. Juni mit einem frischen Kontingent wieder abgebaut. Login per E-Mail und Registrieren ist gerade nicht möglich!'
       = render 'flash'
       = yield
       = render 'footer'
