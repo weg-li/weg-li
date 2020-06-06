@@ -1,4 +1,4 @@
-var MarkerClusterer = require("@google/markerclusterer/src/markerclusterer")
+import MarkerClusterer from '@google/markerclustererplus';
 
 class GMap {
   constructor(canvas) {
