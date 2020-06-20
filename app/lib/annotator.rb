@@ -46,17 +46,19 @@ class Annotator
   end
 
   def annotate(image)
-    request = [
-      {
-        image: image,
-        image_context: { language_hints: ['de'] },
-        features: [
-          {type: 'DOCUMENT_TEXT_DETECTION'},
-          {type: 'IMAGE_PROPERTIES'},
-          {type: 'SAFE_SEARCH_DETECTION'},
-        ],
-      },
-    ]
+    request = {
+      requests: [
+        {
+          image: image,
+          image_context: { language_hints: ['de'] },
+          features: [
+            {type: 'DOCUMENT_TEXT_DETECTION'},
+            {type: 'IMAGE_PROPERTIES'},
+            {type: 'SAFE_SEARCH_DETECTION'},
+          ],
+        },
+      ]
+    }
     response = vision_client.batch_annotate_images(request)
     response.responses.first.to_h
   end
@@ -71,6 +73,6 @@ class Annotator
   private
 
   def vision_client
-    @vision_client ||= Google::Cloud::Vision::ImageAnnotator.new
+    @vision_client ||= Google::Cloud::Vision.image_annotator
   end
 end
