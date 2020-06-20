@@ -11,7 +11,8 @@ class UsersController < ApplicationController
   end
 
   def update
-    current_user.attributes = user_params
+    current_user.assign_attributes(user_params)
+
     if current_user.email_changed?
       current_user.validation_date = nil
       if current_user.save
@@ -47,6 +48,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit([:email, :nickname, :name, :street, :zip, :appendix, :city, :phone] + User.bitfields[:flags].keys)
+    params.require(:user).permit([:email, :nickname, :name, :street, :zip, :city, :appendix, :date_of_birth, :phone] + User.bitfields[:flags].keys)
   end
 end
