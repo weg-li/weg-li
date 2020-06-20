@@ -53,7 +53,7 @@ describe UserMailer do
     it "renders the mail" do
       expect(mail.subject).to_not be_nil
       expect(mail.to).to eq([user.email])
-      expect(mail.body.encoded).to match("rechtzeitig")
+      expect(mail.body.encoded).to match("schnellstmöglichst")
     end
   end
 

@@ -45,6 +45,7 @@ de:
         appendix: 'Adresszusatz'
         zip: 'PLZ'
         city: 'Stadt'
+        date_of_birth: 'Geburtsdatum'
       reply:
         created_at: Eingang
         sender: Absender

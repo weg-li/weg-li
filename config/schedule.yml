@@ -2,13 +2,13 @@ restart:
    every: '5m'
    class: 'Scheduled::RestartJob'
 activation_reminder:
-  cron: '10 8 * * * Europe/Berlin'
+  cron: '10 8 * * 2,4,6 Europe/Berlin'
   class: 'Scheduled::ActivationReminderJob'
 usage_reminder:
-  cron: '20 8 * * * Europe/Berlin'
+  cron: '20 8 * * 2,4,6 Europe/Berlin'
   class: 'Scheduled::UsageReminderJob'
 expiring_reminder:
-  cron: '30 8 * * * Europe/Berlin'
+  cron: '30 8 * * 2,4,6 Europe/Berlin'
   class: 'Scheduled::ExpiringReminderJob'
 geocoding_cleanup:
   cron: '0 7 * * * Europe/Berlin'

@@ -40,6 +40,10 @@ Name: <%= user.name %>
 Anschrift: <%= user.full_address %>
 
 E-Mail: <%= user.email %>
+<% if user.date_of_birth? %>
+
+Geburtsdatum: <%= l(user.date_of_birth) %>
+<% end %>
 <% if user.phone? %>
 
 Telefon: <%= user.phone %>
