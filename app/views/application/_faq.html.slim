@@ -8,7 +8,7 @@
     - i += 1
     a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}" name="faq-#{i}"
       h4.text-warning Was ist die Mission von weg-li?
-    panel-collapse.collapse id="collapse-#{i}"
+    panel-collapse.collapse.in id="collapse-#{i}"
       .panel-body
         p Mit weg-li kannst Du ganz einfach dazu beitragen, die Verkehrswende zu beschleunigen. Denn für den Ausbau von Rad- und Fußverkehr braucht es sichere Infrastruktur! Da wir auf die Geschwindigkeit des Ausbaus von geschützten Radwegen und komfortablen Gehwegen nur wenig Einfluss haben, können wir immerhin dafür sorgen, dass die bestehende Infrastruktur nicht durch Falschparker geschädigt wird. 😡
         p Zusammen können wir dem gesellschaftlich akzeptierten Falschparken ein Ende bereiten und dafür sorgen, dass wir zügig und sicher als Radfahrer und Fußgänger im Straßenverkehr unterwegs sind. Dies ist besonders wichtig wenn man an die schwächeren Verkehrsteilnehmer denkt, vor allem die Kinder.
@@ -25,7 +25,7 @@
     - i += 1
     a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}" name="faq-#{i}"
       h4.text-warning Was ist der Unterschied zur Wegeheld-App?
-    panel-collapse.collapse id="collapse-#{i}"
+    panel-collapse.collapse.in id="collapse-#{i}"
       .panel-body
         p Mit weg-li kommt man schneller ans Ziel und hoffentlich zu sicheren Radwegen und freien Bürgersteigen.
         p Gerne selber vergleichen und auch die #{link_to('Wegeheld-App', 'https://www.wegeheld.org/', target: '_blank')} ausprobieren!
@@ -33,14 +33,14 @@
     - i += 1
     a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}" name="faq-#{i}"
       h4.text-warning Wie funktioniert weg-li im Einzelnen?
-    panel-collapse.collapse id="collapse-#{i}"
+    panel-collapse.collapse.in id="collapse-#{i}"
       .panel-body
         p Zum Glück hat #{link_to('Natenom', 'https://twitter.com/natenom', target: '_blank')} in seinem Wiki eine #{link_to('detailierte Anleitung geschrieben', 'https://wiki.natenom.de/verkehr/projekte/weg-li', target: '_blank')}, auch wenn wir versuchen eine selbsterklärende Software zur Verfügung zu stellen.
 
     - i += 1
     a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}" name="faq-#{i}"
       h4.text-warning Gibt es keine App für iOS und Android?
-    panel-collapse.collapse id="collapse-#{i}"
+    panel-collapse.collapse.in id="collapse-#{i}"
       .panel-body
         p
           | Die ursprüngliche Idee für weg-li war eine App, die für Android und iOS in den App-Stores breit stehen soll.
@@ -57,7 +57,7 @@
     - i += 1
     a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}" name="faq-#{i}"
       h4.text-warning Gibt es wirklich keine App für iOS und Android?
-    panel-collapse.collapse id="collapse-#{i}"
+    panel-collapse.collapse.in id="collapse-#{i}"
       .panel-body
         p
           |
@@ -68,7 +68,7 @@
     - i += 1
     a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}" name="faq-#{i}"
       h4.text-warning Wo kann ich weg-li nutzen?
-    panel-collapse.collapse id="collapse-#{i}"
+    panel-collapse.collapse.in id="collapse-#{i}"
       .panel-body
         p
           | Eigentlich überall in Deutschland! Wenn noch Dein Bezirk fehlt, dann schreib gerne an #{mail_to 'peter@weg-li.de'} und teile uns mit, wo genau Du testen möchtest. Vielleicht hast Du auch schon die zuständige Stelle und deren E-Mail Adresse parat?
@@ -76,7 +76,7 @@
     - i += 1
     a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}" name="faq-#{i}"
       h4.text-warning Was passiert, nachdem Anzeige erstattet wurde?
-    panel-collapse.collapse id="collapse-#{i}"
+    panel-collapse.collapse.in id="collapse-#{i}"
       .panel-body
         p
           |
@@ -90,7 +90,7 @@
     - i += 1
     a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}" name="faq-#{i}"
       h4.text-warning Werden meine Anzeigen überhaupt bearbeitet?
-    panel-collapse.collapse id="collapse-#{i}"
+    panel-collapse.collapse.in id="collapse-#{i}"
       .panel-body
         p Wegen der intransparenten und verzögerten Bearbeitung der Ordnungsämter kann der Eindruck entstehen, dass die eigenen Anzeigen garnicht bearbeitet werden.
         p Es gibt jedoch einige Quellen, durch die sich ein paar mehr Informationen und Statistiken in Erfahrung bringen lassen:
@@ -108,14 +108,14 @@
     - i += 1
     a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}" name="faq-#{i}"
       h4.text-warning Wieso werden meine Standortdaten nicht erkannt?
-    panel-collapse.collapse id="collapse-#{i}"
+    panel-collapse.collapse.in id="collapse-#{i}"
       .panel-body
         = render('components/geocoding_hint')
 
     - i += 1
     a.list-group-item data-toggle="collapse" data-parent="#accordion" href="#collapse-#{i}" name="faq-#{i}"
       h4.text-warning Werden meine persönlichen Daten bei einer Anzeige öffentlich?
-    panel-collapse.collapse id="collapse-#{i}"
+    panel-collapse.collapse.in id="collapse-#{i}"
       .panel-body
         p
           |
