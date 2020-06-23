@@ -78,7 +78,7 @@ GEM
       rails (>= 6.0)
     appsignal (2.10.9)
       rack
-    autoprefixer-rails (9.8.2)
+    autoprefixer-rails (9.8.3)
       execjs
     barnes (0.0.8)
       multi_json (~> 1)
@@ -500,7 +500,7 @@ DEPENDENCIES
   puma
   rack
   rack-cache
-  rails (~> 6.0.0)
+  rails (~> 6.0)
   rails_12factor
   rails_autoscale_agent
   redcarpet
