@@ -7,7 +7,7 @@ class Notice < ActiveRecord::Base
   split_accessor :date
 
   include Bitfields
-  bitfield :flags, 1 => :vehicle_empty, 2 => :hazard_lights, 4 => :expired_checks
+  bitfield :flags, 1 => :vehicle_empty, 2 => :hazard_lights, 4 => :expired_tuv
 
   include Incompletable
 
