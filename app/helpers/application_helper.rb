@@ -41,10 +41,8 @@ module ApplicationHelper
   end
 
   def link_to_notice(notice, &block)
-    if notice.incomplete?
+    if notice.open?
       link_to([:edit, notice], &block)
-    elsif notice.open?
-      link_to([:share, notice], &block)
     else
       link_to(notice, &block)
     end
