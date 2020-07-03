@@ -113,6 +113,7 @@ class Vehicle
       'IVECO',
       'SCANIA',
       'DAF',
+      'Setra',
     ]
   end
 
