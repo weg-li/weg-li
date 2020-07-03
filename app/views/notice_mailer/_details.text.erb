@@ -15,17 +15,11 @@
 <%= Notice.human_attribute_name(:date) %>: <%= l(notice.date, format: :short) %>
 
 <%= Notice.human_attribute_name(:duration) %>: <%= l(notice.date, format: :time) %> ~ <%= l(notice.date + notice.duration.minutes, format: :time) %> (<%= Vehicle.durations.to_h.invert[notice.duration] %>)
-<% if notice.vehicle_empty? %>
+<% Notice.details.each do |flag| %>
+<% if notice.send(flag) %>
 
-Das Fahrzeug war verlassen.
+<%= t(flag, scope: "activerecord.attributes.notice.flags") %>.
 <% end %>
-<% if notice.hazard_lights? %>
-
-Das Fahrzeug hatte die Warnblinkanlage aktiviert.
-<% end %>
-<% if notice.expired_tuv? %>
-
-Das Fahrzeug hatte eine abgelaufene TÜV-Plakette.
 <% end %>
 <% if notice.note? %>
 

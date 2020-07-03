@@ -26,12 +26,9 @@ dl.dl-horizontal
   dd= Vehicle.durations.to_h.invert[notice.duration]
   - if notice.flags.positive?
     dt Details
-    - if notice.vehicle_empty?
-      dd Das Fahrzeug war verlassen
-    - if notice.hazard_lights?
-      dd Das Fahrzeug hatte die Warnblinkanlage aktiviert
-    - if notice.expired_tuv?
-      dd Die TÜV-Plakette war abgelaufen
+    - Notice.details.each do |flag|
+      - if notice.send(flag)
+        dd= t(flag, scope: "activerecord.attributes.notice.flags")
   - if notice.note?
     dt Details
     - if notice.note?

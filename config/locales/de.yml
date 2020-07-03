@@ -94,6 +94,11 @@ de:
         disabled: 'deaktiviert'
         analyzing: 'analysieren'
         shared: 'gemeldet'
+        flags:
+          vehicle_empty: 'Das Fahrzeug war verlassen'
+          hazard_lights: 'Das Fahrzeug hatte die Warnblinkanlage aktiviert'
+          expired_tuv: 'Die TÜV-Plakette war abgelaufen'
+          expired_eco: 'Die Umwelt-Plakette fehlte oder war ungültig'
         colors:
           beige: 'Beige'
           blue: 'Blau'
