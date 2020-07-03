@@ -198,11 +198,11 @@ class NoticesController < ApplicationController
 
   def bulk
     action = params[:bulk_action]
-    notices = current_user.notices.open.where(id: params[:selected])
+    notices = current_user.notices.where(id: params[:selected])
 
     case action
     when 'share'
-      notices = notices.complete
+      notices = notices.open.complete
       if notices.present?
         notices.each do |notice|
           NoticeMailer.charge(notice).deliver_later
@@ -218,12 +218,12 @@ class NoticesController < ApplicationController
          notices.pluck(:id).each_slice(5) do |notice_ids|
            UserMailer.pdf(current_user, notice_ids).deliver_later
          end
-        flash[:notice] = 'Die offenen, vollständigen Meldungen wurden als PDF generiert und per E-Mail zugeschickt'
+        flash[:notice] = 'Die vollständigen Meldungen wurden als PDF generiert und per E-Mail zugeschickt'
       else
-        flash[:notice] = 'Keine offenen, vollständigen Meldungen zum generieren gefunden!'
+        flash[:notice] = 'Keine vollständigen Meldungen zum generieren gefunden!'
       end
     when 'status'
-      notices = notices.complete
+      notices = notices.open.complete
       if notices.present?
         notices.update(status: :shared)
         flash[:notice] = 'Die offenen, vollständigen Meldungen wurden als "gemeldet" markiert'
@@ -233,9 +233,9 @@ class NoticesController < ApplicationController
     when 'destroy'
       if notices.present?
         notices.destroy_all
-        flash[:notice] = 'Die offenen Meldungen wurden gelöscht'
+        flash[:notice] = 'Die Meldungen wurden gelöscht'
       else
-        flash[:notice] = 'Keine offenen Meldungen zum löschen gefunden!'
+        flash[:notice] = 'Keine Meldungen zum löschen gefunden!'
       end
     end
 
