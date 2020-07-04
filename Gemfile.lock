@@ -409,6 +409,9 @@ GEM
       sidekiq (>= 3)
       thwait
       tilt (>= 1.4.0)
+    sidekiq-statistic (1.4.0)
+      sidekiq (>= 5.0)
+      tilt (~> 2.0)
     signet (0.14.0)
       addressable (~> 2.3)
       faraday (>= 0.17.3, < 2.0)
@@ -510,6 +513,7 @@ DEPENDENCIES
   sass-rails
   sidekiq
   sidekiq-scheduler
+  sidekiq-statistic
   slim-rails
   sprockets (~> 3.7.2)
   time_splitter
