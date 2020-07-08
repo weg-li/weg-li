@@ -9,7 +9,12 @@ Rails.application.routes.draw do
       patch :merge
     end
     resources :exports
-    resources :districts
+    resources :districts do
+      collection do
+        get :bulk
+        post :bulk_update
+      end
+    end
     resources :notices do
       post :analyze
     end

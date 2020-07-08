@@ -1,0 +1,31 @@
+<header class="main-content__header" role="banner">
+  <h1 class="main-content__page-title">
+    Bulk update
+  </h1>
+</header>
+
+<section class="main-content__body">
+  <dl>
+    <%= form_tag(bulk_update_admin_districts_path, method: :post) do %>
+      <div class="field-unit field-unit--string field-unit--required">
+        <div class="field-unit__label">
+          <label for="district_email">E-Mail jetzt</label>
+        </div>
+        <div class="field-unit__field">
+          <%= text_field_tag(:from) %>
+        </div>
+      </div>
+      <div class="field-unit field-unit--string field-unit--required">
+        <div class="field-unit__label">
+          <label for="district_email">E-Mail dann</label>
+        </div>
+        <div class="field-unit__field">
+          <%= text_field_tag(:to) %>
+        </div>
+      </div>
+      <div class="form-actions">
+        <input type="submit" name="commit" value="Bezirke aktualisieren" data-disable-with="Bezirke aktualisieren">
+      </div>
+    <% end %>
+  </dl>
+</section>

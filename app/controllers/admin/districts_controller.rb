@@ -10,6 +10,12 @@ module Admin
     #     per(10)
     # end
 
+    def bulk_update
+      District.where(email: params[:from]).update_all(email: params[:to])
+
+      redirect_to admin_districts_path(search: params[:to]), notice: "Bezirke wurden von '#{params[:from]}' zu '#{params[:to]}' geändert"
+    end
+
     # Define a custom finder by overriding the `find_resource` method:
     # def find_resource(param)
     #   BulkUpload.find_by!(slug: param)
