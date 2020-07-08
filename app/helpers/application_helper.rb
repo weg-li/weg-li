@@ -48,11 +48,6 @@ module ApplicationHelper
     end
   end
 
-  def markdown(text)
-    @markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(autolink: true, space_after_headers: true, hard_wrap: true))
-    @markdown.render(text)
-  end
-
   PROVIDERS = {
     twitter: 'Twitter',
     google_oauth2: 'Google',
