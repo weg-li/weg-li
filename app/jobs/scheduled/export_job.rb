@@ -10,10 +10,10 @@ class Scheduled::ExportJob < ApplicationJob
 
     archive = Zip::OutputStream.write_buffer do |stream|
       stream.put_next_entry("#{name}.csv")
-      stream.print Notice.open_data_header.to_csv
-      export.notices_scope.in_batches do |notices|
-        notices.each do |notice|
-          stream.print notice.open_data.to_csv
+      stream.print export.header.to_csv
+      export.data.in_batches do |batch|
+        batch.each do |data|
+          stream.print data.open_data.to_csv
         end
       end
     end

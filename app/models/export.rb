@@ -5,10 +5,19 @@ class Export < ApplicationRecord
 
   has_one_attached :archive
 
-  def notices_scope
+  def header
     case export_type.to_sym
     when :notices
-      Notice.shared
+      Notice.open_data_header
+    else
+      raise "unsupported type #{export_type}"
+    end
+  end
+
+  def data
+    case export_type.to_sym
+    when :notices
+      Notice.shared.select(Notice.open_data_header)
     else
       raise "unsupported type #{export_type}"
     end
