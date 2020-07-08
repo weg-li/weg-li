@@ -103,8 +103,12 @@
       = render 'notice_list', notices: @bulk_upload.notices
 
 - else
-  .well.well-sm.callout-info
-    small Alle Beweisfotos wurden bereits zugeordnet und in neue Meldungen überführt.
+  - if @bulk_upload.error?
+    .well.well-sm.callout-danger
+      small= @bulk_upload.error_message
+  - else
+    .well.well-sm.callout-info
+      small Alle Beweisfotos wurden bereits zugeordnet und in neue Meldungen überführt.
 
-  .panel.panel-default
-    = render 'notice_list', notices: @bulk_upload.notices
+    .panel.panel-default
+      = render 'notice_list', notices: @bulk_upload.notices
