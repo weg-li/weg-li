@@ -96,7 +96,6 @@
   },
   {
     "brand": "Seat",
-    "percentage": "4.1",
     "models": [
       "Alhambra",
       "Altea",
@@ -117,7 +116,6 @@
   },
   {
     "brand": "Renault",
-    "percentage": "4.0",
     "models": [
       "Captur",
       "Clio",
@@ -221,7 +219,6 @@
   },
   {
     "brand": "Peugeot",
-    "percentage": "2.0",
     "models": [
       "1007",
       "107",
@@ -263,7 +260,6 @@
   },
   {
     "brand": "Dacia",
-    "percentage": "1.7",
     "models": [
       "Dokker",
       "Duster",
@@ -277,7 +273,6 @@
   },
   {
     "brand": "Citroën",
-    "percentage": "1.9",
     "aliases": [
       "Citroen"
     ],
@@ -315,7 +310,6 @@
   },
   {
     "brand": "Opel",
-    "percentage": "5.0",
     "models": [
       "Agila",
       "Ampera",
@@ -370,7 +364,6 @@
   },
   {
     "brand": "Škoda",
-    "percentage": "5.9",
     "aliases": [
       "Skoda"
     ],
@@ -424,7 +417,6 @@
   },
   {
     "brand": "Porsche",
-    "percentage": "0.9",
     "models": [
       "911 Carrera",
       "911 Carrera Cabrio",
@@ -442,7 +434,6 @@
   },
   {
     "brand": "Honda",
-    "percentage": "0.4",
     "models": [
       "Accord",
       "Accord Coupé",
@@ -467,7 +458,6 @@
   },
   {
     "brand": "Subaru",
-    "percentage": "0.2",
     "models": [
       "BRZ",
       "Forester",
@@ -487,7 +477,6 @@
   },
   {
     "brand": "Mazda",
-    "percentage": "1.4",
     "models": [
       "121",
       "2",
@@ -522,7 +511,6 @@
   },
   {
     "brand": "Mitsubishi",
-    "percentage": "2.0",
     "models": [
       "3000 GT",
       "ASX",
@@ -575,7 +563,6 @@
   },
   {
     "brand": "Toyota",
-    "percentage": "2.5",
     "models": [
       "4-Runner",
       "Auris",
@@ -614,7 +601,6 @@
   },
   {
     "brand": "BMW",
-    "percentage": "8.2",
     "models": [
       "i3",
       "i8",
@@ -661,7 +647,6 @@
   },
   {
     "brand": "Volkswagen",
-    "percentage": "18.4",
     "aliases": [
       "VW"
     ],
@@ -718,7 +703,6 @@
   },
   {
     "brand": "Suzuki",
-    "percentage": "0.7",
     "models": [
       "Alto",
       "Baleno",
@@ -740,7 +724,6 @@
   },
   {
     "brand": "Mercedes-Benz",
-    "percentage": "9.7",
     "aliases": [
       "MERCEDES"
     ],
@@ -822,7 +805,6 @@
   },
   {
     "brand": "Audi",
-    "percentage": "8.1",
     "models": [
       "100",
       "100 Avant",
@@ -873,7 +855,6 @@
   },
   {
     "brand": "Kia",
-    "percentage": "2.1",
     "models": [
       "Avella",
       "Besta",
@@ -903,7 +884,6 @@
   },
   {
     "brand": "Land Rover",
-    "percentage": "0.5",
     "models": [
       "109",
       "Defender",
@@ -954,7 +934,6 @@
   },
   {
     "brand": "Ford",
-    "percentage": "9.6",
     "models": [
       "Aerostar",
       "B-Max",
@@ -1013,7 +992,6 @@
   },
   {
     "brand": "Hyundai",
-    "percentage": "3.2",
     "models": [
       "Accent",
       "Atos",
@@ -1050,7 +1028,6 @@
   },
   {
     "brand": "Tesla",
-    "percentage": "0.4",
     "models": [
       "Roadster",
       "Model S",
@@ -1099,7 +1076,6 @@
   },
   {
     "brand": "Jaguar",
-    "percentage": "0.3",
     "models": [
       "Daimler",
       "F-Pace",
@@ -1124,7 +1100,6 @@
   },
   {
     "brand": "Jeep",
-    "percentage": "0.5",
     "models": [
       "Cherokee",
       "Commander",
@@ -1137,7 +1112,6 @@
   },
   {
     "brand": "Nissan",
-    "percentage": "1.3",
     "models": [
       "100 NX",
       "200 SX",
@@ -1185,7 +1159,6 @@
   },
   {
     "brand": "Volvo",
-    "percentage": "1.8",
     "models": [
       "240",
       "340",
@@ -1232,7 +1205,6 @@
   },
   {
     "brand": "Fiat",
-    "percentage": "3.2",
     "models": [
       "1100",
       "126",
@@ -1286,7 +1258,6 @@
   },
   {
     "brand": "MINI",
-    "percentage": "1.4",
     "falsepositives": [
       "Minibus",
       "Minivan"
@@ -1340,7 +1311,6 @@
   },
   {
     "brand": "Smart",
-    "percentage": "0.3",
     "models": [
       "Cabrio",
       "City-Coupé",

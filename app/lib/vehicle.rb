@@ -122,7 +122,52 @@ class Vehicle
   end
 
   def self.percentage(brand)
-    cars.find { |entry| entry['brand'] == brand }.dig('percentage').to_f
+    market.dig(brand, 1)
+  end
+
+  def self.market
+    # https://www.n-tv.de/wirtschaft/VW-bleibt-Marktfuehrer-in-Deutschland-article20883337.html
+    @market ||= {
+      'Volkswagen' => [10039389, 1.3],
+      'Opel' => [4455662, 9.5],
+      'Mercedes-Benz' => [4434329, 9.4],
+      'Ford' => [3438207, 7.3],
+      'Audi' => [3242838, 6.9],
+      'BMW' => [3256884, 6.9],
+      'Škoda' => [2169706, 4.6],
+      'Renault' => [1773013, 3.8],
+      'Toyota' => [1302395, 2.8],
+      'Fiat' => [1174960, 2.5],
+      'Hyundai' => [1195023, 2.5],
+      'Seat' => [1154612, 2.5],
+      'Peugeot' => [1119914, 2.4],
+      'Mazda' => [859054, 1.8],
+      'Nissan' => [863144, 1.8],
+      'Citroën' => [742167, 1.6],
+      'Kia' => [662174, 1.4],
+      'Dacia' => [547617, 1.2],
+      'Suzuki' => [502393, 1.1],
+      'Honda' => [451525, 1.0],
+      'Mitsubishi' => [484017, 1.0],
+      'Smart' => [474898, 1.0],
+      'Volvo' => [489040, 1.0],
+      'Mini' => [445226, 0.9],
+      'Sonstige' => [415633, 0.9],
+      'Porsche' => [313173, 0.7],
+      'Chevrolet' => [214604, 0.5],
+      'Alfa Romeo' => [119095, 0.3],
+      'Subaru' => [123887, 0.3],
+      'Daihatsu' => [78619, 0.2],
+      'Jaguar' => [73932, 0.2],
+      'Jeep' => [112467, 0.2],
+      'Land Rover' => [108056, 0.2],
+      'Chrysler' => [59001, 0.1],
+      'DS' => [33607, 0.1],
+      'Lancia' => [28860, 0.1],
+      'Lexus' => [27282, 0.1],
+      'MG Rover' => [28777, 0.1],
+      'Saab' => [44345, 0.1],
+    }
   end
 
   def self.colors
