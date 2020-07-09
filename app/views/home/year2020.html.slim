@@ -82,7 +82,7 @@ hr.spacer-large
           p= notice.brand
           - percentage = notice.brand_count / @count.fdiv(100)
           - market_percentage = Vehicle.percentage(notice.brand)
-          - if market_percentage > 0
+          - if market_percentage
             span.text-muted.smaller
               |
                 Anteil: #{number_to_percentage(percentage)}
