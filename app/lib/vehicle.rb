@@ -128,7 +128,7 @@ class Vehicle
   def self.market
     # https://www.n-tv.de/wirtschaft/VW-bleibt-Marktfuehrer-in-Deutschland-article20883337.html
     @market ||= {
-      'Volkswagen' => [10039389, 1.3],
+      'Volkswagen' => [10039389, 21.3],
       'Opel' => [4455662, 9.5],
       'Mercedes-Benz' => [4434329, 9.4],
       'Ford' => [3438207, 7.3],
