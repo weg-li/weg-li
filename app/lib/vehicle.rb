@@ -121,6 +121,10 @@ class Vehicle
     cars.find { |entry| entry['brand'] == brand }.dig('models')
   end
 
+  def self.percentage(brand)
+    cars.find { |entry| entry['brand'] == brand }.dig('percentage').to_f
+  end
+
   def self.colors
     @colors ||= [
       'beige',

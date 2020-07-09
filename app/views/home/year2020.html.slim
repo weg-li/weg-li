@@ -78,5 +78,13 @@ hr.spacer-large
     ul.list-group
       - @grouped_brands.each do |notice|
         li.list-group-item
-          = notice.brand
           .badge.pull-right= number_with_delimiter(notice.brand_count)
+          p= notice.brand
+          - percentage = notice.brand_count / @count.fdiv(100)
+          - market_percentage = Vehicle.percentage(notice.brand)
+          - if market_percentage > 0
+            span.text-muted.smaller
+              |
+                Anteil: #{number_to_percentage(percentage)}
+                Marktanteil: #{number_to_percentage(market_percentage)}
+                Arschlochfaktor: #{number_to_percentage((percentage / market_percentage) * 100)}
