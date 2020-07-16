@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe Vehicle do
-  it "loads all the data" do
-    expect(Vehicle.cars.size).to be(65)
-  end
-
   it "it gets all the brands" do
     data = Vehicle.brands.first(3)
     expect(["Adria", "Alfa Romeo", "Aston Martin"]).to eql(data)
