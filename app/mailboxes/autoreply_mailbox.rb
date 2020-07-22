@@ -1,7 +1,13 @@
 class AutoreplyMailbox < ApplicationMailbox
   def process
     notice = Notice.from_email_address(mail.to.first)
-    reply = notice.replies.create! action_mailbox_inbound_email: inbound_email, sender: mail.from.first, subject: mail.subject, content: self.class.content_from_mail(mail)
+    params = {
+      action_mailbox_inbound_email: inbound_email,
+      sender: mail.from.first,
+      subject: mail.subject || "-",
+      content: self.class.content_from_mail(mail),
+    }
+    reply = notice.replies.create!(params)
 
     user = notice.user
     if !user.disable_autoreply_notifications
