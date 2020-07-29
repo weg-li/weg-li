@@ -65,7 +65,22 @@
 
   .spacer-large
 
-  .well= render('donate_buttons')
+  .well
+    .row
+      .col-lg-4.text-center
+        = link_to(donate_path, class: 'btn btn-success btn-lg btn-block')
+          <span class="glyphicon glyphicon-piggy-bank"></span> Spenden per Überweisung
+        small Überweise einmalige Spenden oder lege einen Dauerauftrag fest.
+
+      .col-lg-4.text-center
+        = link_to('https://github.com/sponsors/phoet/', target: '_blank', class: 'btn btn-success btn-lg btn-block')
+          <span class="glyphicon glyphicon-piggy-bank"></span> Sponsoring per GitHub
+        small Lege monatliche Beiträge festlegen, GitHub gibt was obendrauf!
+
+      .col-lg-4.text-center
+        = link_to('https://opencollective.com/weg-li', target: '_blank', class: 'btn btn-success btn-lg btn-block')
+          <span class="glyphicon glyphicon-piggy-bank"></span> Spenden per OpenCollective
+        small Mache einmalige Spenden oder lege monatliche Beiträge fest.
 
   .spacer-large
 

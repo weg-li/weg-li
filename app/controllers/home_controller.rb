@@ -77,10 +77,4 @@ class HomeController < ApplicationController
     @year2019_leaders = Notice.where(date: ((Time.zone.now - 1.year).beginning_of_year..(Time.zone.now - 1.year).end_of_year)).shared.group(:user_id).order(count_all: :desc).limit(@limit).count
     @year2019_leaders.transform_keys! { |user_id| User.find(user_id) }
   end
-
-  def faq
-  end
-
-  def privacy
-  end
 end

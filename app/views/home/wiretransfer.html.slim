@@ -3,6 +3,13 @@
 
 .spacer
 
+.well.well-sm.callout-info
+  small
+    |
+      Da weg-li nicht als gemeinnützig anerkannt ist, können wir keine steuerlich absetzbaren Spendenquittungen ausstellen!
+
+.spacer-large
+
 .row
   .col-lg-2.text-center
     = image_tag 'phoet.jpg', class: "img-circle me-quote"
@@ -13,39 +20,6 @@
 
 .spacer-large
 
-.well.well-sm.callout-success
-  .row
-    .col-lg-6.text-center
-      h4
-        <span class="glyphicon glyphicon-piggy-bank"></span> Spenden per Überweisung
-
-      p
-        small.text-muted
-          |
-            Da weg-li nicht als gemeinnützig anerkannt ist, können keine steuerlich absetzbaren Spendenquittungen ausgestellt werden!
-
-    .col-lg-6.text-center
-      dl
-        dt Begünstigter
-        dd weg-li UG
-        dt IBAN
-        dd DE80 2005 0550 1500 9466 19
-        dt Verwendungszweck
-        dd SPENDE weg-li
-
-
-.row
-  .col-lg-6.text-center
-    = link_to('https://github.com/sponsors/phoet/', target: '_blank', class: 'btn btn-success btn-lg btn-block')
-      <span class="glyphicon glyphicon-piggy-bank"></span> Sponsoring per GitHub
-    small Du kannst monatliche Beiträge festlegen, das hilft uns den Betrieb der Plattform sicherzustellen.
-
-  .col-lg-6.text-center
-    = link_to('https://opencollective.com/weg-li', target: '_blank', class: 'btn btn-success btn-lg btn-block')
-      <span class="glyphicon glyphicon-piggy-bank"></span> Spenden per OpenCollective
-    small Du kannst individuell festlegen wie Du spenden möchtest, auch einmalige Spenden sind möglich.
-
-.spacer-large
 
 .well.well-lg
   p
@@ -67,3 +41,7 @@
   p
     |
       Wir brauchen eure Hilfe! Ob Geld-Spenden, die Recherche von Melde-Adressen der Ordnungsämter, Mund-zu-Mund-Propaganda via Twitter - egal, wir freuen uns über jede Art der Unterstützung 🥳
+
+.spacer-large
+
+= render('donate_buttons')
