@@ -42,6 +42,23 @@
 .spacer-large
 
 - if signed_in?
+  .well
+    .row
+      .col-lg-4.text-center
+        = link_to(donate_path, class: 'btn btn-success btn-lg btn-block')
+          <span class="glyphicon glyphicon-piggy-bank"></span> Spenden per Überweisung
+        small Überweise einmalige Spenden oder lege einen Dauerauftrag fest.
+
+      .col-lg-4.text-center
+        = link_to('https://github.com/sponsors/phoet/', target: '_blank', class: 'btn btn-success btn-lg btn-block')
+          <span class="glyphicon glyphicon-piggy-bank"></span> Sponsoring per GitHub
+        small Lege monatliche Beiträge festlegen, GitHub gibt was obendrauf!
+
+      .col-lg-4.text-center
+        = link_to('https://opencollective.com/weg-li', target: '_blank', class: 'btn btn-success btn-lg btn-block')
+          <span class="glyphicon glyphicon-piggy-bank"></span> Spenden per OpenCollective
+        small Mache einmalige Spenden oder lege monatliche Beiträge fest.
+
   .page-header
     h2 Was gibt es Neues bei weg-li?
 
@@ -65,25 +82,6 @@
 
   .spacer-large
 
-  .well
-    .row
-      .col-lg-4.text-center
-        = link_to(donate_path, class: 'btn btn-success btn-lg btn-block')
-          <span class="glyphicon glyphicon-piggy-bank"></span> Spenden per Überweisung
-        small Überweise einmalige Spenden oder lege einen Dauerauftrag fest.
-
-      .col-lg-4.text-center
-        = link_to('https://github.com/sponsors/phoet/', target: '_blank', class: 'btn btn-success btn-lg btn-block')
-          <span class="glyphicon glyphicon-piggy-bank"></span> Sponsoring per GitHub
-        small Lege monatliche Beiträge festlegen, GitHub gibt was obendrauf!
-
-      .col-lg-4.text-center
-        = link_to('https://opencollective.com/weg-li', target: '_blank', class: 'btn btn-success btn-lg btn-block')
-          <span class="glyphicon glyphicon-piggy-bank"></span> Spenden per OpenCollective
-        small Mache einmalige Spenden oder lege monatliche Beiträge fest.
-
-  .spacer-large
-
   .row
     .col-lg-2.text-center
       = image_tag 'phoet.jpg', class: "img-circle me-quote"
@@ -99,6 +97,9 @@
       h3 🤩 Aktuelle Tipps:
 
       ul.list-group
+        li.list-group-item
+          span.badge Deutschland
+          | 👀 Der weGErecht e.V. hat ein interessantes Seminar veröffentlicht: #{link_to 'Methoden der Gehweg-Befreiung: Erfahrungen aus Darmstadt', 'https://wegerecht.org/seminar/', target: '_blank'}.
         li.list-group-item
           span.badge Deutschland
           | 📍 Basierend auf den Daten von weg-li und Wegeheld entstand diese #{link_to 'Falschparker-Karte', 'http://wege-frei.heikozelt.de/', target: '_blank'}.
