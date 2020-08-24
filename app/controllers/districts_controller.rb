@@ -26,6 +26,23 @@ class DistrictsController < ApplicationController
     end
   end
 
+  def edit
+    @district = District.active.find(params[:id])
+  end
+
+  def update
+    district = District.active.find(params[:id])
+    district.assign_attributes(district_params)
+    changes = district.changes
+
+    if changes.present?
+      message = changes.map {|key, (from, to)| "#{key} changed from #{from} to #{to}" }.join(', ')
+      notify("district changes proposed: #{message} #{admin_district_url(district)}")
+    end
+
+    redirect_to(districts_path, notice: 'Änderungen wurden erfasst und warten nun auf Freischaltung')
+  end
+
   def new
     @district = District.new
   end
