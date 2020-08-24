@@ -2279,11 +2279,11 @@ endobj
 5 0 obj
 << /Type /Page
 /Parent 3 0 R
-/MediaBox [0 0 612.0 792.0]
-/CropBox [0 0 612.0 792.0]
-/BleedBox [0 0 612.0 792.0]
-/TrimBox [0 0 612.0 792.0]
-/ArtBox [0 0 612.0 792.0]
+/MediaBox [0 0 612 792]
+/CropBox [0 0 612 792]
+/BleedBox [0 0 612 792]
+/TrimBox [0 0 612 792]
+/ArtBox [0 0 612 792]
 /Contents 4 0 R
 /Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
 /Font << /F1.0 6 0 R
@@ -10834,11 +10834,11 @@ endobj
 9 0 obj
 << /Type /Page
 /Parent 3 0 R
-/MediaBox [0 0 612.0 792.0]
-/CropBox [0 0 612.0 792.0]
-/BleedBox [0 0 612.0 792.0]
-/TrimBox [0 0 612.0 792.0]
-/ArtBox [0 0 612.0 792.0]
+/MediaBox [0 0 612 792]
+/CropBox [0 0 612 792]
+/BleedBox [0 0 612 792]
+/TrimBox [0 0 612 792]
+/ArtBox [0 0 612 792]
 /Contents 8 0 R
 /Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
 /XObject << /I1 7 0 R
@@ -10854,15 +10854,15 @@ xref
 0000000158 00000 n 
 0000000221 00000 n 
 0000032303 00000 n 
-0000032589 00000 n 
-0000032686 00000 n 
-0002291583 00000 n 
-0002291683 00000 n 
+0000032569 00000 n 
+0000032666 00000 n 
+0002291563 00000 n 
+0002291663 00000 n 
 trailer
 << /Size 10
 /Root 2 0 R
 /Info 1 0 R
 >>
 startxref
-2291970
+2291930
 %%EOF
