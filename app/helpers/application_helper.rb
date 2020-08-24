@@ -9,6 +9,17 @@ module ApplicationHelper
     end
   end
 
+  def s(value, default: '-')
+    return default if value.blank?
+
+    case value
+    when String
+      value
+    when Array
+      value.join(', ')
+    end
+  end
+
   def set_title(*title)
     content_for(:title, title.join(' · '))
   end

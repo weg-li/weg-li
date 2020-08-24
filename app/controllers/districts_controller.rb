@@ -74,7 +74,7 @@ class DistrictsController < ApplicationController
 
   def search_scope
     scope = District.active.order(params[:order] || 'zip ASC').page(params[:page])
-    scope = scope.where('zip ILIKE :term OR name ILIKE :term', term: "%#{params[:term]}%") if params[:term]
+    scope = scope.where('zip ILIKE :term OR name ILIKE :term OR email ILIKE :term', term: "%#{params[:term]}%") if params[:term]
     scope
   end
 end
