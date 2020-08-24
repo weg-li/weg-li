@@ -29,7 +29,7 @@ class District < ActiveRecord::Base
 
   validates :name, :zip, :email, :state, presence: true
   validates :zip, uniqueness: true
-  validates :state, inclusion: {in: STATES} 
+  validates :state, inclusion: {in: STATES}
 
   geocoded_by :geocode_address
   after_validation :geocode
@@ -70,7 +70,7 @@ class District < ActiveRecord::Base
           district.zip = zip
           district.osm_id = row['osm_id']
           district.state = row['bundesland']
-          district.prefix = zip_to_prefix[zip]
+          district.prefix = [zip_to_prefix[zip]]
           district.save!
         else
           Rails.logger.info("could not find anything for #{zip}")

@@ -1,0 +1,21 @@
+.well.well-sm.callout-info
+  small
+    |
+      Die Änderungen für den Bezirk werden vom Support geprüft und dann aktiviert.
+
+= render('form', district: @district)
+
+hr.spacer-large
+
+.row
+  .col-lg-3
+    - subject = "Bezirk aktualisieren: #{@district.zip} #{@district.name} (#{@district.id})"
+    - body = "Bitte folgende Änderungen für den Bezirk einspielen:\n\n\nLink für den Support: #{edit_admin_district_url(@district)}"
+    = mail_to "peter@weg-li.de", subject: subject, body: body, class: 'btn btn-block btn-default', title: 'Bezirk ändern'
+      | E-Mail schreiben
+
+  .col-lg-9
+    .well.well-sm.callout-info
+      small
+        |
+          Alternativ kannst Du uns Informationen zu Bezirken auch weiterhin per E-Mail mitteilen.

@@ -11,7 +11,7 @@ module Admin
     # end
 
     def bulk_update
-      District.where(email: params[:from]).update_all(email: params[:to])
+      District.where(email: params[:from]).update_all(email: params[:to], flags: params[:flags])
 
       redirect_to admin_districts_path(search: params[:to]), notice: "Bezirke wurden von '#{params[:from]}' zu '#{params[:to]}' geändert"
     end
@@ -25,8 +25,9 @@ module Admin
     # for more information
 
     def resource_params
-      params[:district][:aliases] = params[:district][:aliases].split(/;|,|\s/)
-      params.require(resource_name).permit(*dashboard.permitted_attributes, aliases: [])
+      params[:district][:aliases] = params[:district][:aliases].split(/;|,|\s/).reject(&:blank?)
+      params[:district][:prefix] = params[:district][:prefix].split(/;|,|\s/).reject(&:blank?)
+      params.require(resource_name).permit(*dashboard.permitted_attributes, aliases: [], prefix: [])
     end
   end
 end

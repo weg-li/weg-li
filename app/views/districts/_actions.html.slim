@@ -6,8 +6,6 @@
       = link_to district_path(district)
         span.glyphicon.glyphicon-eye-open>
         | Bezirk ansehen
-      - subject = "Bezirk aktualisieren: #{district.zip} #{district.name} (#{district.id})"
-      - body = "Bitte folgende Änderungen für den Bezirk einspielen:\n\n\nLink für den Support: #{edit_admin_district_url(district)}"
-      = mail_to "peter@weg-li.de", subject: subject, body: body
+      = link_to edit_district_path(district)
         span.glyphicon.glyphicon-edit>
-        | Bezirk aktualisieren per E-Mail
+        | Bezirk bearbeiten

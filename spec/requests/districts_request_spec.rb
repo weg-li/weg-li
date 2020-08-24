@@ -21,6 +21,8 @@ describe "districts", type: :request  do
       expect {
         post districts_path, params: params
       }.to change { District.count }.by(1)
+
+      expect(response).to be_a_redirect
     end
   end
 
@@ -60,6 +62,24 @@ describe "districts", type: :request  do
 
       expect(response).to be_successful
       assert JSON.parse(response.body)
+    end
+  end
+
+  context "districts#edit" do
+    it "shows a district" do
+      get edit_district_path(@district)
+
+      expect(response).to be_successful
+      assert_select 'h2', 'weg-li Bezirke'
+    end
+  end
+
+  context "districts#update" do
+    it "updates a district" do
+      params = { district: Fabricate.attributes_for(:district) }
+
+      patch district_path(@district), params: params
+      expect(response).to be_a_redirect
     end
   end
 

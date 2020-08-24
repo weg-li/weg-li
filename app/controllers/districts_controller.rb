@@ -26,6 +26,23 @@ class DistrictsController < ApplicationController
     end
   end
 
+  def edit
+    @district = District.active.find(params[:id])
+  end
+
+  def update
+    district = District.active.find(params[:id])
+    district.assign_attributes(district_params)
+    changes = district.changes
+
+    if changes.present?
+      message = changes.map {|key, (from, to)| "#{key} changed from #{from} to #{to}" }.join(', ')
+      notify("district changes proposed: #{message} #{admin_district_url(district)}")
+    end
+
+    redirect_to(districts_path, notice: 'Änderungen wurden erfasst und warten nun auf Freischaltung')
+  end
+
   def new
     @district = District.new
   end
@@ -52,12 +69,13 @@ class DistrictsController < ApplicationController
   private
 
   def district_params
-    params.require(:district).permit(:name, :email, :zip, :state, :prefix, :osm_id)
+    params[:district][:prefix] = params[:district][:prefix].split(/;|,|\s/).reject(&:blank?)
+    params.require(:district).permit(:name, :email, :zip, :state, :osm_id, prefix: [])
   end
 
   def search_scope
     scope = District.active.order(params[:order] || 'zip ASC').page(params[:page])
-    scope = scope.where('zip ILIKE :term OR name ILIKE :term', term: "%#{params[:term]}%") if params[:term]
+    scope = scope.where('zip ILIKE :term OR name ILIKE :term OR email ILIKE :term', term: "%#{params[:term]}%") if params[:term]
     scope
   end
 end
