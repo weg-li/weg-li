@@ -95,6 +95,7 @@ de:
         analyzing: 'analysieren'
         shared: 'gemeldet'
         flags:
+          one: 'Flags'
           vehicle_empty: 'Das Fahrzeug war verlassen'
           hazard_lights: 'Das Fahrzeug hatte die Warnblinkanlage aktiviert'
           expired_tuv: 'Die TÜV-Plakette war abgelaufen'
