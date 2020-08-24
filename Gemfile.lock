@@ -305,6 +305,8 @@ GEM
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
+    rack-utf8_sanitizer (1.7.0)
+      rack (>= 1.0, < 3.0)
     rails (6.0.3.2)
       actioncable (= 6.0.3.2)
       actionmailbox (= 6.0.3.2)
@@ -497,6 +499,7 @@ DEPENDENCIES
   puma
   rack
   rack-cache
+  rack-utf8_sanitizer
   rails (~> 6.0)
   rails_12factor
   rails_autoscale_agent
@@ -517,3 +520,6 @@ DEPENDENCIES
 
 RUBY VERSION
    ruby 2.6.6
+
+BUNDLED WITH
+   1.17.2

@@ -26,6 +26,8 @@ module WegLi
     # custom 404
     config.exceptions_app = self.routes
 
+    config.middleware.insert 0, Rack::UTF8Sanitizer
+
     config.generators do |g|
       g.test_framework  :rspec, fixture: false
       g.view_specs      false
