@@ -25,8 +25,9 @@ module Admin
     # for more information
 
     def resource_params
-      params[:district][:aliases] = params[:district][:aliases].split(/;|,|\s/)
-      params.require(resource_name).permit(*dashboard.permitted_attributes, aliases: [])
+      params[:district][:aliases] = params[:district][:aliases].split(/;|,|\s/).reject(&:blank?)
+      params[:district][:prefix] = params[:district][:prefix].split(/;|,|\s/).reject(&:blank?)
+      params.require(resource_name).permit(*dashboard.permitted_attributes, aliases: [], prefix: [])
     end
   end
 end

@@ -6,7 +6,7 @@ h3= "#{@district.name} / #{@district.zip}"
       .panel-heading Infos zum Bezirk
       ul.list-group
         li.list-group-item Aktualisiert: #{l(@district.created_at)}
-        li.list-group-item Kennzeichen: #{@district.prefix || '-'}
+        li.list-group-item Kennzeichen: #{@district.prefix.join(', ') || '-'}
         li.list-group-item Bundesland: #{@district.state || '-'}
         li.list-group-item E-Mail Adresse: #{@district.display_email}
         - if @district.aliases.present?
