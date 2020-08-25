@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  redis:
+    image: "redis"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - 6379
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: weg-li_development
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - 5432:5432
+  app:
+    build: .
+    environment:
+      POSTGRES_HOST: postgres
+    volumes:
+      - .:/app
+    ports:
+      - 3001:3000
+    depends_on:
+      - postgres
+      - redis
