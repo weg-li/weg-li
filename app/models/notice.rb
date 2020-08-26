@@ -26,6 +26,9 @@ class Notice < ActiveRecord::Base
   geocoded_by :geocode_address, language: Proc.new { |model| I18n.locale }, no_annotations: true
   after_validation :geocode, if: :do_geocoding?
 
+  enum status: {open: 0, disabled: 1, analyzing: 2, shared: 3}
+  enum severity: {standard: 0, hinder: 1, endanger: 2}
+
   belongs_to :user
   belongs_to :district, optional: true, foreign_key: :zip, primary_key: :zip
   belongs_to :bulk_upload, optional: true
@@ -43,8 +46,6 @@ class Notice < ActiveRecord::Base
     end
   end
 
-  enum status: {open: 0, disabled: 1, analyzing: 2, shared: 3}
-  enum severity: {standard: 0, hinder: 1, endanger: 2}
 
   scope :since, -> (date) { where('notices.created_at > ?', date) }
   scope :for_public, -> () { where.not(status: :disabled) }
@@ -74,6 +75,10 @@ class Notice < ActiveRecord::Base
       all_users: User.since(date).count,
       districts: District.active.count,
     }
+  end
+
+  def display_charge
+    standard? ? charge : "#{charge}, #{Notice.human_attribute_name(severity)}"
   end
 
   def wegli_email
@@ -113,6 +118,8 @@ class Notice < ActiveRecord::Base
     if other
       self.registration = other.registration
       self.charge = other.charge if other.charge?
+      self.severity = other.severity if other.severity?
+      self.duration = other.duration if other.duration?
       self.brand = other.brand if other.brand?
       self.color = other.color if other.color?
       self.flags = other.flags if other.flags?
