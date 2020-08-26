@@ -141,9 +141,7 @@ class NoticesController < ApplicationController
     to = params[:send_to] == 'all' ? notice.district.all_emails : notice.district.all_emails.find {|email| email == params[:send_to]}
     to ||= notice.district.email
 
-    pdf = PDFGenerator.new.generate(notice) if params[:send_via_pdf]
-
-    NoticeMailer.charge(notice, to, pdf).deliver_later
+    NoticeMailer.charge(notice, to, params[:send_via_pdf]).deliver_later
 
     notice.update!(status: :shared)
 
