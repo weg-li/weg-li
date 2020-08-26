@@ -6,6 +6,13 @@ class NoticeMailerPreview < ActionMailer::Preview
     NoticeMailer.charge(notice)
   end
 
+  def charge_via_email
+    notice = Notice.shared.first!
+    data = PDFGenerator.new.generate(notice)
+
+    NoticeMailer.charge(notice, 'uschi@muschi.de', data)
+  end
+
   def forward
     notice = Notice.shared.first!
 

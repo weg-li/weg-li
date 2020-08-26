@@ -29,7 +29,7 @@ describe AutoreplyMailbox do
         }.to change {
           notice.replies.count
         }.by(1)
-      }.to have_enqueued_job(ActionMailer::MailDeliveryJob)
+      }.to have_enqueued_mail(UserMailer, :autoreply)
     end
   end
 end

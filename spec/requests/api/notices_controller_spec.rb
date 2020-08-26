@@ -73,7 +73,7 @@ describe "api/notices", type: :request do
     it "mails a notice to the district" do
       expect {
         patch mail_api_notice_path(@notice), headers: @headers
-      }.to have_enqueued_job(ActionMailer::MailDeliveryJob)
+      }.to have_enqueued_mail(NoticeMailer, :charge)
     end
   end
 end

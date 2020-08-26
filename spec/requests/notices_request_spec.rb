@@ -83,7 +83,7 @@ describe 'notices', type: :request do
 
       expect {
         post bulk_notices_path, params: params
-      }.to have_enqueued_job(ActionMailer::MailDeliveryJob)
+      }.to have_enqueued_mail(NoticeMailer, :charge)
     end
   end
 
@@ -133,7 +133,19 @@ describe 'notices', type: :request do
         patch mail_notice_path(notice)
 
         expect(response).to be_redirect
-      }.to have_enqueued_job(ActionMailer::MailDeliveryJob)
+      }.to have_enqueued_mail(NoticeMailer, :charge)
+    end
+
+    it "sends a mail to recipient with notice as PDF" do
+      expect {
+        patch mail_notice_path(notice, send_via_pdf: true)
+
+        expect(response).to be_redirect
+      }.to have_enqueued_mail(NoticeMailer, :charge)
+
+      perform_enqueued_jobs
+
+      expect(ActionMailer::Base.deliveries.last.attachments.map(&:filename)).to eql([notice.file_name])
     end
   end
 
@@ -143,7 +155,7 @@ describe 'notices', type: :request do
         patch forward_notice_path(notice)
 
         expect(response).to be_redirect
-      }.to have_enqueued_job(ActionMailer::MailDeliveryJob)
+      }.to have_enqueued_mail(NoticeMailer, :forward)
     end
   end
 

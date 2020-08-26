@@ -1,17 +1,22 @@
 class NoticeMailer < ApplicationMailer
-  def charge(notice, to = nil)
+  def charge(notice, to = nil, pdf = nil)
     @notice = notice
     @user = notice.user
     @district = notice.district
+    @pdf = pdf
 
     if @district.blank?
       notify("no district found with zip #{notice.zip} for #{notice.id}")
       return
     end
 
-    notice.photos.each do |photo|
-      variant = photo.variant(PhotoHelper::CONFIG[:default]).processed
-      attachments[photo.filename.to_s] = photo.service.download(variant.key)
+    if @pdf
+      attachments[notice.file_name] = pdf
+    else
+      notice.photos.each do |photo|
+        variant = photo.variant(PhotoHelper::CONFIG[:default]).processed
+        attachments[photo.filename.to_s] = photo.service.download(variant.key)
+      end
     end
 
     subject = "Anzeige #{@notice.registration} #{@notice.charge}"

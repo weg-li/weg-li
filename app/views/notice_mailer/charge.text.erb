@@ -1,6 +1,9 @@
 Sehr geehrte Damen und Herren,
 
 
+<% if @pdf %>
+hiermit zeige ich, mit der Bitte um Weiterverfolgung, die im Anhang befindliche Verkehrsordnungswidrigkeit an.
+<% else %>
 hiermit zeige ich, mit der Bitte um Weiterverfolgung, folgende Verkehrsordnungswidrigkeit an:
 
 
@@ -23,6 +26,7 @@ Dabei dürfen Sie auch meine persönlichen Daten weiterleiten und für die Dauer
 
 Diese Anzeige können Sie online abrufen, dort finden sich auch die Beweisfotos im Original zum Herunterladen:
 <%= public_charge_url(@notice) %>
+<% end %>
 
 
 Mit freundlichen Grüßen

@@ -40,7 +40,16 @@ hr.spacer
           - else
             = form.text_field :district, value: form.object.district.display_name, disabled: true, class: "form-control"
           = hint do
-            | Die E-Mail-Adresse der zuständigen Stelle wurde anhand der Postleitzahl ermittelt. Adresse stimmt nicht? Schreibe an #{mail_to 'peter@weg-li.de'}!
+            | Die E-Mail-Adresse der zuständigen Stelle wurde anhand der Postleitzahl ermittelt. #{link_to 'Adresse stimmt nicht', edit_district_path(@notice.district)}?
+
+          .form-group
+            .checkbox
+              = label_tag :send_via_pdf
+                = check_box_tag :send_via_pdf, '', false
+                | Meldung per PDF-Anhang versenden
+            = hint do
+              | Durch das Versenden per PDF-Anhang wird die Meldung als PDF generiert und eine im Profil hinterlegte Unterschrift mit eingefügt.
+
       .col-lg-4
         = render 'map', notice: @notice, kind: :private, css_class: 'mini-map-canvas'
 

@@ -104,7 +104,7 @@ class NoticesController < ApplicationController
   end
 
   def share
-    @notice = current_user.notices.from_param(params[:id])
+    @notice = current_user.notices.complete.from_param(params[:id])
 
     @mail = NoticeMailer.charge(@notice)
   end
@@ -136,11 +136,14 @@ class NoticesController < ApplicationController
   end
 
   def mail
-    notice = current_user.notices.from_param(params[:id])
+    notice = current_user.notices.complete.from_param(params[:id])
 
     to = params[:send_to] == 'all' ? notice.district.all_emails : notice.district.all_emails.find {|email| email == params[:send_to]}
     to ||= notice.district.email
-    NoticeMailer.charge(notice, to).deliver_later
+
+    pdf = PDFGenerator.new.generate(notice) if params[:send_via_pdf]
+
+    NoticeMailer.charge(notice, to, pdf).deliver_later
 
     notice.update!(status: :shared)
 
