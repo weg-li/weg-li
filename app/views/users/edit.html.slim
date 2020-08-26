@@ -65,7 +65,11 @@
         .panel-heading Unterschrift
         - if current_user.signature.present?
           .panel-body
-            =image_tag url_for(current_user.signature), class: 'signature'
+            = image_tag url_for(current_user.signature), class: 'signature'
+          .panel-body
+            = link_to destroy_signature_user_path(current_user), method: :patch, data: {confirm: 'Die Unterschrift wirklich entfernen?'}, class: "btn btn-default btn-block"
+              span.glyphicon.glyphicon-trash>
+              span Unterschrift entfernen
         .panel-body
           = form.file_field :signature, id: 'fileupload', required: true, direct_upload: true, class: "form-control-file input-droppable", accept: 'image/jpeg,image/png'
           = hint do

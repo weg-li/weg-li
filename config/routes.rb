@@ -82,6 +82,7 @@ Rails.application.routes.draw do
     member do
       patch :confirmation_mail
       patch :signature
+      patch :destroy_signature
     end
   end
 

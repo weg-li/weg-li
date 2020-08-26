@@ -5,9 +5,15 @@ class UsersController < ApplicationController
   end
 
   def signature
-    current_user.update(signature_params)
+    current_user.update!(signature_params)
 
     redirect_to edit_user_path(current_user), notice: 'Unterschrift wurde gespeichert'
+  end
+
+  def destroy_signature
+    current_user.update!(signature: nil)
+
+    redirect_to edit_user_path(current_user), notice: 'Unterschrift wurde entfernt'
   end
 
   def update
