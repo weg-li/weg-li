@@ -2,7 +2,7 @@
 - set_crumbs t('navigation.notices') => notices_path, 'Statistik' => url_for
 
 .page-header
-  p Du hast in den letzten #{@months} Wochen #{@notice_sums.values.sum} Falschparker gemeldet.
+  p Du hast in den letzten #{@weeks} Wochen #{@notice_sums.values.sum} Falschparker gemeldet.
 
 .row
   .col-lg-6
@@ -11,3 +11,34 @@
   .col-lg-6
     h3 Hochgeladene Beweisfotos
     = render('chart', name: :photos, counts: @photo_counts, sums: @photo_sums)
+
+- if @notices.present?
+  hr.spacer
+
+  .row
+    .col-lg-4
+      h3 📈 Die häufigsten Kennzeichen
+      ul.list-group
+        - grouped = @notices.reject { |notice| notice.registration.blank? }.group_by(&:registration).sort_by {|_, group| group.size }.reverse
+        - grouped.first(5).each do |key, group|
+          li.list-group-item
+            = key
+            .badge.pull-right= number_with_delimiter(group.size)
+
+    .col-lg-4
+      h3 📈 Die häufigsten Vergehen
+      ul.list-group
+        - grouped = @notices.reject { |notice| notice.charge.blank? }.group_by(&:charge).sort_by {|_, group| group.size }.reverse
+        - grouped.first(5).each do |key, group|
+          li.list-group-item
+            = key
+            .badge.pull-right= number_with_delimiter(group.size)
+
+    .col-lg-4
+      h3 📈 Die häufigsten Automarken
+      ul.list-group
+        - grouped = @notices.reject { |notice| notice.brand.blank? }.group_by(&:brand).sort_by {|_, group| group.size }.reverse
+        - grouped.first(5).each do |key, group|
+          li.list-group-item
+            = key
+            .badge.pull-right= number_with_delimiter(group.size)

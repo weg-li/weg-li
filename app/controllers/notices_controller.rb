@@ -64,6 +64,7 @@ class NoticesController < ApplicationController
     @notice_sums = Notice.sum_over(current_user.notices.shared, weeks: @weeks)
     @photo_counts = Notice.count_over(ActiveStorage::Attachment.where(record_type: 'Notice', record_id: current_user.notices.shared.pluck(:id), name: 'photos'), weeks: @weeks)
     @photo_sums = Notice.sum_over(ActiveStorage::Attachment.where(record_type: 'Notice', record_id: current_user.notices.shared.pluck(:id), name: 'photos'), weeks: @weeks)
+    @notices = current_user.notices.shared.since(@weeks.weeks.ago)
   end
 
   def show
