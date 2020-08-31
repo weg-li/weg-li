@@ -1,5 +1,4 @@
 require 'redis'
-Redis.exists_returns_integer = false
 
 require 'sidekiq'
 require 'sidekiq/scheduler'
