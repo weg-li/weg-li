@@ -3,7 +3,7 @@ require 'zip'
 class PhotosDownloadJob < ApplicationJob
   def perform(bulk_upload)
     Rails.logger.info("importing photos for #{bulk_upload.id} from #{bulk_upload.shared_album_url}")
-    album = open(bulk_upload.shared_album_url)
+    album = URI.open(bulk_upload.shared_album_url)
     content = album.read
     content.match(/"(https:\/\/video-downloads\.googleusercontent\.com\/[^"]*)"/)
     download_url = $1
@@ -15,7 +15,7 @@ class PhotosDownloadJob < ApplicationJob
     end
 
     Rails.logger.info("downloading photos for #{bulk_upload.id} from #{download_url}")
-    album = open(download_url)
+    album = URI.open(download_url)
 
     if album.metas['content-type'].include?('application/zip')
       Zip::File.open(album.path) do |zipfile|

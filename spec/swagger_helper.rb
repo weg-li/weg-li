@@ -28,13 +28,6 @@ RSpec.configure do |config|
           }
         }
       },
-      securityDefinitions: {
-        ApiKeyAuth: {
-          type: :apiKey,
-          name: 'X-API-KEY',
-          in: :header
-        }
-      },
       paths: {}
     }
   }
