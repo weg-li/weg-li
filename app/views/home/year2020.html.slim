@@ -36,18 +36,18 @@ hr.spacer-large
   .col-lg-8
     h3 📈 Top Orte
     ul.list-group
-      - @grouped_cities.each do |notice|
+      - @grouped_cities.each do |entry|
         li.list-group-item
-          = notice.city
-          .badge.pull-right= number_with_delimiter(notice.city_count)
+          = entry.city
+          .badge.pull-right= number_with_delimiter(entry.city_count)
 
   .col-lg-4
     h3 📈 Top Postleitzahlen
     ul.list-group
-      - @grouped_zips.each do |notice|
+      - @grouped_zips.each do |entry|
         li.list-group-item
-          = notice.zip
-          .badge.pull-right= number_with_delimiter(notice.zip_count)
+          = entry.zip
+          .badge.pull-right= number_with_delimiter(entry.zip_count)
 
 .spacer-large
 
@@ -68,23 +68,14 @@ hr.spacer-large
   .col-lg-8
     h3 📈 Top Vergehen
     ul.list-group
-      - @grouped_charges.each do |notice|
+      - @grouped_charges.each do |entry|
         li.list-group-item
-          = notice.charge
-          .badge.pull-right= number_with_delimiter(notice.charge_count)
+          = entry.charge
+          .badge.pull-right= number_with_delimiter(entry.charge_count)
 
   .col-lg-4
     h3 📈 Top Automarken
     ul.list-group
-      - @grouped_brands.each do |notice|
+      - @grouped_brands.each do |entry|
         li.list-group-item
-          .badge.pull-right= number_with_delimiter(notice.brand_count)
-          p= notice.brand
-          - percentage = notice.brand_count / @count.fdiv(100)
-          - market_percentage = Vehicle.percentage(notice.brand)
-          - if market_percentage
-            span.text-muted.smaller
-              |
-                Anteil: #{number_to_percentage(percentage)}
-                Marktanteil: #{number_to_percentage(market_percentage)}
-                Arschlochfaktor: #{number_to_percentage((percentage / market_percentage) * 100)}
+          = render('vehicle_count', count: @count, brand_count: entry.brand_count, brand: entry.brand)

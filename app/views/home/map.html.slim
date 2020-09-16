@@ -17,7 +17,7 @@
       h3 📈 Die häufigsten Vergehen
       ul.list-group
         - grouped = @notices.reject { |notice| notice.charge.blank? }.group_by(&:charge).sort_by {|_, group| group.size }.reverse
-        - grouped.first(5).each do |key, group|
+        - grouped.first(@limit).each do |key, group|
           li.list-group-item
             = key
             .badge.pull-right= number_with_delimiter(group.size)
@@ -26,7 +26,6 @@
       h3 📈 Die häufigsten Automarken
       ul.list-group
         - grouped = @notices.reject { |notice| notice.brand.blank? }.group_by(&:brand).sort_by {|_, group| group.size }.reverse
-        - grouped.first(5).each do |key, group|
+        - grouped.first(@limit).each do |key, group|
           li.list-group-item
-            = key
-            .badge.pull-right= number_with_delimiter(group.size)
+            = render('vehicle_count', count: @notices.size, brand_count: group.size, brand: key)

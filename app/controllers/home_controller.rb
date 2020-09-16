@@ -9,6 +9,7 @@ class HomeController < ApplicationController
   end
 
   def map
+    @limit = (params[:limit] || 5).to_i
     @since = (params[:since] || '7').to_i
     @display = params[:display] || 'cluster'
     @district = params[:district] || current_user&.city || 'Hamburg'
@@ -34,7 +35,7 @@ class HomeController < ApplicationController
   end
 
   def year2019
-    @limit = params[:limit] || 5
+    @limit = (params[:limit] || 5).to_i
 
     notices = Notice.shared.where(date: ((Time.zone.now - 1.year).beginning_of_year..(Time.zone.now - 1.year).end_of_year))
     @count = notices.count
@@ -47,7 +48,7 @@ class HomeController < ApplicationController
   end
 
   def year2020
-    @limit = params[:limit] || 5
+    @limit = (params[:limit] || 5).to_i
 
     notices = Notice.shared.where(date: (Time.zone.now.beginning_of_year..Time.zone.now.end_of_year))
     @count = notices.count
@@ -60,7 +61,7 @@ class HomeController < ApplicationController
   end
 
   def leaderboard
-    @limit = params[:limit] || 5
+    @limit = (params[:limit] || 5).to_i
 
     @weekly_leaders = Notice.since(Time.zone.now.beginning_of_week).shared.group(:user_id).order(count_all: :desc).limit(@limit).count
     @weekly_leaders.transform_keys! { |user_id| User.find(user_id) }

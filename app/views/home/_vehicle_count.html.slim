@@ -1,0 +1,10 @@
+.badge.pull-right= number_with_delimiter(brand_count)
+p= brand
+- percentage = brand_count / count.fdiv(100)
+- market_percentage = Vehicle.percentage(brand)
+- if market_percentage
+  span.text-muted.smaller
+    |
+      Anteil: #{number_to_percentage(percentage)}
+      Marktanteil: #{number_to_percentage(market_percentage)}
+      Arschlochfaktor: #{number_with_precision(percentage / market_percentage)}
