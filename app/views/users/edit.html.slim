@@ -71,9 +71,9 @@
               span.glyphicon.glyphicon-trash>
               span Unterschrift entfernen
         .panel-body
-          = form.file_field :signature, id: 'fileupload', required: true, direct_upload: true, class: "form-control-file input-droppable", accept: 'image/jpeg,image/png'
+          = form.file_field :signature, id: 'fileupload', required: true, direct_upload: true, class: "form-control-file input-droppable", accept: 'image/jpeg'
           = hint do
-            | Die Unterschrift wird für die Generierung von Anzeigen im PDF-Format genutzt.
+            | Die Unterschrift im JPEG Format wird für die Generierung von Anzeigen als PDF genutzt.
 
         .panel-footer.clearfix
           .pull-right
