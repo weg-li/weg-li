@@ -14,7 +14,7 @@ WORKDIR /app
 COPY Gemfile /app/Gemfile
 COPY Gemfile.lock /app/Gemfile.lock
 
-RUN bundle install -j2
+RUN bundle install --jobs=3 --retry=2 --quiet
 RUN yarn install
 
 COPY . /app

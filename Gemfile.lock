@@ -446,6 +446,8 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.7)
+    utf8-cleaner (1.0.0)
+      activesupport
     web-console (4.0.4)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -516,11 +518,9 @@ DEPENDENCIES
   slim-rails
   sprockets (~> 3.7.2)
   time_splitter
+  utf8-cleaner
   web-console
   webpacker
 
 RUBY VERSION
    ruby 2.7.1
-
-BUNDLED WITH
-   2.1.4
