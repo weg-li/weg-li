@@ -42,6 +42,7 @@ gem 'rswag-api'
 gem 'rswag-ui'
 gem 'email_verifier'
 gem 'webpacker'
+gem 'utf8-cleaner'
 
 group :production do
   gem 'rails_autoscale_agent'
