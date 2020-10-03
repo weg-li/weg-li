@@ -41,6 +41,7 @@ class UserDashboard < Administrate::BaseDashboard
     :last_login,
     :nickname,
     :name,
+    :email,
     :access,
   ].freeze
 
