@@ -11,7 +11,7 @@ ul.nav.nav-tabs.nav-panel
           = hidden_field_tag(:since, since)
           = hidden_field_tag(:display, display)
           .form-group.form-group-sm.text-right
-            - durations = [['letzte Woche', 7], ['letzter Monat', 30], ['letztes Jahr', 365]]
+            - durations = [['letzte Woche', 7], ['letzter Monat', 30], ['letztes Quartal', 30 * 3]]
             = select_tag(:since, options_for_select(durations, since), class: 'form-control')
             = select_tag(:district, options_for_select(District.active.pluck(:name).uniq, district), class: 'form-control')
             = submit_tag('Los', class: "btn btn-default btn-sm")
