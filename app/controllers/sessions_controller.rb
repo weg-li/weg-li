@@ -56,7 +56,7 @@ class SessionsController < ApplicationController
   def email; end
 
   def email_signup
-    email = params[:email].to_s.downcase
+    email = normalize_email(params[:email])
     if email.present?
       token = Token.generate(email)
       UserMailer.email_auth(email, token).deliver_later
@@ -70,7 +70,7 @@ class SessionsController < ApplicationController
   end
 
   def signup
-    email = @auth['info']['email']
+    email = normalize_email(@auth['info']['email'])
     check_existing_user(email)
 
     nickname = @auth['info']['nickname']
@@ -79,7 +79,7 @@ class SessionsController < ApplicationController
   end
 
   def ticket
-    email = @auth['info']['email']
+    email = normalize_email(@auth['info']['email'])
     if check_existing_user(email)
       render :email
     else
@@ -89,8 +89,9 @@ class SessionsController < ApplicationController
 
   def complete
     attributes = user_params
-    if session[:email_auth_address]
-      attributes[:email] = session[:email_auth_address]
+    email = normalize_email(session[:email_auth_address])
+    if email.present?
+      attributes[:email] = email
       attributes[:validation_date] = Time.now
     end
     @user = User.new(attributes)
@@ -103,7 +104,8 @@ class SessionsController < ApplicationController
 
       redirect_to session.delete(:auth_path), notice: t('sessions.welcome', nickname: @user.nickname)
     else
-      check_existing_user(params[:user][:email])
+      email = normalize_email(params[:user][:email])
+      check_existing_user(email)
 
       render :signup
     end
@@ -115,13 +117,16 @@ class SessionsController < ApplicationController
     params.require(:user).permit(:nickname, :email, :phone, :name, :street, :zip, :city)
   end
 
+  def normalize_email(email)
+    email.to_s.strip.downcase
+  end
+
   def set_auth
     @auth = session[:auth_data]
     _404("no auth available in session") if @auth.blank?
   end
 
   def check_existing_user(email)
-    email = email.to_s.downcase
     if email.present? && existing_user = User.find_by_email(email)
       providers = existing_user.authorizations.map(&:provider)
       flash.now[:alert] = t('sessions.existing_user', email: email, providers: providers.to_sentence)
