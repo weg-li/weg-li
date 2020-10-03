@@ -41,10 +41,10 @@ services:
     volumes:
       - .:/app
       - gem_cache:/usr/local/bundle/gems
-      - node_modules:/app/node_modules
     env_file: .env
     environment:
       RAILS_ENV: development
+      REDIS_URL: redis://redis:6379
     entrypoint: ./entrypoints/sidekiq-entrypoint.sh
 
 volumes:
