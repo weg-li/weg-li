@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@google/markerclusterer": "^1.0.3",
+    "@google/markerclustererplus": "^5.0.4",
     "@rails/activestorage": "^6.0.1",
     "@rails/ujs": "^6.0.1",
     "@rails/webpacker": "4.2.2",
