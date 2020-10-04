@@ -1,6 +1,6 @@
 FROM ruby:2.7.1-alpine
 
-RUN apk add --no-cache \
+RUN apk add --update --no-cache \
     alpine-sdk \
     imagemagick \
     nodejs \
@@ -11,12 +11,14 @@ RUN apk add --no-cache \
 
 WORKDIR /app
 
-COPY Gemfile /app/Gemfile
-COPY Gemfile.lock /app/Gemfile.lock
+COPY Gemfile Gemfile.lock ./
 
-RUN bundle install --jobs=3 --retry=2 --quiet
-RUN yarn install
+RUN bundle check || bundle install
 
-COPY . /app
+COPY package.json yarn.lock ./
 
-CMD ["bundle", "exec", "rails", "s", "-b", "0.0.0.0"]
+RUN yarn install --check-files
+
+COPY . ./
+
+ENTRYPOINT ["./entrypoints/docker-entrypoint.sh"]

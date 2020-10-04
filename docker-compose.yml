@@ -14,14 +14,40 @@ services:
       POSTGRES_HOST_AUTH_METHOD: trust
     ports:
       - 5432:5432
+    volumes:
+      - db_data:/var/lib/postgresql/data
   app:
     build: .
     environment:
-      POSTGRES_HOST: postgres
+      RAILS_ENV: development
     volumes:
       - .:/app
+      - gem_cache:/usr/local/bundle/gems
+      - node_modules:/app/node_modules
+    env_file: .env
     ports:
-      - 3001:3000
+      - 3000:3000
     depends_on:
       - postgres
       - redis
+  sidekiq:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - app
+      - postgres
+      - redis
+    volumes:
+      - .:/app
+      - gem_cache:/usr/local/bundle/gems
+    env_file: .env
+    environment:
+      RAILS_ENV: development
+      REDIS_URL: redis://redis:6379
+    entrypoint: ./entrypoints/sidekiq-entrypoint.sh
+
+volumes:
+  gem_cache:
+  db_data:
+  node_modules:
