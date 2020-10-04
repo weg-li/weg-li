@@ -15,7 +15,7 @@
     small
       | Mehrere Beweisfotos gruppiert nach Vergehen ins obere Feld ziehen, oder mit Hilfe des
       span.glyphicon.glyphicon-move<>
-      | dorthin bewegen und anschließend eine neue Meldung anlegen.
+      | Button dorthin bewegen und anschließend eine neue Meldung anlegen.
 
   - photos = @bulk_upload.ordered_photos(@order_column, @order_direction)
   = form_with model: @bulk_upload do |form|
