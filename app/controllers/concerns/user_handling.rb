@@ -56,15 +56,20 @@ module UserHandling
   end
 
   def find_by_session_or_cookies
-    User.find_by_id(session[:user_id]) || User.authenticated_with_token(*remember_me)
+    return User.find_by_id(session[:user_id]) if session[:user_id].present?
+    return User.authenticated_with_token(*remember_me) if remember_me.present?
+
+    nil
   end
 
   def find_by_alias
-    User.find_by_id(session[:alias_id])
+    return User.find_by_id(session[:alias_id]) if session[:alias_id].present?
+
+    nil
   end
 
   def remember_me
-    cookies.encrypted[:remember_me] || ['', '']
+    cookies.encrypted[:remember_me]
   end
 
   def signed_in?
