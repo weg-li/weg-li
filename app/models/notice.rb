@@ -38,14 +38,16 @@ class Notice < ActiveRecord::Base
   validates :photos, :registration, :charge, :street, :zip, :city, :date, :duration, :severity, presence: :true
   validates :zip, format: { with: /\d{5}/, message: 'PLZ ist nicht korrekt' }
   validates :token, uniqueness: true
-  validate :valid_date?
+  validate :validate_creation_date, on: :create
+  validate :validate_date
 
-  def valid_date?
-    if date.to_i > Time.zone.now.to_i || date.to_i < 3.month.ago.to_i
-      errors.add(:date, :invalid)
-    end
+  def validate_date
+    errors.add(:date, :invalid) if date.to_i > Time.zone.now.to_i
   end
 
+  def validate_creation_date
+    errors.add(:date, :invalid) if date.to_i < 3.month.ago.to_i
+  end
 
   scope :since, -> (date) { where('notices.created_at > ?', date) }
   scope :for_public, -> () { where.not(status: :disabled) }
