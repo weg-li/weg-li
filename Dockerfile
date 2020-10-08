@@ -21,6 +21,6 @@ RUN yarn install --check-files
 
 COPY . ./
 
-RUN RAILS_ENV=production bundle exec rake assets:precompile
+RUN RAILS_ENV=production SECRET_KEY_BASE=pickasecuretoken bundle exec rake assets:precompile
 
 ENTRYPOINT ["./entrypoints/docker-entrypoint.sh"]

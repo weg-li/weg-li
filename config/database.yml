@@ -13,5 +13,7 @@ test:
   encoding: utf8
 
 production:
-  encoding: utf8
+  adapter: postgresql
+  url: <%= ENV["DATABASE_URL"] %>
   pool: <%= ENV['RAILS_MAX_THREADS'] || 10 %>
+  encoding: utf8
