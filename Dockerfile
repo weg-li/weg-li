@@ -19,8 +19,8 @@ COPY package.json yarn.lock ./
 
 RUN yarn install --check-files
 
-RUN RAILS_ENV=production bundle exec rake assets:precompile
-
 COPY . ./
+
+RUN RAILS_ENV=production bundle exec rake assets:precompile
 
 ENTRYPOINT ["./entrypoints/docker-entrypoint.sh"]
