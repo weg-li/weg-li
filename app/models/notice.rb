@@ -67,14 +67,14 @@ class Notice < ActiveRecord::Base
     find_by!(token: token)
   end
 
-  def self.statistics(date = 100.years.ago)
+  def self.statistics
     {
-      photos: since(date).joins(photos_attachments: :blob).count,
-      all: since(date).count,
-      incomplete: since(date).incomplete.count,
-      shared: since(date).shared.count,
-      users: User.where(id: since(date).pluck(:user_id)).count,
-      all_users: User.since(date).count,
+      photos: joins(photos_attachments: :blob).count,
+      all: count,
+      incomplete: incomplete.count,
+      shared: shared.count,
+      users: pluck(:user_id).uniq.size,
+      all_users: User.active.count,
       districts: District.active.count,
     }
   end
