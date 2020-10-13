@@ -14,7 +14,7 @@ class HomeController < ApplicationController
     @display = params[:display] || 'cluster'
     @district = params[:district] || current_user&.city || 'Hamburg'
 
-    @notices = Notice.shared.since(@since.days.ago).joins(:district).where(districts: {name: @district})
+    @notices = Notice.includes(:user).shared.since(@since.days.ago).joins(:district).where(districts: {name: @district})
     @active = @notices.map(&:user_id).uniq.size
     @default_district = District.active.find_by(name: @district) || District.active.first
   end
