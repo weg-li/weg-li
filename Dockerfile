@@ -1,6 +1,7 @@
 FROM ruby:2.7.1-alpine
 
 RUN apk add --update --no-cache \
+    gcompat \
     alpine-sdk \
     imagemagick \
     nodejs \
