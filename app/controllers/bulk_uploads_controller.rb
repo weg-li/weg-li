@@ -5,7 +5,7 @@ class BulkUploadsController < ApplicationController
     @order_created_at = 'ASC'
     @table_params = {}
 
-    @bulk_uploads = current_user.bulk_uploads.page(params[:page])
+    @bulk_uploads = current_user.bulk_uploads.with_attached_photos.page(params[:page])
     if order = params[:order]
       @table_params[:order] = order.to_unsafe_hash
       if order[:column].present? && order[:value].present?

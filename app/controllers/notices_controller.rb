@@ -11,7 +11,7 @@ class NoticesController < ApplicationController
       order: {},
     }
 
-    @notices = current_user.notices.page(params[:page])
+    @notices = current_user.notices.with_attached_photos.page(params[:page])
 
     if search = params[:search]
       @table_params[:search] = search.to_unsafe_hash
