@@ -7,7 +7,7 @@
   .col-lg-12
     - if @notice.analyzing?
       - info = 'Aus den Beweisfotos lassen sich automatisch Informationen ermitteln. EXIF-Metadaten liefern Standort und Uhrzeit, Bilderkennung und OCR liefern Kennzeichen, Hersteller, Farben etc. Die Algorithmen sind noch im Training, deshalb müssen lücken- oder fehlerhafte Daten selbst korrigiert werden.'
-      - note = "Analyse der Beweisfotos läuft: 1 von #{@notice.photos.size}"
+      - note = "Analyse läuft"
       = render('components/reload', note: note, info: info)
     - else
       = render('components/photos', notice: @notice, upload: true)

@@ -3,11 +3,11 @@
 
 - if @bulk_upload.importing?
   - info = 'Die Beweisfotos aus dem Album werden im Hintergrund heruntergeladen. Dies kann etwas Zeit in Anspruch nehmen.'
-  - note = 'Import läuft, Beweisfotos werden heruntergeladen'
+  - note = 'Import läuft'
   = render('components/reload', note: note, info: info)
 - elsif @bulk_upload.processing?
   - info = 'Die Beweisfotos im Massen-Upload werden im Hintergrund verarbeitet in verschiedenen Größen, z.B. als Thumbnails, bereitgestellt. Dies kann etwas Zeit in Anspruch nehmen.'
-  - note = "Verarbeitung der Beweisfotos läuft: #{@bulk_upload.photos.reject(&:analyzed?).size + 1} von #{@bulk_upload.photos.size}"
+  - note = "Verarbeitung läuft"
   = render('components/reload', note: note, info: info)
 
 - elsif @bulk_upload.photos.present?
