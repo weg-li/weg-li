@@ -18,7 +18,6 @@ The TL;DR for Mac:
 ```bash
 # global setup
 brew install rbenv # ruby environemnt
-rbenv install 2.7.1 # install ruby runtime
 
 brew install postgresql # database
 createuser -s postgres # create general purpose postgres user
@@ -30,6 +29,9 @@ bin/setup
 ```
 
 ```bash
+# install ruby runtime
+rbenv install
+
 # run this to start the rails process
 script/server
 ```

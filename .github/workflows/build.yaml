@@ -21,11 +21,11 @@ jobs:
         id: cache
         with:
           path: ~/local/rubies
-          key: ruby-2.7.1
+          key: ruby-2.7.2
       - uses: clupprich/ruby-build-action@master
         id: ruby
         with:
-          ruby-version: 2.7.1
+          ruby-version: 2.7.2
           cache-available: ${{ steps.cache.outputs.cache-hit == 'true' }}
       - name: Print version
         run: ${{ steps.ruby.outputs.ruby-path }} --version
