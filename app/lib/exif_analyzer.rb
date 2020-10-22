@@ -13,9 +13,9 @@ class EXIFAnalyzer
       end
 
       if gps = exif.fields[:gps]
-        meta[:latitude] = gps.fields[:gps_latitude].to_f
-        meta[:longitude] = gps.fields[:gps_longitude].to_f
-        meta[:altitude] = gps.fields[:gps_altitude].to_f
+        meta[:latitude] = (gps.fields[:gps_latitude].nil? ? Float::NAN : gps.fields[:gps_latitude].to_f)
+        meta[:longitude] = (gps.fields[:gps_longitude].nil? ? Float::NAN : gps.fields[:gps_longitude].to_f)
+        meta[:altitude] = (gps.fields[:gps_altitude].nil? ? Float::NAN : gps.fields[:gps_altitude].to_f)
       end
       meta[:dump] = exif.fields.to_h if debug
     end
