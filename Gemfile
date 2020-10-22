@@ -56,6 +56,7 @@ group :development do
   gem 'listen'
   gem 'letter_opener'
   gem 'web-console'
+  gem 'dotenv-rails'
 end
 
 group :development, :test do
