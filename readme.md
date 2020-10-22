@@ -42,6 +42,55 @@ script/server
 docker-compose up
 ```
 
+## Contributing
+
+### Create admin user
+
+After installing the dependencies and running the server, you should be able to log in via “email” by visiting [http://localhost:3000/sessions/email](http://localhost:3000/sessions/email) and following the prompts. No email will be sent - the generated email is opened in your browser.
+
+Once you have successfully authenticated, make your user an admin: Start the rails console (run `rails c` in your project directory), then enter `User.last.update(access: 'admin')`, which should result in `=> true`. Now you should be able to access the admin interface at [/admin](http://localhost:3000/admin/).
+
+### Importing base data
+
+For proper functionality, you need to populate your database with *districts*. 
+
+To fabricate random districts, run `rake dev:data`. This will synthesize all the kinds of data you need to get dashboards, stats, etc. working right.
+
+If you want to get as close as possible to a “production” system, the easiest way is to import data from the production instance. Download an export format from `https://www.weg-li.de/districts.csv` (or `.json`) and import it into your local database. Example using the rails console (`rails c`):
+
+```ruby
+> districts = JSON.parse(URI.open('https://www.weg-li.de/districts.json').read); districts.count
+=> 3377
+> District.insert_all!(districts.map{ |x| x.except('personal_email').merge({'flags': x['personal_email'] ? 1 : 0}) }); District.count
+=> 3377
+```
+
+### Secrets and keys
+
+You need to set the following environment variables to enable full functionality for weg-li:
+
+```bash
+GITHUB_CONSUMER_KEY=github-key
+GITHUB_CONSUMER_SECRET=github-secret
+
+TWITTER_CONSUMER_KEY=twitter-key
+TWITTER_CONSUMER_SECRET=twitter-secret
+
+GOOGLE_CONSUMER_KEY=google-key
+GOOGLE_CONSUMER_SECRET=google-secret
+```
+
+These are used to let users authenticate with the different providers. Learn how to create your own keys: [GitHub](https://docs.github.com/en/free-pro-team@latest/developers/apps/creating-an-oauth-app), [Twitter](https://developer.twitter.com/en/docs/apps/overview), [Google](https://developers.google.com/identity/sign-in/web/sign-in).
+
+In addition, weg-li uses Google Cloud Storage for storing uploaded data and Google Cloud Vision to read license plates and determine car makes and colors. You will need to [create a Google Cloud Project](https://cloud.google.com/resource-manager/docs/creating-managing-projects) and set up the required API access for *Google Cloud Storage* and *Google Cloud Vision*. Be aware that you might be billed for Google Cloud usage. Please refer to the Google Cloud documentation, and set the following environment variables accordingly:
+
+```bash
+GOOGLE_CLOUD_PROJECT=google-cloud-project-id
+GOOGLE_CLOUD_KEYFILE=path/to/project/keyfile/gcloud.json
+```
+
+For local use, you can put these variables into a `.env` file in the project directory, and the `dotenv` gem will automatically make them available to your rails app. (See `.env-example`.)
+
 ## Contributors
 
 ### Code Contributors

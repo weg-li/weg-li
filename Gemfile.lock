@@ -104,6 +104,10 @@ GEM
       simpleidn (~> 0.1)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.7.6)
+    dotenv-rails (2.7.6)
+      dotenv (= 2.7.6)
+      railties (>= 3.2)
     e2mmap (0.1.0)
     email_verifier (0.1.0)
       dnsruby (>= 1.5)
@@ -475,6 +479,7 @@ DEPENDENCIES
   bitfields
   byebug
   color
+  dotenv-rails
   email_verifier
   exifr
   fabrication
