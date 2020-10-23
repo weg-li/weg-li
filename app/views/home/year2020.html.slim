@@ -8,7 +8,7 @@
     = image_tag 'phoet.jpg', class: "img-circle me-quote"
   .col-lg-10
     blockquote
-      p In 2020 wurden bereits #{@count} Anzeigen von #{@active} Benutzern erstattet - vielen Dank!
+      p In 2020 wurden bereits #{@statistics[:count]} Anzeigen von #{@statistics[:active]} Benutzern erstattet - vielen Dank!
       small= "weg-li 🚲💨 #{t('slogan_1')} #{t('slogan_2')}"
 
 hr.spacer-large
@@ -36,7 +36,7 @@ hr.spacer-large
   .col-lg-8
     h3 📈 Top Orte
     ul.list-group
-      - @grouped_cities.each do |entry|
+      - @statistics[:grouped_cities].each do |entry|
         li.list-group-item
           = entry.city
           .badge.pull-right= number_with_delimiter(entry.city_count)
@@ -44,7 +44,7 @@ hr.spacer-large
   .col-lg-4
     h3 📈 Top Postleitzahlen
     ul.list-group
-      - @grouped_zips.each do |entry|
+      - @statistics[:grouped_zips].each do |entry|
         li.list-group-item
           = entry.zip
           .badge.pull-right= number_with_delimiter(entry.zip_count)
@@ -68,7 +68,7 @@ hr.spacer-large
   .col-lg-8
     h3 📈 Top Vergehen
     ul.list-group
-      - @grouped_charges.each do |entry|
+      - @statistics[:grouped_charges].each do |entry|
         li.list-group-item
           = entry.charge
           .badge.pull-right= number_with_delimiter(entry.charge_count)
@@ -76,6 +76,6 @@ hr.spacer-large
   .col-lg-4
     h3 📈 Top Automarken
     ul.list-group
-      - @grouped_brands.each do |entry|
+      - @statistics[:grouped_brands].each do |entry|
         li.list-group-item
-          = render('vehicle_count', count: @count, brand_count: entry.brand_count, brand: entry.brand)
+          = render('vehicle_count', count: @statistics[:count], brand_count: entry.brand_count, brand: entry.brand)

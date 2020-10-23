@@ -79,6 +79,18 @@ class Notice < ActiveRecord::Base
     }
   end
 
+  def self.yearly_statistics(year, limit)
+    notices = shared.where(date: (Time.new(year)..Time.new(year).end_of_year))
+    {
+      count: notices.count,
+      active: notices.pluck(:user_id).uniq.size,
+      grouped_cities: notices.select('count(city) as city_count, city').group(:city).order('city_count DESC').limit(limit).to_a,
+      grouped_zips: notices.select('count(zip) as zip_count, zip').group(:zip).order('zip_count DESC').limit(limit).to_a,
+      grouped_charges: notices.select('count(charge) as charge_count, charge').group(:charge).order('charge_count DESC').limit(limit).to_a,
+      grouped_brands: notices.select('count(brand) as brand_count, brand').where("brand != ''").group(:brand).order('brand_count DESC').limit(limit).to_a,
+    }
+  end
+
   def display_charge
     standard? ? charge : "#{charge}, #{Notice.human_attribute_name(severity)}"
   end

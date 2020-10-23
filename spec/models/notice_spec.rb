@@ -106,4 +106,40 @@ describe Notice do
       expect(Notice.for_reminder).to be_empty
     end
   end
+
+  context "statistics" do
+    it "calculates statistics" do
+      notice = Fabricate(:notice)
+      statistics = Notice.statistics
+      expect(
+        {
+          all: 1,
+          all_users: 1,
+          districts: 1,
+          incomplete: 0,
+          photos: 1,
+          shared: 0,
+          users: 1,
+        }
+      ).to eql(statistics)
+    end
+  end
+
+  context "yearly_statistics" do
+    it "calculates yearly_statistics" do
+      notice = Fabricate(:notice)
+      limit = 5
+      yearly_statistics = Notice.yearly_statistics(2020, limit)
+      expect(
+        {
+          active: 0,
+          count: 0,
+          grouped_brands: [],
+          grouped_charges: [],
+          grouped_cities: [],
+          grouped_zips: [],
+        }
+      ).to eql(yearly_statistics)
+    end
+  end
 end
