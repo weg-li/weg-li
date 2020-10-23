@@ -8,8 +8,8 @@ class SitemapsController < ApplicationController
       districts_url,
       privacy_url,
       faq_url,
-      yearly_url(year: 2019),
-      yearly_url(year: 2020),
+      year2019_url,
+      year2020_url,
     ]
 
     respond_to do |format|

@@ -129,8 +129,8 @@ Rails.application.routes.draw do
   get '/faq', to: 'home#faq', as: :faq
   get '/privacy', to: 'home#privacy', as: :privacy
   get '/donate', to: 'home#donate', as: :donate
-  get '/year/:year', to: 'home#yearly', as: :yearly, constraints: lambda { |req| req.params[:year].to_i.between? 2019, Time.now.year }
-  get '/year:year', to: 'home#yearly', as: :yearly_legacy, constraints: lambda { |req| req.params[:year].to_i.between? 2019, Time.now.year }
+  get '/year2019', to: 'home#year2019', as: :year2019
+  get '/year2020', to: 'home#year2020', as: :year2020
 
   # dev
   get '/styleguide', to: 'styleguide#index'
