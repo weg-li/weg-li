@@ -16,4 +16,11 @@ describe PDFGenerator, :vcr do
       expect(example.size).to eql(result.size)
     end
   end
+
+  it "handles weird characters" do
+    broken_string = "Telefon: ‭015224026"
+    notice = Fabricate(:notice, note: broken_string)
+
+    expect { PDFGenerator.new.generate(notice) }.to_not raise_error
+  end
 end
