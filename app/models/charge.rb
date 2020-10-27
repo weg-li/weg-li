@@ -21,8 +21,8 @@ class Charge < ActiveRecord::Base
   # 'M','Messangabe','',''
 
   FAP = {
-    'A' => 'schwerwiegende Zuwiderhandlung',
-    'B' => 'weniger schwerwiegende Zuwiderhandlung',
+    'A' => 'schwerwiegende Zuwiderhandlung bei Fahrerlaubnis auf Probe',
+    'B' => 'weniger schwerwiegende Zuwiderhandlung bei Fahrerlaubnis auf Probe',
   }
 
   def fap_description
