@@ -1,6 +1,5 @@
 namespace :data do
   task import: :environment do
-    require 'byebug'
     require 'csv'
 
     CSV.foreach(Rails.root.join('bkat/data/Tatbestandstabelleneintrag.csv'), headers: true, quote_char: "'") do |row|
