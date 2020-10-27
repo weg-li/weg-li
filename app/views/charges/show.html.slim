@@ -1,0 +1,40 @@
+.well
+  strong #{@charge.description} (#{Charge.human_attribute_name(:tbnr)} #{@charge.tbnr})
+
+.row
+  .col-lg-6
+    .panel.panel-default
+      ul.list-group
+        li.list-group-item #{Charge.human_attribute_name(:valid_from)} #{l(@charge.valid_from, format: :date)}
+        li.list-group-item #{@charge.bkat}
+
+  .col-lg-6
+    .panel.panel-default
+      ul.list-group
+        li.list-group-item #{number_to_currency(@charge.fine)} #{Charge.human_attribute_name(:fine)}
+        li.list-group-item
+          | #{@charge.points > 0 ? @charge.points : 'keine'} #{Charge.human_attribute_name(:points)}
+          - if @charge.fap?
+            = " (#{@charge.fap_description})"
+
+- if @charge.charge_variants.present?
+.panel.panel-default
+  .table-responsive
+    table.table.table-striped.table-hover
+      thead
+        tr
+          th= ChargeVariant.human_attribute_name(:row_number)
+          th= ChargeVariant.human_attribute_name(:from)
+          th= ChargeVariant.human_attribute_name(:to)
+          th= ChargeVariant.human_attribute_name(:impediment)
+          th= ChargeVariant.human_attribute_name(:charge)
+          th= ChargeVariant.human_attribute_name(:charge_detail)
+      tbody
+        - @charge.charge_variants.each do |charge_variant|
+          tr
+            td(nowrap)= charge_variant.row_number
+            td(nowrap)= number_with_precision(charge_variant.from, precision: charge_variant.from % 1 == 0 ? 0 : 2)
+            td(nowrap)= number_with_precision(charge_variant.to, precision: charge_variant.to % 1 == 0 ? 0 : 2)
+            td(nowrap)= charge_variant.impediment? ? 'mit Behinderung' : 'keine Behinderung'
+            td(nowrap)= link_to charge_variant.charge.description, charge_variant.charge
+            td(nowrap)= charge_variant.charge_detail_description

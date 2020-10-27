@@ -1,0 +1,12 @@
+Schluessel,Bezeichnung
+'1','LKW usw.'
+'2','Gefahrgut-Kfz, KOM mit Fahrgästen'
+'3','sonstige (nicht LKW, Gefahrgut-Kfz, KOM mit Fahrgästen)'
+'4','Gefahrgut-Fz unter 7,5 bzw 2t'
+'5','Gefahrgut-Fz über 7,5t'
+'6','KOM mit Fahrgästen unter 7,5t'
+'7','KOM mit Fahrgästen über 7,5t'
+'8','sonstige unter 7,5 bzw 2t'
+'9','sonstige über 7,5t'
+'10','Gefahrgut-Fz mit Anhänger über 2t'
+'11','sonstige mit Anhänger über 2t'

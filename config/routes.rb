@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       get :login
       patch :merge
     end
+    resources :charges
     resources :exports
     resources :districts do
       collection do
@@ -92,7 +93,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :exports
+  resources :charges, only: [:index, :show]
+  resources :exports, only: :index
   resource :sitemap, only: :show
 
   scope '/p' do
