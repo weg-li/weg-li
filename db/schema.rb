@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_24_172623) do
+ActiveRecord::Schema.define(version: 2020_08_26_200105) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,45 @@ ActiveRecord::Schema.define(version: 2020_08_24_172623) do
     t.string "error_message"
     t.string "shared_album_url"
     t.index ["user_id"], name: "index_bulk_uploads_on_user_id"
+  end
+
+  create_table "charge_variants", force: :cascade do |t|
+    t.integer "row_id"
+    t.integer "row_number"
+    t.decimal "from"
+    t.decimal "to"
+    t.boolean "impediment"
+    t.string "tbnr"
+    t.integer "charge_detail"
+    t.integer "table_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["table_id"], name: "index_charge_variants_on_table_id"
+    t.index ["tbnr"], name: "index_charge_variants_on_tbnr"
+  end
+
+  create_table "charges", force: :cascade do |t|
+    t.string "tbnr"
+    t.string "description"
+    t.decimal "fine"
+    t.string "bkat"
+    t.string "penalty"
+    t.string "fap"
+    t.integer "points"
+    t.datetime "valid_from"
+    t.datetime "valid_to"
+    t.integer "implementation"
+    t.integer "classification"
+    t.integer "variant_table_id"
+    t.integer "rule_id"
+    t.integer "table_id"
+    t.string "required_refinements"
+    t.integer "number_required_refinements"
+    t.decimal "max_fine"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["classification"], name: "index_charges_on_classification"
+    t.index ["tbnr"], name: "index_charges_on_tbnr"
   end
 
   create_table "districts", force: :cascade do |t|

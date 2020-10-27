@@ -1,0 +1,51 @@
+.well
+  |
+    Bei weg-li sind #{Charge.active.count} Tatbestände für Parkvergehen aus dem Bußgeldkatalogs hinterlegt.
+
+.panel.panel-default
+  .panel-heading
+    .row
+      .col-xs-8
+      .col-xs-4.text-right
+        button.btn.btn-default.btn-sm.dropdown-toggle type="button" data-toggle="dropdown"
+          | <span class="glyphicon glyphicon-search"></span> Suche <span class="caret"></span>
+        ul.dropdown-menu.dropdown-menu-right
+          li
+            = form_tag({url: url_for}, method: :get, class: 'form-dropdown', autocomplete: :off) do
+              .input-group.input-group-sm
+                = text_field_tag(:term, params[:term], placeholder: 'z.B. Gehweg', class: 'form-control input-sm')
+                span.input-group-btn
+                  = button_tag(class: "btn btn-default btn-sm")
+                    span.glyphicon.glyphicon-search
+
+          - if params[:term].present?
+            li.divider
+            li
+              = link_to url_for
+                span.glyphicon.glyphicon-remove>
+                | ohne Suche
+
+  - if @charges.present? || params[:filter]
+    .table-responsive
+      table.table.table-striped.table-hover
+        thead
+          tr
+            th
+            th= Charge.human_attribute_name(:tbnr)
+            th= Charge.human_attribute_name(:description)
+            th= Charge.human_attribute_name(:fine)
+            th= Charge.human_attribute_name(:points)
+            th= Charge.human_attribute_name(:valid_from)
+        tbody
+          - if @charges.present?
+            - @charges.each do |charge|
+              tr
+                td
+                td= link_to charge.tbnr, charge
+                td= link_to charge.description, charge
+                td= number_to_currency(charge.fine)
+                td= charge.points
+                td= l(charge.valid_from, format: :date)
+
+.text-center
+  = paginate @charges

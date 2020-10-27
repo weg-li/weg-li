@@ -194,6 +194,7 @@ de:
     formats:
       default: ! '%A, %d. %B %Y, %H:%M Uhr'
       long: ! '%A, %d. %B %Y, %H:%M Uhr'
+      date: ! '%d.%m.%Y'
       short: ! '%d.%m.%Y %H:%M'
       time: ! '%H:%M'
     pm: nachmittags

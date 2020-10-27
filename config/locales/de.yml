@@ -65,6 +65,14 @@ de:
         importing: importieren
         error_message: Fehler
         shared_album_url: Album
+      charge:
+        tbnr: 'TBNR'
+        description: 'Tatbestandstext'
+        bkat: 'Rechtsgrundlage'
+        fine: 'Geldbuße'
+        points: 'Punkte'
+        fap: 'Fahrerlaubnis auf Probe'
+        valid_from: 'Gültig seit'
       notice:
         created_at: 'Erstellt'
         district: 'Bezirk'
