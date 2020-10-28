@@ -36,5 +36,5 @@
               td(nowrap)= number_with_precision(charge_variant.from, precision: charge_variant.from % 1 == 0 ? 0 : 2)
               td(nowrap)= number_with_precision(charge_variant.to, precision: charge_variant.to % 1 == 0 ? 0 : 2)
               td(nowrap)= charge_variant.impediment? ? 'mit Behinderung' : 'keine Behinderung'
-              td(nowrap)= link_to charge_variant.charge.description, charge_variant.charge
+              td= link_to charge_variant.charge.description, charge_variant.charge
               td(nowrap)= charge_variant.charge_detail_description

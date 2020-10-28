@@ -2,7 +2,7 @@ class Charge < ActiveRecord::Base
   validates :tbnr, :description, presence: true
   validates :tbnr, length: {is: 6}
 
-  has_many :charge_variants, foreign_key: :table_id, primary_key: :variant_table_id
+  has_many :charge_variants, -> { joins(:charge).where('charge_variants.date = charges.valid_from') }, foreign_key: :table_id, primary_key: :variant_table_id
 
   scope :active, -> { where(classification: 5, valid_to: nil) }
 
