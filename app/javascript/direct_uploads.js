@@ -42,6 +42,12 @@ addEventListener("direct-upload:error", event => {
   errorEl.classList.remove("hidden");
 });
 
+addEventListener("direct-upload:start", event => {
+  const { target } = event;
+
+  target.scrollIntoView({block: "end", behavior: "smooth"});
+});
+
 addEventListener("direct-upload:end", event => {
   const { target } = event;
 
