@@ -6,6 +6,10 @@ class Charge < ActiveRecord::Base
 
   scope :active, -> { where(classification: 5, valid_to: nil) }
 
+  def self.from_param(tbnr)
+    find_by!(tbnr: tbnr)
+  end
+
   # classification
   # Schluessel,Bezeichnung,Laenge,Genauigkeit
   # '0','sonstige','',''
@@ -27,5 +31,9 @@ class Charge < ActiveRecord::Base
 
   def fap_description
     FAP[fap] || '-'
+  end
+
+  def to_param
+    tbnr
   end
 end

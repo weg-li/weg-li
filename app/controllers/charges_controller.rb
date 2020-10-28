@@ -5,6 +5,6 @@ class ChargesController < ApplicationController
   end
 
   def show
-    @charge = Charge.active.find(params[:id])
+    @charge = Charge.active.from_param(params[:id])
   end
 end
