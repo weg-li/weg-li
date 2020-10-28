@@ -16,6 +16,8 @@ de:
       snippet: 'Vorlage'
       authorization: 'Auth'
       export: 'Export'
+      charge: 'Tatbestand'
+      charge_variant: 'Variante'
     attributes:
       export:
         export_type: 'Art'

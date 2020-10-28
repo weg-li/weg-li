@@ -8,7 +8,6 @@ Rails.application.routes.draw do
       get :login
       patch :merge
     end
-    resources :charges
     resources :exports
     resources :districts do
       collection do
@@ -22,6 +21,8 @@ Rails.application.routes.draw do
     resources :bulk_uploads
     resources :replies
     resources :snippets
+    resources :charges
+    resources :charge_variants
     resources :authorizations
 
     root to: "users#index"
