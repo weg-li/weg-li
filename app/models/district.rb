@@ -146,4 +146,12 @@ class District < ActiveRecord::Base
 
     aliases.map {|email| anonymize_email(email) }.compact.join(', ')
   end
+
+  def self.from_param(zip)
+    find_by!(zip: zip)
+  end
+
+  def to_param
+    zip
+  end
 end

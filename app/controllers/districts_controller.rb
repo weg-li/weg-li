@@ -18,7 +18,7 @@ class DistrictsController < ApplicationController
   end
 
   def show
-    @district = District.active.find(params[:id])
+    @district = District.active.from_param(params[:id])
 
     respond_to do |format|
       format.html
@@ -27,11 +27,11 @@ class DistrictsController < ApplicationController
   end
 
   def edit
-    @district = District.active.find(params[:id])
+    @district = District.active.from_param(params[:id])
   end
 
   def update
-    district = District.active.find(params[:id])
+    district = District.active.from_param(params[:id])
     district.assign_attributes(district_params)
     changes = district.changes
 
@@ -59,7 +59,7 @@ class DistrictsController < ApplicationController
   end
 
   def wegeheld
-    district = District.active.find_by!(zip: params[:id])
+    district = District.active.from_param(params[:id])
 
     respond_to do |format|
       format.json { render json: district.as_api_response(:wegeheld) }
