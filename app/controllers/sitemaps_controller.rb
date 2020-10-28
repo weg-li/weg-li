@@ -6,14 +6,18 @@ class SitemapsController < ApplicationController
       map_url,
       stats_url,
       districts_url,
+      charges_url,
+      exports_url,
       privacy_url,
+      imprint_url,
       faq_url,
       year2019_url,
       year2020_url,
+      donate_url,
+      leaderboard_url,
     ]
 
-    respond_to do |format|
-      format.xml { render xml: @urls }
-    end
+    @urls += District.active.pluck(:zip).map { |zip| district_url(zip) }
+    @urls += Charge.active.pluck(:tbnr).map { |tbnr| district_url(tbnr) }
   end
 end
