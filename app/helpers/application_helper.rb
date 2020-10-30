@@ -52,7 +52,7 @@ module ApplicationHelper
   end
 
   def link_to_notice(notice, &block)
-    if notice.open?
+    if notice.open? || notice.analyzing?
       link_to([:edit, notice], &block)
     else
       link_to(notice, &block)
