@@ -17,6 +17,7 @@ To run weg-li locally, you'll need:
 
 - Ruby
 - PostgreSQL
+- NodeJS & Yarn
 - Redis
 
 
