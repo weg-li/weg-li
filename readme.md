@@ -9,11 +9,30 @@ https://www.weg-li.de/
 
 ## Installation
 
-### No Docker
+You can either run the application locally or via Docker.
 
-Please follow [this guide if you have not ever installed Ruby on your computer](https://guides.railsgirls.com/install).
+### Local setup
 
-The TL;DR for Mac:
+To run weg-li locally, you'll need:
+
+- Ruby
+- PostgreSQL
+- Redis
+
+
+#### Quick setup for Linux (Ubuntu)
+
+See [this guide](https://gorails.com/setup/ubuntu/20.10) which guides you through installing Ruby, Rails and PostgreSQL.
+
+Complete the setup by installing the Redis server at the end.
+
+```bash
+apt install redis
+```
+
+#### Quick setup for Mac OS
+
+Please follow [this guide](https://guides.railsgirls.com/install) if you have not ever installed Ruby on your computer.
 
 ```bash
 # global setup
@@ -36,7 +55,7 @@ rbenv install
 script/server
 ```
 
-### Docker
+### Docker setup
 
 ```bash
 docker-compose up
@@ -52,7 +71,7 @@ Once you have successfully authenticated, make your user an admin: Start the rai
 
 ### Importing base data
 
-For proper functionality, you need to populate your database with *districts*. 
+For proper functionality, you need to populate your database with *districts*.
 
 To fabricate random districts, run `rake dev:data`. This will synthesize all the kinds of data you need to get dashboards, stats, etc. working right.
 
