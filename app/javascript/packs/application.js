@@ -24,6 +24,7 @@ require("turbolinks").start();
 require("@rails/activestorage").start();
 
 // 3rdparty deps
+require("lucia");
 require("bootstrap");
 require("select2");
 require("jquery-zoom");

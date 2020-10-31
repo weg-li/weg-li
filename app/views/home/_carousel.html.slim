@@ -1,24 +1,59 @@
-.row.steps.step-0.hidden-xs
+<div l-use="{ count: 0 }">
+  <button l-text="count" l-on:click="++count">0</button>
+</div>
+
+javascript:
+  function CarouselContext() {
+    return {
+      count: 0,
+      infos: {
+        Erfassen: 'Unterwegs Beweisfotos von nervigen Falschparkern knipsen und dann mit Deinem Browser übers Handy oder den Computer bei weg-li hochladen. Du kannst dabei einzele Meldungen erzeugen, oder einen ganzen Schwung von Beweisfotos als Massen-Upload einspielen.',
+        Bla: 'blupp',
+      },
+      length() {
+        return Object.keys(this.infos).length;
+      },
+      number() {
+        return this.count + 1;
+      },
+      title() {
+        return Object.keys(this.infos)[this.count];
+      },
+      text() {
+        return this.infos[this.title()];
+      },
+      increment() {
+        this.count = this.count >= this.length() ? 0 : this.count + 1;
+      },
+      decrement() {
+        this.count = this.count <= 0 ? this.length() : this.count - 1;
+      },
+    };
+  }
+
+.row.steps.step-0.hidden-xs(l-use="CarouselContext()")
   .col-lg-1.text-left
     ul.pagination.pagination-lg
       li.previous
-        a.text-muted(href="#" onclick="$('.steps').hide();$('.step-2').fadeIn(); return false;" style="text-decoration: none;") <
+        a.text-muted(l-on:click="decrement()" class="btn") <
   .col-lg-10
     .row
       .col-lg-2.text-center
         .spacer
-        h4 <span class="step step-top smaller success-step1">1</span>
-        h4 Erfassen
+        h4 <span class="step step-top smaller success-step1" l-text="number()">1</span>
+        h4(l-text="title()") Erfassen
       .col-lg-10
         blockquote
-          p
+          p(l-text="text()")
             |
-              Unterwegs Beweisfotos von nervigen Falschparkern knipsen und dann mit Deinem Browser übers Handy oder den Computer bei weg-li hochladen.
-              Du kannst dabei einzele Meldungen erzeugen, oder einen ganzen Schwung von Beweisfotos als Massen-Upload einspielen.
+              Unterwegs Beweisfotos von nervigen Falschparkern knipsen und dann mit Deinem Browser übers Handy oder den Computer bei weg-li hochladen. Du kannst dabei einzele Meldungen erzeugen, oder einen ganzen Schwung von Beweisfotos als Massen-Upload einspielen.
   .col-lg-1.text-right
     ul.pagination.pagination-lg
       li.previous
-        a.text-muted(href="#" onclick="$('.steps').hide();$('.step-1').fadeIn(); return false;" style="text-decoration: none;") >
+        a.text-muted(l-on:click="increment()" class="btn") >
+
+
+
 .row.steps.step-1(style="display:none")
   .col-lg-1.text-left
     ul.pagination.pagination-lg
