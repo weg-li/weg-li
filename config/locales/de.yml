@@ -43,7 +43,7 @@ de:
         address: 'Anschrift'
         email: 'E-Mail'
         phone: 'Telefon'
-        street: 'Straße'
+        street: 'Straße & Hausnummer'
         appendix: 'Adresszusatz'
         zip: 'PLZ'
         city: 'Stadt'
