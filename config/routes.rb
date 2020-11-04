@@ -99,7 +99,8 @@ Rails.application.routes.draw do
   resource :sitemap, only: :show
 
   scope '/p' do
-    get  '/charge/:token', to: 'public#charge',  as: :public_charge
+    get '/dresden/:token', to: 'public#dresden'
+    get '/charge/:token', to: 'public#charge', as: :public_charge
     get '/profile/:token', to: 'public#profile', as: :public_profile
   end
 

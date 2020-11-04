@@ -9,6 +9,15 @@ class PublicController < ApplicationController
     end
   end
 
+  def dresden
+    @notice = Notice.for_public.from_param(params[:token])
+    _404 and return if @notice.blank?
+
+    respond_to do |format|
+      format.xml
+    end
+  end
+
   def profile
     @user = User.for_public.from_param(params[:token])
     _404 and return if @user.blank?
