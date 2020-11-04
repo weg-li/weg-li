@@ -28,6 +28,7 @@ require("lucia");
 require("bootstrap");
 require("select2");
 require("jquery-zoom");
+
 // allow templates to use Chartist
 window.Chartist = require("chartist");
 
