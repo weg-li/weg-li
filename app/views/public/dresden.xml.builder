@@ -1,0 +1,67 @@
+xml.instruct!
+
+xml.Fall do
+  xml.Bilder do
+    @notice.photos.each do |photo|
+      xml.Bild Length: photo.byte_size, Dateiname: photo.filename
+    end
+  end
+  xml.Beteiligte do
+    xml.Beteiligter Funktion: "keine", Typ: "Anzeigenerstatter" do
+      xml.Kontakt do
+        xml.Anschrift do
+					xml.Name @notice.user.name
+					xml.Strasse @notice.user.street_without_housenumber
+					xml.Hausnummer @notice.user.housenumber
+					xml.Adresszusatz @notice.user.appendix
+          xml.PLZ @notice.zip
+					xml.Ort @notice.city
+          xml.Landeskennzeichen 'D'
+        end
+        xml.EMail @notice.user.email
+        xml.Telefon @notice.user.phone
+  			xml.Zusatzdaten do
+  				xml.Geburtsdatum @notice.user.date_of_birth
+  			end
+      end
+    end
+  end
+  xml.Falldaten do
+    xml.Fahrzeug do
+      xml.Nationalitaet 'D'
+      xml.Farbe t(@notice.color, scope: "activerecord.attributes.notice.colors")
+      xml.Fabrikat @notice.brand
+      xml.Kennzeichen @notice.registration
+      xml.Kennzeichenart '00'
+    end
+    xml.Notiz @notice.note
+    xml.Tattag do
+      xml.Von l(@notice.date, format: :date)
+      xml.Bis l(@notice.date + @notice.duration.minutes, format: :date)
+    end
+    xml.Tatzeit do
+      xml.Von l(@notice.date, format: :time)
+      xml.Bis l(@notice.date + @notice.duration.minutes, format: :time)
+    end
+  end
+  xml.Zeuge do
+    xml.Zeilen do
+      xml.Zeile @notice.user.name
+    end
+  end
+  xml.Beweise do
+    xml.Beweis 'Zeugin/Zeuge, Fotos'
+  end
+  xml.Tatdaten do
+    xml.Vorwurf do
+      xml.VorwurfId Vehicle.charges.index(@notice.charge) + 1
+      xml.VorwurfText @notice.charge
+      xml.MitBehinderung @notice.standard? ? 0 : 1
+    end
+  end
+  xml.Tatorte do
+    xml.Tatort @notice.full_address
+    xml.Latitude @notice.latitude
+    xml.Longitude @notice.longitude
+  end
+end

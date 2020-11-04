@@ -66,6 +66,14 @@ class User < ActiveRecord::Base
     "#{"#{appendix}, " if appendix.present?}#{street}, #{zip} #{city}"
   end
 
+  def street_without_housenumber
+    street.gsub(/(.+) (\d+\w?)$/, '\1')
+  end
+
+  def housenumber
+    street.gsub(/(.+) (\d+\w?)$/, '\2')
+  end
+
   def to_label
     "#{nickname} (#{email})"
   end
