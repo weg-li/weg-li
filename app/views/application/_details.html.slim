@@ -29,7 +29,5 @@ dl.dl-horizontal
     - Notice.details.each do |flag|
       - if notice.send(flag)
         dd= t(flag, scope: "activerecord.attributes.notice.flags")
-  - if notice.note?
-    dt Details
-    - if notice.note?
-      dd= notice.note
+  dt= Notice.human_attribute_name(:note)
+  dd= notice.note.presence || '-'
