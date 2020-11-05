@@ -7,4 +7,16 @@ class ChargesController < ApplicationController
   def show
     @charge = Charge.active.from_param(params[:id])
   end
+
+  def list
+    respond_to do |format|
+      format.csv do
+        csv_data = CSV.generate(force_quotes: true) do |csv|
+          csv << ["ID","Tatbestand"]
+          Vehicle.charges.each_with_index { |charge, index| csv << [index + 1, charge] }
+        end
+        send_data csv_data, type: 'text/csv; charset=UTF-8; header=present', disposition: "attachment; filename=districts-#{Time.now.to_i}.csv"
+      end
+    end
+  end
 end

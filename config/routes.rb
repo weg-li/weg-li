@@ -94,7 +94,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :charges, only: [:index, :show]
+  resources :charges, only: [:index, :show] do
+    collection do
+      get :list
+    end
+  end
   resources :exports, only: :index
   resource :sitemap, only: :show
 

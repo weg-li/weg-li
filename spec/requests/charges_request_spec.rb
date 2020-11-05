@@ -14,6 +14,15 @@ describe "charges", type: :request  do
     end
   end
 
+  context "charges#list" do
+    it "renders a list of legacy charges as CSV" do
+      get list_charges_path(format: :csv)
+
+      expect(response).to be_successful
+      assert CSV.parse(response.body)
+    end
+  end
+
   context "charges#show" do
     it "shows a charge" do
       get charge_path(@charge)
