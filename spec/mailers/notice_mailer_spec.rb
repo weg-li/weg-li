@@ -14,6 +14,27 @@ describe NoticeMailer do
       expect(mail.reply_to).to eq([user.email])
       expect(mail.attachments.size).to be(1)
     end
+
+    it "sends mail to" do
+      mail = NoticeMailer.charge(notice, to: 'testo@pesto.de')
+
+      expect(mail.to).to eq(['testo@pesto.de'])
+    end
+
+    it "sends mail with PDF" do
+      mail = NoticeMailer.charge(notice, send_via_pdf: true)
+
+      expect(mail.attachments.first.filename).to match(/.*\.pdf/)
+    end
+
+    it "sends mail with dresden config" do
+      mail = NoticeMailer.charge(notice, config: :dresden)
+
+      expect(mail.attachments.size).to be(3)
+      expect(mail.attachments.first.filename).to match(/.*\.pdf/)
+      expect(mail.attachments.second.filename).to match(/.*\.xml/)
+      expect(mail.attachments.last.filename).to match(/.*\.jpg/)
+    end
   end
 
   describe "forward" do

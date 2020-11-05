@@ -6,11 +6,16 @@ class NoticeMailerPreview < ActionMailer::Preview
     NoticeMailer.charge(notice)
   end
 
-  def charge_via_email
+  def charge_via_pdf
     notice = Notice.shared.first!
-    data = PDFGenerator.new.generate(notice)
 
-    NoticeMailer.charge(notice, 'uschi@muschi.de', data)
+    NoticeMailer.charge(notice, to: 'uschi@muschi.de', send_via_pdf: true)
+  end
+
+  def charge_dresden
+    notice = Notice.shared.first!
+
+    NoticeMailer.charge(notice, config: :dresden)
   end
 
   def forward

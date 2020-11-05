@@ -1,5 +1,5 @@
 class NoticeMailer < ApplicationMailer
-  def charge(notice, to = nil, send_via_pdf = false)
+  def charge(notice, to: nil, send_via_pdf: false, config: nil)
     @notice = notice
     @user = notice.user
     @district = notice.district
@@ -10,14 +10,19 @@ class NoticeMailer < ApplicationMailer
       return
     end
 
-    if send_via_pdf
+    if config == :dresden
+      data = PDFGenerator.new(include_photos: false).generate(@notice)
+      attachments[notice.file_name(:pdf)] = data
+
+      data = XMLGenerator.new.generate(@notice)
+      attachments[notice.file_name(:xml)] = data
+
+      attach_photos(notice.photos)
+    elsif send_via_pdf
       data = PDFGenerator.new.generate(@notice)
       attachments[notice.file_name] = data
     else
-      notice.photos.each do |photo|
-        variant = photo.variant(PhotoHelper::CONFIG[:default]).processed
-        attachments[photo.filename.to_s] = photo.service.download(variant.key)
-      end
+      attach_photos(notice.photos)
     end
 
     subject = "Anzeige #{@notice.registration} #{@notice.charge}"
@@ -35,5 +40,14 @@ class NoticeMailer < ApplicationMailer
 
     subject = "Meldung übertragen: #{@notice.registration} #{@notice.charge}"
     mail subject: subject, to: email_address_with_name(@user.email, @user.name)
+  end
+
+  private
+
+  def attach_photos(photos)
+    photos.each do |photo|
+      variant = photo.variant(PhotoHelper::CONFIG[:default]).processed
+      attachments[photo.key] = photo.service.download(variant.key)
+    end
   end
 end

@@ -142,7 +142,7 @@ class NoticesController < ApplicationController
     to = params[:send_to] == 'all' ? notice.district.all_emails : notice.district.all_emails.find {|email| email == params[:send_to]}
     to ||= notice.district.email
 
-    NoticeMailer.charge(notice, to, params[:send_via_pdf]).deliver_later
+    NoticeMailer.charge(notice, to: to, send_via_pdf: params[:send_via_pdf]).deliver_later
 
     notice.update!(status: :shared)
 
