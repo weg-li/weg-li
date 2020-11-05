@@ -3,7 +3,7 @@ xml.instruct!
 xml.Fall do
   xml.Bilder do
     @notice.photos.each do |photo|
-      xml.Bild Length: photo.byte_size, Dateiname: photo.filename
+      xml.Bild Length: photo.byte_size, Dateiname: photo.key
     end
   end
   xml.Beteiligte do
@@ -26,6 +26,11 @@ xml.Fall do
       end
     end
   end
+	xml.Bemerkungen do
+		xml.Bemerkung @notice.note if @notice.note
+    Notice.details.each { |flag| xml.Bemerkung t(flag, scope: "activerecord.attributes.notice.flags") if @notice.send(flag) }
+    xml.Bemerkung @notice.wegli_email
+	end
   xml.Falldaten do
     xml.Fahrzeug do
       xml.Nationalitaet 'D'
@@ -34,7 +39,6 @@ xml.Fall do
       xml.Kennzeichen @notice.registration
       xml.Kennzeichenart '00'
     end
-    xml.Notiz @notice.note
     xml.Tattag do
       xml.Von l(@notice.date, format: :date)
       xml.Bis l(@notice.date + @notice.duration.minutes, format: :date)
