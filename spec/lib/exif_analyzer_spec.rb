@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe EXIFAnalyzer, :vcr do
+describe EXIFAnalyzer do
   let(:example) { File.open(file_fixture('truck.jpg')) }
 
   it "handles text annotations" do

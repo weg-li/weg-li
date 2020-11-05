@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PDFGenerator, :vcr do
+describe PDFGenerator do
   let(:example) { File.binread(file_fixture('anzeige.pdf')) }
 
   it "handles the pdf generation" do
