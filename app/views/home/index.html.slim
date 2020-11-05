@@ -63,62 +63,15 @@
   .page-header
     h2 Was gibt es Neues bei weg-li?
 
-  .row
-    .col-lg-12
-      h3 🌟 Neue Funktionen:
-
-      ul.list-group
-        li.list-group-item
-          span.badge neu
-          | 📄 Beim Versand einer Anzeige, kannst Du diese als generiertes PDF an die E-Mail anhängen.
-        li.list-group-item
-          span.badge neu
-          | 🏢 In #{link_to 'Deinem Profil', edit_user_path} kannst Du jetzt einen Adresszusatz und ein Geburtsdatum angeben.
-        li.list-group-item
-          span.badge neu
-          | 💾 Datensätze können als anonymisiertes Archiv #{link_to 'als Export', exports_path} heruntergeladen werden.
-        li.list-group-item
-          span.badge neu
-          | 📝 Mit Hilfe von #{link_to 'Vorlagen', snippets_path} kannst Du häufig genutzte Texte für Hinweise hinterlegen.
-        li.list-group-item
-          span.badge neu
-          | 🌇 Als Benutzer von Google-Photos kannst Du nun Beweisfotos direkt über ein geteiltes Album in einen #{link_to 'Massen-Upload', new_bulk_upload_path} importieren.
+  = render('new_features')
 
   .spacer-large
 
-  .row
-    .col-lg-2.text-center
-      = image_tag 'phoet.jpg', class: "img-circle me-quote"
-    .col-lg-10
-      blockquote
-        p Es gibt viele tolle Projekte rund um die Themen Verkehr und Mobilität, hier ein paar interessante Tipps:
-        small Peter aus Hamburg, 👨‍👦 besorgter Vater, 🚶‍♂️ Fußgänger, 🛴 E-Scooterer, 🚲 Radler und 🚐 Autofahrer
+  = render('tips_teaser')
 
   .spacer-large
 
-  .row
-    .col-lg-12
-      h3 🤩 Aktuelle Tipps:
-
-      ul.list-group
-        li.list-group-item
-          span.badge Tool
-          | 📹 #{link_to '@SirTificate', 'https://twitter.com/sirtificate', target: '_blank'} hilft dabei Screenshots mit GPS von GoPro Videos zu machen mit dem #{link_to 'Radratten - Screenshot Tool', 'https://screenshot.radratten.de/', target: '_blank'}.
-        li.list-group-item
-          span.badge Video
-          | 👀 Der weGErecht e.V. hat ein interessantes Seminar veröffentlicht: #{link_to 'Methoden der Gehweg-Befreiung: Erfahrungen aus Darmstadt', 'https://wegerecht.org/seminar/', target: '_blank'}.
-        li.list-group-item
-          span.badge Tool
-          | 📍 Basierend auf den Daten von weg-li und Wegeheld entstand diese #{link_to 'Falschparker-Karte', 'http://wege-frei.heikozelt.de/', target: '_blank'}.
-        li.list-group-item
-          span.badge Tool
-          | 😤 Sicherheit im Radverkehr! Sammelt Forschungsdaten zu gefährlichen Situationen im Straßenverkehr per App bei #{link_to 'SimRa', 'https://www.digital-future.berlin/forschung/projekte/simra/', target: '_blank'}.
-        li.list-group-item
-          span.badge Portal
-          | 🚴‍♀️ Wie wird Berlin zur Fahrradstadt? Helft beim Umbau Berlins zur Fahrradstadt bei #{link_to 'FixMyBerlin', 'https://fixmyberlin.de/', target: '_blank'}.
-        li.list-group-item
-          span.badge Portal
-          | 👍 Diese und viele weitere tolle Projekte rund um das Thema Radfahren findet ihr bei #{link_to 'Awesome Bikeprojects', 'https://github.com/mltbnz/awesome-bikeprojects', target: '_blank'}.
+  = render('tips')
 
 - else
   .page-header

@@ -134,6 +134,7 @@ Rails.application.routes.draw do
   get '/map', to: 'home#map', as: :map
   get '/leaderboard', to: 'home#leaderboard', as: :leaderboard
   get '/stats', to: 'home#stats', as: :stats
+  get '/features', to: 'home#features', as: :features
   get '/faq', to: 'home#faq', as: :faq
   get '/privacy', to: 'home#privacy', as: :privacy
   get '/donate', to: 'home#donate', as: :donate

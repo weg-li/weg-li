@@ -1,0 +1,13 @@
+.page-header
+  h2 Was gibt es für Funktionen bei weg-li?
+
+- if signed_in?
+  = render('new_features')
+
+.spacer-large
+
+= render('tips_teaser')
+
+.spacer-large
+
+= render('tips')
