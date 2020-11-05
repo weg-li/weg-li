@@ -2,7 +2,14 @@ require 'prawn'
 require 'prawn/qrcode'
 
 class PDFGenerator
-  def generate(notice, quality: :default)
+  attr_accessor :include_photos, :quality
+
+  def initialize(quality: :default, include_photos: true)
+    @include_photos = include_photos
+    @quality = quality
+  end
+
+  def generate(notice)
     user = notice.user
 
     pdf = Prawn::Document.new do |document|
@@ -33,10 +40,12 @@ class PDFGenerator
       document.text("_" * 40)
       document.text("#{user.city}, #{I18n.l(Date.today)}")
 
-      document.start_new_page
-      notice.photos.each do |photo|
-        variant = quality == :original ? photo : photo.variant(PhotoHelper::CONFIG[quality]).processed
-        photo.service.download_file(variant.key) { |file| document.image(file, fit: [document.bounds.width, document.bounds.height / 2]) }
+      if @include_photos
+        document.start_new_page
+        notice.photos.each do |photo|
+          variant = @quality == :original ? photo : photo.variant(PhotoHelper::CONFIG[@quality]).processed
+          photo.service.download_file(variant.key) { |file| document.image(file, fit: [document.bounds.width, document.bounds.height / 2]) }
+        end
       end
 
       document.font_size(8)
