@@ -1,13 +1,21 @@
 .page-header
   h2 Was gibt es für Funktionen bei weg-li?
 
-- if signed_in?
-  = render('new_features')
+.well.callout-info
+  |
+    Bei der Entwicklung von weg-li haben wir ein starkes Interesse daran auch die Anforderungen
+    der zuständigen Stellen wie Ordnungsämter oder Polizeidienststellen mit einzubeziehen.
+    Mit der Stadt Dresden entwickeln wir derzeit eine XML basierte Schnittstelle zur
+    dort genutzten Software #{link_to 'WiNOWiG', 'https://www.owig.de/'}, um eine möglichst effizente
+    Verarbeitung der Anzeigen zu gewährleisten. Bei Fragen oder Interesse einfach eine #{mail_to 'peter@weg-li.de', 'E-Mail'} an uns schreiben.
 
-.spacer-large
 
-= render('tips_teaser')
+= render('new_features')
 
 .spacer-large
 
 = render('tips')
+
+.spacer-large
+
+= render('features')
