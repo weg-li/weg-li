@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe XMLGenerator do
-  let(:example) { File.binread(file_fixture('anzeige.xml')) }
+  let(:example) { File.read(file_fixture('anzeige.xml')) }
 
   it "handles the xml generation" do
     travel_to('20.01.2020 15:00:00 UTC'.to_time.utc) do
@@ -13,8 +13,8 @@ describe XMLGenerator do
 
       result = XMLGenerator.new.generate(notice)
 
-      # file_fixture('anzeige.xml').binwrite(result)
-      expect(example.size).to eql(result.size)
+      # file_fixture('anzeige.xml').write(result)
+      expect(example).to eql(result)
     end
   end
 end
