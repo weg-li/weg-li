@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.7.2'
 
-gem 'rails', '~> 6.0'
+gem 'rails', '6.1.0.rc1'
 gem 'rack'
 gem 'sprockets', '~> 3.7.2'
 gem 'puma'
