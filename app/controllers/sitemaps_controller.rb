@@ -18,6 +18,6 @@ class SitemapsController < ApplicationController
     ]
 
     @urls += District.active.pluck(:zip).map { |zip| district_url(zip) }
-    @urls += Charge.active.pluck(:tbnr).map { |tbnr| district_url(tbnr) }
+    @urls += Charge.active.pluck(:tbnr).map { |tbnr| charge_url(tbnr) }
   end
 end
