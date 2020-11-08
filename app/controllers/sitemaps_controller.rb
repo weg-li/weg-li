@@ -8,6 +8,7 @@ class SitemapsController < ApplicationController
       districts_url,
       charges_url,
       exports_url,
+      features_url,
       privacy_url,
       imprint_url,
       faq_url,
