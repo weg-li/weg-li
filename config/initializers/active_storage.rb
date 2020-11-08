@@ -53,7 +53,7 @@ end
 ActiveSupport::Reloader.to_prepare do
   require 'active_storage/blob'
 
-  class ActiveStorage::Blob < ActiveRecord::Base
+  class ActiveStorage::Blob < ActiveStorage::Record
     before_validation :set_usable_key_not_the_shait_from_active_storate
 
     def set_usable_key_not_the_shait_from_active_storate

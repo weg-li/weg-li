@@ -20,7 +20,7 @@ describe 'bulk_uploads', type: :request do
     let(:params) {
       {
         bulk_upload: {
-          photos: [fixture_file_upload(Rails.root.join('spec/support/assets/mercedes.jpg'), 'image/jpeg')],
+          photos: [Rack::Test::UploadedFile.new(Rails.root.join('spec/support/assets/mercedes.jpg'), 'image/jpeg')],
         }
       }
     }
