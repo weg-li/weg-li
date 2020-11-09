@@ -1,12 +1,14 @@
+require "active_support/core_ext/integer/time"
+
 Rails.application.configure do
+  # Settings specified here will take precedence over those in config/application.rb.
+
   # Prepare the ingress controller used to receive mail
   config.action_mailbox.ingress = :sendgrid
   config.action_mailbox.queues = {
     incineration: 'default',
     routing: 'default',
   }
-
-  # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
   config.cache_classes = true
@@ -29,14 +31,11 @@ Rails.application.configure do
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
-  # Compress JavaScripts and CSS.
-  # config.assets.js_compressor = Uglifier.new(harmony: true)
+  # Compress CSS using a preprocessor.
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
-
-  # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = 'http://assets.example.com'
@@ -46,10 +45,10 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
   config.action_dispatch.x_sendfile_header = nil # http://devcenter.heroku.com/articles/rails31_heroku_cedar#the_asset_pipeline
 
-  # Store uploaded files on the local file system (see config/storage.yml for options)
+  # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :google_production
 
-  # Mount Action Cable outside main process or domain
+  # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
   # config.action_cable.url = 'wss://example.com/cable'
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
@@ -57,8 +56,8 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
 
-  # Use the lowest log level to ensure availability of diagnostic information
-  # when problems arise.
+  # Include generic and useful information about system operation, but avoid logging too much
+  # information to avoid inadvertent exposure of personally identifiable information (PII).
   config.log_level = ENV.fetch('RAILS_LOG_LEVEL', 'warn').to_sym
 
   # Prepend all log lines with the following tags.
@@ -67,12 +66,13 @@ Rails.application.configure do
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
-  # Use a real queuing backend for Active Job (and separate queues per environment)
+  # Use a real queuing backend for Active Job (and separate queues per environment).
   config.active_job.queue_adapter     = :sidekiq
-  # config.active_job.queue_name_prefix = "weg_li_#{Rails.env}"
+  # config.active_job.queue_name_prefix = "weg_li_production"
 
   config.default_host = 'www.weg-li.de'
 
+  config.action_mailer.perform_caching = false
   config.action_mailer.deliver_later_queue_name = 'default'
   config.action_mailer.default_url_options = { host: config.default_host }
   config.action_mailer.raise_delivery_errors = true
@@ -87,15 +87,10 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
 
-  # config.cache_store = :dalli_store,
-  #                   (ENV["MEMCACHIER_SERVERS"] || "").split(","),
-  #                   {
-  #                     :username => ENV["MEMCACHIER_USERNAME"],
-  #                     :password => ENV["MEMCACHIER_PASSWORD"],
-  #                     :failover => true,
-  #                     :socket_timeout => 1.5,
-  #                     :socket_failure_delay => 0.2
-  #                   }
+  # Ignore bad email addresses and do not raise email delivery errors.
+  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
+  # config.action_mailer.raise_delivery_errors = false
+
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = [I18n.default_locale]
@@ -103,11 +98,17 @@ Rails.application.configure do
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
 
+  # Log disallowed deprecations.
+  config.active_support.disallowed_deprecation = :log
+
+  # Tell Active Support which deprecation messages to disallow.
+  config.active_support.disallowed_deprecation_warnings = []
+
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
   # Use a different logger for distributed setups.
-  # require 'syslog/logger'
+  # require "syslog/logger"
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?

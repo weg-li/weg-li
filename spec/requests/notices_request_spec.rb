@@ -91,7 +91,7 @@ describe 'notices', type: :request do
     let(:params) {
       {
         notice: {
-          photos: [fixture_file_upload(Rails.root.join('spec/support/assets/mercedes.jpg'), 'image/jpeg')],
+          photos: [Rack::Test::UploadedFile.new(Rails.root.join('spec/support/assets/mercedes.jpg'), 'image/jpeg')],
         }
       }
     }
