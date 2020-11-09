@@ -58,7 +58,7 @@ class PDFGenerator
   private
 
   def render_template(name, locals)
-    result = renderer.render(template: "/notice_mailer/_#{name}", format: :text, locals: locals)
+    result = renderer.render(template: "/notice_mailer/_#{name}", formats: [:text], locals: locals)
     # Your document includes text that's not compatible with the Windows-1252 character set.
     # If you need full UTF-8 support, use external fonts instead of PDF's built-in fonts.
     # REM: Prawn workaround for bad font support
