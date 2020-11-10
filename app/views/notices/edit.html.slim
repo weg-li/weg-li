@@ -10,7 +10,6 @@
       - note = "Analyse läuft"
       = render('components/reload', note: note, info: info)
     - else
-      = render('components/photos', notice: @notice, upload: true)
       = render('alerts', notice: @notice)
 
       .spacer-large
@@ -18,6 +17,7 @@
       = render('snippet_modal')
       = form_errors(@notice)
       = form_for(@notice, html: {autocomplete: :off}) do |form|
+        = render('components/photos', notice: @notice, upload_form: form)
         = render('notice_form', notice: @notice, form: form)
 
         hr.spacer
