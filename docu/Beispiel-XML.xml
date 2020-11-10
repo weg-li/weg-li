@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="ISO-8859-1"?>
+<Fall>
+	<Bilder>
+		<Bild Length="312522" Dateiname="20201103-001.jpg"/>
+		<Bild Length="343321" Dateiname="20201103-002.jpg"/>
+	</Bilder>
+	<Beteiligte>
+		<Beteiligter Funktion="keine" Typ="Anzeigenerstatter">
+			<Kontakt>
+				<Anschrift>
+					<Anrede>Frau</Anrede>
+					<Titel>Dr.</Titel>
+					<Vorname>Ulrike</Vorname>
+					<Name>Meier</Name>
+					<Strasse>Birkenweg</Strasse>
+					<Hausnummer>13</Hausnummer>
+					<Adresszusatz>ggü. Schule</Adresszusatz>
+					<Landeskennzeichen>D</Landeskennzeichen>
+					<PLZ>12345</PLZ>
+					<Ort>Hamburg</Ort>
+				</Anschrift>
+				<EMail>mail@foo.de</EMail>
+				<Telefon>01223-234243</Telefon>
+				<Fax>01234-342</Fax>
+			</Kontakt>
+			<Zusatzdaten>
+				<Geburtsname>Müller</Geburtsname>
+				<Geburtsort>Dresden</Geburtsort>
+				<Geburtsdatum>24.06.1970</Geburtsdatum>
+				<Staatsangehoerigkeit>polnisch</Staatsangehoerigkeit>
+			</Zusatzdaten>
+		</Beteiligter>
+	</Beteiligte>
+	<Bemerkungen>
+		<Bemerkung>Nasse Strasse</Bemerkung>
+	</Bemerkungen>
+	<Falldaten>
+		<Fahrzeug>
+			<Nationalitaet>D</Nationalitaet>
+			<Farbe>blau-metallic</Farbe>
+			<Fabrikat>Opel</Fabrikat>
+			<Kennzeichen>HH-AS 1234</Kennzeichen>
+			<Kennzeichenart>00</Kennzeichenart>
+			<KennzeichenAnhaenger>00</KennzeichenAnhaenger>
+		</Fahrzeug>
+		<Notiz>mutwillig</Notiz>
+		<Tattag>
+			<Von>16.07.2005</Von>
+			<Bis>17.07.2005</Bis>
+		</Tattag>
+		<Tatzeit>
+			<Von>12:43</Von>
+			<Bis>14:34</Bis>
+		</Tatzeit>
+		<Ventilstellung>
+			<Text>links/rechts 3/11</Text>
+		</Ventilstellung>
+	</Falldaten>
+	<Zeuge>
+		<Zeilen>
+			<Zeile>Frau Müller</Zeile>
+		</Zeilen>
+	</Zeuge>
+	<Beweise>
+		<Beweis>Zeugin/Zeuge, Fotos</Beweis>
+	</Beweise>
+	<Tatdaten>
+		<Vorwurf>
+			<VorwurfId>1</VorwurfId>
+			<VorwurfText>Fahrzeug im Kreuzungsbereich</VorwurfText>
+			<MitBehinderung>True</MitBehinderung>
+		</Vorwurf>
+	</Tatdaten>
+	<Tatorte>
+		<Messstellennummer>123456</Messstellennummer>
+		<Objektnummer>BX123</Objektnummer>
+		<Tatort>Hafenweg 3, Hamburg</Tatort>
+	</Tatorte>
+</Fall>
