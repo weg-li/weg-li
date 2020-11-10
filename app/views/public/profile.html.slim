@@ -16,5 +16,3 @@ h3= "#{@user.nickname} in #{@user.city}"
           li.list-group-item
             = t(key, scope: 'users.statistics')
             .badge.pull-right= value
-
-= render('multi_map', notices: @user.notices.for_public, init: @user.map_data, kind: :public)

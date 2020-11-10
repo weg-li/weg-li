@@ -119,10 +119,6 @@ class GMultiMap {
       bounds.extend(position);
 
       const options = { position, map, title: notice.charge };
-      if (notice.current_user) {
-        options.label = 'U';
-        options.opacity = 0.8;
-      }
       const marker = new google.maps.Marker(options);
       addInfoWindow(map, marker, recentWindow, notice);
     });

@@ -207,14 +207,13 @@ class Notice < ActiveRecord::Base
     self.class.open_data_header.map { |key| send(key) }
   end
 
-  def map_data(kind = :public, current_user: nil)
+  def map_data(kind = :public)
     basic = {
       latitude: latitude,
       longitude: longitude,
       charge: charge,
       date: date,
       zip: zip,
-      current_user: current_user == user,
     }
 
     case kind

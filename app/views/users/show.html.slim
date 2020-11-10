@@ -17,5 +17,3 @@
           li.list-group-item
             = t(key, scope: 'users.statistics')
             .badge.pull-right= value
-
-= render('multi_map', notices: current_user.notices, init: current_user.map_data, kind: :private)
