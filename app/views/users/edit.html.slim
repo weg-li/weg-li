@@ -51,7 +51,7 @@
             span.input-group-btn
               = form.submit t('users.change_email'), class: "btn btn-default"
           = hint do
-            | Nach dem ändern der E-Mail Adresse muss diese anschließend bestätigt werden.
+            | Nach dem Ändern der E-Mail Adresse muss diese anschließend bestätigt werden.
       .panel-body
         - if current_user.validated?
           = link_to "#", class: "btn btn-default btn-block disabled"
