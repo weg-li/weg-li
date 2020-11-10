@@ -1,12 +1,14 @@
 .panel.panel-default
-  .panel-heading Anzeige: #{@notice.registration} #{@notice.charge}
+  .panel-heading Anzeige: #{registration_label(@notice.registration)} #{@notice.charge}
   .panel-body
     .row
       .col-lg-6
-        = render 'details', notice: @notice
+        = render 'components/details', notice: @notice
 
       .col-lg-6
         = render 'components/photos', notice: @notice, publicly: true
+
+        = link_to 'WiNOWiG XML Format', public_winowig_path(@notice, format: :xml), class: 'btn btn-sm btn-default'
   - if @notice.coordinates?
     .panel-body.panel-body-map
       = render 'map', notice: @notice, kind: :public
