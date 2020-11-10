@@ -15,30 +15,31 @@
 - if @notices.present?
   hr.spacer
 
+  - limit = 10
   .row
-    .col-lg-4
-      h3 📈 Die häufigsten Kennzeichen
-      ul.list-group
-        - grouped = @notices.reject { |notice| notice.registration.blank? }.group_by(&:registration).sort_by {|_, group| group.size }.reverse
-        - grouped.first(5).each do |key, group|
-          li.list-group-item
-            = key
-            .badge.pull-right= number_with_delimiter(group.size)
-
-    .col-lg-4
-      h3 📈 Die häufigsten Vergehen
+    .col-lg-6
+      h3 📈 Top #{limit} Vergehen
       ul.list-group
         - grouped = @notices.reject { |notice| notice.charge.blank? }.group_by(&:charge).sort_by {|_, group| group.size }.reverse
-        - grouped.first(5).each do |key, group|
+        - grouped.first(limit).each do |key, group|
           li.list-group-item
             = key
             .badge.pull-right= number_with_delimiter(group.size)
 
-    .col-lg-4
-      h3 📈 Die häufigsten Automarken
+    .col-lg-3
+      h3 📈 Top #{limit} Automarken
       ul.list-group
         - grouped = @notices.reject { |notice| notice.brand.blank? }.group_by(&:brand).sort_by {|_, group| group.size }.reverse
-        - grouped.first(5).each do |key, group|
+        - grouped.first(limit).each do |key, group|
           li.list-group-item
             = key
+            .badge.pull-right= number_with_delimiter(group.size)
+
+    .col-lg-3
+      h3 📈 Top #{limit} Kennzeichen
+      ul.list-group
+        - grouped = @notices.reject { |notice| notice.registration.blank? }.group_by(&:registration).sort_by {|_, group| group.size }.reverse
+        - grouped.first(limit).each do |key, group|
+          li.list-group-item
+            = registration_label(key)
             .badge.pull-right= number_with_delimiter(group.size)
