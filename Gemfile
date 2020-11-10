@@ -48,7 +48,8 @@ group :production do
   gem 'rails_autoscale_agent'
   gem 'rack-cache'
   gem 'rails_12factor'
-  gem 'heroku-deflater'
+  # https://github.com/romanbsd/heroku-deflater/issues/54
+  # gem 'heroku-deflater'
   gem 'barnes'
 end
 
