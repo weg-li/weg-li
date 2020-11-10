@@ -257,6 +257,7 @@ class Vehicle
       'Parken mit Verbrenner vor Elektroladesäule',
       'Parken auf einer Grünfläche',
       'Parken auf einer Baumscheibe',
+      'Parken in der Einbahnstraße entgegen der Fahrtrichtung',
       'Sonstiges Parkvergehen (siehe Hinweise)',
     ]
   end
