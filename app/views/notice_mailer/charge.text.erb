@@ -17,13 +17,13 @@ Bitte prüfen Sie den Sachverhalt auch auf etwaige andere Verstöße, die aus de
 
 Bitte bestätigen Sie Ihre Zuständigkeit und den Erhalt dieser E-Mail durch eine Antwort an <%= @user.email %>.
 Falls Sie nicht zuständig sein sollten, leiten Sie bitte meine E-Mail weiter und setzen mich dabei in CC.
-Dabei dürfen Sie auch meine persönlichen Daten weiterleiten und für die Dauer des Verfahrens speichern.
+Sie dürfen auch meine persönlichen Daten weiterleiten und sie für die Dauer des Verfahrens speichern.
 
 Diese Anzeige können Sie online abrufen, dort finden sich auch die Beweisfotos im Original zum Herunterladen:
 <%= public_charge_url(@notice) %>
 
 Die Daten können auch im WiNOWiG kompatiblen XML Format heruntergeladen werden:
-<%= public_winowig_url(@notice) %>
+<%= public_winowig_url(@notice, format: :xml) %>
 <% end %>
 
 
