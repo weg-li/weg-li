@@ -7,13 +7,13 @@ class UsersController < ApplicationController
   def signature
     current_user.update!(signature_params)
 
-    redirect_to edit_user_path(current_user), notice: 'Unterschrift wurde gespeichert'
+    redirect_to edit_user_path, notice: 'Unterschrift wurde gespeichert'
   end
 
   def destroy_signature
     current_user.update!(signature: nil)
 
-    redirect_to edit_user_path(current_user), notice: 'Unterschrift wurde entfernt'
+    redirect_to edit_user_path, notice: 'Unterschrift wurde entfernt'
   end
 
   def update
@@ -23,21 +23,21 @@ class UsersController < ApplicationController
       current_user.validation_date = nil
       if current_user.save
         UserMailer.validate(current_user).deliver_later
-        redirect_to edit_user_path(current_user), notice: t('users.profile_updated_and_confirmation_email')
+        redirect_to edit_user_path, notice: t('users.profile_updated_and_confirmation_email')
       else
-        redirect_to edit_user_path(current_user), alert: current_user.errors.full_messages.to_sentence
+        redirect_to edit_user_path, alert: current_user.errors.full_messages.to_sentence
       end
     else
       current_user.save!
 
-      redirect_to edit_user_path(current_user), notice: t('users.profile_updated')
+      redirect_to edit_user_path, notice: t('users.profile_updated')
     end
   end
 
   def confirmation_mail
     UserMailer.validate(current_user).deliver_later
 
-    redirect_to edit_user_path(current_user), notice: t('users.confirmation_mail', email: current_user.email)
+    redirect_to edit_user_path, notice: t('users.confirmation_mail', email: current_user.email)
   end
 
   def destroy
