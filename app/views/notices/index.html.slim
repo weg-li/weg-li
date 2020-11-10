@@ -100,9 +100,9 @@
               - @notices.each do |notice|
                 tr
                   td
-                    .btn-group.btn-group-checkbox.dropdown
-                      label.btn.btn-sm
-                        = check_box_tag "selected[]", notice.id, false, class: 'select-all'
+                    label.btn-sm
+                      = check_box_tag "selected[]", notice.id, false, class: 'select-all'
+                    .btn-group.dropdown
                       = render 'actions', notice: notice
                   td
                     = link_to_notice(notice) do
