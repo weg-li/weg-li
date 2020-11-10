@@ -27,8 +27,9 @@ describe NoticeMailer do
       expect(mail.attachments.first.filename).to match(/.*\.pdf/)
     end
 
-    it "sends mail with dresden config" do
-      mail = NoticeMailer.charge(notice, config: :dresden)
+    it "sends mail with winowig config" do
+      notice.district.update! config: :winowig
+      mail = NoticeMailer.charge(notice)
 
       expect(mail.attachments.size).to be(3)
       expect(mail.attachments.first.filename).to match(/.*\.pdf/)

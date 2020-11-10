@@ -1,5 +1,5 @@
 class NoticeMailer < ApplicationMailer
-  def charge(notice, to: nil, send_via_pdf: false, config: nil)
+  def charge(notice, to: nil, send_via_pdf: false)
     @notice = notice
     @user = notice.user
     @district = notice.district
@@ -10,7 +10,7 @@ class NoticeMailer < ApplicationMailer
       return
     end
 
-    if config == :dresden
+    if @district.winowig?
       data = PDFGenerator.new(include_photos: false).generate(@notice)
       attachments[notice.file_name(:pdf)] = data
 

@@ -12,10 +12,11 @@ class NoticeMailerPreview < ActionMailer::Preview
     NoticeMailer.charge(notice, to: 'uschi@muschi.de', send_via_pdf: true)
   end
 
-  def charge_dresden
-    notice = Notice.shared.first!
+  def charge_winowig
+    district = District.winowig.first!
+    notice = district.notices.first!
 
-    NoticeMailer.charge(notice, config: :dresden)
+    NoticeMailer.charge(notice)
   end
 
   def forward

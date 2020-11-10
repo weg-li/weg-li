@@ -9,7 +9,7 @@ class PublicController < ApplicationController
     end
   end
 
-  def dresden
+  def winowig
     @notice = Notice.for_public.from_param(params[:token])
     _404 and return if @notice.blank?
 
