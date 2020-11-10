@@ -19,6 +19,7 @@ class DistrictDashboard < Administrate::BaseDashboard
     latitude: Field::Number.with_options(decimals: 2),
     longitude: Field::Number.with_options(decimals: 2),
     flags: Field::Number,
+    config:  Field::String.with_options(searchable: false),
     status:  Field::String.with_options(searchable: false),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -51,6 +52,7 @@ class DistrictDashboard < Administrate::BaseDashboard
     :latitude,
     :longitude,
     :flags,
+    :config,
     :status,
     :created_at,
     :updated_at,
@@ -68,6 +70,7 @@ class DistrictDashboard < Administrate::BaseDashboard
     :state,
     :osm_id,
     :flags,
+    :config,
     :status,
   ].freeze
 

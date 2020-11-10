@@ -2,7 +2,7 @@ require 'builder'
 
 class XMLGenerator
   def generate(notice)
-    renderer.render(template: "/public/dresden", formats: [:xml], locals: { :"@notice" => notice })
+    renderer.render(template: "/public/winowig", formats: [:xml], locals: { :"@notice" => notice })
   end
 
   private

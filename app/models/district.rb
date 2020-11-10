@@ -24,6 +24,7 @@ class District < ActiveRecord::Base
   bitfield :flags, 1 => :personal_email
 
   enum status: {active: 0, proposed: 1}
+  enum config: {standard: 0, winowig: 1, munich: 2}
 
   has_many :notices, foreign_key: :zip, primary_key: :zip
 
@@ -125,10 +126,6 @@ class District < ActiveRecord::Base
 
   def display_email
     anonymize_email(email)
-  end
-
-  def shit_hole_munich?
-    all_emails.any? { |email| email =~ /polizei.bayern.de/ }
   end
 
   def anonymize_email(email)

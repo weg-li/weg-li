@@ -103,7 +103,7 @@ Rails.application.routes.draw do
   resource :sitemap, only: :show
 
   scope '/p' do
-    get '/dresden/:token', to: 'public#dresden'
+    get '/winowig/:token', to: 'public#winowig', as: :public_winowig
     get '/charge/:token', to: 'public#charge', as: :public_charge
     get '/profile/:token', to: 'public#profile', as: :public_profile
   end

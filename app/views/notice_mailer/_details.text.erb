@@ -1,44 +1,31 @@
+
 <%= Notice.human_attribute_name(:registration) %>: <%= notice.registration %>
 <% if notice.brand? %>
-
 <%= Notice.human_attribute_name(:brand) %>: <%= notice.brand %>
 <% end %>
 <% if notice.color? %>
-
 <%= Notice.human_attribute_name(:color) %>: <%= t(notice.color, scope: "activerecord.attributes.notice.colors") %>
 <% end %>
-
 <%= Notice.human_attribute_name(:address) %>: <%= notice.full_address %>
-
 <%= Notice.human_attribute_name(:charge) %>: <%= notice.display_charge %>
-
 <%= Notice.human_attribute_name(:date) %>: <%= l(notice.date, format: :short) %>
-
 <%= Notice.human_attribute_name(:duration) %>: <%= l(notice.date, format: :time) %> ~ <%= l(notice.date + notice.duration.minutes, format: :time) %> (<%= Vehicle.durations.to_h.invert[notice.duration] %>)
 <% Notice.details.each do |flag| %>
 <% if notice.send(flag) %>
-
 <%= t(flag, scope: "activerecord.attributes.notice.flags") %>.
 <% end %>
 <% end %>
 <% if notice.note? %>
-
 <%= notice.note %>
 <% end %>
 
-
 Zeuge:
-
 Name: <%= user.name %>
-
 Anschrift: <%= user.full_address %>
-
 E-Mail: <%= user.email %>
 <% if user.date_of_birth? %>
-
 Geburtsdatum: <%= l(user.date_of_birth) %>
 <% end %>
 <% if user.phone? %>
-
 Telefon: <%= user.phone %>
 <% end %>

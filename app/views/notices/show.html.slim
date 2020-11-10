@@ -8,7 +8,7 @@
   .panel-body
     .row
       .col-lg-6
-        = render 'details', notice: @notice
+        = render 'components/details', notice: @notice
       .col-lg-6
         = render 'components/photos', notice: @notice, publicly: true
   - if @notice.replies.present?

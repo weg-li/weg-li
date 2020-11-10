@@ -25,7 +25,7 @@ class PDFGenerator
       details = render_template(:details, notice: notice, user: user)
       document.text(details)
 
-      document.start_new_page
+      document.move_down(20)
       footer = render_template(:footer, notice: notice, user: user)
       document.text(footer)
 
@@ -36,7 +36,6 @@ class PDFGenerator
         document.move_down(50)
       end
 
-      document.render_qr_code(qr_code, pos: [document.bounds.width - 50, document.cursor])
       document.text("_" * 40)
       document.text("#{user.city}, #{I18n.l(Date.today)}")
 
