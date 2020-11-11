@@ -61,6 +61,17 @@ describe 'notices', type: :request do
     end
   end
 
+  context "GET :dump" do
+    it "renders the json" do
+      Fabricate(:notice, user: user)
+
+      get dump_notices_path
+
+      expect(response).to be_successful
+      assert JSON.parse(response.body)
+    end
+  end
+
   context "POST :bulk" do
     it "destroys notices en bulk" do
       notice = Fabricate(:notice, user: user)

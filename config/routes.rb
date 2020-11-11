@@ -73,6 +73,7 @@ Rails.application.routes.draw do
     end
 
     collection do
+      get :dump
       get :stats
       get :map
       post :bulk

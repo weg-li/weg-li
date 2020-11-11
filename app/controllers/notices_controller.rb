@@ -29,6 +29,12 @@ class NoticesController < ApplicationController
     end
   end
 
+  def dump
+    notices = current_user.notices.as_api_response(:dump)
+
+    render json: { notices: notices } 
+  end
+
   def suggest
     notices = current_user.notices.since(2.month.ago).search(params[:term]).order(:registration).limit(25)
 
@@ -46,7 +52,7 @@ class NoticesController < ApplicationController
       results += notice.possible_registrations.map { |registration| { id: registration, text: registration } }
     end
 
-    render json: { results: results }.to_json
+    render json: { results: results }
   end
 
   def map

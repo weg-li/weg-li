@@ -21,6 +21,21 @@ class Notice < ActiveRecord::Base
     Notice.bitfields[:flags].keys.each { |key| template.add(key) }
   end
 
+  api_accessible(:dump) do |template|
+    %i(status street city zip latitude longitude registration charge date).each { |key| template.add(key) }
+    template.add(:attachments, as: :photos)
+  end
+
+  def attachments
+    photos.map do |photo|
+      redirect_url = Rails.application.routes.url_helpers.rails_blob_url(photo, Rails.configuration.action_mailer.default_url_options)
+      {
+        filename: photo.filename,
+        url: redirect_url,
+      }
+    end
+  end
+
   before_validation :defaults
 
   geocoded_by :geocode_address, language: Proc.new { |model| I18n.locale }, no_annotations: true
