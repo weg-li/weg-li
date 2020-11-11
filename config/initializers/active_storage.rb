@@ -7,24 +7,23 @@ ActiveStorage::DirectUploadsController.instance_eval do
   rescue_from(ActionController::InvalidAuthenticityToken, with: lambda { redirect_to('/', alert: 'Deine Sitzung wurde unerwartet beendet!') })
 end
 
-# wait and see where this will need to go
-# ActiveStorage::RepresentationsController.instance_eval do
-#   rescue_from(
-#     MiniMagick::Error,
-#     with: lambda {
-#       response.set_header('Retry-After', 2)
-#       redirect_to(request.url, status: 302)
-#     }
-#   )
-#   rescue_from(
-#     ActiveStorage::FileNotFoundError,
-#     with: lambda {
-#       response.set_header('Retry-After', 2)
-#       redirect_to(request.url, status: 302)
-#     }
-#   )
-#   rescue_from(ActiveRecord::RecordNotFound, with: lambda { head(404) })
-# end
+ActiveStorage::Representations::RedirectController.instance_eval do
+  rescue_from(
+    MiniMagick::Error,
+    with: lambda {
+      response.set_header('Retry-After', 2)
+      redirect_to(request.url, status: 302)
+    }
+  )
+  rescue_from(
+    ActiveStorage::FileNotFoundError,
+    with: lambda {
+      response.set_header('Retry-After', 2)
+      redirect_to(request.url, status: 302)
+    }
+  )
+  rescue_from(ActiveRecord::RecordNotFound, with: lambda { head(404) })
+end
 
 require 'active_storage/service/gcs_service'
 require 'active_storage/service/disk_service'
