@@ -5,7 +5,7 @@
 
 = form_errors @notice
 = form_for @notice do |form|
-  = render 'components/photos_form', form: form, description: t('notices.steps.photos.description')
+  = render 'components/photos_form', required: true, form: form, description: t('notices.steps.photos.description')
 
   .row
     .col-lg-12
