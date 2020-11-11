@@ -189,6 +189,10 @@ class Notice < ActiveRecord::Base
     !coordinates? && zip? && city? && street?
   end
 
+  def point
+    [latitude, longitude]
+  end
+
   def handle_geocoding
     if coordinates?
       results = Geocoder.search([latitude, longitude])

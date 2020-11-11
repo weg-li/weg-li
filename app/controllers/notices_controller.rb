@@ -32,7 +32,7 @@ class NoticesController < ApplicationController
   def dump
     notices = current_user.notices.as_api_response(:dump)
 
-    render json: { notices: notices } 
+    render json: { notices: notices }
   end
 
   def suggest
@@ -142,7 +142,7 @@ class NoticesController < ApplicationController
   def mail
     notice = current_user.notices.complete.from_param(params[:id])
 
-    to = params[:send_to] == 'all' ? notice.district.all_emails : notice.district.all_emails.find {|email| email == params[:send_to]}
+    to = notice.district.all_emails.find { |email| email == params[:send_to] }
     to ||= notice.district.email
 
     NoticeMailer.charge(notice, to: to, send_via_pdf: params[:send_via_pdf]).deliver_later
