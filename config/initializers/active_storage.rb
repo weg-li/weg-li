@@ -58,7 +58,7 @@ ActiveSupport::Reloader.to_prepare do
 
     def set_usable_key_not_the_shait_from_active_storate
       # REM: add a file-extension to the key .jpg
-      self[:key] ||= "#{self.class.generate_unique_secure_token(length: MINIMUM_TOKEN_LENGTH)}#{File.extname(self[:filename])}" if self[:filename].present?
+      self[:key] ||= "#{SecureRandom.base36(28)}#{File.extname(self[:filename])}" if self[:filename].present?
     end
   end
 end
