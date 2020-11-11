@@ -1,0 +1,389 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "PI 11",
+        "desc": "Hochbrückenstraße 7, 80333 München, Deutschland",
+        "description": "Hochbrückenstraße 7, 80331\n\nE-Mail-Adresse:\npp-mue.muenchen.pi11@polizei.bayern.de"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.580227,
+          48.136829
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "PI 12",
+        "desc": "Türkenstraße 20, 80333 München, Deutschland",
+        "description": "Türkenstraße 20, 80333\n\nE-Mail-Adresse:\npp-mue.muenchen.pi12@polizei.bayern.de"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.574034,
+          48.146846
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "PI 13",
+        "desc": "Johann-Fichte-Straße 6, 80805 München, Deutschland",
+        "description": "Johann-Fichte-Straße 6, 80805\n\nE-Mail-Adresse:\npp-mue.muenchen.pi13@polizei.bayern.de"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.587729,
+          48.16939
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "PI 14",
+        "desc": "Beethovenstraße 5, 80336 München, Deutschland",
+        "description": "Beethovenstraße 5, 80336\n\nE-Mail-Adresse:\npp-mue.muenchen.pi14@polizei.bayern.de"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.554514,
+          48.131928
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "PI 15",
+        "desc": "Treffauerstraße 56, 81373 München, Deutschland",
+        "description": " Treffauerstraße 56, 81373\n\nE-Mail-Adresse:\npp-mue.muenchen.pi15@polizei.bayern.de"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.517866,
+          48.117885
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "PI 16",
+        "desc": "Arnulfstraße 1, 80335 München, Deutschland",
+        "description": "Arnulfstraße 1, 80335\n\nE-Mail-Adresse:\npp-mue.muenchen.pi16@polizei.bayern.de"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.56002,
+          48.14112
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "PI 21",
+        "desc": "Am Neudeck 1, 81541 München, Deutschland",
+        "description": "Am Neudeck 1, 81541\n\nE-Mail-Adresse:\npp-mue.muenchen.pi21@polizei.bayern.de"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.584347,
+          48.1239
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "PI 22",
+        "desc": "Prinzregentenpl. 16, 81675 München, Deutschland",
+        "description": "Prinzregentenplatz 16, 81675\n\nE-Mail-Adresse:\npp-mue.muenchen.pi22@polizei.bayern.de"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.607372,
+          48.138747
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "PI 23",
+        "desc": "Chiemgaustraße 2, 81549 München, Deutschland",
+        "description": "Chiemgaustraße 2, 81549\n\nE-Mail-Adresse:\npp-mue.muenchen.pi23@polizei.bayern.de"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.58274,
+          48.104362
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "PI 24",
+        "desc": "Adenauerring 31, 81737 München, Deutschland",
+        "description": "Adenauerring 31, 81737\n\nE-Mail-Adresse:\npp-mue.muenchen.pi24@polizei.bayern.de"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.642686,
+          48.104159
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "PI 25",
+        "desc": "Werner-Eckert-Straße 12, 81829 München, Deutschland",
+        "description": "Werner-Eckert-Straße 12, 81829\n\nE-Mail-Adresse:\npp-mue.muenchen.pi25@polizei.bayern.de"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.686738,
+          48.134147
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "PI 26",
+        "desc": "Leuchtenbergstraße 1, 85737 Ismaning, Deutschland",
+        "description": "E-Mail-Adresse:\npp-mue.muenchen.pi26@polizei.bayern.de"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.670973,
+          48.228694
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "PI 27",
+        "desc": "Rechnerstraße 11 z, 85540 Haar, Deutschland",
+        "description": "Rechnerstraße 11z, 85540\n\nE-Mail-Adresse:\npp-mue.muenchen.pi27@polizei.bayern.de"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.741385,
+          48.106508
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "PI 28",
+        "desc": "Robert-Bosch-Straße 2, 85521 Hohenbrunn, Deutschland",
+        "description": "Robert-Bosch-Straße 2, 85521\n\nE-Mail-Adresse:\npp-mue.muenchen.pi28@polizei.bayern.de"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.674944,
+          48.056368
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "PI 29",
+        "desc": "Drygalski-Allee 33, 81477 München, Deutschland",
+        "description": "Drygalski-Allee 33, 81477\n\nE-Mail-Adresse:\npp-mue.muenchen.pi29@polizei.bayern.de"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.503792,
+          48.092391
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "PI 31",
+        "desc": "Ottobrunner Str. 7, 82008 Unterhaching, Deutschland",
+        "description": "Ottobrunner Straße 7, 82008\n\nE-Mail-Adresse:\npp-mue.muenchen.pi31@polizei.bayern.de"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.621523,
+          48.060729
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "PI 32",
+        "desc": "Tölzer Str. 34, 82031 Grünwald, Deutschland",
+        "description": "Tölzer Straße 34, 82031\n\nE-Mail-Adresse:\npp-mue.muenchen.pi32@polizei.bayern.de"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.520145,
+          48.032487
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "PI 41",
+        "desc": "Rapotostraße 1, 80687 München, Deutschland",
+        "description": "Rapotostraße 1, 80687\n\nE-Mail-Adresse:\npp-mue.muenchen.pi41@polizei.bayern.de"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.498862,
+          48.143038
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "PI 42",
+        "desc": "Landshuter Allee 38, 80637 München, Deutschland",
+        "description": "Landshuter Allee 38, 80637\n\nE-Mail-Adresse:\npp-mue.muenchen.pi42@polizei.bayern.de"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.537184,
+          48.149388
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "PI 43",
+        "desc": "Moosacher Str. 77, 80809 München, Deutschland",
+        "description": "Moosacher Straße 77, 80809\n\nE-Mail-Adresse:\npp-mue.muenchen.pi43@polizei.bayern.de"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.553397,
+          48.185724
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "PI 44",
+        "desc": "Puchheimer Str. 14, 80997 München, Deutschland",
+        "description": "Puchheimer Straße 14, 80997\n\nE-Mail-Adresse:\npp-mue.muenchen.pi44@polizei.bayern.de"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.505478,
+          48.183075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "PI 45",
+        "desc": "Institutstraße 1, 81241 München, Deutschland",
+        "description": "Institutstraße 1, 81241\n\nE-Mail-Adresse:\npp-mue.muenchen.pi45@polizei.bayern.de"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.458703,
+          48.146
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "PI 46",
+        "desc": "Josef-von-Hirsch-Straße 1, 82152 Planegg, Deutschland",
+        "description": "Josef-von-Hirsch-Straße 1, 82152\n\nE-Mail-Adresse:\npp-mue.muenchen.pi46@polizei.bayern.de"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.42384,
+          48.10442
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "PI 47",
+        "desc": "Knorrstraße 139, 80937 München, Deutschland",
+        "description": "Knorrstraße 139, 80937\n\nE-Mail-Adresse:\npp-mue.muenchen.pi47@polizei.bayern.de"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.570237,
+          48.192195
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "PI 48",
+        "desc": "Hofkurat-Diehl-Straße 9, 85764 Oberschleißheim, Deutschland",
+        "description": " Hofkurat-Diehl-Straße 9, 85764\n\nE-Mail-Adresse:\npp-mue.muenchen.pi48@polizei.bayern.de"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.561391,
+          48.252436
+        ]
+      }
+    }
+  ],
+  "_umap_options": {
+    "displayOnLoad": true,
+    "browsable": true,
+    "name": "Ebene 2",
+    "id": 1175051,
+    "remoteData": {},
+    "fill": true,
+    "showLabel": true
+  }
+}
