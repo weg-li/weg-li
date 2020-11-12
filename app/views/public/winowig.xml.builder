@@ -34,7 +34,7 @@ xml.Fall do
   xml.Falldaten do
     xml.Fahrzeug do
       xml.Nationalitaet 'D'
-      xml.Farbe t(@notice.color, scope: "activerecord.attributes.notice.colors")
+      xml.Farbe t(@notice.color, scope: "activerecord.attributes.notice.colors", default: '-')
       xml.Fabrikat @notice.brand
       xml.Kennzeichen @notice.registration
       xml.Kennzeichenart '00'

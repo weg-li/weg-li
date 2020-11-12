@@ -11,7 +11,7 @@ dl.dl-horizontal
   dt= Notice.human_attribute_name(:brand)
   dd= notice.brand.presence || '-'
   dt= Notice.human_attribute_name(:color)
-  dd= t(notice.color.presence, scope: "activerecord.attributes.notice.colors", default: '-')
+  dd= t(notice.color, scope: "activerecord.attributes.notice.colors", default: '-')
   dt= Notice.human_attribute_name(:district)
   dd= notice.district.present? ? "#{notice.district.zip} #{notice.district.name}" : '-'
   dt= Notice.human_attribute_name(:address)
