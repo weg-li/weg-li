@@ -10,7 +10,8 @@ xml.Fall do
     xml.Beteiligter Funktion: "keine", Typ: "Anzeigenerstatter" do
       xml.Kontakt do
         xml.Anschrift do
-					xml.Name @notice.user.name
+					xml.Vorname @notice.user.first_name
+					xml.Name @notice.user.last_name
 					xml.Strasse @notice.user.street_without_housenumber
 					xml.Hausnummer @notice.user.housenumber
 					xml.Adresszusatz @notice.user.appendix
@@ -64,7 +65,7 @@ xml.Fall do
     end
   end
   xml.Tatorte do
-    xml.Tatort @notice.full_address
+    xml.Tatort @notice.street
     xml.Latitude @notice.latitude
     xml.Longitude @notice.longitude
   end

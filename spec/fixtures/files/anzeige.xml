@@ -7,7 +7,8 @@
     <Beteiligter Funktion="keine" Typ="Anzeigenerstatter">
       <Kontakt>
         <Anschrift>
-          <Name>Uschi Müller</Name>
+          <Vorname>Uschi</Vorname>
+          <Name>Müller</Name>
           <Strasse>Am Weiher</Strasse>
           <Hausnummer>123</Hausnummer>
           <Adresszusatz/>
@@ -60,7 +61,7 @@
     </Vorwurf>
   </Tatdaten>
   <Tatorte>
-    <Tatort>Am Weiher 123, 12345 Dorf</Tatort>
+    <Tatort>Am Weiher 123</Tatort>
     <Latitude>53.57532</Latitude>
     <Longitude>10.01534</Longitude>
   </Tatorte>
