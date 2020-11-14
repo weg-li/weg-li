@@ -32,8 +32,6 @@ class GPickerMap {
     this.latitude = canvas.data("latitude");
     this.longitude = canvas.data("longitude");
     this.trigger = canvas.data("trigger");
-    this.map = null;
-    this.marker = null;
   }
 
   show() {
@@ -41,18 +39,21 @@ class GPickerMap {
       zoom: 18,
       scrollwheel: true,
       streetViewControl: false,
+      disableDoubleClickZoom: true,
       center: new google.maps.LatLng(this.notice.latitude, this.notice.longitude),
       mapTypeId: google.maps.MapTypeId.ROADMAP,
     }
-    this.map = new google.maps.Map(this.canvas, options);
+    const map = new google.maps.Map(this.canvas, options);
+
     const position = new google.maps.LatLng(this.notice.latitude, this.notice.longitude);
-    this.marker = new google.maps.Marker({
+    const marker = new google.maps.Marker({
       position,
-      map: this.map,
+      map: map,
       draggable: true,
       title: this.notice.location,
     });
-    google.maps.event.addListener(this.marker, 'dragend', (event) => {
+
+    const markerMoved = (event) => {
       const lat = event.latLng.lat();
       const lng = event.latLng.lng();
 
@@ -74,7 +75,16 @@ class GPickerMap {
           window.alert('Es ist ein Fehler aufgetreten: ' + status);
         }
       });
+    };
+
+    google.maps.event.addListener(map, 'dblclick', function(event) {
+      marker.setPosition(event.latLng);
+      markerMoved(event);
+
     });
+
+    google.maps.event.addListener(marker, 'dragend', markerMoved);
+
     $(window.document).on('click', this.trigger, () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -83,8 +93,8 @@ class GPickerMap {
             lng: position.coords.longitude
           };
 
-          this.map.setCenter(pos);
-          this.marker.setPosition(pos);
+          map.setCenter(pos);
+          marker.setPosition(pos);
         }, (error) => {
           console.log('error getting current location', error);
         });
@@ -99,29 +109,30 @@ class GMultiMap {
   constructor(canvas) {
     this.canvas = canvas[0];
     this.init = canvas.data("init");
-    this.notices = canvas.data("notices");
+  this.notices = canvas.data("notices");
   }
 
-  show() {
-    const options = {
+  show() {    const options = {
       zoom: this.init.zoom,
       center: new google.maps.LatLng(this.init.latitude, this.init.longitude),
+
       scrollwheel: false,
       streetViewControl: false,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
     }
 
+
     const bounds  = new google.maps.LatLngBounds();
     const map = new google.maps.Map(this.canvas, options);
     let recentWindow;
-    this.notices.forEach((notice) => {
-      const position = new google.maps.LatLng(notice.latitude, notice.longitude);
-      bounds.extend(position);
+    this.notices.forEach((notice) => {      const position = new google.maps.LatLng(notice.latitude, notice.longitude);
+    bounds.extend(position);
 
       const options = { position, map, title: notice.charge };
       const marker = new google.maps.Marker(options);
-      addInfoWindow(map, marker, recentWindow, notice);
+    addInfoWindow(map, marker, recentWindow, notice);
     });
+
     if (!bounds.isEmpty()) {
       map.fitBounds(bounds);
       map.panToBounds(bounds);
@@ -131,7 +142,7 @@ class GMultiMap {
 
 function addInfoWindow(map, marker, recentWindow, notice) {
   if (!notice.token) {
-    return;
+  return;
   }
   google.maps.event.addListener(marker, 'click', () => {
     let content = `
