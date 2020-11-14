@@ -15,6 +15,13 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
+const Appsignal = require("@appsignal/javascript").default // For CommonJS module
+const appsignal = new Appsignal({
+  key: "f5c7a384-20ac-4784-be22-f8fc1ea298d5"
+});
+const { plugin } = require("@appsignal/plugin-window-events");
+appsignal.use(plugin());
+
 // allow templates to use $
 window.jQuery = window.$ = require('jquery');
 
