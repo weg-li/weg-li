@@ -15,30 +15,24 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-const Appsignal = require("@appsignal/javascript").default // For CommonJS module
-const appsignal = new Appsignal({
-  key: "f5c7a384-20ac-4784-be22-f8fc1ea298d5"
-});
-const { plugin } = require("@appsignal/plugin-window-events");
-appsignal.use(plugin());
-
 // allow templates to use $
 window.jQuery = window.$ = require('jquery');
 
 // rails deps
-require("@rails/ujs").start()
-require("turbolinks").start()
-require("@rails/activestorage").start()
+require("@rails/ujs").start();
+require("turbolinks").start();
+require("@rails/activestorage").start();
 
 // 3rdparty deps
-require("bootstrap")
-require("select2")
-require("jquery-zoom")
+require("bootstrap");
+require("select2");
+require("jquery-zoom");
 // allow templates to use Chartist
-window.Chartist = require("chartist")
+window.Chartist = require("chartist");
 
 // own deps
-require("custom")
-require("direct_uploads")
-require("maps")
-require("styleguide")
+require("appsignal");
+require("custom");
+require("direct_uploads");
+require("maps");
+require("styleguide");
