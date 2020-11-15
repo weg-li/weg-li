@@ -17,7 +17,9 @@
         element.style.width = `${width}%`;
         if (width === 100) {
           const textElement = document.getElementById('analyze-progress');
-          textElement.innerHTML = 'Status aktualisieren ...';
+          if (textElement) {
+            textElement.innerHTML = 'Status aktualisieren ...';
+          }
           setTimeout(
             function() { document.location.reload() },
             250
