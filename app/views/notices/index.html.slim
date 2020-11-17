@@ -114,7 +114,7 @@
                   td
                     = link_to_notice(notice) do
                       - notice.photos.each do |photo|
-                        = image_tag(url_for_photo(photo, size: :thumb), class: 'index-photo')
+                        = image_tag(url_for_photo(photo, size: :preview), class: 'index-photo')
                   td(nowrap)
                     = link_to_notice(notice) do
                       = d(notice.created_at)

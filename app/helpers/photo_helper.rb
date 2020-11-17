@@ -3,8 +3,8 @@ module PhotoHelper
   CONFIG = {
     default: {resize: "1280x1280", quality: '90', auto_orient: true},
     preview: {resize: "200x200", quality: '90', auto_orient: true},
-    thumb: {resize: "100x100", quality: '90', auto_orient: true},
   }
+
   def url_for_photo(photo, size: :default)
     if size == :original
       url_for(photo)
