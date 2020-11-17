@@ -9,6 +9,13 @@ class Scheduled::RerenderJob < ApplicationJob
           end
         end
       end
+      user.bulk_uploads.in_batches do |relation|
+        relation.each do |bulk_upload|
+          bulk_upload.photos.each do |image|
+            ThumbnailerJob.perform_later(image)
+          end
+        end
+      end
     end
   end
 end
