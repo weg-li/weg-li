@@ -12,7 +12,7 @@ class Scheduled::RerenderJob < ApplicationJob
 
   def start_jobs(relation)
     relation.in_batches do |batch|
-      batch.each do |record|
+      batch.with_attached_photos.each do |record|
         record.photos.each do |image|
           ThumbnailerJob.perform_later(image) unless image.variant_records.any?
         end
