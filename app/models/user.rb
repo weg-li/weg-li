@@ -24,7 +24,8 @@ class User < ActiveRecord::Base
   validates :nickname, :email, :token, :name, :street, :zip, :city, presence: true
   validates :email, :token, uniqueness: true
 
-  scope :since, -> (date) { where('users.created_at > ?', date) }
+  scope :last_login_since, -> (date) { where('last_login > ?', date) }
+  scope :since, -> (date) { where('created_at > ?', date) }
   scope :for_public, -> () { not_hide_public_profile }
   scope :active, -> () { where('access >= 0') }
 

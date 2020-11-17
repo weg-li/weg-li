@@ -1,3 +1,6 @@
+rerender:
+   every: '1m'
+   class: 'Scheduled::RerenderJob'
 restart:
    every: '5m'
    class: 'Scheduled::RestartJob'
