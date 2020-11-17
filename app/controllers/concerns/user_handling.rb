@@ -48,28 +48,26 @@ module UserHandling
   end
 
   def session_user
-    @session_user ||= find_by_session_or_cookies
+    @session_user ||= begin
+      if session[:user_id].present?
+        user = User.find_by_id(session[:user_id])
+        user.touch(:last_login)
+      elsif cookies.encrypted[:remember_me].present?
+        user = User.authenticated_with_token(*cookies.encrypted[:remember_me])
+        user.touch(:last_login)
+      end
+      user
+    end
   end
 
   def current_user
     alias_user ? alias_user : session_user
   end
 
-  def find_by_session_or_cookies
-    return User.find_by_id(session[:user_id]) if session[:user_id].present?
-    return User.authenticated_with_token(*remember_me) if remember_me.present?
-
-    nil
-  end
-
   def find_by_alias
     return User.find_by_id(session[:alias_id]) if session[:alias_id].present?
 
     nil
-  end
-
-  def remember_me
-    cookies.encrypted[:remember_me]
   end
 
   def signed_in?
@@ -85,8 +83,6 @@ module UserHandling
   end
 
   def sign_in(user)
-    @current_user = user
-    @current_user.touch(:last_login)
     session[:user_id] = user.id
     cookies.encrypted[:remember_me] = { value: [user.id, user.token], expires: 1.month, httponly: true, secure: Rails.env.production? }
   end
