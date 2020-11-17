@@ -106,7 +106,8 @@
                       = render 'actions', notice: notice
                   td
                     = link_to_notice(notice) do
-                      = image_tag(url_for_photo(notice.photos.first, size: :preview), class: 'index-photo')
+                      - notice.photos.first(1).each do |photo|
+                        = image_tag(url_for_photo(photo, size: :preview), class: 'index-photo')
                   td
                     = link_to_notice(notice) do
                       - if notice.incomplete?
