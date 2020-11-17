@@ -49,8 +49,8 @@
           thead
             tr
               th
+              th
               th= Notice.human_attribute_name(:registration)
-              th= Notice.human_attribute_name(:photos)
               th
                 => Notice.human_attribute_name(:created_at)
                 - if params.dig(:order, :column) == 'created_at'
@@ -106,15 +106,13 @@
                       = render 'actions', notice: notice
                   td
                     = link_to_notice(notice) do
+                      = image_tag(url_for_photo(notice.photos.first, size: :preview), class: 'index-photo')
+                  td
+                    = link_to_notice(notice) do
                       - if notice.incomplete?
                         = render 'status', status: :incomplete
                       - else
                         = registration_label(notice.registration)
-
-                  td
-                    = link_to_notice(notice) do
-                      - notice.photos.each do |photo|
-                        = image_tag(url_for_photo(photo, size: :preview), class: 'index-photo')
                   td(nowrap)
                     = link_to_notice(notice) do
                       = d(notice.created_at)
@@ -124,7 +122,6 @@
                   td
                     = link_to_notice(notice) do
                       = render 'status', status: notice.status
-
             - else
               tr
                 td(colspan=7)= t('notices.nothing_found')

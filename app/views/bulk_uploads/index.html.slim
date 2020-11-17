@@ -12,7 +12,7 @@
         thead
           tr
             th
-            th= BulkUpload.human_attribute_name(:photos)
+            th
             th
               => BulkUpload.human_attribute_name(:created_at)
               - if params.dig(:order, :column) == 'created_at'
