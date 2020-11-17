@@ -5,7 +5,7 @@ class Scheduled::RerenderJob < ApplicationJob
       user.notices.in_batches do |relation|
         relation.each do |notice|
           notice.photos.each do |image|
-            ThumbnailerJob.perform_now(image)
+            ThumbnailerJob.perform_later(image)
           end
         end
       end
