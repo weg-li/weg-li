@@ -7,9 +7,9 @@ module PhotoHelper
 
   def url_for_photo(photo, size: :default)
     if size == :original
-      rails_storage_proxy_url(photo, cdn_url_options)
+      rails_storage_redirect_url(photo, cdn_url_options)
     else
-      rails_storage_proxy_url(photo.variant(CONFIG[size]), cdn_url_options)
+      rails_storage_redirect_url(photo.variant(CONFIG[size]), cdn_url_options)
     end
   rescue ActiveStorage::InvariableError => e
     Rails.logger.warn("rendering broken image #{photo.id}: #{e.message}")
