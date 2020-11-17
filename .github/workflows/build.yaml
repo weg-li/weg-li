@@ -18,7 +18,6 @@ jobs:
       - uses: actions/setup-node@v1
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.6 # Not needed with a .ruby-version file
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       - name: Install PostgreSQL 11 client
         run: sudo apt-get update && sudo apt-get install postgresql postgresql-contrib libpq-dev --fix-missing
