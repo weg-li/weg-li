@@ -1,8 +1,8 @@
 rerender:
-   every: '1m'
+   cron: '0 * * * * * Europe/Berlin'
    class: 'Scheduled::RerenderJob'
 restart:
-   every: '5m'
+   cron: '0 * * * * * Europe/Berlin'
    class: 'Scheduled::RestartJob'
 activation_reminder:
   cron: '10 8 * * 2,4,6 Europe/Berlin'
