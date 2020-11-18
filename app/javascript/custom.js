@@ -1,9 +1,5 @@
 const Lucia = require("lucia");
 
-document.copyToClipboard = function(hint, text) {
-  window.prompt(hint, text);
-}
-
 $(document).on('turbolinks:load', function() {
   $('[data-toggle="popover"]').popover();
   $('[data-toggle="tooltip"]').tooltip();
