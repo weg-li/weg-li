@@ -1,14 +1,22 @@
+require("select2");
+require("jquery-zoom");
 const Lucia = require("lucia");
 
 $(document).on('turbolinks:load', function() {
   $('[data-toggle="popover"]').popover();
   $('[data-toggle="tooltip"]').tooltip();
-  $('select[data-select2-disabled!="true"]').select2({ theme: 'bootstrap' });
+});
+
+$(document).on('turbolinks:load', function() {
   $('.zoom').zoom();
 });
 
 $(document).on('turbolinks:load', function() {
   Lucia.init();
+});
+
+$(document).on('turbolinks:load', function() {
+  $('select[data-select2-disabled!="true"]').select2({ theme: 'bootstrap' });
 });
 
 $(document).on("turbolinks:before-cache", function () {
