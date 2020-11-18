@@ -13,7 +13,7 @@ class Scheduled::StuckJob < ApplicationJob
         Rails.logger.debug("process #{id} is busy with #{busy} of #{concurrent}")
 
         busy_workers = workers.select { |process, thread, msg| process == id }
-        dead_workers = busy_workers.select { |process, thread, msg| msg['run_at'] < 2.minutes.ago }
+        dead_workers = busy_workers.select { |process, thread, msg| Time.at(msg['run_at']) < 2.minutes.ago }
 
         if dead_workers >= concurrent / 2
           Rails.logger.warn("process #{id} has #{dead_workers.size} dead jobs, killing it now!")
