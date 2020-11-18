@@ -1,8 +1,9 @@
+# check via Rufus::Scheduler.parse
 rerender:
    cron: '0 * * * * * Europe/Berlin'
    class: 'Scheduled::RerenderJob'
 restart:
-   cron: '5,10,15,20,25,30,35,40,45,50,55 * * * * * Europe/Berlin'
+   cron: '0,5,10,15,20,25,30,35,40,45,50,55 * * * * Europe/Berlin'
    class: 'Scheduled::RestartJob'
 activation_reminder:
   cron: '10 8 * * 2,4,6 Europe/Berlin'
