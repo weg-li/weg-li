@@ -10,7 +10,7 @@
     "chartist": "^0.11.4",
     "jquery": "^3.4.1",
     "jquery-zoom": "^1.7.21",
-    "lucia": "^0.1.2",
+    "lucia": "^0.2.1",
     "rails-erb-loader": "^5.5.2",
     "select2": "^4.0.12",
     "select2-bootstrap-theme": "^0.1.0-beta.10",

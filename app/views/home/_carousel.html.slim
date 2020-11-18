@@ -10,14 +10,14 @@ javascript:
       length() {
         return Object.keys(this.infos).length;
       },
-      number(count) {
-        return count + 1;
+      number() {
+        return this.count + 1;
       },
-      title(count) {
-        return Object.keys(this.infos)[count];
+      title() {
+        return Object.keys(this.infos)[this.count];
       },
-      text(count) {
-        return this.infos[this.title(count)];
+      message() {
+        return this.infos[this.title()];
       },
       increment() {
         this.count = this.count + 1 >= this.length() ? 0 : this.count + 1;
@@ -37,11 +37,11 @@ javascript:
     .row
       .col-lg-2.text-center
         .spacer
-        h4 <span class="step step-top smaller success-step1" l-text="number(count)">1</span>
-        h4(l-text="title(count)") Erfassen
+        h4 <span class="step step-top smaller success-step1" l-text="number()">1</span>
+        h4(l-text="title()") Erfassen
       .col-lg-10
         blockquote
-          p(l-text="text(count)")
+          p(l-text="message()")
             |
               Unterwegs Beweisfotos von nervigen Falschparkern knipsen und dann mit Deinem Browser übers Handy oder den Computer bei weg-li hochladen. Du kannst dabei einzele Meldungen erzeugen, oder einen ganzen Schwung von Beweisfotos als Massen-Upload einspielen.
   .col-lg-1.text-right

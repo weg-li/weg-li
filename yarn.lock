@@ -4320,10 +4320,10 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-lucia@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/lucia/-/lucia-0.1.2.tgz#2b88f49c45ceadf42c9f6de76537e8f03a5c5184"
-  integrity sha512-2bsUuOovpkboUrxQybOTgxZ0T+Rcbnc0gr1meUZfEM2Dqylqpv3ySXdxBAFS1HaL3WgUCcxU/5lrcs3fUMBpiQ==
+lucia@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/lucia/-/lucia-0.2.1.tgz#356e89e76d62895fc04072e4270499f2b803b823"
+  integrity sha512-Qd3HFkcnQeE3N969IXWia0ZrGZ+ap8+bIN8PwARmYwScwgpqd39PaxJE1+8auOLSj36xCHL9TXqnx9a6tC6dUw==
 
 make-dir@^2.0.0:
   version "2.1.0"

@@ -1,4 +1,4 @@
-const { createApp } = require("lucia")
+const Lucia = require("lucia");
 
 document.copyToClipboard = function(hint, text) {
   window.prompt(hint, text);
@@ -9,17 +9,10 @@ $(document).on('turbolinks:load', function() {
   $('[data-toggle="tooltip"]').tooltip();
   $('select[data-select2-disabled!="true"]').select2({ theme: 'bootstrap' });
   $('.zoom').zoom();
+});
 
-  var elements = Array.from(document.querySelectorAll('[l-use]'));
-  for (var _i = 0, _elements = elements; _i < _elements.length; _i++) {
-    var el = _elements[_i];
-    var options = el.getAttribute('l-use');
-    if (options === null) return;
-    var app = createApp(new Function("return (".concat(options, ")"))());
-    var link = el.getAttribute('l-link');
-    if (link) links[link] = app;
-    app.mount(el);
-  }
+$(document).on('turbolinks:load', function() {
+  Lucia.init();
 });
 
 $(document).on("turbolinks:before-cache", function () {
