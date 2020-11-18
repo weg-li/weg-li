@@ -6,18 +6,23 @@ class Scheduled::StuckJob < ApplicationJob
       id = process.identity
       Rails.logger.warn("checking process #{id}")
 
-      if process.busy >= process.concurrency
-        Rails.logger.warn("process #{id} is busy ok with concurrent #{process.busy}/#{process.concurrent}")
-        busy = workers.select { |process, thread, msg| process == id }
-        hang = busy.select { |process, thread, msg| msg['run_at'] < 5.minutes.ago }
-        if hang >= process.concurrency
-          Rails.logger.warn("process #{id} has only hanging jobs, killing it now")
+      busy = process['busy']
+      concurrent = process['concurrency']
+
+      if busy >= concurrent
+        Rails.logger.warn("process #{id} is busy ok with concurrent #{busy}/#{concurrent}")
+
+        busy_workers = workers.select { |process, thread, msg| process == id }
+        dead_workers = busy_workers.select { |process, thread, msg| msg['run_at'] < 5.minutes.ago }
+
+        if dead_workers >= concurrent
+          Rails.logger.warn("process #{id} has only dead jobs, killing it now")
           # Sidekiq::Process.new(id).stop!
         else
-          Rails.logger.warn("process #{id} has just #{hang.size} hanging jobs, #{busy.size - hang.size} busy")
+          Rails.logger.warn("process #{id} has just #{dead_workers.size} dead jobs, #{busy_workers.size - dead_workers.size} busy")
         end
       else
-        Rails.logger.warn("process #{id} is ok with concurrent #{process.busy}/#{process.concurrent}")
+        Rails.logger.warn("process #{id} is ok with concurrent #{busy}/#{concurrent}")
       end
     end
   end
