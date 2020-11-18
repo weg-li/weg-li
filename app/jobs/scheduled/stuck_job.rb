@@ -17,7 +17,7 @@ class Scheduled::StuckJob < ApplicationJob
 
         if dead_workers >= concurrent
           Rails.logger.warn("process #{id} has only dead jobs, killing it now")
-          # Sidekiq::Process.new(id).stop!
+          Sidekiq::Process.new(id).stop!
         else
           Rails.logger.warn("process #{id} has just #{dead_workers.size} dead jobs, #{busy_workers.size - dead_workers.size} busy")
         end

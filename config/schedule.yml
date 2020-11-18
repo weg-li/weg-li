@@ -2,7 +2,6 @@
 stuck:
    cron: '0 * * * * * Europe/Berlin'
    class: 'Scheduled::StuckJob'
-   enabled: false
 rerender:
    cron: '0 * * * * * Europe/Berlin'
    class: 'Scheduled::RerenderJob'
