@@ -4,7 +4,7 @@ class BulkUploadJob < ApplicationJob
       ThumbnailerJob.perform_later(photo.blob)
     end
 
-    wait = bulk_upload.photos.size.seconds
+    wait = (bulk_upload.photos.size * 10).seconds
     BulkUploadUpdateJob.set(wait: wait).perform_later(bulk_upload)
   end
 end
