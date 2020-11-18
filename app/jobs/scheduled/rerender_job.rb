@@ -11,7 +11,9 @@ class Scheduled::RerenderJob < ApplicationJob
   private
 
   def start_jobs(relation)
-    relation.left_joins(photos_attachments: {blob: :variant_records}).where('active_storage_variant_records.blob_id' => nil).limit(10).each do |record|
+    record_ids = relation.reorder(nil).left_joins(photos_attachments: {blob: :variant_records}).where('active_storage_variant_records.blob_id' => nil).limit(10).pluck(:id)
+
+    relation.find(record_ids).each do |record|
       record.photos.each do |image|
         ThumbnailerJob.perform_later(image) unless image.variant_records.any?
       end
