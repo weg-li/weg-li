@@ -1,63 +1,50 @@
-.row.steps.step-0.hidden-xs
+javascript:
+  function CarouselContext() {
+    return {
+      count: 0,
+      infos: {
+        Erfassen: 'Unterwegs Beweisfotos von nervigen Falschparkern knipsen und dann mit Deinem Browser übers Handy oder den Computer bei weg-li hochladen. Du kannst dabei einzele Meldungen erzeugen, oder einen ganzen Schwung von Beweisfotos als Massen-Upload einspielen.',
+        Beschreiben: 'Beweisfotos von nervigen Falschparkern knipsen und dann mit Deinem Browser übers Handy oder den Computer bei weg-li hochladen. Du kannst dabei einzele Meldungen erzeugen, oder einen ganzen Schwung von Beweisfotos als Massen-Upload einspielen.',
+        Melden: 'Mit der vollständigen Meldung kannst Du Anzeige beim zuständigen Ordnungsamt erstatten, indem Du die Anzeige direkt über weg-li per E-Mail versendest. Alle Deine Anzeigen kannst Du jederzeit online abrufen und durchsuchen, falls es vom Amt eine Rückfrage geben sollte.',
+      },
+      length() {
+        return Object.keys(this.infos).length;
+      },
+      number() {
+        return this.count + 1;
+      },
+      title() {
+        return Object.keys(this.infos)[this.count];
+      },
+      message() {
+        return this.infos[this.title()];
+      },
+      increment() {
+        this.count = this.count + 1 >= this.length() ? 0 : this.count + 1;
+      },
+      decrement() {
+        this.count = this.count <= 0 ? this.length() - 1 : this.count - 1;
+      },
+    };
+  }
+
+.row.steps.step-0.hidden-xs(l-use="CarouselContext()")
   .col-lg-1.text-left
     ul.pagination.pagination-lg
       li.previous
-        a.text-muted(href="#" onclick="$('.steps').hide();$('.step-2').fadeIn(); return false;" style="text-decoration: none;") <
+        a.text-muted(l-on:click="decrement()" class="btn") <
   .col-lg-10
     .row
       .col-lg-2.text-center
         .spacer
-        h4 <span class="step step-top smaller success-step1">1</span>
-        h4 Erfassen
+        h4 <span class="step step-top smaller success-step1" l-text="number()">1</span>
+        h4(l-text="title()") Erfassen
       .col-lg-10
         blockquote
-          p
+          p(l-text="message()")
             |
-              Unterwegs Beweisfotos von nervigen Falschparkern knipsen und dann mit Deinem Browser übers Handy oder den Computer bei weg-li hochladen.
-              Du kannst dabei einzele Meldungen erzeugen, oder einen ganzen Schwung von Beweisfotos als Massen-Upload einspielen.
+              Unterwegs Beweisfotos von nervigen Falschparkern knipsen und dann mit Deinem Browser übers Handy oder den Computer bei weg-li hochladen. Du kannst dabei einzele Meldungen erzeugen, oder einen ganzen Schwung von Beweisfotos als Massen-Upload einspielen.
   .col-lg-1.text-right
     ul.pagination.pagination-lg
       li.previous
-        a.text-muted(href="#" onclick="$('.steps').hide();$('.step-1').fadeIn(); return false;" style="text-decoration: none;") >
-.row.steps.step-1(style="display:none")
-  .col-lg-1.text-left
-    ul.pagination.pagination-lg
-      li.previous
-        a.text-muted(href="#" onclick="$('.steps').hide();$('.step-0').fadeIn(); return false;" style="text-decoration: none;") <
-  .col-lg-10
-    .row
-      .col-lg-2.text-center
-        .spacer
-        h4 <span class="step step-top smaller success-step2">2</span>
-        h4 Beschreiben
-      .col-lg-10
-        blockquote
-          p
-            |
-              Die Beweisfotos werden nach dem Hochladen automatisch analysiert und Deine Meldung wird mit den erkannten Standort- und Fahrzeugdaten vorausgefüllt.
-              Du musst nun nur noch die Daten überprüfen, den Verstoß beschreiben und schon ist die Meldung vollständig.
-  .col-lg-1.text-right
-    ul.pagination.pagination-lg
-      li.previous
-        a.text-muted(href="#" onclick="$('.steps').hide();$('.step-2').fadeIn(); return false;" style="text-decoration: none;") >
-.row.steps.step-2(style="display:none")
-  .col-lg-1.text-left
-    ul.pagination.pagination-lg
-      li.previous
-        a.text-muted(href="#" onclick="$('.steps').hide();$('.step-1').fadeIn(); return false;" style="text-decoration: none;") <
-  .col-lg-10
-    .row
-      .col-lg-2.text-center
-        .spacer
-        h4 <span class="step step-top smaller success-step3">3</span>
-        h4 Melden
-      .col-lg-10
-        blockquote
-          p
-            |
-              Mit der vollständigen Meldung kannst Du Anzeige beim zuständigen Ordnungsamt erstatten, indem Du die Anzeige direkt über weg-li per E-Mail versendest.
-              Alle Deine Anzeigen kannst Du jederzeit online abrufen und durchsuchen, falls es vom Amt eine Rückfrage geben sollte.
-  .col-lg-1.text-right
-    ul.pagination.pagination-lg
-      li.previous
-        a.text-muted(href="#" onclick="$('.steps').hide();$('.step-0').fadeIn(); return false;" style="text-decoration: none;") >
+        a.text-muted(l-on:click="increment()" class="btn") >

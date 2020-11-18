@@ -25,12 +25,11 @@ require("@rails/activestorage").start();
 
 // 3rdparty deps
 require("bootstrap");
-require("select2");
-require("jquery-zoom");
+
 // allow templates to use Chartist
 window.Chartist = require("chartist");
 
-// own deps
+// own sources
 require("appsignal");
 require("custom");
 require("direct_uploads");
