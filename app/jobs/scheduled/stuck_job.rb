@@ -14,7 +14,7 @@ class Scheduled::StuckJob < ApplicationJob
 
         busy_workers = workers.select { |process, thread, msg| process == id }
         dead_workers = busy_workers.select { |process, thread, msg| Time.at(msg['run_at']) < 2.minutes.ago }
-        dead = dead.size
+        dead = dead_workers.size
 
 
         if dead >= concurrent / 2
