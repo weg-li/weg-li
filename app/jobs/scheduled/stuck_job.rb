@@ -3,28 +3,27 @@ class Scheduled::StuckJob < ApplicationJob
     Rails.logger.debug("checking for stuck jobs")
 
     processes.each do |process|
-      id = process.identity
-      Rails.logger.debug("checking process #{id}")
+      identity = process.identity
+      Rails.logger.debug("checking process #{identity}")
 
       busy = process['busy']
       concurrent = process['concurrency']
 
       if busy >= concurrent
-        Rails.logger.debug("process #{id} is busy with #{busy} of #{concurrent}")
+        Rails.logger.debug("process #{identity} is busy with #{busy} of #{concurrent}")
 
-        busy_workers = workers.select { |process, thread, msg| process == id }
+        busy_workers = workers.select { |process, thread, msg| process == identity }
         dead_workers = busy_workers.select { |process, thread, msg| Time.at(msg['run_at']) < 2.minutes.ago }
         dead = dead_workers.size
 
-
         if dead >= concurrent / 2
-          notify("process #{id} has #{dead} of #{concurrent} dead jobs, killing it now!")
-          Sidekiq::Process.new(id).stop!
+          notify("process #{identity} has #{dead} of #{concurrent} dead jobs, killing it now!")
+          Sidekiq::Process.new("identity" => identity).stop!
         else
-          notify("process #{id} has just #{dead} of #{concurrent} dead jobs, #{concurrent - dead} still busy")
+          notify("process #{identity} has just #{dead} of #{concurrent} dead jobs, #{concurrent - dead} are busy")
         end
       else
-        Rails.logger.debug("process #{id} is ok with #{busy} of #{concurrent}")
+        Rails.logger.debug("process #{identity} is ok with #{busy} of #{concurrent}")
       end
     end
   end
