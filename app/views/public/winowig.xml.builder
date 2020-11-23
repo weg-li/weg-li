@@ -10,6 +10,7 @@ xml.Fall do
     xml.Beteiligter Funktion: "keine", Typ: "Anzeigenerstatter" do
       xml.Kontakt do
         xml.Anschrift do
+          xml.Anrede '-'
 					xml.Vorname @notice.user.first_name
 					xml.Name @notice.user.last_name
 					xml.Strasse @notice.user.street_without_housenumber
