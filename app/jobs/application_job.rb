@@ -4,6 +4,8 @@ class ApplicationJob < ActiveJob::Base
   class NotYetAnalyzedError < StandardError; end
   retry_on NotYetAnalyzedError, attempts: 15, wait: :exponentially_longer
 
+  retry_on SocketError, attempts: 15, wait: :exponentially_longer
+
   # Automatically retry jobs that encountered a deadlock
   retry_on ActiveRecord::Deadlocked, attempts: 15, wait: :exponentially_longer
 
