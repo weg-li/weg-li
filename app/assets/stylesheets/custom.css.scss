@@ -161,6 +161,11 @@ select {
 
 .item-photo {
   border-radius: 5px;
+  cursor: zoom-in;
+}
+
+.zoomImg {
+  cursor: zoom-in;
 }
 
 ul.photo-list {
