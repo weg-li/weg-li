@@ -1,0 +1,16 @@
+.modal.fade id="modal_photo_upload" tabindex="-1" role="dialog"
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        button type="button" class="close" data-dismiss="modal" aria-label="Schließen"
+          span aria-hidden="true" &times;
+        h4.modal-title Beweisfotos hochladen
+      .modal-body
+        = render 'components/photos_form', form: form
+      .modal-footer
+        .btn-group
+          = form.button formnovalidate: true, value: 'upload', class: "btn btn-sm btn-success"
+            | Hochladen
+          button type="button" class="btn btn-sm btn-default" data-dismiss="modal"
+            span.glyphicon.glyphicon-remove>
+            | Schließen

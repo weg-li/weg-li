@@ -1,18 +1,15 @@
 - publicly ||= false
-- upload_form ||= false
+- upload_button ||= false
 .well.well-sm.clearfix
-  - if upload_form
+  - if upload_button
     .photos-add-button
       button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_photo_upload"
         span.glyphicon.glyphicon-plus
   ul.photo-list
     - notice.photos.each_with_index do |photo, index|
       li.list-item
-        .flex-buttons.btn-group.btn-group-sm
-          a(href="#" data-toggle="modal" data-target="#modal_#{dom_id(photo)}")
-            = image_tag(url_for_photo(photo, size: :preview), class: 'item-photo')
-          button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal_#{dom_id(photo)}"
-            span.glyphicon.glyphicon-eye-open
+        a(href="#" data-toggle="modal" data-target="#modal_#{dom_id(photo)}")
+          = image_tag(url_for_photo(photo, size: :preview), class: 'item-photo')
 
       .modal.fade id="modal_#{dom_id(photo)}" tabindex="-1" role="dialog"
         .modal-dialog.modal-lg
@@ -22,7 +19,7 @@
                 span aria-hidden="true" &times;
               h4.modal-title Beweisfoto ##{index + 1}
 
-            .modal-body
+            .modal-body.text-center
               = render('components/photo_zoom', photo: photo)
             .modal-footer
               .btn-group
@@ -47,21 +44,3 @@
                 button type="button" class="btn btn-sm btn-default" data-dismiss="modal"
                   span.glyphicon.glyphicon-remove>
                   | Schließen
-
-- if upload_form
-    .modal.fade id="modal_photo_upload" tabindex="-1" role="dialog"
-      .modal-dialog.modal-lg
-        .modal-content
-          .modal-header
-            button type="button" class="close" data-dismiss="modal" aria-label="Schließen"
-              span aria-hidden="true" &times;
-            h4.modal-title Beweisfotos hochladen
-          .modal-body
-            = render 'components/photos_form', form: upload_form
-          .modal-footer
-            .btn-group
-              = upload_form.button :submit, value: 'upload', class: "btn btn-sm btn-success"
-                | Hochladen
-              button type="button" class="btn btn-sm btn-default" data-dismiss="modal"
-                span.glyphicon.glyphicon-remove>
-                | Schließen

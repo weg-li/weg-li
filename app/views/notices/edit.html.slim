@@ -17,12 +17,15 @@
       = render('snippet_modal')
       = form_errors(@notice)
       = form_for(@notice, html: {autocomplete: :off}) do |form|
-        = render('components/photos', notice: @notice, upload_form: form)
+        = render('components/photos', notice: @notice, upload_button: true)
         = render('notice_form', notice: @notice, form: form)
 
         hr.spacer
+
         .row
           .col-lg-12
             .pull-right
               .btn-group
                 = form.submit('Daten speichern', class: "btn btn-success")
+                // make sure this is placed after the main submit button
+                = render('components/photo_upload_modal', notice: @notice, form: form)
