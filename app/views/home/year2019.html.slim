@@ -27,13 +27,21 @@ hr.spacer-large
 .spacer
 
 .row
-  .col-lg-8
+  .col-lg-4
     h3 📈 Top Orte
     ul.list-group
       - @statistics[:grouped_cities].each do |entry|
         li.list-group-item
           = entry.city
           .badge.pull-right= number_with_delimiter(entry.city_count)
+
+  .col-lg-4
+    h3 📈 Top Bundesländer
+    ul.list-group
+      - @statistics[:grouped_states].each do |entry|
+        li.list-group-item
+          = entry.state
+          .badge.pull-right= number_with_delimiter(entry.state_count)
 
   .col-lg-4
     h3 📈 Top Postleitzahlen

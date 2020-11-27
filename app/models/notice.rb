@@ -99,6 +99,7 @@ class Notice < ActiveRecord::Base
     {
       count: notices.count,
       active: notices.pluck(:user_id).uniq.size,
+      grouped_states: notices.joins(:district).select('count(districts.state) as state_count, districts.state').group('districts.state').order('state_count DESC').limit(limit).to_a,
       grouped_cities: notices.select('count(city) as city_count, city').group(:city).order('city_count DESC').limit(limit).to_a,
       grouped_zips: notices.select('count(zip) as zip_count, zip').group(:zip).order('zip_count DESC').limit(limit).to_a,
       grouped_charges: notices.select('count(charge) as charge_count, charge').group(:charge).order('charge_count DESC').limit(limit).to_a,

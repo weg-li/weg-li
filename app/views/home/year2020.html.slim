@@ -33,13 +33,21 @@ hr.spacer-large
 .spacer
 
 .row
-  .col-lg-8
+  .col-lg-4
     h3 📈 Top Orte
     ul.list-group
       - @statistics[:grouped_cities].each do |entry|
         li.list-group-item
           = entry.city
           .badge.pull-right= number_with_delimiter(entry.city_count)
+
+  .col-lg-4
+    h3 📈 Top Bundesländer
+    ul.list-group
+      - @statistics[:grouped_states].each do |entry|
+        li.list-group-item
+          = entry.state
+          .badge.pull-right= number_with_delimiter(entry.state_count)
 
   .col-lg-4
     h3 📈 Top Postleitzahlen
@@ -61,6 +69,12 @@ hr.spacer-large
     dd die weg-li UG (haftungsbeschränkt) wird gegründet 🏢
     dt 22. Juni 2020
     dd weg-li erreicht durchweg mehr als 2.000 Meldungen und erhöht das Wochenziel auf <strong>3.000 Anzeigen</strong> 🤙
+    dt 27. Oktober 2020
+    dd weg-li macht #{link_to 'Parkvergehen aus dem Bußgeldkatalog', charges_path} online verfügbar. 📒
+    dt 12. November 2020
+    dd weg-li fügt die korrekte geografische Zuordnung der Polizei-Inspektionen in München hinzu. 👮
+    dt 15. November 2020
+    dd weg-li startet eine Kooperation mit dem Ordnungsamt-Dresden um Anzeigen per #{link_to 'WiNOWiG', 'https://www.owig.de/'} zu importieren. 🤝
 
 .spacer
 
