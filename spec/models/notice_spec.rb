@@ -137,6 +137,7 @@ describe Notice do
           grouped_brands: [],
           grouped_charges: [],
           grouped_cities: [],
+          grouped_states: [],
           grouped_zips: [],
         }
       ).to eql(yearly_statistics)
