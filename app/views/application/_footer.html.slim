@@ -61,4 +61,4 @@ footer
           So ist bei weg-li #{link_to "das Jahr 2019 gelaufen", year2019_url } und so #{link_to "läuft es in 2020", year2020_url }.
 
 - if defined?(Puma)
-  | <!-- served Revision #{ENV['HEROKU_SLUG_COMMIT']} by Puma-#{Puma::Const::PUMA_VERSION} #{Puma::Const::CODE_NAME} Ruby: #{RUBY_VERSION} on Rails #{Rails.version} -->
+  | <!-- served Revision #{ENV['HEROKU_SLUG_COMMIT'] || ENV['RENDER_GIT_COMMIT']} by Puma-#{Puma::Const::PUMA_VERSION} #{Puma::Const::CODE_NAME} Ruby: #{RUBY_VERSION} on Rails #{Rails.version} -->

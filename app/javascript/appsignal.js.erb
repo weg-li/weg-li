@@ -1,7 +1,7 @@
 const Appsignal = require("@appsignal/javascript").default // For CommonJS module
 const appsignal = new Appsignal({
   key: "<%= ENV['APPSIGNAL_WEB_KEY'] || 'none' %>",
-  revision: "<%= ENV['HEROKU_SLUG_COMMIT'] || 'none' %>",
+  revision: "<%= ENV['HEROKU_SLUG_COMMIT'] || ENV['RENDER_GIT_COMMIT'] || 'none' %>",
 });
 const { plugin } = require("@appsignal/plugin-window-events");
 appsignal.use(plugin());
