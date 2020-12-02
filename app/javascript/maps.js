@@ -61,13 +61,17 @@ class GPickerMap {
       geocoder.geocode({'location': { lat, lng }}, (results, status) => {
         if (status === 'OK') {
           if (results.length > 0) {
-            const result = (results.filter(result => result.types.includes('street_address')) || results)[0];
-            const location = Object.fromEntries(result.address_components.map(comp => [comp.types[0], comp.long_name]))
-            $(this.street).val(`${location.route || ''} ${location.street_number || ''}`.trim());
-            $(this.zip).val(location.postal_code || '');
-            $(this.city).val(location.locality || location.administrative_area_level_1 || location.political || '');
-            $(this.latitude).val(lat);
-            $(this.longitude).val(lng);
+            const result = results.find(result => result.types.includes('street_address')) || results.find(result => result.address_components);
+            if (result) {
+              const location = Object.fromEntries(result.address_components.map(comp => [comp.types[0], comp.long_name]))
+              $(this.street).val(`${location.route || ''} ${location.street_number || ''}`.trim());
+              $(this.zip).val(location.postal_code || '');
+              $(this.city).val(location.locality || location.administrative_area_level_1 || location.political || '');
+              $(this.latitude).val(lat);
+              $(this.longitude).val(lng);
+            } else {
+              window.alert('Es konnten keine Ergebnisse gefunden werden.');
+            }
           } else {
             window.alert('Es konnten keine Ergebnisse gefunden werden.');
           }
