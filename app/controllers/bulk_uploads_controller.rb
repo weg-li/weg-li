@@ -15,7 +15,7 @@ class BulkUploadsController < ApplicationController
   end
 
   def show
-    @bulk_upload = current_user.bulk_uploads.find(params[:id])
+    @bulk_upload = current_user.bulk_uploads.with_attached_photos.find(params[:id])
   end
 
   def new
@@ -32,11 +32,12 @@ class BulkUploadsController < ApplicationController
   def edit
     session[:bulk_upload_order_column] = @order_column = params[:order_column] || session[:bulk_upload_order_column] || 'filename'
     session[:bulk_upload_order_direction] = @order_direction = params[:order_direction] || session[:bulk_upload_order_direction] || 'asc'
-    @bulk_upload = current_user.bulk_uploads.find(params[:id])
+
+    @bulk_upload = current_user.bulk_uploads.with_attached_photos.find(params[:id])
   end
 
   def update
-    bulk_upload = current_user.bulk_uploads.find(params[:id])
+    bulk_upload = current_user.bulk_uploads.with_attached_photos.find(params[:id])
 
     if params[:one_per_photo]
       photos = bulk_upload.photos
