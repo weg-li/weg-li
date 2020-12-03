@@ -2,7 +2,7 @@ class Scheduled::RerenderJob < ApplicationJob
   def perform
     Rails.logger.info("rerender thumbnails of active users")
 
-    User.last_login_since(1.month.ago).each do |user|
+    User.last_login_since(1.month.ago).limit(5).each do |user|
       start_jobs(user.notices)
       start_jobs(user.bulk_uploads)
     end
@@ -11,7 +11,7 @@ class Scheduled::RerenderJob < ApplicationJob
   private
 
   def start_jobs(relation)
-    record_ids = relation.reorder(nil).left_joins(photos_attachments: {blob: :variant_records}).where('active_storage_variant_records.blob_id' => nil).limit(10).pluck(:id)
+    record_ids = relation.reorder(nil).left_joins(photos_attachments: {blob: :variant_records}).where('active_storage_variant_records.blob_id' => nil).limit(5).pluck(:id)
 
     relation.find(record_ids).each do |record|
       record.photos.each do |image|
