@@ -9,7 +9,6 @@ gem 'puma'
 gem 'sass-rails'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
-gem 'sidekiq-statistic'
 gem 'time_splitter'
 gem 'bitfields'
 gem 'exifr'
@@ -45,12 +44,7 @@ gem 'webpacker'
 gem 'utf8-cleaner'
 
 group :production do
-  gem 'rails_autoscale_agent'
   gem 'rack-cache'
-  gem 'rails_12factor'
-  # https://github.com/romanbsd/heroku-deflater/issues/54
-  # gem 'heroku-deflater'
-  gem 'barnes'
 end
 
 group :development do
