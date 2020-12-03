@@ -23,21 +23,21 @@ class AnalyzerJob < ApplicationJob
     colors = []
     dates = []
 
-    notice.data ||= {}
     notice.photos.each do |photo|
-      metadata = photo.service.download_file(photo.key) { |file| exifer.metadata(file) }
+      exif = photo.service.download_file(photo.key) { |file| exifer.metadata(file) }
+      notice.data_sets.create!(data: exif, kind: :exif, keyable: photo)
 
-      notice.latitude ||= metadata[:latitude] if metadata[:latitude].to_f.positive?
-      notice.longitude ||= metadata[:longitude] if metadata[:longitude].to_f.positive?
-      dates << (time_from_meta(metadata[:date_time]) || AnalyzerJob.time_from_filename(photo.filename.to_s))
+      notice.latitude ||= exif[:latitude] if exif[:latitude].to_f.positive?
+      notice.longitude ||= exif[:longitude] if exif[:longitude].to_f.positive?
+      dates << (time_from_meta(exif[:date_time]) || AnalyzerJob.time_from_filename(photo.filename.to_s))
 
       result = annotator.annotate_object(photo.key)
       if result.present?
+        notice.data_sets.create!(data: result, kind: :google_vision, keyable: photo)
         if Annotator.unsafe?(result)
           notify("safe search violated for notice #{notice.id} with photo #{photo.id} on user #{notice.user.id}: https://www.weg-li.de/admin/notices/#{notice.token}")
         end
 
-        notice.data[photo.id.to_s] = result.merge({ exif: metadata })
         plates += Annotator.grep_text(result) { |string| Vehicle.plate?(string) }
         brands += Annotator.grep_text(result) { |string| Vehicle.brand?(string) }
         colors += Annotator.dominant_colors(result)

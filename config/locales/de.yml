@@ -14,6 +14,7 @@ de:
       district: 'Bezirk'
       reply: 'Antwort'
       snippet: 'Vorlage'
+      data_set: 'Datensatz'
       authorization: 'Auth'
       export: 'Export'
       charge: 'Tatbestand'

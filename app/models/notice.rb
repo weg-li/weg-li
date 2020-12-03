@@ -49,6 +49,7 @@ class Notice < ActiveRecord::Base
   belongs_to :bulk_upload, optional: true
   has_many_attached :photos
   has_many :replies, -> { order('created_at DESC') }, dependent: :destroy
+  has_many :data_sets, -> { order('created_at DESC') }, dependent: :destroy, as: :setable
 
   validates :photos, :registration, :charge, :street, :zip, :city, :date, :duration, :severity, presence: :true
   validates :zip, format: { with: /\d{5}/, message: 'PLZ ist nicht korrekt' }

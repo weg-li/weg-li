@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_10_114548) do
+ActiveRecord::Schema.define(version: 2020_12_03_100425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,6 +111,19 @@ ActiveRecord::Schema.define(version: 2020_11_10_114548) do
     t.index ["tbnr"], name: "index_charges_on_tbnr"
   end
 
+  create_table "data_sets", force: :cascade do |t|
+    t.string "setable_type"
+    t.bigint "setable_id"
+    t.string "keyable_type"
+    t.bigint "keyable_id"
+    t.json "data"
+    t.integer "kind", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["keyable_type", "keyable_id"], name: "index_data_sets_on_keyable"
+    t.index ["setable_type", "setable_id"], name: "index_data_sets_on_setable"
+  end
+
   create_table "districts", force: :cascade do |t|
     t.string "name", null: false
     t.string "zip", null: false
@@ -147,7 +160,6 @@ ActiveRecord::Schema.define(version: 2020_11_10_114548) do
   end
 
   create_table "notices", force: :cascade do |t|
-    t.json "data"
     t.string "token", limit: 255
     t.integer "user_id"
     t.datetime "created_at"
