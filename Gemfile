@@ -46,6 +46,7 @@ gem 'utf8-cleaner'
 
 group :production do
   gem 'rack-cache'
+  gem 'scout_apm'
 end
 
 group :development do
