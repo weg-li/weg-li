@@ -1,5 +1,3 @@
-ActiveStorage.service_urls_expire_in = 1.week
-
 require 'active_storage/downloader'
 require 'active_storage/direct_uploads_controller'
 
