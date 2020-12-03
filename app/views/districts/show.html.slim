@@ -30,7 +30,7 @@ h3= "#{@district.zip} #{@district.name}"
             small.text-muted Individualisierte E-Mail-Adressen sind zum Schutz der Personendaten maskiert.
 
         - if @district.osm_id
-          li.list-group-item= link_to("OpenStreetMap #{@district.osm_id}", "https://www.openstreetmap.org/relation/#{@district.osm_id}")
+          li.list-group-item= link_to("OpenStreetMap #{@district.osm_id}", "https://www.openstreetmap.org/relation/#{@district.osm_id}", target: '_blank')
 
 .spacer-lage
 
