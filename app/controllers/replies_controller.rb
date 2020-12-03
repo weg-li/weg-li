@@ -7,7 +7,7 @@ class RepliesController < ApplicationController
       order: {},
     }
 
-    @replies = current_user.replies.page(params[:page])
+    @replies = current_user.replies.includes(:notice).page(params[:page])
 
     if search = params[:search]
       @table_params[:search] = search.to_unsafe_hash
