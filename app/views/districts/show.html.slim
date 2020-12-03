@@ -1,4 +1,4 @@
-h3= "#{@district.name} / #{@district.zip}"
+h3= "#{@district.zip} #{@district.name}"
 
 .row
   .col-lg-6
@@ -6,17 +6,9 @@ h3= "#{@district.name} / #{@district.zip}"
       .panel-heading Infos zum Bezirk
       ul.list-group
         li.list-group-item Aktualisiert: #{l(@district.created_at)}
+        li.list-group-item Postleitzahl: #{@district.zip}
         li.list-group-item Bundesland: #{@district.state}
         li.list-group-item Kennzeichen: #{s(@district.prefix)}
-        li.list-group-item E-Mail Adresse: #{@district.display_email}
-        - if @district.aliases.present?
-          li.list-group-item Alternative Adressen: #{@district.display_aliases}
-        - if @district.personal_email?
-          li.list-group-item
-            small.text-muted Individualisierte E-Mail-Adressen sind zum Schutz der Personendaten maskiert.
-
-        - if @district.osm_id
-          li.list-group-item= link_to("OpenStreetMap #{@district.osm_id}", "https://www.openstreetmap.org/relation/#{@district.osm_id}")
 
   .col-lg-6
     .panel.panel-default
@@ -27,6 +19,23 @@ h3= "#{@district.name} / #{@district.zip}"
             = t(key, scope: 'districts.statistics')
             .badge.pull-right= value
 
-hr.spacer
+    .panel.panel-default
+      .panel-heading Zuständige Stelle
+      ul.list-group
+        li.list-group-item E-Mail Adresse: #{@district.display_email}
+        - if @district.aliases.present?
+          li.list-group-item Alternative Adressen: #{@district.display_aliases}
+        - if @district.personal_email?
+          li.list-group-item
+            small.text-muted Individualisierte E-Mail-Adressen sind zum Schutz der Personendaten maskiert.
 
-= render('multi_map', notices: @district.notices.for_public, init: @district.map_data, kind: :public)
+        - if @district.osm_id
+          li.list-group-item= link_to("OpenStreetMap #{@district.osm_id}", "https://www.openstreetmap.org/relation/#{@district.osm_id}")
+
+.spacer-lage
+
+- notices = @district.notices.since(1.month.ago).for_public
+.well
+  | Es wurden #{notices.size} Anzeigen gegen Falschparker in #{@district.zip} #{@district.name} in den letzten 4 Wochen erstattet.
+
+= render('multi_map', notices: notices, init: @district.map_data, kind: :public)

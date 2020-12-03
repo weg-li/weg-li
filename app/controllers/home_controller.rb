@@ -20,7 +20,7 @@ class HomeController < ApplicationController
   end
 
   def stats
-    @weeks = (params[:since] || 12).to_i
+    @weeks = (params[:since] || 8).to_i
 
     @user_counts = User.count_over(User.active, weeks: @weeks)
     @user_sums = User.sum_over(User.active, weeks: @weeks)

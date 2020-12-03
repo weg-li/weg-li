@@ -8,7 +8,7 @@
     = image_tag 'phoet.jpg', class: "img-circle me-quote"
   .col-lg-10
     blockquote
-      p In 2020 wurden bereits #{@statistics[:count]} Anzeigen von #{@statistics[:active]} Benutzern erstattet - vielen Dank!
+      p In 2020 wurden bereits #{number_with_delimiter(@statistics[:count])} Anzeigen von #{number_with_delimiter(@statistics[:active])} Benutzern erstattet - vielen Dank!
       small= "weg-li 🚲💨 #{t('slogan_1')} #{t('slogan_2')}"
 
 hr.spacer-large

@@ -3,7 +3,7 @@
 
 .well
   |
-    In den letzten #{@since} Tagen wurden in #{@district} insgesamt #{@notices.size} Anzeigen von #{@active} Benutzern erstattet.
+    In den letzten #{@since} Tagen wurden in #{@district} insgesamt #{number_with_delimiter(@notices.size)} Anzeigen von #{number_with_delimiter(@active)} Benutzern erstattet.
 
 .row
   .col-lg-12
