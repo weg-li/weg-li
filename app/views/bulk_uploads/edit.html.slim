@@ -10,14 +10,13 @@
   - note = "Verarbeitung läuft"
   = render('components/reload', note: note, info: info)
 
-- elsif @bulk_upload.photos.present?
+- elsif @photos.present?
   .well.well-sm.callout-info
     small
       | Mehrere Beweisfotos gruppiert nach Vergehen ins obere Feld ziehen, oder mit Hilfe des
       span.glyphicon.glyphicon-move<>
       | Button dorthin bewegen und anschließend eine neue Meldung anlegen.
 
-  - photos = @bulk_upload.ordered_photos(@order_column, @order_direction)
   = form_with model: @bulk_upload do |form|
     = hidden_field_tag :order_column, @order_column
     = hidden_field_tag :order_direction, @order_direction
@@ -26,7 +25,7 @@
         fieldset Beweisfotos für neue Meldung
     .row
       .col-lg-8
-        = render 'photo_list', bulk_upload: @bulk_upload, photos: [photos.first]
+        = render 'photo_list', bulk_upload: @bulk_upload, photos: [@photos.first]
       .col-lg-4
         p= form.submit 'neue Meldung anlegen', class: "btn btn-success"
 
@@ -46,7 +45,7 @@
       fieldset Verbleibende Beweisfotos
   .row
     .col-lg-12
-      = render 'photo_list', bulk_upload: @bulk_upload, photos: photos - [photos.first]
+      = render 'photo_list', bulk_upload: @bulk_upload, photos: @photos - [@photos.first]
 
   javascript:
     function ziehen(ev) {

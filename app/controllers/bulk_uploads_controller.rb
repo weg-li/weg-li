@@ -34,6 +34,12 @@ class BulkUploadsController < ApplicationController
     session[:bulk_upload_order_direction] = @order_direction = params[:order_direction] || session[:bulk_upload_order_direction] || 'asc'
 
     @bulk_upload = current_user.bulk_uploads.with_attached_photos.find(params[:id])
+    case @order_column
+    when 'filename'
+      @photos = @bulk_upload.photos.includes(:blob).references(:blob).order('active_storage_blobs.filename' => @order_direction)
+    else
+      @photos = @bulk_upload.photos.includes(:blob).references(:blob).order('active_storage_blobs.created_at' => @order_direction)
+    end
   end
 
   def update
