@@ -26,16 +26,6 @@ class Notice < ActiveRecord::Base
     template.add(:attachments, as: :photos)
   end
 
-  def attachments
-    photos.map do |photo|
-      redirect_url = Rails.application.routes.url_helpers.rails_blob_url(photo, Rails.configuration.action_mailer.default_url_options)
-      {
-        filename: photo.filename,
-        url: redirect_url,
-      }
-    end
-  end
-
   before_validation :defaults
 
   geocoded_by :geocode_address, language: Proc.new { |model| I18n.locale }, no_annotations: true
@@ -57,14 +47,6 @@ class Notice < ActiveRecord::Base
   validate :validate_creation_date, on: :create
   validate :validate_date
 
-  def validate_date
-    errors.add(:date, :invalid) if date.to_i > Time.zone.now.to_i
-  end
-
-  def validate_creation_date
-    errors.add(:date, :invalid) if date.to_i < 3.month.ago.to_i
-  end
-
   scope :since, -> (date) { where('notices.created_at > ?', date) }
   scope :for_public, -> () { where.not(status: :disabled) }
   scope :search, -> (term) { where('registration ILIKE :term', term: "%#{term}%") }
@@ -85,11 +67,11 @@ class Notice < ActiveRecord::Base
 
   def self.statistics
     {
-      photos: joins(photos_attachments: :blob).count,
-      all: count,
-      incomplete: incomplete.count,
-      shared: shared.count,
-      users: pluck(:user_id).uniq.size,
+      photos: ActiveStorage::Attachment.where(record_type: Notice.to_s).count,
+      all: Notice.count,
+      incomplete: Notice.incomplete.count,
+      shared: Notice.shared.count,
+      users: Notice.pluck(:user_id).uniq.size,
       all_users: User.active.count,
       districts: District.active.count,
     }
@@ -258,6 +240,24 @@ class Notice < ActiveRecord::Base
   end
 
   private
+
+  def attachments
+    photos.map do |photo|
+      redirect_url = Rails.application.routes.url_helpers.rails_blob_url(photo, Rails.configuration.action_mailer.default_url_options)
+      {
+        filename: photo.filename,
+        url: redirect_url,
+      }
+    end
+  end
+
+  def validate_date
+    errors.add(:date, :invalid) if date.to_i > Time.zone.now.to_i
+  end
+
+  def validate_creation_date
+    errors.add(:date, :invalid) if date.to_i < 3.month.ago.to_i
+  end
 
   def defaults
     self.token ||= SecureRandom.hex(16)
