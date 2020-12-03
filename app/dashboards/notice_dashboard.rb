@@ -11,7 +11,6 @@ class NoticeDashboard < Administrate::BaseDashboard
     user: Field::BelongsTo,
     photos: Field::ActiveStorage.with_options(destroy_url: nil),
     id: Field::Number,
-    data: Field::String.with_options(searchable: false),
     meta: Field::String.with_options(searchable: false),
     token: Field::String,
     created_at: Field::DateTime,
@@ -71,7 +70,6 @@ class NoticeDashboard < Administrate::BaseDashboard
     :note,
     :photos,
     :meta,
-    :data,
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -79,7 +77,6 @@ class NoticeDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :user,
-    :data,
     :token,
     :status,
     :flags,
