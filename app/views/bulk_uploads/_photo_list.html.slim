@@ -2,32 +2,35 @@
   ul.photo-list.droppable-list
     - photos.each_with_index do |photo, index|
       li.list-item(draggable="true" id="drag_#{dom_id(photo)}" ondragstart="ziehen(event)")
-        a(href="#" data-toggle="modal" data-target="#modal_#{dom_id(photo)}" draggable="false")
-          = image_tag(url_for_photo(photo, size: :preview), class: 'item-photo', draggable: "false")
-          = hidden_field_tag('bulk_upload[photos][]', photo.id)
-        .flex-buttons.btn-group.btn-group-sm
-          button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal_#{dom_id(photo)}" title="ansehen"
-            span.glyphicon.glyphicon-eye-open
-          button type="button" class="btn btn-default btn-xs" onclick="ablegenMove('drag_#{dom_id(photo)}')" title="zuordnen"
-            span.glyphicon.glyphicon-move
+        - unless variant_exists?(photo, size: :preview)
+          span.glyphicon.glyphicon-picture.glyphicon-placeholder-picture(title="Beweisfoto wird verarbeitet")
+        - else
+          a(href="#" data-toggle="modal" data-target="#modal_#{dom_id(photo)}" draggable="false")
+            = image_tag(url_for_photo(photo, size: :preview), class: 'item-photo', draggable: "false")
+            = hidden_field_tag('bulk_upload[photos][]', photo.id)
+          .flex-buttons.btn-group.btn-group-sm
+            button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal_#{dom_id(photo)}" title="ansehen"
+              span.glyphicon.glyphicon-eye-open
+            button type="button" class="btn btn-default btn-xs" onclick="ablegenMove('drag_#{dom_id(photo)}')" title="zuordnen"
+              span.glyphicon.glyphicon-move
 
-      .modal.fade id="modal_#{dom_id(photo)}" tabindex="-1" role="dialog"
-        .modal-dialog.modal-lg
-          .modal-content
-            .modal-header
-              button type="button" class="close" data-dismiss="modal" aria-label="Schließen"
-                span aria-hidden="true" &times;
-              h4.modal-title Beweisfoto ##{index + 1}
-            .modal-body
-              = render('components/photo_zoom', photo: photo)
-            .modal-footer
-              .btn-group
-                = link_to(purge_bulk_upload_path(bulk_upload, photo_id: photo.id), method: :patch, data: {confirm: t('notices.confirm')}, class: 'btn btn-sm btn-default', title: 'löschen') do
-                  span.glyphicon.glyphicon-trash>
-                  | Löschen
-                = link_to(rails_blob_path(photo, disposition: "attachment"), class: 'btn btn-sm btn-default', title: 'herunterladen') do
-                  span.glyphicon.glyphicon-download>
-                  | Herunterladen
-                button type="button" class="btn btn-sm btn-default" data-dismiss="modal"
-                  span.glyphicon.glyphicon-remove>
-                  | Schließen
+        .modal.fade id="modal_#{dom_id(photo)}" tabindex="-1" role="dialog"
+          .modal-dialog.modal-lg
+            .modal-content
+              .modal-header
+                button type="button" class="close" data-dismiss="modal" aria-label="Schließen"
+                  span aria-hidden="true" &times;
+                h4.modal-title Beweisfoto ##{index + 1}
+              .modal-body
+                = render('components/photo_zoom', photo: photo)
+              .modal-footer
+                .btn-group
+                  = link_to(purge_bulk_upload_path(bulk_upload, photo_id: photo.id), method: :patch, data: {confirm: t('notices.confirm')}, class: 'btn btn-sm btn-default', title: 'löschen') do
+                    span.glyphicon.glyphicon-trash>
+                    | Löschen
+                  = link_to(rails_blob_path(photo, disposition: "attachment"), class: 'btn btn-sm btn-default', title: 'herunterladen') do
+                    span.glyphicon.glyphicon-download>
+                    | Herunterladen
+                  button type="button" class="btn btn-sm btn-default" data-dismiss="modal"
+                    span.glyphicon.glyphicon-remove>
+                    | Schließen
