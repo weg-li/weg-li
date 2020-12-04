@@ -202,14 +202,6 @@ class Notice < ActiveRecord::Base
     "#{street.split(',').first}, #{zip}, #{city}, Deutschland"
   end
 
-  def self.open_data_header
-    [:date, :charge, :street, :city, :zip, :latitude, :longitude]
-  end
-
-  def open_data
-    self.class.open_data_header.map { |key| send(key) }
-  end
-
   def map_data(kind = :public)
     basic = {
       latitude: latitude,
