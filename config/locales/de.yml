@@ -27,6 +27,7 @@ de:
         archive: 'Archiv'
         export_types:
           notices: Meldungen
+          photos: Fotos
       district:
         zip: 'PLZ'
         name: 'Name'

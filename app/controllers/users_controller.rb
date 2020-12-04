@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate!
+  before_action :authenticate_studi_user!, only: :studi
 
   def edit
   end
@@ -38,6 +39,10 @@ class UsersController < ApplicationController
     UserMailer.validate(current_user).deliver_later
 
     redirect_to edit_user_path, notice: t('users.confirmation_mail', email: current_user.email)
+  end
+
+  def studi
+    @exports = Export.photos
   end
 
   def destroy

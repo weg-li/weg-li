@@ -84,6 +84,7 @@ Rails.application.routes.draw do
 
   resource :user do
     member do
+      get :studi
       patch :confirmation_mail
       patch :signature
       patch :destroy_signature

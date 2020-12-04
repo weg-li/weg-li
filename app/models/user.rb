@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   include Bitfields
   bitfield :flags, 1 => :hide_public_profile, 2 => :disable_reminders, 4 => :disable_autoreply_notifications
 
-  enum access: {disabled: -99, user: 0, community: 1, admin: 42}
+  enum access: {disabled: -99, user: 0, community: 1, studi: 2, admin: 42}
 
   geocoded_by :geocode_address, language: Proc.new { |model| I18n.locale }, no_annotations: true
   after_validation :geocode

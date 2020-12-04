@@ -54,6 +54,11 @@
               li= link_to 'Jobs', '/sidekiq', target: '_blank'
               li= link_to 'Docs', '/api-docs', target: '_blank'
 
+        - if signed_in? && access?(:studi)
+          li
+            = link_to studi_user_path do
+              span.margin-left-small Studi
+
       ul.nav.navbar-nav.navbar-right
         - if signed_in?
           li.dropdown.navbar-user

@@ -1,0 +1,29 @@
+h2 👋 Hi Stuids!
+
+h3 GCloud Storage readonly credentials
+
+.well
+  pre= (ENV['GOOGLE_READONLY_CREDENTIALS']).as_json
+
+h3 Photo exports
+
+.table-responsive
+  table.table.table-striped.table-hover
+    thead
+      tr
+        th= Export.human_attribute_name(:created_at)
+        th= Export.human_attribute_name(:export_type)
+        th= Export.human_attribute_name(:interval)
+        th= Export.human_attribute_name(:archive)
+        th
+    tbody
+      - @exports.each do |export|
+        tr
+          td= d(export.created_at)
+          td= export.translate_enum(:export_type)
+          td= export.interval
+          td= "#{export.archive.filename} / #{number_to_human_size(export.archive.byte_size)}"
+          td
+            = link_to(rails_blob_path(export.archive, disposition: "attachment"), class: 'btn btn-sm btn-default', title: 'herunterladen') do
+              span.glyphicon.glyphicon-download>
+              | Herunterladen
