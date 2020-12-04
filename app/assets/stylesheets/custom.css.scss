@@ -12,6 +12,16 @@ select {
   font-size: 50px;
 }
 
+.glyphicon-placeholder-picture {
+  font-size: 4em;
+  animation: turner 4s infinite linear;
+}
+
+@keyframes turner{
+  from{  transform: rotateY(0deg);   }
+  to  {  transform: rotateY(360deg); }
+}
+
 .panel-nav {
   border-top: 0px;
   border-top-left-radius: 0px;

@@ -16,6 +16,10 @@ module PhotoHelper
     url_for(photo)
   end
 
+  def variant_exists?(photo, size: :default)
+    photo.variant(CONFIG[size]).processed?
+  end
+
   def cdn_url_options
     cdn_host = ENV['CDN_HOST']
 
