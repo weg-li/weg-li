@@ -11,13 +11,16 @@ describe Export do
 
   context "header" do
     it "is present" do
-      expect(export.header).to eql(Notice.open_data_header)
+      expect(export.header).to eql([:date, :charge, :street, :city, :zip, :latitude, :longitude])
     end
   end
 
   context "data" do
-    it "is empty" do
-      expect(export.data).to be_empty
+    it "should have data" do
+      notice = Fabricate.create(:notice, status: :shared)
+      export.data do |data|
+        expect(data).to_not be_nil
+      end
     end
   end
 end

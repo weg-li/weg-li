@@ -10,12 +10,8 @@ class Scheduled::ExportJob < ApplicationJob
 
     archive = Zip::OutputStream.write_buffer do |stream|
       stream.put_next_entry("#{name}.csv")
-      stream.print export.header.to_csv
-      export.data.in_batches do |batch|
-        batch.each do |data|
-          stream.print data.open_data.to_csv
-        end
-      end
+      stream.print(export.header.to_csv)
+      export.data { |data| stream.print(data.to_csv) }
     end
     archive.rewind
 
