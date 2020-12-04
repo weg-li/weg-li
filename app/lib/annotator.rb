@@ -29,8 +29,12 @@ class Annotator
     end
   end
 
-  def initialize
-    @bucket_name = "weg-li-#{Rails.env}"
+  def self.bucket_uri(key)
+    "gs://#{bucket_name}/#{key}"
+  end
+
+  def self.bucket_name
+    "weg-li-#{Rails.env}"
   end
 
   def annotate_file(file_name = Rails.root.join('spec/support/assets/mercedes.jpg').to_s)
@@ -40,7 +44,8 @@ class Annotator
   end
 
   def annotate_object(key = 'ydmE3qL1CT32rH6hunWtxCzx')
-    image = { source: { gcs_image_uri: "gs://#{@bucket_name}/#{key}" } }
+    uri = self.class.bucket_uri(key)
+    image = { source: { gcs_image_uri: uri } }
 
     annotate(image)
   end
@@ -65,7 +70,7 @@ class Annotator
 
   def download
     storage = Google::Cloud::Storage.new
-    bucket = storage.bucket(@bucket_name)
+    bucket = storage.bucket(self.class.bucket_name)
     file = bucket.file "Screen Shot 2018-11-06 at 16.39.16.png"
     file.download "tmp/#{file.name}"
   end
