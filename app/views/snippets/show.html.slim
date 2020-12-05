@@ -1,12 +1,13 @@
 - set_title t('navigation.snippets')
 - set_crumbs t('navigation.snippets') => snippets_path, 'Ansehen' => url_for
 
-.row
-  .col-lg-12
+.panel.panel-default
+  .panel-heading
+    .dropdown
+      = render('snippet_actions', snippet: @snippet, button_text: true)
+  .panel-body
     dl.dl-horizontal
-      dt= Snippet.human_attribute_name(:created_at)
-      dd= l(@snippet.created_at)
-      dt= Snippet.human_attribute_name(:name)
-      dd= @snippet.name
-      dt= Snippet.human_attribute_name(:content)
-      dd.well.well-sm= simple_format(@snippet.content)
+      h3
+        = @snippet.name
+      .well.well-sm= simple_format(@snippet.content)
+      .small.text-muted Erstellt am #{l(@snippet.created_at, format: :short)}, zuletzt aktualisiert am #{l(@snippet.updated_at, format: :short)}

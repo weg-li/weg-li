@@ -54,9 +54,9 @@
           - @snippets.each do |snippet|
             tr
               td
-                .btn-group.btn-group-checkbox.dropdown
-                  label.btn.btn-sm
-                    = check_box_tag "selected[]", snippet.id, false, class: 'select-all checkbox-addon'
+                label.btn-sm
+                  = check_box_tag "selected[]", snippet.id, false, class: 'select-all checkbox-addon'
+                .btn-group.dropdown
                   = render('snippet_actions', snippet: snippet)
               td(nowrap)= link_to l(snippet.created_at, format: :short, default: '-'), snippet_path(snippet)
               td= link_to snippet.name, snippet_path(snippet)
