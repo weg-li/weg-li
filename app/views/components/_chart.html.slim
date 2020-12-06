@@ -1,22 +1,33 @@
 .well.well-chart(id=name)
+  .chart-count
+  .chart-sum
 
 javascript:
-  var data = {
-    labels: #{ counts.keys.map { |date| date.to_date.strftime('%d/%m') }.to_json.html_safe },
-    datasets: [
-      {
-        name: "Delta", chartType: "bar",
-        values: #{ sums.values.to_json.html_safe },
-      },
-      {
-        name: "Summe", chartType: "line",
-        values: #{ counts.values.to_json.html_safe },
-      },
-    ]
-  };
-
-  new frappe.Chart("##{name}", {
-    data: data,
+  var labels = #{ counts.keys.map { |date| date.to_date.strftime('%d/%m') }.to_json.html_safe };
+  new frappe.Chart("##{name} .chart-count", {
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          name: "Summe", chartType: "line",
+          values: #{ counts.values.to_json.html_safe },
+        },
+      ],
+    },
     type: 'axis-mixed',
-    colors: ['#62c462', '#7a8288'],
+    colors: ['#62c462'],
+  });
+
+  new frappe.Chart("##{name} .chart-sum", {
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          name: "Delta", chartType: "bar",
+          values: #{ sums.values.to_json.html_safe },
+        },
+      ],
+    },
+    type: 'axis-mixed',
+    colors: ['#62c462'],
   });
