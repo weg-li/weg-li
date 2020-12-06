@@ -7,10 +7,10 @@
 .row
   .col-lg-6
     h3 Versendete Anzeigen
-    = render('chart', name: :notices, counts: @notice_counts, sums: @notice_sums)
+    = render('components/chart', name: :notices, counts: @notice_counts, sums: @notice_sums)
   .col-lg-6
     h3 Hochgeladene Beweisfotos
-    = render('chart', name: :photos, counts: @photo_counts, sums: @photo_sums)
+    = render('components/chart', name: :photos, counts: @photo_counts, sums: @photo_sums)
 
 - if @notices.present?
   hr.spacer

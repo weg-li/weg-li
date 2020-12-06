@@ -1,0 +1,22 @@
+.well.well-chart(id=name)
+
+javascript:
+  var data = {
+    labels: #{ counts.keys.map { |date| date.to_date.strftime('%d/%m') }.to_json.html_safe },
+    datasets: [
+      {
+        name: "Delta", chartType: "bar",
+        values: #{ sums.values.to_json.html_safe },
+      },
+      {
+        name: "Summe", chartType: "line",
+        values: #{ counts.values.to_json.html_safe },
+      },
+    ]
+  };
+
+  new frappe.Chart("##{name}", {
+    data: data,
+    type: 'axis-mixed',
+    colors: ['#62c462', '#7a8288'],
+  });

@@ -26,8 +26,8 @@ require("@rails/activestorage").start();
 // 3rdparty deps
 require("bootstrap");
 
-// allow templates to use Chartist
-window.Chartist = require("chartist");
+// allow templates to use frappe
+window.frappe = require("frappe-charts/dist/frappe-charts.min.esm");
 
 // own sources
 require("appsignal");
