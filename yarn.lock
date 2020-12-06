@@ -1833,11 +1833,6 @@ chalk@^2.0, chalk@^2.0.0, chalk@^2.4.1, chalk@^2.4.2:
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
 
-chartist@^0.11.4:
-  version "0.11.4"
-  resolved "https://registry.yarnpkg.com/chartist/-/chartist-0.11.4.tgz#e96e1c573d8b67478920a3a6ae52359d9fc8d8b7"
-  integrity sha512-H4AimxaUD738/u9Mq8t27J4lh6STsLi4BQHt65nOtpLk3xyrBPaLiLMrHw7/WV9CmsjGA02WihjuL5qpSagLYw==
-
 chokidar@^2.1.8:
   version "2.1.8"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.1.8.tgz#804b3a7b6a99358c3c5c61e71d8728f041cff917"
@@ -3131,6 +3126,11 @@ fragment-cache@^0.2.1:
   integrity sha1-QpD60n8T6Jvn8zeZxrxaCr//DRk=
   dependencies:
     map-cache "^0.2.2"
+
+frappe-charts@^1.5.4:
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/frappe-charts/-/frappe-charts-1.5.4.tgz#5870f77ac6ffc8ea4dab32adda1d4e5e4fbda64b"
+  integrity sha512-hBr7cRLmsCC5VBj/HwKOCgdwyXnkeAO5CAvOd5H4IYFbk84VD9jOjx9fSaqAE0MygVVbY1nCN+5nb08WThW4Xw==
 
 fresh@0.5.2:
   version "0.5.2"

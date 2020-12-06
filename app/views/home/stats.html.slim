@@ -11,20 +11,20 @@
 .row
   .col-lg-6
     h3 Registrierte Benutzer
-    = render('chart', name: :users, counts: @user_counts, sums: @user_sums)
+    = render('components/chart', name: :users, counts: @user_counts, sums: @user_sums)
   .col-lg-6
     h3 Aktive Benutzer
-    = render('chart', name: :active_users, counts: @active_user_counts, sums: @active_user_sums)
+    = render('components/chart', name: :active_users, counts: @active_user_counts, sums: @active_user_sums)
 
 .row
   .col-lg-6
     h3 Versendete Anzeigen
-    = render('chart', name: :notices, counts: @notice_counts, sums: @notice_sums)
+    = render('components/chart', name: :notices, counts: @notice_counts, sums: @notice_sums)
   .col-lg-6
     h3 Hochgeladene Beweisfotos
-    = render('chart', name: :photos, counts: @photo_counts, sums: @photo_sums)
+    = render('components/chart', name: :photos, counts: @photo_counts, sums: @photo_sums)
 
 .row
   .col-lg-12
     h3 Tägliche Anzeigen
-    = render('chart', name: :daily_notices, counts: @daily_notice_counts, sums: @daily_notice_sums)
+    = render('components/chart', name: :daily_notices, counts: @daily_notice_counts, sums: @daily_notice_sums)

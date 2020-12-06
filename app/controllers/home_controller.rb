@@ -30,8 +30,8 @@ class HomeController < ApplicationController
     @notice_sums = Notice.sum_over(Notice.shared, weeks: @weeks)
     @photo_counts = Notice.count_over(ActiveStorage::Attachment.where(record_type: 'Notice', name: 'photos'), weeks: @weeks)
     @photo_sums = Notice.sum_over(ActiveStorage::Attachment.where(record_type: 'Notice', name: 'photos'), weeks: @weeks)
-    @daily_notice_counts = Notice.count_over(Notice.shared, weeks: @weeks, interval: '1 day', beginning: Date.today.beginning_of_day, ending: Date.today.end_of_day)
-    @daily_notice_sums = Notice.sum_over(Notice.shared, weeks: @weeks, interval: '1 day', beginning: Date.today.beginning_of_day, ending: Date.today.end_of_day)
+    @daily_notice_counts = Notice.count_over(Notice.shared, weeks: @weeks / 2, interval: '1 day', beginning: Date.today.beginning_of_day, ending: Date.today.end_of_day)
+    @daily_notice_sums = Notice.sum_over(Notice.shared, weeks: @weeks / 2, interval: '1 day', beginning: Date.today.beginning_of_day, ending: Date.today.end_of_day)
   end
 
   def year2019
