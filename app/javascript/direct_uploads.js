@@ -16,7 +16,7 @@ addEventListener("direct-upload:initialize", event => {
   target.insertAdjacentHTML("beforebegin", `
     <p>${file.name} (${(file.size / 1048576).toFixed(2)} MB)</p>
     <div id="direct-upload-${id}" class="progress progress-striped active">
-      <div id="direct-upload-progress-${id}" class="progress-bar progress-bar-info" style="width: 0%"></div>
+      <div id="direct-upload-progress-${id}" class="progress-bar progress-bar-success" style="width: 0%"></div>
     </div>
     <div id="direct-upload-error-${id}" class="alert alert-warning hidden">
       ERROR
@@ -34,7 +34,7 @@ addEventListener("direct-upload:error", event => {
   event.preventDefault();
   const { id, error } = event.detail;
   const element = document.getElementById(`direct-upload-${id}`);
-  element.classList.remove("progress-bar-info");
+  element.classList.remove("progress-bar-success");
   element.classList.add("progress-bar-warning");
 
   const errorEl = document.getElementById(`direct-upload-error-${id}`);
