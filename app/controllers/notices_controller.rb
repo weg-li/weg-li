@@ -65,12 +65,12 @@ class NoticesController < ApplicationController
   end
 
   def stats
-    @weeks = 8
-    @notice_counts = Notice.count_over(current_user.notices.shared, weeks: @weeks)
-    @notice_sums = Notice.sum_over(current_user.notices.shared, weeks: @weeks)
-    @photo_counts = Notice.count_over(ActiveStorage::Attachment.where(record_type: 'Notice', record_id: current_user.notices.shared.pluck(:id), name: 'photos'), weeks: @weeks)
-    @photo_sums = Notice.sum_over(ActiveStorage::Attachment.where(record_type: 'Notice', record_id: current_user.notices.shared.pluck(:id), name: 'photos'), weeks: @weeks)
-    @notices = current_user.notices.shared.since(@weeks.weeks.ago)
+    @since = (params[:since] || '8').to_i
+    @notice_counts = Notice.count_over(current_user.notices.shared, weeks: @since)
+    @notice_sums = Notice.sum_over(current_user.notices.shared, weeks: @since)
+    @photo_counts = Notice.count_over(ActiveStorage::Attachment.where(record_type: 'Notice', record_id: current_user.notices.shared.pluck(:id), name: 'photos'), weeks: @since)
+    @photo_sums = Notice.sum_over(ActiveStorage::Attachment.where(record_type: 'Notice', record_id: current_user.notices.shared.pluck(:id), name: 'photos'), weeks: @since)
+    @notices = current_user.notices.shared.since(@since.weeks.ago)
   end
 
   def show

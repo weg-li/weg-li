@@ -2,7 +2,7 @@
 - set_crumbs t('navigation.notices') => notices_path, 'Statistik' => url_for
 
 .page-header
-  p Du hast in den letzten #{@weeks} Wochen #{@notice_sums.values.sum} Falschparker gemeldet.
+  p Du hast in den letzten #{@since} Wochen #{@notice_sums.values.sum} Falschparker gemeldet.
 
 .row
   .col-lg-6
