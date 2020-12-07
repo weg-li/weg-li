@@ -28,6 +28,7 @@ de:
         export_types:
           notices: Meldungen
           photos: Fotos
+          profiles: Meldungs-Profil
       district:
         zip: 'PLZ'
         name: 'Name'
