@@ -42,7 +42,7 @@ class UsersController < ApplicationController
   end
 
   def studi
-    @exports = Export.photos.merge(Export.profiles)
+    @exports = Export.for_studis
   end
 
   def destroy

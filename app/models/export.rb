@@ -6,6 +6,7 @@ class Export < ApplicationRecord
   has_one_attached :archive
 
   scope :for_public, -> () { notices }
+  scope :for_studis, -> () { not_notices }
 
   def header
     case export_type.to_sym
