@@ -158,7 +158,7 @@
           strong> Jahresziel:
           span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen (#{number_with_delimiter(current / Date.today.yday)} vs. #{number_with_delimiter(goal / Date.today.end_of_year.yday)} pro Tag)
         .progress.progress-striped.active
-          .progress-bar.progress-bar-info(style="width: #{[100, current / (goal / 100)].min}%")
+          .progress-bar.progress-bar-success(style="width: #{[100, current / (goal / 100)].min}%")
 
       li.list-group-item
         p

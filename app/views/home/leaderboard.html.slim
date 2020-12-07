@@ -15,8 +15,8 @@
           .badge.pull-right #{number_with_delimiter(current)} Anzeigen
           p
             strong=> "#{index+1}. #{user.public_nickname}"
-          .progress
-            .progress-bar.progress-bar-danger(style="width: #{[100, current / (goal.fdiv(100))].min}%")
+          .progress.progress-striped.active
+            .progress-bar.progress-bar-success(style="width: #{[100, current / (goal.fdiv(100))].min}%")
   .col-lg-6
     h3 🥇 Monats-Lead:
     ul.list-group
@@ -26,8 +26,8 @@
           .badge.pull-right #{number_with_delimiter(current)} Anzeigen
           p
             strong=> "#{index+1}. #{user.public_nickname}"
-          .progress
-            .progress-bar.progress-bar-warning(style="width: #{[100, current / (goal.fdiv(100))].min}%")
+          .progress.progress-striped.active
+            .progress-bar.progress-bar-success(style="width: #{[100, current / (goal.fdiv(100))].min}%")
 
 .row
   .col-lg-6
@@ -39,8 +39,8 @@
           .badge.pull-right #{number_with_delimiter(current)} Anzeigen
           p
             strong=> "#{index+1}. #{user.public_nickname}"
-          .progress
-            .progress-bar.progress-bar-info(style="width: #{[100, current / (goal.fdiv(100))].min}%")
+          .progress.progress-striped.active
+            .progress-bar.progress-bar-success(style="width: #{[100, current / (goal.fdiv(100))].min}%")
   .col-lg-6
     h3 🥇 All-Time-Lead:
     ul.list-group
@@ -50,7 +50,7 @@
           .badge.pull-right #{number_with_delimiter(current)} Anzeigen
           p
             strong=> "#{index+1}. #{user.public_nickname}"
-          .progress
+          .progress.progress-striped.active
             .progress-bar.progress-bar-success(style="width: #{[100, current / (goal.fdiv(100))].min}%")
 
 .row
@@ -63,5 +63,5 @@
           .badge.pull-right #{number_with_delimiter(current)} Anzeigen
           p
             strong=> "#{index+1}. #{user.public_nickname}"
-          .progress
+          .progress.progress-striped.active
             .progress-bar.progress-bar-success(style="width: #{[100, current / (goal.fdiv(100))].min}%")
