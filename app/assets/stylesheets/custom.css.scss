@@ -314,11 +314,10 @@ ul.droppable-list {
 }
 
 .label-license {
-  border: 1px solid $dark-color;
   color: $dark-color;
   background: #EEE;
   padding-left: 10px;
-  background: linear-gradient(90deg, rgba(50,50,255,0.9) 0%, rgba(50,50,255,0.9) 8%, $white 9%, $white 100%);
+  background: linear-gradient(90deg, rgb(50,50,255) 0%, rgb(50,50,255) 10%, $white 10%, $white 100%);
 }
 
 .control-label-required::after {
