@@ -2,7 +2,7 @@
 - required ||= false
 
 - if description
-  .well.well-sm.callout-info
+  .well.well-sm.callout-primary
     small= description
 
 .well
@@ -11,6 +11,6 @@
   = hint do
     | Es werden nur Fotos im JPEG-Format unterstützt. Dateien können auch per Drag&Drop ausgewählt werden.
 
-.well.well-sm.callout-info
+.well.well-sm.callout-primary
   small
     = render('components/geocoding_hint')

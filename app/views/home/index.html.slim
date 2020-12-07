@@ -3,12 +3,12 @@
 .row
   .col-lg-5
     .page-header
-      h1= link_to 'weg-li 🚲💨', root_url, class: 'text-warning', title: t('title')
+      h1= link_to 'weg-li 🚲💨', root_url, title: t('title')
     .spacer-large
     p.lead
       = link_to root_url, title: t('slogan') do
         span.caps>= t('slogan_1')
-        em.text-warning= t('slogan_2')
+        em= t('slogan_2')
   .col-lg-7
     .well
       - if signed_in?

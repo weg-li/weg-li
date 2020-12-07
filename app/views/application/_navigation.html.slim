@@ -1,7 +1,8 @@
 .navbar.navbar-default.navbar-fixed-top.data-turbolinks-permanent
   .container
-    .navbar-header
-      = link_to '📸 📝 ✊ weg-li', root_path, class: "navbar-brand", title: t('slogan')
+    .navbar-header.navbar-logo
+      = link_to root_path, class: "navbar-brand", title: t('slogan')
+        = image_tag asset_url('logo.png'), alt: 'logo', title: 'www.weg-li.de 📸 📝 ✊', class: 'gravatar'
       button.navbar-toggle  type="button" data-toggle="collapse" data-target="#navbar-main"
         span.icon-bar
         span.icon-bar
