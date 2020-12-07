@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe Scheduled::ExportJob do
   let(:notice_export) { File.binread(file_fixture('notice_export.zip')) }
-  let(:photo_export) { File.binread(file_fixture('photo_export.zip')) }
 
   context "perform" do
     it "should create a notice export" do
@@ -19,6 +18,26 @@ describe Scheduled::ExportJob do
         expect(notice_export.size).to eql(result.size)
       end
     end
+
+    let(:profile_export) { File.binread(file_fixture('profile_export.zip')) }
+
+    it "should create a profile export" do
+      travel_to('20.01.2020 15:00:00 UTC'.to_time.utc) do
+        district = Fabricate.create(:district, zip: '22525')
+        user = Fabricate.create(:user, token: '123')
+        Fabricate.create(:notice, status: :shared, charge: 'Scheiße geparkt', street: 'Nazis boxen 42', city: 'Hamburg', zip: '22525', district: district, user: user)
+
+        expect {
+          Scheduled::ExportJob.perform_now(export_type: :profiles)
+        }.to change { Export.count }.by(1)
+
+        result = Export.last.archive.download
+        file_fixture('profile_export.zip').binwrite(result)
+        expect(profile_export.size).to eql(result.size)
+      end
+    end
+
+    let(:photo_export) { File.binread(file_fixture('photo_export.zip')) }
 
     it "should create a photo export" do
       travel_to('20.01.2020 15:00:00 UTC'.to_time.utc) do

@@ -12,14 +12,22 @@ describe Export do
   context "header" do
     it "is present" do
       expect(export.header).to eql([:date, :charge, :street, :city, :zip, :latitude, :longitude])
+
+      Export.export_types.keys.each do |export_type|
+        export = Fabricate.build(:export, export_type: export_type)
+        expect(export.header).to be_present
+      end
     end
   end
 
   context "data" do
     it "should have data" do
       notice = Fabricate.create(:notice, status: :shared)
-      export.data do |data|
-        expect(data).to_not be_nil
+      Export.export_types.keys.each do |export_type|
+        export = Fabricate.build(:export, export_type: export_type)
+        export.data do |data|
+          expect(data).to_not be_nil
+        end
       end
     end
   end
