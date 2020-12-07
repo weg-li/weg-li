@@ -1,0 +1,18 @@
+javascript:
+  function DropdownContext() {
+    return {
+      index: 0,
+    };
+  }
+
+.input-group(l-use="DropdownContext()")
+  = form.text_field :brand, placeholder: 'z.B. Mercedes-Benz', class: "form-control"
+
+  a.input-group-addon.input-group-addon(href="#" data-toggle="dropdown" data-target="#")
+    | <span class="caret"></span>
+  ul.dropdown-menu.dropdown-menu-right
+    li.dropdown-header Dropdown header
+    li.divider
+    - Vehicle.brands.each do |brand|
+      li
+        a= brand
