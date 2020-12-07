@@ -4,17 +4,18 @@
 
 javascript:
   var labels = #{ counts.keys.map { |date| date.to_date.strftime('%d/%m') }.to_json.html_safe };
+
   new frappe.Chart("##{name} .chart-count", {
     data: {
       labels: labels,
       datasets: [
         {
-          name: "Summe", chartType: "line",
+          name: "Summe",
           values: #{ counts.values.to_json.html_safe },
         },
       ],
     },
-    type: 'axis-mixed',
+    type: 'line',
     colors: ['#0C478B'],
   });
 
@@ -23,11 +24,11 @@ javascript:
       labels: labels,
       datasets: [
         {
-          name: "Delta", chartType: "bar",
+          name: "Delta",
           values: #{ sums.values.to_json.html_safe },
         },
       ],
     },
-    type: 'axis-mixed',
+    type: 'bar',
     colors: ['#0C478B'],
   });
