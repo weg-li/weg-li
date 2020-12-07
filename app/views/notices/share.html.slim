@@ -3,7 +3,7 @@
 
 = render 'three_step', step: :third
 
-.well.well-sm.callout-info
+.well.well-sm.callout-primary
   small Kontrolliere die erfassten Informationen und Beweisfotos in der Vorschau. Danach kann die Anzeige direkt per E-Mail beim Ordnungsamt erstattet werden.
 
 .row
@@ -52,7 +52,7 @@ hr.spacer
               | Die E-Mail-Adresse der zuständigen Stelle wurde anhand der Postleitzahl ermittelt. #{link_to 'Adresse stimmt nicht', edit_district_path(@notice.district)}?
 
           - if @notice.district.winowig?
-            .well.well-sm.callout-info
+            .well.well-sm.callout-primary
               small
                 |
                   Mit der Stadt Dresden entwickeln wir derzeit eine XML basierte Schnittstelle zur

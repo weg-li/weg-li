@@ -1,15 +1,21 @@
 $default-color: #3a3f44;
 $primary-color: #7a8288;
-$success-color: #62c462;
+// $success-color: #62c462;
+$success-color: #0C478B;
 $warning-color: #f89406;
 $info-color: #5bc0de;
 $danger-color: #ee5f5b;
+$logo-color: #0C478B;
 $dark-color: darken($default-color, 10);
 
 $white: rgb(255, 255, 255);
 
 select {
   font-size: 50px;
+}
+
+.text-logo {
+  color: $logo-color;
 }
 
 .glyphicon-placeholder-picture {
@@ -367,7 +373,15 @@ pre.charge {
 }
 
 .navbar-logo {
-  padding: 6px;
+  a {
+    padding: 8px;
+  }
+  img {
+    height: 34px;
+    width: 34px;
+    border: 1px solid white;
+    border-radius: 999999px;
+  }
 }
 
 .navbar-user {
@@ -431,6 +445,9 @@ pre.charge {
 .callout-info {
   border-left: 5px solid $info-color;
 }
+.callout-primary {
+  border-left: 5px solid $primary-color;
+}
 .callout-success {
   border-left: 5px solid $success-color;
 }
@@ -464,8 +481,9 @@ pre.charge {
 }
 
 .success-step {
-  background-color: #32383e;
-  border: 2px solid $success-color;
+  background-color: $white;
+  border: 1px solid $white;
+  color: $success-color;
 }
 .success-step1 {
   background-color: $success-color;
@@ -476,8 +494,10 @@ pre.charge {
 .success-step3 {
   background-color: darken($success-color, 30%);
 }
-.success-step-muted {
-  background-color: #32383e;
+.success-step-active {
+  background-color: $success-color;
+  border: 1px solid $white;
+  color: $white;
 }
 .success-step-button {
   background-color: white;

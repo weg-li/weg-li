@@ -1,10 +1,10 @@
 - note ||= 'Analyse läuft'
-.well.well-sm.callout-info
+.well.well-sm.callout-primary
   small= info
 
 .well
   .progress.progress-striped.active
-    #total-progress.progress-bar.progress-bar-info(style="width: 10%")
+    #total-progress.progress-bar.progress-bar-success(style="width: 10%")
 
   = link_to url_for, class: 'btn btn-default btn-block' do
     span.glyphicon.glyphicon-hourglass.smaller>

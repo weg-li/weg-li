@@ -1,4 +1,4 @@
-.well.well-sm.callout-info
+.well.well-sm.callout-primary
   small= t('notices.steps.infos.description')
 
 .row
@@ -37,7 +37,7 @@
                   span aria-hidden="true" &times;
                 h4.modal-title Adresse auswählen
               .modal-body
-                .well.well-sm.callout-info
+                .well.well-sm.callout-primary
                   small Den Marker per Doppel-Click und Drag&Drop positionieren, oder den Button für den aktuellen Standort verwenden, die Adresse wird dann aktualisiert.
                 = render('picker_map', notice: notice, street: '#notice_street', zip: '#notice_zip', city: '#notice_city', latitude: '#notice_latitude', longitude: '#notice_longitude', trigger: '#geolocation')
               .modal-footer
