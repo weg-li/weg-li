@@ -11,7 +11,7 @@
   .col-lg-4
     .form-group
       = form.label :brand, class: "control-label"
-      = form.select :brand, Vehicle.brands, { include_blank: 'Marke Auswählen' }, { class: "form-control" }
+      = render('dropdown_select', form: form)
 
   .col-lg-4
     .form-group

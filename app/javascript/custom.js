@@ -15,15 +15,6 @@ $(document).on('turbolinks:load', function() {
   Lucia.init();
 });
 
-$(document).on('turbolinks:load', function() {
-  $('select[data-select2-disabled!="true"]').select2({ theme: 'bootstrap' });
-});
-
-$(document).on("turbolinks:before-cache", function () {
-  // destroy select2 before caching
-  $('.select2-hidden-accessible').select2('destroy');
-});
-
 $(document).on("submit", function () {
   // https://github.com/weg-li/weg-li/issues/219
   // https://github.com/turbolinks/turbolinks/issues/238
