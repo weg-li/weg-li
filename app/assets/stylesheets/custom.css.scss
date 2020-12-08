@@ -18,6 +18,13 @@ select {
   color: $logo-color;
 }
 
+.imprint-logo {
+  margin: 25px;
+  border: 2px solid $white;
+  width: 100px;
+  height: 100px;
+}
+
 .glyphicon-placeholder-picture {
   font-size: 4em;
   animation: turner 4s infinite linear;
