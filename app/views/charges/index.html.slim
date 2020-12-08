@@ -1,3 +1,6 @@
+- set_title t('navigation.charges')
+- set_meta_description t('meta_description.charges')
+
 .well
   |
     Bei weg-li sind #{number_with_delimiter(Charge.active.count)} Tatbestände für Parkvergehen aus dem aktuellen #{link_to 'Bußgeldkatalog (bkat_owi Stand 18.05.2020)', '/pdf/bkat_owi_18_05_2020_pdf.pdf', target: '_blank'} hinterlegt.

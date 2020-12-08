@@ -1,3 +1,6 @@
+- set_title t('navigation.charges')
+- set_meta_description t('meta_description.charge', tbnr: @charge.tbnr, description: @charge.description, bkat: @charge.bkat)
+
 .well
   strong #{@charge.description} (#{Charge.human_attribute_name(:tbnr)} #{@charge.tbnr})
 

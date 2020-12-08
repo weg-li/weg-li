@@ -1,3 +1,7 @@
+- set_title t('navigation.districts')
+- set_meta_description t('meta_description.district', name: @district.name, zip: @district.zip, state: @district.state)
+
+
 h3= "#{@district.zip} #{@district.name}"
 
 .row

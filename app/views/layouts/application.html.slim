@@ -1,21 +1,21 @@
 doctype html
 html lang=I18n.locale
   head
-    = render('meta')
     title= title
     = stylesheet_link_tag('application', media: 'all')
     = javascript_include_tag('//maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDgripqRG5jsSbbMUPEBzZ9tpPNxPUHHOY&language=de&region=DE')
     = javascript_pack_tag('application', 'data-turbolinks-track': 'reload')
     = csrf_meta_tags
-    = render 'twitter_card'
-    = tag :link, rel: 'shortcut icon', href: image_path('favicon.ico')
-    = tag :link, rel: 'apple-touch-icon-precomposed', href: image_path('favicon.ico')
-    = render 'i18njs'
+    = tag(:link, rel: 'shortcut icon', href: image_path('favicon.ico'))
+    = tag(:link, rel: 'apple-touch-icon-precomposed', href: image_path('favicon.ico'))
+    = render('meta')
+    = render('og_card')
+    = render('twitter_card')
+    = render('i18njs')
   body
-    = render 'navigation'
+    = render('navigation')
     .container
-      = render 'header'
-      / = render 'application/flash/alert', message: 'Das monatliche E-Mail Kontingent ist voll und derzeit können keine E-Mails verschickt werden! Die E-Mails gehen nicht verloren, der Stau wird spätestens am 1. Juni mit einem frischen Kontingent wieder abgebaut. Login per E-Mail und Registrieren ist gerade nicht möglich!'
-      = render 'flash'
+      = render('header')
+      = render('flash')
       = yield
-      = render 'footer'
+      = render('footer')

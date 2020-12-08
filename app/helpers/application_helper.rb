@@ -20,12 +20,12 @@ module ApplicationHelper
     end
   end
 
-  def set_title(*title)
-    content_for(:title, title.join(' · '))
-  end
-
   def set_crumbs(crumbs = {})
     @crumbs = crumbs
+  end
+
+  def set_title(*title)
+    content_for(:title, title.join(' · '))
   end
 
   def title(default = I18n.t('title'))
@@ -33,6 +33,15 @@ module ApplicationHelper
     parts << content_for(:title) if content_for?(:title)
     parts << default
     parts.join(' · ')
+  end
+
+  def set_meta_description(description)
+    content_for(:meta_description, description)
+  end
+
+  def meta_description(default = I18n.t('meta_description.default'))
+    @meta_description ||= content_for(:meta_description)
+    @meta_description ||= default
   end
 
   def callout(&block)
