@@ -3,6 +3,10 @@ Sehr geehrte Damen und Herren,
 
 <% if @send_via_pdf %>
 hiermit zeige ich, mit der Bitte um Weiterverfolgung, die im Anhang befindliche Verkehrsordnungswidrigkeit an.
+<% if @password %>
+
+Das Passwort für das verschlüsselte PDF lautet: <%= @password %>
+<% end %>
 <% else %>
 hiermit zeige ich, mit der Bitte um Weiterverfolgung, folgende Verkehrsordnungswidrigkeit an:
 

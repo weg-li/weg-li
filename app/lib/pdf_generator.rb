@@ -2,10 +2,15 @@ require 'prawn'
 require 'prawn/qrcode'
 
 class PDFGenerator
-  attr_accessor :include_photos, :quality
+  attr_accessor :include_photos, :quality, :password
 
-  def initialize(quality: :default, include_photos: true)
+  def self.generate_password
+    SecureRandom.alphanumeric(6)
+  end
+
+  def initialize(quality: :default, include_photos: true, password: nil)
     @include_photos = include_photos
+    @password = password
     @quality = quality
   end
 
@@ -51,6 +56,7 @@ class PDFGenerator
       document.number_pages "Seite <page> von <total>", at: [document.bounds.width - 50, -15]
     end
 
+    pdf.encrypt_document(user_password: @password) if @password.present?
     pdf.render
   end
 

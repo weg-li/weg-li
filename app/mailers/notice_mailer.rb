@@ -18,6 +18,12 @@ class NoticeMailer < ApplicationMailer
       attachments[notice.file_name(:xml)] = data
 
       attach_photos(notice.photos)
+    elsif @district.encrypt?
+      @password = PDFGenerator.generate_password
+      generator = PDFGenerator.new(password: @password)
+      data = generator.generate(@notice)
+      @send_via_pdf = true
+      attachments[notice.file_name] = data
     elsif send_via_pdf
       data = PDFGenerator.new.generate(@notice)
       attachments[notice.file_name] = data
