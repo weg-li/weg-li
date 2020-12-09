@@ -62,4 +62,12 @@ class HomeController < ApplicationController
     @year2019_leaders = Notice.where(date: ('01.08.2019'.to_date)..('01.08.2019'.to_date.end_of_year)).shared.group(:user_id).order(count_all: :desc).limit(@limit).count
     @year2019_leaders.transform_keys! { |user_id| User.find(user_id) }
   end
+
+  def generator
+    if params[:name].present?
+      data = ParkGenerator.new.generate(params[:name])
+
+      send_data data, filename: "Stadtreinigung #{params[:name]}.pdf"
+    end
+  end
 end
