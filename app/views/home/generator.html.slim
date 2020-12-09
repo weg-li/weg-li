@@ -1,0 +1,16 @@
+.page-header
+  h2.text-primary weg-li Generatoren
+
+.well
+  |
+    Bitte auf GAR KEINEN FALL bei Falschparkern hinter den Scheibenwischer klemmen!
+
+.row
+  .col-lg-6
+    .well.text-center
+      = image_tag(asset_url('stadtreinigung.png'), class: 'img-circle imprint-logo')
+      strong Freie Fahrt für die Stadtreinigung!
+
+      = form_tag(generator_url, method: :get, class: "form-inline")
+        = text_field_tag(:name, params[:name], placeholder: 'z.B. Stadtreinigung Hamburg', class: 'form-control')
+        = button_tag("PDF generieren und herunterladen", class: 'btn btn-default')
