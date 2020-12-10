@@ -11,6 +11,19 @@
       = image_tag(asset_url('stadtreinigung.png'), class: 'img-circle imprint-logo')
       strong Freie Fahrt für die Stadtreinigung!
 
-      = form_tag(generator_url, method: :get, class: "form-inline")
-        = text_field_tag(:name, params[:name], placeholder: 'z.B. Stadtreinigung Hamburg', class: 'form-control')
-        = button_tag("PDF generieren und herunterladen", class: 'btn btn-default')
+      = form_tag(generator_url, method: :get)
+        .input-group
+          = text_field_tag(:stadtreinigung_name, params[:stadtreinigung_name], placeholder: 'z.B. Stadtreinigung Hamburg', class: 'form-control', required: true)
+          span.input-group-btn
+            = submit_tag("PDF erzeugen", name: :stadtreinigung, class: 'btn btn-default')
+
+  .col-lg-6
+    .well.text-center
+      = image_tag(asset_url('parkraummanagement.png'), class: 'img-circle imprint-logo')
+      strong Knöllchen vom Parkraum-Management
+
+      = form_tag(generator_url, method: :get)
+        .input-group
+          = text_field_tag(:parkraummanagement_name, params[:parkraummanagement_name], placeholder: 'z.B. "Landesbetrieb Verkehr Hamburg', class: 'form-control', required: true)
+          span.input-group-btn
+            = submit_tag("PDF erzeugen", name: :parkraummanagement, class: 'btn btn-default')
