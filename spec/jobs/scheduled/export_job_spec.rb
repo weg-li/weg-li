@@ -24,7 +24,7 @@ describe Scheduled::ExportJob do
     it "should create a profile export" do
       travel_to('20.01.2020 15:00:00 UTC'.to_time.utc) do
         district = Fabricate.create(:district, zip: '22525')
-        user = Fabricate.create(:user, token: '123')
+        user = Fabricate.create(:user, id: -99)
         Fabricate.create(:notice, status: :shared, charge: 'Scheiße geparkt', street: 'Nazis boxen 42', city: 'Hamburg', zip: '22525', district: district, user: user)
 
         expect {
