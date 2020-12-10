@@ -1,0 +1,264 @@
+openapi: 3.0.0
+
+info:
+  title: weg-li Recommender API
+  version: 0.1.0
+
+servers:
+  - url: https://api.weg-li.de/v1
+
+tags:
+  - name: user
+    description: Add, remove or update user data.
+  - name: analyze
+    description: Analyze incident data in order to provide recommendations for important report data.
+  - name: report
+    description: Submit a new report.
+
+paths:
+  /user:
+    post:
+      tags:
+      - user
+      description: Create a new user for the analysis platform.
+      responses:
+        200:
+          description: "The operation was successful."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user_id:
+                    $ref: "#/components/schemas/UserID"
+                  access_token:
+                    type: string
+                    description: The corresponding access token for the newly created user account.
+  /user/{user_id}:
+    delete:
+      tags:
+      - user
+      description: Deletes the information that is associated to the provided anonymous user id on the analysis platform.
+      security:
+        - accessTokenAuth: []
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          $ref: "#/components/schemas/UserID"
+      responses:
+        200:
+          description: "The operation was successful."
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+        409:
+          description: "An endpoint error occurred."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    
+  /analyze/data:
+    post:
+      tags:
+      - analyze
+      security:
+        - accessTokenAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - time
+              - location
+              properties:
+                user_id:
+                  $ref: "#/components/schemas/UserID"
+                time:
+                  type: integer
+                  format: int64
+                  description: The unix time of the violation in milliseconds.
+                  example: 1605481357079
+                location:
+                  description: The location of the violation.
+                  allOf:
+                  - $ref: "#/components/schemas/Location"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  violation:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Violation"
+                    minItems: 1
+                    maxItems: 5
+                    example:
+                      - no_stopping
+                      - no_parking
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+  /analyze/image/upload:
+    get:
+      tags:
+        - analyze
+      parameters:
+        - name: quantity
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            maximum: 5
+      responses:
+        200:
+          description: "The operation was successful."
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - token
+                  - google_cloud_urls
+                properties:
+                  token:
+                    type: string
+                    description: "A unique image token"
+                  google_cloud_urls:
+                    type: array
+                    items:
+                      type: string
+                    description: "The Google Cloud Storage urls to which the image(s) should be uploaded."
+  /analyze/image/{image_token}:
+    get:
+      tags:
+        - analyze
+      parameters:
+        - name: image_token
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: "The operation was successful."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  license_plate:
+                    type: string
+                    description: The license plate of the car in the picture of the violation. This field is not present if no license plate could be detected.
+                    example: B-WL 1234
+                  car:
+                    allOf:
+                      - $ref: "#/components/schemas/Car"
+                    description: Information on the car in the provided picture of the violation.
+        404:
+          description: "No image(s) could be found for the provided token."
+        409:
+          description: "An endpoint error occurred."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /report:
+    post:
+      tags:
+        - report
+      security:
+        - accessTokenAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - report
+              properties:
+                user_id:
+                  $ref: "#/components/schemas/UserID"
+                report:
+                  $ref: "#/components/schemas/Report"
+      responses:
+        200:
+          description: "The operation was successful."
+components:
+  responses:
+    UnauthorizedError:
+      description: The access token is missing or invalid.
+  securitySchemes:
+    accessTokenAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    UserID:
+      type: string
+      example: 550e8400-e29b-11d4-a716-446655440000
+    Location:
+      type: object
+      required:
+        - latitude
+        - longitude
+      properties:
+        latitude:
+          type: number
+          format: double
+          description: The latitude value of the location's coordinates.
+          example: 52.550081
+        longitude:
+          type: number
+          format: double
+          description: The longitude value of the location's coordinates.
+          example: 13.370763
+    Car:
+      type: object
+      properties:
+        make:
+          type: string
+          description: The car make.
+          example: Mercedes-Benz
+        model:
+          type: string
+          description: The car model.
+          example: A-Class
+        color:
+          type: string
+          description: The color of the car.
+          example: blue
+    Report:
+      type: object
+      properties:
+        violation_type:
+          type: number
+          format: int32
+          example: 1
+        time:
+          type: number
+          format: int64
+          example: 1606756404
+          description: The date and time of the violation as Unix timestamp (in seconds since epoch).
+        location:
+          $ref: "#/components/schemas/Location"
+        image_token:
+          type: string
+    Error:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+        description:
+          type: string

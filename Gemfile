@@ -43,6 +43,7 @@ gem 'rswag-ui'
 gem 'email_verifier'
 gem 'webpacker'
 gem 'utf8-cleaner'
+gem 'openapi_client', path: 'client'
 
 group :production do
   gem 'rack-cache'
