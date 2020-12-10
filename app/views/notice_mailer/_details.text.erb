@@ -8,7 +8,7 @@ Falldaten:
 <% if notice.color? %>
 <%= Notice.human_attribute_name(:color) %>: <%= t(notice.color, scope: "activerecord.attributes.notice.colors") %>
 <% end %>
-<%= Notice.human_attribute_name(:address) %>: <%= notice.full_address %>
+<%= Notice.human_attribute_name(:location) %>: <%= notice.full_location %>
 <%= Notice.human_attribute_name(:charge) %>: <%= notice.display_charge %>
 <%= Notice.human_attribute_name(:date) %>: <%= l(notice.date, format: :short) %>
 <%= Notice.human_attribute_name(:duration) %>: <%= l(notice.date, format: :time) %> ~ <%= l(notice.date + notice.duration.minutes, format: :time) %> (<%= Vehicle.durations.to_h.invert[notice.duration] %>)

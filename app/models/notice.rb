@@ -198,6 +198,11 @@ class Notice < ActiveRecord::Base
     "#{street}, #{zip} #{city}"
   end
 
+  def full_location
+    loc = location.present? ? "#{location}, " : ""
+    "#{loc}#{street}, #{zip} #{city}"
+  end
+
   def geocode_address
     # https://github.com/OpenCageData/opencagedata-misc-docs/blob/master/query-formatting.md
     "#{street.split(',').first}, #{zip}, #{city}, Deutschland"

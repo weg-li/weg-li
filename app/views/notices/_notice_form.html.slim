@@ -7,20 +7,18 @@
       = form.label :registration, class: "control-label control-label-required"
       = form.select :registration, [notice.registration].compact, { include_blank: 'z.B. HH SV 1887' }, { class: "form-control", required: true, data: {'select2-disabled' => true} }
       = render('auto_suggest', notice: notice)
-
   .col-lg-4
     .form-group
       = form.label :brand, class: "control-label"
       = form.select :brand, Vehicle.brands, { include_blank: 'Marke Auswählen' }, { class: "form-control" }
-
   .col-lg-4
     .form-group
       = form.label :color, class: "control-label"
       = form.select :color, Vehicle.colors.map { |color| [t(color, scope: "activerecord.attributes.notice.colors"), color] }, { include_blank: 'Farbe Auswählen' }, { class: "form-control" }
 
-= form.hidden_field :latitude
-= form.hidden_field :longitude
 .row
+  = form.hidden_field(:latitude)
+  = form.hidden_field(:longitude)
   .col-lg-4
     .form-group
       = form.label :address, class: "control-label control-label-required"
@@ -58,6 +56,14 @@
     .form-group
       = form.label :zip, class: "control-label control-label-required"
       = form.text_field :zip, placeholder: 'z.B. 22525', class: "form-control", required: true, maxlength: 5, pattern: '\d{5}'
+
+.row
+  .col-lg-12
+    .form-group
+      = form.label :location, class: "control-label"
+      = form.text_field :location, placeholder: 'z.B. Ecke Dorfstraße / Gegenüber vom Bäcker', class: "form-control"
+      = hint do
+        | Bei Verstößen z.B. im Kreuzungsbereich, oder falls eine Hausnummer fehlt, wird dieser Hinweis der Adresse hinzugefügt.
 
 .row
   .col-lg-8
