@@ -32,7 +32,7 @@ describe Scheduled::ExportJob do
         }.to change { Export.count }.by(1)
 
         result = Export.last.archive.download
-        file_fixture('profile_export.zip').binwrite(result)
+        # file_fixture('profile_export.zip').binwrite(result)
         expect(profile_export.size).to eql(result.size)
       end
     end
