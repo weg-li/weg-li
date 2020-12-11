@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_03_100425) do
+ActiveRecord::Schema.define(version: 2020_12_04_134343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -183,6 +183,7 @@ ActiveRecord::Schema.define(version: 2020_12_03_100425) do
     t.string "city"
     t.integer "duration", default: 0
     t.integer "severity", default: 0
+    t.string "location"
     t.index ["district_id"], name: "index_notices_on_district_id"
     t.index ["registration"], name: "index_notices_on_registration"
     t.index ["token"], name: "index_notices_on_token", unique: true

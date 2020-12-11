@@ -14,8 +14,8 @@ dl.dl-horizontal
   dd= I18n.t(notice.color.presence, scope: "activerecord.attributes.notice.colors", default: '-')
   dt= Notice.human_attribute_name(:district)
   dd= notice.district.present? ? "#{notice.district.zip} #{notice.district.name}" : '-'
-  dt= Notice.human_attribute_name(:address)
-  dd= notice.full_address.presence || '-'
+  dt= Notice.human_attribute_name(:location)
+  dd= notice.full_location
   dt= Notice.human_attribute_name(:charge)
   dd= notice.charge.presence || '-'
   dt= Notice.human_attribute_name(:severity)
