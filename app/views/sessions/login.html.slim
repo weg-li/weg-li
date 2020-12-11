@@ -1,11 +1,15 @@
 .page-header
   .page-title
-    h2= t('sessions.sign_in_provider')
+    h2 Jetzt einloggen
 
 .row
   .col-lg-6
-    .btn-group.btn-group-justified
+    button.btn.btn-success.btn-block.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+      == t('home.register_with_oauth')
+
+    ul.dropdown-menu
+      li.dropdown-header= t('home.select_oauth_provider')
       - login_links do |name, path, key|
-        = link_to(name, path, method: :post, data: { turbolinks: false }, class: "btn btn-success")
+        li= link_to(name, path, method: :post, data: { turbolinks: false })
   .col-lg-6
     = render 'callout', section: 'sessions', key: 'provider'
