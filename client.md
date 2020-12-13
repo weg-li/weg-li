@@ -103,3 +103,49 @@ Errors:
 [main] INFO  o.o.codegen.AbstractGenerator - writing file /Users/peterschroder/Documents/rails/weg-li/client/.openapi-generator-ignore
 [main] INFO  o.o.codegen.AbstractGenerator - writing file /Users/peterschroder/Documents/rails/weg-li/client/.openapi-generator/VERSION
 ```
+
+## Usage
+
+
+# Setup authorization
+
+require 'openapi_client'
+
+OpenapiClient.configure do |config|
+  # config url
+  config.host = 'https://europe-west3-wegli-296209.cloudfunctions.net/'
+  config.base_path = 'api'
+	config.debugging = true
+end
+
+user_api_instance = OpenapiClient::UserApi.new
+p user_response = user_api_instance.user_post
+p user_response.user_id
+p user_response.access_token
+
+
+analyze_api_instance = OpenapiClient::AnalyzeApi.new
+p analyze_response =  analyze_api_instance.analyze_image_upload_get(quantity: 1)
+
+url = analyze_response.google_cloud_urls.first
+
+p cmd = "/usr/local/opt/curl/bin/curl -v -X PUT -H 'Content-Type: image/jpeg' --upload-file 'spec/fixtures/files/truck.jpg' '#{url}'"
+
+curl -X PUT -H 'Content-Type: application/octet-stream' --upload-file my-file 'url'
+
+`#{cmd}`
+
+analyze_image_token_response =  analyze_api_instance.analyze_image_image_token_get(analyze_response.token)
+
+
+API Base URL: https://europe-west3-wegli-296209.cloudfunctions.net/api --> e.g. GET https://europe-west3-wegli-296209.cloudfunctions.net/api/user creates a new user
+:weißes_häkchen:
+1
+
+host base_path
+
+
+https://swagger.io/resources/articles/best-practices-in-api-design/
+
+
+/usr/local/opt/curl/bin/curl -v -X PUT -H 'Content-Type: image/jpeg' --upload-file 'spec/fixtures/files/truck.jpg' 'https://storage.googleapis.com/weg-li_images/c7961833-5c07-45ef-b386-1d28b7a68a0a/0.jpg?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=wegli-296209%40appspot.gserviceaccount.com%2F20201211%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20201211T095457Z&X-Goog-Expires=900&X-Goog-SignedHeaders=content-type%3Bhost&X-Goog-Signature=9ac83d038e2470d350793c382571f5589985bf9483de52c570b69979af00e525b446c7ec59a2ee4916a08f8d0ad42b58ca7358ed4930823c9f02255e78e0f42c9a5d638b8acfbc9683507e4fe5e162b49d31d0d638da0f2e29c2f8e2634bc53093246dcf23b19158b69dea521d756b3afb08e74a4d6358599f1b48952e725a48b88726bf836e5907af60889c29a4c18e70d4c95364ddd74dee118204920eba43af2e99f39be49509727e28feaadb7580f5545eeb3dadabecc83c8a2298a44aac7ee3e8bec35f8dd24fb7311fe754340aedcbe588de57686f8dcf6acddc5bed498af9f5a7cdf2163ccd73fd275a7e000bbdfdeb1abe1423ca13f0f1c2b6ea2095'
