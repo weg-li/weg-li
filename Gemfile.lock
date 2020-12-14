@@ -80,6 +80,7 @@ GEM
     administrate-field-active_storage (0.3.6)
       administrate (>= 0.2.2)
       rails (>= 6.0)
+    alpr (0.1.2)
     appsignal (2.11.0)
       rack
     ast (2.4.1)
@@ -472,6 +473,7 @@ DEPENDENCIES
   acts_as_api
   administrate
   administrate-field-active_storage
+  alpr
   appsignal
   bitfields
   bootsnap
