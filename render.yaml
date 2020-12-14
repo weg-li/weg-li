@@ -1,3 +1,7 @@
+databases:
+- name: weg-li-postgres
+  databaseName: weg_li_postgres
+  plan: standard
 services:
 - type: pserv
   name: weg-li-redis
