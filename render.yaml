@@ -11,4 +11,6 @@ services:
   envVars:
   - fromGroup: weg-li-production
   domains:
-  - getrender.weg-li.de
+  - weg-li.de
+  - www.weg-li.de
+  - cdn.weg-li.de
