@@ -12,19 +12,25 @@ class Scheduled::GeocodingCleanupJob < ApplicationJob
     ) as res where res.distance > 50;
     "
 
+    # clean it up
     cursor = Notice.connection.execute(query)
     cursor.each do |row|
       id = row['id']
       distance = row['distance']
       Rails.logger.info "distance for #{id} is > #{distance}"
       notice = Notice.find(id)
-      Rails.logger.info "notice is #{notice.full_address} and district is #{notice.district.inspect}"
       notice.geocode
       notice.save(validate: false)
     end
 
+    # run again so we have the actual failures for the notification
     cursor = Notice.connection.execute(query)
-    notice_ids = cursor.pluck(:id)
-    SystemMailer.geocoding(notice_ids) unless notice_ids.blank?
+    cursor.each do |row|
+      id = row['id']
+      distance = row['distance']
+      notice = Notice.find(id)
+
+      notify("distance for #{id} is > #{distance} is #{notice.full_address} and district is #{notice.district.inspect}: https://www.weg-li.de/admin/notices/#{notice.token}")
+    end
   end
 end
