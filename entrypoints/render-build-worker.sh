@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-# exit on error
-set -o errexit
+#!/bin/sh
+set -euxo pipefail
 
 bundle install
