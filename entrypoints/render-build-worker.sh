@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# exit on error
-set -o errexit
+set -euxo pipefail
 
-sudo apt-get update && sudo apt-get install -y openalpr openalpr-daemon openalpr-utils libopenalpr-dev
+apt-get update && apt-get install -y openalpr openalpr-daemon openalpr-utils libopenalpr-dev
 bundle install
