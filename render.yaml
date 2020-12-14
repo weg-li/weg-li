@@ -5,9 +5,9 @@ databases:
 services:
 - type: pserv
   name: weg-li-redis
+  plan: starter
   env: docker
   repo: https://github.com/render-examples/redis.git
-  plan: starter
   region: frankfurt
   disk:
     name: data
@@ -15,8 +15,8 @@ services:
     sizeGB: 1
 - type: web
   name: weg-li-web
-  env: ruby
   plan: standard
+  env: ruby
   region: frankfurt
   buildCommand: "./bin/render-build.sh"
   startCommand: bundle exec puma -C config/puma.rb
@@ -28,3 +28,12 @@ services:
   - weg-li.de
   - www.weg-li.de
   - cdn.weg-li.de
+- type: worker
+  name: weg-li-worker
+  plan: standard
+  env: ruby
+  buildCommand: "./bin/render-build-worker.sh"
+  startCommand: bundle exec sidekiq
+  numInstances: 2
+  envVars:
+  - fromGroup: weg-li-production
