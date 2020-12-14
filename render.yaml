@@ -2,9 +2,13 @@ services:
 - type: web
   name: weg-li-web
   env: ruby
-  plan: starter
+  plan: standard
   region: frankfurt
   buildCommand: "./bin/render-build.sh"
   startCommand: bundle exec puma -C config/puma.rb
+  numInstances: 1
+  healthCheckPath: /ping
   envVars:
   - fromGroup: weg-li-production
+  domains:
+  - getrender.weg-li.de
