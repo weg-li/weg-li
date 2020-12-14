@@ -18,7 +18,7 @@ services:
   plan: standard
   env: ruby
   region: frankfurt
-  buildCommand: "./bin/render-build.sh"
+  buildCommand: "./entrypoints/render-build.sh"
   startCommand: bundle exec puma -C config/puma.rb
   numInstances: 1
   healthCheckPath: /ping
@@ -32,7 +32,7 @@ services:
   name: weg-li-worker
   plan: standard
   env: ruby
-  buildCommand: "./bin/render-build-worker.sh"
+  buildCommand: "./entrypoints/render-build-worker.sh"
   startCommand: bundle exec sidekiq
   numInstances: 2
   envVars:
