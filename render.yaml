@@ -34,7 +34,7 @@ services:
   env: ruby
   buildCommand: "./entrypoints/render-build-worker.sh"
   startCommand: bundle exec sidekiq
-  numInstances: 2
+  numInstances: 1
   envVars:
   - fromGroup: weg-li-production
 - type: cron
