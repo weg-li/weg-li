@@ -66,7 +66,7 @@ xml.Fall do
     end
   end
   xml.Tatorte do
-    xml.Tatort [@notice.location, @notice.street].compact.join(', ')
+    xml.Tatort @notice.location_and_address
     xml.Latitude @notice.latitude
     xml.Longitude @notice.longitude
   end

@@ -199,8 +199,11 @@ class Notice < ActiveRecord::Base
   end
 
   def full_location
-    loc = location.present? ? "#{location}, " : ""
-    "#{loc}#{street}, #{zip} #{city}"
+    "#{location_and_address}, #{zip} #{city}"
+  end
+
+  def location_and_address
+    [street, location].reject(&:blank?).join(", ")
   end
 
   def geocode_address
