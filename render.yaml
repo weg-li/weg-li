@@ -1,4 +1,13 @@
 services:
+- type: pserv
+  name: weg-li-redis
+  env: docker
+  plan: starter
+  region: frankfurt
+  disk:
+    name: data
+    mountPath: /var/lib/redis
+    sizeGB: 1
 - type: web
   name: weg-li-web
   env: ruby
