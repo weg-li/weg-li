@@ -1,0 +1,10 @@
+services:
+- type: web
+  name: weg-li-web
+  env: ruby
+  plan: starter
+  region: frankfurt
+  buildCommand: "./bin/render-build.sh"
+  startCommand: bundle exec puma -C config/puma.rb
+  envVars:
+  - fromGroup: weg-li-production
