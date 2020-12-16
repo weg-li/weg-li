@@ -113,7 +113,7 @@ class District < ActiveRecord::Base
   end
 
   def geocode_address
-    "#{zip}, #{name}, Deutschland"
+    "#{zip}, #{name}, #{state}, Deutschland"
   end
 
   def all_emails
