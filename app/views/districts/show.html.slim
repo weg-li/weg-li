@@ -1,4 +1,4 @@
-- set_title t('navigation.districts')
+- set_title [t('navigation.districts'), @district.zip, @district.name, @district.state].join(' ')
 - set_meta_description t('meta_description.district', name: @district.name, zip: @district.zip, state: @district.state)
 
 

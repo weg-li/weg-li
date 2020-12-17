@@ -1,4 +1,4 @@
-- set_title t('navigation.charges')
+- set_title [t('navigation.charges'), @charge.tbnr, @charge.description].join(' ')
 - set_meta_description t('meta_description.charge', tbnr: @charge.tbnr, description: @charge.description, bkat: @charge.bkat)
 
 .well
