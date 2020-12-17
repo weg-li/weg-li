@@ -1,9 +1,6 @@
-.well.well-sm.callout-primary
-  small
-    |
-      Der Bezirk wird gespeichert und kann benutzt werden sobald er vom Support aktiviert wurde.
+.well.well-sm.callout-primary Der Bezirk wird gespeichert und kann benutzt werden sobald er vom Support aktiviert wurde.
 
-= render('form', district: @district)
+= render('form', district: @district, button_title: 'Bezirk vorschlagen')
 
 hr.spacer-large
 
@@ -14,7 +11,4 @@ hr.spacer-large
       | E-Mail schreiben
 
   .col-lg-9
-    .well.well-sm.callout-primary
-      small
-        |
-          Alternativ kannst Du uns Informationen zu Bezirken auch weiterhin per E-Mail mitteilen.
+    .well.well-sm.callout-primary Alternativ kannst Du uns Informationen zu Bezirken auch weiterhin per E-Mail mitteilen.

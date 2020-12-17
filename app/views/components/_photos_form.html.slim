@@ -2,8 +2,7 @@
 - required ||= false
 
 - if description
-  .well.well-sm.callout-primary
-    small= description
+  .well.well-sm.callout-primary= description
 
 .well
   = form.label :photos, class: "control-label control-label-required"
@@ -11,6 +10,4 @@
   = hint do
     | Es werden nur Fotos im JPEG-Format unterstützt. Dateien können auch per Drag&Drop ausgewählt werden.
 
-.well.well-sm.callout-primary
-  small
-    = render('components/geocoding_hint')
+.well.well-sm.callout-primary= render('components/geocoding_hint')

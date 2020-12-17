@@ -1,6 +1,5 @@
 - path = "#{section}.callouts.#{key}"
 - icon ||= 'info-sign'
 .well.well-sm.callout-primary
-  small
-    a.info.glyphicon class="glyphicon-#{icon}" data-html="true" data-container="body" data-toggle="popover" data-placement="auto" data-content=t("#{path}.text") title=t("#{path}.title")
-    span<= t("#{path}.hint").html_safe
+  a.info.glyphicon class="glyphicon-#{icon}" data-html="true" data-container="body" data-toggle="popover" data-placement="auto" data-content=t("#{path}.text") title=t("#{path}.title")
+  span<= t("#{path}.hint").html_safe
