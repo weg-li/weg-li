@@ -1,4 +1,6 @@
 class Geo
+  MAX_DISTANCE = 50
+
   POLICE_INSPECTIONS = {
     pi11: [48.136829, 11.580227], # Altstadt
     pi12: [48.146846, 11.574034], # Maxvorstadt
@@ -26,6 +28,14 @@ class Geo
     pi47: [48.192195, 11.570237], # Milbertshofen
     pi48: [48.252436, 11.561391], # Oberschleißheim
   }
+
+  def self.radians(degrees)
+    degrees * Math::PI / 180
+  end
+
+  def self.distance(point_a, point_b)
+    2 * 3961 * Math.asin(Math.sqrt((Math.sin(radians((point_a.latitude - point_b.latitude) / 2))) ** 2 + Math.cos(radians(point_b.latitude)) * Math.cos(radians(point_a.latitude)) * (Math.sin(radians((point_a.longitude - point_b.longitude) / 2))) ** 2))
+  end
 
   def self.regions
     @regions ||= begin
