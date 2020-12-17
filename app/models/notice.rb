@@ -171,8 +171,19 @@ class Notice < ActiveRecord::Base
     latitude? && longitude?
   end
 
+  def coordinates_missing?
+    !coordinates?
+  end
+
   def do_geocoding?
-    !coordinates? && zip? && city? && street?
+    coordinates_missing? && zip? && city? && street?
+  end
+
+  def distance_too_large?
+    return if coordinates_missing?
+    return if district.blank?
+
+    Geo.distance(self, district) > Geo::MAX_DISTANCE
   end
 
   def point

@@ -24,4 +24,11 @@ describe Geo do
     expect(Geo.regions.first.first).to be(:pi11)
     expect(Geo.suggest_email([48.07, 11.67])).to eql('pp-mue.muenchen.pi28@polizei.bayern.de')
   end
+
+  it "calculates the distance between 2 points" do
+    district = Fabricate.build(:district, latitude: 53, longitude: 9)
+    notice = Fabricate.build(:notice)
+
+    expect(Geo.distance(district, notice)).to eql(57.814660206076)
+  end
 end
