@@ -185,5 +185,5 @@
     ul.list-group
       - @statistics.each do |key, value|
         li.list-group-item
-          = t(key, scope: 'users.statistics')
           .badge.pull-right= number_with_delimiter(value)
+          = t(key, scope: 'users.statistics')

@@ -66,11 +66,16 @@ class NoticesController < ApplicationController
 
   def stats
     @since = (params[:since] || '8').to_i
+
     @notice_counts = Notice.count_over(current_user.notices.shared, weeks: @since)
     @notice_sums = Notice.sum_over(current_user.notices.shared, weeks: @since)
     @photo_counts = Notice.count_over(ActiveStorage::Attachment.where(record_type: 'Notice', record_id: current_user.notices.shared.pluck(:id), name: 'photos'), weeks: @since)
     @photo_sums = Notice.sum_over(ActiveStorage::Attachment.where(record_type: 'Notice', record_id: current_user.notices.shared.pluck(:id), name: 'photos'), weeks: @since)
-    @notices = current_user.notices.shared.since(@since.weeks.ago)
+
+    @limit = (params[:limit] || 10).to_i
+    @year = (params[:limit] || 2020).to_i
+
+    @statistics = Notice.yearly_statistics(@year, @limit, base_scope: current_user.notices.shared)
   end
 
   def show
