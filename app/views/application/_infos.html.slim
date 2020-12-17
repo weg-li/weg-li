@@ -14,5 +14,5 @@ h3= "#{user.nickname} in #{user.city}"
       ul.list-group
         - user.statistics.each do |key, value|
           li.list-group-item
-            = t(key, scope: 'users.statistics')
             .badge.pull-right= value
+            = t(key, scope: 'users.statistics')

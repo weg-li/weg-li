@@ -19,8 +19,8 @@
         - grouped = @notices.reject { |notice| notice.charge.blank? }.group_by(&:charge).sort_by {|_, group| group.size }.reverse
         - grouped.first(@limit).each do |key, group|
           li.list-group-item
-            = key
             .badge.pull-right= number_with_delimiter(group.size)
+            = key
 
     .col-lg-4
       h3 📈 Die häufigsten Automarken
@@ -28,4 +28,4 @@
         - grouped = @notices.reject { |notice| notice.brand.blank? }.group_by(&:brand).sort_by {|_, group| group.size }.reverse
         - grouped.first(@limit).each do |key, group|
           li.list-group-item
-            = render('vehicle_count', count: @notices.size, brand_count: group.size, brand: key)
+            = render('components/vehicle_count', count: @notices.size, brand_count: group.size, brand: key)

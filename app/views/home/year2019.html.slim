@@ -32,24 +32,24 @@ hr.spacer-large
     ul.list-group
       - @statistics[:grouped_cities].each do |entry|
         li.list-group-item
-          = entry.city
           .badge.pull-right= number_with_delimiter(entry.city_count)
+          = entry.city
 
   .col-lg-4
     h3 📈 Top Bundesländer
     ul.list-group
       - @statistics[:grouped_states].each do |entry|
         li.list-group-item
-          = entry.state
           .badge.pull-right= number_with_delimiter(entry.state_count)
+          = entry.state
 
   .col-lg-4
     h3 📈 Top Postleitzahlen
     ul.list-group
       - @statistics[:grouped_zips].each do |entry|
         li.list-group-item
-          = entry.zip
           .badge.pull-right= number_with_delimiter(entry.zip_count)
+          = entry.zip
 
 .spacer-large
 
@@ -72,12 +72,12 @@ hr.spacer-large
     ul.list-group
       - @statistics[:grouped_charges].each do |entry|
         li.list-group-item
-          = entry.charge
           .badge.pull-right= number_with_delimiter(entry.charge_count)
+          = entry.charge
 
   .col-lg-4
     h3 📈 Top Automarken
     ul.list-group
       - @statistics[:grouped_brands].each do |entry|
         li.list-group-item
-          = render('vehicle_count', count: @statistics[:count], brand_count: entry.brand_count, brand: entry.brand)
+          = render('components/vehicle_count', count: @statistics[:count], brand_count: entry.brand_count, brand: entry.brand)
