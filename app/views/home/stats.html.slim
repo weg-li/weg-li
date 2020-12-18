@@ -1,19 +1,22 @@
+- set_title "Falschparker-Karte #{@district}"
+- set_meta_description t('meta_description.map', district: @district)
+
 .page-header
   h2.text-primary weg-li Statistiken
 
 .well
   |
-    Dies sind die Statistiken der letzten #{@weeks} Wochen zusammengefasst für alle Bezirke.
-    In #{link_to "der Jahresübersicht für 2019", year2019_path } und #{link_to "der für 2020", year2020_path } gibt es zusätzlich die Top-5 Bezirke, Verstöße etc.
-    Die Top-5 pro Bezirk kannst Du über #{link_to "die Kartenansicht", map_path } einsehen und #{link_to 'das Leaderboard', leaderboard_path} zeigt die fleißigsten Knipser.
-    Und wer es selber ganz genau wissen will, der kann sich wöchentlich aktualisierte, anonymisiert Datensätze als Archiv bei #{link_to "den Exporten", exports_path } herunterladen.
+    Dies sind die Statistiken zu Benutzern, Anzeigen gegen Falschparker und Beweisfotos der letzten #{@weeks} Wochen zusammengefasst für alle Bezirke in Deutschland.
+    In #{link_to "der Jahresübersicht für 2019", year2019_path } und #{link_to "der für 2020", year2020_path } gibt es zusätzlich die Top Bezirke, Parkverstöße, Automarken etc.
+    Die Top-5 pro Bezirk kannst Du über #{link_to "die Falschparker-Karte", map_path } einsehen und #{link_to 'das Leaderboard', leaderboard_path} zeigt die fleißigsten Falschparker-Melder.
+    Und wer es selber ganz genau wissen will, der kann sich wöchentlich aktualisierte, anonymisiert Datensätze über Parkverstöße als Archiv bei #{link_to "den Daten-Exporten", exports_path } herunterladen.
 
 .row
   .col-lg-6
-    h3 Registrierte Benutzer
+    h3 Registrierte Melder
     = render('components/chart', name: :users, counts: @user_counts, sums: @user_sums)
   .col-lg-6
-    h3 Aktive Benutzer
+    h3 Aktive Melder
     = render('components/chart', name: :active_users, counts: @active_user_counts, sums: @active_user_sums)
 
 .row
