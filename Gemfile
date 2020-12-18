@@ -43,11 +43,7 @@ gem 'rswag-ui'
 gem 'email_verifier'
 gem 'webpacker'
 gem 'utf8-cleaner'
-
-group :production do
-  gem 'rack-cache'
-  gem 'scout_apm'
-end
+gem 'rack-cache'
 
 group :development do
   gem 'listen'
