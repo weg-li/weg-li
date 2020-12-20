@@ -144,6 +144,7 @@ Rails.application.routes.draw do
   get '/donate', to: 'home#donate', as: :donate
   get '/year2019', to: 'home#year2019', as: :year2019
   get '/year2020', to: 'home#year2020', as: :year2020
+  get '/year2021', to: 'home#year2021', as: :year2021
 
   # dev
   get '/styleguide', to: 'styleguide#index'

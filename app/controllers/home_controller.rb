@@ -44,6 +44,11 @@ class HomeController < ApplicationController
     @statistics = Notice.yearly_statistics(2020, limit)
   end
 
+  def year2021
+    limit = (params[:limit] || 5).to_i
+    @statistics = Notice.yearly_statistics(2021, limit)
+  end
+
   def leaderboard
     @limit = (params[:limit] || 5).to_i
 
