@@ -26,7 +26,7 @@ describe "home", type: :request do
       get map_path
 
       expect(response).to be_successful
-      assert_select('h2', "weg-li Karte")
+      assert_select('h2', "weg-li Falschparker-Karte Hamburg")
     end
   end
 
@@ -37,7 +37,7 @@ describe "home", type: :request do
       get leaderboard_path
 
       expect(response).to be_successful
-      assert_select('h2', "weg-li Leaderboard")
+      assert_select('h2', "weg-li Falschparker-Melder-Leaderboard")
     end
   end
 
