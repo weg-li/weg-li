@@ -69,7 +69,7 @@
   .col-lg-8
     .form-group
       = form.label :charge, class: "control-label control-label-required"
-      = form.select :charge, Vehicle.charges, { include_blank: 'Verstoß Auswählen' }, { class: "form-control", required: true }
+      = form.select :charge, Charge.plain_charges, { include_blank: 'Verstoß Auswählen' }, { class: "form-control", required: true }
       = hint do
         | Informationen finden sich im aktuellen #{link_to 'Bußgeldkatalog (bkat_owi Stand 18.05.2020)', '/pdf/bkat_owi_18_05_2020_pdf.pdf', target: '_blank'}
   .col-lg-4
