@@ -12,10 +12,9 @@
 
 - elsif @photos.present?
   .well.well-sm.callout-primary
-    small
-      | Mehrere Beweisfotos gruppiert nach Vergehen ins obere Feld ziehen, oder mit Hilfe des
-      span.glyphicon.glyphicon-move<>
-      | Button dorthin bewegen und anschließend eine neue Meldung anlegen.
+    | Mehrere Beweisfotos gruppiert nach Vergehen ins obere Feld ziehen, oder mit Hilfe des
+    span.glyphicon.glyphicon-move<>
+    | Button dorthin bewegen und anschließend eine neue Meldung anlegen.
 
   = form_with model: @bulk_upload do |form|
     = hidden_field_tag :order_column, @order_column
@@ -84,8 +83,7 @@
 
   hr.spacer
 
-  .well.well-sm.callout-primary
-    small Sollte jedes der Beweisfotos zu einem einzelnen Vergehen gehören, dann kann hier auf Knopfdruck pro Beweisfoto jeweils eine neue Meldung angelegt werden.
+  .well.well-sm.callout-primary Sollte jedes der Beweisfotos zu einem einzelnen Vergehen gehören, dann kann hier auf Knopfdruck pro Beweisfoto jeweils eine neue Meldung angelegt werden.
 
   = form_with model: @bulk_upload do |form|
     .row
@@ -106,8 +104,7 @@
     .well.well-sm.callout-danger
       small= @bulk_upload.error_message
   - else
-    .well.well-sm.callout-primary
-      small Alle Beweisfotos wurden bereits zugeordnet und in neue Meldungen überführt.
+    .well.well-sm.callout-primary Alle Beweisfotos wurden bereits zugeordnet und in neue Meldungen überführt.
 
     .panel.panel-default
       = render 'notice_list', notices: @bulk_upload.notices
