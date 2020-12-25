@@ -101,8 +101,8 @@ GEM
     declarative (0.0.20)
     declarative-option (0.1.0)
     diff-lcs (1.4.4)
-    digest-crc (0.6.1)
-      rake (~> 13.0)
+    digest-crc (0.6.3)
+      rake (>= 12.0.0, < 14.0.0)
     dnsruby (1.61.5)
       simpleidn (~> 0.1)
     domain_name (0.5.20190701)
@@ -122,10 +122,10 @@ GEM
     fabrication (2.21.1)
     faker (2.15.1)
       i18n (>= 1.6, < 2)
-    faraday (1.1.0)
+    faraday (1.2.0)
       multipart-post (>= 1.2, < 3)
       ruby2_keywords
-    ffi (1.13.1)
+    ffi (1.14.2)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
@@ -340,7 +340,7 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (~> 1.0)
-    rake (13.0.1)
+    rake (13.0.3)
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
