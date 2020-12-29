@@ -28,23 +28,23 @@ javascript:
     };
   }
 
-.row.steps.step-0.hidden-xs(l-use="CarouselContext()")
+.row.steps.step-0.hidden-xs(x-data="CarouselContext()")
   .col-lg-1.text-left
     ul.pagination.pagination-lg
       li.previous
-        a.text-muted(l-on:click="decrement()" class="btn") <
+        a.text-muted(x-on:click="decrement" class="btn") <
   .col-lg-10
     .row
       .col-lg-2.text-center
         .spacer
-        h4 <span class="step step-top smaller success-step1" l-text="number()">1</span>
-        h4(l-text="title()") Erfassen
+        h4 <span class="step step-top smaller success-step1" x-text="number()">1</span>
+        h4(x-text="title()") Erfassen
       .col-lg-10
         blockquote
-          p(l-text="message()")
+          p(x-text="message()")
             |
               Unterwegs Beweisfotos von nervigen Falschparkern knipsen und dann mit Deinem Browser übers Handy oder den Computer bei weg-li hochladen. Du kannst dabei einzele Meldungen erzeugen, oder einen ganzen Schwung von Beweisfotos als Massen-Upload einspielen.
   .col-lg-1.text-right
     ul.pagination.pagination-lg
       li.previous
-        a.text-muted(l-on:click="increment()" class="btn") >
+        a.text-muted(x-on:click="increment" class="btn") >

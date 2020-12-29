@@ -32,7 +32,6 @@ Rails.application.configure do
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :google_development
-  config.active_storage.track_variants = true
   config.active_storage.service_urls_expire_in = 5.minutes
 
   # Don't care if the mailer can't send.
