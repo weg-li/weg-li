@@ -40,7 +40,7 @@ class ViolationGenerator
       document.text_box("Wegen verkehrsbehindernden Parkens wurde das Beiseiteräumen Ihres Fahrzeuges angeordnet; ein Abschleppauftrag wurde erteilt", size: 10, at: [30, document.cursor], width: document.bounds.width - 30)
 
       document.move_down(30)
-      document.text_box("Sie Haben die Kosten für die Anfahrt des Abschleppwagens auch dann zu tragen, wenn Sie Ihr Kraftfahrzeug vor dessen Eintreffen entfernen.", size: 10, at: [30, document.cursor], width: document.bounds.width - 30)
+      document.text_box("Sie haben die Kosten für die Anfahrt des Abschleppwagens auch dann zu tragen, wenn Sie Ihr Kraftfahrzeug vor dessen Eintreffen entfernen.", size: 10, at: [30, document.cursor], width: document.bounds.width - 30)
 
 
       document.move_down(90)
@@ -49,7 +49,7 @@ class ViolationGenerator
       document.text("PARKRAUM-MANAGEMENT", size: 12)
 
 
-      qr_code = RQRCode::QRCode.new("https://www.weg-li.de")
+      qr_code = RQRCode::QRCode.new(Rails.application.routes.url_helpers.violation_url(Rails.configuration.action_mailer.default_url_options))
       document.render_qr_code(qr_code, pos: [document.bounds.width - 50, document.cursor + 30])
     end
 
