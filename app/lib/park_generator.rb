@@ -32,7 +32,7 @@ class ParkGenerator
       document.text(
         "Damit verursachen Sie folgende Probleme:
 
-        Ein reibungsloser Ablauf der Müllabfuhr ist mehr möglich, weil die Großen Entsorgungsfahrzeuge mehr Rangierraum benötigen.
+        Ein reibungsloser Ablauf der Müllabfuhr ist nicht mehr möglich, weil die großen Entsorgungsfahrzeuge mehr Rangierraum benötigen.
         <color rgb='ff0000'>Konsequenz: Die Abfallgefäße können nicht termingerecht geleert werden - Aufwand und Kosten der Müllabfuhr erhöhen sich.</color>
 
         Fahrzeuge der Feuerwehr können bei Notfällen nicht schnell genug zum Einsatzort kommen.
@@ -47,7 +47,7 @@ class ParkGenerator
         inline_format: true,
       )
 
-      qr_code = RQRCode::QRCode.new("https://www.weg-li.de")
+      qr_code = RQRCode::QRCode.new(Rails.application.routes.url_helpers.violation_url(Rails.configuration.action_mailer.default_url_options))
       document.render_qr_code(qr_code, pos: [document.bounds.width - 50, 50])
     end
 

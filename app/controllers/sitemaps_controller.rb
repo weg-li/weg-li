@@ -14,8 +14,11 @@ class SitemapsController < ApplicationController
       faq_url,
       year2019_url,
       year2020_url,
+      year2021_url,
       donate_url,
       leaderboard_url,
+      violation_url,
+      generator_url,
     ]
 
     @urls += District.active.pluck(:zip).map { |zip| district_url(zip) }

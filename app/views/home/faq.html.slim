@@ -1,3 +1,6 @@
+- set_title "weg-li FAQ Wissenswertes für Behörden und Benutzer"
+- set_meta_description "weg-li FAQ Wissenswertes für Behörden, Benutzer, Falschparkermelder, Radaktivisten und Radratten"
+
 .page-header
   h2.text-primary weg-li FAQ
 
@@ -147,6 +150,20 @@ a name="faq-#{i}"
           Wie im einzelnen vor Ort verfahren wird, sollte am besten direkt über die jeweilige Bußgeldstelle in Erfahrung gebracht werden.
           Falls im Einzelfall noch die Praxis besteht, die Daten des Zeugen schon im Anhörungsbogen zu benennen, sollte die Behörde auf das Schreiben
           #{link_to 'des Datenschutzbeauftragten von Hessen', 'https://twitter.com/DavidGruenewald/status/1143445226935201792'} hingewiesen werden.
+
+- i += 1
+a name="faq-#{i}"
+.panel.panel-default
+  .panel-heading
+    h4 Wie können Behörden / Ordnungsämter / Polizeidienststellen angebunden werden?
+  .panel-body
+    p
+      |
+        Bei der Entwicklung von weg-li haben wir ein starkes Interesse daran auch die Anforderungen
+        der zuständigen Stellen wie Ordnungsämter oder Polizeidienststellen mit einzubeziehen.
+        Mit der Stadt Dresden entwickeln wir derzeit eine XML basierte Schnittstelle zur
+        dort genutzten Software #{link_to 'WiNOWiG', 'https://www.owig.de/'}, um eine möglichst effizente
+        Verarbeitung der Anzeigen zu gewährleisten. Bei Fragen oder Interesse einfach eine #{mail_to 'peter@weg-li.de', 'E-Mail'} an uns schreiben.
 
 .well.well-sm
   p
