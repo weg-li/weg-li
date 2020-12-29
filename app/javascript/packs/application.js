@@ -25,6 +25,8 @@ require("@rails/activestorage").start();
 
 // 3rdparty deps
 require("bootstrap");
+require("alpine-turbolinks-adapter");
+require("alpinejs");
 
 // allow templates to use frappe
 window.frappe = require("frappe-charts/dist/frappe-charts.min.esm");

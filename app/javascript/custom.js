@@ -1,6 +1,5 @@
 require("select2");
 require("jquery-zoom");
-const Lucia = require("lucia");
 
 $(document).on('turbolinks:load', function() {
   $('[data-toggle="popover"]').popover();
@@ -9,10 +8,6 @@ $(document).on('turbolinks:load', function() {
 
 $(document).on('turbolinks:load', function() {
   $('.zoom').zoom();
-});
-
-$(document).on('turbolinks:load', function() {
-  Lucia.init();
 });
 
 $(document).on('turbolinks:load', function() {
