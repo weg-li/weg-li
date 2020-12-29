@@ -8,7 +8,7 @@ $(document).on('turbolinks:load', function() {
       target.value = '';
     } else {
       document.getElementById('photos-preview')?.remove();
-      const items = files.map(file => `<li class="list-item"><img src="${window.URL.createObjectURL(file)}" class="index-photo"/></li>`);
+      const items = files.map(file => `<li class="list-item"><img src="${window.URL.createObjectURL(file)}" class="index-photo"></li>`);
       target.insertAdjacentHTML("beforebegin", `<div id="photos-preview"><ul class="photo-list">${items.join(' ')}</ul></div>`);
     }
   });
