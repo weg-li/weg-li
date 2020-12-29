@@ -231,6 +231,7 @@ de:
       all_users: 'Benutzer insgesamt'
       districts: 'Unterstützte Bezirke'
     confirmation_mail: "Eine Bestätigungs-Mail wurde an %{email} versendet."
+    signup_mail: "Eine E-Mail mit Login-Link wurde an %{email} versendet."
     profile_updated_and_confirmation_email: 'Dein Profil wurde aktualisiert und eine Bestätigungs-Mail wurde an Deine E-Mail Adresse versendet!'
     profile_updated: 'Dein Profil wurde aktualisiert.'
     authorizations: 'Verknüpfungen'
