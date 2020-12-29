@@ -6,15 +6,24 @@ $(document).on('turbolinks:load', function() {
     if (files.some(file => !accepts.includes(file.type) )) {
       alert('Es werden nur Fotos im JPEG Format unterstützt!');
       target.value = '';
+    } else {
+      document.getElementById('photos-preview')?.remove();
+      const items = files.map(file => `<li class="list-item"><img src="${window.URL.createObjectURL(file)}" class="index-photo"/></li>`);
+      target.insertAdjacentHTML("beforebegin", `<div id="photos-preview"><ul class="photo-list">${items.join(' ')}</ul></div>`);
     }
   });
+});
+
+addEventListener("direct-uploads:start", event => {
+  console.log('removing');
+  document.getElementById('photos-preview').remove();
 });
 
 addEventListener("direct-upload:initialize", event => {
   const { target, detail } = event;
   const { id, file } = detail;
   target.insertAdjacentHTML("beforebegin", `
-    <p>${file.name} (${(file.size / 1048576).toFixed(2)} MB)</p>
+    <p><img src="${window.URL.createObjectURL(file)}" class="index-photo" style="v-align:middle" /> ${file.name} (${(file.size / 1048576).toFixed(2)} MB)</p>
     <div id="direct-upload-${id}" class="progress progress-striped active">
       <div id="direct-upload-progress-${id}" class="progress-bar progress-bar-success" style="width: 0%"></div>
     </div>
@@ -42,14 +51,10 @@ addEventListener("direct-upload:error", event => {
   errorEl.classList.remove("hidden");
 });
 
-addEventListener("direct-upload:start", event => {
+addEventListener("direct-upload:end", event => {
   const { target } = event;
 
   target.scrollIntoView({block: "end", behavior: "smooth"});
-});
-
-addEventListener("direct-upload:end", event => {
-  const { target } = event;
 
   const signed_id = target.previousElementSibling.value;
   if (signed_id && fetch && target.hasAttribute('analyze_url')) {
