@@ -73,7 +73,7 @@ class NoticesController < ApplicationController
     @photo_sums = Notice.sum_over(ActiveStorage::Attachment.where(record_type: 'Notice', record_id: current_user.notices.shared.pluck(:id), name: 'photos'), weeks: @since)
 
     @limit = (params[:limit] || 10).to_i
-    @year = (params[:limit] || 2020).to_i
+    @year = (params[:year] || 2020).to_i
 
     @statistics = Notice.yearly_statistics(@year, @limit, base_scope: current_user.notices.shared)
   end
