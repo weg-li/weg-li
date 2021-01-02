@@ -7,7 +7,6 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.
@@ -16,24 +15,26 @@
 // const imagePath = (name) => images(name, true)
 
 // allow templates to use $
-window.jQuery = window.$ = require('jquery');
+window.$ = require('jquery');
+
+window.jQuery = window.$;
 
 // rails deps
-require("@rails/ujs").start();
-require("turbolinks").start();
-require("@rails/activestorage").start();
+require('@rails/ujs').start();
+require('turbolinks').start();
+require('@rails/activestorage').start();
 
 // 3rdparty deps
-require("bootstrap");
-require("alpine-turbolinks-adapter");
-require("alpinejs");
+require('bootstrap');
+require('alpine-turbolinks-adapter');
+require('alpinejs');
 
 // allow templates to use frappe
-window.frappe = require("frappe-charts/dist/frappe-charts.min.esm");
+window.frappe = require('frappe-charts/dist/frappe-charts.min.esm');
 
 // own sources
-require("appsignal");
-require("custom");
-require("direct_uploads");
-require("maps");
-require("styleguide");
+require('appsignal');
+require('custom');
+require('direct_uploads');
+require('maps');
+require('styleguide');

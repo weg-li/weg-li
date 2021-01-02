@@ -1,27 +1,30 @@
-$(document).on('ready page:load page:change turbolinks:load', function() {
-  var cleanSource = function(html) {
-    var lines = html.split(/\n/);
-    lines.shift();
-    lines.splice(-1, 1);
-    var indentSize = lines[0].length - lines[0].trim().length;
-    var re = new RegExp(' {' + indentSize + '}');
-    lines = lines.map(function(line) {
-      if (line.match(re)) { line = line.substring(indentSize); }
-      return line;
-    });
-    lines = lines.join("\n");
-    return lines;
-  };
-  var $button = $("<div id='source-button' class='btn btn-primary btn-xs'>&lt; &gt;</div>").click(function() {
-    var html = $(this).parent().html();
-    html = cleanSource(html);
-    $("#source-modal pre").text(html);
-    $("#source-modal").modal();
+function cleanSource(html) {
+  let lines = html.split(/\n/);
+  lines.shift();
+  lines.splice(-1, 1);
+  const indentSize = lines[0].length - lines[0].trim().length;
+  const re = new RegExp(` {${indentSize}}`);
+  lines = lines.map((line) => {
+    if (line.match(re)) {
+      return line.substring(indentSize);
+    }
+    return line;
   });
-  $(".bs-component").hover((function() {
+  lines = lines.join('\n');
+  return lines;
+}
+
+$(document).on('ready page:load page:change turbolinks:load', () => {
+  const $button = $("<div id='source-button' class='btn btn-primary btn-xs'>&lt; &gt;</div>").click(function handler() {
+    let html = $(this).parent().html();
+    html = cleanSource(html);
+    $('#source-modal pre').text(html);
+    $('#source-modal').modal();
+  });
+  $('.bs-component').hover((function action() {
     $(this).append($button);
     $button.show();
-  }), function() {
+  }), () => {
     $button.hide();
   });
 });
