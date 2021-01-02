@@ -20,10 +20,11 @@
   "devDependencies": {
     "eslint": "^7.17.0",
     "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-import-resolver-webpack": "^0.13.0",
     "eslint-plugin-import": "^2.22.1",
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
-    "lint": "eslint --fix app/javascript/**"
+    "lint": "NODE_ENV=development eslint --fix app/javascript/**"
   }
 }

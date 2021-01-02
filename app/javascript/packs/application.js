@@ -33,8 +33,8 @@ require('alpinejs');
 window.frappe = require('frappe-charts/dist/frappe-charts.min.esm');
 
 // own sources
-require('appsignal');
-require('custom');
-require('direct_uploads');
-require('maps');
-require('styleguide');
+require('src/appsignal');
+require('src/custom');
+require('src/direct_uploads');
+require('src/maps');
+require('src/styleguide');
