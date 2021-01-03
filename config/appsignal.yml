@@ -1,0 +1,52 @@
+default: &defaults
+  # Your Push API Key, it is possible to set this dynamically using ERB. Requred
+  push_api_key: "<%= ENV['APPSIGNAL_PUSH_API_KEY'] %>"
+  revision: "<%= ENV['RENDER_GIT_COMMIT'] %>"
+
+  # Your app's name as reported on AppSignal.com. Required
+  name: "weg-li"
+
+  # Your server's hostname. Optional, auto detected
+  # hostname: "frontend1.myapp.com"
+
+  # Add default instrumentation of net/http. Default: true
+  instrument_net_http: true
+
+  # Skip session data, if it contains private information. Default: false
+  # skip_session_data: true
+
+  # Ignore these errors (Optional)
+  ignore_errors:
+    - ActiveRecord::RecordNotFound
+    - ActionController::RoutingError
+    - Mime::Type::InvalidMimeType
+
+  # Ignore these actions, used by our Loadbalancer. Optional
+  # ignore_actions:
+  #   - IsUpController#index
+
+  # Enable allocation tracking for memory metrics. Default: true
+  enable_allocation_tracking: true
+
+# Configuration per environment, leave out an environment or set active
+# to false to not push metrics for that environment.
+development:
+  <<: *defaults
+  active: false
+  # Enable more logging in the `appsignal.log` file. Optional
+  # debug: true
+
+production:
+  <<: *defaults
+  # Configure AppSignal to be active for this environment. Required
+  active: true
+
+  # Set different path for the log file. Optional, auto detected
+  # log_path: "/home/my_app/app/shared/log"
+
+  # Set AppSignal working dir. Optional, auto detected
+  # working_directory_path: "/tmp/appsignal"
+
+  # When it's not possible to connect to the outside world without a proxy.
+  # Optional
+  # http_proxy: "proxy.mydomain.com:8080"
