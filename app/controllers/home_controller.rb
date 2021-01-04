@@ -53,19 +53,13 @@ class HomeController < ApplicationController
     @limit = (params[:limit] || 5).to_i
 
     @weekly_leaders = Notice.since(Time.zone.now.beginning_of_week).shared.group(:user_id).order(count_all: :desc).limit(@limit).count
-    @weekly_leaders.transform_keys! { |user_id| User.find(user_id) }
-
     @monthly_leaders = Notice.since(Time.zone.now.beginning_of_month).shared.group(:user_id).order(count_all: :desc).limit(@limit).count
-    @monthly_leaders.transform_keys! { |user_id| User.find(user_id) }
-
     @yearly_leaders = Notice.since(Time.zone.now.beginning_of_year).shared.group(:user_id).order(count_all: :desc).limit(@limit).count
-    @yearly_leaders.transform_keys! { |user_id| User.find(user_id) }
-
     @total_leaders = Notice.shared.group(:user_id).order(count_all: :desc).limit(@limit).count
-    @total_leaders.transform_keys! { |user_id| User.find(user_id) }
-
     @year2019_leaders = Notice.where(date: ('01.08.2019'.to_date)..('01.08.2019'.to_date.end_of_year)).shared.group(:user_id).order(count_all: :desc).limit(@limit).count
-    @year2019_leaders.transform_keys! { |user_id| User.find(user_id) }
+    @year2020_leaders = Notice.where(date: ('01.01.2020'.to_date.beginning_of_year)..('31.12.2020'.to_date.end_of_year)).shared.group(:user_id).order(count_all: :desc).limit(@limit).count
+
+    @users = User.where(id: @weekly_leaders.keys + @monthly_leaders.keys + @yearly_leaders.keys + @total_leaders.keys + @year2019_leaders.keys + @year2020_leaders.keys)
   end
 
   def generator
