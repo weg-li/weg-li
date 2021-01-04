@@ -65,20 +65,19 @@ class GPickerMap {
   }
 
   show() {
-    const options = {
+    const point = new google.maps.LatLng(this.notice.latitude, this.notice.longitude);
+    const map = new google.maps.Map(this.canvas, {
       zoom: 18,
       scrollwheel: true,
       streetViewControl: false,
       disableDoubleClickZoom: true,
-      center: new google.maps.LatLng(this.notice.latitude, this.notice.longitude),
+      center: point,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
-    };
-    const map = new google.maps.Map(this.canvas, options);
+    });
 
-    const point = new google.maps.LatLng(this.notice.latitude, this.notice.longitude);
     const marker = new google.maps.Marker({
-      point,
       map,
+      position: point,
       draggable: true,
       title: this.notice.location,
     });
