@@ -17,26 +17,33 @@
 .well.well-sm
   p Im Jahr #{@year} waren diese Einträge Deine Top-#{@limit} in Sachen Vergehen, Kennzeichen und Automarken. Für die korrekte Gruppierung der Kennzeichen müssen diese identisch formatiert sein.
 
-.row
-  .col-lg-5
-    h3 📈 Top-#{@limit} Vergehen
-    ul.list-group
-      - @statistics[:grouped_charges].each do |entry|
-        li.list-group-item
-          .badge.pull-right= number_with_delimiter(entry.charge_count)
-          = entry.charge
+ul.nav.nav-tabs.nav-panel#top-x
+  - (2019..@current_year).reverse_each do |year|
+    li(class="#{'active' if year == @year}")= link_to(year, url_for(since: @since, limit: @limit, year: year, anchor: 'top-x'))
 
-  .col-lg-3
-    h3 📈 Top-#{@limit} Kennzeichen
-    ul.list-group
-      - @statistics[:grouped_registrations].each do |entry|
-        li.list-group-item
-          .badge.pull-right= number_with_delimiter(entry.registration_count)
-          = registration_label(entry.registration)
 
-  .col-lg-4
-    h3 📈 Top-#{@limit} Automarken
-    ul.list-group
-      - @statistics[:grouped_brands].each do |entry|
-        li.list-group-item
-          = render('components/vehicle_count', count: @statistics[:count], brand_count: entry.brand_count, brand: entry.brand)
+.panel.panel-default.panel-nav
+  .panel-body
+    .row
+      .col-lg-5
+        h3 📈 Top-#{@limit} Vergehen
+        ul.list-group
+          - @statistics[:grouped_charges].each do |entry|
+            li.list-group-item
+              .badge.pull-right= number_with_delimiter(entry.charge_count)
+              = entry.charge
+
+      .col-lg-3
+        h3 📈 Top-#{@limit} Kennzeichen
+        ul.list-group
+          - @statistics[:grouped_registrations].each do |entry|
+            li.list-group-item
+              .badge.pull-right= number_with_delimiter(entry.registration_count)
+              = registration_label(entry.registration)
+
+      .col-lg-4
+        h3 📈 Top-#{@limit} Automarken
+        ul.list-group
+          - @statistics[:grouped_brands].each do |entry|
+            li.list-group-item
+              = render('components/vehicle_count', count: @statistics[:count], brand_count: entry.brand_count, brand: entry.brand)
