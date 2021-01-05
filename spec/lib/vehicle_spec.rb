@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Vehicle do
   it "it gets all the brands" do
     data = Vehicle.brands.first(3)
-    expect(["Adria", "Alfa Romeo", "Aston Martin"]).to eql(data)
+    expect(["Abarth", "Adria", "Alfa Romeo"]).to eql(data)
   end
 
   it "it gets all the models" do
