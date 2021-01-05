@@ -64,8 +64,7 @@ async function triggerAnalyzation(url, data) {
     },
     body: JSON.stringify(data), // body data type must match "Content-Type" header
   });
-  const result = await response.json(); // parses JSON response into native JavaScript objects
-  return result;
+  return response.json(); // parses JSON response into native JavaScript objects
 }
 
 addEventListener('direct-upload:end', (event) => {
