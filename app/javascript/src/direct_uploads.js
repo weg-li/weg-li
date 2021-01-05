@@ -17,8 +17,7 @@ $(document).on('turbolinks:load', () => {
 });
 
 addEventListener('direct-uploads:start', () => {
-  console.log('removing');
-  document.getElementById('photos-preview').remove();
+  document.getElementById('photos-preview')?.remove();
 });
 
 addEventListener('direct-upload:initialize', (event) => {
