@@ -184,8 +184,8 @@ class NoticesController < ApplicationController
   def inspect
     @notice = current_user.notices.from_param(params[:id])
     @photo = @notice.photos.find(params[:photo_id])
-    @exif = @photo.service.download_file(@photo.key) { |file| EXIFAnalyzer.new.metadata(file, debug: true) }
-    @result = Annotator.new.annotate_object(@photo.key)
+    @exif = @notice.data_sets.exif.find_by(keyable: @photo)
+    @google_vision = @notice.data_sets.google_vision.find_by(keyable: @photo)
   end
 
   def colors

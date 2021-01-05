@@ -4,29 +4,35 @@ p
     = "#{@photo.filename} / #{number_to_human_size(@photo.byte_size)}"
 
 p
-  strong gcloud key
+  strong GCloud-Key
   = debug @photo.key
 
 p
-  strong exif
-  = debug @exif
-
-p
-  strong metadata
+  strong Metadata
   = debug @photo.metadata
 
 p
-  strong plates
-  = debug Annotator.grep_text(@result) { |string| Vehicle.plate?(string) }
+  strong Exif
+  - if @exif
+    = debug @exif.data
+  -else
+    p No EXIF Data attached
 
-p
-  strong brand
-  = debug Annotator.grep_text(@result) { |string| Vehicle.brand?(string) }
+- if @google_vision
+  p
+    strong Registration
+    = debug Annotator.grep_text(@google_vision.data.deep_symbolize_keys) { |string| Vehicle.plate?(string) }
 
-p
-  strong color
-  = debug Annotator.dominant_colors(@result)
+  p
+    strong Brand
+    = debug Annotator.grep_text(@google_vision.data.deep_symbolize_keys) { |string| Vehicle.brand?(string) }
 
-p
-  strong result
-  = debug @result
+  p
+    strong Color
+    = debug Annotator.dominant_colors(@google_vision.data.deep_symbolize_keys)
+
+  p
+    strong Google Vision
+    = debug @google_vision.data.deep_symbolize_keys
+- else
+  p No Google Vision Result attached
