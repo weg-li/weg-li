@@ -82,7 +82,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :user do
+  resource :user, except: [:create, :new, :index] do
     member do
       get :studi
       patch :confirmation_mail
@@ -90,6 +90,8 @@ Rails.application.routes.draw do
       patch :destroy_signature
     end
   end
+  # https://github.com/rails/rails/issues/1769#issuecomment-301643924
+  resolve('User') { [:user] }
 
   resources :districts do
     member do
