@@ -1,7 +1,7 @@
 class ThumbnailerJob < ApplicationJob
   retry_on ActiveRecord::InvalidForeignKey, attempts: 15, wait: :exponentially_longer
   retry_on ActiveStorage::FileNotFoundError, attempts: 15, wait: :exponentially_longer
-  retry_on MiniMagick::Error, attempts: 15, wait: :exponentially_longer
+  discard_on MiniMagick::Error
   discard_on ActiveStorage::InvariableError
 
   def perform(blob)
