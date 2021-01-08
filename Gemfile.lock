@@ -82,7 +82,7 @@ GEM
       rails (>= 6.0)
     appsignal (2.11.1)
       rack
-    autoprefixer-rails (10.1.0.0)
+    autoprefixer-rails (10.2.0.0)
       execjs
     bindex (0.8.1)
     bitfields (0.14.0)
@@ -204,7 +204,7 @@ GEM
     http-parser (1.2.2)
       ffi-compiler
     httpclient (2.8.3)
-    i18n (1.8.5)
+    i18n (1.8.7)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.1)
       mini_magick (>= 4.9.5, < 5)
@@ -251,7 +251,7 @@ GEM
     mini_magick (4.11.0)
     mini_mime (1.0.2)
     mini_portile2 (2.5.0)
-    minitest (5.14.2)
+    minitest (5.14.3)
     momentjs-rails (2.20.1)
       railties (>= 3.1)
     msgpack (1.3.3)
@@ -259,7 +259,7 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     nio4r (2.5.4)
-    nokogiri (1.11.0)
+    nokogiri (1.11.1)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
     oauth (0.5.4)
