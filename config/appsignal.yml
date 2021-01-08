@@ -20,7 +20,6 @@ default: &defaults
     - ActiveRecord::RecordNotFound
     - ActionController::RoutingError
     - Mime::Type::InvalidMimeType
-    - UnhandledPromiseRejectionError
 
   # Ignore these actions, used by our Loadbalancer. Optional
   # ignore_actions:

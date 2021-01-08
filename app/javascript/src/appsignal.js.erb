@@ -3,6 +3,7 @@ const Appsignal = require('@appsignal/javascript').default;
 const appsignal = new Appsignal({
   key: "<%= ENV['APPSIGNAL_WEB_KEY'] || 'none' %>",
   revision: "<%= ENV['RENDER_GIT_COMMIT'] || 'none' %>",
+  ignoreErrors: [/UnhandledPromiseRejectionError/],
 });
 const { plugin } = require('@appsignal/plugin-window-events');
 
