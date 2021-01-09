@@ -1,5 +1,3 @@
-require 'csv'
-
 class District < ActiveRecord::Base
   STATES = [
     'Baden-Württemberg',
@@ -24,7 +22,7 @@ class District < ActiveRecord::Base
   bitfield :flags, 1 => :personal_email
 
   enum status: {active: 0, proposed: 1}
-  enum config: {standard: 0, winowig: 1, munich: 2}
+  enum config: {standard: 0, winowig: 1, munich: 2, karlsruhe: 3}
 
   has_many :notices, foreign_key: :zip, primary_key: :zip
 
@@ -50,51 +48,6 @@ class District < ActiveRecord::Base
 
   def self.from_zip(zip)
     active.find_by(zip: zip)
-  end
-
-  def self.zips
-    # osm_id,ort,plz,bundesland
-    @zips ||= CSV.parse(File.read('config/data/zips.csv'), headers: true)
-  end
-
-  def self.extend_data
-    zips.each do |row|
-      zip = row['plz']
-      district = from_zip(zip)
-      if district.present?
-        Rails.logger.info("found #{zip}: #{district.id}")
-      else
-        source = District.active.where('name = :name AND zip LIKE :zip', name: row['ort'], zip: "#{zip.first}%").first
-        if source.present?
-          Rails.logger.info("found source for #{zip}: #{source.id}")
-          district = source.dup
-          district.zip = zip
-          district.osm_id = row['osm_id']
-          district.state = row['bundesland']
-          district.prefix = [zip_to_prefix[zip]]
-          district.save!
-        else
-          Rails.logger.info("could not find anything for #{zip}")
-        end
-      end
-    end
-  end
-
-  def self.opengeodb
-    @opengeodb ||= CSV.parse(File.read('config/data/opengeodb.csv'), col_sep: "\t", quote_char: nil, headers: true)
-  end
-
-  def self.zip_to_plate_prefix_mapping
-    @zip_to_plate_prefix_mapping ||= opengeodb.each_with_object({}) do |entry, hash|
-      next unless entry['plz']
-
-      zips = entry['plz'].split(',')
-      zips.each { |zip| hash[zip] = entry['kz'] if entry['kz'] }
-    end.to_h
-  end
-
-  def self.zip_to_prefix
-    @zip_to_prefix ||= JSON.load(Rails.root.join('config/data/zip_to_prefix.json'))
   end
 
   def map_data
