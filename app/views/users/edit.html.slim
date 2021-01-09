@@ -61,7 +61,7 @@
           = button_to t('users.confirm_email'), confirmation_mail_user_path(current_user), method: :patch, class: "btn btn-primary btn-block"
 
     = form_for current_user, url: signature_user_path, html: {class: "form-horizontal"} do |form|
-      .panel.panel-default
+      .panel.panel-default#signature
         .panel-heading Unterschrift
         - if current_user.signature.present?
           .panel-body
