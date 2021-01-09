@@ -11,9 +11,9 @@ module Admin
     # end
 
     def bulk_update
-      District.where(email: params[:from]).update_all(email: params[:to], flags: params[:flags])
+      District.where(email: params[:email]).update_all(email: params[:to_email], flags: params[:to_flags], config: params[:to_config])
 
-      redirect_to admin_districts_path(search: params[:to]), notice: "Bezirke wurden von '#{params[:from]}' zu '#{params[:to]}' geändert"
+      redirect_to admin_districts_path(search: params[:to]), notice: "Bezirke '#{params[:email]}' wurde zu '#{params[:to_email]} #{params[:to_flags]} #{params[:to_config]}' geändert"
     end
 
     # Define a custom finder by overriding the `find_resource` method:

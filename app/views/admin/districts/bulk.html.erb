@@ -12,7 +12,7 @@
           <label for="district_email">E-Mail jetzt</label>
         </div>
         <div class="field-unit__field">
-          <%= text_field_tag(:from) %>
+          <%= text_field_tag(:email) %>
         </div>
       </div>
       <div class="field-unit field-unit--string field-unit--required">
@@ -20,7 +20,15 @@
           <label for="district_email">E-Mail dann</label>
         </div>
         <div class="field-unit__field">
-          <%= text_field_tag(:to) %>
+          <%= text_field_tag(:to_email) %>
+        </div>
+      </div>
+      <div class="field-unit field-unit--string field-unit--required">
+        <div class="field-unit__label">
+          <label for="district_email">mit Konfiguration</label>
+        </div>
+        <div class="field-unit__field">
+          <%= select_tag(:to_config, options_for_select(District.configs.keys)) %>
         </div>
       </div>
       <div class="field-unit field-unit--string field-unit--required">
@@ -28,7 +36,7 @@
           <label for="district_email">mit Flags</label>
         </div>
         <div class="field-unit__field">
-          <%= number_field_tag(:flags) %>
+          <%= select_tag(:to_flags, options_for_select({default: 0}.merge(District.bitfields[:flags]))) %>
         </div>
       </div>
       <div class="form-actions">
