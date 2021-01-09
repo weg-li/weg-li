@@ -66,7 +66,7 @@ hr.spacer
               .checkbox
                 = label_tag :send_via_pdf
                   = check_box_tag :send_via_pdf, '', @notice.district.karlsruhe?
-                  | Meldung per PDF-Anhang versenden
+                  | Anzeige per PDF-Anhang versenden
               = hint do
                 | Durch das Versenden per PDF-Anhang wird die Meldung als PDF generiert und ggf. die #{link_to 'im Profil', edit_user_path(anchor: :signature)} hinterlegte Unterschrift mit eingefügt.
 
