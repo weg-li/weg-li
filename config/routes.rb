@@ -135,6 +135,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   get '/home', to: 'home#index', as: :home
+  get '/wegeheld', to: 'home#wegeheld', as: :wegeheld
   get '/generator', to: 'home#generator', as: :generator
   get '/imprint', to: 'home#imprint', as: :imprint
   get '/map', to: 'home#map', as: :map
