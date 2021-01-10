@@ -67,7 +67,7 @@
       el.classList.remove('well-active');
       ev.preventDefault();
       var data = ev.dataTransfer.getData('text');
-      el.children[0].appendChild(document.getElementById(data));
+      el.children[0]?.appendChild(document.getElementById(data));
     }
 
     function ablegenMove(id) {
@@ -75,9 +75,9 @@
       const first = document.getElementsByClassName('droppable-list')[0];
       const last = document.getElementsByClassName('droppable-list')[1];
       if (Array.from(first.childNodes).includes(el)) {
-        last.appendChild(el);
+        last?.appendChild(el);
       } else {
-        first.appendChild(el);
+        first?.appendChild(el);
       }
     }
 
