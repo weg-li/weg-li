@@ -1,3 +1,5 @@
+require 'csv'
+
 class ChargesController < ApplicationController
   def index
     @charges = Charge.active.order(params[:order] || 'tbnr ASC').page(params[:page])
@@ -12,8 +14,8 @@ class ChargesController < ApplicationController
     respond_to do |format|
       format.csv do
         csv_data = CSV.generate(force_quotes: true) do |csv|
-          csv << ["ID","Tatbestand"]
-          Charge.plain_charges.each_with_index { |charge, index| csv << [index + 1, charge] }
+          csv << ["Nr","TBNR","Tatbestand"]
+          Charge::CHARGES.each_with_index { |(tbnr, charge), index| csv << [index + 1, tbnr, charge] }
         end
         send_data csv_data, type: 'text/csv; charset=UTF-8; header=present', disposition: "attachment; filename=districts-#{Time.now.to_i}.csv"
       end
