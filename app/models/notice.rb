@@ -192,13 +192,25 @@ class Notice < ActiveRecord::Base
 
   def handle_geocoding
     if coordinates?
-      results = Geocoder.search([latitude, longitude])
-      if results.present?
-        best_result = results.first
-        self.zip = best_result.postal_code
-        self.city = best_result.city
-        self.street = "#{best_result.street} #{best_result.house_number}".strip
+      result = self.class.geocode([latitude, longitude])
+      if result.present?
+        self.zip = result[:zip]
+        self.city = result[:city]
+        self.street = result[:street]
       end
+    end
+  end
+
+  def self.geocode(coords)
+    results = Geocoder.search(coords)
+    if results.present?
+      best_result = results.first
+
+      {
+        zip: best_result.postal_code,
+        city: best_result.city,
+        street: "#{best_result.street} #{best_result.house_number}".strip,
+      }
     end
   end
 
