@@ -20,6 +20,7 @@ class NoticesController < ApplicationController
     if filter = params[:filter]
       @table_params[:filter] = filter.to_unsafe_hash
       @notices = @notices.where(status: filter[:status]) if filter[:status].present?
+      @notices = @notices.incomplete if filter[:incomplete].present?
     end
     if order = params[:order]
       @table_params[:order] = order.to_unsafe_hash

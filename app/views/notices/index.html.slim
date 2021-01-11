@@ -8,13 +8,15 @@
     - total_count = current_user.notices.count
     - open_count = current_user.notices.open.count
     - shared_count = current_user.notices.shared.count
+    - incomplete_count = current_user.notices.incomplete.count
     - if open_count == 0
       |
         Du hast bisher #{total_count} Meldungen erfasst, davon sind alle #{shared_count} #{link_to render('status', status: 'shared'), url_for(@table_params.merge(filter: {status: 'shared'}))}.
     - else
-      |
-        Du hast bisher #{total_count} Meldungen erfasst, davon sind #{open_count} #{link_to render('status', status: 'open'), url_for(@table_params.merge(filter: {status: 'open'}))} und #{shared_count} #{link_to render('status', status: 'shared'), url_for(@table_params.merge(filter: {status: 'shared'}))}.
-        Die Frist der Verfolgungsverjährung beträgt bei Ordnungswidrigkeiten lediglich drei Monate, bringe die Meldungen also schnellstmöglichst zur Anzeige, damit sie fristgerecht bearbeitet werden können.
+      span> Du hast bisher #{total_count} Meldungen erfasst, davon sind #{open_count} #{link_to render('status', status: 'open'), url_for(@table_params.merge(filter: {status: 'open'}))} und #{shared_count} #{link_to render('status', status: 'shared'), url_for(@table_params.merge(filter: {status: 'shared'}))}.
+      - if incomplete_count > 0
+        span> Von den offenen Meldungen sind #{incomplete_count} noch #{link_to render('status', status: 'incomplete'), url_for(@table_params.merge(filter: {incomplete: true}))}.
+      span Die Frist der Verfolgungsverjährung beträgt bei Ordnungswidrigkeiten lediglich drei Monate, bringe die Meldungen also schnellstmöglichst zur Anzeige, damit sie fristgerecht bearbeitet werden können.
   .panel.panel-default
     .panel-heading
       .row
