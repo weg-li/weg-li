@@ -8,6 +8,7 @@ module.exports = {
   ],
   globals: {
     $: 'readonly',
+    L: 'readonly',
   },
   parserOptions: {
     ecmaVersion: 12,

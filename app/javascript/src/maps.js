@@ -1,4 +1,4 @@
-/* global google */
+/* global google, L */
 import MarkerClusterer from '@google/markerclustererplus';
 
 let recentWindow;
@@ -33,6 +33,17 @@ function addInfoWindow(map, marker, notice) {
   });
 }
 
+function initMap(canvas, coords, zoom = 13) {
+  const map = L.map(canvas).setView(coords, zoom);
+
+  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    id: 'mapbox/outdoors-v11',
+    accessToken: 'pk.eyJ1IjoicGhvZXQiLCJhIjoiY2s4b2Y3cGdqMDIzZDNkbnMwMzhlMnJpbiJ9.n2Fw_hniWAZ8T5-Qc0V0fA',
+  }).addTo(map);
+  return map;
+}
+
 class GMap {
   constructor(canvas) {
     this.canvas = canvas[0];
@@ -40,36 +51,11 @@ class GMap {
   }
 
   show() {
-    // const options = {
-    //   zoom: 13,
-    //   scrollwheel: false,
-    //   streetViewControl: false,
-    //   center: new google.maps.LatLng(this.notice.latitude, this.notice.longitude),
-    //   mapTypeId: google.maps.MapTypeId.ROADMAP,
-    // };
-    // const map = new google.maps.Map(this.canvas, options);
-    // const position = new google.maps.LatLng(this.notice.latitude, this.notice.longitude);
-    // const marker = new google.maps.Marker({ position, map, title: this.notice.location });
-    // addInfoWindow(map, marker, this.notice);
-
-
-    var map = L.map(this.canvas).setView([this.notice.latitude, this.notice.longitude], 13);
-
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-      id: 'mapbox/outdoors-v11',
-      accessToken: 'pk.eyJ1IjoicGhvZXQiLCJhIjoiY2s4b2Y3cGdqMDIzZDNkbnMwMzhlMnJpbiJ9.n2Fw_hniWAZ8T5-Qc0V0fA'
-    }).addTo(map);
-
-
-    // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    //   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    // }).addTo(map);
+    const map = initMap(this.canvas, [this.notice.latitude, this.notice.longitude]);
 
     L.marker([this.notice.latitude, this.notice.longitude]).addTo(map)
       .bindPopup(mapHTML(this.notice))
       .openPopup();
-
   }
 }
 
@@ -166,29 +152,18 @@ class GMultiMap {
   }
 
   show() {
-    const map = new google.maps.Map(this.canvas, {
-      zoom: this.init.zoom,
-      center: new google.maps.LatLng(this.init.latitude, this.init.longitude),
+    const map = initMap(this.canvas, [this.init.latitude, this.init.longitude], this.init.zoom);
 
-      scrollwheel: false,
-      streetViewControl: false,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-    });
-
-    const bounds = new google.maps.LatLngBounds();
+    const bounds = [];
     this.notices.forEach((notice) => {
-      const position = new google.maps.LatLng(notice.latitude, notice.longitude);
-      bounds.extend(position);
+      const coord = [notice.latitude, notice.longitude];
+      bounds.push(coord);
 
-      const options = { position, map, title: notice.charge };
-      const marker = new google.maps.Marker(options);
-      addInfoWindow(map, marker, notice);
+      L.marker(coord).addTo(map)
+        .bindPopup(mapHTML(notice))
+        .openPopup();
     });
-
-    if (!bounds.isEmpty()) {
-      map.fitBounds(bounds);
-      map.panToBounds(bounds);
-    }
+    map.fitBounds(bounds);
   }
 }
 
@@ -200,30 +175,17 @@ class GClusterMap {
   }
 
   show() {
-    const options = {
-      zoom: this.init.zoom,
-      center: new google.maps.LatLng(this.init.latitude, this.init.longitude),
-      scrollwheel: false,
-      streetViewControl: false,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-    };
+    const map = initMap(this.canvas, [this.init.latitude, this.init.longitude], this.init.zoom);
 
-    const bounds = new google.maps.LatLngBounds();
-    const map = new google.maps.Map(this.canvas, options);
-    const markers = this.notices.map((notice) => {
-      const position = new google.maps.LatLng(notice.latitude, notice.longitude);
-      bounds.extend(position);
-
-      const marker = new google.maps.Marker({ position, title: notice.charge });
-      addInfoWindow(map, marker, notice);
-      return marker;
+    const markers = L.markerClusterGroup();
+    this.notices.forEach((notice) => {
+      const marker = L.marker([notice.latitude, notice.longitude])
+        .bindPopup(mapHTML(notice))
+        .openPopup();
+      markers.addLayer(marker);
     });
-    if (!bounds.isEmpty()) {
-      map.fitBounds(bounds);
-      map.panToBounds(bounds);
-    }
-
-    new MarkerClusterer(map, markers, { imagePath: '/img/map/m' });
+    map.addLayer(markers);
+    map.fitBounds(markers.getBounds());
   }
 }
 
