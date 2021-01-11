@@ -64,20 +64,23 @@ class Annotator
         },
       ]
     }
-    response = vision_client.batch_annotate_images(request)
+    response = image_annotator.batch_annotate_images(request)
     response.responses.first.to_h
   end
 
-  def download
+  def download(key = "Screen Shot 2018-11-06 at 16.39.16.png")
     storage = Google::Cloud::Storage.new
     bucket = storage.bucket(self.class.bucket_name)
-    file = bucket.file "Screen Shot 2018-11-06 at 16.39.16.png"
+    file = bucket.file(key)
     file.download "tmp/#{file.name}"
   end
 
   private
 
-  def vision_client
-    @vision_client ||= Google::Cloud::Vision.image_annotator
+  def image_annotator
+    @image_annotator ||= Google::Cloud::Vision.image_annotator do |config|
+      # only for DOCUMENT_TEXT_DETECTION https://cloud.google.com/vision/docs/ocr#regionalization
+      # config.endpoint = "eu-vision.googleapis.com"
+    end
   end
 end
