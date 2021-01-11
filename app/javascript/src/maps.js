@@ -1,4 +1,7 @@
-/* global L */
+const L = require('leaflet');
+require('leaflet.markercluster');
+
+L.Icon.Default.imagePath = '/img/map/';
 
 function mapHTML(notice) {
   const link = notice.token ? `<dt><a href="/notices/${notice.token}">Details ansehen</a></dt>` : '';
