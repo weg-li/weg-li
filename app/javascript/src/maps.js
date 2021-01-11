@@ -3,26 +3,28 @@ import MarkerClusterer from '@google/markerclustererplus';
 
 let recentWindow;
 
+function mapHTML(notice) {
+  return `
+    <dl>
+      <dt>Datum</dt>
+      <dd>${notice.date || '-'}</dd>
+      <dt>Kennzeichen</dt>
+      <dd>${notice.registration || '-'}</dd>
+      <dt>Verstoß</dt>
+      <dd>${notice.charge || '-'}</dd>
+      <dt>Adresse</dt>
+      <dd>${notice.full_address || '-'}</dd>
+      <dt><a href="/notices/${notice.token}">Details ansehen</a></dt>
+    </dl>
+  `;
+}
+
 function addInfoWindow(map, marker, notice) {
   if (!notice.token) {
     return;
   }
   google.maps.event.addListener(marker, 'click', () => {
-    const content = `
-    <div>
-      <dl class="dl-horizontal">
-        <dt>Datum</dt>
-        <dd>${notice.date || '-'}</dd>
-        <dt>Kennzeichen</dt>
-        <dd>${notice.registration || '-'}</dd>
-        <dt>Verstoß</dt>
-        <dd>${notice.charge || '-'}</dd>
-        <dt>Adresse</dt>
-        <dd>${notice.full_address || '-'}</dd>
-      </dl>
-      <a href="/notices/${notice.token}" class="btn btn-default btn-sm pull-right">ansehen</a>
-    </div>
-    `;
+    const content = mapHTML(notice);
     if (recentWindow) {
       recentWindow.close();
     }
@@ -38,17 +40,36 @@ class GMap {
   }
 
   show() {
-    const options = {
-      zoom: 13,
-      scrollwheel: false,
-      streetViewControl: false,
-      center: new google.maps.LatLng(this.notice.latitude, this.notice.longitude),
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-    };
-    const map = new google.maps.Map(this.canvas, options);
-    const position = new google.maps.LatLng(this.notice.latitude, this.notice.longitude);
-    const marker = new google.maps.Marker({ position, map, title: this.notice.location });
-    addInfoWindow(map, marker, this.notice);
+    // const options = {
+    //   zoom: 13,
+    //   scrollwheel: false,
+    //   streetViewControl: false,
+    //   center: new google.maps.LatLng(this.notice.latitude, this.notice.longitude),
+    //   mapTypeId: google.maps.MapTypeId.ROADMAP,
+    // };
+    // const map = new google.maps.Map(this.canvas, options);
+    // const position = new google.maps.LatLng(this.notice.latitude, this.notice.longitude);
+    // const marker = new google.maps.Marker({ position, map, title: this.notice.location });
+    // addInfoWindow(map, marker, this.notice);
+
+
+    var map = L.map(this.canvas).setView([this.notice.latitude, this.notice.longitude], 13);
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      id: 'mapbox/outdoors-v11',
+      accessToken: 'pk.eyJ1IjoicGhvZXQiLCJhIjoiY2s4b2Y3cGdqMDIzZDNkbnMwMzhlMnJpbiJ9.n2Fw_hniWAZ8T5-Qc0V0fA'
+    }).addTo(map);
+
+
+    // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    //   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    // }).addTo(map);
+
+    L.marker([this.notice.latitude, this.notice.longitude]).addTo(map)
+      .bindPopup(mapHTML(this.notice))
+      .openPopup();
+
   }
 }
 
