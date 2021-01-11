@@ -142,8 +142,7 @@ class Notice < ActiveRecord::Base
 
   def possible_registrations
     registrations = [registration]
-    # TODO use results instead
-    # registrations += data.flat_map {|_, result| Annotator.grep_text(result.deep_symbolize_keys) { |string| Vehicle.plate?(string) } }.map(&:first)
+    registrations += data_sets.google_vision.flat_map {|data_set| Annotator.grep_text(data_set.data.deep_symbolize_keys) { |string| Vehicle.plate?(string) }.first }
     registrations.flatten.compact.uniq
   end
 

@@ -37,7 +37,7 @@ class NoticesController < ApplicationController
   end
 
   def suggest
-    notices = current_user.notices.since(2.month.ago).search(params[:term]).order(:registration).limit(25)
+    notices = current_user.notices.search(params[:term]).order(:registration).limit(25)
 
     results = notices.pluck(:registration, :brand, :color).uniq.map do |registration, brand, color|
       {
