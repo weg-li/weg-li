@@ -43,7 +43,7 @@ describe Notice do
 
   context "apply_favorites" do
     it "applies favorites" do
-      existing_notice = Fabricate.create(:notice, status: :shared, registration: 'HH PS 123')
+      existing_notice = Fabricate.create(:notice, status: :shared, registration: 'HH PS 123', user: notice.user)
 
       notice.apply_favorites(['HH PS 123'])
 
