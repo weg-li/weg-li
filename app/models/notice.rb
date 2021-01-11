@@ -142,7 +142,7 @@ class Notice < ActiveRecord::Base
 
   def possible_registrations
     registrations = [registration]
-    registrations += data_sets.google_vision.flat_map {|data_set| Annotator.grep_text(data_set.data.deep_symbolize_keys) { |string| Vehicle.plate?(string) }.first }
+    registrations += data_sets.google_vision.flat_map { |data_set| Annotator.grep_text(data_set.data.deep_symbolize_keys) { |string| Vehicle.plate?(string) }.map(&:first) }
     registrations.flatten.compact.uniq
   end
 
