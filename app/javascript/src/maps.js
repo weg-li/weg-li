@@ -4,18 +4,28 @@ require('leaflet.markercluster');
 L.Icon.Default.imagePath = '/img/map/';
 
 function mapHTML(notice) {
-  const link = notice.token ? `<dt><a href="/notices/${notice.token}">Details ansehen</a></dt>` : '';
+  const date = notice.date ? new Date(Date.parse(notice.date)).toLocaleDateString() : '-';
+  if (notice.token) {
+    return `
+      <dl>
+        <dt>Datum</dt>
+        <dd>${date}</dd>
+        <dt>Kennzeichen</dt>
+        <dd>${notice.registration || '-'}</dd>
+        <dt>Verstoß</dt>
+        <dd>${notice.charge || '-'}</dd>
+        <dt>Adresse</dt>
+        <dd>${notice.full_address || '-'}</dd>
+        <dt><a href="/notices/${notice.token}">Details ansehen</a></dt>
+      </dl>
+    `;
+  }
   return `
     <dl>
       <dt>Datum</dt>
-      <dd>${notice.date || '-'}</dd>
-      <dt>Kennzeichen</dt>
-      <dd>${notice.registration || '-'}</dd>
+      <dd>${date}</dd>
       <dt>Verstoß</dt>
       <dd>${notice.charge || '-'}</dd>
-      <dt>Adresse</dt>
-      <dd>${notice.full_address || '-'}</dd>
-      ${link}
     </dl>
   `;
 }
@@ -40,9 +50,7 @@ class GMap {
   show() {
     const map = initMap(this.canvas, [this.notice.latitude, this.notice.longitude]);
 
-    L.marker([this.notice.latitude, this.notice.longitude]).addTo(map)
-      .bindPopup(mapHTML(this.notice))
-      .openPopup();
+    L.marker([this.notice.latitude, this.notice.longitude]).addTo(map).bindPopup(mapHTML(this.notice));
   }
 }
 
@@ -139,9 +147,7 @@ class GMultiMap {
         const coord = [notice.latitude, notice.longitude];
         bounds.push(coord);
 
-        L.marker(coord).addTo(map)
-          .bindPopup(mapHTML(notice))
-          .openPopup();
+        L.marker(coord).addTo(map).bindPopup(mapHTML(notice));
       });
       map.fitBounds(bounds);
     }
