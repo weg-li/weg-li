@@ -1,6 +1,7 @@
 /* global L */
 
 function mapHTML(notice) {
+  const link = notice.token ? `<dt><a href="/notices/${notice.token}">Details ansehen</a></dt>` : '';
   return `
     <dl>
       <dt>Datum</dt>
@@ -11,7 +12,7 @@ function mapHTML(notice) {
       <dd>${notice.charge || '-'}</dd>
       <dt>Adresse</dt>
       <dd>${notice.full_address || '-'}</dd>
-      <dt><a href="/notices/${notice.token}">Details ansehen</a></dt>
+      ${link}
     </dl>
   `;
 }
