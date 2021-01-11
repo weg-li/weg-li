@@ -89,4 +89,9 @@ class Charge < ActiveRecord::Base
   def self.plain_charges
     @plain_charges ||= CHARGES.values
   end
+
+  def self.plain_charges_tbnr(charge)
+    @plain_charges_tbnr ||= CHARGES.invert
+    @plain_charges_tbnr[charge]
+  end
 end
