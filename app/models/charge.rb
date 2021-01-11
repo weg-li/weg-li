@@ -82,6 +82,7 @@ class Charge < ActiveRecord::Base
     -3 => 'Parken auf einer Grünfläche',
     -4 => 'Parken auf einer Baumscheibe',
     112076 => 'Parken in der Einbahnstraße entgegen der Fahrtrichtung',
+    141042 => 'Parkten auf einem Gehweg, der durch Parkflächenmarkierung zum Gehwegparken freigegeben war, bei mehr als 2,8 t zulässiger Gesamtmasse',
     0 => 'Sonstiges Parkvergehen (siehe Hinweise)',
   }
 
