@@ -64,6 +64,14 @@ class NoticesController < ApplicationController
     @default_district = District.from_zip(current_user.zip) || District.active.first
   end
 
+  def geocode
+    latitude = params[:latitude]
+    longitude = params[:longitude]
+
+    result = Notice.geocode([latitude, longitude])
+    render json: { result: result }
+  end
+
   def stats
     @since = (params[:since] || '8').to_i
 

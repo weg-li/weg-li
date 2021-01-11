@@ -25,6 +25,8 @@ require('turbolinks').start();
 require('@rails/activestorage').start();
 
 // 3rdparty deps
+require('leaflet');
+require('leaflet.markercluster');
 require('bootstrap');
 require('alpine-turbolinks-adapter');
 require('alpinejs');

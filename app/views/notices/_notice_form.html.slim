@@ -26,24 +26,7 @@
 
         a.input-group-addon(href="#" data-toggle="modal" data-target="#modal_map")
           span.glyphicon.glyphicon-map-marker
-        .modal.fade id="modal_map" tabindex="-1" role="dialog"
-          .modal-dialog.modal-lg
-            .modal-content
-              .modal-header
-                button type="button" class="close" data-dismiss="modal" aria-label="Schließen"
-                  span aria-hidden="true" &times;
-                h4.modal-title Adresse auswählen
-              .modal-body
-                .well.well-sm.callout-primary Den Marker per Doppel-Click und Drag&Drop positionieren, oder den Button für den aktuellen Standort verwenden, die Adresse wird dann aktualisiert.
-                = render('picker_map', notice: notice, street: '#notice_street', zip: '#notice_zip', city: '#notice_city', latitude: '#notice_latitude', longitude: '#notice_longitude', trigger: '#geolocation')
-              .modal-footer
-                .btn-group
-                  = button_tag type: :button, class: "btn btn-default btn-sm", id: 'geolocation' do
-                    span.glyphicon.glyphicon-map-marker>
-                    | aktueller Standort
-                  button type="button" class="btn btn-default btn-sm" data-dismiss="modal"
-                    span.glyphicon.glyphicon-remove>
-                    | Schließen
+        = render('picker_modal', notice: notice)
 
   .col-lg-4
     .form-group

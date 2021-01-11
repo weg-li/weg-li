@@ -1,34 +1,30 @@
-/* global google */
-import MarkerClusterer from '@google/markerclustererplus';
+/* global L */
 
-let recentWindow;
+function mapHTML(notice) {
+  return `
+    <dl>
+      <dt>Datum</dt>
+      <dd>${notice.date || '-'}</dd>
+      <dt>Kennzeichen</dt>
+      <dd>${notice.registration || '-'}</dd>
+      <dt>Verstoß</dt>
+      <dd>${notice.charge || '-'}</dd>
+      <dt>Adresse</dt>
+      <dd>${notice.full_address || '-'}</dd>
+      <dt><a href="/notices/${notice.token}">Details ansehen</a></dt>
+    </dl>
+  `;
+}
 
-function addInfoWindow(map, marker, notice) {
-  if (!notice.token) {
-    return;
-  }
-  google.maps.event.addListener(marker, 'click', () => {
-    const content = `
-    <div>
-      <dl class="dl-horizontal">
-        <dt>Datum</dt>
-        <dd>${notice.date || '-'}</dd>
-        <dt>Kennzeichen</dt>
-        <dd>${notice.registration || '-'}</dd>
-        <dt>Verstoß</dt>
-        <dd>${notice.charge || '-'}</dd>
-        <dt>Adresse</dt>
-        <dd>${notice.full_address || '-'}</dd>
-      </dl>
-      <a href="/notices/${notice.token}" class="btn btn-default btn-sm pull-right">ansehen</a>
-    </div>
-    `;
-    if (recentWindow) {
-      recentWindow.close();
-    }
-    recentWindow = new google.maps.InfoWindow({ content });
-    recentWindow.open(map, marker);
-  });
+function initMap(canvas, coords, zoom = 13) {
+  const map = L.map(canvas).setView(coords, zoom);
+
+  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    id: 'mapbox/outdoors-v11',
+    accessToken: 'pk.eyJ1IjoicGhvZXQiLCJhIjoiY2s4b2Y3cGdqMDIzZDNkbnMwMzhlMnJpbiJ9.n2Fw_hniWAZ8T5-Qc0V0fA',
+  }).addTo(map);
+  return map;
 }
 
 class GMap {
@@ -38,95 +34,81 @@ class GMap {
   }
 
   show() {
-    const options = {
-      zoom: 13,
-      scrollwheel: false,
-      streetViewControl: false,
-      center: new google.maps.LatLng(this.notice.latitude, this.notice.longitude),
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-    };
-    const map = new google.maps.Map(this.canvas, options);
-    const position = new google.maps.LatLng(this.notice.latitude, this.notice.longitude);
-    const marker = new google.maps.Marker({ position, map, title: this.notice.location });
-    addInfoWindow(map, marker, this.notice);
+    const map = initMap(this.canvas, [this.notice.latitude, this.notice.longitude]);
+
+    L.marker([this.notice.latitude, this.notice.longitude]).addTo(map)
+      .bindPopup(mapHTML(this.notice))
+      .openPopup();
   }
+}
+
+async function geocode(latitude, longitude) {
+  const result = await fetch('/notices/geocode', {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'X-CSRF-Token': document.querySelector("[name='csrf-token']")?.content,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ latitude, longitude }), // body data type must match "Content-Type" header
+  });
+
+  return result.json();
 }
 
 class GPickerMap {
   constructor(canvas) {
     this.canvas = canvas[0];
-    this.notice = canvas.data('notice');
+    this.coordinates = canvas.data('coordinates');
     this.street = canvas.data('street');
     this.zip = canvas.data('zip');
     this.city = canvas.data('city');
     this.latitude = canvas.data('latitude');
     this.longitude = canvas.data('longitude');
     this.trigger = canvas.data('trigger');
+    this.map = null;
+  }
+
+  rerender() {
+    this.map.invalidateSize();
   }
 
   show() {
-    const point = new google.maps.LatLng(this.notice.latitude, this.notice.longitude);
-    const map = new google.maps.Map(this.canvas, {
-      zoom: 18,
-      scrollwheel: true,
-      streetViewControl: false,
-      disableDoubleClickZoom: true,
-      center: point,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-    });
+    const point = [this.coordinates.latitude, this.coordinates.longitude];
+    this.map = initMap(this.canvas, point, 18);
+    const marker = L.marker(point, { draggable: true }).addTo(this.map);
 
-    const marker = new google.maps.Marker({
-      map,
-      position: point,
-      draggable: true,
-      title: this.notice.location,
-    });
+    const markerMoved = async (event) => {
+      const latlng = event.latlng || event.target.getLatLng();
+      marker.setLatLng(latlng);
 
-    const markerMoved = (event) => {
-      const lat = event.latLng.lat();
-      const lng = event.latLng.lng();
-
-      const geocoder = new google.maps.Geocoder();
-      geocoder.geocode({ location: { lat, lng } }, (results, status) => {
-        if (status === 'OK') {
-          if (results.length > 0) {
-            const result = results.find((entry) => entry.types.includes('street_address')) || results.find((entry) => entry.address_components);
-            if (result) {
-              const location = Object.fromEntries(result.address_components.map((comp) => [comp.types[0], comp.long_name]));
-              $(this.street).val(`${location.route || ''} ${location.street_number || ''}`.trim());
-              $(this.zip).val(location.postal_code || '');
-              $(this.city).val(location.locality || location.administrative_area_level_1 || location.political || '');
-              $(this.latitude).val(lat);
-              $(this.longitude).val(lng);
-            } else {
-              window.alert('Es konnten keine Ergebnisse gefunden werden.');
-            }
-          } else {
-            window.alert('Es konnten keine Ergebnisse gefunden werden.');
-          }
-        } else {
-          window.alert(`Es ist ein Fehler aufgetreten: ${status}`);
-        }
-      });
+      const data = await geocode(latlng.lat, latlng.lng);
+      if (data.result) {
+        $(this.street).val(data.result.street);
+        $(this.zip).val(data.result.zip);
+        $(this.city).val(data.result.city);
+        $(this.latitude).val(latlng.lat);
+        $(this.longitude).val(latlng.lng);
+      } else {
+        window.alert('Es konnten keine Ergebnisse gefunden werden.');
+      }
     };
 
-    google.maps.event.addListener(map, 'dblclick', (event) => {
-      marker.setPosition(event.latLng);
-      markerMoved(event);
-    });
-
-    google.maps.event.addListener(marker, 'dragend', markerMoved);
+    marker.addEventListener('dragend', markerMoved);
+    this.map.addEventListener('dblclick', markerMoved);
 
     $(window.document).on('click', this.trigger, () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
-          const pos = {
+          const latlng = {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
 
-          map.setCenter(pos);
-          marker.setPosition(pos);
+          this.map.flyTo(latlng);
+          markerMoved({ latlng });
         }, (error) => {
           console.log('error getting current location', error);
         });
@@ -145,29 +127,18 @@ class GMultiMap {
   }
 
   show() {
-    const map = new google.maps.Map(this.canvas, {
-      zoom: this.init.zoom,
-      center: new google.maps.LatLng(this.init.latitude, this.init.longitude),
+    const map = initMap(this.canvas, [this.init.latitude, this.init.longitude], this.init.zoom);
 
-      scrollwheel: false,
-      streetViewControl: false,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-    });
-
-    const bounds = new google.maps.LatLngBounds();
+    const bounds = [];
     this.notices.forEach((notice) => {
-      const position = new google.maps.LatLng(notice.latitude, notice.longitude);
-      bounds.extend(position);
+      const coord = [notice.latitude, notice.longitude];
+      bounds.push(coord);
 
-      const options = { position, map, title: notice.charge };
-      const marker = new google.maps.Marker(options);
-      addInfoWindow(map, marker, notice);
+      L.marker(coord).addTo(map)
+        .bindPopup(mapHTML(notice))
+        .openPopup();
     });
-
-    if (!bounds.isEmpty()) {
-      map.fitBounds(bounds);
-      map.panToBounds(bounds);
-    }
+    map.fitBounds(bounds);
   }
 }
 
@@ -179,30 +150,17 @@ class GClusterMap {
   }
 
   show() {
-    const options = {
-      zoom: this.init.zoom,
-      center: new google.maps.LatLng(this.init.latitude, this.init.longitude),
-      scrollwheel: false,
-      streetViewControl: false,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-    };
+    const map = initMap(this.canvas, [this.init.latitude, this.init.longitude], this.init.zoom);
 
-    const bounds = new google.maps.LatLngBounds();
-    const map = new google.maps.Map(this.canvas, options);
-    const markers = this.notices.map((notice) => {
-      const position = new google.maps.LatLng(notice.latitude, notice.longitude);
-      bounds.extend(position);
-
-      const marker = new google.maps.Marker({ position, title: notice.charge });
-      addInfoWindow(map, marker, notice);
-      return marker;
+    const markers = L.markerClusterGroup();
+    this.notices.forEach((notice) => {
+      const marker = L.marker([notice.latitude, notice.longitude])
+        .bindPopup(mapHTML(notice))
+        .openPopup();
+      markers.addLayer(marker);
     });
-    if (!bounds.isEmpty()) {
-      map.fitBounds(bounds);
-      map.panToBounds(bounds);
-    }
-
-    new MarkerClusterer(map, markers, { imagePath: '/img/map/m' });
+    map.addLayer(markers);
+    map.fitBounds(markers.getBounds());
   }
 }
 
