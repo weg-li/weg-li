@@ -130,16 +130,18 @@ class GMultiMap {
   show() {
     const map = initMap(this.canvas, [this.init.latitude, this.init.longitude], this.init.zoom);
 
-    const bounds = [];
-    this.notices.forEach((notice) => {
-      const coord = [notice.latitude, notice.longitude];
-      bounds.push(coord);
+    if (this.notices.length > 0) {
+      const bounds = [];
+      this.notices.forEach((notice) => {
+        const coord = [notice.latitude, notice.longitude];
+        bounds.push(coord);
 
-      L.marker(coord).addTo(map)
-        .bindPopup(mapHTML(notice))
-        .openPopup();
-    });
-    map.fitBounds(bounds);
+        L.marker(coord).addTo(map)
+          .bindPopup(mapHTML(notice))
+          .openPopup();
+      });
+      map.fitBounds(bounds);
+    }
   }
 }
 
@@ -153,15 +155,17 @@ class GClusterMap {
   show() {
     const map = initMap(this.canvas, [this.init.latitude, this.init.longitude], this.init.zoom);
 
-    const markers = L.markerClusterGroup();
-    this.notices.forEach((notice) => {
-      const marker = L.marker([notice.latitude, notice.longitude])
-        .bindPopup(mapHTML(notice))
-        .openPopup();
-      markers.addLayer(marker);
-    });
-    map.addLayer(markers);
-    map.fitBounds(markers.getBounds());
+    if (this.notices.length > 0) {
+      const markers = L.markerClusterGroup();
+      this.notices.forEach((notice) => {
+        const marker = L.marker([notice.latitude, notice.longitude])
+          .bindPopup(mapHTML(notice))
+          .openPopup();
+        markers.addLayer(marker);
+      });
+      map.addLayer(markers);
+      map.fitBounds(markers.getBounds());
+    }
   }
 }
 
