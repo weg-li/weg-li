@@ -18,12 +18,19 @@ class Vehicle
   def self.most_likely?(matches)
     return nil if matches.blank?
 
-    matches.group_by {|key, _| key }.sort_by {|_, group| group.sum { |_, probability| probability } / matches.size }.last[0]
+    groups = matches.group_by {|key, _| key.gsub(/\W/, '') }.sort_by {|_, group| group.sum { |_, probability| probability } / matches.size }
+    best_match = groups.last
+    best_match[1].flatten[0]
   end
 
-  def self.plate?(text)
+  def self.plate?(text, prefixes: [])
     text = normalize(text)
-    if text =~ plate_regex
+
+    if prefixes.present? && text =~ plate_regex(prefixes)
+      ["#{$1} #{$2} #{$3}#{$4.to_s.gsub('-', ' ')}", 1.2]
+    elsif prefixes.present? && text =~ relaxed_plate_regex(prefixes)
+      ["#{$1} #{$2} #{$3}#{$4.to_s.gsub('-', ' ')}", 1.1]
+    elsif text =~ plate_regex
       ["#{$1} #{$2} #{$3}#{$4.to_s.gsub('-', ' ')}", 1.0]
     elsif text =~ relaxed_plate_regex
       ["#{$1}#{$2} #{$3}#{$4.to_s.gsub('-', ' ')}", 0.8]
@@ -42,20 +49,16 @@ class Vehicle
     text.gsub(left, '').gsub(right, '').gsub(middle, '\1\2').gsub(/\W+/,'-')
   end
 
-  def self.clean_regex
-    @clean_regex ||= /^/
+  def self.plate_regex(prefixes = Vehicle.plates.keys)
+    Regexp.new("^(#{prefixes.join('|')})-([A-Z]{1,3})-?(\\d{1,4})(-E)?$")
   end
 
-  def self.plate_regex
-    @plate_regex ||= Regexp.new("^(#{Vehicle.plates.keys.join('|')})-([A-Z]{1,3})-?(\\d{1,4})(-E)?$")
+  def self.relaxed_plate_regex(prefixes = Vehicle.plates.keys)
+    Regexp.new("^(#{prefixes.join('|')})O?:?-?([A-Z]{1,3})-?(\\d{1,4})(-E)?$")
   end
 
-  def self.relaxed_plate_regex
-    @relaxed_plate_regex ||= Regexp.new("^(#{Vehicle.plates.keys.join('|')})O?:?-?([A-Z]{1,3})-?(\\d{1,4})(-E)?$")
-  end
-
-  def self.quirky_mode_plate_regex
-    @quirky_mode_plate_regex ||= Regexp.new("^P?D?C?O?B?(#{Vehicle.plates.keys.join('|')})O?:?-?0?([A-Z]{1,3})-?(\\d{1,4})(-E)?$")
+  def self.quirky_mode_plate_regex(prefixes = Vehicle.plates.keys)
+    Regexp.new("^P?D?C?O?B?(#{prefixes.join('|')})O?:?-?0?([A-Z]{1,3})-?(\\d{1,4})(-E)?$")
   end
 
   def self.district_for_plate_prefix(text)
