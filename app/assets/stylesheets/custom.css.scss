@@ -10,6 +10,37 @@ $dark-color: darken($default-color, 10);
 
 $white: rgb(255, 255, 255);
 
+.blink {
+  opacity: 0;
+  animation-name: blink;
+  animation-duration: 5s;
+  animation-delay: 15s;
+  animation-timing-function: linear;
+  animation-iteration-count: 3;
+  position: absolute;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  92% {
+    opacity: 0;
+  }
+  94% {
+    opacity: 0.5;
+  }
+  96% {
+    opacity: 1;
+  }
+  98% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 select {
   font-size: 50px;
 }
