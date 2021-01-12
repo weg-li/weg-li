@@ -1,12 +1,10 @@
 - if @crumbs.present?
-  .page-header(id="banner")
+  .page-header#banner
     ul.breadcrumb
       - @crumbs.each do |name, path|
         - if path == url_for
-          li.active
-            = link_to name, path
+          li.active= link_to(name, path)
         - else
-          li
-            = link_to name, path
+          li= link_to(name, path)
 - else
   .spacer-large.hidden-xs
