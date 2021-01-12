@@ -26,11 +26,17 @@
       .col-lg-8
         = render 'photo_list', bulk_upload: @bulk_upload, photos: [@photos.first]
       .col-lg-4
-        p= form.submit 'neue Meldung anlegen', class: "btn btn-success"
-        p= link_to 'Beweisfotos aktualisieren', url_for(params.to_unsafe_hash), class: "btn btn-sm btn-default"
+        p
+          = form.button type: :submit, class: "btn btn-success btn-block"
+            span.glyphicon.glyphicon-plus>
+            | neue Meldung anlegen
+        .well
+          p
+            = link_to url_for(params.to_unsafe_hash), class: "btn btn-sm btn-default btn-block"
+              span.glyphicon.glyphicon-refresh>
+              | Beweisfotos aktualisieren
 
-        .btn-group.btn-group-sm
-          button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"
+          button type="button" class="btn btn-default btn-sm btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false"
             | sortiert #{@order_direction == 'asc' ? '⬆' : '⬇'} #{@order_column == 'filename' ? 'nach Dateinamen' : 'wie hochgeladen'} <span class="caret"></span>
           ul.dropdown-menu
             li
@@ -83,15 +89,12 @@
 
   hr.spacer
 
-  .well.well-sm.callout-primary Sollte jedes der Beweisfotos zu einem einzelnen Vergehen gehören, dann kann hier auf Knopfdruck pro Beweisfoto jeweils eine neue Meldung angelegt werden.
-
-  = form_with model: @bulk_upload do |form|
-    .row
-      .col-lg-12
-        .pull-right
-          .btn-group
-            = form.submit 'Pro Foto eine neue Meldung', name: 'one_per_photo', class: "btn btn-success"
-
+  .row
+    .col-lg-3
+      = form_with model: @bulk_upload do |form|
+        = form.submit 'Pro Beweisfoto eine neue Meldung', name: 'one_per_photo', class: "btn btn-primary btn-block"
+    .col-lg-9
+      .well.well-sm.callout-primary Sollte jedes Beweisfoto zu einem eigenen Vergehen gehören, dann hier pro Beweisfoto jeweils eine neue Meldung erzeugen.
 
   - if @bulk_upload.notices.present?
     hr.spacer
