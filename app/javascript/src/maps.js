@@ -97,17 +97,19 @@ class GPickerMap {
 
     const markerMoved = async (event) => {
       const latlng = event.latlng || event.target.getLatLng();
-      marker.setLatLng(latlng);
+      if (latlng) {
+        marker.setLatLng(latlng);
 
-      const data = await geocode(latlng.lat, latlng.lng);
-      if (data.result) {
-        $(this.street).val(data.result.street);
-        $(this.zip).val(data.result.zip);
-        $(this.city).val(data.result.city);
-        $(this.latitude).val(latlng.lat);
-        $(this.longitude).val(latlng.lng);
-      } else {
-        window.alert('Es konnten keine Ergebnisse gefunden werden.');
+        const data = await geocode(latlng.lat, latlng.lng);
+        if (data.result) {
+          $(this.street).val(data.result.street);
+          $(this.zip).val(data.result.zip);
+          $(this.city).val(data.result.city);
+          $(this.latitude).val(latlng.lat);
+          $(this.longitude).val(latlng.lng);
+        } else {
+          window.alert('Es konnten keine Ergebnisse gefunden werden.');
+        }
       }
     };
 
