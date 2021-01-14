@@ -52,19 +52,26 @@ addEventListener('direct-upload:error', (event) => {
   errorEl.classList.remove('hidden');
 });
 
-// optimization, trigger async processing once its upoaded
 async function triggerAnalyzation(url, data) {
-  const response = await fetch(url, {
-    method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    mode: 'cors', // no-cors, *cors, same-origin
-    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: 'same-origin', // include, *same-origin, omit
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data), // body data type must match "Content-Type" header
-  });
-  return response.json(); // parses JSON response into native JavaScript objects
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'X-CSRF-Token': document.querySelector("[name='csrf-token']")?.content,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    return response.json();
+  } catch (err) {
+    throw new Error(err.message);
+  }
 }
 
 addEventListener('direct-upload:end', (event) => {
