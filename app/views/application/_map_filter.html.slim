@@ -8,7 +8,6 @@ ul.nav.nav-tabs.nav-panel
     .row
       .col-lg-12
         = form_tag({url: map_path}, method: :get, class: 'form-inline pull-right') do |form|
-          = hidden_field_tag(:since, since)
           = hidden_field_tag(:display, display)
           .form-group.form-group-sm.text-right
             - durations = [['letzte Woche', 7], ['letzter Monat', 30], ['letztes Quartal', 30 * 3]]
