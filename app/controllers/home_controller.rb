@@ -20,18 +20,27 @@ class HomeController < ApplicationController
   end
 
   def stats
-    @weeks = (params[:since] || 8).to_i
+    @since = (params[:since] || 6 * 4).to_i
+    @display = params[:display] || 'user'
+    @interval = params[:interval] || '1 week'
 
-    @user_counts = User.count_over(User.active, weeks: @weeks)
-    @user_sums = User.sum_over(User.active, weeks: @weeks)
-    @active_user_counts = User.count_over(User.active.joins(:notices), weeks: @weeks)
-    @active_user_sums = User.sum_over(User.active.joins(:notices), weeks: @weeks)
-    @notice_counts = Notice.count_over(Notice.shared, weeks: @weeks)
-    @notice_sums = Notice.sum_over(Notice.shared, weeks: @weeks)
-    @photo_counts = Notice.count_over(ActiveStorage::Attachment.where(record_type: 'Notice', name: 'photos'), weeks: @weeks)
-    @photo_sums = Notice.sum_over(ActiveStorage::Attachment.where(record_type: 'Notice', name: 'photos'), weeks: @weeks)
-    @daily_notice_counts = Notice.count_over(Notice.shared, weeks: @weeks / 2, interval: '1 day', beginning: Date.today.beginning_of_day, ending: Date.today.end_of_day)
-    @daily_notice_sums = Notice.sum_over(Notice.shared, weeks: @weeks / 2, interval: '1 day', beginning: Date.today.beginning_of_day, ending: Date.today.end_of_day)
+    case @display
+    when 'user'
+      @counts = User.count_over(User.active, weeks: @since, interval: @interval)
+      @sums = User.sum_over(User.active, weeks: @since, interval: @interval)
+    when 'active'
+      @counts = User.count_over(User.active.joins(:notices), weeks: @since, interval: @interval)
+      @sums = User.sum_over(User.active.joins(:notices), weeks: @since, interval: @interval)
+    when 'notice'
+      @counts = Notice.count_over(Notice.shared, weeks: @since, interval: @interval)
+      @sums = Notice.sum_over(Notice.shared, weeks: @since, interval: @interval)
+    when 'photo'
+      @counts = Notice.count_over(ActiveStorage::Attachment.where(record_type: 'Notice', name: 'photos'), weeks: @since, interval: @interval)
+      @sums = Notice.sum_over(ActiveStorage::Attachment.where(record_type: 'Notice', name: 'photos'), weeks: @since, interval: @interval)
+    else
+      @counts = {}
+      @sums = {}
+    end
   end
 
   def year2019
