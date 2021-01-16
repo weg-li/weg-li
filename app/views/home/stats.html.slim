@@ -14,20 +14,23 @@
 .spacer-large#stats
 
 - stats = {'user' => 'Registrierte Benutzer', 'active' => 'Aktive Benutzer', 'notice' => 'Erstattete Anzeigen', 'photo' => 'Hochgeladene Beweisfotos'}
-ul.nav.nav-tabs.nav-panel
+
+ul.nav.nav-tabs.nav-panel.hidden-xs
   - stats.each do |display, name|
     li(class="#{'active' if display == @display}")= link_to(name, url_for(since: @since, interval: @interval, display: display, anchor: 'stats'))
 
-  = form_tag({url: url_for(anchor: 'stats')}, method: :get, class: 'form-inline pull-right') do |form|
-    = hidden_field_tag(:display, @display)
-    .form-group.form-group-sm
-      - intervals = [['täglich', '1 day'], ['wöchentlich', '1 week'], ['monatlich', '1 month']]
-      = select_tag(:interval, options_for_select(intervals, @interval), class: 'form-control')
-      - durations = [['letzte Woche', 1], ['letzter Monat', 4], ['letztes Quartal', 4 * 3], ['halbes Jahr', 4 * 6], ['Jahr', 4 * 12]]
-      = select_tag(:since, options_for_select(durations, @since), class: 'form-control')
-      = submit_tag('Los', class: "btn btn-default btn-sm")
+.panel.panel-default.panel-nav
+  .panel-heading.text-right
+    = form_tag({url: url_for(anchor: 'stats')}, method: :get, class: 'form-inline') do |form|
+      = hidden_field_tag(:display, @display)
+      .form-group.form-group-sm
+        .visible-xs
+          = select_tag(:interval, options_for_select(stats.invert, @display), class: 'form-control')
+        - intervals = [['täglich', '1 day'], ['wöchentlich', '1 week'], ['monatlich', '1 month']]
+        = select_tag(:interval, options_for_select(intervals, @interval), class: 'form-control')
+        - durations = [['letzte Woche', 1], ['letzter Monat', 4], ['letztes Quartal', 4 * 3], ['halbes Jahr', 4 * 6], ['Jahr', 4 * 12]]
+        = select_tag(:since, options_for_select(durations, @since), class: 'form-control')
+        = submit_tag('Los', class: "btn btn-default btn-sm")
 
-
-.row
-  .col-lg-12
+  .panel-body
     = render('components/chart', name: @display, counts: @counts, sums: @sums)
