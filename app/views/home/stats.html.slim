@@ -32,5 +32,5 @@ ul.nav.nav-tabs.nav-panel.hidden-xs
         = select_tag(:since, options_for_select(durations, @since), class: 'form-control')
         = submit_tag('Los', class: "btn btn-default btn-sm")
 
-  .panel-body
+  .panel-body.well-chart
     = render('components/chart', name: @display, counts: @counts, sums: @sums)

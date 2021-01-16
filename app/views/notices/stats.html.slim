@@ -7,15 +7,14 @@
 .row
   .col-lg-6
     h3 Versendete Anzeigen
-    = render('components/chart', name: :notices, counts: @notice_counts, sums: @notice_sums)
+    .well.well-chart
+      = render('components/chart', name: :notices, counts: @notice_counts, sums: @notice_sums)
   .col-lg-6
     h3 Hochgeladene Beweisfotos
-    = render('components/chart', name: :photos, counts: @photo_counts, sums: @photo_sums)
+    .well.well-chart
+      = render('components/chart', name: :photos, counts: @photo_counts, sums: @photo_sums)
 
 .spacer-large
-
-.well.well-sm
-  p Im Jahr #{@year} waren diese Einträge Deine Top-#{@limit} in Sachen Vergehen, Kennzeichen und Automarken. Für die korrekte Gruppierung der Kennzeichen müssen diese identisch formatiert sein.
 
 ul.nav.nav-tabs.nav-panel#top-x
   - (2019..@current_year).reverse_each do |year|
@@ -44,3 +43,8 @@ ul.nav.nav-tabs.nav-panel#top-x
       - @statistics[:grouped_brands].each do |entry|
         li.list-group-item
           = render('components/vehicle_count', count: @statistics[:count], brand_count: entry.brand_count, brand: entry.brand)
+
+.spacer
+
+.well.well-sm
+  p Im Jahr #{@year} waren diese Einträge Deine Top-#{@limit} in Sachen Vergehen, Kennzeichen und Automarken. Für die korrekte Gruppierung der Kennzeichen müssen diese identisch formatiert sein.
