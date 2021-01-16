@@ -25,7 +25,7 @@ ul.nav.nav-tabs.nav-panel.hidden-xs
       = hidden_field_tag(:display, @display)
       .form-group.form-group-sm
         .visible-xs
-          = select_tag(:interval, options_for_select(stats.invert, @display), class: 'form-control')
+          = select_tag(:display, options_for_select(stats.invert, @display), class: 'form-control')
         - intervals = [['täglich', '1 day'], ['wöchentlich', '1 week'], ['monatlich', '1 month']]
         = select_tag(:interval, options_for_select(intervals, @interval), class: 'form-control')
         - durations = [['letzte Woche', 1], ['letzter Monat', 4], ['letztes Quartal', 4 * 3], ['halbes Jahr', 4 * 6], ['Jahr', 4 * 12]]
