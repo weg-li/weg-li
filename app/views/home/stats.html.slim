@@ -23,7 +23,7 @@ ul.nav.nav-tabs.nav-panel
     .form-group.form-group-sm
       - intervals = [['täglich', '1 day'], ['wöchentlich', '1 week'], ['monatlich', '1 month']]
       = select_tag(:interval, options_for_select(intervals, @interval), class: 'form-control')
-      - durations = [['letzte Woche', 1], ['letzter Monat', 4], ['letztes Quartal', 4 * 3], ['halbes Jahr', 4 * 6]]
+      - durations = [['letzte Woche', 1], ['letzter Monat', 4], ['letztes Quartal', 4 * 3], ['halbes Jahr', 4 * 6], ['Jahr', 4 * 12]]
       = select_tag(:since, options_for_select(durations, @since), class: 'form-control')
       = submit_tag('Los', class: "btn btn-default btn-sm")
 
