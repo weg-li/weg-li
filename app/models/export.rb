@@ -13,7 +13,7 @@ class Export < ApplicationRecord
     when :notices
       [:date, :charge, :street, :city, :zip, :latitude, :longitude]
     when :profiles
-      [:date, :user_id, :charge, :street, :city, :zip, :latitude, :longitude]
+      [:date, :user_id, :charge, :street, :city, :zip, :latitude, :longitude, :severity]
     when :photos
       [:photo_uri, :date, :registration, :charge, :brand, :color]
     else
