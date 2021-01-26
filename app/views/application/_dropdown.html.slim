@@ -1,0 +1,64 @@
+javascript:
+  function DropdownContext() {
+    const value = #{value.to_json.html_safe};
+    const items = #{items.to_json.html_safe};
+    return {
+      hidden: true,
+      value,
+      current: value,
+      selected: value,
+      items,
+      length() {
+        return items.length;
+      },
+      list() {
+        if (this.value != this.current) {
+          const found = items.filter(item => item.toLocaleLowerCase().indexOf(this.value.toLocaleLowerCase()) !== -1 );
+          if (found.length === 0) {
+            return this.items;
+          }
+          return found;
+        }
+        return this.items;
+      },
+      visible() {
+        return !this.hidden;
+      },
+      hide() {
+        this.hidden = true;
+      },
+      show() {
+        this.hidden = false;
+      },
+      reset() {
+        this.select(this.selected);
+      },
+      select(it) {
+        this.hide();
+        this.current = it;
+        this.value = it;
+        this.selected = it;
+      },
+      next(direction) {
+        this.show();
+        const index = this.list().indexOf(this.selected) + direction;
+        if (index >= this.list().length) {
+          this.selected = this.list()[0];
+        } else if (index < 0) {
+          this.selected = this.list()[this.list().length - 1];
+        } else {
+          this.selected = this.list()[index];
+        }
+      },
+    };
+  }
+
+<div class="form-group has-feedback" x-data="DropdownContext()" :class="{ open: visible() }" x-on:click.away="hide()">
+  <input name="#{name}" x-ref="input" value="#{value}" class="form-control" x-model="value" autocomplete="off" @click="show()" x-on:keydown="show()" x-on:keydown.tab="reset()" x-on:keydown.enter.prevent.stop="select(selected)" x-on:keydown.escape="hide()" x-on:keydown.arrow-up.prevent.stop="next(-1)" x-on:keydown.arrow-down.prevent.stop="next(1)">
+  <span class="glyphicon glyphicon-chevron-down form-control-feedback"></span>
+  <ul class="dropdown-menu" x-ref="list">
+    <template x-for="(item, index) in list()" :key="item">
+      <li :class="{ active: item === selected }" @click.prevent.stop="select(item)"><a x-text="item"></a></li>
+    </template>
+  </ul>
+</div>

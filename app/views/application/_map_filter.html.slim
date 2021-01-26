@@ -6,7 +6,13 @@ ul.nav.nav-tabs.nav-panel
 .panel.panel-default.panel-nav
   .panel-heading
     .row
-      .col-lg-12
+      .col-lg-6
+        = form_tag({url: map_path}, method: :get, class: 'form-inline pull-right') do |form|
+          = hidden_field_tag(:display, display)
+          .form-group.form-group-sm.text-right
+            = render('dropdown', name: :district, value: district, items: District.active.pluck(:name).uniq)
+            = submit_tag('Los', class: "btn btn-default btn-sm")
+      .col-lg-6
         = form_tag({url: map_path}, method: :get, class: 'form-inline pull-right') do |form|
           = hidden_field_tag(:display, display)
           .form-group.form-group-sm.text-right
