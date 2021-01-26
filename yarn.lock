@@ -1206,11 +1206,6 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
-alpine-turbolinks-adapter@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/alpine-turbolinks-adapter/-/alpine-turbolinks-adapter-0.3.0.tgz#29257510c8ceac3379bc70ba3c07b2c12e6e810b"
-  integrity sha512-wA+dF0hyg4WSbJEt/hNYKpDZOmh8Dk1oAyJGYrRHGpWQ5YwBmdzlsawhB4ZI2zzp0vdhzofc6rxrawpkaEYWOw==
-
 alpinejs@^2.8.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/alpinejs/-/alpinejs-2.8.0.tgz#d0de7309dd642e9198aef7c14acb9243246549f0"
@@ -7831,11 +7826,6 @@ tunnel-agent@^0.6.0:
   integrity sha1-J6XeoGs2sEoKmWZ3SykIaPD8QP0=
   dependencies:
     safe-buffer "^5.0.1"
-
-turbolinks@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/turbolinks/-/turbolinks-5.2.0.tgz#e6877a55ea5c1cb3bb225f0a4ae303d6d32ff77c"
-  integrity sha512-pMiez3tyBo6uRHFNNZoYMmrES/IaGgMhQQM+VFF36keryjb5ms0XkVpmKHkfW/4Vy96qiGW3K9bz0tF5sK9bBw==
 
 tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"

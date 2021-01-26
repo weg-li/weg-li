@@ -3,7 +3,7 @@ html lang=I18n.locale
   head
     title= title
     = stylesheet_link_tag('application', media: 'all')
-    = javascript_pack_tag('application', 'data-turbolinks-track': 'reload')
+    = javascript_pack_tag('application')
     = csrf_meta_tags
     = tag(:link, rel: 'shortcut icon', href: image_path('favicon.ico'))
     = tag(:link, rel: 'apple-touch-icon-precomposed', href: image_path('favicon.ico'))
