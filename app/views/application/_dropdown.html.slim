@@ -1,25 +1,24 @@
 javascript:
-  function DropdownContext() {
-    const value = #{value.to_json.html_safe};
-    const items = #{items.to_json.html_safe};
+  function #{name}_context(selected, items) {
+    const value = items[selected];
     return {
       hidden: true,
-      value,
+      value: value,
       current: value,
-      selected: value,
+      selected,
       items,
-      length() {
-        return items.length;
+      values() {
+        return Object.entries(this.items);
       },
       list() {
         if (this.value != this.current) {
-          const found = items.filter(item => item.toLocaleLowerCase().indexOf(this.value.toLocaleLowerCase()) !== -1 );
+          const found = this.values().filter(item => item[1].toLocaleLowerCase().indexOf(this.value.toLocaleLowerCase()) !== -1 );
           if (found.length === 0) {
-            return this.items;
+            return this.values();
           }
           return found;
         }
-        return this.items;
+        return this.values();
       },
       visible() {
         return !this.hidden;
@@ -33,32 +32,36 @@ javascript:
       reset() {
         this.select(this.selected);
       },
-      select(it) {
+      select(key) {
         this.hide();
-        this.current = it;
-        this.value = it;
-        this.selected = it;
+        this.$refs.input.value = key;
+        this.selected = key;
+        const val = this.items[key];
+        this.current = val;
+        this.value = val;
       },
       next(direction) {
         this.show();
-        const index = this.list().indexOf(this.selected) + direction;
-        if (index >= this.list().length) {
-          this.selected = this.list()[0];
+        const entries = this.list();
+        const index = entries.findIndex(item => item[0] === this.selected) + direction;
+        if (index >= entries.length) {
+          this.selected = entries[0][0];
         } else if (index < 0) {
-          this.selected = this.list()[this.list().length - 1];
+          this.selected = entries[entries.length - 1][0];
         } else {
-          this.selected = this.list()[index];
+          this.selected = entries[index][0];
         }
       },
     };
   }
 
-<div class="form-group has-feedback" x-data="DropdownContext()" :class="{ open: visible() }" x-on:click.away="hide()">
-  <input name="#{name}" x-ref="input" value="#{value}" class="form-control" x-model="value" autocomplete="off" @click="show()" x-on:keydown="show()" x-on:keydown.tab="reset()" x-on:keydown.enter.prevent.stop="select(selected)" x-on:keydown.escape="hide()" x-on:keydown.arrow-up.prevent.stop="next(-1)" x-on:keydown.arrow-down.prevent.stop="next(1)">
+<div class="form-group has-feedback" x-data="#{name}_context(#{value.to_json}, #{items.to_json})" :class="{ open: visible() }" @click.away="hide()">
+  <input name="#{name}" value="#{value}" hidden x-ref="input">
+  <input name="#{name}_field" value="#{items[value]}" class="form-control" x-model="value" autocomplete="off" @click="show()" @keydown="show()" @keydown.tab="reset()" @keydown.enter.prevent.stop="reset()" @keydown.escape="hide()" @keydown.arrow-up.prevent.stop="next(-1)" @keydown.arrow-down.prevent.stop="next(1)">
   <span class="glyphicon glyphicon-chevron-down form-control-feedback"></span>
   <ul class="dropdown-menu" x-ref="list">
-    <template x-for="(item, index) in list()" :key="item">
-      <li :class="{ active: item === selected }" @click.prevent.stop="select(item)"><a x-text="item"></a></li>
+    <template x-for="item in list()" :key="item">
+      <li :class="{ active: item[0] == selected }" @click.prevent.stop="select(item[0])"><a x-text="item[1]"></a></li>
     </template>
   </ul>
 </div>

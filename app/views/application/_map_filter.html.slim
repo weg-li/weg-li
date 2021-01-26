@@ -6,19 +6,12 @@ ul.nav.nav-tabs.nav-panel
 .panel.panel-default.panel-nav
   .panel-heading
     .row
-      .col-lg-6
+      .col-lg-12
         = form_tag({url: map_path}, method: :get, class: 'form-inline pull-right') do |form|
           = hidden_field_tag(:display, display)
           .form-group.form-group-sm.text-right
-            = render('dropdown', name: :district, value: district, items: District.active.pluck(:name).uniq)
-            = submit_tag('Los', class: "btn btn-default btn-sm")
-      .col-lg-6
-        = form_tag({url: map_path}, method: :get, class: 'form-inline pull-right') do |form|
-          = hidden_field_tag(:display, display)
-          .form-group.form-group-sm.text-right
-            - durations = [['letzte Woche', 7], ['letzter Monat', 30], ['letztes Quartal', 30 * 3]]
-            = select_tag(:since, options_for_select(durations, since), class: 'form-control')
-            = select_tag(:district, options_for_select(District.active.pluck(:name).uniq, district), class: 'form-control')
+            = render('dropdown', name: :since, value: since, items: {7 => 'letzte Woche', 30 => 'letzter Monat', 30 * 3 => 'letztes Quartal'})
+            = render('dropdown', name: :district, value: district, items: Hash[District.active.pluck(:name, :name).uniq])
             = submit_tag('Los', class: "btn btn-default btn-sm")
 
   .panel-body.panel-body-map
