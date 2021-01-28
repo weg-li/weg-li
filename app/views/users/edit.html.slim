@@ -110,7 +110,7 @@
                 span>= name
                 span.glyphicon.glyphicon-ok
             - else
-              = link_to(t('users.connect_via', provider: name), path, method: :post, data: { turbolinks: false }, class: "btn btn-default btn-block")
+              = link_to(t('users.connect_via', provider: name), path, method: :post, class: "btn btn-default btn-block")
 
 
     - if current_user.api_token?

@@ -14,7 +14,7 @@ function cleanSource(html) {
   return lines;
 }
 
-$(document).on('ready page:load page:change turbolinks:load', () => {
+$(document).on('ready page:load page:change', () => {
   const $button = $("<div id='source-button' class='btn btn-primary btn-xs'>&lt; &gt;</div>").click(function handler() {
     let html = $(this).parent().html();
     html = cleanSource(html);

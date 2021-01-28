@@ -1,6 +1,6 @@
 /* eslint no-restricted-globals: "off" */
 
-$(document).on('turbolinks:load', () => {
+$(document).ready(() => {
   $(document).on('change', '#fileupload', (event) => {
     const { target } = event;
     const files = Array.from(target.files);

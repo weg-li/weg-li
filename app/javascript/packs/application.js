@@ -21,12 +21,10 @@ window.jQuery = window.$;
 
 // rails deps
 require('@rails/ujs').start();
-require('turbolinks').start();
 require('@rails/activestorage').start();
 
 // 3rdparty deps
 require('bootstrap');
-require('alpine-turbolinks-adapter');
 require('alpinejs');
 
 // allow templates to use frappe
