@@ -10,7 +10,7 @@ class ChargesController < ApplicationController
     @since = (params[:since] || 4).to_i
 
     @charge = Charge.active.from_param(params[:id])
-    @notices = Notice.since(@since.weeks.ago).for_public.where(Charge.plain_charges_tbnr(@charge.tbnr))
+    @notices = Notice.since(@since.weeks.ago).shared.where(Charge.plain_charges_tbnr(@charge.tbnr))
   end
 
   def list

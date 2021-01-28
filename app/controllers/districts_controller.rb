@@ -20,7 +20,7 @@ class DistrictsController < ApplicationController
   def show
     @since = (params[:since] || 4).to_i
     @district = District.active.from_param(params[:id])
-    @notices = @district.notices.since(@since.weeks.ago).for_public
+    @notices = @district.notices.since(@since.weeks.ago).shared
 
     respond_to do |format|
       format.html
