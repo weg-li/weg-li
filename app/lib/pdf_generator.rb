@@ -70,6 +70,6 @@ class PDFGenerator
   end
 
   def renderer
-    @renderer ||= ApplicationController.renderer.new(http_host: 'www.weg-li.de', https: true)
+    @renderer ||= ApplicationController.renderer.new(http_host: 'www.weg.li', https: true)
   end
 end

@@ -3,7 +3,7 @@
 
 # 📸 📝 ✊ weg-li: 1, 2, 3 - Macht die Bahn frei!
 
-https://www.weg-li.de/
+https://www.weg.li/
 
 ![weg-li: 1, 2, 3 - Macht die Bahn frei!](https://user-images.githubusercontent.com/48745/62852900-12304300-bceb-11e9-8ba4-3303c83c7dfc.png)
 
@@ -76,10 +76,10 @@ For proper functionality, you need to populate your database with *districts*.
 
 To fabricate random districts, run `rake dev:data`. This will synthesize all the kinds of data you need to get dashboards, stats, etc. working right.
 
-If you want to get as close as possible to a “production” system, the easiest way is to import data from the production instance. Download an export format from `https://www.weg-li.de/districts.csv` (or `.json`) and import it into your local database. Example using the rails console (`rails c`):
+If you want to get as close as possible to a “production” system, the easiest way is to import data from the production instance. Download an export format from `https://www.weg.li/districts.csv` (or `.json`) and import it into your local database. Example using the rails console (`rails c`):
 
 ```ruby
-> districts = JSON.parse(URI.open('https://www.weg-li.de/districts.json').read); districts.count
+> districts = JSON.parse(URI.open('https://www.weg.li/districts.json').read); districts.count
 => 3377
 > District.insert_all!(districts.map{ |x| x.except('personal_email').merge({'flags': x['personal_email'] ? 1 : 0}) }); District.count
 => 3377

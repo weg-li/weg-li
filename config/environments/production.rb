@@ -70,7 +70,7 @@ Rails.application.configure do
   config.active_job.queue_adapter     = :sidekiq
   # config.active_job.queue_name_prefix = "weg_li_production"
 
-  config.default_host = 'www.weg-li.de'
+  config.default_host = 'www.weg.li'
 
   config.action_mailer.perform_caching = false
   config.action_mailer.deliver_later_queue_name = 'default'

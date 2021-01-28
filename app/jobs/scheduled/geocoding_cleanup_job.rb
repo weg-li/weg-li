@@ -30,7 +30,7 @@ class Scheduled::GeocodingCleanupJob < ApplicationJob
       distance = row['distance']
       notice = Notice.find(id)
 
-      notify("distance for #{id} is > #{distance} is #{notice.full_address} and district is #{notice.district.inspect}: https://www.weg-li.de/admin/notices/#{notice.token}")
+      notify("distance for #{id} is > #{distance} is #{notice.full_address} and district is #{notice.district.inspect}: https://www.weg.li/admin/notices/#{notice.token}")
     end
   end
 end

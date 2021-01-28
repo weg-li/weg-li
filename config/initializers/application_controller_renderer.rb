@@ -3,7 +3,7 @@
 ActiveSupport::Reloader.to_prepare do
   if Rails.env.production?
     ApplicationController.renderer.defaults.merge!(
-      http_host: 'www.weg-li.de',
+      http_host: 'www.weg.li',
       https: true
     )
   else

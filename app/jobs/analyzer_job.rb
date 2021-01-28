@@ -35,7 +35,7 @@ class AnalyzerJob < ApplicationJob
       if result.present?
         notice.data_sets.create!(data: result, kind: :google_vision, keyable: photo)
         if Annotator.unsafe?(result)
-          notify("safe search violated for notice #{notice.id} with photo #{photo.id} on user #{notice.user.id}: https://www.weg-li.de/admin/notices/#{notice.token}")
+          notify("safe search violated for notice #{notice.id} with photo #{photo.id} on user #{notice.user.id}: https://www.weg.li/admin/notices/#{notice.token}")
         end
 
         plates += Annotator.grep_text(result) { |string| Vehicle.plate?(string) }
