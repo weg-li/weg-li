@@ -6,7 +6,7 @@ describe "exports", type: :request  do
       get exports_path
 
       expect(response).to be_successful
-      assert_select 'h2', 'weg-li Falschparker-Exporte'
+      assert_select 'h2', 'weg.li Falschparker-Exporte'
     end
   end
 end

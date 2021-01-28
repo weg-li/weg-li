@@ -6,7 +6,7 @@ describe "home", type: :request do
       get root_path
 
       expect(response).to be_successful
-      assert_select('h1', "weg-li 🚲💨")
+      assert_select('h1', "weg.li 🚲💨")
     end
   end
 
@@ -15,7 +15,7 @@ describe "home", type: :request do
       get faq_path
 
       expect(response).to be_successful
-      assert_select('h2', "weg-li FAQ")
+      assert_select('h2', "weg.li FAQ")
     end
   end
 
@@ -26,7 +26,7 @@ describe "home", type: :request do
       get map_path
 
       expect(response).to be_successful
-      assert_select('h2', "weg-li Falschparker-Karte Hamburg")
+      assert_select('h2', "weg.li Falschparker-Karte Hamburg")
     end
   end
 
@@ -37,7 +37,7 @@ describe "home", type: :request do
       get leaderboard_path
 
       expect(response).to be_successful
-      assert_select('h2', "weg-li Falschparker-Melder-Leaderboard")
+      assert_select('h2', "weg.li Falschparker-Melder-Leaderboard")
     end
   end
 
@@ -48,7 +48,7 @@ describe "home", type: :request do
       get stats_path
 
       expect(response).to be_successful
-      assert_select('h2', "weg-li Statistiken")
+      assert_select('h2', "weg.li Statistiken")
     end
   end
 
@@ -57,7 +57,7 @@ describe "home", type: :request do
       get imprint_path
 
       expect(response).to be_successful
-      assert_select('h2', "weg-li Impressum")
+      assert_select('h2', "weg.li Impressum")
     end
   end
 
@@ -66,7 +66,7 @@ describe "home", type: :request do
       get privacy_path
 
       expect(response).to be_successful
-      assert_select('h2', "weg-li Datenschutz")
+      assert_select('h2', "weg.li Datenschutz")
     end
   end
 
@@ -75,7 +75,7 @@ describe "home", type: :request do
       get donate_path
 
       expect(response).to be_successful
-      assert_select('h2', "Spenden für weg-li")
+      assert_select('h2', "Spenden für weg.li")
     end
   end
 end

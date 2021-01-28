@@ -1,11 +1,11 @@
 ![Build Status](https://github.com/weg-li/weg-li/workflows/build/badge.svg)
 [![Financial Contributors on Open Collective](https://opencollective.com/weg-li/all/badge.svg?label=financial+contributors)](https://opencollective.com/weg-li)
 
-# 📸 📝 ✊ weg-li: 1, 2, 3 - Macht die Bahn frei!
+# 📸 📝 ✊ weg.li: 1, 2, 3 - Macht die Bahn frei!
 
 https://www.weg.li/
 
-![weg-li: 1, 2, 3 - Macht die Bahn frei!](https://user-images.githubusercontent.com/48745/62852900-12304300-bceb-11e9-8ba4-3303c83c7dfc.png)
+![weg.li: 1, 2, 3 - Macht die Bahn frei!](https://user-images.githubusercontent.com/48745/62852900-12304300-bceb-11e9-8ba4-3303c83c7dfc.png)
 
 ## Installation
 
@@ -13,7 +13,7 @@ You can either run the application locally or via Docker.
 
 ### Local setup
 
-To run weg-li locally, you'll need:
+To run weg.li locally, you'll need:
 
 - Ruby
 - PostgreSQL
@@ -87,7 +87,7 @@ If you want to get as close as possible to a “production” system, the easies
 
 ### Secrets and keys
 
-You need to set the following environment variables to enable full functionality for weg-li:
+You need to set the following environment variables to enable full functionality for weg.li:
 
 ```bash
 GITHUB_CONSUMER_KEY=github-key
@@ -102,7 +102,7 @@ GOOGLE_CONSUMER_SECRET=google-secret
 
 These are used to let users authenticate with the different providers. Learn how to create your own keys: [GitHub](https://docs.github.com/en/free-pro-team@latest/developers/apps/creating-an-oauth-app), [Twitter](https://developer.twitter.com/en/docs/apps/overview), [Google](https://developers.google.com/identity/sign-in/web/sign-in).
 
-In addition, weg-li uses Google Cloud Storage for storing uploaded data and Google Cloud Vision to read license plates and determine car makes and colors. You will need to [create a Google Cloud Project](https://cloud.google.com/resource-manager/docs/creating-managing-projects) and set up the required API access for *Google Cloud Storage* and *Google Cloud Vision*. Be aware that you might be billed for Google Cloud usage. Please refer to the Google Cloud documentation, and set the following environment variables accordingly:
+In addition, weg.li uses Google Cloud Storage for storing uploaded data and Google Cloud Vision to read license plates and determine car makes and colors. You will need to [create a Google Cloud Project](https://cloud.google.com/resource-manager/docs/creating-managing-projects) and set up the required API access for *Google Cloud Storage* and *Google Cloud Vision*. Be aware that you might be billed for Google Cloud usage. Please refer to the Google Cloud documentation, and set the following environment variables accordingly:
 
 ```bash
 GOOGLE_CLOUD_PROJECT=google-cloud-project-id

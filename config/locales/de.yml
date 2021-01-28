@@ -136,19 +136,19 @@ de:
           white: 'Weiß'
           orange: 'Orange'
           gold: 'Gold'
-  title: "📸 📝 ✊ weg-li: 1, 2, 3 - Macht die Bahn frei!"
+  title: "📸 📝 ✊ weg.li: 1, 2, 3 - Macht die Bahn frei!"
   slogan: "1, 2, 3 - Macht die Bahn frei!"
   slogan_1: "1, 2, 3 -  📸 📝 ✊"
   slogan_2: "Macht die Bahn frei!"
   meta_description:
-    default: "Mit weg-li kannst Du ganz einfach Falschparker melden. Lade Beweisfotos hoch und weg-li erkennt automatisch das Kennzeichen, den Tatort und vieles mehr. Erstatte dann Anzeige bei der zuständigen Stelle, damit der Fahrzeughalter umgehend bestraft wird."
+    default: "Mit weg.li kannst Du ganz einfach Falschparker melden. Lade Beweisfotos hoch und weg.li erkennt automatisch das Kennzeichen, den Tatort und vieles mehr. Erstatte dann Anzeige bei der zuständigen Stelle, damit der Fahrzeughalter umgehend bestraft wird."
     charges: 'Alles Wichtige über Verstöße aus dem Bußgeldkatalog der Straßenverkehrsordnung (StVO): Tatbestandsnummer (TBNR), höhe der Bußgelder oder Verwarngelder, Fahrverbote und Punktezahl aus dem aktuellen bundeseinheitlichen Bußgeldkatalog (bkat owi 18.05.2020)'
     charge: "%{tbnr}: %{description} Diese Geldbußen oder Verwarngelder drohen beim Verstoß gegen %{bkat}."
     districts: 'Alles Wichtige über das Melden von Falschparkern in der ganzen Bundesrepublik. Deutschlandweit werden Vertöße zur Anzeige gebracht.'
     district: "Falschparker melden in %{zip} %{name}: So werden in %{state} Vertöße zur Anzeige gebracht."
     map: "Die Falschparker-Karte zeigt alle gemeldeten Parkverstöße und Anzeigen gegen Falschparker in %{district}."
     exports: "Die Falschparker-Exporte beinhalten anonymisiert die gemeldeten Parkverstöße und Anzeigen gegen Falschparker in Deutschland."
-    leaderboard: "Das who-is-who der Falschparker-Melder auf weg-li. Wer erstattet die meisten Anzeigen gegen Falschparker in Deutschland."
+    leaderboard: "Das who-is-who der Falschparker-Melder auf weg.li. Wer erstattet die meisten Anzeigen gegen Falschparker in Deutschland."
   navigation:
     charges: 'Bußgeldkatalog'
     districts: 'Bezirke'
@@ -183,7 +183,7 @@ de:
     validation_successful: 'Deine E-Mail Adresse wurde erfolgreich bestätigt.'
     bye: "Tschüss und bis bald!"
     ups_something_went_wrong: "Mist, da ist was schief gelaufen."
-    welcome: "Hallo %{nickname}, herzlich willkommen bei weg-li!"
+    welcome: "Hallo %{nickname}, herzlich willkommen bei weg.li!"
     existing_user: "Die E-Mail Adresse %{email} ist bereits registriert, bitte nutze %{providers} zum Einloggen!"
     please_enter_email_for_login: 'Bitte gib Deine E-Mail Adresse zum Einloggen ein!'
     authorize_button: 'per E-Mail einloggen'
@@ -209,7 +209,7 @@ de:
     signup: 'Du hast Dich erfolgreich registriert, bitte bestätige Deine E-Mail Adresse!'
     validate: 'Bitte bestätige Deine E-Mail Adresse!'
     activate: 'Dein Zugang wird demnächst deaktiviert!'
-    email_auth: 'Logge Dich bei weg-li ein!'
+    email_auth: 'Logge Dich bei weg.li ein!'
   districts:
     statistics:
       notices: 'Meldungen insgesamt'
@@ -316,7 +316,7 @@ de:
         description: Um mit Hilfe der Meldung eine Anzeige zu erstatten, werden noch zusätzliche Informationen benötigt. Neben Zeit und Ort des Verstoßes müssen auch noch Details zum Fahrzeug angegeben werden. Diese Informationen werden soweit möglich automatisch aus den Beweisfotos ermittelt.
       charges:
         title: Melden
-        description: Aus den Daten kann direkt eine Anzeige erstattet werden, die dann an das zuständige Stelle gesendet wird. Alle Meldungen werden zudem anonymisiert auf der öffentlich erreichbaren weg-li Karte angezeigt.
+        description: Aus den Daten kann direkt eine Anzeige erstattet werden, die dann an das zuständige Stelle gesendet wird. Alle Meldungen werden zudem anonymisiert auf der öffentlich erreichbaren weg.li Karte angezeigt.
     callouts:
       send_email:
         hint: 'Erstatte die Anzeige direkt per E-Mail, Du erhältst eine Kopie in CC.'
