@@ -1,18 +1,21 @@
 - set_title [t('navigation.charges'), @charge.tbnr, @charge.description].join(' ')
 - set_meta_description t('meta_description.charge', tbnr: @charge.tbnr, description: @charge.description, bkat: @charge.bkat)
 
-.well
-  strong #{@charge.description} (#{Charge.human_attribute_name(:tbnr)} #{@charge.tbnr})
+h3 #{@charge.description} (#{Charge.human_attribute_name(:tbnr)} #{@charge.tbnr})
+
+.spacer
 
 .row
   .col-lg-6
     .panel.panel-default
+      .panel-heading Infos zum Verstoß
       ul.list-group
         li.list-group-item #{Charge.human_attribute_name(:valid_from)} #{l(@charge.valid_from, format: :date)}
         li.list-group-item #{@charge.bkat}
 
   .col-lg-6
     .panel.panel-default
+      .panel-heading Bußgeld, Punkte und Fahrverbot
       ul.list-group
         li.list-group-item #{number_to_currency(@charge.fine)} #{Charge.human_attribute_name(:fine)}
         li.list-group-item
@@ -22,3 +25,16 @@
 
 - if @charge.charge_variants.present?
   = render('charge_variants', charge_variants: @charge.charge_variants)
+
+.spacer-lage
+
+.well
+  | Für den Verstoß #{@charge.description} wurden in den letzten #{@since} Wochen #{@notices.blank? ? 'noch keine' : @notices.size } Anzeigen gegen Falschparker erstattet.
+
+.panel.panel-default
+  - unless signed_in?
+    .panel-heading
+      = render('components/register')
+
+  .panel-body.panel-body-map
+    = render('multi_map', notices: @notices, kind: :public)

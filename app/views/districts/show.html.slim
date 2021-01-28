@@ -46,4 +46,10 @@ h3= "Bezirk #{@district.zip} #{@district.name} im Bundesland #{@district.state}"
 .well
   | In #{@district.name} wurden in den letzten #{@since} Wochen #{@notices.blank? ? 'noch keine' : @notices.size } Anzeigen gegen Falschparker erstattet.
 
-= render('multi_map', notices: @notices, init: @district.map_data, kind: :public)
+.panel.panel-default
+  - unless signed_in?
+    .panel-heading
+      = render('components/register')
+
+  .panel-body.panel-body-map
+    = render('multi_map', notices: @notices, init: @district.map_data, kind: :public)
