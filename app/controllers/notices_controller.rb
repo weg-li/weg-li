@@ -42,7 +42,7 @@ class NoticesController < ApplicationController
     results = notices.pluck(:registration, :brand, :color).uniq.map do |registration, brand, color|
       {
         id: registration,
-        text: registration,
+        text: registration.upcase,
         brand: brand,
         color: color,
       }
