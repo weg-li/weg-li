@@ -7,7 +7,8 @@ class ChargesController < ApplicationController
   end
 
   def show
-    @since = (params[:since] || 4).to_i
+    @since = (params[:since] || 2).to_i
+    @display = %w(cluster multi).delete(params[:display]) || 'cluster'
 
     @charge = Charge.active.from_param(params[:id])
     @notices = Notice.since(@since.weeks.ago).shared.where(Charge.plain_charges_tbnr(@charge.tbnr))

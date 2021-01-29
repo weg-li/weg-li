@@ -13,7 +13,7 @@ h3= "Bezirk #{@district.zip} #{@district.name} im Bundesland #{@district.state}"
         li.list-group-item #{District.human_attribute_name(:zip)}: #{@district.zip}
         li.list-group-item #{District.human_attribute_name(:state)}: #{@district.state}
         li.list-group-item #{District.human_attribute_name(:prefix)}: #{s(@district.prefix, default: 'nicht hinterlegt')}
-        li.list-group-item.small #{District.human_attribute_name(:updated_at)} am #{l(@district.updated_at, format: :date)}
+        li.list-group-item.small.text-muted #{District.human_attribute_name(:updated_at)} am #{l(@district.updated_at, format: :date)}
       .panel-footer
         = link_to edit_district_path(@district), class: 'btn btn-default btn-xs'
           span.glyphicon.glyphicon-edit>
@@ -35,8 +35,7 @@ h3= "Bezirk #{@district.zip} #{@district.name} im Bundesland #{@district.state}"
         - if @district.aliases.present?
           li.list-group-item Alternative Adressen: #{@district.display_aliases}
         - if @district.personal_email?
-          li.list-group-item
-            small.text-muted Individualisierte E-Mail-Adressen sind zum Schutz der Personendaten maskiert.
+          li.list-group-item.small.text-muted Individualisierte E-Mail-Adressen sind zum Schutz der Personendaten maskiert.
 
         - if @district.osm_id
           li.list-group-item= link_to("OpenStreetMap #{@district.osm_id}", "https://www.openstreetmap.org/relation/#{@district.osm_id}", target: '_blank')
@@ -46,10 +45,14 @@ h3= "Bezirk #{@district.zip} #{@district.name} im Bundesland #{@district.state}"
 .well
   | In #{@district.name} wurden in den letzten #{@since} Wochen #{@notices.blank? ? 'noch keine' : @notices.size } Anzeigen gegen Falschparker erstattet.
 
+ul.nav.nav-tabs.nav-panel
+  li(class="#{'active' if @display=='cluster'}")= link_to 'Gruppierte Karte', url_for(since: @since, display: 'cluster', anchor: "map-anchor")
+  li(class="#{'active' if @display=='multi'}")= link_to 'Normale Karte', url_for(since: @since, display: 'multi', anchor: "map-anchor")
+
 .panel.panel-default
   - unless signed_in?
     .panel-heading
       = render('components/register')
 
   .panel-body.panel-body-map
-    = render('multi_map', notices: @notices, init: @district.map_data, kind: :public)
+    = render("#{@display}_map", notices: @notices, kind: :public)

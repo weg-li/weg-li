@@ -10,8 +10,9 @@ h3 #{@charge.description} (#{Charge.human_attribute_name(:tbnr)} #{@charge.tbnr}
     .panel.panel-default
       .panel-heading Infos zum Verstoß
       ul.list-group
-        li.list-group-item #{Charge.human_attribute_name(:valid_from)} #{l(@charge.valid_from, format: :date)}
+        li.list-group-item Tatbestandsnummer #{@charge.tbnr}
         li.list-group-item #{@charge.bkat}
+        li.list-group-item.small.text-muted #{Charge.human_attribute_name(:valid_from)} #{l(@charge.valid_from, format: :date)}
 
   .col-lg-6
     .panel.panel-default
@@ -26,10 +27,14 @@ h3 #{@charge.description} (#{Charge.human_attribute_name(:tbnr)} #{@charge.tbnr}
 - if @charge.charge_variants.present?
   = render('charge_variants', charge_variants: @charge.charge_variants)
 
-.spacer-lage
+.spacer-lage#map-anchor
 
 .well
-  | Für den Verstoß #{@charge.description} wurden in den letzten #{@since} Wochen #{@notices.blank? ? 'noch keine' : @notices.size } Anzeigen gegen Falschparker erstattet.
+  | Für den Verstoß "#{@charge.description}" (#{Charge.human_attribute_name(:tbnr)} #{@charge.tbnr}) wurden in den letzten #{@since} Wochen deutschlandweit #{@notices.blank? ? 'noch keine' : @notices.size } Anzeigen gegen Falschparker erstattet.
+
+ul.nav.nav-tabs.nav-panel
+  li(class="#{'active' if @display=='cluster'}")= link_to 'Gruppierte Karte', url_for(since: @since, display: 'cluster', anchor: "map-anchor")
+  li(class="#{'active' if @display=='multi'}")= link_to 'Normale Karte', url_for(since: @since, display: 'multi', anchor: "map-anchor")
 
 .panel.panel-default
   - unless signed_in?
@@ -37,4 +42,4 @@ h3 #{@charge.description} (#{Charge.human_attribute_name(:tbnr)} #{@charge.tbnr}
       = render('components/register')
 
   .panel-body.panel-body-map
-    = render('multi_map', notices: @notices, kind: :public)
+    = render("#{@display}_map", notices: @notices, kind: :public)
