@@ -18,7 +18,7 @@ class Vehicle
   def self.most_likely?(matches)
     return nil if matches.blank?
 
-    groups = matches.group_by {|key, _| key.gsub(/\W/, '') }.sort_by {|_, group| group.sum { |_, probability| probability } / matches.size }
+    groups = matches.group_by { |key, _| key.gsub(/\W/, '') }.sort_by { |_, group| group.sum { |_, probability| probability }.fdiv(matches.size) }
     best_match = groups.last
     best_match[1].flatten[0]
   end
