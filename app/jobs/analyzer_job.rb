@@ -23,6 +23,10 @@ class AnalyzerJob < ApplicationJob
     colors = []
     dates = []
 
+    notice.status = :open
+    notice.handle_geocoding
+    prefixes = notice.district&.prefixes || notice.user.district&.prefixes
+
     notice.photos.each do |photo|
       exif = photo.service.download_file(photo.key) { |file| exifer.metadata(file) }
       notice.data_sets.create!(data: exif, kind: :exif, keyable: photo)
@@ -38,7 +42,7 @@ class AnalyzerJob < ApplicationJob
           notify("safe search violated for notice #{notice.id} with photo #{photo.id} on user #{notice.user.id}: https://www.weg.li/admin/notices/#{notice.token}")
         end
 
-        plates += Annotator.grep_text(result) { |string| Vehicle.plate?(string) }
+        plates += Annotator.grep_text(result) { |string| Vehicle.plate?(string, prefixes: prefixes) }
         brands += Annotator.grep_text(result) { |string| Vehicle.brand?(string) }
         colors += Annotator.dominant_colors(result)
       end
@@ -53,8 +57,6 @@ class AnalyzerJob < ApplicationJob
     notice.brand ||= Vehicle.most_likely?(brands)
     notice.color ||= Vehicle.most_likely?(colors)
 
-    notice.handle_geocoding
-    notice.status = :open
     notice.save_incomplete!
   end
 

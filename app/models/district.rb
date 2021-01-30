@@ -25,6 +25,7 @@ class District < ActiveRecord::Base
   enum config: {standard: 0, winowig: 1, munich: 2, karlsruhe: 3}
 
   has_many :notices, foreign_key: :zip, primary_key: :zip
+  has_many :users, foreign_key: :zip, primary_key: :zip
 
   validates :name, :zip, :email, :state, presence: true
   validates :zip, uniqueness: true

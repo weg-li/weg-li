@@ -23,7 +23,7 @@ class Vehicle
     best_match[1].flatten[0]
   end
 
-  def self.plate?(text, prefixes: [])
+  def self.plate?(text, prefixes: nil)
     text = normalize(text)
 
     if prefixes.present? && text =~ plate_regex(prefixes)
