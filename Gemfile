@@ -57,5 +57,6 @@ group :development, :test do
   gem 'faker'
   gem 'fabrication'
   gem 'rspec-rails'
+  gem 'rspec-retry'
   gem 'rswag-specs'
 end
