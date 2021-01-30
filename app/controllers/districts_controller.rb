@@ -72,8 +72,8 @@ class DistrictsController < ApplicationController
   private
 
   def district_params
-    params[:district][:prefix] = params[:district][:prefix].split(/;|,|\s/).reject(&:blank?)
-    params.require(:district).permit(:name, :email, :zip, :state, :osm_id, prefix: [])
+    params[:district][:prefixes] = params[:district][:prefixes].split(/;|,|\s/).reject(&:blank?)
+    params.require(:district).permit(:name, :email, :zip, :state, :osm_id, prefixes: [])
   end
 
   def search_scope

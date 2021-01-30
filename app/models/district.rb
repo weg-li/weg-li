@@ -36,7 +36,7 @@ class District < ActiveRecord::Base
   acts_as_api
 
   api_accessible :public_beta do |template|
-    %i(name zip email prefix latitude longitude aliases personal_email created_at updated_at).each { |key| template.add(key) }
+    %i(name zip email prefixes latitude longitude aliases personal_email created_at updated_at).each { |key| template.add(key) }
   end
 
   api_accessible :wegeheld do |template|

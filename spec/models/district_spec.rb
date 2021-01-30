@@ -37,7 +37,7 @@ describe District do
 
   context "acts_as_api" do
     it "generates proper results" do
-      expect(district.as_api_response(:public_beta).keys).to eql(%i(name zip email prefix latitude longitude aliases personal_email created_at updated_at))
+      expect(district.as_api_response(:public_beta).keys).to eql(%i(name zip email prefixes latitude longitude aliases personal_email created_at updated_at))
     end
   end
 end

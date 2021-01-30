@@ -33,7 +33,7 @@ de:
         zip: 'PLZ'
         name: 'Name'
         email: 'E-Mail'
-        prefix: 'Ortskennzeichen'
+        prefixes: 'Ortskennzeichen'
         state: 'Bundesland'
         aliases: 'Alternative Adressen'
         osm_id: 'OpenStreetmap-ID'

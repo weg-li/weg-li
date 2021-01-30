@@ -62,8 +62,8 @@ class Vehicle
   end
 
   def self.district_for_plate_prefix(text)
-    prefix = normalize(text)[plate_regex, 1]
-    plates[prefix]
+    prefixes = normalize(text)[plate_regex, 1]
+    plates[prefixes]
   end
 
   def self.brand?(text)
