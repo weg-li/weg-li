@@ -25,8 +25,12 @@ h3= "#{@user.nickname} in #{@user.city}"
       - @positions.each do |(type, position, current, goal)|
         - if goal > 0
           li.list-group-item
-            .badge.pull-right #{number_with_delimiter(current)} Anzeigen
-            p
-              strong=> "Rang #{position + 1} in der #{t(type, scope: 'users.leaderboard')}"
-            .progress.progress-striped.active
-              .progress-bar.progress-bar-success(style="width: #{[100.0, current / (goal.fdiv(100))].min}%")
+            - if current == 0
+              p
+                strong=> "Noch kein Rang in der #{t(type, scope: 'users.leaderboard')}"
+            - else
+              .badge.pull-right #{number_with_delimiter(current)} Anzeigen
+              p
+                strong=> "Rang #{position + 1} in der #{t(type, scope: 'users.leaderboard')}"
+              .progress.progress-striped.active
+                .progress-bar.progress-bar-success(style="width: #{[100.0, current / (goal.fdiv(100))].min}%")
