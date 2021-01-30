@@ -30,7 +30,7 @@ class AnalyzerJob < ApplicationJob
       exif = photo.service.download_file(photo.key) { |file| exifer.metadata(file) }
       notice.data_sets.create!(data: exif, kind: :exif, keyable: photo)
 
-      if !notice.coordinates? && exif[:latitude].to_i.positive? && exif[:longitude].to_i.positive?
+      if !notice.coordinates? && exif[:latitude].to_f.positive? && exif[:longitude].to_f.positive?
         notice.latitude = exif[:latitude]
         notice.longitude = exif[:longitude]
         notice.handle_geocoding
