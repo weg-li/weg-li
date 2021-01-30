@@ -11,12 +11,19 @@ describe AnalyzerJob do
       job.define_singleton_method(:annotator) { this }
 
       notice.registration = nil
+      notice.latitude = nil
+      notice.longitude = nil
+      notice.zip = nil
 
       expect {
         expect {
-          job.analyze(notice)
+          expect {
+            job.analyze(notice)
+          }.to change {
+            notice.registration
+          }
         }.to change {
-          notice.registration
+          notice.coordinates?
         }
       }.to change {
         notice.data_sets.count

@@ -24,15 +24,19 @@ class AnalyzerJob < ApplicationJob
     dates = []
 
     notice.status = :open
-    notice.handle_geocoding
-    prefixes = notice.district&.prefixes || notice.user.district&.prefixes
+    prefixes = notice.user.district&.prefixes
 
     notice.photos.each do |photo|
       exif = photo.service.download_file(photo.key) { |file| exifer.metadata(file) }
       notice.data_sets.create!(data: exif, kind: :exif, keyable: photo)
 
-      notice.latitude ||= exif[:latitude] if exif[:latitude].to_f.positive?
-      notice.longitude ||= exif[:longitude] if exif[:longitude].to_f.positive?
+      if !notice.coordinates? && exif[:latitude].to_i.positive? && exif[:longitude].to_i.positive?
+        notice.latitude = exif[:latitude]
+        notice.longitude = exif[:longitude]
+        notice.handle_geocoding
+        prefixes = notice.district&.prefixes
+      end
+
       dates << (time_from_meta(exif[:date_time]) || AnalyzerJob.time_from_filename(photo.filename.to_s))
 
       result = annotator.annotate_object(photo.key)
