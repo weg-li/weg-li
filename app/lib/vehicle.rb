@@ -18,12 +18,12 @@ class Vehicle
   def self.most_likely?(matches)
     return nil if matches.blank?
 
-    groups = matches.group_by {|key, _| key.gsub(/\W/, '') }.sort_by {|_, group| group.sum { |_, probability| probability } / matches.size }
+    groups = matches.group_by { |key, _| key.gsub(/\W/, '') }.sort_by { |_, group| group.sum { |_, probability| probability }.fdiv(matches.size) }
     best_match = groups.last
     best_match[1].flatten[0]
   end
 
-  def self.plate?(text, prefixes: [])
+  def self.plate?(text, prefixes: nil)
     text = normalize(text)
 
     if prefixes.present? && text =~ plate_regex(prefixes)
@@ -42,11 +42,7 @@ class Vehicle
   def self.normalize(text)
     return '' if text.blank?
 
-    tokens = "[ •»„.,:;\"'()|_+-]"
-    left = Regexp.new("^\\d?#{tokens}+")
-    right = Regexp.new("#{tokens}+$")
-    middle = Regexp.new("(\\d+)#{tokens}+(\\d+)")
-    text.gsub(left, '').gsub(right, '').gsub(middle, '\1\2').gsub(/\W+/,'-')
+    text.gsub(/^([^A-Z,ÖÄÜ])+/, '').gsub(/([^E,0-9])+$/, '').gsub(/([^A-Z,ÖÄÜ,0-9])+/, '-')
   end
 
   def self.plate_regex(prefixes = Vehicle.plates.keys)
@@ -62,8 +58,8 @@ class Vehicle
   end
 
   def self.district_for_plate_prefix(text)
-    prefix = normalize(text)[plate_regex, 1]
-    plates[prefix]
+    prefixes = normalize(text)[plate_regex, 1]
+    plates[prefixes]
   end
 
   def self.brand?(text)

@@ -1,15 +1,26 @@
 require 'spec_helper'
 
 describe AnalyzerJob do
-  let(:notice) { Fabricate.create(:notice) }
 
   context "perform" do
+    let(:notice) { Fabricate.create(:notice) }
+
     it "should analyze the image" do
       job = AnalyzerJob.new
       this = self
       job.define_singleton_method(:annotator) { this }
 
-      expect { job.analyze(notice) }.to change { notice.data_sets.count }.by(2)
+      notice.registration = nil
+
+      expect {
+        expect {
+          job.analyze(notice)
+        }.to change {
+          notice.registration
+        }
+      }.to change {
+        notice.data_sets.count
+      }.by(2)
     end
 
     it "should raise an error when not yet analyzed" do

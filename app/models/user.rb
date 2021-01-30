@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   after_validation :normalize
   before_validation :defaults
 
+  belongs_to :district, optional: true, foreign_key: :zip, primary_key: :zip
   has_many :bulk_uploads, -> { order('created_at DESC') }, dependent: :destroy
   has_many :notices, -> { order('created_at DESC') }, dependent: :destroy
   has_many :replies, -> { order('created_at DESC') }, through: :notices

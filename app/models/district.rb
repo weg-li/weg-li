@@ -25,6 +25,7 @@ class District < ActiveRecord::Base
   enum config: {standard: 0, winowig: 1, munich: 2, karlsruhe: 3}
 
   has_many :notices, foreign_key: :zip, primary_key: :zip
+  has_many :users, foreign_key: :zip, primary_key: :zip
 
   validates :name, :zip, :email, :state, presence: true
   validates :zip, uniqueness: true
@@ -36,7 +37,7 @@ class District < ActiveRecord::Base
   acts_as_api
 
   api_accessible :public_beta do |template|
-    %i(name zip email prefix latitude longitude aliases personal_email created_at updated_at).each { |key| template.add(key) }
+    %i(name zip email prefixes latitude longitude aliases personal_email created_at updated_at).each { |key| template.add(key) }
   end
 
   api_accessible :wegeheld do |template|
@@ -61,7 +62,8 @@ class District < ActiveRecord::Base
   def statistics(date = 100.years.ago)
     {
       notices: notices.since(date).count,
-      users: User.where(id: notices.since(date).pluck(:user_id)).count,
+      active_users: User.where(id: notices.since(date).pluck(:user_id)).count,
+      total_users: users.count,
     }
   end
 
