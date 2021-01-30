@@ -42,11 +42,7 @@ class Vehicle
   def self.normalize(text)
     return '' if text.blank?
 
-    tokens = "[ •»„.,:;\"'()|_+-]"
-    left = Regexp.new("^\\d?#{tokens}+")
-    right = Regexp.new("#{tokens}+$")
-    middle = Regexp.new("(\\d+)#{tokens}+(\\d+)")
-    text.gsub(left, '').gsub(right, '').gsub(middle, '\1\2').gsub(/\W+/,'-')
+    text.gsub(/^([^A-Z,ÖÄÜ])+/, '').gsub(/([^E,0-9])+$/, '').gsub(/([^A-Z,ÖÄÜ,0-9])+/, '-')
   end
 
   def self.plate_regex(prefixes = Vehicle.plates.keys)
