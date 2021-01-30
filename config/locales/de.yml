@@ -221,6 +221,12 @@ de:
       community: 'Community'
       user: 'User'
       disabled: 'Disabled'
+    leaderboard:
+      daily: 'Tageswertung'
+      weekly: 'Wochenwertung'
+      monthly: 'Monatswertung'
+      yearly: 'Jahreswertung'
+      alltime: 'Allzeitwertung'
     statistics:
       all: 'Meldungen insgesamt'
       incomplete: 'Unvollständige Meldungen'
