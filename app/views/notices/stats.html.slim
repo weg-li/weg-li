@@ -1,8 +1,8 @@
 - set_title t('navigation.notices')
 - set_crumbs t('navigation.notices') => notices_path, 'Statistik' => url_for
 
-.well.well-sm
-  p Du hast in den letzten #{@since} Wochen #{@notice_sums.values.sum} Falschparker gemeldet und #{@photo_sums.values.sum} Beweisfotos hochgeladen.
+.well
+  | Du hast in den letzten #{@since} Wochen #{@notice_sums.values.sum} Falschparker gemeldet und #{@photo_sums.values.sum} Beweisfotos hochgeladen.
 
 .row
   .col-lg-6
@@ -46,5 +46,5 @@ ul.nav.nav-tabs.nav-panel#top-x
 
 .spacer
 
-.well.well-sm
-  p Im Jahr #{@year} waren diese Einträge Deine Top-#{@limit} in Sachen Vergehen, Kennzeichen und Automarken. Für die korrekte Gruppierung der Kennzeichen müssen diese identisch formatiert sein.
+.well
+  | Im Jahr #{@year} waren diese Einträge Deine Top-#{@limit} in Sachen Vergehen, Kennzeichen und Automarken. Für die korrekte Gruppierung der Kennzeichen müssen diese identisch formatiert sein.

@@ -4,15 +4,15 @@
 .panel.panel-default
   .panel-heading
     .dropdown
-      = render 'actions', notice: @notice, button_text: true
+      = render('actions', notice: @notice, button_text: true)
   .panel-body
     .row
       .col-lg-6
-        = render 'components/details', notice: @notice
+        = render('components/details', notice: @notice)
       .col-lg-6
-        = render 'components/photos', notice: @notice, publicly: true
+        = render('components/photos', notice: @notice, publicly: true)
   - if @notice.replies.present?
-    = render 'reply_list', replies: @notice.replies
+    = render('reply_list', replies: @notice.replies)
   - if @notice.coordinates?
     .panel-body.panel-body-map
-      = render 'map', notice: @notice, kind: :private
+      = render("components/map/single", notice: @notice, kind: :private)

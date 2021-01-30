@@ -2,6 +2,12 @@ class UsersController < ApplicationController
   before_action :authenticate!
   before_action :authenticate_studi_user!, only: :studi
 
+  def show
+    @since = (params[:since] || 4).to_i
+    @display = %w(cluster multi).delete(params[:display]) || 'cluster'
+    @notices = current_user.notices.shared.since(@since.weeks.ago)
+  end
+
   def edit
   end
 

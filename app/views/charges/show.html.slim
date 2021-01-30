@@ -42,4 +42,4 @@ ul.nav.nav-tabs.nav-panel
       = render('components/register')
 
   .panel-body.panel-body-map
-    = render("#{@display}_map", notices: @notices, kind: :public)
+    = render("components/map/#{@display}", notices: @notices, kind: :public)

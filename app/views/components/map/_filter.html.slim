@@ -15,7 +15,7 @@ ul.nav.nav-tabs.nav-panel
             = submit_tag('Los', class: "btn btn-default btn-sm")
 
   .panel-body.panel-body-map
-    = render "#{display}_map", notices: notices, init: init, kind: kind if display == 'cluster' || display == 'multi'
+    = render("components/map/#{display}", notices: notices, init: init, kind: kind) if display == 'cluster' || display == 'multi'
   .panel-footer
     small
       |
