@@ -213,7 +213,8 @@ de:
   districts:
     statistics:
       notices: 'Meldungen insgesamt'
-      users: 'Benutzer insgesamt'
+      active_users: 'Aktive Melder'
+      total_users: 'Registrierte Bürger'
   users:
     access:
       admin: 'Admin'
@@ -227,8 +228,8 @@ de:
       open: 'Offene Meldungen'
       shared: 'Erstattete Anzeigen'
       photos: 'Geknipste Fotos'
-      users: 'Aktive Benutzer'
-      all_users: 'Benutzer insgesamt'
+      users: 'Aktive Melder'
+      all_users: 'Registrierte Bürger'
       districts: 'Unterstützte Bezirke'
     confirmation_mail: "Eine Bestätigungs-Mail wurde an %{email} versendet."
     signup_mail: "Eine E-Mail mit Login-Link wurde an %{email} versendet."

@@ -62,7 +62,8 @@ class District < ActiveRecord::Base
   def statistics(date = 100.years.ago)
     {
       notices: notices.since(date).count,
-      users: User.where(id: notices.since(date).pluck(:user_id)).count,
+      active_users: User.where(id: notices.since(date).pluck(:user_id)).count,
+      total_users: users.count,
     }
   end
 
