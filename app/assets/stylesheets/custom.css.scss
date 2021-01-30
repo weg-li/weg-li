@@ -10,6 +10,20 @@ $dark-color: darken($default-color, 10);
 
 $white: rgb(255, 255, 255);
 
+.external::after {
+  position: relative;
+  top: 1px;
+  margin: 4px;
+  opacity: 75%;
+  display: inline-block;
+  font-family: "Glyphicons Halflings";
+  font-size: smaller;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  content: "\e164";
+}
+
 .blink {
   opacity: 0;
   animation-name: blink;
