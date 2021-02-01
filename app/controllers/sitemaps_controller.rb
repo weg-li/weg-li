@@ -18,6 +18,7 @@ class SitemapsController < ApplicationController
       donate_url,
       leaderboard_url,
       violation_url,
+      wegeheld_url,
       generator_url,
     ]
 
