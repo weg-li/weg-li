@@ -38,8 +38,8 @@ class Notice < ActiveRecord::Base
   belongs_to :district, optional: true, foreign_key: :zip, primary_key: :zip
   belongs_to :bulk_upload, optional: true
   has_many_attached :photos
-  has_many :replies, -> { order('created_at DESC') }, dependent: :destroy
-  has_many :data_sets, -> { order('created_at DESC') }, dependent: :destroy, as: :setable
+  has_many :replies, -> { order(created_at: :desc) }, dependent: :destroy
+  has_many :data_sets, -> { order(created_at: :desc) }, dependent: :destroy, as: :setable
 
   validates :photos, :registration, :charge, :street, :zip, :city, :date, :duration, :severity, presence: :true
   validates :zip, format: { with: /\d{5}/, message: 'PLZ ist nicht korrekt' }
@@ -82,12 +82,12 @@ class Notice < ActiveRecord::Base
     {
       count: notices.count,
       active: notices.pluck(:user_id).uniq.size,
-      grouped_states: notices.joins(:district).select('count(districts.state) as state_count, districts.state').group('districts.state').order('state_count DESC').limit(limit).to_a,
-      grouped_cities: notices.select('count(city) as city_count, city').group(:city).order('city_count DESC').limit(limit).to_a,
-      grouped_zips: notices.select('count(zip) as zip_count, zip').group(:zip).order('zip_count DESC').limit(limit).to_a,
-      grouped_charges: notices.select('count(charge) as charge_count, charge').group(:charge).order('charge_count DESC').limit(limit).to_a,
-      grouped_brands: notices.select('count(brand) as brand_count, brand').where("brand != ''").group(:brand).order('brand_count DESC').limit(limit).to_a,
-      grouped_registrations: notices.select('count(registration) as registration_count, registration').group(:registration).order('registration_count DESC').limit(limit).to_a,
+      grouped_states: notices.joins(:district).select('count(districts.state) as state_count, districts.state').group('districts.state').order(state_count: :desc).limit(limit).to_a,
+      grouped_cities: notices.select('count(city) as city_count, city').group(:city).order(city_count: :desc).limit(limit).to_a,
+      grouped_zips: notices.select('count(zip) as zip_count, zip').group(:zip).order(zip_count: :desc).limit(limit).to_a,
+      grouped_charges: notices.select('count(charge) as charge_count, charge').group(:charge).order(charge_count: :desc).limit(limit).to_a,
+      grouped_brands: notices.select('count(brand) as brand_count, brand').where("brand != ''").group(:brand).order(brand_count: :desc).limit(limit).to_a,
+      grouped_registrations: notices.select('count(registration) as registration_count, registration').group(:registration).order(registration_count: :desc).limit(limit).to_a,
     }
   end
 

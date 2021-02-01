@@ -11,10 +11,10 @@ class User < ActiveRecord::Base
   before_validation :defaults
 
   belongs_to :district, optional: true, foreign_key: :zip, primary_key: :zip
-  has_many :bulk_uploads, -> { order('created_at DESC') }, dependent: :destroy
-  has_many :notices, -> { order('created_at DESC') }, dependent: :destroy
-  has_many :replies, -> { order('created_at DESC') }, through: :notices
-  has_many :snippets, -> { order('created_at DESC') }
+  has_many :bulk_uploads, -> { order(created_at: :desc) }, dependent: :destroy
+  has_many :notices, -> { order(created_at: :desc) }, dependent: :destroy
+  has_many :replies, -> { order(created_at: :desc) }, through: :notices
+  has_many :snippets, -> { order(created_at: :desc) }
   has_many :authorizations, dependent: :destroy
   has_many :photos_attachments, through: :notices
 
