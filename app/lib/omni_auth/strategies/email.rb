@@ -12,18 +12,18 @@ module OmniAuth
       def callback_phase
         token = request.params['token']
         if token.blank?
-          fail!(:invalid_credentials)
+          fail!(:authenticity_error, 'token was missing')
         end
 
         begin
           decoded_token = Token.decode(token)
         rescue
-          fail!(:invalid_credentials)
+          fail!(:authenticity_error, 'token was tempered with')
         end
 
         @email = decoded_token['iss'].to_s.downcase
         if @email.blank?
-          fail!(:invalid_credentials)
+          fail!(:authenticity_error, 'token iss was not an email')
         end
 
         super
