@@ -35,7 +35,7 @@ Rails.application.routes.draw do
         patch :mail
       end
     end
-    resources :uploads
+    resources :uploads, only: [:create]
   end
 
   post "/analyze_direct_upload" => "direct_uploads#analyze", as: :direct_upload_analyze

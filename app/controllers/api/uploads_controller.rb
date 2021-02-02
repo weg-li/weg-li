@@ -11,7 +11,7 @@ class Api::UploadsController < Api::ApplicationController
   private
 
   def blob_args
-    params.require(:upload).permit(:filename, :byte_size, :checksum, :content_type, :metadata).to_h.symbolize_keys
+    params.require(:upload).permit(:filename, :byte_size, :checksum, :content_type, metadata: {}).to_h.symbolize_keys
   end
 
   def direct_upload_json(blob)

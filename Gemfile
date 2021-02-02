@@ -59,5 +59,5 @@ group :development, :test do
   gem 'fabrication'
   gem 'rspec-rails'
   gem 'rspec-retry'
-  gem 'rswag-specs'
+  gem 'rswag'
 end

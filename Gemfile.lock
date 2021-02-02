@@ -396,6 +396,10 @@ GEM
     rspec-retry (0.6.2)
       rspec-core (> 3.3)
     rspec-support (3.10.2)
+    rswag (2.3.2)
+      rswag-api (= 2.3.2)
+      rswag-specs (= 2.3.2)
+      rswag-ui (= 2.3.2)
     rswag-api (2.3.2)
       railties (>= 3.1, < 7.0)
     rswag-specs (2.3.2)
@@ -530,8 +534,8 @@ DEPENDENCIES
   rails (= 6.1.0)
   rspec-rails
   rspec-retry
+  rswag
   rswag-api
-  rswag-specs
   rswag-ui
   rubyzip
   sass-rails

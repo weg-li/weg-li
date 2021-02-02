@@ -3,25 +3,12 @@ openapi: 3.0.1
 info:
   title: API V1
   version: v1
-components:
-  securitySchemes:
-    ApiKeyAuth:
-      type: apiKey
-      in: header
-      name: X-API-KEY
-securityDefinitions:
-  ApiKeyAuth:
-    type: apiKey
-    name: X-API-KEY
-    in: header
 paths:
   "/api/notices/{id}":
     get:
       summary: Retrieves a notice
       tags:
       - Notices
-      produces:
-      - application/json
       parameters:
       - name: id
         in: path
@@ -33,15 +20,28 @@ paths:
       responses:
         '200':
           description: notice found
-          schema:
-            type: object
-            properties:
-              token:
-                type: string
-              status:
-                type: string
-            required:
-            - token
-            - status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                  status:
+                    type: string
+                required:
+                - token
+                - status
         '404':
           description: notice not found
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+servers:
+- url: "{defaultUrl}"
+  variables:
+    defaultUrl:
+      default: https://www.weg.li

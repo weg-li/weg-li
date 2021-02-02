@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.configure do |config|
@@ -19,16 +21,26 @@ RSpec.configure do |config|
         title: 'API V1',
         version: 'v1'
       },
+      paths: {},
       components: {
         securitySchemes: {
           ApiKeyAuth: {
             type: :apiKey,
             in: :header,
             name: 'X-API-KEY',
-          }
-        }
+          },
+        },
       },
-      paths: {}
+      servers: [
+        {
+          url: '{defaultUrl}',
+          variables: {
+            defaultUrl: {
+              default: 'https://www.weg.li'
+            },
+          },
+        },
+      ]
     }
   }
 

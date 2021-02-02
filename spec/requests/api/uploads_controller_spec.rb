@@ -14,7 +14,7 @@ describe "api/uploads", type: :request do
           byte_size: 1.megabyte,
           checksum: 'AABBCC',
           content_type: 'image/jpeg',
-          metadata: {content_type: 'image/jpeg'}.to_json,
+          metadata: {content_type: 'image/jpeg'},
         }
       }
 
