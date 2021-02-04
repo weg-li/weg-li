@@ -2,7 +2,9 @@ require 'swagger_helper'
 
 describe 'Notices API' do
 
-  let(:notice) { Fabricate.create(:notice) }
+  let(:user) { Fabricate.create(:user) }
+  let(:notice) { Fabricate.create(:notice, user: user) }
+  let('X-API-KEY') { user.api_token }
 
   # path '/api/notices' do
   #
@@ -32,9 +34,6 @@ describe 'Notices API' do
   # end
 
   path '/api/notices/{id}' do
-
-    let('X-API-KEY') { notice.user.api_token }
-
     get 'Retrieves a notice' do
       tags 'Notices'
       produces 'application/json'
@@ -44,18 +43,24 @@ describe 'Notices API' do
       response '200', 'notice found' do
         schema type: :object,
           properties: {
-            token: { type: :string, },
+            token: { type: :string, example: '21f96e417ca2050a075d2cb056a4f670'},
             status: { type: :string },
-            # registration: { type: :string, },
-            # charge: { type: :string, },
-            # street: { type: :string, },
-            # zip: { type: :string, },
-            # city: { type: :string, },
-            # date: { type: :time, },
-            # duration: { type: :integer, },
-            # severity: { type: :integer, },
-            # location: { type: :string },
-            # photo_url: { type: :string },
+            street: { type: :string, },
+            zip: { type: :string, },
+            city: { type: :string, },
+            latitude: { type: :number, },
+            longitude: { type: :number, },
+            registration: { type: :string, },
+            color: { type: :string, },
+            brand: { type: :string, },
+            charge: { type: :string, },
+            date: { type: :string, format: :"date-time" },
+            severity: { type: :string, },
+            vehicle_empty: { type: :boolean, },
+            hazard_lights: { type: :boolean, },
+            expired_tuv: { type: :boolean, },
+            expired_eco: { type: :boolean, },
+            duration: { type: :integer, },
           },
           required: [ 'token', 'status' ]
 

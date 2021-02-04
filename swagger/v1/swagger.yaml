@@ -27,8 +27,42 @@ paths:
                 properties:
                   token:
                     type: string
+                    example: 21f96e417ca2050a075d2cb056a4f670
                   status:
                     type: string
+                  street:
+                    type: string
+                  zip:
+                    type: string
+                  city:
+                    type: string
+                  latitude:
+                    type: number
+                  longitude:
+                    type: number
+                  registration:
+                    type: string
+                  color:
+                    type: string
+                  brand:
+                    type: string
+                  charge:
+                    type: string
+                  date:
+                    type: string
+                    format: date-time
+                  severity:
+                    type: string
+                  vehicle_empty:
+                    type: boolean
+                  hazard_lights:
+                    type: boolean
+                  expired_tuv:
+                    type: boolean
+                  expired_eco:
+                    type: boolean
+                  duration:
+                    type: integer
                 required:
                 - token
                 - status
