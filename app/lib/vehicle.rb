@@ -103,6 +103,7 @@ class Vehicle
   def self.camper_brands
     [
       'Adria',
+      'Hymer',
     ]
   end
 
