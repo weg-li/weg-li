@@ -1,0 +1,14 @@
+ul.list-group
+  - positions.each do |(type, position, current, goal)|
+    li.list-group-item
+      .badge.pull-right #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen
+      - if current == 0 || goal == 0
+        p
+          strong=> "Noch kein Rang in der #{t(type, scope: 'users.leaderboard')}"
+        .progress
+          .progress-bar.progress-bar-default(style="width:100%")
+      - else
+        p
+          strong=> "Rang #{position + 1} in der #{t(type, scope: 'users.leaderboard')}"
+        .progress.progress-striped.active
+          .progress-bar.progress-bar-success(style="width: #{[100.0, current / (goal.fdiv(100))].min}%")

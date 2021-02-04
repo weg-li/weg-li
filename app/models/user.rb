@@ -116,6 +116,22 @@ class User < ActiveRecord::Base
     }
   end
 
+  def leaderboard_positions
+    daily = Notice.since(Time.zone.now.beginning_of_day).group(:user_id).order(count_all: :desc).count
+    weekly = Notice.since(Time.zone.now.beginning_of_week).group(:user_id).order(count_all: :desc).count
+    monthly = Notice.since(Time.zone.now.beginning_of_month).group(:user_id).order(count_all: :desc).count
+    yearly = Notice.since(Time.zone.now.beginning_of_year).group(:user_id).order(count_all: :desc).count
+    alltime = Notice.group(:user_id).order(count_all: :desc).count
+
+    @positions = [
+      ['daily', daily.keys.index(id).to_i, daily[id].to_i, daily.first&.last.to_i],
+      ['weekly', weekly.keys.index(id).to_i, weekly[id].to_i, weekly.first&.last.to_i],
+      ['monthly', monthly.keys.index(id).to_i, monthly[id].to_i, monthly.first&.last.to_i],
+      ['yearly', yearly.keys.index(id).to_i, yearly[id].to_i, yearly.first&.last.to_i],
+      ['alltime', alltime.keys.index(id).to_i, alltime[id].to_i, alltime.first&.last.to_i],
+    ]
+  end
+
   private
 
   def normalize
