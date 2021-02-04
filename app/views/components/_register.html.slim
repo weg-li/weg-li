@@ -8,4 +8,4 @@ h2.text-center Jetzt anmelden und ausprobieren!
     ul.dropdown-menu.dropdown-menu-right
       li.dropdown-header= t('home.select_oauth_provider')
       - login_links do |name, path, key|
-        li= link_to(name, path, method: :post)
+        li= button_to("per #{name}", path, {class: 'btn btn-link'})

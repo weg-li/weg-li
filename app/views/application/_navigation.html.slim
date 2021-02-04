@@ -100,4 +100,4 @@
               span.caret
             ul.dropdown-menu aria-labelledby="login"
               - login_links do |name, path, key|
-                li= link_to("via #{name}", path, method: :post)
+                li= button_to("per #{name}", path, {class: 'btn btn-link'})
