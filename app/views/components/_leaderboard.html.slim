@@ -1,7 +1,7 @@
 ul.list-group
   - positions.each do |(type, position, current, goal)|
     li.list-group-item
-      .badge.pull-right #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen
+      .badge.pull-right #{number_with_delimiter(current)} vs #{number_with_delimiter(goal)} Anzeigen
       - if current == 0 || goal == 0
         p
           strong=> "Noch kein Rang in der #{t(type, scope: 'users.leaderboard')}"
