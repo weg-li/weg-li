@@ -1,7 +1,9 @@
 - kind ||= :public
 ul.nav.nav-tabs.nav-panel
-  li(class="#{'active' if display=='cluster'}")= link_to 'Gruppierte Karte', url_for(since: since, district: district, display: 'cluster')
-  li(class="#{'active' if display=='multi'}")= link_to 'Normale Karte', url_for(since: since, district: district, display: 'multi')
+  li(class="#{'active' if display=='cluster'}")= link_to 'Cluster', url_for(since: since, district: district, display: 'cluster')
+  - if access?(:community)
+    li(class="#{'active' if display=='heat'}")= link_to 'Heat-Map', url_for(since: since, district: district, display: 'heat')
+  li(class="#{'active' if display=='multi'}")= link_to 'Karte', url_for(since: since, district: district, display: 'multi')
 
 .panel.panel-default.panel-nav
   .panel-heading
@@ -15,7 +17,7 @@ ul.nav.nav-tabs.nav-panel
             = submit_tag('Los', class: "btn btn-default btn-sm")
 
   .panel-body.panel-body-map
-    = render("components/map/#{display}", notices: notices, init: init, kind: kind) if display == 'cluster' || display == 'multi'
+    = render("components/map/#{display}", notices: notices, init: init, kind: kind) if display == 'cluster' || display == 'multi' || display == 'heat'
   .panel-footer
     small
       |

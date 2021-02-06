@@ -12,6 +12,7 @@
     "jquery": "^3.4.1",
     "jquery-zoom": "^1.7.21",
     "leaflet": "^1.7.1",
+    "leaflet.heat": "^0.2.0",
     "leaflet.markercluster": "^1.4.1",
     "rails-erb-loader": "^5.5.2",
     "select2": "^4.0.12",

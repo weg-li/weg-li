@@ -1,4 +1,5 @@
 const L = require('leaflet');
+require('leaflet.heat');
 require('leaflet.markercluster');
 
 L.Icon.Default.imagePath = '/img/map/';
@@ -189,7 +190,31 @@ class GClusterMap {
   }
 }
 
+class GHeatMap {
+  constructor(canvas) {
+    this.canvas = canvas[0];
+    this.init = canvas.data('init');
+    this.notices = canvas.data('notices');
+  }
+
+  show() {
+    const map = initMap(this.canvas, [this.init.latitude, this.init.longitude], this.init.zoom);
+
+    if (this.notices.length > 0) {
+      const bounds = [];
+      this.notices.forEach((notice) => {
+        const coord = [notice.latitude, notice.longitude];
+        bounds.push(coord);
+      });
+      map.fitBounds(bounds);
+      const heatPoints = bounds.map((entry) => [entry[0], entry[1], 0.2]);
+      L.heatLayer(heatPoints, { radius: 25 }).addTo(map);
+    }
+  }
+}
+
 window.GMap = GMap;
 window.GPickerMap = GPickerMap;
 window.GMultiMap = GMultiMap;
 window.GClusterMap = GClusterMap;
+window.GHeatMap = GHeatMap;
