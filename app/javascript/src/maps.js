@@ -207,7 +207,7 @@ class GHeatMap {
         bounds.push(coord);
       });
       map.fitBounds(bounds);
-      const heatPoints = bounds.map((entry) => [entry[0], entry[1], 0.5]);
+      const heatPoints = bounds.map((entry) => [entry[0], entry[1], 0.6]);
       L.heatLayer(heatPoints, { radius: 25 }).addTo(map);
     }
   }
