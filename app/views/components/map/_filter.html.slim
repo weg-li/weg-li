@@ -1,8 +1,7 @@
 - kind ||= :public
 ul.nav.nav-tabs.nav-panel
   li(class="#{'active' if display=='cluster'}")= link_to 'Cluster', url_for(since: since, district: district, display: 'cluster')
-  - if access?(:community)
-    li(class="#{'active' if display=='heat'}")= link_to 'Heat-Map', url_for(since: since, district: district, display: 'heat')
+  li(class="#{'active' if display=='heat'}")= link_to 'Heat-Map', url_for(since: since, district: district, display: 'heat')
   li(class="#{'active' if display=='multi'}")= link_to 'Karte', url_for(since: since, district: district, display: 'multi')
 
 .panel.panel-default.panel-nav

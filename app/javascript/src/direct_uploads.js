@@ -80,7 +80,7 @@ addEventListener('direct-upload:end', (event) => {
   target.scrollIntoView({ block: 'end', behavior: 'smooth' });
 
   const signedID = target.previousElementSibling.value;
-  if (signedID && fetch && target.hasAttribute('analyze_url')) {
+  if (signedID && target.hasAttribute('analyze_url')) {
     const url = target.attributes.analyze_url.value;
     const data = { blob: { signed_id: signedID } };
     setTimeout(triggerAnalyzation, 50, url, data);

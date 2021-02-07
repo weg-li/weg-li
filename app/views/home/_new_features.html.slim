@@ -4,8 +4,11 @@
 
     ul.list-group
       li.list-group-item
+        span.badge Profil
+        | 🎖 Auf deiner #{link_to 'Profil-Seite', user_path} kannst Du jetzt einen den aktuellen Stand im Leaderboard-Ranking sehen.
+      li.list-group-item
         span.badge Karten
-        | 🌍 Google-Maps wurde durch OpenStreetMap im #{link_to 'Mapbox Style', 'https://www.mapbox.com/maps/'} ersetzt.
+        | 🌍 Die #{link_to 'weg.li Karte', map_path} kann nun als Cluster, Heat-Map oder mit normalen Markern dargestellt werden.
       li.list-group-item
         span.badge Meldung
         | 🖋 In Karlsruhe und Celle weisen wir darauf hin, dass die Anzeige per PDF und mit der #{link_to 'hinterlegten Unterschrift', edit_user_path(anchor: :signature)} erfolgen soll.
@@ -21,6 +24,3 @@
       li.list-group-item
         span.badge Meldung
         | 📄 Beim Versand einer Anzeige, kannst Du diese als generiertes PDF an die E-Mail anhängen.
-      li.list-group-item
-        span.badge Profil
-        | 🏢 In #{link_to 'Deinem Profil', edit_user_path} kannst Du jetzt einen Adresszusatz und ein Geburtsdatum angeben.
