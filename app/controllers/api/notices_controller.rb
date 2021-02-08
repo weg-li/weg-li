@@ -30,6 +30,13 @@ class Api::NoticesController < Api::ApplicationController
     render json: notice.as_api_response(:public_beta)
   end
 
+  def destroy
+    notice = current_user.notices.from_param(params[:id])
+
+    notice.destroy!
+    head(200)
+  end
+
   private
 
   def notice_params

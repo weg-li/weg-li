@@ -33,6 +33,21 @@ describe 'Notices API' do
   #   end
   # end
 
+  path '/api/notices/' do
+    get 'Retrieves a list of notices' do
+      tags 'Notices'
+      produces 'application/json'
+      security [ ApiKeyAuth: 'X-API-KEY' ]
+
+      response '200', 'notice found' do
+        schema type: :object,
+          properties: {}
+
+        run_test!
+      end
+    end
+  end
+
   path '/api/notices/{id}' do
     get 'Retrieves a notice' do
       tags 'Notices'
