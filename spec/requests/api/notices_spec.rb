@@ -45,20 +45,38 @@ RSpec.describe 'api/notices', type: :request do
     end
 
     post('create notice') do
+      # bundle exec rspec --format Rswag::Specs::SwaggerFormatter --order defined --pattern 'spec/requests/**/*_spec.rb'
       security [ ApiKeyAuth: 'X-API-KEY' ]
       consumes 'application/json'
       parameter name: :notice, in: :body, schema: {
         type: :object,
         properties: {
-          title: { type: :string },
-          content: { type: :string }
+          token: { type: :string },
+          status: { type: :string },
+          street: { type: :string, },
+          zip: { type: :string, },
+          city: { type: :string, },
+          latitude: { type: :number, },
+          longitude: { type: :number, },
+          registration: { type: :string, },
+          color: { type: :string, },
+          brand: { type: :string, },
+          charge: { type: :string, },
+          date: { type: :string, format: :"date-time" },
+          severity: { type: :string, },
+          vehicle_empty: { type: :boolean, },
+          hazard_lights: { type: :boolean, },
+          expired_tuv: { type: :boolean, },
+          expired_eco: { type: :boolean, },
+          duration: { type: :integer, },
         },
-        required: [ 'title', 'content' ]
+        required: [ 'token', 'status' ]
       }
       let(:notice) { current_notice.attributes }
 
       response(201, 'successful') do
         after do |example|
+          byebug
           example.metadata[:response][:content] = {
             'application/json' => {
               example: JSON.parse(response.body, symbolize_names: true)

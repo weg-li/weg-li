@@ -4,70 +4,203 @@ info:
   title: API V1
   version: v1
 paths:
-  "/api/notices/{id}":
-    get:
-      summary: Retrieves a notice
-      tags:
-      - Notices
-      parameters:
-      - name: id
-        in: path
-        schema:
-          type: string
-        required: true
+  "/api/notices/{id}/mail":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    patch:
+      summary: mail notice
       security:
       - ApiKeyAuth: X-API-KEY
       responses:
         '200':
-          description: notice found
+          description: successful
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  token:
-                    type: string
-                    example: 21f96e417ca2050a075d2cb056a4f670
-                  status:
-                    type: string
-                  street:
-                    type: string
-                  zip:
-                    type: string
-                  city:
-                    type: string
-                  latitude:
-                    type: number
-                  longitude:
-                    type: number
-                  registration:
-                    type: string
-                  color:
-                    type: string
-                  brand:
-                    type: string
-                  charge:
-                    type: string
-                  date:
-                    type: string
-                    format: date-time
-                  severity:
-                    type: string
-                  vehicle_empty:
-                    type: boolean
-                  hazard_lights:
-                    type: boolean
-                  expired_tuv:
-                    type: boolean
-                  expired_eco:
-                    type: boolean
-                  duration:
-                    type: integer
-                required:
-                - token
-                - status
-        '404':
-          description: notice not found
+              example:
+                token: 6775c2e4e4a5dc30b6b0799f8f9488e2
+                status: shared
+                street: Maria-Dresen-Str. 108
+                city: Meweshagen
+                zip: '39015'
+                latitude: 53.57532
+                longitude: 10.01534
+                registration: SRO OE 38
+                color: violet
+                brand: Daewoo
+                charge: Parken vor oder in einer amtlich gekennzeichneten Feuerwehrzufahrt
+                date: '2021-02-06T16:05:10.382+01:00'
+                duration: 3
+                severity: standard
+                photos:
+                - id: 1683
+                  name: photos
+                  record_type: Notice
+                  record_id: 1188
+                  blob_id: 1652
+                  created_at: '2021-02-08T16:05:10.419+01:00'
+                vehicle_empty: true
+                hazard_lights: false
+                expired_tuv: false
+                expired_eco: false
+  "/api/notices":
+    get:
+      summary: list notices
+      security:
+      - ApiKeyAuth: X-API-KEY
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example: []
+    post:
+      summary: create notice
+      security:
+      - ApiKeyAuth: X-API-KEY
+      parameters: []
+      responses:
+        '201':
+          description: successful
+          content:
+            application/json:
+              example:
+                token: f7535d506c1add0cee98af235a94b02d
+                status: analyzing
+                street: Poststr. 7
+                city: Ibrahimstadt
+                zip: '65162'
+                latitude: 53.57532
+                longitude: 10.01534
+                registration: SE PY 220
+                color: brown
+                brand: Abarth
+                charge: Parken nicht am rechten Fahrbahnrand
+                date: '2021-02-06T16:05:10.499+01:00'
+                duration: 3
+                severity: standard
+                photos: []
+                vehicle_empty: false
+                hazard_lights: false
+                expired_tuv: false
+                expired_eco: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                status:
+                  type: string
+                street:
+                  type: string
+                zip:
+                  type: string
+                city:
+                  type: string
+                latitude:
+                  type: number
+                longitude:
+                  type: number
+                registration:
+                  type: string
+                color:
+                  type: string
+                brand:
+                  type: string
+                charge:
+                  type: string
+                date:
+                  type: string
+                  format: date-time
+                severity:
+                  type: string
+                vehicle_empty:
+                  type: boolean
+                hazard_lights:
+                  type: boolean
+                expired_tuv:
+                  type: boolean
+                expired_eco:
+                  type: boolean
+                duration:
+                  type: integer
+              required:
+              - token
+              - status
+  "/api/notices/new":
+    get:
+      summary: new notice
+      responses:
+        '200':
+          description: successful
+  "/api/notices/{id}/edit":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: edit notice
+      responses:
+        '200':
+          description: successful
+  "/api/notices/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    - name: blog
+      in: body
+      schema:
+        type: object
+        properties:
+          title:
+            type: string
+          content:
+            type: string
+        required:
+        - title
+        - content
+    get:
+      summary: show notice
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update notice
+      responses:
+        '200':
+          description: successful
+    put:
+      summary: update notice
+      parameters: []
+      security:
+      - ApiKeyAuth: X-API-KEY
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: delete notice
+      security:
+      - ApiKeyAuth: X-API-KEY
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example: ''
 components:
   securitySchemes:
     ApiKeyAuth:
