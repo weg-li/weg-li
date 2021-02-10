@@ -1,11 +1,69 @@
 class Api::NoticesController < Api::ApplicationController
   include Swagger::Blocks
 
-  rescue_from StandardError, with: -> (exception) { render json: Api::Error.new(1, $!.message) }
+  rescue_from ActiveRecord::RecordNotFound, with: -> (ex) { render json: Api::Error.new(404, exception.message) }
+  rescue_from StandardError, with: -> (ex) { render json: Api::Error.new(500, exception.message) }
 
+  swagger_path '/notices/' do
+    operation :get do
+      key :summary, 'Get all Notices'
+      key :description, 'Returns a list of notices for the authorized user'
+      key :operationToken, 'findNotices'
+      key :tags, ['notice']
+      response 200 do
+        key :description, 'notices response'
+        schema do
+          key :type, :array
+          items do
+            key :'$ref', :Notice
+          end
+        end
+      end
+      response :default do
+        key :description, 'unexpected error'
+        schema do
+          key :'$ref', :Error
+        end
+      end
+    end
+  end
 
   def index
     render json: current_user.notices.as_api_response(:public_beta)
+  end
+
+  swagger_path '/notices/' do
+    operation :post do
+      key :description, 'Creates a new notice'
+      key :operationId, 'addNotice'
+      key :produces, [
+        'application/json'
+      ]
+      key :tags, [
+        'notice'
+      ]
+      parameter do
+        key :name, :notice
+        key :in, :body
+        key :description, 'Notice to add'
+        key :required, true
+        schema do
+          key :'$ref', :NoticeInput
+        end
+      end
+      response 201 do
+        key :description, 'notice response'
+        schema do
+          key :'$ref', :Notice
+        end
+      end
+      response :default do
+        key :description, 'unexpected error'
+        schema do
+          key :'$ref', :Error
+        end
+      end
+    end
   end
 
   def create
@@ -42,6 +100,7 @@ class Api::NoticesController < Api::ApplicationController
       end
     end
   end
+
   def show
     render json: current_user.notices.from_param(params[:id]).as_api_response(:public_beta)
   end
