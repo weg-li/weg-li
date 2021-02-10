@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate!
-  before_action :authenticate_studi_user!, only: :studi
+  before_action :authenticate_studi_user!, only: [:studi, :generate_export]
 
   def show
     @since = (params[:since] || 4).to_i
@@ -50,6 +50,15 @@ class UsersController < ApplicationController
 
   def studi
     @exports = Export.for_studis
+  end
+
+  def generate_export
+    export_type = params[:export][:export_type] || :photos
+    interval = params[:export][:interval] || Date.today.cweek
+    Rails.logger.info("create export for type #{export_type} in week #{interval}")
+
+    Scheduled::ExportJob.perform_later(export_type: export_type, interval: interval)
+    redirect_to studi_user_path, notice: "Export #{export_type}/#{interval} wurde gestartet, es kann einige Minuten Dauern bis dieser hier erscheint."
   end
 
   def destroy

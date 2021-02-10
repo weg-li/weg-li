@@ -86,6 +86,7 @@ Rails.application.routes.draw do
   resource :user, except: [:create, :new, :index] do
     member do
       get :studi
+      post :generate_export
       patch :confirmation_mail
       patch :signature
       patch :destroy_signature
