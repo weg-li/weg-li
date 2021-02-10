@@ -1,6 +1,5 @@
 class Notice < ActiveRecord::Base
   include Statisticable
-
   ADDRESS_ZIP_PATTERN =/.+(\d{5}).+/
 
   extend TimeSplitter::Accessors
@@ -12,19 +11,15 @@ class Notice < ActiveRecord::Base
     bitfields[:flags].keys
   end
 
-  include Incompletable
-
   acts_as_api
 
   api_accessible(:public_beta) do |template|
-    %i(token status street city zip latitude longitude registration color brand charge date photos severity).each { |key| template.add(key) }
+    %i(token status street city zip latitude longitude registration color brand charge date duration severity photos).each { |key| template.add(key) }
     Notice.bitfields[:flags].keys.each { |key| template.add(key) }
-  end
-
-  api_accessible(:dump) do |template|
-    %i(status street city zip latitude longitude registration color brand charge date severity).each { |key| template.add(key) }
     template.add(:attachments, as: :photos)
   end
+
+  include Incompletable
 
   before_validation :defaults
 

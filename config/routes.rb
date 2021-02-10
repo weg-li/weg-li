@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   mount Rswag::Ui::Engine => '/api-docs'
-  mount Rswag::Api::Engine => '/api-docs'
   mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
+
+  resources :apidocs, only: [:index]
 
   namespace :admin do
     resources :users do
@@ -29,13 +30,13 @@ Rails.application.routes.draw do
     root to: "users#index"
   end
 
-  namespace :api do
+  namespace :api, constraints: { format: :json } do
     resources :notices do
       member do
         patch :mail
       end
     end
-    resources :uploads
+    resources :uploads, only: [:create]
   end
 
   post "/analyze_direct_upload" => "direct_uploads#analyze", as: :direct_upload_analyze

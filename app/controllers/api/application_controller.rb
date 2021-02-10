@@ -1,7 +1,11 @@
 class Api::ApplicationController < ActionController::Base
+  include Swagger::Blocks
+
   protect_from_forgery with: :null_session
   before_action :api_sign_in
-  rescue_from ActiveRecord::RecordNotFound, with: -> () { head(:not_found) }
+
+  rescue_from ActiveRecord::RecordNotFound, with: -> (ex) { render json: Api::Error.new(404, ex.message) }
+  rescue_from StandardError, with: -> (ex) { render json: Api::Error.new(500, ex.message) }
 
   private
 

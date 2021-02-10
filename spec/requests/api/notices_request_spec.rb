@@ -6,9 +6,6 @@ describe "api/notices", type: :request do
     @headers = { 'X-API-KEY' => @user.api_token }
   end
 
-  # TODO
-  # proper json for photos_attachments
-
   context "GET: index" do
     it "index works" do
       notice = Fabricate(:notice, user: @user)
