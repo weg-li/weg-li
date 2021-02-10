@@ -12,9 +12,11 @@ class Api::Upload < ActiveStorage::Blob
     end
     property :checksum do
       key :type, :string
+      key :description, 'MD5 base64digest of file'
     end
     property :content_type do
       key :type, :string
+      key :default, 'image/jpeg'
     end
     property :metadata do
       key :type, :object

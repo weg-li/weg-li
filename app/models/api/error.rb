@@ -6,9 +6,11 @@ class Api::Error
     property :code do
       key :type, :integer
       key :format, :int32
+      key :description, 'HTTP error-code'
     end
     property :message do
       key :type, :string
+      key :description, 'A hopefully helpful error-message'
     end
   end
 

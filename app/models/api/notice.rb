@@ -8,6 +8,7 @@ class Api::Notice < ::Notice
     end
     property :status do
       key :type, :string
+      key :enum, Notice.statuses.keys
     end
     property :street do
       key :type, :string
@@ -17,6 +18,7 @@ class Api::Notice < ::Notice
     end
     property :zip do
       key :type, :string
+      key :pattern, '^\d{5}$'
     end
     property :latitude do
       key :type, :number
@@ -31,6 +33,7 @@ class Api::Notice < ::Notice
     end
     property :charge do
       key :type, :string
+      key :enum, Charge.plain_charges
     end
     property :date do
       key :type, :string
@@ -39,9 +42,11 @@ class Api::Notice < ::Notice
     property :duration do
       key :type, :number
       key :format, :int64
+      key :enum, Vehicle.durations.map(&:last)
     end
     property :severity do
       key :type, :string
+      key :enum, Notice.severities.keys
     end
   end
 
