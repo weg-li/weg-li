@@ -4,8 +4,8 @@ class Api::ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   before_action :api_sign_in
 
-  rescue_from ActiveRecord::RecordNotFound, with: -> (ex) { render json: Api::Error.new(404, exception.message) }
-  rescue_from StandardError, with: -> (ex) { render json: Api::Error.new(500, exception.message) }
+  rescue_from ActiveRecord::RecordNotFound, with: -> (ex) { render json: Api::Error.new(404, ex.message) }
+  rescue_from StandardError, with: -> (ex) { render json: Api::Error.new(500, ex.message) }
 
   private
 
