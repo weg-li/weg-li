@@ -1,6 +1,9 @@
 class Api::NoticesController < Api::ApplicationController
   include Swagger::Blocks
 
+  rescue_from StandardError, with: -> (exception) { render json: Api::Error.new(1, $!.message) }
+
+
   def index
     render json: current_user.notices.as_api_response(:public_beta)
   end
@@ -12,16 +15,16 @@ class Api::NoticesController < Api::ApplicationController
     render json: notice.as_api_response(:public_beta), status: :created
   end
 
-  swagger_path '/notices/{id}' do
+  swagger_path '/notices/{token}' do
     operation :get do
-      key :summary, 'Find Notice by ID'
+      key :summary, 'Find Notice by Token'
       key :description, 'Returns a single notice for the authorized user'
-      key :operationId, 'findNoticeById'
+      key :operationToken, 'findNoticeByToken'
       key :tags, ['notice']
       parameter do
-        key :name, :id
+        key :name, :token
         key :in, :path
-        key :description, 'ID of notice to fetch'
+        key :description, 'Token of notice to fetch'
         key :required, true
         key :type, :string
       end

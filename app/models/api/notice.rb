@@ -1,29 +1,47 @@
 class Api::Notice < ::Notice
   include Swagger::Blocks
 
-  acts_as_api
-
-  api_accessible(:public_beta) do |template|
-    %i(token status street city zip latitude longitude registration color brand charge date duration severity photos).each { |key| template.add(key) }
-    Notice.bitfields[:flags].keys.each { |key| template.add(key) }
-  end
-
-  api_accessible(:dump) do |template|
-    %i(status street city zip latitude longitude registration color brand charge date duration severity).each { |key| template.add(key) }
-    template.add(:attachments, as: :photos)
-  end
-
-
   swagger_schema :Notice do
     key :required, [:id, :name]
-    property :id do
-      key :type, :integer
-      key :format, :int64
+    property :token do
+      key :type, :string
+      # key :format, :int64
     end
-    property :name do
+    property :status do
       key :type, :string
     end
-    property :tag do
+    property :street do
+      key :type, :string
+    end
+    property :city do
+      key :type, :string
+    end
+    property :zip do
+      key :type, :string
+    end
+    property :latitude do
+      key :type, :number
+      key :format, :float
+    end
+    property :longitude do
+      key :type, :number
+      key :format, :float
+    end
+    property :registration do
+      key :type, :string
+    end
+    property :charge do
+      key :type, :string
+    end
+    property :date do
+      key :type, :string
+      key :format, :"date-time"
+    end
+    property :duration do
+      key :type, :number
+      key :format, :int64
+    end
+    property :severity do
       key :type, :string
     end
   end
@@ -31,13 +49,12 @@ class Api::Notice < ::Notice
   swagger_schema :NoticeInput do
     allOf do
       schema do
-        key :'$ref', :Pet
+        key :'$ref', :Notice
       end
       schema do
-        key :required, [:name]
-        property :id do
-          key :type, :integer
-          key :format, :int64
+        key :required, %i(token street city zip latitude longitude registration charge date duration severity photos)
+        property :token do
+          key :type, :string
         end
       end
     end

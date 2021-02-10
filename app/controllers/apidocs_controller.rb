@@ -8,6 +8,9 @@ class ApidocsController < ActionController::Base
       key :name, 'X-API-KEY'
       key :in, :header
     end
+    security do
+      key :api_key, []
+    end
     info do
       key :version, '1.0.0'
       key :title, 'weg.li API Docs'

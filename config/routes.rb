@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     root to: "users#index"
   end
 
-  namespace :api do
+  namespace :api, constraints: { format: :json } do
     resources :notices do
       member do
         patch :mail

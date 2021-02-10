@@ -11,4 +11,9 @@ class Api::Error
       key :type, :string
     end
   end
+
+  def initialize(code, message)
+    @code = code
+    @message = message
+  end
 end
