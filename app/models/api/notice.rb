@@ -48,6 +48,18 @@ class Api::Notice < ::Notice
       key :type, :string
       key :enum, Notice.severities.keys
     end
+    property :photos do
+      key :type, :array
+      items do
+        key :type, :object
+        property :filename do
+          key :type, :string
+        end
+        property :url do
+          key :type, :string
+        end
+      end
+    end
   end
 
   swagger_schema :NoticeInput do
