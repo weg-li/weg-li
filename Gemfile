@@ -40,7 +40,6 @@ gem 'administrate-field-active_storage'
 gem 'appsignal'
 gem 'http'
 gem 'swagger-blocks'
-gem 'rswag-api'
 gem 'rswag-ui'
 gem 'email_verifier'
 gem 'webpacker'
@@ -60,5 +59,4 @@ group :development, :test do
   gem 'fabrication'
   gem 'rspec-rails'
   gem 'rspec-retry'
-  gem 'rswag'
 end
