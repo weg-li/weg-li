@@ -31,7 +31,7 @@ class NoticesController < ApplicationController
   end
 
   def dump
-    notices = current_user.notices.as_api_response(:dump)
+    notices = current_user.notices.as_api_response(:public_beta)
 
     render json: { notices: notices }
   end
