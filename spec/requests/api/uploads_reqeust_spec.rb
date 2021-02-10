@@ -7,7 +7,7 @@ describe "api/uploads", type: :request do
   end
 
   context "index" do
-    it "index works" do
+    it "create works" do
       params = {
         upload: {
           filename: 'text.jpg',
@@ -20,7 +20,7 @@ describe "api/uploads", type: :request do
 
       post(api_uploads_path, params: params, headers: @headers)
 
-      expect(response).to be_ok
+      expect(response).to be_created
       expect(JSON.parse(response.body)['direct_upload'].keys).to eql(%w(url headers))
     end
   end
