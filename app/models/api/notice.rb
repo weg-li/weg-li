@@ -2,10 +2,9 @@ class Api::Notice < ::Notice
   include Swagger::Blocks
 
   swagger_schema :Notice do
-    key :required, [:id, :name]
+    key :required, [:token]
     property :token do
       key :type, :string
-      # key :format, :int64
     end
     property :status do
       key :type, :string

@@ -41,6 +41,8 @@ class ApidocsController < ActionController::Base
   SWAGGERED_CLASSES = [
     Api::NoticesController,
     Api::Notice,
+    Api::UploadsController,
+    Api::Upload,
     Api::Error,
     self,
   ].freeze
