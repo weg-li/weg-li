@@ -459,6 +459,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    swagger-blocks (3.0.0)
     temple (0.8.2)
     thor (1.1.0)
     thwait (0.2.0)
@@ -543,6 +544,7 @@ DEPENDENCIES
   sidekiq-scheduler
   slim-rails
   sprockets (~> 3.7.2)
+  swagger-blocks
   time_splitter
   utf8-cleaner
   web-console

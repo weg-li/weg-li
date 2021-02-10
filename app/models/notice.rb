@@ -14,18 +14,6 @@ class Notice < ActiveRecord::Base
 
   include Incompletable
 
-  acts_as_api
-
-  api_accessible(:public_beta) do |template|
-    %i(token status street city zip latitude longitude registration color brand charge date duration severity photos).each { |key| template.add(key) }
-    Notice.bitfields[:flags].keys.each { |key| template.add(key) }
-  end
-
-  api_accessible(:dump) do |template|
-    %i(status street city zip latitude longitude registration color brand charge date duration severity).each { |key| template.add(key) }
-    template.add(:attachments, as: :photos)
-  end
-
   before_validation :defaults
 
   geocoded_by :geocode_address, language: Proc.new { |model| I18n.locale }, no_annotations: true

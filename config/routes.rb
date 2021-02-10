@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   mount Rswag::Ui::Engine => '/api-docs'
-  mount Rswag::Api::Engine => '/api-docs'
   mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
+
+  resources :apidocs, only: [:index]
 
   namespace :admin do
     resources :users do
