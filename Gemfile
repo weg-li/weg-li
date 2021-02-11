@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.7.2'
 
-gem 'rails', '6.1.0'
+gem 'rails', '6.1.2.1'
 gem 'bootsnap', require: false
 gem 'rack'
 gem 'sprockets', '~> 3.7.2'
