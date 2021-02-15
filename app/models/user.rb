@@ -24,6 +24,12 @@ class User < ActiveRecord::Base
 
   validates :nickname, :email, :token, :name, :street, :zip, :city, presence: true
   validates :email, :token, uniqueness: true
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+  validate :email_block_list
+
+  def email_block_list
+    errors.add(:email, :invalid) if email =~ /miucce.com/
+  end
 
   scope :last_login_since, -> (date) { where('last_login > ?', date) }
   scope :since, -> (date) { where('created_at > ?', date) }

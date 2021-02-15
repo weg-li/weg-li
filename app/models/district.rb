@@ -29,6 +29,7 @@ class District < ActiveRecord::Base
 
   validates :name, :zip, :email, :state, presence: true
   validates :zip, uniqueness: true
+  validates :zip, format: { with: /\d{5}/ }
   validates :state, inclusion: {in: STATES}
 
   geocoded_by :geocode_address

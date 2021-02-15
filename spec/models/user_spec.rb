@@ -8,6 +8,11 @@ describe User do
     it "is valid" do
       expect(user).to be_valid
     end
+
+    it "does not have an email on the blocklist" do
+      user.email = '123@miucce.com'
+      expect(user).to_not be_valid
+    end
   end
 
   context "normalization" do

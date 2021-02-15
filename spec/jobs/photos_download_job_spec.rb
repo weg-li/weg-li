@@ -5,7 +5,7 @@ describe PhotosDownloadJob do
 
   context "perform" do
     it "download the archive from google photos" do
-      expect { PhotosDownloadJob.perform_now(bulk_upload) }.to change { bulk_upload.photos.count }.by(2)
+      expect { PhotosDownloadJob.perform_now(bulk_upload) }.to change { bulk_upload.photos.count }.by(1)
     end
 
     it "handles broken urls" do
