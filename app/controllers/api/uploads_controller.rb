@@ -2,11 +2,10 @@
 class Api::UploadsController < Api::ApplicationController
   include ActiveStorage::SetCurrent
 
-  swagger_path '/uploads/' do
+  swagger_path '/uploads' do
     operation :post do
       key :summary, 'Create Upload'
       key :description, 'Creates an upload containing the presigned-urls for an authorized user'
-      key :operationToken, 'createUpload'
       key :tags, ['upload']
       parameter do
         key :name, :upload

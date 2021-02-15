@@ -1,9 +1,8 @@
 class Api::NoticesController < Api::ApplicationController
-  swagger_path '/notices/' do
+  swagger_path '/notices' do
     operation :get do
       key :summary, 'Get all Notices'
       key :description, 'Returns a list of notices for the authorized user'
-      key :operationToken, 'findNotices'
       key :tags, ['notice']
       response 200 do
         key :description, 'notices response'
@@ -27,7 +26,7 @@ class Api::NoticesController < Api::ApplicationController
     render json: current_user.notices.as_api_response(:public_beta)
   end
 
-  swagger_path '/notices/' do
+  swagger_path '/notices' do
     operation :post do
       key :summary, 'Create Notice'
       key :description, 'Creates a new notice'
@@ -68,7 +67,6 @@ class Api::NoticesController < Api::ApplicationController
     operation :get do
       key :summary, 'Get Notice'
       key :description, 'Gets a notice for the authorized user'
-      key :operationToken, 'getNoticeByToken'
       key :tags, ['notice']
       parameter do
         key :name, :token
@@ -100,7 +98,6 @@ class Api::NoticesController < Api::ApplicationController
     operation :patch do
       key :summary, 'Update Notice'
       key :description, 'Updates a notice for the authorized user'
-      key :operationToken, 'updateNoticeByToken'
       key :tags, ['notice']
       parameter do
         key :name, :token
@@ -144,7 +141,6 @@ class Api::NoticesController < Api::ApplicationController
     operation :delete do
       key :summary, 'Delete Notice'
       key :description, 'Deletes a single notice for the authorized user'
-      key :operationToken, 'deleteNoticeByToken'
       key :tags, ['notice']
       parameter do
         key :name, :token
@@ -179,7 +175,6 @@ class Api::NoticesController < Api::ApplicationController
     operation :patch do
       key :summary, 'Submit Notice'
       key :description, 'Submits a single notice for the authorized user'
-      key :operationToken, 'submitNoticeByToken'
       key :tags, ['notice']
       parameter do
         key :name, :token
