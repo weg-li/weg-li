@@ -31,6 +31,14 @@ class Api::Notice < ::Notice
     property :registration do
       key :type, :string
     end
+    property :brand do
+      key :type, :string
+      key :enum, Vehicle.brands
+    end
+    property :color do
+      key :type, :string
+      key :enum, Vehicle.colors
+    end
     property :charge do
       key :type, :string
       key :enum, Charge.plain_charges
@@ -47,6 +55,15 @@ class Api::Notice < ::Notice
     property :severity do
       key :type, :string
       key :enum, Notice.severities.keys
+    end
+    property :note do
+      key :type, :string
+    end
+    Notice.bitfields[:flags].keys.each do |it|
+      property it do
+        key :type, :boolean
+        key :default, false
+      end
     end
     property :photos do
       key :type, :array
