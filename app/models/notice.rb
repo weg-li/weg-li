@@ -132,6 +132,7 @@ class Notice < ActiveRecord::Base
       self.brand = other.brand if other.brand?
       self.color = other.color if other.color?
       self.flags = other.flags if other.flags?
+      self.note = other.note if other.note?
     end
   end
 
