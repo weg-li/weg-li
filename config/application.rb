@@ -24,6 +24,9 @@ module WegLi
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :de
 
+    # REM: override in environment if necessary
+    config.default_host = 'www.weg.li'
+
     # custom 404
     config.exceptions_app = self.routes
 
