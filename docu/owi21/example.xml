@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Datenstrom xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.owi21.de/schemas/xsd/xowi_bestand.xsd">
+  <Bestaende>
+    <Hinzufuegen>
+      <Bestand GMK="06699999"
+        AnwenderNr="998"
+        Kostenstelle="998"
+        AZ="998123456"
+        Sachgebiet_Schluessel="4"
+        Gemarkung="Testgemeinde"
+        Tatort="OT Unterdorf, Teststraße 12, stadteinwärts"
+        Tattag="2008-09-12"
+        Tatzeit="12:34"
+        Beweis_Schluessel_1="1"
+        Beweis_Schluessel_2="K"
+        Beweis_Schluessel_3="9"
+        Beweis_Sonstige="Film/Bild-Nr. 0805018/088"
+        Beteiligung_Schluessel="1"
+        Betr_Anrede_Schluessel="1"
+        Fahrzeugtyp_Schluessel="F"
+        FahrzeugSubtyp_Schluessel="1"
+        KFZ_Kennzeichen="HR-DH 262"
+        KFZ_Kennzeichen_Merkmal="1"
+        KFZ_Hersteller="DaimlerBenz"
+        >
+        <Tatbestand TBNr="123500" />
+        <Zeuge Name="Herr Bergmann" Ort="ÖOB Kleinkleckersdorf" />
+        <Entscheidung Schluessel="111" Typ="0">
+          <Dokumente Typ="703" Schluessel="7">
+            <Dokument Format="image/jpeg" Datei="Uebersichtsfoto_1.jpg" />
+          </Dokumente>
+          <Dokumente Typ="702" Schluessel="7">
+            <Dokument Format="image/jpeg" Datei="Frontfoto_1.jpg" Drucken="1" />
+          </Dokumente>
+          <Dokumente Typ="704" Schluessel="7">
+            <Dokument Format="image/jpeg" Datei="Kennzeichenfoto_1.jpg" />
+          </Dokumente>
+          <Dokumente Typ="705" Schluessel="7">
+            <Dokument Format="application/pdf" Datei="Messprotokoll_4711_2008-09-12.pdf" />
+          </Dokumente>
+          <Dokumente Typ="706" Schluessel="7">
+            <Dokument Format="application/pdf" Datei="Eichschein_Geraet-XYZ_2008-01-29.pdf" />
+          </Dokumente>
+        </Entscheidung>
+      </Bestand>
+    </Hinzufuegen>
+  </Bestaende>
+</Datenstrom>
