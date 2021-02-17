@@ -1,4 +1,3 @@
-user = @notice.user
 xml.instruct!
 
 xml.Fall do
@@ -12,19 +11,19 @@ xml.Fall do
       xml.Kontakt do
         xml.Anschrift do
           xml.Anrede '-'
-					xml.Vorname user.first_name
-					xml.Name user.last_name
-					xml.Strasse user.street_without_housenumber
-					xml.Hausnummer user.housenumber
-					xml.Adresszusatz user.appendix
-          xml.PLZ user.zip
-					xml.Ort user.city
+					xml.Vorname @user.first_name
+					xml.Name @user.last_name
+					xml.Strasse @user.street_without_housenumber
+					xml.Hausnummer @user.housenumber
+					xml.Adresszusatz @user.appendix
+          xml.PLZ @user.zip
+					xml.Ort @user.city
           xml.Landeskennzeichen 'D'
         end
-        xml.EMail user.email
-        xml.Telefon user.phone
+        xml.EMail @user.email
+        xml.Telefon @user.phone
   			xml.Zusatzdaten do
-  				xml.Geburtsdatum user.date_of_birth
+  				xml.Geburtsdatum @user.date_of_birth
   			end
       end
     end
@@ -53,7 +52,7 @@ xml.Fall do
   end
   xml.Zeuge do
     xml.Zeilen do
-      xml.Zeile user.name
+      xml.Zeile @user.name
     end
   end
   xml.Beweise do

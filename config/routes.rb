@@ -111,9 +111,9 @@ Rails.application.routes.draw do
   resource :sitemap, only: :show
 
   scope '/p' do
-    get '/winowig/:token', to: 'public#winowig', as: :public_winowig
     get '/charge/:token', to: 'public#charge', as: :public_charge
     get '/profile/:token', to: 'public#profile', as: :public_profile
+    get '/winowig/:user_token/:notice_token', to: 'public#winowig', as: :public_winowig
   end
 
   scope '/auth' do

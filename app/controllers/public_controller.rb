@@ -9,8 +9,18 @@ class PublicController < ApplicationController
     end
   end
 
+  def profile
+    @user = User.for_public.from_param(params[:token])
+    _404 and return if @user.blank?
+
+    @positions = @user.leaderboard_positions
+  end
+
   def winowig
-    @notice = Notice.for_public.from_param(params[:token])
+    @user = User.from_param(params[:user_token])
+    _404 and return if @user.blank?
+
+    @notice = @user.notices.shared.from_param(params[:notice_token])
     _404 and return if @notice.blank?
 
     respond_to do |format|
@@ -18,10 +28,4 @@ class PublicController < ApplicationController
     end
   end
 
-  def profile
-    @user = User.for_public.from_param(params[:token])
-    _404 and return if @user.blank?
-
-    @positions = @user.leaderboard_positions
-  end
 end
