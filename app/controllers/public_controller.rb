@@ -20,7 +20,7 @@ class PublicController < ApplicationController
     @user = User.from_param(params[:user_token])
     _404 and return if @user.blank?
 
-    @notice = @user.notices.shared.from_param(params[:notice_token])
+    @notice = @user.notices.for_public.where('date > ?', 4.weeks.ago).from_param(params[:notice_token])
     _404 and return if @notice.blank?
 
     respond_to do |format|
