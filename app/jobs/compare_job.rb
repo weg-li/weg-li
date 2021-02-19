@@ -12,10 +12,12 @@ class CompareJob < ApplicationJob
         raise res.body unless res.ok?
       end
 
-      analyze_image_response =  analyze_api_client.analyze_image_image_token_get(image_upload_response.token)
-
-      notify("for notice #{notice.id} the project found the license-plate #{analyze_image_response.suggestions}")
+      data_set = notice.data_sets.google_vision.find_by(keyable: photo)
+      notify("for notice #{notice.id} google found #{data_set.registrations} #{data_set.brands} #{data_set.colors}") if data_set
     end
+
+    analyze_image_response =  analyze_api_client.analyze_image_image_token_get(image_upload_response.token)
+    notify("for notice #{notice.id} the project found #{analyze_image_response.suggestions}")
   end
 
   private
