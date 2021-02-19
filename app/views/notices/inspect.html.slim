@@ -21,18 +21,18 @@ p
 - if @google_vision
   p
     strong Registration
-    = debug Annotator.grep_text(@google_vision.data.deep_symbolize_keys) { |string| Vehicle.plate?(string) }
+    = debug @google_vision.registrations
 
   p
     strong Brand
-    = debug Annotator.grep_text(@google_vision.data.deep_symbolize_keys) { |string| Vehicle.brand?(string) }
+    = debug @google_vision.brands
 
   p
     strong Color
-    = debug Annotator.dominant_colors(@google_vision.data.deep_symbolize_keys)
+    = debug @google_vision.colors
 
   p
     strong Google Vision
-    = debug @google_vision.data.deep_symbolize_keys
+    = debug @google_vision.data
 - else
   p No Google Vision Result attached

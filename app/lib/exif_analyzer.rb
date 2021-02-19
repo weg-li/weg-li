@@ -1,5 +1,6 @@
 require 'exifr/jpeg'
 
+# TODO: read the whole exif and persist it
 class EXIFAnalyzer
   def metadata(image, debug: false)
     meta = {}
