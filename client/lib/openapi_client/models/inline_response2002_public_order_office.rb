@@ -14,26 +14,19 @@ require 'date'
 require 'time'
 
 module OpenapiClient
-  class Report
-    attr_accessor :violation_type
+  # The public order office which is responsible for handling the violation reports.
+  class InlineResponse2002PublicOrderOffice
+    # The name of the public order office (usually the corresponding city name).
+    attr_accessor :name
 
-    attr_accessor :severity_type
-
-    # The date and time of the violation as Unix timestamp (in seconds since epoch).
-    attr_accessor :time
-
-    attr_accessor :location
-
-    attr_accessor :image_token
+    # The email address to which a violation report must be sent.
+    attr_accessor :email_address
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'violation_type' => :'violation_type',
-        :'severity_type' => :'severity_type',
-        :'time' => :'time',
-        :'location' => :'location',
-        :'image_token' => :'image_token'
+        :'name' => :'name',
+        :'email_address' => :'email_address'
       }
     end
 
@@ -45,11 +38,8 @@ module OpenapiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'violation_type' => :'Float',
-        :'severity_type' => :'Float',
-        :'time' => :'Float',
-        :'location' => :'Location',
-        :'image_token' => :'String'
+        :'name' => :'String',
+        :'email_address' => :'String'
       }
     end
 
@@ -63,35 +53,23 @@ module OpenapiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::Report` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::InlineResponse2002PublicOrderOffice` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::Report`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::InlineResponse2002PublicOrderOffice`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'violation_type')
-        self.violation_type = attributes[:'violation_type']
+      if attributes.key?(:'name')
+        self.name = attributes[:'name']
       end
 
-      if attributes.key?(:'severity_type')
-        self.severity_type = attributes[:'severity_type']
-      end
-
-      if attributes.key?(:'time')
-        self.time = attributes[:'time']
-      end
-
-      if attributes.key?(:'location')
-        self.location = attributes[:'location']
-      end
-
-      if attributes.key?(:'image_token')
-        self.image_token = attributes[:'image_token']
+      if attributes.key?(:'email_address')
+        self.email_address = attributes[:'email_address']
       end
     end
 
@@ -113,11 +91,8 @@ module OpenapiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          violation_type == o.violation_type &&
-          severity_type == o.severity_type &&
-          time == o.time &&
-          location == o.location &&
-          image_token == o.image_token
+          name == o.name &&
+          email_address == o.email_address
     end
 
     # @see the `==` method
@@ -129,7 +104,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [violation_type, severity_type, time, location, image_token].hash
+      [name, email_address].hash
     end
 
     # Builds the object from hash

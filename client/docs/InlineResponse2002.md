@@ -2,18 +2,17 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**token** | **String** | A unique image token | 
-**google_cloud_urls** | **Array&lt;String&gt;** | The Google Cloud Storage urls to which the image(s) should be uploaded. | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **public_order_office** | [**InlineResponse2002PublicOrderOffice**](InlineResponse2002PublicOrderOffice.md) |  | [optional] |
 
-## Code Sample
+## Example
 
 ```ruby
-require 'OpenapiClient'
+require 'openapi_client'
 
-instance = OpenapiClient::InlineResponse2002.new(token: null,
-                                 google_cloud_urls: null)
+instance = OpenapiClient::InlineResponse2002.new(
+  public_order_office: null
+)
 ```
-
 

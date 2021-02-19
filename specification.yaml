@@ -5,6 +5,7 @@ info:
   version: 0.1.0
 
 servers:
+  - url: https://europe-west3-wegli-296209.cloudfunctions.net/api
   - url: https://api.weg-li.de/v1
 
 tags:
@@ -19,10 +20,10 @@ paths:
   /user:
     post:
       tags:
-      - user
+        - user
       description: Create a new user for the analysis platform.
       responses:
-        200:
+        "200":
           description: "The operation was successful."
           content:
             application/json:
@@ -30,41 +31,44 @@ paths:
                 type: object
                 properties:
                   user_id:
-                    $ref: "#/components/schemas/UserID"
+                    $ref: '#/components/schemas/UserID'
                   access_token:
                     type: string
                     description: The corresponding access token for the newly created user account.
+        "500":
+          $ref: "#/components/responses/InternalServerError"
   /user/{user_id}:
     delete:
       tags:
-      - user
+        - user
       description: Deletes the information that is associated to the provided anonymous user id on the analysis platform.
       security:
-        - accessTokenAuth: []
+        - AccessTokenAuth: []
       parameters:
-      - name: user_id
-        in: path
-        required: true
-        schema:
-          $ref: "#/components/schemas/UserID"
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/UserID'
       responses:
-        200:
-          description: "The operation was successful."
-        401:
+        "200":
+          description: The operation was successful.
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
           $ref: "#/components/responses/UnauthorizedError"
-        409:
-          description: "An endpoint error occurred."
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-    
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          description: The requested user could not be found.
+        "500":
+          $ref: "#/components/responses/InternalServerError"
   /analyze/data:
     post:
       tags:
-      - analyze
+        - analyze
       security:
-        - accessTokenAuth: []
+        - AccessTokenAuth: []
       requestBody:
         required: true
         content:
@@ -72,11 +76,11 @@ paths:
             schema:
               type: object
               required:
-              - time
-              - location
+                - time
+                - location
               properties:
                 user_id:
-                  $ref: "#/components/schemas/UserID"
+                  $ref: '#/components/schemas/UserID'
                 time:
                   type: integer
                   format: int64
@@ -85,28 +89,27 @@ paths:
                 location:
                   description: The location of the violation.
                   allOf:
-                  - $ref: "#/components/schemas/Location"
+                    - $ref: '#/components/schemas/Location'
       responses:
-        200:
-          description: ""
+        "200":
+          description: "Returns ordered list of recommendations with their score and corresponding severity type."
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  violation:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/Violation"
-                    minItems: 1
-                    maxItems: 5
-                    example:
-                      - no_stopping
-                      - no_parking
-        401:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ViolationSuggestion'
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
           $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
   /analyze/image/upload:
     get:
+      description: Returns expiring cloud storage urls. Upload urls only accept PUT requests and expect files in jpeg format.
       tags:
         - analyze
       parameters:
@@ -119,8 +122,8 @@ paths:
             minimum: 1
             maximum: 5
       responses:
-        200:
-          description: "The operation was successful."
+        "200":
+          description: The operation was successful.
           content:
             application/json:
               schema:
@@ -131,14 +134,22 @@ paths:
                 properties:
                   token:
                     type: string
-                    description: "A unique image token"
+                    description: A unique image token
+                    example: 82571c4a-7f07-4bdc-acdc-5b2745a00de3
                   google_cloud_urls:
                     type: array
                     items:
                       type: string
-                    description: "The Google Cloud Storage urls to which the image(s) should be uploaded."
+                    description: The Google Cloud Storage urls to which the image(s) should be uploaded.
+                    example:
+                      - https://api.google.com/...
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
   /analyze/image/{image_token}:
     get:
+      description: Returns suggestions of the violating vehicle regarding license plate number, make, model and color based on the provided images ordered by descending confidence.
       tags:
         - analyze
       parameters:
@@ -148,36 +159,26 @@ paths:
           schema:
             type: string
       responses:
-        200:
-          description: "The operation was successful."
+        "200":
+          description: The operation was successful.
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  license_plate:
-                    type: string
-                    description: The license plate of the car in the picture of the violation. This field is not present if no license plate could be detected.
-                    example: B-WL 1234
-                  car:
-                    allOf:
-                      - $ref: "#/components/schemas/Car"
-                    description: Information on the car in the provided picture of the violation.
-        404:
-          description: "No image(s) could be found for the provided token."
-        409:
-          description: "An endpoint error occurred."
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-
+                $ref: "#/components/schemas/CarSuggestions"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "404":
+          description: No image(s) could be found for the provided token.
+        "409":
+          $ref: "#/components/responses/ConflictError"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
   /report:
     post:
       tags:
         - report
       security:
-        - accessTokenAuth: []
+        - AccessTokenAuth: []
       requestBody:
         required: true
         content:
@@ -188,18 +189,72 @@ paths:
                 - report
               properties:
                 user_id:
-                  $ref: "#/components/schemas/UserID"
+                  $ref: '#/components/schemas/UserID'
                 report:
                   $ref: "#/components/schemas/Report"
       responses:
-        200:
-          description: "The operation was successful."
+        "200":
+          description: The operation was successful.
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "409":
+          $ref: "#/components/responses/ConflictError"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /report/district/{zipcode}:
+    get:
+      tags:
+        - report
+      parameters:
+        - name: zipcode
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The operation was successful.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  public_order_office:
+                    description: The public order office which is responsible for handling the violation reports.
+                    type: object
+                    properties:
+                      name:
+                        description: The name of the public order office (usually the corresponding city name).
+                        type: string
+                      email_address:
+                        description: The email address to which a violation report must be sent.
+                        type: string
+        "404":
+          description: No district was found for the provided zipcode. This might either be due to a non-existing zipcode or due to the district not being registered yet.
+        "500":
+          $ref: "#/components/responses/InternalServerError"
 components:
   responses:
+    BadRequestError:
+      description: Bad Request. The request format did not conform to the specification and contains invalid structures or values.
     UnauthorizedError:
-      description: The access token is missing or invalid.
+      description: Unauthorized. The request needs to be authorized and the access token is missing or invalid.
+    ForbiddenError:
+      description: Forbidden. The request needs to be authorized and the provided authorization scope does not match the required one.
+    ConflictError:
+      description: Conflict. An endpoint specific error occurred.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    InternalServerError:
+      description: Internal Server Error. An unspecified internal server error occurred.
   securitySchemes:
-    accessTokenAuth:
+    AccessTokenAuth:
       type: http
       scheme: bearer
   schemas:
@@ -222,21 +277,50 @@ components:
           format: double
           description: The longitude value of the location's coordinates.
           example: 13.370763
-    Car:
+    CarSuggestions:
       type: object
       properties:
-        make:
-          type: string
-          description: The car make.
-          example: Mercedes-Benz
-        model:
-          type: string
-          description: The car model.
-          example: A-Class
-        color:
-          type: string
-          description: The color of the car.
-          example: blue
+        suggestions:
+          type: object
+          properties:
+            license_plate_number:
+              type: array
+              items:
+                type: string
+              description: Suggestions for the license plate number. Empty list when no license plate number recognized.
+              example: ['B-WL 1234', 'KA KK 3455']
+            make:
+              type: array
+              items:
+                type: string
+              description: Suggestions for the make. Empty list when no make recognized.
+              example: ['Mercedes-Benz']
+            model:
+              type: array
+              items:
+                type: string
+              description: Suggestions for the model. Empty list when no model recognized.
+              example: ['A-Class']
+            color:
+              type: array
+              items:
+                type: string
+              description: Suggestions for the color. Empty list when no color recognized.
+              example: ['blue', 'white']
+    ViolationSuggestion:
+      type: object
+      required:
+        - error
+      properties:
+        violation_type:
+          type: integer
+          example: 6
+        score:
+          type: number
+          example: 0.1563
+        severity_type:
+          type: integer
+          example: 0
     Report:
       type: object
       properties:
@@ -244,13 +328,17 @@ components:
           type: number
           format: int32
           example: 1
+        severity_type:
+          type: number
+          format: int32
+          example: 0
         time:
           type: number
           format: int64
           example: 1606756404
           description: The date and time of the violation as Unix timestamp (in seconds since epoch).
         location:
-          $ref: "#/components/schemas/Location"
+          $ref: '#/components/schemas/Location'
         image_token:
           type: string
     Error:

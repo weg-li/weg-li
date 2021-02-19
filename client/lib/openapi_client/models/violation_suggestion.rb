@@ -14,26 +14,19 @@ require 'date'
 require 'time'
 
 module OpenapiClient
-  class Report
+  class ViolationSuggestion
     attr_accessor :violation_type
 
+    attr_accessor :score
+
     attr_accessor :severity_type
-
-    # The date and time of the violation as Unix timestamp (in seconds since epoch).
-    attr_accessor :time
-
-    attr_accessor :location
-
-    attr_accessor :image_token
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'violation_type' => :'violation_type',
-        :'severity_type' => :'severity_type',
-        :'time' => :'time',
-        :'location' => :'location',
-        :'image_token' => :'image_token'
+        :'score' => :'score',
+        :'severity_type' => :'severity_type'
       }
     end
 
@@ -45,11 +38,9 @@ module OpenapiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'violation_type' => :'Float',
-        :'severity_type' => :'Float',
-        :'time' => :'Float',
-        :'location' => :'Location',
-        :'image_token' => :'String'
+        :'violation_type' => :'Integer',
+        :'score' => :'Float',
+        :'severity_type' => :'Integer'
       }
     end
 
@@ -63,13 +54,13 @@ module OpenapiClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::Report` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `OpenapiClient::ViolationSuggestion` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::Report`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `OpenapiClient::ViolationSuggestion`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
@@ -78,20 +69,12 @@ module OpenapiClient
         self.violation_type = attributes[:'violation_type']
       end
 
+      if attributes.key?(:'score')
+        self.score = attributes[:'score']
+      end
+
       if attributes.key?(:'severity_type')
         self.severity_type = attributes[:'severity_type']
-      end
-
-      if attributes.key?(:'time')
-        self.time = attributes[:'time']
-      end
-
-      if attributes.key?(:'location')
-        self.location = attributes[:'location']
-      end
-
-      if attributes.key?(:'image_token')
-        self.image_token = attributes[:'image_token']
       end
     end
 
@@ -114,10 +97,8 @@ module OpenapiClient
       return true if self.equal?(o)
       self.class == o.class &&
           violation_type == o.violation_type &&
-          severity_type == o.severity_type &&
-          time == o.time &&
-          location == o.location &&
-          image_token == o.image_token
+          score == o.score &&
+          severity_type == o.severity_type
     end
 
     # @see the `==` method
@@ -129,7 +110,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [violation_type, severity_type, time, location, image_token].hash
+      [violation_type, score, severity_type].hash
     end
 
     # Builds the object from hash

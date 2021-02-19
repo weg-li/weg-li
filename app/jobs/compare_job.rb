@@ -14,7 +14,7 @@ class CompareJob < ApplicationJob
 
       analyze_image_response =  analyze_api_client.analyze_image_image_token_get(image_upload_response.token)
 
-      notify("for notice #{notice.id} the project found the license-plate #{analyze_image_response.license_plate}")
+      notify("for notice #{notice.id} the project found the license-plate #{analyze_image_response.suggestions}")
     end
   end
 

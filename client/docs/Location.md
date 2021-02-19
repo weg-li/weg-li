@@ -2,18 +2,19 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**latitude** | **Float** | The latitude value of the location&#39;s coordinates. | 
-**longitude** | **Float** | The longitude value of the location&#39;s coordinates. | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **latitude** | **Float** | The latitude value of the location&#39;s coordinates. |  |
+| **longitude** | **Float** | The longitude value of the location&#39;s coordinates. |  |
 
-## Code Sample
+## Example
 
 ```ruby
-require 'OpenapiClient'
+require 'openapi_client'
 
-instance = OpenapiClient::Location.new(latitude: 52.550081,
-                                 longitude: 13.370763)
+instance = OpenapiClient::Location.new(
+  latitude: 52.550081,
+  longitude: 13.370763
+)
 ```
-
 
