@@ -18,7 +18,10 @@ class DistrictsController < ApplicationController
   end
 
   def show
+    @since = (params[:since] || 4).to_i
+    @display = %w(cluster multi).delete(params[:display]) || 'cluster'
     @district = District.active.from_param(params[:id])
+    @notices = @district.notices.since(@since.weeks.ago).shared
 
     respond_to do |format|
       format.html
@@ -69,8 +72,8 @@ class DistrictsController < ApplicationController
   private
 
   def district_params
-    params[:district][:prefix] = params[:district][:prefix].split(/;|,|\s/).reject(&:blank?)
-    params.require(:district).permit(:name, :email, :zip, :state, :osm_id, prefix: [])
+    params[:district][:prefixes] = params[:district][:prefixes].split(/;|,|\s/).reject(&:blank?)
+    params.require(:district).permit(:name, :email, :zip, :state, :osm_id, prefixes: [])
   end
 
   def search_scope

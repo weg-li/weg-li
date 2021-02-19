@@ -3,9 +3,14 @@ p
   = hint do
     = "#{@photo.filename} / #{number_to_human_size(@photo.byte_size)}"
 
-- result = @notice.data[@photo.id.to_s]
-- if result.present? && result['image_properties_annotation']
-  - dominant_colors = result['image_properties_annotation']['dominant_colors']['colors']
+- result = @notice.data_sets.google_vision.find_by(keyable: @photo)
+- if result.blank?
+  p No Results for this Photo
+- elsif !result.data['image_properties_annotation']
+  p No Image Property Annotations
+  = debug(result)
+- else
+  - dominant_colors = result.data['image_properties_annotation']['dominant_colors']['colors']
   table.table.table-striped.table-hover
     thead
       tr
@@ -28,13 +33,13 @@ p
           td= entry['pixel_fraction']
           td= (entry['score'].to_f + entry['pixel_fraction'].to_f) / 2.0
 
-  table.table.table-striped.table-hover
-    thead
+table.table.table-striped.table-hover
+  thead
+    tr
+      th Color
+      th Actual
+  tbody
+    - Colorizor::TOTALS.each do |color, actual|
       tr
-        th Color
-        th Actual
-    tbody
-      - Colorizor::TOTALS.each do |color, actual|
-        tr
-          td(style="background-color: #{color.html}")= color.name
-          td(style="background-color: #{actual.html}")= actual.name
+        td(style="background-color: #{color.html}")= color.name
+        td(style="background-color: #{actual.html}")= actual.name

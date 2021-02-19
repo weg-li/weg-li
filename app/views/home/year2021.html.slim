@@ -1,0 +1,70 @@
+- set_title "Falschparker-Übersicht 2021"
+
+.page-header
+  h2.text-primary weg.li das Jahr 2021
+
+.spacer
+
+.row
+  .col-lg-2.text-center
+    = image_tag 'phoet.jpg', class: "img-circle me-quote"
+  .col-lg-10
+    blockquote
+      p In 2021 wurden bereits #{number_with_delimiter(@statistics[:count])} Anzeigen von #{number_with_delimiter(@statistics[:active])} Benutzern erstattet - vielen Dank!
+      small= "weg.li 🚲💨 #{t('slogan_1')} #{t('slogan_2')}"
+
+hr.spacer-large
+
+.alert.alert-success
+  dl.dl-horizontal
+    dt 1. Januar 2021
+    dd weg.li wünscht allen Falschparker-Meldern einen fröhlichen und gesunden Start in das neue Jahr 🎇
+    dt 12. Januar 2021
+    dd weg.li hat <strong>über 100.000 Anzeigen</strong> bei Ordnungsämter und Polizeiinspektionen erstattet 🤯
+    dt 28. Januar 2021
+    dd wir sind von weg-li.de zu <strong>www.weg.li</strong> gewechselt und ändern unseren Namen nun überall entsprechend ✅
+
+.spacer
+
+.row
+  .col-lg-4
+    h3 📈 Top Orte
+    ul.list-group
+      - @statistics[:grouped_cities].each do |entry|
+        li.list-group-item
+          .badge.pull-right= number_with_delimiter(entry.city_count)
+          = entry.city
+
+  .col-lg-4
+    h3 📈 Top Bundesländer
+    ul.list-group
+      - @statistics[:grouped_states].each do |entry|
+        li.list-group-item
+          .badge.pull-right= number_with_delimiter(entry.state_count)
+          = entry.state
+
+  .col-lg-4
+    h3 📈 Top Postleitzahlen
+    ul.list-group
+      - @statistics[:grouped_zips].each do |entry|
+        li.list-group-item
+          .badge.pull-right= number_with_delimiter(entry.zip_count)
+          = entry.zip
+
+.spacer-large
+
+.row
+  .col-lg-8
+    h3 📈 Top Vergehen
+    ul.list-group
+      - @statistics[:grouped_charges].each do |entry|
+        li.list-group-item
+          .badge.pull-right= number_with_delimiter(entry.charge_count)
+          = entry.charge
+
+  .col-lg-4
+    h3 📈 Top Automarken
+    ul.list-group
+      - @statistics[:grouped_brands].each do |entry|
+        li.list-group-item
+          = render('components/vehicle_count', count: @statistics[:count], brand_count: entry.brand_count, brand: entry.brand)

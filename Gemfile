@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.7.2'
 
-gem 'rails', '6.1.0'
+gem 'rails', '6.1.2.1'
 gem 'bootsnap', require: false
 gem 'rack'
 gem 'sprockets', '~> 3.7.2'
@@ -13,11 +13,12 @@ gem 'sidekiq-scheduler'
 gem 'time_splitter'
 gem 'bitfields'
 gem 'exifr'
-gem 'omniauth'
+gem 'omniauth', '>= 2.0'
+gem 'omniauth-rails_csrf_protection', '>= 1.0'
 gem 'omniauth-twitter'
-gem 'omniauth-github'
+gem 'omniauth-github', '>= 2.0'
 gem 'omniauth-google-oauth2'
-gem 'omniauth-telegram'
+gem 'omniauth-telegram', github: 'weg-li/omniauth-telegram', branch: 'omniauth2'
 gem 'slim-rails'
 gem 'kaminari'
 gem 'kaminari-bootstrap', '~> 3.0.1'
@@ -38,17 +39,15 @@ gem 'administrate'
 gem 'administrate-field-active_storage'
 gem 'appsignal'
 gem 'http'
-gem 'rswag-api'
+gem 'swagger-blocks'
 gem 'rswag-ui'
 gem 'email_verifier'
 gem 'webpacker'
 gem 'utf8-cleaner'
+gem 'rack-cache'
+
 gem 'openapi_client', path: 'client'
 
-group :production do
-  gem 'rack-cache'
-  gem 'scout_apm'
-end
 
 group :development do
   gem 'listen'
@@ -62,5 +61,5 @@ group :development, :test do
   gem 'faker'
   gem 'fabrication'
   gem 'rspec-rails'
-  gem 'rswag-specs'
+  gem 'rspec-retry'
 end

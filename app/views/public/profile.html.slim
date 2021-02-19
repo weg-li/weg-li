@@ -8,11 +8,13 @@ h3= "#{@user.nickname} in #{@user.city}"
         li.list-group-item Mitglied seit: #{l(@user.created_at.to_date)}
         li.list-group-item Status: #{render('access', access: @user.access)}
 
-  .col-lg-6
     .panel.panel-default
       .panel-heading Statistik
       ul.list-group
         - @user.statistics.each do |key, value|
           li.list-group-item
-            = t(key, scope: 'users.statistics')
             .badge.pull-right= value
+            = t(key, scope: 'users.statistics')
+
+  .col-lg-6
+    = render('components/leaderboard', positions: @positions)

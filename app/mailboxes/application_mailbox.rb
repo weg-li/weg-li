@@ -1,3 +1,3 @@
 class ApplicationMailbox < ActionMailbox::Base
-  routing(/@anzeige.weg-li.de/i => :autoreply)
+  routing(/@anzeige\.weg/i => :autoreply)
 end

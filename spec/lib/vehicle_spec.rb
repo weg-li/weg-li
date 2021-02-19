@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Vehicle do
   it "it gets all the brands" do
     data = Vehicle.brands.first(3)
-    expect(["Adria", "Alfa Romeo", "Aston Martin"]).to eql(data)
+    expect(["Abarth", "Adria", "Alfa Romeo"]).to eql(data)
   end
 
   it "it gets all the models" do
@@ -23,8 +23,9 @@ describe Vehicle do
 
   it "it normalizes strings" do
     expect(Vehicle.normalize("|_ HH EH 1327")).to eql("HH-EH-1327")
-    expect(Vehicle.normalize("MAR 37:42")).to eql("MAR-3742")
     expect(Vehicle.normalize("1.HH GK 6400")).to eql("HH-GK-6400")
+    expect(Vehicle.normalize("HHoGK 6400")).to eql("HH-GK-6400")
+    expect(Vehicle.normalize("BiGK 6400")).to eql("B-GK-6400")
   end
 
   it "it checks possible plate matches" do
@@ -42,6 +43,9 @@ describe Vehicle do
     expect(Vehicle.plate?("RD WN.200")).to eql(["RD WN 200", 1.0])
     expect(Vehicle.plate?("»HH GB 382")).to eql(["HH GB 382", 1.0])
     expect(Vehicle.plate?("HHTX 1267")).to eql(["HHTX 1267", 0.8])
+    expect(Vehicle.plate?("HH TX 1267", prefixes: ['HH'])).to eql(["HH TX 1267", 1.2])
+    expect(Vehicle.plate?("HHTX 1267", prefixes: ['HH'])).to eql(["HH TX 1267", 1.1])
+    expect(Vehicle.plate?("HHTX 1267", prefixes: ['PI'])).to eql(["HHTX 1267", 0.8])
     expect(Vehicle.plate?(".HHCG 142")).to eql(["HHCG 142", 0.8])
     expect(Vehicle.plate?("OHH NK 2121")).to eql(["HHNK 2121", 0.5])
     expect(Vehicle.plate?("AZ SJ59")).to eql(["AZ SJ 59", 1.0])
@@ -52,9 +56,9 @@ describe Vehicle do
     expect(Vehicle.plate?("HHO TR 2607")).to eql(["HHTR 2607", 0.8])
     expect(Vehicle.plate?("BHH BT 4200")).to eql(["HHBT 4200", 0.5])
     expect(Vehicle.plate?("HK IP 5000")).to eql(["HK IP 5000", 1.0])
-    expect(Vehicle.plate?("BN X 1681 E")).to eql(["BN X 1681 E", 1.0])
+    expect(Vehicle.plate?("BN X 1681 E")).to eql(["BN X 1681E", 1.0])
+    expect(Vehicle.plate?("MCL 3935E")).to eql(["MCL 3935E", 0.8])
     expect(Vehicle.plate?("MODX 7106")).to eql(["MDX 7106", 0.8])
-    expect(Vehicle.plate?("MAR 37:42")).to eql(["MAR 3742", 0.8])
     expect(Vehicle.plate?("CHHAA 1406")).to eql(["HHAA 1406", 0.5])
     expect(Vehicle.plate?("1.HH GK 6400")).to eql(["HH GK 6400", 1.0])
     expect(Vehicle.plate?("PHH TY 814")).to eql(["HHTY 814", 0.5])

@@ -26,8 +26,10 @@ class DataSetDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :id,
-    :kind,
     :created_at,
+    :kind,
+    :setable_id,
+    :keyable_id,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES

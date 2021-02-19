@@ -43,7 +43,7 @@ describe Notice do
 
   context "apply_favorites" do
     it "applies favorites" do
-      existing_notice = Fabricate.create(:notice, status: :shared, registration: 'HH PS 123')
+      existing_notice = Fabricate.create(:notice, status: :shared, registration: 'HH PS 123', user: notice.user)
 
       notice.apply_favorites(['HH PS 123'])
 
@@ -139,6 +139,7 @@ describe Notice do
           grouped_cities: [],
           grouped_states: [],
           grouped_zips: [],
+          grouped_registrations: [],
         }
       ).to eql(yearly_statistics)
     end

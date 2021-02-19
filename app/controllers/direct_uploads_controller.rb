@@ -1,4 +1,4 @@
-class DirectUploadsController < ActionController::Base
+class DirectUploadsController < ApplicationController
   def analyze
     signed_id = params.dig(:blob, :signed_id)
 
@@ -6,6 +6,6 @@ class DirectUploadsController < ActionController::Base
 
     ThumbnailerJob.perform_later(blob)
 
-    render json: blob.as_json
+    render json: blob
   end
 end

@@ -10,7 +10,7 @@ describe "charges", type: :request  do
       get charges_path
 
       expect(response).to be_successful
-      assert_select 'h2', 'weg-li Tatbestände'
+      assert_select 'h2', 'weg.li Tatbestände'
     end
   end
 
@@ -28,7 +28,7 @@ describe "charges", type: :request  do
       get charge_path(@charge)
 
       expect(response).to be_successful
-      assert_select 'h2', 'weg-li Tatbestände'
+      assert_select 'h2', 'weg.li Tatbestände'
     end
   end
 end

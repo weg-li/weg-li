@@ -11,19 +11,19 @@ xml.Fall do
       xml.Kontakt do
         xml.Anschrift do
           xml.Anrede '-'
-					xml.Vorname @notice.user.first_name
-					xml.Name @notice.user.last_name
-					xml.Strasse @notice.user.street_without_housenumber
-					xml.Hausnummer @notice.user.housenumber
-					xml.Adresszusatz @notice.user.appendix
-          xml.PLZ @notice.zip
-					xml.Ort @notice.city
+					xml.Vorname @user.first_name
+					xml.Name @user.last_name
+					xml.Strasse @user.street_without_housenumber
+					xml.Hausnummer @user.housenumber
+					xml.Adresszusatz @user.appendix
+          xml.PLZ @user.zip
+					xml.Ort @user.city
           xml.Landeskennzeichen 'D'
         end
-        xml.EMail @notice.user.email
-        xml.Telefon @notice.user.phone
+        xml.EMail @user.email
+        xml.Telefon @user.phone
   			xml.Zusatzdaten do
-  				xml.Geburtsdatum @notice.user.date_of_birth
+  				xml.Geburtsdatum @user.date_of_birth
   			end
       end
     end
@@ -52,7 +52,7 @@ xml.Fall do
   end
   xml.Zeuge do
     xml.Zeilen do
-      xml.Zeile @notice.user.name
+      xml.Zeile @user.name
     end
   end
   xml.Beweise do
@@ -60,13 +60,13 @@ xml.Fall do
   end
   xml.Tatdaten do
     xml.Vorwurf do
-      xml.VorwurfId Vehicle.charges.index(@notice.charge) + 1
+      xml.Tatbestandsnummer Charge.plain_charges_tbnr(@notice.charge)
       xml.VorwurfText @notice.charge
       xml.MitBehinderung @notice.standard? ? 0 : 1
     end
   end
   xml.Tatorte do
-    xml.Tatort [@notice.location, @notice.street].compact.join(', ')
+    xml.Tatort @notice.location_and_address
     xml.Latitude @notice.latitude
     xml.Longitude @notice.longitude
   end

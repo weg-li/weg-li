@@ -1,6 +1,6 @@
-namespace :data do
-  require 'csv'
+require 'csv'
 
+namespace :data do
   task export: :environment do
     data = File.read(Rails.root.join('bkat/TBKAT.DAT'))
     data[2..-3].split("\r.").each_with_index do |d, i|
@@ -8,6 +8,57 @@ namespace :data do
       name = lines.shift
       puts name
       File.write(Rails.root.join("bkat/data/#{name}.csv"), lines.map(&:strip).join("\n"))
+    end
+  end
+
+  task fill_up_districts: :environment do
+    zips_and_city.each do |row|
+      # Ort;Zusatz;Plz;Vorwahl;Bundesland
+      zip = row['Plz']
+
+      next if zip.blank?
+
+      district = District.from_zip(zip)
+      if district.present?
+        Rails.logger.info("found #{zip}: #{district.id}")
+      else
+        name = row['Ort']
+        long_name = "#{name}#{row['Zusatz']}"
+        state = row['Bundesland']
+        source = District.active.where('(name = :name OR name = :long_name) AND state = :state AND zip LIKE :zip', name: name, long_name: long_name, state: state, zip: "#{zip.first(2)}%").first
+        if source.present?
+          Rails.logger.info("found source for #{zip}: #{source.id}")
+          district = source.dup
+          district.zip = zip
+          district.prefix ||= [zip_to_prefix[zip]]
+          district.save!
+        else
+          Rails.logger.info("could not find anything for #{zip}")
+        end
+      end
+    end
+  end
+
+  task extend_district_data: :environment do
+    zips_and_osm.each do |row|
+      zip = row['plz']
+      district = from_zip(zip)
+      if district.present?
+        Rails.logger.info("found #{zip}: #{district.id}")
+      else
+        source = District.active.where('name = :name AND zip LIKE :zip', name: row['ort'], zip: "#{zip.first}%").first
+        if source.present?
+          Rails.logger.info("found source for #{zip}: #{source.id}")
+          district = source.dup
+          district.zip = zip
+          district.osm_id = row['osm_id']
+          district.state = row['bundesland']
+          district.prefix = [zip_to_prefix[zip]]
+          district.save!
+        else
+          Rails.logger.info("could not find anything for #{zip}")
+        end
+      end
     end
   end
 
@@ -58,5 +109,35 @@ namespace :data do
       puts params
       Charge.create!(params)
     end
+  end
+
+  private
+
+  def zips_and_osm
+    # osm_id,ort,plz,bundesland
+    @zips_and_osm ||= CSV.parse(File.read('config/data/zips_and_osm.csv'), headers: true)
+  end
+
+  def zips_and_city
+    # Ort;Zusatz;Plz;Vorwahl;Bundesland
+    # Aach;b Trier;54298;0651;Rheinland-Pfalz
+    @zips_and_city ||= CSV.parse(File.read('config/data/zips_and_city.csv'), headers: true, col_sep: ';')
+  end
+
+  def opengeodb
+    @opengeodb ||= CSV.parse(File.read('config/data/opengeodb.csv'), col_sep: "\t", quote_char: nil, headers: true)
+  end
+
+  def zip_to_plate_prefix_mapping
+    @zip_to_plate_prefix_mapping ||= opengeodb.each_with_object({}) do |entry, hash|
+      next unless entry['plz']
+
+      zips = entry['plz'].split(',')
+      zips.each { |zip| hash[zip] = entry['kz'] if entry['kz'] }
+    end.to_h
+  end
+
+  def zip_to_prefix
+    @zip_to_prefix ||= JSON.load(Rails.root.join('config/data/zip_to_prefix.json'))
   end
 end

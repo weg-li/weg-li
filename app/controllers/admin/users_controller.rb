@@ -15,7 +15,7 @@ module Admin
       source = User.find(params[:source_id])
       user.merge(source)
 
-      redirect_to [:admin, user], notice: "Merged with #{source.id}"
+      redirect_to [:admin, user], notice: "Merged data from #{source.id}"
     end
 
     # Define a custom finder by overriding the `find_resource` method:

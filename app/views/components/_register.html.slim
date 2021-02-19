@@ -1,0 +1,11 @@
+h2.text-center Jetzt anmelden und ausprobieren!
+.spacer-large
+.spacer.text-center
+  .btn-group
+    button.btn.btn-lg.btn-success.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+      == t('home.register_with_oauth')
+
+    ul.dropdown-menu.dropdown-menu-right
+      li.dropdown-header= t('home.select_oauth_provider')
+      - login_links do |name, path, key|
+        li= button_to("per #{name}", path, {class: 'btn btn-link'})

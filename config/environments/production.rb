@@ -46,7 +46,6 @@ Rails.application.configure do
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :google_production
-  config.active_storage.track_variants = true
   config.active_storage.service_urls_expire_in = 1.week
 
   # Mount Action Cable outside main process or domain.
@@ -71,8 +70,6 @@ Rails.application.configure do
   config.active_job.queue_adapter     = :sidekiq
   # config.active_job.queue_name_prefix = "weg_li_production"
 
-  config.default_host = 'www.weg-li.de'
-
   config.action_mailer.perform_caching = false
   config.action_mailer.deliver_later_queue_name = 'default'
   config.action_mailer.default_url_options = { host: config.default_host }
@@ -84,7 +81,6 @@ Rails.application.configure do
     port: '587',
     user_name: ENV['SMTP_USERNAME'],
     password: ENV['SMTP_PASSWORD'],
-    domain: 'heroku.com',
     enable_starttls_auto: true
   }
 

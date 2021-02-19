@@ -3,12 +3,11 @@
   .panel-body
     .row
       .col-lg-6
-        = render 'components/details', notice: @notice
+        = render('components/details', notice: @notice)
 
       .col-lg-6
-        = render 'components/photos', notice: @notice, publicly: true
+        = render('components/photos', notice: @notice, publicly: true)
 
-        = link_to 'WiNOWiG XML Format', public_winowig_path(@notice, format: :xml), class: 'btn btn-sm btn-default'
   - if @notice.coordinates?
     .panel-body.panel-body-map
-      = render 'map', notice: @notice, kind: :public
+      = render("components/map/single", notice: @notice, kind: :public)

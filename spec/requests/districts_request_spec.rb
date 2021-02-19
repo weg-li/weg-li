@@ -10,7 +10,7 @@ describe "districts", type: :request  do
       get new_district_path
 
       expect(response).to be_successful
-      assert_select 'h2', 'weg-li Bezirke'
+      assert_select 'h2', 'weg.li Bezirke'
     end
   end
 
@@ -31,7 +31,7 @@ describe "districts", type: :request  do
       get districts_path
 
       expect(response).to be_successful
-      assert_select 'h2', 'weg-li Bezirke'
+      assert_select 'h2', 'weg.li Bezirke'
     end
 
     it "renders districts as json" do
@@ -54,7 +54,7 @@ describe "districts", type: :request  do
       get district_path(@district)
 
       expect(response).to be_successful
-      assert_select 'h2', 'weg-li Bezirke'
+      assert_select 'h2', 'weg.li Bezirke'
     end
 
     it "renders a district as json" do
@@ -70,7 +70,7 @@ describe "districts", type: :request  do
       get edit_district_path(@district)
 
       expect(response).to be_successful
-      assert_select 'h2', 'weg-li Bezirke'
+      assert_select 'h2', 'weg.li Bezirke'
     end
   end
 

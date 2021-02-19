@@ -3,7 +3,7 @@ Fabricator(:notice) do
   street { Faker::Address.street_address }
   location { 'Beim Nazis-Raus Aufkleber' }
   city { Faker::Address.city }
-  charge { Vehicle.charges.shuffle.first }
+  charge { Charge.plain_charges.shuffle.first }
   date { 2.days.ago }
   registration { "#{Vehicle.plates.keys.shuffle.first} #{('A'..'Z').to_a.shuffle.first(2).join} #{rand(1000)}" }
   brand { Vehicle.car_brands.shuffle.first }

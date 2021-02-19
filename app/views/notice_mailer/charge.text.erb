@@ -24,7 +24,7 @@ Diese Anzeige können Sie online abrufen, dort finden sich auch die Beweisfotos 
 <%= public_charge_url(@notice) %>
 
 Die Daten können auch im WiNOWiG kompatiblen XML Format heruntergeladen werden:
-<%= public_winowig_url(@notice, format: :xml) %>
+<%= public_winowig_url(user_token: @user.to_param, notice_token: @notice.to_param, format: :xml) %>
 
 
 Mit freundlichen Grüßen

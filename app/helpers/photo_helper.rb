@@ -18,6 +18,9 @@ module PhotoHelper
 
   def variant_exists?(photo, size: :default)
     photo.variant(CONFIG[size]).processed?
+  rescue ActiveStorage::InvariableError => e
+    Rails.logger.warn("rendering broken image #{photo.id}: #{e.message}")
+    false
   end
 
   def cdn_url_options

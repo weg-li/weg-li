@@ -1,5 +1,7 @@
+- set_title "Falschparker-Übersicht 2020"
+
 .page-header
-  h2.text-primary weg-li das Jahr 2020
+  h2.text-primary weg.li das Jahr 2020
 
 .spacer
 
@@ -9,24 +11,24 @@
   .col-lg-10
     blockquote
       p In 2020 wurden bereits #{number_with_delimiter(@statistics[:count])} Anzeigen von #{number_with_delimiter(@statistics[:active])} Benutzern erstattet - vielen Dank!
-      small= "weg-li 🚲💨 #{t('slogan_1')} #{t('slogan_2')}"
+      small= "weg.li 🚲💨 #{t('slogan_1')} #{t('slogan_2')}"
 
 hr.spacer-large
 
 .alert.alert-success
   dl.dl-horizontal
     dt 1. Januar 2020
-    dd weg-li erreicht durchweg mehr als 500 Meldungen und erhöht das Wochenziel auf <strong>1.000 Anzeigen</strong> 💪
+    dd weg.li erreicht durchweg mehr als 500 Meldungen und erhöht das Wochenziel auf <strong>1.000 Anzeigen</strong> 💪
     dt 22. Januar 2020
-    dd weg-li hilft auch offline, Anzeigen kann man nun <a href="https://twitter.com/weg_li/status/1219640084980535296" target="_blank">als PDF Herunterladen</a> 📃
+    dd weg.li hilft auch offline, Anzeigen kann man nun <a href="https://twitter.com/weg_li/status/1219640084980535296" target="_blank">als PDF Herunterladen</a> 📃
     dt 1. Februar 2020
-    dd wer möchte, der kann weg-li auch als #{link_to 'Github Sponsor', 'https://github.com/sponsors/phoet/'} unterstützen 💖
+    dd wer möchte, der kann weg.li auch als #{link_to 'Github Sponsor', 'https://github.com/sponsors/phoet/'} unterstützen 💖
     dt 14. Februar 2020
-    dd das weg-li #{link_to 'Leaderboard', leaderboard_path} geht live 🚀
+    dd das weg.li #{link_to 'Leaderboard', leaderboard_path} geht live 🚀
     dt 17. Februar 2020
     dd Beweisfotos können per Google-Photos importiert werden 🌆
     dt 24. Februar 2020
-    dd weg-li erreicht durchweg mehr als 1.000 Meldungen und erhöht das Wochenziel auf <strong>2.000 Anzeigen</strong> ✊
+    dd weg.li erreicht durchweg mehr als 1.000 Meldungen und erhöht das Wochenziel auf <strong>2.000 Anzeigen</strong> ✊
     dt 29. Februar 2020
     dd Häufig genutzte Hinweise können als Vorlagen hinterlegt werden 📝
 
@@ -38,43 +40,43 @@ hr.spacer-large
     ul.list-group
       - @statistics[:grouped_cities].each do |entry|
         li.list-group-item
-          = entry.city
           .badge.pull-right= number_with_delimiter(entry.city_count)
+          = entry.city
 
   .col-lg-4
     h3 📈 Top Bundesländer
     ul.list-group
       - @statistics[:grouped_states].each do |entry|
         li.list-group-item
-          = entry.state
           .badge.pull-right= number_with_delimiter(entry.state_count)
+          = entry.state
 
   .col-lg-4
     h3 📈 Top Postleitzahlen
     ul.list-group
       - @statistics[:grouped_zips].each do |entry|
         li.list-group-item
-          = entry.zip
           .badge.pull-right= number_with_delimiter(entry.zip_count)
+          = entry.zip
 
 .spacer-large
 
 .alert.alert-success
   dl.dl-horizontal
     dt 01. März 2020
-    dd weg-li und #{link_to 'wegehelden.org', 'http://www.wegehelden.org', target: '_blank'} verschmelzen, die Initiative Wegeheld und deren Apps wird nun von weg-li weitergeführt 🤝
+    dd weg.li und #{link_to 'wegehelden.org', 'http://www.wegehelden.org', target: '_blank'} verschmelzen, die Initiative Wegeheld und deren Apps wird nun von weg.li weitergeführt 🤝
     dt 04. März 2020
-    dd weg-li Daten können als anonymisiertes Archiv #{link_to 'als Export', exports_path} heruntergeladen werden 💾
+    dd weg.li Daten können als anonymisiertes Archiv #{link_to 'als Export', exports_path} heruntergeladen werden 💾
     dt 31. März 2020
     dd die weg-li UG (haftungsbeschränkt) wird gegründet 🏢
     dt 22. Juni 2020
-    dd weg-li erreicht durchweg mehr als 2.000 Meldungen und erhöht das Wochenziel auf <strong>3.000 Anzeigen</strong> 🤙
+    dd weg.li erreicht durchweg mehr als 2.000 Meldungen und erhöht das Wochenziel auf <strong>3.000 Anzeigen</strong> 🤙
     dt 27. Oktober 2020
-    dd weg-li macht #{link_to 'Parkvergehen aus dem Bußgeldkatalog', charges_path} online verfügbar. 📒
+    dd weg.li macht #{link_to 'Parkvergehen aus dem Bußgeldkatalog', charges_path} online verfügbar. 📒
     dt 12. November 2020
-    dd weg-li fügt die korrekte geografische Zuordnung der Polizei-Inspektionen in München hinzu. 👮
+    dd weg.li fügt die korrekte geografische Zuordnung der Polizei-Inspektionen in München hinzu. 👮
     dt 15. November 2020
-    dd weg-li startet eine Kooperation mit dem Ordnungsamt-Dresden um Anzeigen per #{link_to 'WiNOWiG', 'https://www.owig.de/'} zu importieren. 🤝
+    dd weg.li startet eine Kooperation mit dem Ordnungsamt-Dresden um Anzeigen per #{link_to 'WiNOWiG', 'https://www.owig.de/'} zu importieren. 🤝
 
 .spacer
 
@@ -84,12 +86,12 @@ hr.spacer-large
     ul.list-group
       - @statistics[:grouped_charges].each do |entry|
         li.list-group-item
-          = entry.charge
           .badge.pull-right= number_with_delimiter(entry.charge_count)
+          = entry.charge
 
   .col-lg-4
     h3 📈 Top Automarken
     ul.list-group
       - @statistics[:grouped_brands].each do |entry|
         li.list-group-item
-          = render('vehicle_count', count: @statistics[:count], brand_count: entry.brand_count, brand: entry.brand)
+          = render('components/vehicle_count', count: @statistics[:count], brand_count: entry.brand_count, brand: entry.brand)

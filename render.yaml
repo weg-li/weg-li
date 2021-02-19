@@ -1,0 +1,57 @@
+databases:
+- name: weg-li-postgres
+  databaseName: weg_li_postgres
+  plan: standard
+services:
+- type: pserv
+  name: weg-li-redis
+  plan: starter
+  env: docker
+  repo: https://github.com/render-examples/redis.git
+  region: frankfurt
+  disk:
+    name: data
+    mountPath: /var/lib/redis
+    sizeGB: 1
+- type: web
+  name: weg-li-web
+  plan: standard
+  env: ruby
+  region: frankfurt
+  buildCommand: "./entrypoints/render-build.sh"
+  startCommand: bundle exec puma -C config/puma.rb
+  numInstances: 1
+  healthCheckPath: /ping
+  envVars:
+  - fromGroup: weg-li-production
+  domains:
+  - weg-li.de
+  - www.weg-li.de
+  - weg.li
+  - www.weg.li
+  - cdn.weg-li.de
+- type: worker
+  name: weg-li-worker
+  plan: standard
+  env: ruby
+  buildCommand: "./entrypoints/render-build-worker.sh"
+  startCommand: bundle exec sidekiq
+  numInstances: 2
+  envVars:
+  - fromGroup: weg-li-production
+- type: cron
+  name: weg-li-stuck-jobs-cron
+  env: ruby
+  schedule: "*/5 * * * *"
+  buildCommand: "bundle install"
+  startCommand: "rails runner 'Scheduled::StuckJob.perform_now'"
+  envVars:
+  - fromGroup: weg-li-production
+- type: cron
+  name: weg-li-rerender-cron
+  env: ruby
+  schedule: "*/2 * * * *"
+  buildCommand: "bundle install"
+  startCommand: "rails runner 'Scheduled::RerenderJob.perform_now'"
+  envVars:
+  - fromGroup: weg-li-production

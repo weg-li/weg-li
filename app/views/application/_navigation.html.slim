@@ -1,8 +1,9 @@
-.navbar.navbar-default.navbar-fixed-top.data-turbolinks-permanent
+.navbar.navbar-default.navbar-fixed-top
   .container
     .navbar-header.navbar-logo
       = link_to root_path, class: "navbar-brand", title: t('slogan')
-        = image_tag asset_url('logo.png'), alt: 'weg-li logo', title: 'www.weg-li.de 📸 📝 ✊', class: 'gravatar'
+        = image_tag asset_url('logo-blink.png'), alt: 'weg.li logo', title: 'www.weg.li 📸 📝 ✊', class: 'blink'
+        = image_tag asset_url('logo.png'), alt: 'weg.li logo', title: 'www.weg.li 📸 📝 ✊', class: 'gravatar'
       button.navbar-toggle  type="button" data-toggle="collapse" data-target="#navbar-main"
         span.icon-bar
         span.icon-bar
@@ -82,21 +83,21 @@
                   = link_to public_profile_path(current_user), target: '_blank' do
                     span.glyphicon.glyphicon-globe>
                     span.margin-left-small= t('navigation.view_public_profile')
-          li(data-no-turbolink)
+          li
             = link_to logout_path, title: t('navigation.logout') do
               span.glyphicon.glyphicon-log-out.small>
               = t('navigation.logout')
           - if signed_in_alias?
-            li(data-no-turbolink)
+            li
               = link_to logout_alias_path, title: t('navigation.logout') do
                 span.glyphicon.glyphicon-log-out.small>
                 | Logout Alias
         - else
-          li.dropdown(data-turbolinks="false")
+          li.dropdown
             a class="dropdown-toggle" data-toggle="dropdown" href="#" id="login" title="Login"
               span.glyphicon.glyphicon-log-out.small>
               | Login
               span.caret
             ul.dropdown-menu aria-labelledby="login"
               - login_links do |name, path, key|
-                li= link_to("via #{name}", path, method: :post, data: { turbolinks: false })
+                li= button_to("per #{name}", path, {class: 'btn btn-link'})

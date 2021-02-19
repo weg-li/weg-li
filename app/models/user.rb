@@ -10,10 +10,11 @@ class User < ActiveRecord::Base
   after_validation :normalize
   before_validation :defaults
 
-  has_many :bulk_uploads, -> { order('created_at DESC') }, dependent: :destroy
-  has_many :notices, -> { order('created_at DESC') }, dependent: :destroy
-  has_many :replies, -> { order('created_at DESC') }, through: :notices
-  has_many :snippets, -> { order('created_at DESC') }
+  belongs_to :district, optional: true, foreign_key: :zip, primary_key: :zip
+  has_many :bulk_uploads, -> { order(created_at: :desc) }, dependent: :destroy
+  has_many :notices, -> { order(created_at: :desc) }, dependent: :destroy
+  has_many :replies, -> { order(created_at: :desc) }, through: :notices
+  has_many :snippets, -> { order(created_at: :desc) }
   has_many :authorizations, dependent: :destroy
   has_many :photos_attachments, through: :notices
 
@@ -23,6 +24,12 @@ class User < ActiveRecord::Base
 
   validates :nickname, :email, :token, :name, :street, :zip, :city, presence: true
   validates :email, :token, uniqueness: true
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+  validate :email_block_list
+
+  def email_block_list
+    errors.add(:email, :invalid) if email =~ /miucce.com/
+  end
 
   scope :last_login_since, -> (date) { where('last_login > ?', date) }
   scope :since, -> (date) { where('created_at > ?', date) }
@@ -113,6 +120,22 @@ class User < ActiveRecord::Base
       open: notices.open.count,
       shared: notices.shared.count,
     }
+  end
+
+  def leaderboard_positions
+    daily = Notice.since(Time.zone.now.beginning_of_day).group(:user_id).order(count_all: :desc).count
+    weekly = Notice.since(Time.zone.now.beginning_of_week).group(:user_id).order(count_all: :desc).count
+    monthly = Notice.since(Time.zone.now.beginning_of_month).group(:user_id).order(count_all: :desc).count
+    yearly = Notice.since(Time.zone.now.beginning_of_year).group(:user_id).order(count_all: :desc).count
+    alltime = Notice.group(:user_id).order(count_all: :desc).count
+
+    @positions = [
+      ['daily', daily.keys.index(id).to_i, daily[id].to_i, daily.first&.last.to_i],
+      ['weekly', weekly.keys.index(id).to_i, weekly[id].to_i, weekly.first&.last.to_i],
+      ['monthly', monthly.keys.index(id).to_i, monthly[id].to_i, monthly.first&.last.to_i],
+      ['yearly', yearly.keys.index(id).to_i, yearly[id].to_i, yearly.first&.last.to_i],
+      ['alltime', alltime.keys.index(id).to_i, alltime[id].to_i, alltime.first&.last.to_i],
+    ]
   end
 
   private

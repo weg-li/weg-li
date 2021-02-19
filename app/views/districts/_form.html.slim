@@ -23,8 +23,8 @@
   .row
     .col-lg-6
       .form-group
-        = form.label :prefix, class: "control-label"
-        = form.text_field :prefix, class: "form-control", placeholder: 'z.B. HH'
+        = form.label :prefixes, class: "control-label"
+        = form.text_field :prefixes, class: "form-control", placeholder: 'z.B. HH'
         = hint do
           | Optional ein örtliches Kennzeichen
     .col-lg-6
@@ -33,10 +33,9 @@
         = form.text_field :osm_id, class: "form-control", placeholder: 'z.B. 62782'
         = hint do
           | Optional die OpenStreetmap-ID des Ortes
-  hr
 
   .row
     .col-lg-12
       .pull-right
         .btn-group
-          = form.submit "Bezirk erfassen", class: "btn btn-success"
+          = form.submit button_title, class: "btn btn-success"

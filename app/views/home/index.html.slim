@@ -3,7 +3,7 @@
 .row
   .col-lg-5
     .page-header
-      h1= link_to 'weg-li 🚲💨', root_url, title: t('title')
+      h1= link_to 'weg.li 🚲💨', root_url, title: t('title')
     .spacer-large
     p.lead
       = link_to root_url, title: t('slogan') do
@@ -13,7 +13,7 @@
     .well
       - if signed_in?
         .text-center
-          h2 📸 📝 ✊ weg-li jetzt ausprobieren:
+          h2 📸 📝 ✊ weg.li jetzt ausprobieren:
 
           .spacer-large
 
@@ -28,17 +28,7 @@
               span.glyphicon.glyphicon-cloud-upload>
               span.hidden-xs Hochladen
       - else
-        h2.text-center Jetzt anmelden und ausprobieren!
-        .spacer-large
-        .spacer.text-center
-          .btn-group
-            button.btn.btn-lg.btn-success.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
-              == t('home.register_with_oauth')
-
-            ul.dropdown-menu.dropdown-menu-right
-              li.dropdown-header= t('home.select_oauth_provider')
-              - login_links do |name, path, key|
-                li= link_to(name, path, method: :post, data: { turbolinks: false })
+        = render('components/register')
 
 .spacer-large
 
@@ -61,7 +51,7 @@
         small Mache einmalige Spenden oder lege monatliche Beiträge fest.
 
   .page-header
-    h2 Was gibt es Neues bei weg-li?
+    h2 Was gibt es Neues bei weg.li?
 
   = render('new_features')
 
@@ -75,7 +65,7 @@
 
 - else
   .page-header
-    h2 Was macht weg-li?
+    h2 Was macht weg.li?
   .well.well-sm
     p
       strong Diese Reaktionen von Falschparkern kennst Du bestimmt auch:
@@ -88,13 +78,13 @@
 
     .spacer
     p
-      strong Mit der Webseite weg-li kannst Du supereinfach Falschparker anzeigen:
+      strong Mit der Webseite weg.li kannst Du supereinfach Falschparker anzeigen:
     p  📸 Beweisfoto mit dem Handy erfassen 📝 Hochladen & Verstoß beschreiben ✊ per E-Mail beim Ordnungsamt melden 👏😍💪
 
   .spacer-large
 
   .page-header
-    h2 Warum gibt es weg-li?
+    h2 Warum gibt es weg.li?
   .row
     .col-lg-2.text-center
       = image_tag 'phoet.jpg', class: "img-circle me-quote"
@@ -116,7 +106,7 @@
   hr.spacer-large
 
   .page-header
-    h2 Wie funktioniert weg-li?
+    h2 Wie funktioniert weg.li?
 
   = render 'notices/three_step'
 
@@ -126,7 +116,7 @@
 .spacer-large
 
 .page-header
-  h2 Was schafft weg-li?
+  h2 Was schafft weg.li?
 .row
   .col-lg-6
     h3 🥇 Aktuelle Ziele:
@@ -185,5 +175,5 @@
     ul.list-group
       - @statistics.each do |key, value|
         li.list-group-item
-          = t(key, scope: 'users.statistics')
           .badge.pull-right= number_with_delimiter(value)
+          = t(key, scope: 'users.statistics')

@@ -1,17 +1,13 @@
 .page-header
-  h2.text-primary weg-li Impressum
-
-= render('contact_hint')
-
-.spacer-large
+  h2.text-primary weg.li Impressum
 
 .row
   .col-lg-8
     .well
       .row
         .col-lg-3.text-center
-          = link_to 'https://www.weg-li.de/', title: 'www.weg-li.de' do
-            = image_tag('logo.png', class: "img-circle imprint-logo", alt: "weg-li logo")
+          = link_to 'https://www.weg.li/', title: 'www.weg.li' do
+            = image_tag('logo.png', class: "img-circle imprint-logo", alt: "weg.li logo")
         .col-lg-9
           dl
             dt weg-li UG (haftungsbeschränkt)
@@ -29,7 +25,7 @@
         dt Inhaltlich verantwortlich
         dd Peter Schröder
         dt Kontakt
-        dd= mail_to 'peter@weg-li.de'
+        dd= mail_to 'peter@weg.li'
 
     .well
       dl
@@ -38,4 +34,4 @@
         dt Begünstigter
         dd weg-li UG
         dt Verwendungszweck
-        dd SPENDE weg-li
+        dd SPENDE weg.li

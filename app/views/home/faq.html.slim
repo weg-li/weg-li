@@ -1,5 +1,8 @@
+- set_title "weg.li FAQ Wissenswertes für Behörden und Benutzer"
+- set_meta_description "weg.li FAQ Wissenswertes für Behörden, Benutzer, Falschparkermelder, Radaktivisten und Radratten"
+
 .page-header
-  h2.text-primary weg-li FAQ
+  h2.text-primary weg.li FAQ
 
 = render('contact_hint')
 
@@ -11,15 +14,15 @@
 a name="faq-#{i}"
 .panel.panel-default
   .panel-heading
-    h4 Was ist die Mission von weg-li?
+    h4 Was ist die Mission von weg.li?
   .panel-body
-      p Mit weg-li kannst Du ganz einfach dazu beitragen, die Verkehrswende zu beschleunigen. Denn für den Ausbau von Rad- und Fußverkehr braucht es sichere Infrastruktur! Da wir auf die Geschwindigkeit des Ausbaus von geschützten Radwegen und komfortablen Gehwegen nur wenig Einfluss haben, können wir immerhin dafür sorgen, dass die bestehende Infrastruktur nicht durch Falschparker geschädigt wird. 😡
+      p Mit weg.li kannst Du ganz einfach dazu beitragen, die Verkehrswende zu beschleunigen. Denn für den Ausbau von Rad- und Fußverkehr braucht es sichere Infrastruktur! Da wir auf die Geschwindigkeit des Ausbaus von geschützten Radwegen und komfortablen Gehwegen nur wenig Einfluss haben, können wir immerhin dafür sorgen, dass die bestehende Infrastruktur nicht durch Falschparker geschädigt wird. 😡
       p Zusammen können wir dem gesellschaftlich akzeptierten Falschparken ein Ende bereiten und dafür sorgen, dass wir zügig und sicher als Radfahrer und Fußgänger im Straßenverkehr unterwegs sind. Dies ist besonders wichtig wenn man an die schwächeren Verkehrsteilnehmer denkt, vor allem die Kinder.
       p Was ist nun also zu tun und zu testen? Ganz konkret:
       ol
         li 📸 Beweisfoto mit dem Handy machen
-        li 📝 Foto bei weg-li hochladen und Verstoß erfassen
-        li ✊ Falschparker über weg-li per E-Mail bei Ordnungsamt / Polizei melden
+        li 📝 Foto bei weg.li hochladen und Verstoß erfassen
+        li ✊ Falschparker über weg.li per E-Mail bei Ordnungsamt / Polizei melden
       p Die Benutzung soll sich extrem einfach in den Alltag integrieren lassen. Viele Ideen sind dabei aus der Benutzung der Wegehelden-App entstanden, die leider in Sachen UX etwas zu wünschen übrig lässt ...
       p Also: wenn Du unterwegs bist und einen Falschparker siehst, dann machst Du ein, zwei Fotos, auf denen das Fahrzeug und das Nummernschild gut zu erkennen sind. Idealerweise lässt sich auch das Vergehen, z.B. “Parken auf dem Radweg”, direkt aus dem Foto ersehen.
       p Bist Du an Deinem Ziel angekommen oder hast später am Tag noch etwas Zeit, dann kannst Du Deine Schnappschüsse in Ruhe hochladen.
@@ -31,14 +34,15 @@ a name="faq-#{i}"
   .panel-heading
     h4 Was ist der Unterschied zur Wegeheld-App?
   .panel-body
-      p Mit weg-li kommt man schneller ans Ziel und hoffentlich zu sicheren Radwegen und freien Bürgersteigen.
-      p Gerne selber vergleichen und auch die #{link_to('Wegeheld-App', 'https://www.wegeheld.org/', target: '_blank')} ausprobieren!
+      p Mit weg.li kommt man schneller ans Ziel und hoffentlich zu sicheren Radwegen und freien Bürgersteigen.
+      p Anfang 2020 haben wir #{link_to 'Wegeheld und weg.li verschmolzen', wegeheld_path} und werden die zukünftige Entwicklung bei weg.li weiterführen.
+      p Gerne selber vergleichen und auch die Wegeheld-Apps ausprobieren!
 
 - i += 1
 a name="faq-#{i}"
 .panel.panel-default
   .panel-heading
-    h4 Wie funktioniert weg-li im Einzelnen?
+    h4 Wie funktioniert weg.li im Einzelnen?
   .panel-body
       p Zum Glück hat #{link_to('Natenom', 'https://twitter.com/natenom', target: '_blank')} in seinem Wiki eine #{link_to('detailierte Anleitung geschrieben', 'https://wiki.natenom.de/verkehr/projekte/weg-li', target: '_blank')}, auch wenn wir versuchen eine selbsterklärende Software zur Verfügung zu stellen.
 
@@ -49,7 +53,7 @@ a name="faq-#{i}"
     h4 Gibt es keine App für iOS und Android?
   .panel-body
       p
-        | Die ursprüngliche Idee für weg-li war eine App, die für Android und iOS in den App-Stores breit stehen soll.
+        | Die ursprüngliche Idee für weg.li war eine App, die für Android und iOS in den App-Stores breit stehen soll.
         br
         | Für die Test-Phase haben wir uns aber explizit dagegen entschieden, da der Prototyp so schnell wie möglich in Betrieb nehmen wollten, um die Idee zu validieren.
       p
@@ -76,10 +80,10 @@ a name="faq-#{i}"
 a name="faq-#{i}"
 .panel.panel-default
   .panel-heading
-    h4 Wo kann ich weg-li nutzen?
+    h4 Wo kann ich weg.li nutzen?
   .panel-body
       p
-        | Eigentlich überall in Deutschland! Wenn noch Dein Bezirk fehlt, dann schreib gerne an #{mail_to 'peter@weg-li.de'} und teile uns mit, wo genau Du testen möchtest. Vielleicht hast Du auch schon die zuständige Stelle und deren E-Mail Adresse parat?
+        | Eigentlich überall in Deutschland! Wenn noch Dein Bezirk fehlt, dann schreib gerne an #{mail_to 'peter@weg.li'} und teile uns mit, wo genau Du testen möchtest. Vielleicht hast Du auch schon die zuständige Stelle und deren E-Mail Adresse parat?
 
 - i += 1
 a name="faq-#{i}"
@@ -141,12 +145,26 @@ a name="faq-#{i}"
       p
         |
           Für den Zeugen besteht die Möglichkeit eine beliebige ladungsfähige Anschrift, z.B. die Anschrift des Arbeitgebers, anzugeben. Es muss nicht die private Meldeadresse sein!
-          Hierfür bietet weg-li die Möglichkeit die Anschrift im Addresszusatz zu erweitern.
+          Hierfür bietet weg.li die Möglichkeit die Anschrift im Addresszusatz zu erweitern.
       p
         |
           Wie im einzelnen vor Ort verfahren wird, sollte am besten direkt über die jeweilige Bußgeldstelle in Erfahrung gebracht werden.
           Falls im Einzelfall noch die Praxis besteht, die Daten des Zeugen schon im Anhörungsbogen zu benennen, sollte die Behörde auf das Schreiben
           #{link_to 'des Datenschutzbeauftragten von Hessen', 'https://twitter.com/DavidGruenewald/status/1143445226935201792'} hingewiesen werden.
+
+- i += 1
+a name="faq-#{i}"
+.panel.panel-default
+  .panel-heading
+    h4 Wie können Behörden / Ordnungsämter / Polizeidienststellen angebunden werden?
+  .panel-body
+    p
+      |
+        Bei der Entwicklung von weg.li haben wir ein starkes Interesse daran auch die Anforderungen
+        der zuständigen Stellen wie Ordnungsämter oder Polizeidienststellen mit einzubeziehen.
+        Mit der Stadt Dresden entwickeln wir derzeit eine XML basierte Schnittstelle zur
+        dort genutzten Software #{link_to 'WiNOWiG', 'https://www.owig.de/'}, um eine möglichst effizente
+        Verarbeitung der Anzeigen zu gewährleisten. Bei Fragen oder Interesse einfach eine #{mail_to 'peter@weg.li', 'E-Mail'} an uns schreiben.
 
 .well.well-sm
   p

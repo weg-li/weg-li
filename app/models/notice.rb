@@ -1,6 +1,5 @@
 class Notice < ActiveRecord::Base
   include Statisticable
-
   ADDRESS_ZIP_PATTERN =/.+(\d{5}).+/
 
   extend TimeSplitter::Accessors
@@ -12,19 +11,15 @@ class Notice < ActiveRecord::Base
     bitfields[:flags].keys
   end
 
-  include Incompletable
-
   acts_as_api
 
   api_accessible(:public_beta) do |template|
-    %i(token status street city zip latitude longitude registration color brand charge date photos).each { |key| template.add(key) }
+    %i(token status street city zip latitude longitude registration color brand charge date duration severity photos).each { |key| template.add(key) }
     Notice.bitfields[:flags].keys.each { |key| template.add(key) }
-  end
-
-  api_accessible(:dump) do |template|
-    %i(status street city zip latitude longitude registration color brand charge date).each { |key| template.add(key) }
     template.add(:attachments, as: :photos)
   end
+
+  include Incompletable
 
   before_validation :defaults
 
@@ -38,8 +33,8 @@ class Notice < ActiveRecord::Base
   belongs_to :district, optional: true, foreign_key: :zip, primary_key: :zip
   belongs_to :bulk_upload, optional: true
   has_many_attached :photos
-  has_many :replies, -> { order('created_at DESC') }, dependent: :destroy
-  has_many :data_sets, -> { order('created_at DESC') }, dependent: :destroy, as: :setable
+  has_many :replies, -> { order(created_at: :desc) }, dependent: :destroy
+  has_many :data_sets, -> { order(created_at: :desc) }, dependent: :destroy, as: :setable
 
   validates :photos, :registration, :charge, :street, :zip, :city, :date, :duration, :severity, presence: :true
   validates :zip, format: { with: /\d{5}/, message: 'PLZ ist nicht korrekt' }
@@ -77,16 +72,17 @@ class Notice < ActiveRecord::Base
     }
   end
 
-  def self.yearly_statistics(year, limit)
-    notices = shared.where(date: (Time.new(year)..Time.new(year).end_of_year))
+  def self.yearly_statistics(year, limit, base_scope: Notice.shared)
+    notices = base_scope.reorder(nil).where(date: (Time.new(year)..Time.new(year).end_of_year))
     {
       count: notices.count,
       active: notices.pluck(:user_id).uniq.size,
-      grouped_states: notices.joins(:district).select('count(districts.state) as state_count, districts.state').group('districts.state').order('state_count DESC').limit(limit).to_a,
-      grouped_cities: notices.select('count(city) as city_count, city').group(:city).order('city_count DESC').limit(limit).to_a,
-      grouped_zips: notices.select('count(zip) as zip_count, zip').group(:zip).order('zip_count DESC').limit(limit).to_a,
-      grouped_charges: notices.select('count(charge) as charge_count, charge').group(:charge).order('charge_count DESC').limit(limit).to_a,
-      grouped_brands: notices.select('count(brand) as brand_count, brand').where("brand != ''").group(:brand).order('brand_count DESC').limit(limit).to_a,
+      grouped_states: notices.joins(:district).select('count(districts.state) as state_count, districts.state').group('districts.state').order(state_count: :desc).limit(limit).to_a,
+      grouped_cities: notices.select('count(city) as city_count, city').group(:city).order(city_count: :desc).limit(limit).to_a,
+      grouped_zips: notices.select('count(zip) as zip_count, zip').group(:zip).order(zip_count: :desc).limit(limit).to_a,
+      grouped_charges: notices.select('count(charge) as charge_count, charge').group(:charge).order(charge_count: :desc).limit(limit).to_a,
+      grouped_brands: notices.select('count(brand) as brand_count, brand').where("brand != ''").group(:brand).order(brand_count: :desc).limit(limit).to_a,
+      grouped_registrations: notices.select('count(registration) as registration_count, registration').group(:registration).order(registration_count: :desc).limit(limit).to_a,
     }
   end
 
@@ -127,7 +123,7 @@ class Notice < ActiveRecord::Base
   end
 
   def apply_favorites(registrations)
-    other = Notice.shared.since(1.month.ago).order(created_at: :desc).find_by(registration: registrations)
+    other = user.notices.order(created_at: :desc).find_by(registration: registrations)
     if other
       self.registration = other.registration
       self.charge = other.charge if other.charge?
@@ -136,20 +132,14 @@ class Notice < ActiveRecord::Base
       self.brand = other.brand if other.brand?
       self.color = other.color if other.color?
       self.flags = other.flags if other.flags?
+      self.note = other.note if other.note?
     end
   end
 
   def possible_registrations
     registrations = [registration]
-    # TODO use results instead
-    # registrations += data.flat_map {|_, result| Annotator.grep_text(result.deep_symbolize_keys) { |string| Vehicle.plate?(string) } }.map(&:first)
+    registrations += data_sets.google_vision.flat_map { |data_set| Annotator.grep_text(data_set.data.deep_symbolize_keys) { |string| Vehicle.plate?(string) }.map(&:first) }
     registrations.flatten.compact.uniq
-  end
-
-  def similar_count(since: 1.month.ago)
-    return 0 if registration.blank?
-
-    @similar_count ||= Notice.since(since).where(registration: registration).count
   end
 
   def date_doubles
@@ -170,8 +160,19 @@ class Notice < ActiveRecord::Base
     latitude? && longitude?
   end
 
+  def coordinates_missing?
+    !coordinates?
+  end
+
   def do_geocoding?
-    !coordinates? && zip? && city? && street?
+    coordinates_missing? && zip? && city? && street?
+  end
+
+  def distance_too_large?
+    return if coordinates_missing?
+    return if district.blank?
+
+    Geo.distance(self, district) > Geo::MAX_DISTANCE
   end
 
   def point
@@ -180,13 +181,25 @@ class Notice < ActiveRecord::Base
 
   def handle_geocoding
     if coordinates?
-      results = Geocoder.search([latitude, longitude])
-      if results.present?
-        best_result = results.first
-        self.zip = best_result.postal_code
-        self.city = best_result.city
-        self.street = "#{best_result.street} #{best_result.house_number}".strip
+      result = self.class.geocode([latitude, longitude])
+      if result.present?
+        self.zip = result[:zip]
+        self.city = result[:city]
+        self.street = result[:street]
       end
+    end
+  end
+
+  def self.geocode(coords)
+    results = Geocoder.search(coords)
+    if results.present?
+      best_result = results.first
+
+      {
+        zip: best_result.postal_code,
+        city: best_result.city,
+        street: "#{best_result.street} #{best_result.house_number}".strip,
+      }
     end
   end
 
@@ -199,8 +212,11 @@ class Notice < ActiveRecord::Base
   end
 
   def full_location
-    loc = location.present? ? "#{location}, " : ""
-    "#{loc}#{street}, #{zip} #{city}"
+    "#{location_and_address}, #{zip} #{city}"
+  end
+
+  def location_and_address
+    [street, location].reject(&:blank?).join(", ")
   end
 
   def geocode_address

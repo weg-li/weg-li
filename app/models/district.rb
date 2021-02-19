@@ -1,5 +1,3 @@
-require 'csv'
-
 class District < ActiveRecord::Base
   STATES = [
     'Baden-Württemberg',
@@ -24,12 +22,14 @@ class District < ActiveRecord::Base
   bitfield :flags, 1 => :personal_email
 
   enum status: {active: 0, proposed: 1}
-  enum config: {standard: 0, winowig: 1, munich: 2}
+  enum config: {standard: 0, winowig: 1, munich: 2, signature: 3}
 
   has_many :notices, foreign_key: :zip, primary_key: :zip
+  has_many :users, foreign_key: :zip, primary_key: :zip
 
   validates :name, :zip, :email, :state, presence: true
   validates :zip, uniqueness: true
+  validates :zip, format: { with: /\d{5}/ }
   validates :state, inclusion: {in: STATES}
 
   geocoded_by :geocode_address
@@ -38,7 +38,7 @@ class District < ActiveRecord::Base
   acts_as_api
 
   api_accessible :public_beta do |template|
-    %i(name zip email prefix latitude longitude aliases personal_email created_at updated_at).each { |key| template.add(key) }
+    %i(name zip email prefixes latitude longitude aliases personal_email created_at updated_at).each { |key| template.add(key) }
   end
 
   api_accessible :wegeheld do |template|
@@ -52,51 +52,6 @@ class District < ActiveRecord::Base
     active.find_by(zip: zip)
   end
 
-  def self.zips
-    # osm_id,ort,plz,bundesland
-    @zips ||= CSV.parse(File.read('config/data/zips.csv'), headers: true)
-  end
-
-  def self.extend_data
-    zips.each do |row|
-      zip = row['plz']
-      district = from_zip(zip)
-      if district.present?
-        Rails.logger.info("found #{zip}: #{district.id}")
-      else
-        source = District.active.where('name = :name AND zip LIKE :zip', name: row['ort'], zip: "#{zip.first}%").first
-        if source.present?
-          Rails.logger.info("found source for #{zip}: #{source.id}")
-          district = source.dup
-          district.zip = zip
-          district.osm_id = row['osm_id']
-          district.state = row['bundesland']
-          district.prefix = [zip_to_prefix[zip]]
-          district.save!
-        else
-          Rails.logger.info("could not find anything for #{zip}")
-        end
-      end
-    end
-  end
-
-  def self.opengeodb
-    @opengeodb ||= CSV.parse(File.read('config/data/opengeodb.csv'), col_sep: "\t", quote_char: nil, headers: true)
-  end
-
-  def self.zip_to_plate_prefix_mapping
-    @zip_to_plate_prefix_mapping ||= opengeodb.each_with_object({}) do |entry, hash|
-      next unless entry['plz']
-
-      zips = entry['plz'].split(',')
-      zips.each { |zip| hash[zip] = entry['kz'] if entry['kz'] }
-    end.to_h
-  end
-
-  def self.zip_to_prefix
-    @zip_to_prefix ||= JSON.load(Rails.root.join('config/data/zip_to_prefix.json'))
-  end
-
   def map_data
     {
       zoom: 13,
@@ -108,12 +63,13 @@ class District < ActiveRecord::Base
   def statistics(date = 100.years.ago)
     {
       notices: notices.since(date).count,
-      users: User.where(id: notices.since(date).pluck(:user_id)).count,
+      active_users: User.where(id: notices.since(date).pluck(:user_id)).count,
+      total_users: users.count,
     }
   end
 
   def geocode_address
-    "#{zip}, #{name}, Deutschland"
+    "#{zip}, #{name}, #{state}, Deutschland"
   end
 
   def all_emails
@@ -121,7 +77,7 @@ class District < ActiveRecord::Base
   end
 
   def display_name
-    "#{email} (#{zip} #{name})"
+    "#{zip} #{name}"
   end
 
   def display_email

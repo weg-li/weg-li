@@ -13,7 +13,7 @@
           <Strasse>Am Weiher</Strasse>
           <Hausnummer>123</Hausnummer>
           <Adresszusatz/>
-          <PLZ>12345</PLZ>
+          <PLZ>54321</PLZ>
           <Ort>Dorf</Ort>
           <Landeskennzeichen>D</Landeskennzeichen>
         </Anschrift>
@@ -56,13 +56,13 @@
   </Beweise>
   <Tatdaten>
     <Vorwurf>
-      <VorwurfId>1</VorwurfId>
+      <Tatbestandsnummer>112442</Tatbestandsnummer>
       <VorwurfText>Parken auf einem unbeschilderten Radweg</VorwurfText>
       <MitBehinderung>0</MitBehinderung>
     </Vorwurf>
   </Tatdaten>
   <Tatorte>
-    <Tatort>Beim Nazis-Raus Aufkleber, Am Weiher 123</Tatort>
+    <Tatort>Am Weiher 123, Beim Nazis-Raus Aufkleber</Tatort>
     <Latitude>53.57532</Latitude>
     <Longitude>10.01534</Longitude>
   </Tatorte>

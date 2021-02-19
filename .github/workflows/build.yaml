@@ -1,6 +1,12 @@
 name: build
 
-on: [pull_request]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   build:
@@ -46,4 +52,5 @@ jobs:
           PGHOST: localhost
           PGUSER: postgres
           RAILS_ENV: test
+          RSPEC_RETRY_RETRY_COUNT: 3
         run: bundle exec rake

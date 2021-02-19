@@ -9,7 +9,6 @@
         li.list-group-item Mitglied seit: #{l(current_user.created_at.to_date)}
         li.list-group-item Status: #{render('access', access: current_user.access)}
 
-  .col-lg-6
     .panel.panel-default
       .panel-heading Statistik
       ul.list-group
@@ -17,3 +16,19 @@
           li.list-group-item
             = t(key, scope: 'users.statistics')
             .badge.pull-right= value
+
+  .col-lg-6
+    = render('components/leaderboard', positions: @positions)
+
+.spacer-large
+
+.well
+  | Du hast in den letzten #{@since} Wochen #{@notices.blank? ? 'noch keine' : @notices.size } Anzeigen gegen Falschparker erstattet.
+
+ul.nav.nav-tabs.nav-panel
+  li(class="#{'active' if @display=='cluster'}")= link_to 'Gruppierte Karte', url_for(since: @since, display: 'cluster', anchor: "map-anchor")
+  li(class="#{'active' if @display=='multi'}")= link_to 'Normale Karte', url_for(since: @since, display: 'multi', anchor: "map-anchor")
+
+.panel.panel-default
+  .panel-body.panel-body-map
+    = render("components/map/#{@display}", notices: @notices, kind: :private, init: current_user.district&.map_data)

@@ -2,6 +2,7 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+require 'rspec/retry'
 require 'action_mailbox/test_helper'
 require 'csv'
 
@@ -42,6 +43,8 @@ module ActiveJob
 end
 
 RSpec.configure do |config|
+  config.verbose_retry = true
+  config.display_try_failure_messages = true
   config.expect_with :rspec do |rspec|
     rspec.max_formatted_output_length = 1000
   end

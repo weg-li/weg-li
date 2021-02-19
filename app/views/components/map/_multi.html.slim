@@ -1,0 +1,8 @@
+- init ||= {latitude: 50.9, longitude: 10.5, zoom: 5}
+= content_tag(:div, id: "multi_map", class: "map-canvas", data: { notices: notices.map {|notice| notice.map_data(kind) }, init: init }) do
+  p Enable JS to view Map!
+
+javascript:
+  (function() {
+    new GMultiMap($("#multi_map")).show();
+  })();

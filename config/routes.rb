@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   mount Rswag::Ui::Engine => '/api-docs'
-  mount Rswag::Api::Engine => '/api-docs'
   mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
+
+  resources :apidocs, only: [:index]
 
   namespace :admin do
     resources :users do
@@ -29,13 +30,13 @@ Rails.application.routes.draw do
     root to: "users#index"
   end
 
-  namespace :api do
+  namespace :api, constraints: { format: :json } do
     resources :notices do
       member do
         patch :mail
       end
     end
-    resources :uploads
+    resources :uploads, only: [:create]
   end
 
   post "/analyze_direct_upload" => "direct_uploads#analyze", as: :direct_upload_analyze
@@ -77,19 +78,23 @@ Rails.application.routes.draw do
       get :dump
       get :stats
       get :map
+      post :geocode
       post :bulk
       post :import
     end
   end
 
-  resource :user do
+  resource :user, except: [:create, :new, :index] do
     member do
       get :studi
+      post :generate_export
       patch :confirmation_mail
       patch :signature
       patch :destroy_signature
     end
   end
+  # https://github.com/rails/rails/issues/1769#issuecomment-301643924
+  resolve('User') { [:user] }
 
   resources :districts do
     member do
@@ -106,9 +111,9 @@ Rails.application.routes.draw do
   resource :sitemap, only: :show
 
   scope '/p' do
-    get '/winowig/:token', to: 'public#winowig', as: :public_winowig
     get '/charge/:token', to: 'public#charge', as: :public_charge
     get '/profile/:token', to: 'public#profile', as: :public_profile
+    get '/winowig/:user_token/:notice_token', to: 'public#winowig', as: :public_winowig
   end
 
   scope '/auth' do
@@ -133,6 +138,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   get '/home', to: 'home#index', as: :home
+  get '/wegeheld', to: 'home#wegeheld', as: :wegeheld
   get '/generator', to: 'home#generator', as: :generator
   get '/imprint', to: 'home#imprint', as: :imprint
   get '/map', to: 'home#map', as: :map
@@ -140,10 +146,12 @@ Rails.application.routes.draw do
   get '/stats', to: 'home#stats', as: :stats
   get '/features', to: 'home#features', as: :features
   get '/faq', to: 'home#faq', as: :faq
+  get '/violation', to: 'home#violation', as: :violation
   get '/privacy', to: 'home#privacy', as: :privacy
   get '/donate', to: 'home#donate', as: :donate
   get '/year2019', to: 'home#year2019', as: :year2019
   get '/year2020', to: 'home#year2020', as: :year2020
+  get '/year2021', to: 'home#year2021', as: :year2021
 
   # dev
   get '/styleguide', to: 'styleguide#index'

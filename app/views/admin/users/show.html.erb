@@ -28,7 +28,7 @@ as well as a link to its edit page.
   if source.present?
   %>
   <div>
-    <%= link_to("Merge with #{source.id}", [namespace, page.resource, :merge, {source_id: source.id}], method: :patch, class: "button") %>
+    <%= link_to("Merge data from #{source.id}", [namespace, page.resource, :merge, {source_id: source.id}], method: :patch, class: "button") %>
   </div>
   <% end %>
   <div>

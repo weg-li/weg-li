@@ -20,6 +20,7 @@ class NoticesController < ApplicationController
     if filter = params[:filter]
       @table_params[:filter] = filter.to_unsafe_hash
       @notices = @notices.where(status: filter[:status]) if filter[:status].present?
+      @notices = @notices.incomplete if filter[:incomplete].present?
     end
     if order = params[:order]
       @table_params[:order] = order.to_unsafe_hash
@@ -30,18 +31,18 @@ class NoticesController < ApplicationController
   end
 
   def dump
-    notices = current_user.notices.as_api_response(:dump)
+    notices = current_user.notices.as_api_response(:public_beta)
 
     render json: { notices: notices }
   end
 
   def suggest
-    notices = current_user.notices.since(2.month.ago).search(params[:term]).order(:registration).limit(25)
+    notices = current_user.notices.search(params[:term]).order(:registration).limit(25)
 
     results = notices.pluck(:registration, :brand, :color).uniq.map do |registration, brand, color|
       {
         id: registration,
-        text: registration,
+        text: registration.upcase,
         brand: brand,
         color: color,
       }
@@ -64,13 +65,27 @@ class NoticesController < ApplicationController
     @default_district = District.from_zip(current_user.zip) || District.active.first
   end
 
+  def geocode
+    latitude = params[:latitude]
+    longitude = params[:longitude]
+
+    result = Notice.geocode([latitude, longitude])
+    render json: { result: result }
+  end
+
   def stats
     @since = (params[:since] || '8').to_i
+
     @notice_counts = Notice.count_over(current_user.notices.shared, weeks: @since)
     @notice_sums = Notice.sum_over(current_user.notices.shared, weeks: @since)
     @photo_counts = Notice.count_over(ActiveStorage::Attachment.where(record_type: 'Notice', record_id: current_user.notices.shared.pluck(:id), name: 'photos'), weeks: @since)
     @photo_sums = Notice.sum_over(ActiveStorage::Attachment.where(record_type: 'Notice', record_id: current_user.notices.shared.pluck(:id), name: 'photos'), weeks: @since)
-    @notices = current_user.notices.shared.since(@since.weeks.ago)
+
+    @limit = (params[:limit] || 10).to_i
+    @current_year = Date.today.year
+    @year = (params[:year] || @current_year).to_i
+
+    @statistics = Notice.yearly_statistics(@year, @limit, base_scope: current_user.notices.shared)
   end
 
   def show
@@ -178,8 +193,8 @@ class NoticesController < ApplicationController
   def inspect
     @notice = current_user.notices.from_param(params[:id])
     @photo = @notice.photos.find(params[:photo_id])
-    @exif = @photo.service.download_file(@photo.key) { |file| EXIFAnalyzer.new.metadata(file, debug: true) }
-    @result = Annotator.new.annotate_object(@photo.key)
+    @exif = @notice.data_sets.exif.find_by(keyable: @photo)
+    @google_vision = @notice.data_sets.google_vision.find_by(keyable: @photo)
   end
 
   def colors

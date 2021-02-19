@@ -10,19 +10,23 @@ module OmniAuth
       end
 
       def callback_phase
-        fail!(:invalid_credentials) and return if request[:token].blank?
+        token = request.params['token']
+        if token.blank?
+          fail!(:authenticity_error)
+        end
 
         begin
-          decoded_token = Token.decode(request[:token])
-          @email = decoded_token['iss'].to_s.downcase
-
-          fail!(:invalid_credentials) and return if @email.blank?
-
-          super
+          decoded_token = Token.decode(token)
         rescue
-          Rails.logger.warn("an error occured when decoding token #{request[:token]} #{$!}")
-          fail!(:invalid_credentials)
+          fail!(:authenticity_error, $!)
         end
+
+        @email = decoded_token['iss'].to_s.downcase
+        if @email.blank?
+          fail!(:authenticity_error)
+        end
+
+        super
       end
 
       uid do
@@ -30,7 +34,7 @@ module OmniAuth
       end
 
       info do
-        {'email' => @email}
+        { 'email' => @email }
       end
     end
   end

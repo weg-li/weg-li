@@ -1,5 +1,7 @@
+- set_title "Falschparker-Übersicht 2019"
+
 .page-header
-  h2.text-primary weg-li das Jahr 2019
+  h2.text-primary weg.li das Jahr 2019
 
 .spacer
 
@@ -9,20 +11,20 @@
   .col-lg-10
     blockquote
       p In 2019 wurden sensationelle #{number_with_delimiter(@statistics[:count])} Anzeigen von #{number_with_delimiter(@statistics[:active])} Benutzern erstattet - vielen Dank!
-      small= "weg-li 🚲💨 #{t('slogan_1')} #{t('slogan_2')}"
+      small= "weg.li 🚲💨 #{t('slogan_1')} #{t('slogan_2')}"
 
 hr.spacer-large
 
 .alert.alert-success
   dl.dl-horizontal
     dt 1. August 2019
-    dd weg-li startet in die <a href="https://docs.google.com/document/d/1SQTXXvGY8BzL-NgjXAKm0EVZ3YTqHOMPonWtVJk7vxg/edit" target="_blank">Beta-Phase</a> für den <strong>Bezirk Hamburg</strong> 📸
+    dd weg.li startet in die <a href="https://docs.google.com/document/d/1SQTXXvGY8BzL-NgjXAKm0EVZ3YTqHOMPonWtVJk7vxg/edit" target="_blank">Beta-Phase</a> für den <strong>Bezirk Hamburg</strong> 📸
     dt 11. August 2019
     dd die Tester erreichen das <strong>1. Wochenziel</strong> von <strong>100 Anzeigen</strong> 🥰
     dt 20. August 2019
     dd die <strong>ersten 💯</strong> Tester haben sich registriert 🚀
     dt 22. September 2019
-    dd weg-li erreicht durchweg mehr als 100 Meldungen und erhöht das Wochenziel auf <strong>500 Anzeigen</strong> 💪
+    dd weg.li erreicht durchweg mehr als 100 Meldungen und erhöht das Wochenziel auf <strong>500 Anzeigen</strong> 💪
 
 .spacer
 
@@ -32,37 +34,37 @@ hr.spacer-large
     ul.list-group
       - @statistics[:grouped_cities].each do |entry|
         li.list-group-item
-          = entry.city
           .badge.pull-right= number_with_delimiter(entry.city_count)
+          = entry.city
 
   .col-lg-4
     h3 📈 Top Bundesländer
     ul.list-group
       - @statistics[:grouped_states].each do |entry|
         li.list-group-item
-          = entry.state
           .badge.pull-right= number_with_delimiter(entry.state_count)
+          = entry.state
 
   .col-lg-4
     h3 📈 Top Postleitzahlen
     ul.list-group
       - @statistics[:grouped_zips].each do |entry|
         li.list-group-item
-          = entry.zip
           .badge.pull-right= number_with_delimiter(entry.zip_count)
+          = entry.zip
 
 .spacer-large
 
 .alert.alert-success
   dl.dl-horizontal
     dt 1. Oktober 2019
-    dd dank der Unterstützung von <a href="https://www.wegeheld.org" target="_blank">wegeheld.org</a> ist weg-li in <strong>2825 Bezirken</strong> verfügbar 😍
+    dd dank der Unterstützung von <a href="https://www.wegeheld.org" target="_blank">wegeheld.org</a> ist weg.li in <strong>2825 Bezirken</strong> verfügbar 😍
     dt 7. Oktober 2019
     dd der Massen-Upload <a href="https://twitter.com/weg_li/status/1181166396107038722" target="_blank">ist allgemein verfügbar</a> 🤩
     dt 1. Dezember 2019
     dd die Tester erreichen das <strong>2. Wochenziel</strong> von <strong>500 Anzeigen</strong> 🤘🏻
     dt 18. Dezember 2019
-    dd weg-li verlässt den Beta-Test 🥳
+    dd weg.li verlässt den Beta-Test 🥳
 
 .spacer
 
@@ -72,12 +74,12 @@ hr.spacer-large
     ul.list-group
       - @statistics[:grouped_charges].each do |entry|
         li.list-group-item
-          = entry.charge
           .badge.pull-right= number_with_delimiter(entry.charge_count)
+          = entry.charge
 
   .col-lg-4
     h3 📈 Top Automarken
     ul.list-group
       - @statistics[:grouped_brands].each do |entry|
         li.list-group-item
-          = render('vehicle_count', count: @statistics[:count], brand_count: entry.brand_count, brand: entry.brand)
+          = render('components/vehicle_count', count: @statistics[:count], brand_count: entry.brand_count, brand: entry.brand)
