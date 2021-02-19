@@ -46,6 +46,9 @@ gem 'webpacker'
 gem 'utf8-cleaner'
 gem 'rack-cache'
 
+gem 'openapi_client', path: 'client'
+
+
 group :development do
   gem 'listen'
   gem 'letter_opener'
