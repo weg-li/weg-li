@@ -200,9 +200,15 @@ class Vehicle
 
   def self.durations
     @durations ||= [
-      ['bis zu 3 Minuten', 1],
+      ['bis zu 2 Minuten', 1],
+      ['länger als 2 Minuten', 2],
       ['länger als 3 Minuten', 3],
+      ['länger als 4 Minuten', 4],
       ['länger als 5 Minuten', 5],
+      ['länger als 6 Minuten', 6],
+      ['länger als 7 Minuten', 7],
+      ['länger als 8 Minuten', 8],
+      ['länger als 9 Minuten', 9],
       ['länger als 10 Minuten', 10],
       ['länger als 15 Minuten', 15],
       ['länger als 30 Minuten', 30],
