@@ -24,7 +24,7 @@
           - if params[:term].present?
             li.divider
             li
-              = link_to url_for
+              = link_to url_for(classification: params[:classification])
                 span.glyphicon.glyphicon-remove>
                 | ohne Suche
 
@@ -36,6 +36,22 @@
             th
             th= Charge.human_attribute_name(:tbnr)
             th= Charge.human_attribute_name(:description)
+            th
+              .dropdown
+                button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown"
+                  - current_status_filter = params[:classification]
+                  => current_status_filter.present? ? Charge.classification_name(current_status_filter) : Charge.human_attribute_name(:classification)
+                  span.caret
+                ul.dropdown-menu.dropdown-menu-right
+                  - Charge::CLASSIFICATIONS.each do |key, name|
+                    li
+                      = link_to url_for(classification: key)
+                        span.label.label-primary= name
+                  li role="separator" class="divider"
+                  li
+                    = link_to url_for(classification: nil)
+                      span.glyphicon.glyphicon-remove>
+                      | kein Filter
             th= Charge.human_attribute_name(:fine)
             th= Charge.human_attribute_name(:points)
             th= Charge.human_attribute_name(:valid_from)
@@ -44,11 +60,12 @@
             - @charges.each do |charge|
               tr
                 td
-                td= link_to charge.tbnr, charge
-                td= link_to charge.description, charge
-                td= number_to_currency(charge.fine)
-                td= charge.points
-                td= l(charge.valid_from, format: :date)
+                td= link_to(charge.tbnr, charge)
+                td= link_to(charge.description, charge)
+                td= link_to(charge.classification_name, url_for(classification: charge.classification), class: 'label label-primary')
+                td(nowrap)= number_to_currency(charge.fine)
+                td(nowrap)= charge.points
+                td(nowrap)= l(charge.valid_from, format: :date)
 
 .text-center
   = paginate @charges

@@ -78,6 +78,7 @@ de:
         points: 'Punkte'
         fap: 'Fahrerlaubnis auf Probe'
         valid_from: 'Gültig seit'
+        classification: 'Kategorie'
       charge_variant:
         row_number: 'Zeile'
         from: 'Von'
