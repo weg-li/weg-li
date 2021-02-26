@@ -4,7 +4,7 @@ class Charge < ActiveRecord::Base
 
   has_many :charge_variants, -> { joins(:charge).where('charge_variants.date = charges.valid_from') }, foreign_key: :table_id, primary_key: :variant_table_id
 
-  scope :active, -> { where(classification: 5, valid_to: nil) }
+  scope :active, -> { where(valid_to: nil) }
 
   def self.from_param(tbnr)
     find_by!(tbnr: tbnr)
