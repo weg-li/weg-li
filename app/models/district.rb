@@ -1,4 +1,4 @@
-class District < ActiveRecord::Base
+class District < ApplicationRecord
   STATES = [
     'Baden-Württemberg',
     'Bayern',

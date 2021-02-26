@@ -1,4 +1,4 @@
-class ChargeVariant < ActiveRecord::Base
+class ChargeVariant < ApplicationRecord
   belongs_to :charge, -> { active }, foreign_key: :tbnr, primary_key: :tbnr, optional: true
 
   def charge_detail_description

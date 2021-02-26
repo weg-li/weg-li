@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   include Statisticable
   include Bitfields
   bitfield :flags, 1 => :hide_public_profile, 2 => :disable_reminders, 4 => :disable_autoreply_notifications

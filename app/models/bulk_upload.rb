@@ -1,4 +1,4 @@
-class BulkUpload < ActiveRecord::Base
+class BulkUpload < ApplicationRecord
   belongs_to :user
   has_many :notices, dependent: :nullify
   has_many_attached :photos

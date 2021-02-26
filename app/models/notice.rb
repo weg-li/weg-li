@@ -1,4 +1,4 @@
-class Notice < ActiveRecord::Base
+class Notice < ApplicationRecord
   include Statisticable
   ADDRESS_ZIP_PATTERN =/.+(\d{5}).+/
 
