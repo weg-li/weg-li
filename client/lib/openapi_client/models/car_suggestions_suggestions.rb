@@ -21,9 +21,6 @@ module OpenapiClient
     # Suggestions for the make. Empty list when no make recognized.
     attr_accessor :make
 
-    # Suggestions for the model. Empty list when no model recognized.
-    attr_accessor :model
-
     # Suggestions for the color. Empty list when no color recognized.
     attr_accessor :color
 
@@ -32,7 +29,6 @@ module OpenapiClient
       {
         :'license_plate_number' => :'license_plate_number',
         :'make' => :'make',
-        :'model' => :'model',
         :'color' => :'color'
       }
     end
@@ -47,7 +43,6 @@ module OpenapiClient
       {
         :'license_plate_number' => :'Array<String>',
         :'make' => :'Array<String>',
-        :'model' => :'Array<String>',
         :'color' => :'Array<String>'
       }
     end
@@ -85,12 +80,6 @@ module OpenapiClient
         end
       end
 
-      if attributes.key?(:'model')
-        if (value = attributes[:'model']).is_a?(Array)
-          self.model = value
-        end
-      end
-
       if attributes.key?(:'color')
         if (value = attributes[:'color']).is_a?(Array)
           self.color = value
@@ -118,7 +107,6 @@ module OpenapiClient
       self.class == o.class &&
           license_plate_number == o.license_plate_number &&
           make == o.make &&
-          model == o.model &&
           color == o.color
     end
 
@@ -131,7 +119,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [license_plate_number, make, model, color].hash
+      [license_plate_number, make, color].hash
     end
 
     # Builds the object from hash

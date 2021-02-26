@@ -45,9 +45,9 @@ module OpenapiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'violation_type' => :'Float',
-        :'severity_type' => :'Float',
-        :'time' => :'Float',
+        :'violation_type' => :'Integer',
+        :'severity_type' => :'Integer',
+        :'time' => :'Integer',
         :'location' => :'Location',
         :'image_token' => :'String'
       }

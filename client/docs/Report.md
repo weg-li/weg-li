@@ -4,9 +4,9 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **violation_type** | **Float** |  | [optional] |
-| **severity_type** | **Float** |  | [optional] |
-| **time** | **Float** | The date and time of the violation as Unix timestamp (in seconds since epoch). | [optional] |
+| **violation_type** | **Integer** |  | [optional] |
+| **severity_type** | **Integer** |  | [optional] |
+| **time** | **Integer** | The date and time of the violation as Unix timestamp (in seconds since epoch). | [optional] |
 | **location** | [**Location**](Location.md) |  | [optional] |
 | **image_token** | **String** |  | [optional] |
 

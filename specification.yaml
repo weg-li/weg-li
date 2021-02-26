@@ -7,6 +7,7 @@ info:
 servers:
   - url: https://europe-west3-wegli-296209.cloudfunctions.net/api
   - url: https://api.weg-li.de/v1
+  - url: https://api.weg.li/v1
 
 tags:
   - name: user
@@ -149,7 +150,7 @@ paths:
           $ref: "#/components/responses/InternalServerError"
   /analyze/image/{image_token}:
     get:
-      description: Returns suggestions of the violating vehicle regarding license plate number, make, model and color based on the provided images ordered by descending confidence.
+      description: Returns suggestions of the violating vehicle regarding license plate number, make and color based on the provided images ordered by descending confidence.
       tags:
         - analyze
       parameters:
@@ -295,12 +296,6 @@ components:
                 type: string
               description: Suggestions for the make. Empty list when no make recognized.
               example: ['Mercedes-Benz']
-            model:
-              type: array
-              items:
-                type: string
-              description: Suggestions for the model. Empty list when no model recognized.
-              example: ['A-Class']
             color:
               type: array
               items:
@@ -325,15 +320,15 @@ components:
       type: object
       properties:
         violation_type:
-          type: number
+          type: integer
           format: int32
           example: 1
         severity_type:
-          type: number
+          type: integer
           format: int32
           example: 0
         time:
-          type: number
+          type: integer
           format: int64
           example: 1606756404
           description: The date and time of the violation as Unix timestamp (in seconds since epoch).

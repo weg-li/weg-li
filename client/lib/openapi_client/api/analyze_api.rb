@@ -80,7 +80,7 @@ module OpenapiClient
       return data, status_code, headers
     end
 
-    # Returns suggestions of the violating vehicle regarding license plate number, make, model and color based on the provided images ordered by descending confidence.
+    # Returns suggestions of the violating vehicle regarding license plate number, make and color based on the provided images ordered by descending confidence.
     # @param image_token [String] 
     # @param [Hash] opts the optional parameters
     # @return [CarSuggestions]
@@ -89,7 +89,7 @@ module OpenapiClient
       data
     end
 
-    # Returns suggestions of the violating vehicle regarding license plate number, make, model and color based on the provided images ordered by descending confidence.
+    # Returns suggestions of the violating vehicle regarding license plate number, make and color based on the provided images ordered by descending confidence.
     # @param image_token [String] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(CarSuggestions, Integer, Hash)>] CarSuggestions data, response status code and response headers
