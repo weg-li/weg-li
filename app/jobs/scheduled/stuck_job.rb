@@ -17,10 +17,10 @@ class Scheduled::StuckJob < ApplicationJob
         dead = dead_workers.size
 
         if dead >= concurrent / 2
-          notify("process #{identity} has #{dead} of #{concurrent} dead jobs, killing it now! https://www.weg-li.de/sidekiq/busy?poll=true")
+          notify("process #{identity} has #{dead} of #{concurrent} dead jobs, killing it now! https://www.weg.li/sidekiq/busy?poll=true")
           Sidekiq::Process.new("identity" => identity).stop!
         else
-          notify("process #{identity} has just #{dead} of #{concurrent} dead jobs, #{concurrent - dead} are busy. https://www.weg-li.de/sidekiq/busy?poll=true")
+          notify("process #{identity} has just #{dead} of #{concurrent} dead jobs, #{concurrent - dead} are busy. https://www.weg.li/sidekiq/busy?poll=true")
         end
       else
         Rails.logger.debug("process #{identity} is ok with #{busy} of #{concurrent}")
