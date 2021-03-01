@@ -91,7 +91,7 @@ class Notice < ApplicationRecord
   end
 
   def wegli_email
-    "#{token}@anzeige.weg-li.de"
+    "#{token}@anzeige.weg.li"
   end
 
   def duplicate!

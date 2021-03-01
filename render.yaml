@@ -25,11 +25,8 @@ services:
   envVars:
   - fromGroup: weg-li-production
   domains:
-  - weg-li.de
-  - www.weg-li.de
   - weg.li
   - www.weg.li
-  - cdn.weg-li.de
 - type: worker
   name: weg-li-worker
   plan: standard

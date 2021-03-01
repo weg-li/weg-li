@@ -39,7 +39,7 @@ describe User do
 
   it "generates wegli_email" do
     user = Fabricate.build(:user, token: 'dd-33')
-    expect(user.wegli_email).to eql('dd-33@anzeige.weg-li.de')
+    expect(user.wegli_email).to eql('dd-33@anzeige.weg.li')
   end
 
   context "admin" do

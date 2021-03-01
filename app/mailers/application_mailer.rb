@@ -1,7 +1,7 @@
 class ApplicationMailer < ActionMailer::Base
   include Slack::Slackable
 
-  default from: "peter@weg.li"
+  default from: email_address_with_name('peter@weg.li', 'weg.li')
 
   private
 
