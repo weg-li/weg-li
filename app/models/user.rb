@@ -156,5 +156,13 @@ class User < ActiveRecord::Base
       user = find_by_id(id)
       user && user.token == stored_token ? user : nil
     end
+
+    def add_project_data(data)
+      data.stringify_keys!
+      data.each do |id, hash|
+        user = User.find(id)
+        user.update!(project_access_token: hash[:access_token], project_user_id: hash[:user_id])
+      end
+    end
   end
 end
