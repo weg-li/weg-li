@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/weg-li/omniauth-telegram.git
-  revision: a3799d12a718d1bfa9c04b7da4f50f0ea39823a0
+  revision: 743306b1ada963b98ec8770a6bbb2754afaf5cd0
   branch: omniauth2
   specs:
     omniauth-telegram (0.1.1)
