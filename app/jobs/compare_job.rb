@@ -18,22 +18,25 @@ class CompareJob < ApplicationJob
       data_set = notice.data_sets.google_vision.find_by(keyable: photo)
       notify("for notice #{notice.id} google found #{data_set.registrations} #{data_set.brands} #{data_set.colors}") if data_set
     end
-    location = OpenapiClient::Location.new(latitude: notice.latitude, longitude: notice.longitude)
 
+    response = api.analyze_image_image_token_get(image_upload_response.token)
+    notify("for notice #{notice.id} the project found #{response.suggestions}")
+
+
+    location = OpenapiClient::Location.new(latitude: notice.latitude, longitude: notice.longitude)
     request = {
       user_id: notice.user.project_user_id,
       time: notice.date.to_i,
       location: location
     }
 
+    notify("for notice #{notice.id} has violation #{notice.charge}")
     api.api_client.config.access_token = notice.user.project_access_token
     suggestions = api.analyze_data_post(request)
     suggestions.first(3).each_with_index do |suggestion, i|
       notify("for notice #{notice.id} the project suggests violation #{i} #{VIOLATION_TYPES[suggestion.violation_type]}")
     end
 
-    response = api.analyze_image_image_token_get(image_upload_response.token)
-    notify("for notice #{notice.id} the project found #{response.suggestions}")
   end
 
   private
