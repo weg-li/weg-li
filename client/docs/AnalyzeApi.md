@@ -82,7 +82,7 @@ end
 
 
 
-Returns suggestions of the violating vehicle regarding license plate number, make, model and color based on the provided images ordered by descending confidence.
+Returns suggestions of the violating vehicle regarding license plate number, make and color based on the provided images ordered by descending confidence.
 
 ### Examples
 

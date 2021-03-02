@@ -235,6 +235,10 @@ module OpenapiClient
         {
           url: "https://api.weg-li.de/v1",
           description: "No description provided",
+        },
+        {
+          url: "https://api.weg.li/v1",
+          description: "No description provided",
         }
       ]
     end

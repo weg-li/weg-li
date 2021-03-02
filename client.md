@@ -6,7 +6,8 @@ brew install maven openapi-generator
 # download https://github.com/weg-li-project/weg-li-api/blob/main/server/static/openapi-specification.yaml cause it's a private repo
 
 
-openapi-generator generate -i specification.yaml --skip-validate-spec -g ruby -o client
+openapi-generator generate -i specification.yaml -g ruby -o client
+# openapi-generator generate -i specification.yaml --skip-validate-spec -g ruby -o client
 ```
 
 ## Waring generated

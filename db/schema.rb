@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_30_132732) do
+ActiveRecord::Schema.define(version: 2021_03_01_084807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -232,6 +232,8 @@ ActiveRecord::Schema.define(version: 2021_01_30_132732) do
     t.string "appendix"
     t.datetime "last_login"
     t.date "date_of_birth"
+    t.string "project_access_token"
+    t.string "project_user_id"
     t.index ["api_token"], name: "index_users_on_api_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["token"], name: "index_users_on_token", unique: true

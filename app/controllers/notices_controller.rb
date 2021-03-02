@@ -163,6 +163,7 @@ class NoticesController < ApplicationController
     NoticeMailer.charge(notice, to: to, send_via_pdf: params[:send_via_pdf]).deliver_later
 
     notice.update!(status: :shared)
+    CompareJob.perform_later(notice) if rand(1..3) == 1
 
     redirect_to(notices_path, notice: "Deine Anzeige wird per E-Mail an #{Array(to).join(', ')} versendet und als 'gemeldet' markiert.")
   end
