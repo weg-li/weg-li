@@ -15,11 +15,11 @@ module OmniAuth
           fail!(:authenticity_error)
         end
 
-        begin
+        # begin
           decoded_token = Token.decode(token)
-        rescue
-          fail!(:authenticity_error, $!)
-        end
+        # rescue
+          # fail!(:authenticity_error, $!) <-- return from it
+        # end
 
         @email = decoded_token['iss'].to_s.downcase
         if @email.blank?
