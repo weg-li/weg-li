@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_01_084807) do
+ActiveRecord::Schema.define(version: 2021_03_03_075109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(version: 2021_03_01_084807) do
     t.string "bkat"
     t.string "penalty"
     t.string "fap"
-    t.integer "points"
+    t.integer "points", default: 0
     t.datetime "valid_from"
     t.datetime "valid_to"
     t.integer "implementation"
