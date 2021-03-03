@@ -1,5 +1,5 @@
 class Geo
-  MAX_DISTANCE = 40
+  MAX_DISTANCE = 30
 
   POLICE_INSPECTIONS = {
     pi11: [48.136829, 11.580227], # Altstadt
