@@ -2,8 +2,7 @@
 <Datenstrom xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.owi21.de/schemas/xsd/xowi_bestand.xsd">
   <Bestaende>
     <Hinzufuegen>
-      <Bestand
-        GMK="06699999"
+      <Bestand GMK="06699999"
         AnwenderNr="998"
         Kostenstelle="998"
         AZ="998123456"
