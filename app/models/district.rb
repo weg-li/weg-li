@@ -32,8 +32,8 @@ class District < ApplicationRecord
   validates :zip, format: { with: /\d{5}/ }
   validates :state, inclusion: {in: STATES}
 
-  geocoded_by :geocode_address
-  after_validation :geocode
+  geocoded_by :geocode_address, language: Proc.new { |model| I18n.locale }, no_annotations: true
+  after_validation :geocode, if: :geocode_address_changed?
 
   acts_as_api
 
@@ -70,6 +70,10 @@ class District < ApplicationRecord
 
   def geocode_address
     "#{zip}, #{name}, #{state}, Deutschland"
+  end
+
+  def geocode_address_changed?
+    zip_changed? || name_changed? || state_changed?
   end
 
   def all_emails
