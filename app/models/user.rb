@@ -6,7 +6,7 @@ class User < ApplicationRecord
   enum access: {disabled: -99, user: 0, community: 1, studi: 2, admin: 42}
 
   geocoded_by :geocode_address, language: Proc.new { |model| I18n.locale }, no_annotations: true
-  after_validation :geocode
+  after_validation :geocode, if: :geocode_address_changed?
   after_validation :normalize
   before_validation :defaults
 
@@ -68,6 +68,10 @@ class User < ApplicationRecord
 
   def geocode_address
     "#{street}, #{zip}, #{city}, Deutschland"
+  end
+
+  def geocode_address_changed?
+    street_changed? || zip_changed? || city_changed?
   end
 
   def full_address
