@@ -1,2 +1,4 @@
+= render "application/flash/alert", message: 'Derzeit gibt es Probleme mit dem Geocoding-Dienstleister! Adressen werden nicht automatisch erkannt.' if signed_in?
+
 - flash.each do |key, value|
   = render "application/flash/#{key}", message: value
