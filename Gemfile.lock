@@ -455,6 +455,8 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    strip_attributes (1.11.0)
+      activemodel (>= 3.0, < 7.0)
     swagger-blocks (3.0.0)
     temple (0.8.2)
     thor (1.1.0)
@@ -541,6 +543,7 @@ DEPENDENCIES
   sidekiq-scheduler
   slim-rails
   sprockets (~> 3.7.2)
+  strip_attributes
   swagger-blocks
   time_splitter
   utf8-cleaner
