@@ -15,15 +15,13 @@ hr.spacer
 
 .well.well-sm.callout-primary
   |
-    Massen-Uploads können auch via Google-Photos mittels eines geteilten Albums erzeugt werden. Einfach Link zur Shared-Library einfügen und importiern lassen!
-    Achte darauf, dass die Alben nur Bilder im JPEG-Format enthalten. Andere Formate oder gar Videos werden nicht unterstützt und der Import wird dann abgebrochen.
-    In den Einstellungen von Google-Photos sollte bei Teilen die Checkbox "Standortinformationen entfernen" deaktiviert sein.
+    Massen-Uploads via Google-Photos sind derzeit nicht möglich, da Google den Album-Download neuerdings hinter einem Login versteckt.
 
 = form_for @bulk_upload, url: import_bulk_uploads_path, method: :post do |form|
   .row
     .col-lg-12
       = form.label :shared_album_url, 'Google-Photos Album', class: "control-label control-label-required"
-      = form.url_field :shared_album_url, class: "form-control", required: true, placeholder: 'z.B. https://photos.app.goo.gl/X4KX7AXNjXXu69Uf9'
+      = form.url_field :shared_album_url, disabled: true, class: "form-control", required: true, placeholder: 'z.B. https://photos.app.goo.gl/X4KX7AXNjXXu69Uf9'
 
   hr
 
@@ -31,4 +29,4 @@ hr.spacer
     .col-lg-12
       .pull-right
         .btn-group
-          = form.submit "Importieren & Zuordnen", class: "btn btn-success"
+          = form.submit "Importieren & Zuordnen", class: "btn btn-success", disabled: true
