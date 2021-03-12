@@ -21,7 +21,7 @@ class HomeController < ApplicationController
 
   def stats
     @since = (params[:since] || 6 * 4).to_i
-    @display = params[:display] || 'user'
+    @display = params[:display] || 'notice'
     @interval = params[:interval] || '1 week'
 
     case @display

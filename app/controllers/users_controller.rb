@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def show
     @since = (params[:since] || 4).to_i
-    @display = %w(cluster multi).delete(params[:display]) || 'cluster'
+    @display = %w(cluster heat multi).delete(params[:display]) || 'cluster'
     @notices = current_user.notices.shared.since(@since.weeks.ago)
     @positions = current_user.leaderboard_positions
   end

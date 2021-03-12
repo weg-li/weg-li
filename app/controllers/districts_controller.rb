@@ -19,7 +19,7 @@ class DistrictsController < ApplicationController
 
   def show
     @since = (params[:since] || 4).to_i
-    @display = %w(cluster multi).delete(params[:display]) || 'cluster'
+    @display = %w(cluster heat multi).delete(params[:display]) || 'cluster'
     @district = District.active.from_param(params[:id])
     @notices = @district.notices.since(@since.weeks.ago).shared
 

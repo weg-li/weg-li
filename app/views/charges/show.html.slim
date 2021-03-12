@@ -28,19 +28,9 @@ h3 #{@charge.description} (#{Charge.human_attribute_name(:tbnr)} #{@charge.tbnr}
 - if @charge.charge_variants.present?
   = render('charge_variants', charge_variants: @charge.charge_variants)
 
-.spacer-lage#map-anchor
+.spacer-lage
 
 .well
   | Für den Verstoß "#{@charge.description}" (#{Charge.human_attribute_name(:tbnr)} #{@charge.tbnr}) wurden in den letzten #{@since} Wochen deutschlandweit #{@notices.blank? ? 'noch keine' : @notices.size } Anzeigen gegen Falschparker erstattet.
 
-ul.nav.nav-tabs.nav-panel
-  li(class="#{'active' if @display=='cluster'}")= link_to 'Gruppierte Karte', url_for(since: @since, display: 'cluster', anchor: "map-anchor")
-  li(class="#{'active' if @display=='multi'}")= link_to 'Normale Karte', url_for(since: @since, display: 'multi', anchor: "map-anchor")
-
-.panel.panel-default
-  - unless signed_in?
-    .panel-heading
-      = render('components/register')
-
-  .panel-body.panel-body-map
-    = render("components/map/#{@display}", notices: @notices, kind: :public)
+= render('components/map/login', notices: @notices, display: @display, since: @since)

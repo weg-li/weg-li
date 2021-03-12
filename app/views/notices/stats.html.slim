@@ -16,9 +16,11 @@
 
 .spacer-large
 
-ul.nav.nav-tabs.nav-panel#top-x
+a.anchor#topx Top 10 Anchor
+
+ul.nav.nav-tabs.nav-panel
   - (2019..@current_year).reverse_each do |year|
-    li(class="#{'active' if year == @year}")= link_to(year, url_for(since: @since, limit: @limit, year: year, anchor: 'top-x'))
+    li(class="#{'active' if year == @year}")= link_to(year, url_for(since: @since, limit: @limit, year: year, anchor: :topx))
 
 .row
   .col-lg-5

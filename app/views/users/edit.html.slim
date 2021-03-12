@@ -60,8 +60,9 @@
         - else
           = button_to t('users.confirm_email'), confirmation_mail_user_path(current_user), method: :patch, class: "btn btn-primary btn-block"
 
+    a.anchor#signature Signature Anchor
     = form_for current_user, url: signature_user_path, html: {class: "form-horizontal"} do |form|
-      .panel.panel-default#signature
+      .panel.panel-default
         .panel-heading Unterschrift
         - if current_user.signature.present?
           .panel-body

@@ -11,17 +11,19 @@
     Die Top-5 pro Bezirk kannst Du über #{link_to "die Falschparker-Karte", map_path } einsehen und #{link_to 'das Leaderboard', leaderboard_path} zeigt die fleißigsten Falschparker-Melder.
     Und wer es selber ganz genau wissen will, der kann sich wöchentlich aktualisierte, anonymisiert Datensätze über Parkverstöße als Archiv bei #{link_to "den Daten-Exporten", exports_path } herunterladen.
 
-.spacer-large#stats
+.spacer-large
 
-- stats = {'user' => 'Registrierte Benutzer', 'active' => 'Aktive Benutzer', 'notice' => 'Erstattete Anzeigen', 'photo' => 'Hochgeladene Beweisfotos'}
+- stats = {'notice' => 'Erstattete Anzeigen', 'photo' => 'Hochgeladene Beweisfotos', 'user' => 'Registrierte Benutzer', 'active' => 'Aktive Benutzer'}
+
+a.anchor#stats Stats Anchor
 
 ul.nav.nav-tabs.nav-panel.hidden-xs
   - stats.each do |display, name|
-    li(class="#{'active' if display == @display}")= link_to(name, url_for(since: @since, interval: @interval, display: display, anchor: 'stats'))
+    li(class="#{'active' if display == @display}")= link_to(name, url_for(since: @since, interval: @interval, display: display, anchor: :stats))
 
 .panel.panel-default.panel-nav
   .panel-heading.text-right
-    = form_tag({url: url_for(anchor: 'stats')}, method: :get, class: 'form-inline') do |form|
+    = form_tag({url: url_for(anchor: :stats)}, method: :get, class: 'form-inline') do |form|
       = hidden_field_tag(:display, @display)
       .form-group.form-group-sm
         .visible-xs
@@ -34,3 +36,5 @@ ul.nav.nav-tabs.nav-panel.hidden-xs
 
   .panel-body.well-chart
     = render('components/chart', name: @display, counts: @counts, sums: @sums)
+  .panel-footer
+    | Im #{link_to 'Export-Bereich', exports_path} können anonymisierte Datensätze zu Parkverstößen im CSV-Format als Archiv heruntergeladen werden.
