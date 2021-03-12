@@ -127,13 +127,13 @@ class Notice < ApplicationRecord
     other = user.notices.order(created_at: :desc).find_by(registration: registrations)
     if other
       self.registration = other.registration
-      self.charge = other.charge if other.charge?
-      self.severity = other.severity if other.severity?
-      self.duration = other.duration if other.duration?
-      self.brand = other.brand if other.brand?
-      self.color = other.color if other.color?
-      self.flags = other.flags if other.flags?
-      self.note = other.note if other.note?
+      self.charge = other.charge if !charge? && other.charge?
+      self.severity = other.severity if !severity? && other.severity?
+      self.duration = other.duration if !duration? && other.duration?
+      self.brand = other.brand if !brand? && other.brand?
+      self.color = other.color if !color? && other.color?
+      self.flags = other.flags if !flags? && other.flags?
+      self.note = other.note if !note? && other.note?
     end
   end
 

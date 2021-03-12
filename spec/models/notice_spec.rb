@@ -45,12 +45,17 @@ describe Notice do
     it "applies favorites" do
       existing_notice = Fabricate.create(:notice, status: :shared, registration: 'HH PS 123', user: notice.user)
 
-      notice.apply_favorites(['HH PS 123'])
+      empty_notice = Notice.new(user: notice.user)
+      empty_notice.apply_favorites(['HH PS 123'])
 
-      expect(notice.registration).to eql('HH PS 123')
-      expect(notice.brand).to eql(existing_notice.brand)
-      expect(notice.color).to eql(existing_notice.color)
-      expect(notice.charge).to eql(existing_notice.charge)
+      expect(empty_notice.registration).to eql('HH PS 123')
+      expect(empty_notice.charge).to eql(existing_notice.charge)
+      expect(empty_notice.severity).to eql(existing_notice.severity)
+      expect(empty_notice.duration).to eql(existing_notice.duration)
+      expect(empty_notice.brand).to eql(existing_notice.brand)
+      expect(empty_notice.color).to eql(existing_notice.color)
+      expect(empty_notice.flags).to eql(existing_notice.flags)
+      expect(empty_notice.note).to eql(existing_notice.note)
     end
   end
 
