@@ -12,20 +12,28 @@ describe AutoreplyMailbox do
   end
 
   context "processing" do
+    it "should process bounce if notice missing" do
+      mail = receive_inbound_email_from_mail(
+        to: 'unknown-notice-id@anzeige.weg.li',
+        from: 'pk-dummertorf@schnapsschnarcherbayern.de',
+      )
+      expect(mail.bounced?).to be_truthy
+    end
+
     it "should process a reply" do
-      email = notice.wegli_email
       expect {
         expect {
-          receive_inbound_email_from_mail \
-            to: email,
+          receive_inbound_email_from_mail(
+            to: notice.wegli_email,
             from: 'pk-dummertorf@schnapsschnarcherbayern.de',
             subject: "Fwd: Status update?",
             body: <<~BODY
-              --- Begin forwarded message ---
-              From: Frank Holland <frank@microsoft.com>
+            --- Begin forwarded message ---
+            From: Uschi Müller <uschi@muller.com>
 
-              What's the status?
+            What's the status?
             BODY
+          )
         }.to change {
           notice.replies.count
         }.by(1)

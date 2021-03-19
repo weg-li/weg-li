@@ -1,4 +1,7 @@
 class AutoreplyMailbox < ApplicationMailbox
+
+  rescue_from(ActiveRecord::RecordNotFound) { bounced! }
+  
   def process
     notice = Notice.from_email_address(mail.to.first)
     params = {
