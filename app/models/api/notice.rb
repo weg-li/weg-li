@@ -59,6 +59,10 @@ class Api::Notice < ::Notice
     property :note do
       key :type, :string
     end
+    property :created_at do
+      key :type, :string
+      key :format, :"date-time"
+    end
     Notice.bitfields[:flags].keys.each do |it|
       property it do
         key :type, :boolean

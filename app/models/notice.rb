@@ -14,7 +14,7 @@ class Notice < ApplicationRecord
   acts_as_api
 
   api_accessible(:public_beta) do |template|
-    %i(token status street city zip latitude longitude registration color brand charge date duration severity photos).each { |key| template.add(key) }
+    %i(token status street city zip latitude longitude registration color brand charge date duration severity photos created_at).each { |key| template.add(key) }
     Notice.bitfields[:flags].keys.each { |key| template.add(key) }
     template.add(:attachments, as: :photos)
   end
