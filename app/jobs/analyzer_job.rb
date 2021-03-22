@@ -18,27 +18,25 @@ class AnalyzerJob < ApplicationJob
   end
 
   def analyze(notice)
+    notice.status = :open
+
+    handle_exif(notice)
+    handle_vision(notice)
+
+    notice.save_incomplete!
+  end
+
+  private
+
+  def handle_vision(notice)
     plates = []
     brands = []
     colors = []
-    dates = []
 
-    notice.status = :open
-    prefixes = notice.user.district&.prefixes
+    # district is only set after the geolocation so that must be done first
+    prefixes = notice.district&.prefixes || notice.user.district&.prefixes || []
 
     notice.photos.each do |photo|
-      exif = photo.service.download_file(photo.key) { |file| exifer.metadata(file) }
-      notice.data_sets.create!(data: exif, kind: :exif, keyable: photo)
-
-      if !notice.coordinates? && exif[:latitude].to_f.positive? && exif[:longitude].to_f.positive?
-        notice.latitude = exif[:latitude]
-        notice.longitude = exif[:longitude]
-        notice.handle_geocoding
-        prefixes = notice.district&.prefixes
-      end
-
-      dates << (time_from_meta(exif[:date_time]) || AnalyzerJob.time_from_filename(photo.filename.to_s))
-
       result = annotator.annotate_object(photo.key)
       if result.present?
         notice.data_sets.create!(data: result, kind: :google_vision, keyable: photo)
@@ -52,19 +50,31 @@ class AnalyzerJob < ApplicationJob
       end
     end
 
-    notice.apply_dates(dates)
-
     most_likely_registraton = Vehicle.most_likely?(plates)
     notice.apply_favorites(most_likely_registraton)
 
     notice.registration ||= most_likely_registraton
     notice.brand ||= Vehicle.most_likely?(brands)
     notice.color ||= Vehicle.most_likely?(colors)
-
-    notice.save_incomplete!
   end
 
-  private
+  def handle_exif(notice)
+    dates = []
+
+    notice.photos.each do |photo|
+      exif = photo.service.download_file(photo.key) { |file| exifer.metadata(file) }
+      notice.data_sets.create!(data: exif, kind: :exif, keyable: photo)
+
+      # the last exif is the good as any other
+      notice.latitude = exif[:latitude] if exif[:latitude].to_f.positive?
+      notice.longitude = exif[:longitude] if exif[:longitude].to_f.positive?
+
+      dates << (time_from_meta(exif[:date_time]) || AnalyzerJob.time_from_filename(photo.filename.to_s))
+    end
+    notice.apply_dates(dates)
+
+    notice.handle_geocoding
+  end
 
   def time_from_meta(timestamp)
     timestamp.to_s.to_time
