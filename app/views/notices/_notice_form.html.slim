@@ -3,17 +3,41 @@
 .row
   .col-lg-4
     .form-group
+      - registration_data = notice.data_sets.google_vision.flat_map { |google_vision| google_vision.registrations }
+      - registrations = Vehicle.by_likelyhood(registration_data)
       = form.label :registration, class: "control-label control-label-required"
-      = form.select :registration, [notice.registration].compact, { include_blank: 'z.B. HH SV 1887' }, { class: "form-control", required: true, data: {'select2-disabled' => true} }
+      = form.select :registration, registrations, { include_blank: 'z.B. HH SV 1887' }, { class: "form-control", required: true, data: {'select2-disabled' => true} }
       = render('auto_suggest', notice: notice)
+      .input-group#pick_registration
+        - registrations.each do |registration|
+          a(href="#" onclick="$('#notice_registration').val('#{registration}').trigger('change'); $('#pick_registration').fadeOut(); return false;")
+              span.label.label-default.label-picker(title=registration)
+                span(style="text-decoration:none")=> registration
+                span.glyphicon.glyphicon-circle-arrow-left
   .col-lg-4
     .form-group
       = form.label :brand, class: "control-label"
       = form.select :brand, Vehicle.brands, { include_blank: 'Marke Auswählen' }, { class: "form-control" }
+      .input-group#pick_brand
+        - brands = notice.data_sets.google_vision.flat_map { |google_vision| google_vision.brands }
+        - Vehicle.by_likelyhood(brands).each do |brand|
+            a(href="#" onclick="$('#notice_brand').val('#{brand}').trigger('change'); $('#pick_brand').fadeOut(); return false;")
+              span.label.label-default.label-picker(title=brand)
+                span=> brand
+                span.glyphicon.glyphicon-circle-arrow-left
+
+
   .col-lg-4
     .form-group
       = form.label :color, class: "control-label"
       = form.select :color, Vehicle.colors.map { |color| [t(color, scope: "activerecord.attributes.notice.colors"), color] }, { include_blank: 'Farbe Auswählen' }, { class: "form-control" }
+      .input-group#pick_color
+        - colors = notice.data_sets.google_vision.flat_map { |google_vision| google_vision.colors }
+        - Vehicle.by_likelyhood(colors).each do |color|
+            a(href="#" onclick="$('#notice_color').val('#{color}').trigger('change'); $('#pick_color').fadeOut(); return false;")
+              span.label.label-default.label-picker(title=color)
+                span=> t(color, scope: "activerecord.attributes.notice.colors")
+                span.glyphicon.glyphicon-circle-arrow-left
 
 .row
   = form.hidden_field(:latitude)

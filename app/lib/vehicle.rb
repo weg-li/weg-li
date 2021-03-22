@@ -15,12 +15,16 @@ class Vehicle
     matches.group_by(&:itself).sort_by { |match, group| group.size }.last[0]
   end
 
-  def self.most_likely?(matches)
-    return nil if matches.blank?
+  def self.by_likelyhood(matches)
+    return [] if matches.blank?
 
-    groups = matches.group_by { |key, _| key.gsub(/\W/, '') }.sort_by { |_, group| group.sum { |_, probability| probability }.fdiv(matches.size) }
-    best_match = groups.last
-    best_match[1].flatten[0]
+    groups = matches.group_by { |key, _| key.gsub(/\W/, '') }
+    groups = groups.sort_by { |_, group| group.sum { |_, probability| probability }.fdiv(matches.size) }
+    groups.map { |match| match[1].flatten[0] }
+  end
+
+  def self.most_likely?(matches)
+    by_likelyhood(matches).last
   end
 
   def self.plate?(text, prefixes: nil)

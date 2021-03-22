@@ -382,6 +382,14 @@ ul.droppable-list {
   background: linear-gradient(90deg, rgb(50,50,255) 0%, rgb(50,50,255) 10%, $white 10%, $white 100%);
 }
 
+.label-picker {
+	margin: 5px 5px 0px 0px;
+	padding: 5px;
+	display: inline-block;
+	// the magic to remove the decoration is the inline-block part, cause those dont get underline in anchors
+	text-decoration: none !important;
+}
+
 .control-label-required::after {
   content:"*";
 }
