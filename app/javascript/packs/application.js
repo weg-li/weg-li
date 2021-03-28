@@ -27,8 +27,8 @@ require('@rails/activestorage').start();
 require('bootstrap');
 require('alpinejs');
 
-// allow templates to use frappe
-window.frappe = require('frappe-charts/dist/frappe-charts.min.esm');
+// allow templates to use billboard
+window.bb = require('billboard.js/dist/billboard.js').bb;
 
 // own sources
 require('src/appsignal');

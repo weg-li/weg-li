@@ -3,32 +3,33 @@ div(id=name)
   .chart-sum
 
 javascript:
-  var labels = #{ counts.keys.map { |date| date.to_date.strftime('%d/%m') }.to_json.html_safe };
-
-  new frappe.Chart("##{name} .chart-count", {
+  bb.generate({
     data: {
-      labels: labels,
-      datasets: [
-        {
-          name: "Summe",
-          values: #{ counts.values.to_json.html_safe },
-        },
+      x: "x",
+      columns: [
+  	   #{ (['x'] + counts.keys.map { |date| date.to_date }).to_json.html_safe },
+  	   #{ (['Total'] + counts.values).to_json.html_safe },
+  	   #{ (['Anstieg'] + sums.values).to_json.html_safe },
       ],
+      axes: {
+        Total: "y",
+        Anstieg: "y2",
+      },
+      type: "line", // for ESM specify as: line()
+      types: {
+        Anstieg: "bar", // for ESM specify as: spline()
+      },
     },
-    type: 'line',
-    colors: ['#0C478B'],
-  });
-
-  new frappe.Chart("##{name} .chart-sum", {
-    data: {
-      labels: labels,
-      datasets: [
-        {
-          name: "Delta",
-          values: #{ sums.values.to_json.html_safe },
-        },
-      ],
+    axis: {
+      x: {
+        type: "timeseries",
+        tick: {
+          format: "%d.%m.%Y"
+        }
+      },
+      y2: {
+        show: true
+      }
     },
-    type: 'bar',
-    colors: ['#0C478B'],
+    bindto: "##{name} .chart-count"
   });
