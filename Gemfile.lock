@@ -106,6 +106,8 @@ GEM
     color (1.8)
     concurrent-ruby (1.1.8)
     connection_pool (2.2.3)
+    crack (0.4.5)
+      rexml
     crass (1.0.6)
     datetime_picker_rails (0.0.7)
       momentjs-rails (>= 2.8.1)
@@ -211,6 +213,7 @@ GEM
     grpc (1.36.0)
       google-protobuf (~> 3.14)
       googleapis-common-protos-types (~> 1.0)
+    hashdiff (1.0.1)
     hashie (4.1.0)
     http (4.4.1)
       addressable (~> 2.3)
@@ -479,6 +482,10 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    webmock (3.12.2)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff (>= 0.4.0, < 2.0.0)
     webpacker (5.2.1)
       activesupport (>= 5.2)
       rack-proxy (>= 0.6.1)
@@ -547,6 +554,7 @@ DEPENDENCIES
   time_splitter
   utf8-cleaner
   web-console
+  webmock
   webpacker
 
 RUBY VERSION

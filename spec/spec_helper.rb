@@ -4,6 +4,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/retry'
 require 'action_mailbox/test_helper'
+require 'webmock/rspec'
 require 'csv'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
@@ -27,7 +28,6 @@ Geocoder::Lookup::Test.set_default_stub(
   ]
 )
 I18n.locale = :de
-
 
 ENV['WEGLI_API_KEY'] = 'dingSbums'
 

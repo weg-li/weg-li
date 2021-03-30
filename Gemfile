@@ -63,4 +63,5 @@ group :development, :test do
   gem 'fabrication'
   gem 'rspec-rails'
   gem 'rspec-retry'
+  gem 'webmock'
 end

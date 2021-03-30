@@ -122,6 +122,9 @@ de:
           expired_tuv: 'Die TÜV-Plakette war abgelaufen'
           expired_eco: 'Die Umwelt-Plakette fehlte oder war ungültig'
         colors:
+          gold_yellow: 'Gelb/Gold'
+          gray_silver: 'Grau/Silber'
+          pink_purple_violet: 'Lila'
           beige: 'Beige'
           blue: 'Blau'
           brown: 'Braun'
