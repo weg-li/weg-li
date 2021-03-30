@@ -2,24 +2,38 @@ class DataSet < ApplicationRecord
   belongs_to :setable, polymorphic: true
   belongs_to :keyable, polymorphic: true
 
-  enum kind: { google_vision: 0, exif: 1}
+  enum kind: { google_vision: 0, exif: 1, car_ml: 2 }
 
-  # TODO: use these in the analyzer
   def registrations
-    raise "not supported by #{kind}" unless google_vision?
-
-    Annotator.grep_text(data.deep_symbolize_keys) { |it| Vehicle.plate?(it) }
+    case kind
+    when 'google_vision'
+      Annotator.grep_text(data.deep_symbolize_keys) { |it| Vehicle.plate?(it) }
+    when 'car_ml'
+      data['suggestions']['license_plate_number']
+    else
+      raise "not supported by #{kind}"
+    end
   end
 
   def brands
-    raise "not supported by #{kind}" unless google_vision?
-
-    Annotator.grep_text(data.deep_symbolize_keys) { |it| Vehicle.brand?(it) }
+    case kind
+    when 'google_vision'
+      Annotator.grep_text(data.deep_symbolize_keys) { |it| Vehicle.brand?(it) }
+    when 'car_ml'
+      data['suggestions']['make']
+    else
+      raise "not supported by #{kind}"
+    end
   end
 
   def colors
-    raise "not supported by #{kind}" unless google_vision?
-
-    Annotator.dominant_colors(data.deep_symbolize_keys)
+    case kind
+    when 'google_vision'
+      Annotator.dominant_colors(data.deep_symbolize_keys)
+    when 'car_ml'
+      data['suggestions']['color']
+    else
+      raise "not supported by #{kind}"
+    end
   end
 end

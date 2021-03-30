@@ -8,4 +8,9 @@ module DataHelper
     File.binwrite(fixture_path, Marshal.dump(data))
     data
   end
+
+  def read_fixture(fixture_name = 'annotate')
+    fixture_path = Rails.root.join("spec/fixtures/files/#{fixture_name}.dump")
+    Marshal.load(fixture_path.read)
+  end
 end
