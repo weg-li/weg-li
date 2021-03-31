@@ -22,8 +22,7 @@ class AnalyzerJob < ApplicationJob
 
     handle_exif(notice)
     handle_vision(notice)
-    # TODO: intercept all web requests and fail if there are any.
-    handle_car_ml(notice) if Rails.env.production? && rand(1..4) == 1
+    handle_car_ml(notice) if Rails.env.production? && rand(1..3) == 1
 
     notice.save_incomplete!
   end
