@@ -1,6 +1,6 @@
 class AnalyzerJob < ApplicationJob
-  retry_on EXIFR::MalformedJPEG, attempts: 15, wait: :exponentially_longer
-  retry_on ActiveStorage::FileNotFoundError, attempts: 15, wait: :exponentially_longer
+  retry_on EXIFR::MalformedJPEG, attempts: 5, wait: :exponentially_longer
+  retry_on ActiveStorage::FileNotFoundError, attempts: 5, wait: :exponentially_longer
   discard_on Encoding::UndefinedConversionError
 
   def self.time_from_filename(filename)

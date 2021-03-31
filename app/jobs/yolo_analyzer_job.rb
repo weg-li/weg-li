@@ -1,5 +1,6 @@
 class YoloAnalyzerJob < ApplicationJob
-  retry_on ActiveStorage::FileNotFoundError, attempts: 15, wait: :exponentially_longer
+  retry_on ActiveStorage::FileNotFoundError, attempts: 5, wait: :exponentially_longer
+  retry_on OpenapiClient::ApiError, attempts: 5, wait: :exponentially_longer
 
   def perform(notice)
     handle_car_ml(notice)
