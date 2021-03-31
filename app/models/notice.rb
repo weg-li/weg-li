@@ -106,6 +106,8 @@ class Notice < ApplicationRecord
   def analyze!
     self.status = :analyzing
     save_incomplete!
+
+    YoloAnalyzerJob.set(wait: 1.second).perform_later(self)
     AnalyzerJob.set(wait: 1.second).perform_later(self)
     # CompareJob.set(wait: 10.second).perform_later(self) if rand(1..3) == 1
   end

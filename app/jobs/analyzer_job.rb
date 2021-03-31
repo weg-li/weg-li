@@ -22,7 +22,7 @@ class AnalyzerJob < ApplicationJob
 
     handle_exif(notice)
     handle_vision(notice)
-    handle_car_ml(notice) if Rails.env.production? && rand(1..3) == 1
+    handle_car_ml(notice)
 
     notice.save_incomplete!
   end

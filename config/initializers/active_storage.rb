@@ -54,6 +54,20 @@ class ActiveStorage::Service::DiskService
   end
 end
 
+require 'active_storage/representations/redirect_controller'
+class ActiveStorage::Representations::RedirectController < ActiveStorage::BaseController
+  def show
+    if @blob.representation(params[:variation_key]).processed?
+      expires_in ActiveStorage.service_urls_expire_in
+      redirect_to @blob.representation(params[:variation_key]).processed.url(disposition: params[:disposition])
+    else
+      ThumbnailerJob.perform_later(@blob)
+
+      response.set_header('Retry-After', 2)
+      redirect_to(request.url, status: 302)
+    end
+  end
+end
 
 ActiveSupport::Reloader.to_prepare do
   require 'active_storage/blob'
@@ -63,21 +77,6 @@ ActiveSupport::Reloader.to_prepare do
     def set_usable_key_not_the_shait_from_active_storate
       # REM: add a file-extension to the key .jpg
       self[:key] ||= "#{SecureRandom.base36(28)}#{File.extname(self[:filename])}" if self[:filename].present?
-    end
-  end
-
-  require 'active_storage/representations/redirect_controller'
-  class ActiveStorage::Representations::RedirectController < ActiveStorage::BaseController
-    def show
-      if @blob.representation(params[:variation_key]).processed?
-        expires_in ActiveStorage.service_urls_expire_in
-        redirect_to @blob.representation(params[:variation_key]).processed.url(disposition: params[:disposition])
-      else
-        ThumbnailerJob.perform_later(@blob)
-
-        response.set_header('Retry-After', 2)
-        redirect_to(request.url, status: 302)
-      end
     end
   end
 end

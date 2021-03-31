@@ -5,6 +5,7 @@
     .form-group
       - registration_data = notice.data_sets.google_vision.flat_map { |google_vision| google_vision.registrations }
       - registrations = Vehicle.by_likelyhood(registration_data)
+      - registrations = notice.data_sets.car_ml.map(&:registrations).concat(registrations).compact.flatten.uniq
       = form.label :registration, class: "control-label control-label-required"
       = form.select :registration, registrations, { include_blank: 'z.B. HH SV 1887' }, { class: "form-control", required: true, data: {'select2-disabled' => true} }
       = render('auto_suggest', notice: notice)
@@ -14,18 +15,20 @@
               span.label.label-default.label-picker(title=registration)
                 span(style="text-decoration:none")=> registration
                 span.glyphicon.glyphicon-circle-arrow-left
+
   .col-lg-4
     .form-group
       = form.label :brand, class: "control-label"
       = form.select :brand, Vehicle.brands, { include_blank: 'Marke Auswählen' }, { class: "form-control" }
       .input-group#pick_brand
         - brands = notice.data_sets.google_vision.flat_map { |google_vision| google_vision.brands }
-        - Vehicle.by_likelyhood(brands).each do |brand|
+        - brands = Vehicle.by_likelyhood(brands)
+        - brands = notice.data_sets.car_ml.map(&:brands).concat(brands).compact.flatten.uniq
+        - brands.each do |brand|
             a(href="#" onclick="$('#notice_brand').val('#{brand}').trigger('change'); $('#pick_brand').fadeOut(); return false;")
               span.label.label-default.label-picker(title=brand)
                 span=> brand
                 span.glyphicon.glyphicon-circle-arrow-left
-
 
   .col-lg-4
     .form-group
@@ -33,7 +36,9 @@
       = form.select :color, Vehicle.colors.map { |color| [t(color, scope: "activerecord.attributes.notice.colors"), color] }, { include_blank: 'Farbe Auswählen' }, { class: "form-control" }
       .input-group#pick_color
         - colors = notice.data_sets.google_vision.flat_map { |google_vision| google_vision.colors }
-        - Vehicle.by_likelyhood(colors).each do |color|
+        - colors = Vehicle.by_likelyhood(colors)
+        - colors = notice.data_sets.car_ml.map(&:colors).concat(colors).compact.flatten.uniq
+        - colors.each do |color|
             a(href="#" onclick="$('#notice_color').val('#{color}').trigger('change'); $('#pick_color').fadeOut(); return false;")
               span.label.label-default.label-picker(title=color)
                 span=> t(color, scope: "activerecord.attributes.notice.colors")
