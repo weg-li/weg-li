@@ -59,7 +59,7 @@ class Annotator
           features: [
             {type: 'DOCUMENT_TEXT_DETECTION'},
             {type: 'IMAGE_PROPERTIES'},
-            {type: 'SAFE_SEARCH_DETECTION'},
+            # {type: 'SAFE_SEARCH_DETECTION'},
           ],
         },
       ]
