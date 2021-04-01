@@ -63,6 +63,7 @@ class ActiveStorage::Representations::RedirectController < ActiveStorage::BaseCo
     else
       ThumbnailerJob.perform_later(@blob)
 
+      response.set_header('Cache-Control', 'no-store')
       response.set_header('Retry-After', 2)
       redirect_to(request.url, status: 302)
     end
