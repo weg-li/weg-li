@@ -31,7 +31,7 @@ require('alpinejs');
 window.bb = require('billboard.js/dist/billboard.js').bb;
 
 // own sources
-require('src/appsignal');
+// require('src/appsignal');
 require('src/custom');
 require('src/direct_uploads');
 require('src/maps');
