@@ -6,6 +6,8 @@ dl.dl-horizontal
       = render 'status', status: :incomplete
   dt= Notice.human_attribute_name(:created_at)
   dd= d(notice.created_at)
+  dt= Notice.human_attribute_name(:sent_at)
+  dd= d(notice.sent_at)
   dt= Notice.human_attribute_name(:registration)
   dd= notice.registration.presence || '-'
   dt= Notice.human_attribute_name(:brand)

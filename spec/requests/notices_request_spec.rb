@@ -93,7 +93,9 @@ describe 'notices', type: :request do
       }
 
       expect {
-        post bulk_notices_path, params: params
+        expect {
+          post bulk_notices_path, params: params
+        }.to change { notice.reload.sent_at.blank? }
       }.to have_enqueued_mail(NoticeMailer, :charge)
     end
   end

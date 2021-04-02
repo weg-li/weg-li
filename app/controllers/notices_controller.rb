@@ -149,7 +149,7 @@ class NoticesController < ApplicationController
 
   def status
     @notice = current_user.notices.from_param(params[:id])
-    @notice.update!(status: :shared)
+    @notice.mark_shared!
 
     redirect_to(notices_path, notice: "Deine Anzeige wurde als 'gemeldet' markiert.")
   end
@@ -162,8 +162,7 @@ class NoticesController < ApplicationController
 
     NoticeMailer.charge(notice, to: to, send_via_pdf: params[:send_via_pdf]).deliver_later
 
-    notice.update!(status: :shared)
-    # CompareJob.perform_later(notice) if rand(1..3) == 1
+    notice.mark_shared!
 
     redirect_to(notices_path, notice: "Deine Anzeige wird per E-Mail an #{Array(to).join(', ')} versendet und als 'gemeldet' markiert.")
   end
@@ -227,7 +226,7 @@ class NoticesController < ApplicationController
       if notices.present?
         notices.each do |notice|
           NoticeMailer.charge(notice).deliver_later
-          notice.update! status: :shared
+          notice.mark_shared!
         end
         flash[:notice] = 'Die noch offenen, vollständigen Meldungen werden im Hintergrund per E-Mail gemeldet'
       else
@@ -246,7 +245,7 @@ class NoticesController < ApplicationController
     when 'status'
       notices = notices.open.complete
       if notices.present?
-        notices.update(status: :shared)
+        notices.mark_shared!
         flash[:notice] = 'Die offenen, vollständigen Meldungen wurden als "gemeldet" markiert'
       else
         flash[:notice] = 'Keine offenen, vollständigen Meldungen zum markieren gefunden!'

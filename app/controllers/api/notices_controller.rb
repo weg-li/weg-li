@@ -200,7 +200,7 @@ class Api::NoticesController < Api::ApplicationController
 
   def mail
     notice = current_user.notices.from_param(params[:id])
-    notice.update!(status: :shared)
+    notice.mark_shared!
 
     NoticeMailer.charge(notice).deliver_later
 

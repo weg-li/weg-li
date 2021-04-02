@@ -88,6 +88,7 @@ de:
         charge_detail: 'Zusatzinformation'
       notice:
         created_at: 'Erstellt'
+        sent_at: 'Versendet'
         district: 'Bezirk'
         photos: 'Beweisfotos'
         location: 'Tatort'
