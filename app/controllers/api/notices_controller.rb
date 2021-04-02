@@ -29,7 +29,7 @@ class Api::NoticesController < Api::ApplicationController
   swagger_path '/notices' do
     operation :post do
       key :summary, 'Create Notice'
-      key :description, 'Creates a new notice'
+      key :description, 'Creates a new notice, using the signed_id keys from an upload that was created previously as keys to the photos array'
       key :operationId, 'addNotice'
       key :tags, ['notice']
       parameter do
