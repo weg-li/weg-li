@@ -113,15 +113,7 @@
             - else
               = button_to(t('users.connect_via', provider: name), path, {class: "btn btn-default btn-block"})
 
-    .panel.panel-default
-      .panel-heading API-Token
-      .panel-body
-        = text_field_tag(:api_token, current_user.api_token, disabled: true, class: "form-control")
-        = button_tag class: "btn btn-default btn-block", onclick: "event.preventDefault(); window.prompt('#{t('notices.copy_hint')}', '#{current_user.api_token}')" do
-          span.glyphicon.glyphicon-list-alt>
-          span API-Token kopieren
-      .panel-footer
-        | Schema und Beispiele können Entwickler in der #{link_to 'API-Documentation', '/api-docs', target: '_blank'} nachschauen.
+    = render('api_token')
 
     .panel.panel-default
       .panel-heading= t('users.actions')

@@ -1,0 +1,76 @@
+- set_title "weg.li API Alle Informationen zum automatisierten Zugriff"
+- set_meta_description "weg.li API Import-Schnittstellen für Ordnugnsämter wie z.B. per WiNOWiG, Daten-Schnittstellen wie z.B. die Export-Archive und auch direkten Zugriff auf das System mit personalisiertem API-Zugriff"
+
+.page-header
+  h2.text-primary weg.li API
+
+
+.well.well-sm
+  |
+    Wir stellen für die unterschiedlichen Benutzer von weg.li verschiedene Schnittstellen zur Verfügung.
+    Import-Schnittstellen für Behörden wie z.B. per WiNOWiG, Daten-Schnittstellen wie z.B. die Export-Archive und auch direkten Zugriff auf das System mit personalisiertem API-Zugriff.
+
+.row
+  .col-lg-12
+    h3 🌟 API-Übersicht:
+
+    ul.list-group
+      li.list-group-item
+        span.badge Import-Schnittstellen
+        | ⭐️ Für Behörden und Ordnungsämter bieten wir die Möglichkeit Anzeigen in standardisierten Import-Formaten wie z.B. im WiNOWiG anzuliefern.
+      li.list-group-item
+        span.badge Zugriffs-Schnittstellen
+        | ⭐️ Registierter Nutzer von weg.li können auf alle Funktionen auch über die personalisierte API zugreifen.
+      li.list-group-item
+        span.badge Daten-Schnittstellen
+        | ⭐️ Bei weg.li kann auf Daten wie z.B. Bezirke, Tatbestände sowie anonymisierte Datensätze in maschinenlesbaren Formaten zugegriffen werden.
+
+.spacer
+
+= render('contact_hint')
+
+.row
+  .col-lg-12
+    h3 🌟 Import-Schnittstellen:
+
+    ul.list-group
+      li.list-group-item
+        | Anzeigen im maschinenlesbaren XML-Format als E-Mail Anhang für WiNOWiG, owi21 oder pmOWI.
+      li.list-group-item
+        | Anzeigen im archivierbaren PDF oder DOCX-Format.
+      li.list-group-item
+        | Anzeigen in spezialisierten Import-Formaten oder über andere Transport-Methoden können #{mail_to 'peter@weg.li', 'auf Anfrage', subject: 'Anfrage Import-Format'} geliefert werden.
+
+.row
+  .col-lg-12
+    h3 🌟 Zugriffs-Schnittstellen:
+
+    ul.list-group
+      li.list-group-item
+        span.badge(title="token notwendig") personalisiert
+        | Registierte Nutzer von weg.li können mit ihrem API-Token auf die #{link_to('personalisierte API', '/api-docs')} zugreifen.
+      - if signed_in?
+        li.list-group-item
+          span.badge(title="token notwendig") personalisiert
+          | Dein API-Token ist im #{link_to('Profil', edit_user_path)} zu finden und wird hier bei login angezeigt: <code>#{current_user.api_token}</code>.
+
+.row
+  .col-lg-12
+    h3 🌟 Daten-Schnittstellen:
+
+    ul.list-group
+      li.list-group-item
+        span.badge(title="ohne login") allgemein
+        | Alle Bezirke als JSON <code>#{districts_url(format: :json)}</code> oder im Legacy-Format als CSV <code>#{districts_url(format: :csv)}</code>.
+      li.list-group-item
+        span.badge(title="ohne login") allgemein
+        | Bezirk als JSON <code>#{district_url('PLZ', format: :json)}</code>.
+      li.list-group-item
+        span.badge(title="ohne login") allgemein
+        | Alle Tatbestände als CSV <code>#{list_charges_url(format: :csv)}</code>.
+      li.list-group-item
+        span.badge(title="login notwendig") personalisiert
+        | Alle eigenen Parkverstöße als JSON <code>#{dump_notices_url(format: :json)}</code>.
+      li.list-group-item
+        span.badge(title="ohne login") allgemein
+        | Alle Parkverstöße als anonymisierte Datensätze per Archiv-Download im #{link_to('Export-Bereich', exports_path)}.

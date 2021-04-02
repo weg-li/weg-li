@@ -146,6 +146,7 @@ Rails.application.routes.draw do
   get '/stats', to: 'home#stats', as: :stats
   get '/features', to: 'home#features', as: :features
   get '/faq', to: 'home#faq', as: :faq
+  get '/api', to: 'home#api', as: :api
   get '/violation', to: 'home#violation', as: :violation
   get '/privacy', to: 'home#privacy', as: :privacy
   get '/donate', to: 'home#donate', as: :donate

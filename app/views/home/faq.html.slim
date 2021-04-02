@@ -163,11 +163,22 @@ a name="faq-#{i}"
         Bei der Entwicklung von weg.li haben wir ein starkes Interesse daran auch die Anforderungen
         der zuständigen Stellen wie Ordnungsämter oder Polizeidienststellen mit einzubeziehen.
         Mit der Stadt Dresden entwickeln wir derzeit eine XML basierte Schnittstelle zur
-        dort genutzten Software #{link_to 'WiNOWiG', 'https://www.owig.de/'}, um eine möglichst effizente
+        dort genutzten Software #{link_to 'WiNOWiG', 'https://www.owig.de/', target: '_blank'}, um eine möglichst effizente
         Verarbeitung der Anzeigen zu gewährleisten. Bei Fragen oder Interesse einfach eine #{mail_to 'peter@weg.li', 'E-Mail'} an uns schreiben.
 
+- i += 1
+a name="faq-#{i}"
+.panel.panel-default
+  .panel-heading
+    h4 Kann weg.li auch per API verwendet werden?
+  .panel-body
+    p
+      |
+        Wir stellen für die unterschiedlichen Benutzer von weg.li verschiedene Schnittstellen zur Verfügung.
+        Import-Schnittstellen für Behörden wie z.B. per WiNOWiG, Daten-Schnittstellen wie z.B. die Export-Archive und auch direkten Zugriff auf das System mit personalisiertem API-Zugriff.
+        Alle Informationen finden sich auf der #{link_to 'weg.li API Seite', api_path}.
+
 .well.well-sm
-  p
-    |
-      Der #{link_to 'ADAC', 'https://www.adac.de/verkehr/recht/verkehrsvorschriften-deutschland/parken/', target: '_blank'} erklärt wie in Deutschland der StvO nach zu parken ist.
-      Mehr Fragen und Antworten zum Thema Falschparker findet man auch beim #{link_to 'ADFC', 'https://hamburg.adfc.de/verkehr/maengelmelder/falschparker/#c11652', target: '_blank'}.
+  |
+    Der #{link_to 'ADAC', 'https://www.adac.de/verkehr/recht/verkehrsvorschriften-deutschland/parken/', target: '_blank'} erklärt wie in Deutschland der StvO nach zu parken ist.
+    Mehr Fragen und Antworten zum Thema Falschparker findet man auch beim #{link_to 'ADFC', 'https://hamburg.adfc.de/verkehr/maengelmelder/falschparker/#c11652', target: '_blank'}.
