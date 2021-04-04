@@ -232,16 +232,6 @@ de:
       monthly: 'Monatswertung'
       yearly: 'Jahreswertung'
       alltime: 'Allzeitwertung'
-    statistics:
-      all: 'Meldungen insgesamt'
-      incomplete: 'Unvollständige Meldungen'
-      complete: 'Vollständige Meldungen'
-      open: 'Offene Meldungen'
-      shared: 'Erstattete Anzeigen'
-      photos: 'Geknipste Fotos'
-      users: 'Aktive Melder'
-      all_users: 'Registrierte Bürger'
-      districts: 'Unterstützte Bezirke'
     confirmation_mail: "Eine Bestätigungs-Mail wurde an %{email} versendet."
     signup_mail: "Eine E-Mail mit Login-Link wurde an %{email} versendet."
     profile_updated_and_confirmation_email: 'Dein Profil wurde aktualisiert und eine Bestätigungs-Mail wurde an Deine E-Mail Adresse versendet!'
@@ -319,6 +309,16 @@ de:
     copy_to_clipboard: 'in die Zwischenablage kopieren'
     copy_hint: 'Kopieren in die Zwischenablage: CMD+C / Ctrl+C, lange Antippen und kopieren für Touch'
     back_to_dashboard: 'zurück zur Übersicht'
+    statistics:
+      notices: 'Meldungen insgesamt'
+      incomplete: 'Unvollständige Meldungen'
+      complete: 'Vollständige Meldungen'
+      open: 'Offene Meldungen'
+      shared: 'Erstattete Anzeigen'
+      photos: 'Geknipste Fotos'
+      active: 'Aktive Melder'
+      users: 'Registrierte Bürger'
+      districts: 'Unterstützte Bezirke'
     steps:
       photos:
         title: Erfassen

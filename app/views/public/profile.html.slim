@@ -14,7 +14,7 @@ h3= "#{@user.nickname} in #{@user.city}"
         - @user.statistics.each do |key, value|
           li.list-group-item
             .badge.pull-right= value
-            = t(key, scope: 'users.statistics')
+            = t(key, scope: 'notices.statistics')
 
   .col-lg-6
     = render('components/leaderboard', positions: @positions)

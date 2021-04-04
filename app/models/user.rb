@@ -119,7 +119,7 @@ class User < ApplicationRecord
 
   def statistics
     {
-      all: notices.count,
+      notices: notices.count,
       incomplete: notices.incomplete.count,
       open: notices.open.count,
       shared: notices.shared.count,
