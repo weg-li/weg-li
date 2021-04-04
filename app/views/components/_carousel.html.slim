@@ -28,23 +28,44 @@ javascript:
     };
   }
 
-.row.steps.step-0.hidden-xs(x-data="CarouselContext()")
-  .col-lg-1.text-left
-    ul.pagination.pagination-lg
-      li.previous
-        a.text-muted(x-on:click="decrement" class="btn") <
-  .col-lg-10
-    .row
-      .col-lg-2.text-center
-        .spacer
-        h4 <span class="step step-top smaller success-step1" x-text="number()">1</span>
-        h4(x-text="title()") Erfassen
+.steps.step-0(x-data="CarouselContext()")
+  .row
+    .hidden-xs
+      .col-lg-1.text-left
+        ul.pagination.pagination-lg
+          li.previous
+            a.text-muted(x-on:click="decrement" class="btn") <
       .col-lg-10
-        blockquote
+        .row
+          .col-lg-2.text-center
+            .spacer
+            h4 <span class="step step-top smaller success-step1" x-text="number()">1</span>
+            h4(x-text="title()") Erfassen
+          .col-lg-10
+            blockquote
+              p(x-text="message()")
+                |
+                  Unterwegs Beweisfotos von nervigen Falschparkern knipsen und dann mit Deinem Browser übers Handy oder den Computer bei weg.li hochladen. Du kannst dabei einzele Meldungen erzeugen, oder einen ganzen Schwung von Beweisfotos als Massen-Upload einspielen.
+      .col-lg-1.text-right
+        ul.pagination.pagination-lg
+          li.previous
+            a.text-muted(x-on:click="increment" class="btn") >
+    .visible-xs
+      .col-lg-12
+        .pull-left
+          ul.pagination.pagination-lg
+            li.previous
+              a.text-muted(x-on:click="decrement" class="btn") <
+        .pull-right
+          ul.pagination.pagination-lg
+            li.previous
+              a.text-muted(x-on:click="increment" class="btn") >
+
+        .text-center
+          .spacer
+          h4 <span class="step step-top smaller success-step1" x-text="number()">1</span>
+          h4(x-text="title()") Erfassen
+
           p(x-text="message()")
             |
               Unterwegs Beweisfotos von nervigen Falschparkern knipsen und dann mit Deinem Browser übers Handy oder den Computer bei weg.li hochladen. Du kannst dabei einzele Meldungen erzeugen, oder einen ganzen Schwung von Beweisfotos als Massen-Upload einspielen.
-  .col-lg-1.text-right
-    ul.pagination.pagination-lg
-      li.previous
-        a.text-muted(x-on:click="increment" class="btn") >
