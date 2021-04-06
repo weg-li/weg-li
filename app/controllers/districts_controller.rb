@@ -40,7 +40,7 @@ class DistrictsController < ApplicationController
 
     if changes.present?
       message = changes.map {|key, (from, to)| "#{key} changed from #{from} to #{to}" }.join(', ')
-      notify("district changes proposed: #{message} #{admin_district_url(district)}")
+      notify("district changes proposed: #{message} #{admin_district_url(district)}#{' by ' + current_user.email if signed_in?}")
     end
 
     redirect_to(districts_path, notice: 'Änderungen wurden erfasst und warten nun auf Freischaltung')
@@ -53,7 +53,7 @@ class DistrictsController < ApplicationController
   def create
     @district = District.new(district_params.merge(status: :proposed))
     if @district.save
-      notify("new district proposed: #{admin_district_url(@district)}")
+      notify("new district proposed: #{admin_district_url(@district)}#{' by ' + current_user.email if signed_in?}")
 
       redirect_to(districts_path, notice: 'Bezirk wurde erfasst und wartet nun auf Freischaltung')
     else
