@@ -2,11 +2,15 @@
 
 $(document).ready(() => {
   $(document).on('change', '#fileupload', (event) => {
+    const uploadLimit = 5;
     const { target } = event;
     const files = Array.from(target.files);
     const accepts = target.accept.split(',') || ['image/jpeg'];
     if (files.some((file) => !accepts.includes(file.type))) {
       alert('Es werden nur Fotos im JPEG Format unterstützt!');
+      target.value = '';
+    } else if (files.some((file) => (file.size / 1048576) > uploadLimit)) {
+      target.insertAdjacentHTML('beforebegin', `<div id="direct-upload-error-size" class="alert alert-warning">Es können nur Fotos bis ${uploadLimit} MB hochgeladen werden.</div>`);
       target.value = '';
     } else {
       document.getElementById('photos-preview')?.remove();
