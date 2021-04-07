@@ -8,7 +8,7 @@ class AddPostgis < ActiveRecord::Migration[6.1]
 
     reversible do |dir|
       dir.up do
-        execute "UPDATE notices SET lonlat = ST_MakePoint(longitude, latitude) WHERE lonlat IS NULL;"
+        execute "UPDATE notices SET lonlat = ST_MakePoint(longitude, latitude) WHERE lonlat IS NULL AND longitude IS NOT NULL AND latitude IS NOT NULL;"
       end
     end
   end

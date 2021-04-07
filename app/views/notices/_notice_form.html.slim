@@ -78,10 +78,17 @@
 .row
   .col-lg-8
     .form-group
+      - nearest_charges = notice.nearest_charges
       = form.label :charge, class: "control-label control-label-required"
-      = form.select :charge, Charge.plain_charges, { include_blank: 'Verstoß Auswählen' }, { class: "form-control", required: true }
-      = hint do
-        | Informationen finden sich im aktuellen #{link_to 'Bußgeldkatalog (bkat_owi Stand 18.05.2020)', '/pdf/bkat_owi_18_05_2020_pdf.pdf', target: '_blank'}
+      = form.select :charge, nearest_charges.map { |entry| entry['charge'] }.concat(Charge.plain_charges).uniq, { include_blank: 'Verstoß Auswählen' }, { class: "form-control", required: true }
+      .input-group#pick_charge
+        - if nearest_charges.present?
+          - nearest_charge = nearest_charges.first['charge']
+          a(href="#" onclick="$('#notice_charge').val('#{nearest_charge}').trigger('change'); $('#pick_charge').fadeOut(); return false;")
+            span.label.label-default.label-picker(title=nearest_charge)
+              span=> nearest_charge
+              span.glyphicon.glyphicon-circle-arrow-left
+
   .col-lg-4
     .form-group
       = form.label :severity, class: "control-label control-label-required"
