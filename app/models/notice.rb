@@ -172,7 +172,7 @@ class Notice < ApplicationRecord
       AND charge != ''
       AND ST_DWithin(lonlat, ST_SetSRID(ST_MakePoint($1, $2), 4326), $3)
     GROUP BY charge
-    ORDER BY diff DESC
+    ORDER BY diff
     "
     binds = [longitude, latitude, distance]
     Notice.connection.exec_query(sql, "distance-quert", binds)
