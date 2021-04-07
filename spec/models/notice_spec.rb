@@ -60,32 +60,6 @@ describe Notice do
     end
   end
 
-  context "apply_dates" do
-    it "applies dates" do
-      date = 60.minutes.ago
-      notice.apply_dates([date])
-
-      expect(notice.date).to eql(date)
-      expect(notice.duration).to eql(1)
-
-      notice.apply_dates([date, date.advance(minutes: 3)])
-      expect(notice.date).to eql(date)
-      expect(notice.duration).to eql(3)
-
-      notice.apply_dates([date, date.advance(minutes: 45)])
-      expect(notice.date).to eql(date)
-      expect(notice.duration).to eql(45)
-
-      notice.apply_dates([date, date.advance(minutes: 60)])
-      expect(notice.date).to eql(date)
-      expect(notice.duration).to eql(60)
-
-      notice.apply_dates([date, date.advance(minutes: 180)])
-      expect(notice.date).to eql(date)
-      expect(notice.duration).to eql(180)
-    end
-  end
-
   context "incomplete" do
     it "is incomplete" do
       expect(notice).to be_complete

@@ -9,25 +9,13 @@ describe AnalyzerJob do
       job = AnalyzerJob.new
       this = self
       job.define_singleton_method(:annotator) { this }
-
-      notice.registration = nil
-      notice.latitude = nil
-      notice.longitude = nil
-      notice.zip = nil
+      stub_request(:post, "https://weg-li-car-ml.onrender.com/").to_return(status: 200, body: "{}", headers: {})
 
       expect {
-        expect {
-          expect {
-            job.analyze(notice)
-          }.to change {
-            notice.registration
-          }
-        }.to change {
-          notice.coordinates?
-        }
+        job.analyze(notice)
       }.to change {
         notice.data_sets.count
-      }.by(2)
+      }.by(3)
     end
 
     it "should raise an error when not yet analyzed" do

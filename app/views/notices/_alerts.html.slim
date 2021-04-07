@@ -33,12 +33,13 @@
 
     strong Achtung, die Verjährungsfrist von Parkvergehen beträgt nur 3 Monate. Es ist fraglich, ob diese Anzeige noch rechtzeitig bearbeitet wird.
 
-- if notice.coordinates_missing?
+- if notice.data_sets.exif.blank?
   .alert.alert-info.alert-dismissable
     button type="button" class="close" data-dismiss="alert" ×
-    strong Aus den Beweisfotos konnten leider keine Koordinaten für das automatische Ermitteln der Adresse ausgelesen werden.
+    strong Aus den Beweisfotos konnten leider keine EXIF-Metadaten für die automatische Ermittlung von Adresse und Zeitpunkt ausgelesen werden.
   .well.well-sm.callout-primary= render('components/geocoding_hint')
-- elsif notice.distance_too_large?
+
+- if notice.distance_too_large?
   .alert.alert-warning.alert-dismissable
     button type="button" class="close" data-dismiss="alert" ×
     strong Achtung, die Koordinaten der Meldung und die des zugeordneten Bezirks liegen mehr als #{Geo::MAX_DISTANCE} km auseinander!

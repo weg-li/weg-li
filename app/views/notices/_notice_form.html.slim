@@ -57,6 +57,14 @@
           span.glyphicon.glyphicon-map-marker
         = render('picker_modal', notice: notice)
 
+      - addresses = notice.data_sets.geocoder.map { |data_set| data_set.address }.compact
+      .input-group#pick_address
+        - addresses.each do |address|
+          a(href="#" onclick="$('#notice_street').val('#{address[:street]}'); $('#notice_city').val('#{address[:city]}'); $('#notice_zip').val('#{address[:zip]}'); $('#notice_latitude').val('#{address[:latitude]}'); $('#notice_longitude').val('#{address[:longitude]}'); $('#pick_address').fadeOut(); return false;")
+              span.label.label-default.label-picker(title=address[:street])
+                span(style="text-decoration:none")=> address[:street]
+                span.glyphicon.glyphicon-circle-arrow-left
+
   .col-lg-4
     .form-group
       = form.label :city, class: "control-label control-label-required"
@@ -108,12 +116,32 @@
         label.input-group-addon(for="notice_date_time")
           span.glyphicon.glyphicon-time
 
+      - date_times = notice.data_sets.exif.map { |data_set| data_set.date_time }.compact.uniq
+      - date_times = notice.photos.map { |photo| AnalyzerJob.time_from_filename(photo.filename.to_s) }.compact.uniq if date_times.blank?
+      - date_times = date_times.sort
+      .input-group#pick_date
+        - date_times.each do |date_time|
+          a(href="#" onclick="$('#notice_date_date').val('#{date_time.strftime('%Y-%m-%d')}'); $('#notice_date_time').val('#{date_time.strftime('%H:%M')}'); $('#pick_date').fadeOut(); return false;")
+              span.label.label-default.label-picker(title=l(date_time))
+                span(style="text-decoration:none")=> l(date_time, format: :short)
+                span.glyphicon.glyphicon-circle-arrow-left
+
   .col-lg-4
     .form-group
       = form.label :duration, class: "control-label control-label-required"
       = form.select :duration, Vehicle.durations, { include_blank: 'Dauer Auswählen' }, { class: "form-control", required: true }
-      = hint do
-        | Halten, bis 3 Minuten / Parken, ab 3 Minuten (Daumenregel)
+
+      - date_times = notice.data_sets.exif.map { |data_set| data_set.date_time }.compact.uniq
+      - date_times = notice.photos.map { |photo| AnalyzerJob.time_from_filename(photo.filename.to_s) }.compact.uniq if date_times.blank?
+      - sorted_dates = date_times.sort
+      - duration = (sorted_dates.last.to_i - sorted_dates.first.to_i)
+      - duration = Vehicle.durations.to_h.values.reverse.find { |d| duration >= d.minutes }
+      - if duration
+        .input-group#pick_duration
+          a(href="#" onclick="$('#notice_duration').val('#{duration}').trigger('change'); $('#pick_duration').fadeOut(); return false;")
+              span.label.label-default.label-picker(title=Vehicle.durations[duration])
+                span(style="text-decoration:none")=> Vehicle.durations.to_h.invert[duration]
+                span.glyphicon.glyphicon-circle-arrow-left
 
 .row
   .col-lg-8
