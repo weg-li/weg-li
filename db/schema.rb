@@ -10,11 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_07_145029) do
+ActiveRecord::Schema.define(version: 2021_04_02_133813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "postgis"
 
   create_table "action_mailbox_inbound_emails", force: :cascade do |t|
     t.integer "status", default: 0, null: false
@@ -186,9 +185,7 @@ ActiveRecord::Schema.define(version: 2021_04_07_145029) do
     t.integer "severity", default: 0
     t.string "location"
     t.datetime "sent_at"
-    t.geography "lonlat", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
     t.index ["district_id"], name: "index_notices_on_district_id"
-    t.index ["lonlat"], name: "index_notices_on_lonlat", using: :gist
     t.index ["registration"], name: "index_notices_on_registration"
     t.index ["token"], name: "index_notices_on_token", unique: true
     t.index ["zip"], name: "index_notices_on_zip"

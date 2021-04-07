@@ -16,7 +16,7 @@ You can either run the application locally or via Docker.
 To run weg.li locally, you'll need:
 
 - Ruby
-- PostgreSQL with postgis
+- PostgreSQL
 - NodeJS & Yarn
 - Redis
 

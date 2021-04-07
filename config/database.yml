@@ -1,25 +1,19 @@
 development:
-  adapter: postgis
-  schema_search_path: public, postgis
+  adapter: postgresql
   database: weg-li_development
   username: postgres
   host: <%= ENV["POSTGRES_HOST"] || "localhost" %>
   encoding: utf8
 
 test:
-  adapter: postgis
-  schema_search_path: public, postgis
+  adapter: postgresql
   database: weg-li_test
   username: postgres
   host: <%= ENV["POSTGRES_HOST"] || "localhost" %>
   encoding: utf8
 
 production:
-  adapter: postgis
-  schema_search_path: public, postgis
-  host: <%= ENV["POSTGRES_HOST"] %>
-  database: <%= ENV["POSTGRES_DATABASE"] %>
-  username: <%= ENV["POSTGRES_USERNAME"] %>
-  password: <%= ENV["POSTGRES_PASSWORD"] %>
-  pool: <%= ENV.fetch('RAILS_MAX_THREADS', 10) %>
+  adapter: postgresql
+  url: <%= ENV["DATABASE_URL"] %>
+  pool: <%= ENV['RAILS_MAX_THREADS'] || 10 %>
   encoding: utf8
