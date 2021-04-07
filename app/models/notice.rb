@@ -195,7 +195,7 @@ class Notice < ApplicationRecord
   end
 
   def postgisify
-    self.lonlat = "SRID=4326;POINT(#{longitude} #{latitude})"
+    self.lonlat = "SRID=4326;POINT(#{longitude} #{latitude})" if coordinates?
   end
 
   def distance_too_large?
