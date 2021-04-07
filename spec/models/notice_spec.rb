@@ -33,6 +33,7 @@ describe Notice do
   context "duplication" do
     it "duplicates a notice" do
       notice = Fabricate(:notice)
+
       expect {
         notice.duplicate!
       }.to change {
@@ -95,9 +96,18 @@ describe Notice do
     end
   end
 
+  context "postgis" do
+    it "finds closest match" do
+      Fabricate.times(5, :notice)
+
+      expect(Notice.last.nearest_charges.first.keys).to eql(["charge", "count", "distance", "diff"])
+    end
+  end
+
   context "defaults" do
     it "is valid" do
       notice = Fabricate(:notice)
+
       expect(notice).to be_open
       expect(notice.token).to be_present
     end
@@ -106,6 +116,7 @@ describe Notice do
   context "scopes" do
     it "finds_for_reminder" do
       notice = Fabricate(:notice, date: 15.days.ago)
+
       expect(Notice.for_reminder.to_a).to eql([notice])
       notice.user.update! disable_reminders: true
       expect(Notice.for_reminder).to be_empty
@@ -115,6 +126,7 @@ describe Notice do
   context "statistics" do
     it "calculates statistics" do
       notice = Fabricate(:notice)
+
       statistics = Notice.statistics
       expect(
         {
@@ -132,6 +144,7 @@ describe Notice do
   context "yearly_statistics" do
     it "calculates yearly_statistics" do
       notice = Fabricate(:notice)
+
       limit = 5
       yearly_statistics = Notice.yearly_statistics(2020, limit)
       expect(

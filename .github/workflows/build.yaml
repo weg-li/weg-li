@@ -14,7 +14,10 @@ jobs:
 
     services:
       postgres:
-        image: postgres:11.5
+        image: postgis/postgis:11-2.5
+        env:
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: weg-li_test
         ports: ["5432:5432"]
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
@@ -39,17 +42,18 @@ jobs:
       - name: Install yarn && dependencies
         run:  yarn install --ignore-engines
 
-      - name: Create database
+      - name: Prepare database
         env:
           PGHOST: localhost
+          PGPASSWORD: password
           RAILS_ENV: test
         run: |
-          psql -c 'create database "weg-li_test";' -U postgres
           bundle exec rake db:test:prepare
 
       - name: Run Tests
         env:
           PGHOST: localhost
+          PGPASSWORD: password
           PGUSER: postgres
           RAILS_ENV: test
           RSPEC_RETRY_RETRY_COUNT: 3

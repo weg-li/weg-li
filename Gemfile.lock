@@ -61,6 +61,9 @@ GEM
     activerecord (6.1.2.1)
       activemodel (= 6.1.2.1)
       activesupport (= 6.1.2.1)
+    activerecord-postgis-adapter (7.1.0)
+      activerecord (~> 6.1)
+      rgeo-activerecord (~> 7.0.0)
     activestorage (6.1.2.1)
       actionpack (= 6.1.2.1)
       activejob (= 6.1.2.1)
@@ -381,6 +384,10 @@ GEM
       uber (< 0.2.0)
     retriable (3.1.2)
     rexml (3.2.4)
+    rgeo (2.2.0)
+    rgeo-activerecord (7.0.1)
+      activerecord (>= 5.0)
+      rgeo (>= 1.0.0)
     rqrcode (1.2.0)
       chunky_png (~> 1.0)
       rqrcode_core (~> 0.2)
@@ -501,6 +508,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-postgis-adapter
   acts_as_api
   administrate
   administrate-field-active_storage
