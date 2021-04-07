@@ -17,6 +17,9 @@ test:
 production:
   adapter: postgis
   schema_search_path: public, postgis
-  url: <%= ENV["DATABASE_URL"] %>
-  pool: <%= ENV['RAILS_MAX_THREADS'] || 10 %>
+  host: <%= ENV["POSTGRES_HOST"] %>
+  database: <%= ENV["POSTGRES_DATABASE"] %>
+  username: <%= ENV["POSTGRES_USERNAME"] %>
+  password: <%= ENV["POSTGRES_PASSWORD"] %>
+  pool: <%= ENV.fetch('RAILS_MAX_THREADS', 10) %>
   encoding: utf8
