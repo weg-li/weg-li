@@ -25,7 +25,7 @@ class Notice < ApplicationRecord
 
   geocoded_by :geocode_address, language: Proc.new { |model| I18n.locale }, no_annotations: true
   after_validation :geocode, if: :do_geocoding?
-  after_validation :postgisify
+  # after_validation :postgisify
 
   enum status: {open: 0, disabled: 1, analyzing: 2, shared: 3}
   enum severity: {standard: 0, hinder: 1, endanger: 2}
@@ -160,22 +160,24 @@ class Notice < ApplicationRecord
   end
 
   def nearest_charges(distance = 100)
-    sql = "
-    SELECT
-      charge,
-      COUNT(charge) as count,
-      SUM(ST_Distance(lonlat, ST_MakePoint($1, $2))) as distance,
-      SUM(ST_Distance(lonlat, ST_MakePoint($1, $2))) / COUNT(charge) as diff
-    FROM notices
-    WHERE
-      charge IS NOT NULL
-      AND charge != ''
-      AND ST_DWithin(lonlat, ST_MakePoint($1, $2), $3)
-    GROUP BY charge
-    ORDER BY diff DESC
-    "
-    binds = [longitude, latitude, distance]
-    Notice.connection.exec_query(sql, "distance-quert", binds)
+    return []
+    #
+    # sql = "
+    # SELECT
+    #   charge,
+    #   COUNT(charge) as count,
+    #   SUM(ST_Distance(lonlat, ST_MakePoint($1, $2))) as distance,
+    #   SUM(ST_Distance(lonlat, ST_MakePoint($1, $2))) / COUNT(charge) as diff
+    # FROM notices
+    # WHERE
+    #   charge IS NOT NULL
+    #   AND charge != ''
+    #   AND ST_DWithin(lonlat, ST_MakePoint($1, $2), $3)
+    # GROUP BY charge
+    # ORDER BY diff DESC
+    # "
+    # binds = [longitude, latitude, distance]
+    # Notice.connection.exec_query(sql, "distance-quert", binds)
   end
 
   def meta
