@@ -164,13 +164,12 @@ class Notice < ApplicationRecord
     SELECT
       charge,
       COUNT(charge) as count,
-      SUM(ST_Distance(lonlat, ST_SetSRID(ST_MakePoint($1, $2), 4326))) as distance,
-      SUM(ST_Distance(lonlat, ST_SetSRID(ST_MakePoint($1, $2), 4326))) / COUNT(charge) as diff
+      SUM(ST_DistanceSphere(lonlat::geometry, ST_MakePoint($1, $2))) as distance,
+      SUM(ST_DistanceSphere(lonlat::geometry, ST_MakePoint($1, $2))) / COUNT(charge) as diff
     FROM notices
     WHERE
-      charge IS NOT NULL
-      AND charge != ''
-      AND ST_DWithin(lonlat, ST_SetSRID(ST_MakePoint($1, $2), 4326), $3)
+      status = 3
+      AND ST_DWithin(lonlat::geography, ST_MakePoint($1, $2), $3)
     GROUP BY charge
     ORDER BY diff
     "
