@@ -98,7 +98,7 @@ describe Notice do
 
   context "postgis" do
     it "finds closest match" do
-      Fabricate.times(5, :notice)
+      Fabricate.times(5, :notice, status: :shared)
 
       expect(Notice.last.nearest_charges.first.keys).to eql(["charge", "count", "distance", "diff"])
     end
