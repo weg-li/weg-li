@@ -98,6 +98,18 @@ describe 'notices', type: :request do
         }.to change { notice.reload.sent_at.blank? }
       }.to have_enqueued_mail(NoticeMailer, :charge)
     end
+
+    it "marks notices shared en bulk" do
+      notice = Fabricate(:notice, user: user)
+      params = {
+        bulk_action: 'status',
+        selected: [notice.id]
+      }
+
+      expect {
+        post bulk_notices_path, params: params
+      }.to change { notice.reload.status }
+    end
   end
 
   context "POST :create" do

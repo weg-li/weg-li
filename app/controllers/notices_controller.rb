@@ -247,7 +247,7 @@ class NoticesController < ApplicationController
     when 'status'
       notices = notices.open.complete
       if notices.present?
-        notices.mark_shared!
+        notices.mark_shared
         flash[:notice] = 'Die offenen, vollständigen Meldungen wurden als "gemeldet" markiert'
       else
         flash[:notice] = 'Keine offenen, vollständigen Meldungen zum markieren gefunden!'

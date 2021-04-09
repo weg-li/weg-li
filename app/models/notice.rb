@@ -107,6 +107,10 @@ class Notice < ApplicationRecord
     update!(status: :shared, sent_at: Time.now)
   end
 
+  def self.mark_shared
+    update(status: :shared, sent_at: Time.now)
+  end
+
   def analyze!
     self.status = :analyzing
     save_incomplete!
