@@ -52,7 +52,7 @@ module Admin
       @cache_stats = Rails.cache.try(:stats)
 
       @env = ENV.map do |key, value|
-        if /KEY|SECRET|PASSWORD|TOKEN|SECRET|DATABASE/.match?(key)
+        if /KEY|SECRET|PASSWORD|TOKEN|CREDENTIALS|URL|SECRET|DATABASE/.match?(key)
           [key, '[FILTERED]']
         else
           [key, value]
