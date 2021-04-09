@@ -63,7 +63,7 @@ class BulkUploadsController < ApplicationController
       notice = current_user.notices.build(bulk_upload: bulk_upload)
       Notice.transaction do
         notice.save_incomplete!
-        photos.each { |photo| photo.update!(record: notice) }
+        photos.compact.each { |photo| photo.update!(record: notice) }
       end
       notice.analyze!
 
