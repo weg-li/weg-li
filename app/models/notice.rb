@@ -176,6 +176,7 @@ class Notice < ApplicationRecord
       AND ST_DWithin(lonlat::geography, ST_MakePoint($1, $2), $3)
     GROUP BY charge
     ORDER BY diff
+    LIMIT 1
     "
     binds = [longitude, latitude, distance]
     Notice.connection.exec_query(sql, "distance-quert", binds)

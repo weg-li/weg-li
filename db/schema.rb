@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_07_145029) do
+ActiveRecord::Schema.define(version: 2021_04_09_134049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -187,9 +187,11 @@ ActiveRecord::Schema.define(version: 2021_04_07_145029) do
     t.string "location"
     t.datetime "sent_at"
     t.geography "lonlat", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.index ["created_at"], name: "index_notices_on_created_at"
     t.index ["district_id"], name: "index_notices_on_district_id"
     t.index ["lonlat"], name: "index_notices_on_lonlat", using: :gist
     t.index ["registration"], name: "index_notices_on_registration"
+    t.index ["status"], name: "index_notices_on_status"
     t.index ["token"], name: "index_notices_on_token", unique: true
     t.index ["zip"], name: "index_notices_on_zip"
   end
