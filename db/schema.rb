@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_09_134049) do
+ActiveRecord::Schema.define(version: 2021_04_09_142508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(version: 2021_04_09_134049) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["keyable_type", "keyable_id"], name: "index_data_sets_on_keyable"
+    t.index ["kind"], name: "index_data_sets_on_kind"
     t.index ["setable_type", "setable_id"], name: "index_data_sets_on_setable"
   end
 
