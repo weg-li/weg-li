@@ -1,0 +1,96 @@
+.row
+  .col-md-6
+    table.table.table-condensed.table-striped
+      thead
+        tr
+          th(nowrap) Table
+          th(nowrap) Table-Size
+          th(nowrap) Index-Size
+          th(nowrap) Total
+          th(nowrap) Percentage
+
+      tbody
+        - @table_size.each do |row|
+          tr
+            td(nowrap)= row["table_name"]
+            td(nowrap)= number_to_human_size row["table_size"]
+            td(nowrap)= number_to_human_size row["indexes_size"]
+            td(nowrap)= number_to_human_size row["total_size"]
+            td(nowrap)
+              - percentage = row["table_size"].fdiv(10.gigabyte) * 100
+              - if percentage < 10
+                span.label.label-success= number_to_percentage percentage
+              - elsif percentage < 30
+                span.label.label-warning= number_to_percentage percentage
+              - else
+                span.label.label-danger= number_to_percentage percentage
+
+
+  .col-md-6
+    table.table.table-condensed.table-striped
+      thead
+        tr
+          th
+          th Read
+          th Hits
+          th Ratio
+
+      tbody
+        tr
+          td
+            strong Cached Reads
+
+          td= @query_cache["heap_read"]
+          td= @query_cache["heap_hit"]
+          td
+            - if @query_cache["ratio"].to_f.round(3) > 0.9
+              span.label.label-success= @query_cache["ratio"].to_f.round(3)
+            - else
+              span.label.label-danger= @query_cache["ratio"].to_f.round(3)
+
+        tr
+          td
+            strong Cached Indexes
+
+          td=@index_cache["idx_read"]
+          td=@index_cache["idx_hit"]
+          td
+            - if @index_cache["ratio"].to_f.round(3) > 0.9
+              span.label.label-success= @index_cache["ratio"].to_f.round(3)
+            - else
+              span.label.label-danger= @index_cache["ratio"].to_f.round(3)
+
+    table.table.table-condensed.table-striped
+      thead
+        tr
+          th Table
+          th Index Usage
+          th Size
+
+      tbody
+        - @index_usage.each do |usage|
+          tr
+            td
+              strong= usage["relname"]
+
+            td
+              span.label(class="label-#{usage["percent_of_times_index_used"].to_i >= 90 ? 'success' : 'warning'}")
+                = number_to_percentage usage["percent_of_times_index_used"], precision: 0
+            td
+              = usage["rows_in_table"]
+
+.row
+  .col-md-12
+    div(style='width:100%;margin-bottom:15px;overflow-y:hidden;overflow-x:scroll;')
+      table.table.table-condensed
+        thead
+          tr
+            th Variable
+            th Value
+
+        tbody
+          - @env.each do |key, value|
+            tr
+              td
+                strong= key
+              td= value

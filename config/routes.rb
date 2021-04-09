@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :apidocs, only: [:index]
 
   namespace :admin do
+    resources :system, only: [:index]
     resources :users do
       get :login
       patch :merge
