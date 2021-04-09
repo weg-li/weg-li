@@ -8,6 +8,6 @@
   = form.label :photos, class: "control-label control-label-required"
   = form.file_field :photos, id: 'fileupload', required: required, multiple: true, direct_upload: true, class: "form-control-file input-droppable", accept: 'image/jpeg', analyze_url: direct_upload_analyze_path
   = hint do
-    | Es werden nur Fotos im JPEG-Format bis 5 MB unterstützt. Dateien können auch per Drag&Drop hinzugefügt werden.
+    | Es werden nur Fotos im JPEG-Format bis 6 MB unterstützt. Dateien können auch per Drag&Drop hinzugefügt werden.
 
 .well.well-sm.callout-primary= render('components/geocoding_hint')
