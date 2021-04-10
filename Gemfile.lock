@@ -1,11 +1,3 @@
-GIT
-  remote: https://github.com/yurijmi/omniauth-telegram.git
-  revision: d6f4dddf13642110f71ae236df9ba13999c723ee
-  branch: params_missing
-  specs:
-    omniauth-telegram (0.2.0)
-      omniauth (>= 1.0)
-
 PATH
   remote: client
   specs:
@@ -315,6 +307,8 @@ GEM
     omniauth-rails_csrf_protection (1.0.0)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
+    omniauth-telegram (0.2.1)
+      omniauth (>= 1.0)
     omniauth-twitter (1.4.0)
       omniauth-oauth (~> 1.1)
       rack
@@ -537,7 +531,7 @@ DEPENDENCIES
   omniauth-github (>= 2.0)
   omniauth-google-oauth2
   omniauth-rails_csrf_protection (>= 1.0)
-  omniauth-telegram!
+  omniauth-telegram
   omniauth-twitter
   openapi_client!
   pg
