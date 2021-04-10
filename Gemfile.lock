@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/yurijmi/omniauth-telegram.git
-  revision: 872457e4a4c549b745fb194d4661152563fd3787
+  revision: d6f4dddf13642110f71ae236df9ba13999c723ee
   branch: params_missing
   specs:
     omniauth-telegram (0.2.0)
