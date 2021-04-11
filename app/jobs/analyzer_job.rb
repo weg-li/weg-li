@@ -21,8 +21,12 @@ class AnalyzerJob < ApplicationJob
     notice.status = :open
 
     handle_exif(notice)
-    handle_ml(notice)
-    handle_vision(notice)
+    begin
+      handle_ml(notice)
+    rescue => exception
+      Appsignal.set_error(exception)
+      handle_vision(notice)
+    end
 
     notice.save_incomplete!
   end
