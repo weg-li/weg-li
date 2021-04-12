@@ -71,7 +71,7 @@ class DataSet < ApplicationRecord
   def date_time
     case kind
     when 'exif'
-      data['date_time'].to_s.to_time rescue nil
+      Time.zone.parse(data['date_time']) rescue nil
     else
       raise "not supported by #{kind}"
     end
