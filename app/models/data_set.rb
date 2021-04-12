@@ -1,3 +1,6 @@
+require 'geocoder/results/nominatim'
+require 'geocoder/results/opencagedata'
+
 class DataSet < ApplicationRecord
   belongs_to :setable, polymorphic: true
   belongs_to :keyable, polymorphic: true
@@ -41,14 +44,14 @@ class DataSet < ApplicationRecord
     case kind
     when 'geocoder'
       if data.present?
-        best_result = data.first
-
+        result_klass = Geocoder.config.lookup == :nominatim ? Geocoder::Result::Nominatim : Geocoder::Result::Opencagedata
+        result = result_klass.new(data.first['data'])
         {
-          latitude: best_result.dig('data', 'lat'),
-          longitude: best_result.dig('data', 'lon'),
-          zip: best_result.dig('data', 'address', 'postcode'),
-          city: best_result.dig('data', 'address', 'city'),
-          street: "#{best_result.dig('data', 'address', 'road')} #{best_result.dig('data', 'address', 'house_number')}".strip,
+          latitude: result.latitude,
+          longitude: result.longitude,
+          zip: result.postal_code,
+          city: result.city,
+          street: "#{result.street} #{result.house_number}".strip,
         }
       end
     else
