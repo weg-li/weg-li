@@ -5,29 +5,30 @@ describe AnalyzerJob do
   context "perform" do
     let(:notice) { Fabricate.create(:notice) }
 
-    it "should analyze the image" do
+    it "should analyze the image with yolo" do
+      job = AnalyzerJob.new
+      stub_request(:post, "https://weg-li-car-ml.onrender.com/").to_return(status: 200, body: "{\"suggestions\":{}}", headers: {})
+
+      expect {
+        job.analyze(notice)
+      }.to change {
+        notice.data_sets.count
+      }.by(3)
+    end
+
+    it "should analyze the image with vision if yolo fails" do
       job = AnalyzerJob.new
       this = self
       job.define_singleton_method(:annotator) { this }
-
-      notice.registration = nil
-      notice.latitude = nil
-      notice.longitude = nil
-      notice.zip = nil
+      def job.handle_ml(notice)
+        raise "error"
+      end
 
       expect {
-        expect {
-          expect {
-            job.analyze(notice)
-          }.to change {
-            notice.registration
-          }
-        }.to change {
-          notice.coordinates?
-        }
+        job.analyze(notice)
       }.to change {
         notice.data_sets.count
-      }.by(2)
+      }.by(3)
     end
 
     it "should raise an error when not yet analyzed" do

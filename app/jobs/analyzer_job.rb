@@ -21,65 +21,59 @@ class AnalyzerJob < ApplicationJob
     notice.status = :open
 
     handle_exif(notice)
-    handle_vision(notice)
+    begin
+      handle_ml(notice)
+    rescue => exception
+      Appsignal.set_error(exception)
+      handle_vision(notice)
+    end
 
     notice.save_incomplete!
   end
 
   private
 
-  def handle_vision(notice)
-    plates = []
-    brands = []
-    colors = []
+  def handle_ml(notice)
+    # 2 photos should be good enough for detection
+    notice.photos.first(2).each do |photo|
+      result = yolo(photo.key)
 
+      notice.data_sets.create!(data: result, kind: :car_ml, keyable: photo) if result.present?
+    end
+  end
+
+  def handle_vision(notice)
     # district is only set after the geolocation so that must be done first
     prefixes = notice.district&.prefixes || notice.user.district&.prefixes || []
 
-    notice.photos.each do |photo|
+    # 2 photos should be good enough for detection
+    notice.photos.first(2).each do |photo|
       result = annotator.annotate_object(photo.key)
-      if result.present?
-        notice.data_sets.create!(data: result, kind: :google_vision, keyable: photo)
-        # if Annotator.unsafe?(result)
-        #   notify("safe search violated for notice #{notice.id} with photo #{photo.id} on user #{notice.user.id}: https://www.weg.li/admin/notices/#{notice.token}")
-        # end
 
-        plates += Annotator.grep_text(result) { |string| Vehicle.plate?(string, prefixes: prefixes) }
-        brands += Annotator.grep_text(result) { |string| Vehicle.brand?(string) }
-        colors += Annotator.dominant_colors(result)
-      end
+      notice.data_sets.create!(data: result, kind: :google_vision, keyable: photo) if result.present?
     end
-
-    most_likely_registraton = Vehicle.most_likely?(plates)
-    notice.apply_favorites(most_likely_registraton)
-
-    notice.registration ||= most_likely_registraton
-    notice.brand ||= Vehicle.most_likely?(brands)
-    notice.color ||= Vehicle.most_likely?(colors)
   end
 
   def handle_exif(notice)
-    dates = []
-
     notice.photos.each do |photo|
       exif = photo.service.download_file(photo.key) { |file| exifer.metadata(file) }
-      notice.data_sets.create!(data: exif, kind: :exif, keyable: photo)
+      exif_data_set = notice.data_sets.create!(data: exif, kind: :exif, keyable: photo) if exif.present?
 
-      # the last exif is the good as any other
-      notice.latitude = exif[:latitude] if exif[:latitude].to_f.positive?
-      notice.longitude = exif[:longitude] if exif[:longitude].to_f.positive?
-
-      dates << (time_from_meta(exif[:date_time]) || AnalyzerJob.time_from_filename(photo.filename.to_s))
+      # the last or first exif is the good as any other
+      coords = exif_data_set.coords
+      if coords.present? && notice.data_sets.geocoder.blank?
+        result = Geocoder.search(coords)
+        notice.data_sets.create!(data: result, kind: :geocoder, keyable: photo) if result.present?
+      end
     end
-    notice.apply_dates(dates)
-
-    notice.handle_geocoding
   end
 
-  def time_from_meta(timestamp)
-    timestamp.to_s.to_time
-  rescue
-    nil
+  def yolo(key)
+    client = HTTP.use(logging: {logger: Rails.logger}).timeout(10)
+    headers = { 'Content-Type' => 'application/json' }
+    url = ENV.fetch('CAR_ML_URL', 'https://weg-li-car-ml.onrender.com')
+    response = client.post(url, headers: headers, json: { google_cloud_urls: [key] })
+    response.status.success? ? JSON.parse(response.body) : nil
   end
 
   def exifer

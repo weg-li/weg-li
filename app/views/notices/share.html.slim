@@ -32,7 +32,7 @@ hr.spacer
           strong
             | Für den Bezirk #{@notice.district.display_name} werden Anzeigen per PDF mit Unterschrift übermittelt.
       - else
-        .alert.alert-warning
+        .alert.alert-info
           strong
             | Für den Bezirk #{@notice.district.display_name} sollte #{link_to 'im Profil', edit_user_path(anchor: :signature)} eine Unterschrift für das Versenden der Anzeige als PDF hinterlegt sein!
     - elsif @notice.district.aliases.present?

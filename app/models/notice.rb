@@ -115,22 +115,9 @@ class Notice < ApplicationRecord
     self.status = :analyzing
     save_incomplete!
 
-    YoloAnalyzerJob.set(wait: 1.second).perform_later(self)
     AnalyzerJob.set(wait: 1.second).perform_later(self)
+    # YoloAnalyzerJob.set(wait: 1.second).perform_later(self)
     # CompareJob.set(wait: 10.second).perform_later(self) if rand(1..3) == 1
-  end
-
-  def apply_dates(dates)
-    sorted_dates = dates.compact.sort
-    self.date = sorted_dates.first
-    if date?
-      duration = (sorted_dates.last.to_i - date.to_i)
-      self.duration = durations.find { |d| duration >= d.minutes } || 1
-    end
-  end
-
-  def durations
-    Vehicle.durations.to_h.values.reverse
   end
 
   def apply_favorites(registrations)
@@ -145,12 +132,6 @@ class Notice < ApplicationRecord
       self.flags = other.flags if !flags? && other.flags?
       self.note = other.note if !note? && other.note?
     end
-  end
-
-  def possible_registrations
-    registrations = [registration]
-    registrations += data_sets.google_vision.flat_map { |data_set| Annotator.grep_text(data_set.data.deep_symbolize_keys) { |string| Vehicle.plate?(string) }.map(&:first) }
-    registrations.flatten.compact.uniq
   end
 
   def date_doubles
