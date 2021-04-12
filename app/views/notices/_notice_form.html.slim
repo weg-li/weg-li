@@ -86,7 +86,7 @@
 .row
   .col-lg-8
     .form-group
-      - nearest_charges = notice.nearest_charges
+      - nearest_charges = addresses.present? ? Notice.nearest_charges(addresses.first[:latitude], addresses.first[:longitude]) : []
       = form.label :charge, class: "control-label control-label-required"
       = form.select :charge, nearest_charges.map { |entry| entry['charge'] }.concat(Charge.plain_charges).uniq, { include_blank: 'Verstoß Auswählen' }, { class: "form-control", required: true }
       .input-group#pick_charge

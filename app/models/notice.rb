@@ -144,7 +144,7 @@ class Notice < ApplicationRecord
     user.photos_attachments.joins(:blob).where('active_storage_attachments.record_id != ?', id).where('active_storage_blobs.filename' => photos.map { |photo| photo.filename.to_s })
   end
 
-  def nearest_charges(distance = 50)
+  def self.nearest_charges(latitude, longitude, distance = 50)
     sql = "
     SELECT
       charge,
