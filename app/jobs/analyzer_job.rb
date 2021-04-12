@@ -57,13 +57,15 @@ class AnalyzerJob < ApplicationJob
   def handle_exif(notice)
     notice.photos.each do |photo|
       exif = photo.service.download_file(photo.key) { |file| exifer.metadata(file) }
-      exif_data_set = notice.data_sets.create!(data: exif, kind: :exif, keyable: photo) if exif.present?
+      if exif.present?
+        exif_data_set = notice.data_sets.create!(data: exif, kind: :exif, keyable: photo)
 
-      # the last or first exif is the good as any other
-      coords = exif_data_set.coords
-      if coords.present? && notice.data_sets.geocoder.blank?
-        result = Geocoder.search(coords)
-        notice.data_sets.create!(data: result, kind: :geocoder, keyable: photo) if result.present?
+        # the last or first exif is the good as any other
+        coords = exif_data_set.coords
+        if coords.present? && notice.data_sets.geocoder.blank?
+          result = Geocoder.search(coords)
+          notice.data_sets.create!(data: result, kind: :geocoder, keyable: photo) if result.present?
+        end
       end
     end
   end
