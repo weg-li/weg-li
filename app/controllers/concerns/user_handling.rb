@@ -57,7 +57,11 @@ module UserHandling
     @session_user ||= begin
       if session[:user_id].present?
         user = User.find_by_id(session[:user_id])
-        user.touch(:last_login)
+        if user.blank?
+          sign_out
+        else
+          user.touch(:last_login)
+        end
       elsif cookies.encrypted[:remember_me].present?
         user = User.authenticated_with_token(*cookies.encrypted[:remember_me])
         user.touch(:last_login)
