@@ -115,9 +115,8 @@ class Notice < ApplicationRecord
     self.status = :analyzing
     save_incomplete!
 
-    AnalyzerJob.set(wait: 1.second).perform_later(self)
-    # YoloAnalyzerJob.set(wait: 1.second).perform_later(self)
-    # CompareJob.set(wait: 10.second).perform_later(self) if rand(1..3) == 1
+    AnalyzerJob.perform_later(self)
+    CarAnalyzerJob.perform_later(self)
   end
 
   def date_doubles
