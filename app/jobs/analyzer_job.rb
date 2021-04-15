@@ -2,6 +2,7 @@ class AnalyzerJob < ApplicationJob
   retry_on EXIFR::MalformedJPEG, attempts: 5, wait: :exponentially_longer
   retry_on ActiveStorage::FileNotFoundError, attempts: 5, wait: :exponentially_longer
   discard_on Encoding::UndefinedConversionError
+  discard_on ActiveRecord::RecordInvalid
 
   def self.time_from_filename(filename)
     token = filename[/.*(20\d{6}_\d{6})/, 1]
@@ -34,11 +35,14 @@ class AnalyzerJob < ApplicationJob
   private
 
   def handle_ml(notice)
-    # 2 photos should be good enough for detection
-    notice.photos.first(2).each do |photo|
+    notice.photos.each do |photo|
       result = yolo(photo.key)
 
-      notice.data_sets.create!(data: result, kind: :car_ml, keyable: photo) if result.present?
+      if result.present?
+        data_set = notice.data_sets.create!(data: result, kind: :car_ml, keyable: photo)
+        # skip if we got lucky
+        return if data_set.registrations.present?
+      end
     end
   end
 
@@ -46,11 +50,14 @@ class AnalyzerJob < ApplicationJob
     # district is only set after the geolocation so that must be done first
     prefixes = notice.district&.prefixes || notice.user.district&.prefixes || []
 
-    # 2 photos should be good enough for detection
-    notice.photos.first(2).each do |photo|
+    notice.photos.each do |photo|
       result = annotator.annotate_object(photo.key)
 
-      notice.data_sets.create!(data: result, kind: :google_vision, keyable: photo) if result.present?
+      if result.present?
+        data_set = notice.data_sets.create!(data: result, kind: :google_vision, keyable: photo)
+        # skip if we got lucky
+        return if data_set.registrations.present?
+      end
     end
   end
 
