@@ -35,7 +35,7 @@ class CarAnalyzerJob < ApplicationJob
   end
 
   def yolo(key)
-    client = HTTP.use(logging: {logger: Rails.logger}).timeout(5)
+    client = HTTP.use(logging: {logger: Rails.logger}).timeout(7)
     headers = { 'Content-Type' => 'application/json' }
     url = ENV.fetch('CAR_ML_URL', 'https://weg-li-car-ml.onrender.com')
     response = client.post(url, headers: headers, json: { google_cloud_urls: [key] })
