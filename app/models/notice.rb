@@ -120,20 +120,6 @@ class Notice < ApplicationRecord
     # CompareJob.set(wait: 10.second).perform_later(self) if rand(1..3) == 1
   end
 
-  def apply_favorites(registrations)
-    other = user.notices.order(created_at: :desc).find_by(registration: registrations)
-    if other
-      self.registration = other.registration
-      self.charge = other.charge if !charge? && other.charge?
-      self.severity = other.severity if !severity? && other.severity?
-      self.duration = other.duration if !duration? && other.duration?
-      self.brand = other.brand if !brand? && other.brand?
-      self.color = other.color if !color? && other.color?
-      self.flags = other.flags if !flags? && other.flags?
-      self.note = other.note if !note? && other.note?
-    end
-  end
-
   def date_doubles
     return false if registration.blank?
 
