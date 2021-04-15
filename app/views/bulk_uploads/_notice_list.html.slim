@@ -16,7 +16,15 @@
                 = photo_url_with_variant(photo, size: :preview)
                   = image_tag(url_for_photo(photo, size: :preview), class: 'index-photo')
           td
-            = link_to(notice.registration.present? ? registration_label(notice.registration) : '-', notice)
-          td(nowrap)= link_to(d(notice.created_at), notice)
-          td(nowrap)= link_to(d(notice.date), notice)
+            = link_to_notice(notice) do
+              - if notice.incomplete?
+                = render 'status', status: :incomplete
+              - else
+                = registration_label(notice.registration)
+          td(nowrap)
+            = link_to_notice(notice) do
+              = d(notice.created_at)
+          td(nowrap)
+            = link_to_notice(notice) do
+              = d(notice.date, default: '-')
           td= render 'status', status: notice.status
