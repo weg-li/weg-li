@@ -23,9 +23,7 @@ Sie dürfen meine persönlichen Daten auch weiterleiten und diese für die Dauer
 Diese Anzeige können Sie online abrufen, dort finden sich auch die Beweisfotos im Original zum Herunterladen:
 <%= public_charge_url(@notice) %>
 
-Die Daten können auch im WiNOWiG kompatiblen XML Format heruntergeladen werden:
-<%= public_winowig_url(user_token: @user.to_param, notice_token: @notice.to_param, format: :xml) %>
-
+Die Daten können im Import-Format für WiNOWiG, pmOWI oder owi12 als Anhang bereitgestellt werden.
 
 Mit freundlichen Grüßen
 
