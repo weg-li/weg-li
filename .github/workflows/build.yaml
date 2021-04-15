@@ -21,8 +21,15 @@ jobs:
         ports: ["5432:5432"]
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
-    steps:
+      redis:
+        image: redis
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
+    steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
       - uses: ruby/setup-ruby@v1
@@ -55,6 +62,7 @@ jobs:
           PGHOST: localhost
           PGPASSWORD: password
           PGUSER: postgres
+          REDIS_URL: redis://redis:6379
           RAILS_ENV: test
           RSPEC_RETRY_RETRY_COUNT: 3
         run: bundle exec rake
