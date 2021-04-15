@@ -2,9 +2,7 @@
   ul.photo-list.droppable-list
     - photos.each_with_index do |photo, index|
       li.list-item(draggable="true" id="drag_#{dom_id(photo)}" ondragstart="ziehen(event)")
-        - unless variant_exists?(photo, size: :preview)
-          span.glyphicon.glyphicon-picture.glyphicon-placeholder-picture(title="Beweisfoto wird verarbeitet")
-        - else
+        = photo_url_with_variant(photo, size: :preview)
           a(href="#" data-toggle="modal" data-target="#modal_#{dom_id(photo)}" draggable="false")
             = image_tag(url_for_photo(photo, size: :preview), class: 'item-photo', draggable: "false")
             = hidden_field_tag('bulk_upload[photos][]', photo.id)

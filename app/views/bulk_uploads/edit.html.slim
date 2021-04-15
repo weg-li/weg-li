@@ -1,6 +1,8 @@
 - set_title t('navigation.bulk_uploads')
 - set_crumbs t('navigation.bulk_uploads') => bulk_uploads_path, 'Zuordnen' => url_for
 
+= render('jobs_hint')
+
 - if @bulk_upload.importing?
   - info = 'Die Beweisfotos aus dem Album werden im Hintergrund heruntergeladen. Dies kann etwas Zeit in Anspruch nehmen.'
   - note = 'Import läuft'

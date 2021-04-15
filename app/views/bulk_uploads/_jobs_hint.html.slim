@@ -1,0 +1,4 @@
+- sidekiq_stats = Sidekiq::Stats.new
+- if sidekiq_stats.enqueued.positive?
+  .alert.alert-info
+    strong Derzeit werden im Hintergrund #{sidekiq_stats.enqueued} Aufgaben von #{sidekiq_stats.processes_size} Prozessen verarbeitet und die Wartezeit beträgt #{distance_of_time_in_words(sidekiq_stats.default_queue_latency)}.

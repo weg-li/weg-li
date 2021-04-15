@@ -28,4 +28,12 @@ module PhotoHelper
 
     cdn_host ? { host: cdn_host } : { only_path: true }
   end
+
+  def photo_url_with_variant(photo, size: :default, &block)
+    if variant_exists?(photo, size: size)
+      capture(&block)
+    else
+      tag.span(class: 'glyphicon glyphicon-picture glyphicon-placeholder-picture', title: 'Beweisfoto wird verarbeitet')
+    end
+  end
 end
