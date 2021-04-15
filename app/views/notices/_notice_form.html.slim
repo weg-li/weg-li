@@ -50,16 +50,16 @@
   .col-lg-4
     .form-group
       = form.label :address, class: "control-label control-label-required"
+      - address = notice.data_sets.geocoder.map { |data_set| data_set.address }.compact.first
       .input-group
         = form.text_field :street, placeholder: 'z.B. Sylvesterallee 7', class: "form-control", required: true
-
         a.input-group-addon(href="#" data-toggle="modal" data-target="#modal_map")
           span.glyphicon.glyphicon-map-marker
-        = render('picker_modal', notice: notice)
+        - coordinates = address.present? ? { latitude: address[:latitude], longitude: address[:longitude] } : current_user.map_data
+        = render('picker_modal', coordinates: coordinates)
 
-      - addresses = notice.data_sets.geocoder.map { |data_set| data_set.address }.compact
-      .input-group#pick_address
-        - addresses.each do |address|
+      - if address.present?
+        .input-group#pick_address
           a(href="#" onclick="$('#notice_street').val('#{address[:street]}'); $('#notice_city').val('#{address[:city]}'); $('#notice_zip').val('#{address[:zip]}'); $('#notice_latitude').val('#{address[:latitude]}'); $('#notice_longitude').val('#{address[:longitude]}'); $('#pick_address').fadeOut(); return false;")
               span.label.label-default.label-picker(title=address[:street])
                 span(style="text-decoration:none")=> address[:street]
@@ -86,7 +86,7 @@
 .row
   .col-lg-8
     .form-group
-      - nearest_charges = addresses.present? ? Notice.nearest_charges(addresses.first[:latitude], addresses.first[:longitude]) : []
+      - nearest_charges = address.present? ? Notice.nearest_charges(address[:latitude], address[:longitude]) : []
       = form.label :charge, class: "control-label control-label-required"
       = form.select :charge, nearest_charges.map { |entry| entry['charge'] }.concat(Charge.plain_charges).uniq, { include_blank: 'Verstoß Auswählen' }, { class: "form-control", required: true }
       .input-group#pick_charge
