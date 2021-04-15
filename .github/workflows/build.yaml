@@ -64,7 +64,7 @@ jobs:
           PGHOST: localhost
           PGPASSWORD: password
           PGUSER: postgres
-          REDIS_URL: redis://redis:6379
+          REDIS_URL: redis://localhost:6379
           RAILS_ENV: test
           RSPEC_RETRY_RETRY_COUNT: 3
         run: bundle exec rake
