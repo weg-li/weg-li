@@ -2,7 +2,7 @@
 
 $(document).ready(() => {
   $(document).on('change', '#fileupload', (event) => {
-    const uploadLimit = 7;
+    const uploadLimit = 6;
     const { target } = event;
     const files = Array.from(target.files);
     const accepts = target.accept.split(',') || ['image/jpeg'];
