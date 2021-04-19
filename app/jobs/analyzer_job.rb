@@ -16,9 +16,8 @@ class AnalyzerJob < ApplicationJob
   def perform(notice)
     fail NotYetAnalyzedError unless photos_analyzed?(notice)
     unless photos_processed?(notice)
-      notice.photos.each do |image|
-        ThumbnailerJob.perform_later(image) unless image.variant_records.any?
-      end
+      notice.photos.each { |image| ThumbnailerJob.perform_later(image) }
+
       fail NotYetProcessedError
     end
 
