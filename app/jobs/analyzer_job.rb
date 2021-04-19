@@ -13,7 +13,8 @@ class AnalyzerJob < ApplicationJob
   end
 
   def perform(notice)
-    fail NotYetAnalyzedError unless notice.photos.all?(&:analyzed?)
+    fail NotYetAnalyzedError unless photos_analyzed?(notice)
+    fail NotYetProcessedError unless photos_processed?(notice)
 
     analyze(notice)
   end
