@@ -75,6 +75,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit([:email, :nickname, :name, :street, :zip, :city, :appendix, :date_of_birth, :phone] + User.bitfields[:flags].keys)
+    params.require(:user).permit([:email, :nickname, :name, :street, :zip, :city, :appendix, :date_of_birth, :phone] + User.bitfields[:flags].keys + User.bitfields[:autosuggest].keys)
   end
 end

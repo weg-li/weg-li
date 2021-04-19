@@ -128,6 +128,27 @@ class Notice < ApplicationRecord
     user.photos_attachments.joins(:blob).where('active_storage_attachments.record_id != ?', id).where('active_storage_blobs.filename' => photos.map { |photo| photo.filename.to_s })
   end
 
+  def apply_favorites(registrations)
+    other = user
+              .notices
+              .shared
+              .where("REPLACE(registration, ' ', '') IN(?)", registrations.map { |registration| registration.gsub(/\s/, '') })
+              .order(created_at: :desc)
+              .first
+
+    if other
+      self.registration = other.registration
+      self.brand = other.brand if !brand? && other.brand?
+      self.color = other.color if !color? && other.color?
+      self.location = other.location if !location? && other.location?
+      self.charge = other.charge if !charge? && other.charge?
+      self.severity = other.severity if !severity? && other.severity?
+      self.duration = other.duration if !duration? && other.duration?
+      self.flags = other.flags if !flags? && other.flags?
+      self.note = other.note if !note? && other.note?
+    end
+  end
+
   def self.nearest_charges(latitude, longitude, distance = 50)
     sql = "
     SELECT
@@ -141,10 +162,10 @@ class Notice < ApplicationRecord
       AND ST_DWithin(lonlat::geography, ST_MakePoint($1, $2), $3)
     GROUP BY charge
     ORDER BY diff
-    LIMIT 1
+    LIMIT 3
     "
     binds = [longitude, latitude, distance]
-    Notice.connection.exec_query(sql, "distance-quert", binds)
+    Notice.connection.exec_query(sql, "distance-quert", binds).to_a
   end
 
   def meta
@@ -194,12 +215,29 @@ class Notice < ApplicationRecord
     if results.present?
       best_result = results.first
 
-      {
-        zip: best_result.postal_code,
-        city: best_result.city,
-        street: "#{best_result.street} #{best_result.house_number}".strip,
-      }
+      geocode_data(best_result)
     end
+  end
+
+  def self.geocode_data(result)
+    {
+      latitude: result.latitude,
+      longitude: result.longitude,
+      zip: result.postal_code,
+      city: result.city || result.state,
+      street: "#{result.street} #{result.house_number}".strip,
+    }
+  end
+
+  def dates_from_photos
+    date_times = data_sets.exif.map { |data_set| data_set.date_time }.compact.uniq
+    date_times = photos.map { |photo| AnalyzerJob.time_from_filename(photo.filename.to_s) }.compact.uniq if date_times.blank?
+    date_times.sort
+  end
+
+  def duration_from_photos
+    sorted_dates = dates_from_photos
+    (sorted_dates.last.to_i - sorted_dates.first.to_i)
   end
 
   def file_name(extension = :pdf)

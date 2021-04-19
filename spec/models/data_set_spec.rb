@@ -12,7 +12,7 @@ describe DataSet do
 
   context "registrations" do
     it "reads registrations from google vision" do
-      expect(data_set.registrations).to eql([["RD WN 200", 1.0], ["WN 200", 0.8]])
+      expect(data_set.registrations).to eql(["RD WN 200", "WN 200"])
     end
 
     it "reads registrations from car_ml" do
@@ -34,7 +34,7 @@ describe DataSet do
 
   context "colors" do
     it "reads colors from google vision" do
-      expect(data_set.colors).to eql([["silver", 0.3093334957957268], ["black", 0.12371549755334854], ["silver", 0.10345552116632462]])
+      expect(data_set.colors).to eql(["silver", "black"])
     end
 
     it "reads colors from car_ml" do

@@ -13,6 +13,11 @@
   = render('components/reload', note: note, info: info)
 
 - elsif @photos.present?
+
+  - if current_user.autosuggest.zero?
+    - message = "Sollen Vorschläge automatisch übernommen werden, können die Auto-Suggest Einstellungen #{link_to('im Profil', edit_user_path)} geändert werden."
+    = render('application/flash/alert', type: 'info', message: message)
+
   .well.well-sm.callout-primary
     | Mehrere Beweisfotos gruppiert nach Vergehen ins obere Feld ziehen, oder mit Hilfe des
     span.glyphicon.glyphicon-move<>

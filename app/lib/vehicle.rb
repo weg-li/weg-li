@@ -20,11 +20,11 @@ class Vehicle
 
     groups = matches.group_by { |key, _| key.gsub(/\W/, '') }
     groups = groups.sort_by { |_, group| group.sum { |_, probability| probability }.fdiv(matches.size) }
-    groups.map { |match| match[1].flatten[0] }
+    groups.map { |match| match[1].flatten[0] }.reverse
   end
 
   def self.most_likely?(matches)
-    by_likelyhood(matches).last
+    by_likelyhood(matches).first
   end
 
   def self.plate?(text, prefixes: nil)
@@ -176,19 +176,22 @@ class Vehicle
 
   def self.colors
     @colors ||= [
+      'gold_yellow',
+      'gray_silver',
+      'pink_purple_violet',
+      'black',
+      'silver',
+      'gray',
+      'white',
       'beige',
       'blue',
       'brown',
       'yellow',
-      'gray',
       'green',
       'red',
-      'black',
-      'silver',
       'violet',
       'purple',
       'pink',
-      'white',
       'orange',
       'gold',
     ]

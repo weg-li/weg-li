@@ -2,6 +2,7 @@ class User < ApplicationRecord
   include Statisticable
   include Bitfields
   bitfield :flags, 1 => :hide_public_profile, 2 => :disable_reminders, 4 => :disable_autoreply_notifications
+  bitfield :autosuggest, 1 => :from_exif, 2 => :from_proximity, 4 => :from_recognition, 8 => :from_history
 
   enum access: {disabled: -99, user: 0, community: 1, studi: 2, admin: 42}
 

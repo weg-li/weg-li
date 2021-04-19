@@ -5,12 +5,23 @@ class DataSet < ApplicationRecord
   belongs_to :setable, polymorphic: true
   belongs_to :keyable, polymorphic: true
 
-  enum kind: { google_vision: 0, exif: 1, car_ml: 2, geocoder: 3 }
+  enum kind: { google_vision: 0, exif: 1, car_ml: 2, geocoder: 3, proximity: 4 }
+
+  def charges
+    case kind
+    when 'proximity'
+      # [{"charge"=>"Parken weniger als 5 Meter vor/hinter der Kreuzung/Einmündung", "count"=>2, "distance"=>0.0, "diff"=>0.0}]
+      data.map { |it| it['charge'] }.compact
+    else
+      raise "not supported by #{kind}"
+    end
+  end
 
   def registrations
     case kind
     when 'google_vision'
-      Annotator.grep_text(data.deep_symbolize_keys) { |it| Vehicle.plate?(it) }
+      with_likelyhood = Annotator.grep_text(data.deep_symbolize_keys) { |it| Vehicle.plate?(it) }
+      Vehicle.by_likelyhood(with_likelyhood)
     when 'car_ml'
       data['suggestions']['license_plate_number']
     else
@@ -21,7 +32,8 @@ class DataSet < ApplicationRecord
   def brands
     case kind
     when 'google_vision'
-      Annotator.grep_text(data.deep_symbolize_keys) { |it| Vehicle.brand?(it) }
+      with_likelyhood = Annotator.grep_text(data.deep_symbolize_keys) { |it| Vehicle.brand?(it) }
+      Vehicle.by_likelyhood(with_likelyhood)
     when 'car_ml'
       data['suggestions']['make']
     else
@@ -32,7 +44,8 @@ class DataSet < ApplicationRecord
   def colors
     case kind
     when 'google_vision'
-      Annotator.dominant_colors(data.deep_symbolize_keys)
+      with_likelyhood = Annotator.dominant_colors(data.deep_symbolize_keys)
+      Vehicle.by_likelyhood(with_likelyhood)
     when 'car_ml'
       data['suggestions']['color']
     else
@@ -46,13 +59,7 @@ class DataSet < ApplicationRecord
       if data.present?
         result_klass = Geocoder.config.lookup == :nominatim ? Geocoder::Result::Nominatim : Geocoder::Result::Opencagedata
         result = result_klass.new(data.first['data'])
-        {
-          latitude: result.latitude,
-          longitude: result.longitude,
-          zip: result.postal_code,
-          city: result.city,
-          street: "#{result.street} #{result.house_number}".strip,
-        }
+        Notice.geocode_data(result)
       end
     else
       raise "not supported by #{kind}"

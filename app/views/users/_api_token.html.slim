@@ -1,5 +1,5 @@
 .panel.panel-default
-  .panel-heading API-Token
+  .panel-heading API-Token ⚡️
   .panel-body
     = text_field_tag(:api_token, current_user.api_token, disabled: true, class: "form-control")
     = button_tag class: "btn btn-default btn-block", onclick: "event.preventDefault(); window.prompt('#{t('notices.copy_hint')}', '#{current_user.api_token}')" do

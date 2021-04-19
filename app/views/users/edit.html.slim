@@ -5,7 +5,7 @@
   .col-lg-6
     = form_for current_user, html: {class: "form-horizontal"} do |form|
       .panel.panel-default
-        .panel-heading Persönliche Daten
+        .panel-heading Persönliche Daten 👤
         .panel-body
           = form.label :name, class: "control-label control-label-required"
           = form.text_field :name, class: "form-control", required: true, placeholder: 'z.B. Hanno Nym'
@@ -42,7 +42,7 @@
 
 
     .panel.panel-default
-      .panel-heading E-Mail Adresse
+      .panel-heading E-Mail Adresse 💌
 
       .panel-body
         = form_for current_user do |form|
@@ -63,7 +63,7 @@
     a.anchor#signature Signature Anchor
     = form_for current_user, url: signature_user_path, html: {class: "form-horizontal"} do |form|
       .panel.panel-default
-        .panel-heading Unterschrift
+        .panel-heading Unterschrift 🖋
         - if current_user.signature.present?
           .panel-body
             = image_tag url_for(current_user.signature), class: 'signature'
@@ -83,7 +83,7 @@
   .col-lg-6
     = form_for current_user, html: {class: "form-horizontal"} do |form|
       .panel.panel-default
-        .panel-heading Einstellungen
+        .panel-heading Einstellungen ⚙️
         .panel-body
           = form.label :nickname, class: "control-label control-label-required"
           = form.text_field :nickname, class: "form-control", required: true
@@ -100,8 +100,26 @@
           .pull-right
             = form.submit "speichern", class: "btn btn-success"
 
+  .col-lg-6
+    = form_for current_user, html: {class: "form-horizontal"} do |form|
+      .panel.panel-default
+        .panel-heading Auto-Suggest 🤖
+        .panel-body
+          = hint do
+            | Vorschläge nach der Analyse der Beweisfotos automatisch in die Anzeige übernehmen:
+
+          - User.bitfields[:autosuggest].keys.each do |key|
+              .checkbox
+                label
+                  = form.check_box key
+                  = t("users.autosuggest.#{key}")
+
+        .panel-footer.clearfix
+          .pull-right
+            = form.submit "speichern", class: "btn btn-success"
+
     .panel.panel-default
-      .panel-heading= t('users.authorizations')
+      .panel-heading Verknüpfungen 🔐
       .panel-body
         - existing_providers = current_user.authorizations.map(&:provider)
         - login_links do |name, path, key|
@@ -116,6 +134,6 @@
     = render('api_token')
 
     .panel.panel-default
-      .panel-heading= t('users.actions')
+      .panel-heading Aktionen 🚨
       .panel-body
         = button_to t('users.delete_account'), user_path(current_user), method: :delete, data: {confirm: 'Den Account und alle Daten wirklich löschen?'}, class: "btn btn-danger btn-block"
