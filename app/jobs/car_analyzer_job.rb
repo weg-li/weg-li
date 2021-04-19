@@ -10,7 +10,7 @@ class CarAnalyzerJob < ApplicationJob
 
   def handle_ml(notice)
     notice.photos.each do |photo|
-      result = yolo(photo.key)
+      result = annotator.annotate_yolo(photo.key)
 
       if result.present?
         data_set = notice.data_sets.create!(data: result, kind: :car_ml, keyable: photo)
@@ -32,14 +32,6 @@ class CarAnalyzerJob < ApplicationJob
         return if data_set.registrations.present?
       end
     end
-  end
-
-  def yolo(key)
-    client = HTTP.use(logging: {logger: Rails.logger}).timeout(10)
-    headers = { 'Content-Type' => 'application/json' }
-    url = ENV.fetch('CAR_ML_URL', 'https://weg-li-car-ml.onrender.com')
-    response = client.post(url, headers: headers, json: { google_cloud_urls: [key] })
-    response.status.success? ? JSON.parse(response.body) : nil
   end
 
   def annotator

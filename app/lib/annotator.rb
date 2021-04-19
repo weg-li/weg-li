@@ -43,6 +43,14 @@ class Annotator
     annotate(image)
   end
 
+  def annotate_yolo(key = 'ydmE3qL1CT32rH6hunWtxCzx')
+    client = HTTP.use(logging: {logger: Rails.logger}).timeout(10)
+    headers = { 'Content-Type' => 'application/json' }
+    url = ENV.fetch('CAR_ML_URL', 'https://weg-li-car-ml.onrender.com')
+    response = client.post(url, headers: headers, json: { google_cloud_urls: [key] })
+    response.status.success? ? JSON.parse(response.body) : nil
+  end
+
   def annotate_object(key = 'ydmE3qL1CT32rH6hunWtxCzx')
     uri = self.class.bucket_uri(key)
     image = { source: { gcs_image_uri: uri } }
