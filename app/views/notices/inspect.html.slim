@@ -18,21 +18,37 @@ p
   -else
     p No EXIF Data attached
 
-- if @google_vision
+- if @recognition
   p
     strong Registration
-    = debug @google_vision.registrations
+    = debug @recognition.registrations
 
   p
     strong Brand
-    = debug @google_vision.brands
+    = debug @recognition.brands
 
   p
     strong Color
-    = debug @google_vision.colors
+    = debug @recognition.colors
 
   p
     strong Google Vision
-    = debug @google_vision.data
+    = debug @recognition.data
 - else
-  p No Google Vision Result attached
+  p No Recognition attached
+
+- if @geolocation
+  p
+    strong Address
+    = debug @geolocation.address
+
+- else
+  p No Address attached
+
+- if @proximity
+  p
+    strong Proximity
+    = debug @proximity.charges
+
+- else
+  p No Proximity attached

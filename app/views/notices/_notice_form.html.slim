@@ -3,8 +3,7 @@
 .row
   .col-lg-4
     .form-group
-      - registration_data = notice.data_sets.google_vision.flat_map { |google_vision| google_vision.registrations }
-      - registrations = Vehicle.by_likelyhood(registration_data)
+      - registrations = notice.data_sets.google_vision.flat_map { |google_vision| google_vision.registrations }
       - registrations = notice.data_sets.car_ml.map(&:registrations).concat(registrations).concat([notice.registration]).compact.flatten.uniq
       = form.label :registration, class: "control-label control-label-required"
       = form.select :registration, registrations, { include_blank: 'z.B. HH SV 1887' }, { class: "form-control", required: true, data: {'select2-disabled' => true} }
@@ -22,7 +21,6 @@
       = form.select :brand, Vehicle.brands, { include_blank: 'Marke Auswählen' }, { class: "form-control" }
       .input-group#pick_brand
         - brands = notice.data_sets.google_vision.flat_map { |google_vision| google_vision.brands }
-        - brands = Vehicle.by_likelyhood(brands)
         - brands = notice.data_sets.car_ml.map(&:brands).concat(brands).compact.flatten.uniq
         - brands.each do |brand|
             a(href="#" onclick="$('#notice_brand').val('#{brand}').trigger('change'); $('#pick_brand').fadeOut(); return false;")
@@ -36,7 +34,6 @@
       = form.select :color, Vehicle.colors.map { |color| [t(color, scope: "activerecord.attributes.notice.colors"), color] }, { include_blank: 'Farbe Auswählen' }, { class: "form-control" }
       .input-group#pick_color
         - colors = notice.data_sets.google_vision.flat_map { |google_vision| google_vision.colors }
-        - colors = Vehicle.by_likelyhood(colors)
         - colors = notice.data_sets.car_ml.map(&:colors).concat(colors).compact.flatten.uniq
         - colors.each do |color|
             a(href="#" onclick="$('#notice_color').val('#{color}').trigger('change'); $('#pick_color').fadeOut(); return false;")
@@ -86,12 +83,12 @@
 .row
   .col-lg-8
     .form-group
-      - nearest_charges = address.present? ? Notice.nearest_charges(address[:latitude], address[:longitude]) : []
+      - nearest_charges = notice.data_sets.proximity.flat_map { |data_set| data_set.charges }.compact
       = form.label :charge, class: "control-label control-label-required"
-      = form.select :charge, nearest_charges.map { |entry| entry['charge'] }.concat(Charge.plain_charges).uniq, { include_blank: 'Verstoß Auswählen' }, { class: "form-control", required: true }
+      = form.select :charge, nearest_charges.concat(Charge.plain_charges).uniq, { include_blank: 'Verstoß Auswählen' }, { class: "form-control", required: true }
       .input-group#pick_charge
         - if nearest_charges.present?
-          - nearest_charge = nearest_charges.first['charge']
+          - nearest_charge = nearest_charges.first
           a(href="#" onclick="$('#notice_charge').val('#{nearest_charge}').trigger('change'); $('#pick_charge').fadeOut(); return false;")
             span.label.label-default.label-picker(title=nearest_charge)
               span=> nearest_charge
@@ -116,9 +113,7 @@
         label.input-group-addon(for="notice_date_time")
           span.glyphicon.glyphicon-time
 
-      - date_times = notice.data_sets.exif.map { |data_set| data_set.date_time }.compact.uniq
-      - date_times = notice.photos.map { |photo| AnalyzerJob.time_from_filename(photo.filename.to_s) }.compact.uniq if date_times.blank?
-      - date_times = date_times.sort
+      - date_times = notice.dates_from_photos.first(3)
       .input-group#pick_date
         - date_times.each do |date_time|
           a(href="#" onclick="$('#notice_date_date').val('#{date_time.strftime('%Y-%m-%d')}'); $('#notice_date_time').val('#{date_time.strftime('%H:%M')}'); $('#pick_date').fadeOut(); return false;")
@@ -131,10 +126,7 @@
       = form.label :duration, class: "control-label control-label-required"
       = form.select :duration, Vehicle.durations, { include_blank: 'Dauer Auswählen' }, { class: "form-control", required: true }
 
-      - date_times = notice.data_sets.exif.map { |data_set| data_set.date_time }.compact.uniq
-      - date_times = notice.photos.map { |photo| AnalyzerJob.time_from_filename(photo.filename.to_s) }.compact.uniq if date_times.blank?
-      - sorted_dates = date_times.sort
-      - duration = (sorted_dates.last.to_i - sorted_dates.first.to_i)
+      - duration = notice.duration_from_photos
       - duration = Vehicle.durations.to_h.values.reverse.find { |d| duration >= d.minutes }
       - if duration
         .input-group#pick_duration

@@ -10,7 +10,7 @@ describe 'sitemaps', type: :request do
       get edit_user_path
 
       expect(response).to be_successful
-      assert_select('.panel-heading', 'E-Mail Adresse')
+      assert_select('.panel-heading', 'Persönliche Daten 👤')
     end
   end
 

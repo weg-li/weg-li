@@ -247,6 +247,12 @@ de:
     destroyed: "Dein Konto und alle Daten wurden gelöscht!"
     settings: 'Einstellungen'
     change_settings: 'Einstellungen ändern'
+    autosuggest:
+      one: 'Auto-Suggest'
+      from_exif: 'Standort, Datum und Dauer aus Metadaten'
+      from_history: 'Fahrzeug- und Tatdaten von Wiederholungstätern'
+      from_recognition: 'Fahrzeugdaten aus Beweisfotos'
+      from_proximity: 'Verstoß aus Umgebungsdaten'
     flags:
       hide_public_profile: 'öffentliches Profil deaktivieren'
       disable_reminders: 'Erinnerungen deaktivieren'
@@ -322,10 +328,10 @@ de:
     steps:
       photos:
         title: Erfassen
-        description: Mache ein oder mehrere Beweisfotos, die den Verstoß klar dokumentieren, und lade sie hoch. Das Nummernschild sollten auf den Fotos gut zu erkennen sein. Erstelle eine neue Meldung pro Fahrzeug und vermeide es möglichst, Fotos mit Passanten und Kennzeichen Unbeteiligter zu machen.
+        description: Mache ein oder mehrere Beweisfotos, die den Verstoß klar dokumentieren, und lade sie hoch. Das Nummernschild sollte auf den Fotos gut zu erkennen sein. Erstelle eine neue Meldung pro Fahrzeug und vermeide es möglichst, Fotos mit Passanten und Kennzeichen Unbeteiligter zu machen.
       infos:
         title: Beschreiben
-        description: Um mit Hilfe der Meldung eine Anzeige zu erstatten, werden noch zusätzliche Informationen benötigt. Neben Zeit und Ort des Verstoßes müssen auch noch Details zum Fahrzeug angegeben werden. Diese Informationen werden soweit möglich automatisch aus den Beweisfotos ermittelt.
+        description: Um mit Hilfe der Meldung eine Anzeige zu erstatten, werden noch zusätzliche Informationen benötigt. Neben Zeit und Ort des Verstoßes müssen auch noch Details zum Fahrzeug angegeben werden. Vorschläge für diese Informationen werden automatisch aus den Beweisfotos ermittelt.
       charges:
         title: Melden
         description: Aus den Daten kann direkt eine Anzeige erstattet werden, die dann an das zuständige Stelle gesendet wird. Alle Meldungen werden zudem anonymisiert auf der öffentlich erreichbaren weg.li Karte angezeigt.
