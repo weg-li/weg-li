@@ -48,12 +48,11 @@ class Annotator
     headers = { 'Content-Type' => 'application/json' }
     url = ENV.fetch('CAR_ML_URL', 'https://weg-li-car-ml.onrender.com')
     response = client.post(url, headers: headers, json: { google_cloud_urls: [key] })
-    if response.status.server_error?
-      raise HTTP::ResponseError.new(response.body)
-    elsif response.status.success?
+
+    if response.status.success?
       JSON.parse(response.body)
     else
-      nil
+      raise HTTP::ResponseError.new(response.body)
     end
   end
 
