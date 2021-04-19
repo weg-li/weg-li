@@ -139,7 +139,7 @@ class NoticesController < ApplicationController
     user = User.from_param(token['iss'])
     notice = user.notices.open.from_param(params[:id])
     notice.user = current_user
-    notive.save_incomplete!
+    notice.save_incomplete!
 
     redirect_to(notice, notice: "Meldung wurde in Deinen Account übernommen.")
   rescue JWT::ExpiredSignature
