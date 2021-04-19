@@ -2,7 +2,7 @@ class Scheduled::RerenderJob < ApplicationJob
   def perform
     Rails.logger.info("rerender thumbnails of active users")
 
-    User.order(last_login: :desc).limit(5).each do |user|
+    User.order(last_login: :desc).limit(50).each do |user|
       start_jobs(user.notices)
       start_jobs(user.bulk_uploads)
     end
