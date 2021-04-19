@@ -52,7 +52,7 @@ class Annotator
     if response.status.success?
       JSON.parse(response.body)
     else
-      raise HTTP::ResponseError.new(response.body)
+      raise HTTP::ResponseError.new, "Request failed with status #{response.status}: #{response.body}"
     end
   end
 
