@@ -2,21 +2,19 @@ class Scheduled::RerenderJob < ApplicationJob
   def perform
     Rails.logger.info("rerender thumbnails of active users")
 
-    User.order(last_login: :desc).limit(50).each do |user|
-      start_jobs(user.notices)
-      start_jobs(user.bulk_uploads)
-    end
+    start_jobs(Notice.open)
+    start_jobs(BulkUpload.open)
   end
 
   private
 
   def start_jobs(relation)
-    record_ids = relation.reorder(nil).left_joins(photos_attachments: {blob: :variant_records}).where('active_storage_variant_records.blob_id' => nil).limit(5).pluck(:id)
+    photo_ids = relation
+      .left_joins(photos_attachments: {blob: :variant_records})
+      .where('active_storage_variant_records.blob_id' => nil)
+      .limit(50)
+      .pluck('active_storage_attachments.id')
 
-    relation.find(record_ids).each do |record|
-      record.photos.each do |image|
-        ThumbnailerJob.perform_later(image) unless image.variant_records.any?
-      end
-    end
+    ActiveStorage::Attachment.find(photo_ids).each { |photo| ThumbnailerJob.perform_later(photo) }
   end
 end
