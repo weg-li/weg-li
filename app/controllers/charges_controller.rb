@@ -24,6 +24,9 @@ class ChargesController < ApplicationController
         end
         send_data csv_data, type: 'text/csv; charset=UTF-8; header=present', disposition: "attachment; filename=districts-#{Time.now.to_i}.csv"
       end
+      format.json do
+        render json: Charge::CHARGES
+      end
     end
   end
 end
