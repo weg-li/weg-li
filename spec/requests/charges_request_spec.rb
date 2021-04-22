@@ -12,6 +12,13 @@ describe "charges", type: :request  do
       expect(response).to be_successful
       assert_select 'h2', 'weg.li Tatbestände'
     end
+
+    it "renders charges as json" do
+      get charges_path(format: :json)
+
+      expect(response).to be_successful
+      assert JSON.parse(response.body)
+    end
   end
 
   context "charges#list" do
@@ -20,6 +27,13 @@ describe "charges", type: :request  do
 
       expect(response).to be_successful
       assert CSV.parse(response.body)
+    end
+
+    it "renders a list of legacy charges as JSON" do
+      get list_charges_path(format: :json)
+
+      expect(response).to be_successful
+      assert JSON.parse(response.body)
     end
   end
 

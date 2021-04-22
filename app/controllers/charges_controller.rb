@@ -2,9 +2,10 @@ require 'csv'
 
 class ChargesController < ApplicationController
   def index
-    @charges = Charge.active.order(params[:order] || 'tbnr ASC').page(params[:page])
-    @charges = @charges.where('tbnr ILIKE :term OR description ILIKE :term', term: "%#{params[:term]}%") if params[:term]
-    @charges = @charges.where('classification = ?', params[:classification]) if params[:classification]
+    respond_to do |format|
+      format.html { @charges = search_scope }
+      format.json { render json: Charge.active.as_api_response(:public_beta) }
+    end
   end
 
   def show
@@ -28,5 +29,14 @@ class ChargesController < ApplicationController
         render json: Charge::CHARGES
       end
     end
+  end
+
+  private
+
+  def search_scope
+    charges = Charge.active.order(params[:order] || 'tbnr ASC').page(params[:page])
+    charges = charges.where('tbnr ILIKE :term OR description ILIKE :term', term: "%#{params[:term]}%") if params[:term]
+    charges = charges.where('classification = ?', params[:classification]) if params[:classification]
+    charges
   end
 end

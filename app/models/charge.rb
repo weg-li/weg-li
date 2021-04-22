@@ -6,6 +6,12 @@ class Charge < ApplicationRecord
 
   scope :active, -> { where(valid_to: nil).where('fine > 0') }
 
+  acts_as_api
+
+  api_accessible :public_beta do |template|
+    %i(tbnr description fine bkat penalty fap points valid_from valid_to implementation classification variant_table_id rule_id table_id required_refinements number_required_refinements max_fine created_at updated_at).each { |key| template.add(key) }
+  end
+
   CLASSIFICATIONS = {
     0 => 'sonstige',
     1 => 'Lichtzeichen',

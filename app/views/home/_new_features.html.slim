@@ -4,6 +4,15 @@
 
     ul.list-group
       li.list-group-item
+        span.badge Meldung
+        | 🤖 In deinen #{link_to 'Einstellungen', edit_user_path} kannst Du festlegen welche Daten automatisch ausgefüllt werden sollen.
+      li.list-group-item
+        span.badge Meldung
+        | 🦾 Die automatische Erkennung von Kennzeichen, Marke, Farbe und Verstoß wurde in Zusammenarbeit mit der TU-Berlin verbessert.
+      li.list-group-item
+        span.badge Meldung
+        | 👾 Die #{link_to 'weg.li APIs', api_path} stehen nun zur allgemeinen Nutzung zur Verfügung.
+      li.list-group-item
         span.badge Profil
         | 🎖 Auf deiner #{link_to 'Profil-Seite', user_path} kannst Du jetzt einen den aktuellen Stand im Leaderboard-Ranking sehen.
       li.list-group-item
@@ -12,15 +21,3 @@
       li.list-group-item
         span.badge Meldung
         | 🖋 In Karlsruhe und Celle weisen wir darauf hin, dass die Anzeige per PDF und mit der #{link_to 'hinterlegten Unterschrift', edit_user_path(anchor: :signature)} erfolgen soll.
-      li.list-group-item
-        span.badge Meldung
-        | 👮 Die Polizei-Inspektionen in München werden nun auf Basis #{link_to 'dieser OpenStreetMap', 'https://umap.openstreetmap.fr/de/map/unbenannte-karte_422905#14/48.1444/11.5718', target: '_blank'} automatisch vorausgewählt.
-      li.list-group-item
-        span.badge Meldung
-        | 📝 Dank dem Ordnungsamt Dresden können Anzeigen auch im XML Format von #{link_to 'WiNOWiG', 'https://www.owig.de/'} angeliefert werden.
-      li.list-group-item
-        span.badge Tatbestandskatalog
-        | 📒 Parkvergehen aus dem Bußgeldkatalog kannst Du in unseren #{link_to 'Tatbeständen', charges_path} recherchieren.
-      li.list-group-item
-        span.badge Meldung
-        | 📄 Beim Versand einer Anzeige, kannst Du diese als generiertes PDF an die E-Mail anhängen.

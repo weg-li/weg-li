@@ -64,10 +64,13 @@
         | Alle Bezirke als JSON <code>#{districts_url(format: :json)}</code> oder im Legacy-Format als CSV <code>#{districts_url(format: :csv)}</code>.
       li.list-group-item
         span.badge(title="ohne login") allgemein
-        | Bezirk als JSON <code>#{district_url('PLZ', format: :json)}</code>.
+        | Ein Bezirk als JSON <code>#{district_url('PLZ', format: :json)}</code> 5-Stellige <code>PLZ</code> erforderlich.
       li.list-group-item
         span.badge(title="ohne login") allgemein
-        | Alle Tatbestände als CSV <code>#{list_charges_url(format: :csv)}</code>.
+        | Alle Tatbestände als JSON <code>#{charges_url(format: :json)}</code>.
+      li.list-group-item
+        span.badge(title="ohne login") allgemein
+        | Alle intern verwendeten Tatbestände als CSV <code>#{list_charges_url(format: :csv)}</code> oder als JSON <code>#{list_charges_url(format: :json)}</code>.
       li.list-group-item
         span.badge(title="login notwendig") personalisiert
         | Alle eigenen Parkverstöße als JSON <code>#{dump_notices_url(format: :json)}</code>.
