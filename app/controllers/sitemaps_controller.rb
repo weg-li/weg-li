@@ -20,6 +20,7 @@ class SitemapsController < ApplicationController
       violation_url,
       wegeheld_url,
       generator_url,
+      api_url,
     ]
 
     @urls += District.active.pluck(:zip).map { |zip| district_url(zip) }
