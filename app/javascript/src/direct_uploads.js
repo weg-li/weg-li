@@ -2,15 +2,18 @@
 
 $(document).ready(() => {
   $(document).on('change', '#fileupload', (event) => {
-    const uploadLimit = 6;
     const { target } = event;
+    const uploadLimit = target.attributes.upload_limit.value;
     const files = Array.from(target.files);
     const accepts = target.accept.split(',') || ['image/jpeg'];
+
+    document.getElementById('direct-upload-error-size')?.remove();
+    document.getElementById('photos-preview')?.remove();
     if (files.some((file) => !accepts.includes(file.type))) {
-      alert('Es werden nur Fotos im JPEG Format unterstützt!');
+      target.insertAdjacentHTML('beforebegin', '<div id="direct-upload-error-size" class="alert alert-warning">Es werden nur Fotos im JPEG Format unterstützt!</div>');
       target.value = '';
-    } else if (files.some((file) => (file.size / 1048576) > uploadLimit)) {
-      target.insertAdjacentHTML('beforebegin', `<div id="direct-upload-error-size" class="alert alert-warning">Es können nur Fotos bis ${uploadLimit} MB hochgeladen werden.</div>`);
+    } else if (files.some((file) => file.size > uploadLimit)) {
+      target.insertAdjacentHTML('beforebegin', `<div id="direct-upload-error-size" class="alert alert-warning">Es können nur Fotos bis ${uploadLimit / 1048576} MB hochgeladen werden!</div>`);
       target.value = '';
     } else {
       document.getElementById('photos-preview')?.remove();
