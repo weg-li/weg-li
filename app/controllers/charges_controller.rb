@@ -36,7 +36,7 @@ class ChargesController < ApplicationController
   def search_scope
     charges = Charge.active.order(params[:order] || 'tbnr ASC').page(params[:page])
     charges = charges.where('tbnr ILIKE :term OR description ILIKE :term', term: "%#{params[:term]}%") if params[:term]
-    charges = charges.where('classification = ?', params[:classification]) if params[:classification]
+    charges = charges.where('classification = ?', params[:classification].to_i) if params[:classification]
     charges
   end
 end
