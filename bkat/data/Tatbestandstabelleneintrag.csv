@@ -1,4 +1,4 @@
-Schluessel,Zeile,Von,Bis,Behinderung,hatTatbestandBE,Datum,hatZusatzinformationTatbestandstabelle,gehoertZuTatbestandstabelleBE
+Schluessel,Zeile,Von,Bis,Behinderung,hatTatbestandBE,hatZusatzinformationTatbestandstabelle,gehoertZuTatbestandstabelleBE
 '1','1','0','20','N','103636','2002-01-01-00.00.00.0000','','703000'
 '2','2','21','25','N','103637','2002-01-01-00.00.00.0000','','703000'
 '3','3','26','30','N','103638','2002-01-01-00.00.00.0000','','703000'

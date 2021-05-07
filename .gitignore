@@ -31,3 +31,4 @@ config/data/opengeodb.csv
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+/bkat/TBKAT.DAT
