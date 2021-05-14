@@ -5,11 +5,14 @@
       .form-group
         = form.label :name, class: "control-label control-label-required"
         = form.text_field :name, class: "form-control", required: true, placeholder: 'z.B. Hamburg'
+        = hint do
+          | Der Name der Stadt, Gemeinde oder der Ordnungsbehörde
     .col-lg-6
       .form-group
         = form.label :email, class: "control-label control-label-required"
         = form.email_field :email, class: "form-control", required: true, placeholder: 'z.B. anzeigen@hamburg.de'
-
+        = hint do
+          | Offizielle Adresse einer Behörde für Anzeigen in diesem Bezirk
   .row
     .col-lg-6
       .form-group
@@ -26,7 +29,7 @@
         = form.label :prefixes, class: "control-label"
         = form.text_field :prefixes, class: "form-control", placeholder: 'z.B. HH'
         = hint do
-          | Optional ein örtliches Kennzeichen
+          | Optional die örtlichen Kennzeichen (mit Leerzeichen getrennt)
     .col-lg-6
       .form-group
         = form.label :osm_id, class: "control-label"
