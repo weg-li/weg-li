@@ -33,6 +33,8 @@ class NoticeDashboard < Administrate::BaseDashboard
     longitude: Field::Number.with_options(decimals: 2),
     incomplete: Field::Boolean,
     note: Field::String,
+    replies: Field::HasMany,
+    data_sets: Field::HasMany,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -74,8 +76,10 @@ class NoticeDashboard < Administrate::BaseDashboard
     :flags,
     :latitude,
     :longitude,
-    :meta,
     :photos,
+    :meta,
+    :data_sets,
+    :replies,
   ].freeze
 
   # FORM_ATTRIBUTES
