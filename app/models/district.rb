@@ -22,7 +22,7 @@ class District < ApplicationRecord
   bitfield :flags, 1 => :personal_email
 
   enum status: {active: 0, proposed: 1}
-  enum config: {standard: 0, winowig: 1, munich: 2, signature: 3}
+  enum config: {standard: 0, winowig: 1, munich: 2, signature: 3, hamburg: 4}
 
   has_many :notices, foreign_key: :zip, primary_key: :zip
   has_many :users, foreign_key: :zip, primary_key: :zip

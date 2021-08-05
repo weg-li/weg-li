@@ -61,6 +61,8 @@ hr.spacer
 
           - if @notice.district.winowig?
             .well.well-sm.callout-primary Mit der Stadt Dresden nutzen wir eine XML basierte Schnittstelle zur dort genutzten Software #{link_to 'WiNOWiG', 'https://www.owig.de/'}.
+          - elsif @notice.district.hamburg?
+              / no PDF in hamburg /
           - else
             .form-group
               .checkbox
