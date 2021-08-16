@@ -334,7 +334,7 @@ de:
         description: Um mit Hilfe der Meldung eine Anzeige zu erstatten, werden noch zusätzliche Informationen benötigt. Neben Zeit und Ort des Verstoßes müssen auch noch Details zum Fahrzeug angegeben werden. Vorschläge für diese Informationen werden automatisch aus den Beweisfotos ermittelt.
       charges:
         title: Melden
-        description: Aus den Daten kann direkt eine Anzeige erstattet werden, die dann an das zuständige Stelle gesendet wird. Alle Meldungen werden zudem anonymisiert auf der öffentlich erreichbaren weg.li Karte angezeigt.
+        description: Aus den Daten kann direkt eine Anzeige erstattet werden, die dann an die zuständige Stelle gesendet wird. Alle Meldungen werden zudem anonymisiert auf der öffentlich erreichbaren weg.li Karte angezeigt.
     callouts:
       send_email:
         hint: 'Erstatte die Anzeige direkt per E-Mail, Du erhältst eine Kopie in CC.'
