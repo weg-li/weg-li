@@ -29,7 +29,7 @@ class User < ApplicationRecord
   validate :email_block_list
 
   def email_block_list
-    errors.add(:email, :invalid) if email =~ /miucce.com/
+    errors.add(:email, :invalid) if email =~ /miucce.com/ || email =~ /spamgourmet.com/
   end
 
   scope :last_login_since, -> (date) { where('last_login > ?', date) }
