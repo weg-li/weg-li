@@ -11,7 +11,7 @@ class UserDashboard < Administrate::BaseDashboard
     notices: Field::HasMany,
     authorizations: Field::HasMany,
     bulk_uploads: Field::HasMany,
-    id: Field::Number,
+    id: Field::Number.with_options(searchable: true),
     email: Field::String,
     nickname: Field::String,
     created_at: Field::DateTime,

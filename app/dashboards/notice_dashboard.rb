@@ -10,7 +10,7 @@ class NoticeDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     user: Field::BelongsTo,
     photos: Field::ActiveStorage.with_options(destroy_url: nil),
-    id: Field::Number,
+    id: Field::Number.with_options(searchable: true),
     meta: Field::String.with_options(searchable: false),
     token: Field::String,
     created_at: Field::DateTime,
