@@ -53,7 +53,7 @@ class ApidocsController < ActionController::Base
         key :url, 'https://swagger.io/specification/'
       end
     end
-    key :host, Rails.env.development? ? 'localhost:3000' : 'weg.li'
+    key :host, Rails.env.development? ? 'localhost:3000' : 'www.weg.li'
     key :basePath, '/api'
     key :consumes, ['application/json']
     key :produces, ['application/json']
