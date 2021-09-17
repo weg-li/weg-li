@@ -77,6 +77,7 @@ class Charge < ApplicationRecord
     112076 => 'Parken in der Einbahnstraße entgegen der Fahrtrichtung',
     141042 => 'Parken auf einem Gehweg, der durch Parkflächenmarkierung zum Gehwegparken freigegeben war, bei mehr als 2,8 t zulässiger Gesamtmasse',
     142262 => 'Parken auf einem Parkplatz (Zeichen 314), obwohl dies durch Zusatzzeichen *) für Sie verboten war',
+    141118 => 'Parken im eingeschränkten Haltverbot für eine Zone (Zeichen 290.1, 290.2)',
     0 => 'Sonstiges Parkvergehen (siehe Hinweise)',
   }
 
