@@ -88,7 +88,7 @@ GEM
     administrate-field-active_storage (0.3.7)
       administrate (>= 0.2.2)
       rails (>= 6.0)
-    appsignal (3.0.13)
+    appsignal (3.0.14)
       rack
     bindex (0.8.1)
     bitfields (0.14.0)
