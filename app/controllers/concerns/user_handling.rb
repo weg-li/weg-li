@@ -64,7 +64,7 @@ module UserHandling
         end
       elsif cookies.encrypted[:remember_me].present?
         user = User.authenticated_with_token(*cookies.encrypted[:remember_me])
-        user.touch(:last_login)
+        user.touch(:last_login) if user
       end
       user
     end
