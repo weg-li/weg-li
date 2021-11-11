@@ -1,13 +1,17 @@
 require 'csv'
 
 namespace :data do
-  task export: :environment do
-    data = File.read(Rails.root.join('bkat/TBKAT.DAT'))
-    data[2..-3].split("\r.").each_with_index do |d, i|
-      lines = d.split("\r")
-      name = lines.shift
-      puts name
-      File.write(Rails.root.join("bkat/data/#{name}.csv"), lines.map(&:strip).join("\n"))
+  task :export do
+    data = File.readlines(Rails.root.join('bkat/TBKAT.DAT'), chomp: true)
+    name = nil
+    data.each do |line|
+      if name == nil || line[0] == '.'
+        name = line.gsub(/.*\./, '')
+        puts name
+        File.open(Rails.root.join("bkat/data/#{name}.csv"), 'w') { |f| f.write "" }
+      else
+        File.open(Rails.root.join("bkat/data/#{name}.csv"), 'a') { |f| f.puts line }
+      end
     end
   end
 
@@ -63,6 +67,7 @@ namespace :data do
   end
 
   task import_charge_variants: :environment do
+    ChargeVariant.connection.truncate('charge_variants')
     CSV.foreach(Rails.root.join('bkat/data/Tatbestandstabelleneintrag.csv'), headers: true, quote_char: "'") do |row|
       # Schluessel, Zeile,  Von,  Bis,  Behinderung,  hatTatbestandBE,  hatZusatzinformationTatbestandstabelle, gehoertZuTatbestandstabelleBE
       # '1',        '1',    '0',  '20', 'N',          '103636',         '',                                     '703000'
@@ -83,6 +88,7 @@ namespace :data do
   end
 
   task import_charges: :environment do
+    Charge.connection.truncate('charges')
     CSV.foreach(Rails.root.join('bkat/data/TatbestandBE.csv'), headers: true, quote_char: "'") do |row|
       # TBNR,Tatbestandstext,Geldbusse,Rechtsgrundlage,Fahrverbot,FaP,Punkte,validFrom,validTo,hatKonkretisierungsart,historyUser,
       # hatKlassifizierung,hatTatbestandstabelleBE,hatTatbestandsvorschriftBE,gehoertZuTatbestandstabelleneintrag,
