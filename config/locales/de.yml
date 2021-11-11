@@ -77,7 +77,9 @@ de:
         fine: 'Geldbuße'
         points: 'Punkte'
         fap: 'Fahrerlaubnis auf Probe'
-        valid_from: 'Gültig seit'
+        valid_from: 'gültig seit'
+        valid_to: 'gültig bis'
+        valid: 'Gültigkeit'
         classification: 'Kategorie'
       charge_variant:
         row_number: 'Zeile'

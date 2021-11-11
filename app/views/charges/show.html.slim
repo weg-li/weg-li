@@ -13,7 +13,9 @@ h3 #{@charge.description} (#{Charge.human_attribute_name(:tbnr)} #{@charge.tbnr}
         li.list-group-item Tatbestandsnummer #{@charge.tbnr}
         li.list-group-item #{Charge.human_attribute_name(:classification)} #{tag.span(@charge.classification_name, class: 'label label-primary')}
         li.list-group-item #{@charge.bkat}
-        li.list-group-item.small.text-muted #{Charge.human_attribute_name(:valid_from)} #{l(@charge.valid_from, format: :date)}
+        li.list-group-item
+          span.small.text-muted #{Charge.human_attribute_name(:valid)}: #{l(@charge.valid_from, format: :date)}#{' - ' + l(@charge.valid_to, format: :date) if @charge.valid_to}
+          span< #{tag.span('historisiert', class: 'label label-warning') if @charge.valid_to}
 
   .col-lg-6
     .panel.panel-default
