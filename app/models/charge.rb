@@ -31,7 +31,6 @@ class Charge < ApplicationRecord
   }
 
   UPDATED_CHARGES = [
-    ['ID', 'Tatbestand', 'ohne Behinderung', 'mit Behinderung', 'event. Konkretisierung', ''],
     ['1', 'Parken auf einem unbeschilderten Radweg', '112474', '112675', '', 'neu'],
     ['2', 'Parken auf einem Fußgängerüberweg', '141292', '141293', '', 'neu'],
     ['3', 'Parken auf einem Radweg (Zeichen 237)', '141174', '141775', '', 'neu'],
