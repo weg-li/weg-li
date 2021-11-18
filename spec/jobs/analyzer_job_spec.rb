@@ -4,6 +4,9 @@ describe AnalyzerJob do
   context "perform" do
     let(:notice) { Fabricate.create(:notice) }
 
+    before { ENV["CAR_ML_FLAG"] = 'on' }
+    after { ENV["CAR_ML_FLAG"] = 'off' }
+
     it "should analyze the image with yolo" do
       job = AnalyzerJob.new
       stub_request(:post, "https://weg-li-car-ml.onrender.com/").to_return(status: 200, body: "{\"suggestions\":{}}", headers: {})

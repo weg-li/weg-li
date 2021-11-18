@@ -27,10 +27,14 @@ class AnalyzerJob < ApplicationJob
   def analyze(notice)
     handle_exif(notice)
 
-    begin
-      handle_ml(notice)
-    rescue HTTP::TimeoutError, HTTP::ResponseError => exception
-      Appsignal.set_error(exception)
+    if ENV["CAR_ML_FLAG"] == 'on'
+      begin
+        handle_ml(notice)
+      rescue HTTP::TimeoutError, HTTP::ResponseError => exception
+        Appsignal.set_error(exception)
+        handle_vision(notice)
+      end
+    else
       handle_vision(notice)
     end
 
