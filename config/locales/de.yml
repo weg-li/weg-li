@@ -216,7 +216,8 @@ de:
     signup: 'Du hast Dich erfolgreich registriert, bitte bestätige Deine E-Mail Adresse!'
     validate: 'Bitte bestätige Deine E-Mail Adresse!'
     activate: 'Dein Zugang wird demnächst deaktiviert!'
-    email_auth: 'Logge Dich bei weg.li ein!'
+    login_link: 'Logge Dich bei weg.li ein!'
+    signup_link: 'Registriere Dich bei weg.li!'
   districts:
     statistics:
       notices: 'Meldungen insgesamt'
@@ -235,7 +236,8 @@ de:
       yearly: 'Jahreswertung'
       alltime: 'Allzeitwertung'
     confirmation_mail: "Eine Bestätigungs-Mail wurde an %{email} versendet."
-    signup_mail: "Eine E-Mail mit Login-Link wurde an %{email} versendet."
+    signup_link: "Eine E-Mail mit Registierungs-Link wurde an %{email} versendet."
+    login_link: "Eine E-Mail mit Login-Link wurde an %{email} versendet."
     profile_updated_and_confirmation_email: 'Dein Profil wurde aktualisiert und eine Bestätigungs-Mail wurde an Deine E-Mail Adresse versendet!'
     profile_updated: 'Dein Profil wurde aktualisiert.'
     authorizations: 'Verknüpfungen'

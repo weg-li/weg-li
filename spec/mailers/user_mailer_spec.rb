@@ -34,14 +34,26 @@ describe UserMailer do
     end
   end
 
-  describe "email_auth" do
+  describe "signup_link" do
     let(:email) { 'mursksi@furksi.de' }
-    let(:mail) { UserMailer.email_auth(email, '123ABC') }
+    let(:mail) { UserMailer.signup_link(email, '123ABC') }
 
     it "renders the mail" do
       expect(mail.subject).to_not be_nil
       expect(mail.to).to eq([email])
-      expect(mail.body.encoded).to match("nur 15 Minuten")
+      expect(mail.body.encoded).to match("zum Registrieren")
+    end
+  end
+
+  describe "login_link" do
+    let(:user) { Fabricate(:user) }
+    let(:email) { user.email }
+    let(:mail) { UserMailer.login_link(user, '123ABC') }
+
+    it "renders the mail" do
+      expect(mail.subject).to_not be_nil
+      expect(mail.to).to eq([email])
+      expect(mail.body.encoded).to match("zum Einloggen")
     end
   end
 

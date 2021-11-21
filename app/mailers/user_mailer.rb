@@ -17,10 +17,17 @@ class UserMailer < ApplicationMailer
     mail to: email_address_with_name(@user.email, @user.name), subject: t('mailers.activate')
   end
 
-  def email_auth(email, token)
+  def login_link(user, token)
+    @user = user
     @token = token
 
-    mail to: email, subject: t('mailers.email_auth')
+    mail to: user.email, subject: t('mailers.login_link')
+  end
+
+  def signup_link(email, token)
+    @token = token
+
+    mail to: email, subject: t('mailers.signup_link')
   end
 
   def reminder(user, notice_ids)

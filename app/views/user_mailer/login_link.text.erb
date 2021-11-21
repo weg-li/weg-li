@@ -1,0 +1,15 @@
+Hallo <%= @user.name %>,
+
+zum Einloggen bei www.weg.li klicke einfach auf den nachfolgenden Link:
+
+------
+
+<%= provider_callback_url(provider: :email, token: @token) %>
+
+------
+
+Der Link ist nur 15 Minuten gültig, danach bitte einen neuen Link über die Webseite anfordern 😉
+
+Manche E-Mail Clients öffnen die Links nicht korrekt. In dem Fall den Link zwischen den ------ Trennern kopieren und im Browser einfügen.
+
+<%= render 'mailer/footer' %>

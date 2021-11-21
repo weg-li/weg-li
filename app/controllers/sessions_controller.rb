@@ -59,9 +59,16 @@ class SessionsController < ApplicationController
     email = normalize_email(params[:email])
     if email.present?
       token = Token.generate(email)
-      UserMailer.email_auth(email, token).deliver_later
+      user = User.find_by_email(email)
+      if user.present?
+        UserMailer.login_link(user, token).deliver_later
 
-      redirect_to root_path, notice: t('users.signup_mail', email: email)
+        redirect_to root_path, notice: t('users.login_link', email: email)
+      else
+        UserMailer.signup_link(email, token).deliver_later
+
+        redirect_to root_path, notice: t('users.signup_link', email: email)
+      end
     else
       flash.now[:alert] = 'Bitte gebe eine E-Mail-Adresse ein!'
 

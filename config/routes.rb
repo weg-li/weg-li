@@ -133,7 +133,7 @@ Rails.application.routes.draw do
 
   scope '/sessions' do
     get '/email', to: 'sessions#email'
-    post '/email_signup', to: 'sessions#email_signup'
+    post '/email_signup', to: 'sessions#email_signup', as: :email_signup
   end
 
   root 'home#index'

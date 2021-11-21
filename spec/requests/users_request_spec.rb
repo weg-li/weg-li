@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'sitemaps', type: :request do
+describe 'users', type: :request do
   before do
     @user = login
   end
