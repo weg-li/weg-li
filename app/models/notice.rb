@@ -73,7 +73,8 @@ class Notice < ApplicationRecord
   end
 
   def self.yearly_statistics(year, limit, base_scope: Notice.shared)
-    notices = base_scope.reorder(nil).where(date: (Time.new(year)..Time.new(year).end_of_year))
+    notices = base_scope.reorder(nil)
+    notices = notices.where(date: (Time.new(year)..Time.new(year).end_of_year)) if year.present?
     {
       count: notices.count,
       active: notices.pluck(:user_id).uniq.size,

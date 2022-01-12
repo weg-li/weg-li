@@ -19,12 +19,13 @@
 a.anchor#topx Top 10 Anchor
 
 ul.nav.nav-tabs.nav-panel
+  li(class="#{'active' if @year.blank?}")= link_to('Gesamt', url_for(since: @since, limit: @limit, year: @year, anchor: :topx))
   - (2019..@current_year).reverse_each do |year|
     li(class="#{'active' if year == @year}")= link_to(year, url_for(since: @since, limit: @limit, year: year, anchor: :topx))
 
 .panel.panel-default.panel-nav
   .panel-heading
-    | Im Jahr #{@year} sind #{@grouped_statistics.values.sum} Meldungen erfasst, davon
+    | #{@year.blank? ? 'Insgesamt' : 'Im Jahr'} sind #{@grouped_statistics.values.sum} Meldungen erfasst, davon
     - @grouped_statistics.each do |status, count|
       span<> #{count}
       = render('status', status: status)
