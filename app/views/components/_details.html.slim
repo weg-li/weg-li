@@ -19,7 +19,11 @@ dl.dl-horizontal
   dt= Notice.human_attribute_name(:location)
   dd= notice.full_location
   dt= Notice.human_attribute_name(:charge)
-  dd= notice.charge.presence || '-'
+  - tbnr = Charge.plain_charges_tbnr(notice.charge)
+  - if tbnr
+    dd= link_to notice.charge, charge_path(tbnr)
+  - else
+    dd= notice.charge.presence || '-'
   dt= Notice.human_attribute_name(:severity)
   dd= Notice.human_attribute_name(notice.severity)
   dt= Notice.human_attribute_name(:date)
