@@ -16,7 +16,7 @@
       ul.list-group
         - current_user.statistics.each do |key, value|
           li.list-group-item
-            = t(key, scope: 'users.statistics')
+            = t(key, scope: 'notices.statistics')
             .badge.pull-right= value
 
   .col-lg-6
