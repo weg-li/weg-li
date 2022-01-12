@@ -29,6 +29,6 @@ describe Geo do
     district = Fabricate.build(:district, latitude: 53, longitude: 9)
     notice = Fabricate.build(:notice)
 
-    expect(Geo.distance(district, notice)).to eql(57.814660206076)
+    expect(Geo.distance(district, notice)).to be_within(0.00001).of(57.814660206076)
   end
 end
