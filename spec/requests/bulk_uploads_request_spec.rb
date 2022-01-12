@@ -8,6 +8,28 @@ describe 'bulk_uploads', type: :request do
     login(user)
   end
 
+  context "index" do
+    it "index works" do
+      get bulk_uploads_path
+
+      expect(response).to be_ok
+    end
+
+    it "no filters" do
+      get bulk_uploads_path
+
+      assert_select('td', {count: 1, text: "Es wurden keine Uploads gefunden"})
+
+      get bulk_uploads_path(filter: {status: bulk_upload.status})
+
+      assert_select('td', {count: 0, text: "Es wurden keine Uploads gefunden"})
+
+      get bulk_uploads_path(filter: {status: 'importing'})
+
+      assert_select('td', {count: 1, text: "Es wurden keine Uploads gefunden"})
+    end
+  end
+
   context "GET :new" do
     it "renders the page" do
       get new_bulk_upload_path

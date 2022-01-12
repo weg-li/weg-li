@@ -6,6 +6,10 @@ class BulkUploadsController < ApplicationController
     @table_params = {}
 
     @bulk_uploads = current_user.bulk_uploads.with_attached_photos.page(params[:page])
+    if filter = params[:filter]
+      @table_params[:filter] = filter.to_unsafe_hash
+      @bulk_uploads = @bulk_uploads.where(status: filter[:status]) if filter[:status].present?
+    end
     if order = params[:order]
       @table_params[:order] = order.to_unsafe_hash
       if order[:column].present? && order[:value].present?
