@@ -56,25 +56,15 @@
             .progress-bar.progress-bar-success(style="width: #{[100, current / (goal.fdiv(100))].min}%")
 
 .row
-  .col-lg-6
-    h3 🥇 2020-Winner:
-    ul.list-group
-      - @year2020_leaders.each_with_index do |(user_id, current), index|
-        li.list-group-item
-          - goal = @year2020_leaders.first.last
-          .badge.pull-right #{number_with_delimiter(current)} Anzeigen
-          p
-            strong=> "#{index+1}. #{@users.find { |user| user.id == user_id }&.public_nickname}"
-          .progress.progress-striped.active
-            .progress-bar.progress-bar-success(style="width: #{[100, current / (goal.fdiv(100))].min}%")
-  .col-lg-6
-    h3 🥇 2019-Winner:
-    ul.list-group
-      - @year2019_leaders.each_with_index do |(user_id, current), index|
-        li.list-group-item
-          - goal = @year2019_leaders.first.last
-          .badge.pull-right #{number_with_delimiter(current)} Anzeigen
-          p
-            strong=> "#{index+1}. #{@users.find { |user| user.id == user_id }&.public_nickname}"
-          .progress.progress-striped.active
-            .progress-bar.progress-bar-success(style="width: #{[100, current / (goal.fdiv(100))].min}%")
+  - [2021, 2020, 2019].each do |year|
+    .col-lg-6
+      h3 🥇 #{year}-Winner:
+      ul.list-group
+        - @year_leaders[year].each_with_index do |(user_id, current), index|
+          li.list-group-item
+            - goal = @year_leaders[year].first.last
+            .badge.pull-right #{number_with_delimiter(current)} Anzeigen
+            p
+              strong=> "#{index+1}. #{@users.find { |user| user.id == user_id }&.public_nickname}"
+            .progress.progress-striped.active
+              .progress-bar.progress-bar-success(style="width: #{[100, current / (goal.fdiv(100))].min}%")

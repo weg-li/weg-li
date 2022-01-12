@@ -70,10 +70,13 @@ class HomeController < ApplicationController
     @monthly_leaders = Notice.since(Time.zone.now.beginning_of_month).shared.group(:user_id).order(count_all: :desc).limit(@limit).count
     @yearly_leaders = Notice.since(Time.zone.now.beginning_of_year).shared.group(:user_id).order(count_all: :desc).limit(@limit).count
     @total_leaders = Notice.shared.group(:user_id).order(count_all: :desc).limit(@limit).count
-    @year2019_leaders = Notice.where(date: ('01.08.2019'.to_date)..('01.08.2019'.to_date.end_of_year)).shared.group(:user_id).order(count_all: :desc).limit(@limit).count
-    @year2020_leaders = Notice.where(date: ('01.01.2020'.to_date.beginning_of_year)..('31.12.2020'.to_date.end_of_year)).shared.group(:user_id).order(count_all: :desc).limit(@limit).count
+    @year_leaders = {
+      2019 => Notice.where(date: ('01.08.2019'.to_date)..('01.08.2019'.to_date.end_of_year)).shared.group(:user_id).order(count_all: :desc).limit(@limit).count,
+      2020 => Notice.where(date: ('01.01.2020'.to_date.beginning_of_year)..('31.12.2020'.to_date.end_of_year)).shared.group(:user_id).order(count_all: :desc).limit(@limit).count,
+      2021 => Notice.where(date: ('01.01.2021'.to_date.beginning_of_year)..('31.12.2021'.to_date.end_of_year)).shared.group(:user_id).order(count_all: :desc).limit(@limit).count,
+    }
 
-    @users = User.where(id: @weekly_leaders.keys + @monthly_leaders.keys + @yearly_leaders.keys + @total_leaders.keys + @year2019_leaders.keys + @year2020_leaders.keys)
+    @users = User.where(id: @weekly_leaders.keys + @monthly_leaders.keys + @yearly_leaders.keys + @total_leaders.keys + @year_leaders.values.flat_map(&:keys))
   end
 
   def generator
