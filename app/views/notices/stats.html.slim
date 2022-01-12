@@ -19,9 +19,9 @@
 a.anchor#topx Top 10 Anchor
 
 ul.nav.nav-tabs.nav-panel
-  li(class="#{'active' if @year.blank?}")= link_to('Gesamt', url_for(since: @since, limit: @limit, year: @year, anchor: :topx))
+  li(class="#{'active' if @year.blank?}")= link_to('Gesamt', url_for(since: @since, limit: @limit, anchor: :topx))
   - (2019..@current_year).reverse_each do |year|
-    li(class="#{'active' if year == @year}")= link_to(year, url_for(since: @since, limit: @limit, year: year, anchor: :topx))
+    li(class="#{'active' if year == @year.to_i}")= link_to(year, url_for(since: @since, limit: @limit, year: year, anchor: :topx))
 
 .panel.panel-default.panel-nav
   .panel-heading
