@@ -22,45 +22,4 @@ hr.spacer-large
 
 .spacer
 
-.row
-  .col-lg-4
-    h3 📈 Top Orte
-    ul.list-group
-      - @statistics[:grouped_cities].each do |entry|
-        li.list-group-item
-          .badge.pull-right= number_with_delimiter(entry.city_count)
-          = entry.city
-
-  .col-lg-4
-    h3 📈 Top Bundesländer
-    ul.list-group
-      - @statistics[:grouped_states].each do |entry|
-        li.list-group-item
-          .badge.pull-right= number_with_delimiter(entry.state_count)
-          = entry.state
-
-  .col-lg-4
-    h3 📈 Top Postleitzahlen
-    ul.list-group
-      - @statistics[:grouped_zips].each do |entry|
-        li.list-group-item
-          .badge.pull-right= number_with_delimiter(entry.zip_count)
-          = entry.zip
-
-.spacer-large
-
-.row
-  .col-lg-8
-    h3 📈 Top Vergehen
-    ul.list-group
-      - @statistics[:grouped_charges].each do |entry|
-        li.list-group-item
-          .badge.pull-right= number_with_delimiter(entry.charge_count)
-          = entry.charge
-
-  .col-lg-4
-    h3 📈 Top Automarken
-    ul.list-group
-      - @statistics[:grouped_brands].each do |entry|
-        li.list-group-item
-          = render('components/vehicle_count', count: @statistics[:count], brand_count: entry.brand_count, brand: entry.brand)
+= render('yearly_stats', statistics: @statistics)
