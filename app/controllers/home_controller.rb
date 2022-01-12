@@ -66,10 +66,11 @@ class HomeController < ApplicationController
   def leaderboard
     @limit = (params[:limit] || 5).to_i
 
-    @weekly_leaders = Notice.since(Time.zone.now.beginning_of_week).shared.group(:user_id).order(count_all: :desc).limit(@limit).count
-    @monthly_leaders = Notice.since(Time.zone.now.beginning_of_month).shared.group(:user_id).order(count_all: :desc).limit(@limit).count
-    @yearly_leaders = Notice.since(Time.zone.now.beginning_of_year).shared.group(:user_id).order(count_all: :desc).limit(@limit).count
+    @weekly_leaders = Notice.shared.since(Time.zone.now.beginning_of_week).group(:user_id).order(count_all: :desc).limit(@limit).count
+    @monthly_leaders = Notice.shared.since(Time.zone.now.beginning_of_month).group(:user_id).order(count_all: :desc).limit(@limit).count
+    @yearly_leaders = Notice.shared.since(Time.zone.now.beginning_of_year).group(:user_id).order(count_all: :desc).limit(@limit).count
     @total_leaders = Notice.shared.group(:user_id).order(count_all: :desc).limit(@limit).count
+
     @year_leaders = {
       2019 => Notice.where(date: ('01.08.2019'.to_date)..('01.08.2019'.to_date.end_of_year)).shared.group(:user_id).order(count_all: :desc).limit(@limit).count,
       2020 => Notice.where(date: ('01.01.2020'.to_date.beginning_of_year)..('31.12.2020'.to_date.end_of_year)).shared.group(:user_id).order(count_all: :desc).limit(@limit).count,

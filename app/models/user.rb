@@ -128,10 +128,10 @@ class User < ApplicationRecord
   end
 
   def leaderboard_positions
-    daily = Notice.since(Time.zone.now.beginning_of_day).group(:user_id).order(count_all: :desc).count
-    weekly = Notice.since(Time.zone.now.beginning_of_week).group(:user_id).order(count_all: :desc).count
-    monthly = Notice.since(Time.zone.now.beginning_of_month).group(:user_id).order(count_all: :desc).count
-    yearly = Notice.since(Time.zone.now.beginning_of_year).group(:user_id).order(count_all: :desc).count
+    daily = Notice.shared.since(Time.zone.now.beginning_of_day).group(:user_id).order(count_all: :desc).count
+    weekly = Notice.shared.since(Time.zone.now.beginning_of_week).group(:user_id).order(count_all: :desc).count
+    monthly = Notice.shared.since(Time.zone.now.beginning_of_month).group(:user_id).order(count_all: :desc).count
+    yearly = Notice.shared.since(Time.zone.now.beginning_of_year).group(:user_id).order(count_all: :desc).count
     alltime = Notice.group(:user_id).order(count_all: :desc).count
 
     @positions = [

@@ -7,6 +7,15 @@ describe 'users', type: :request do
 
   context "GET :edit" do
     it "renders the page" do
+      get user_path
+
+      expect(response).to be_successful
+      assert_select('.panel-heading', 'Infos zum Account')
+    end
+  end
+
+  context "GET :edit" do
+    it "renders the page" do
       get edit_user_path
 
       expect(response).to be_successful
