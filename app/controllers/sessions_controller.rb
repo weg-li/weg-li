@@ -116,6 +116,10 @@ class SessionsController < ApplicationController
 
       render :signup
     end
+  rescue ActiveRecord::RecordNotUnique
+    # user should already be signed in from a concurrent request
+    session.delete(:auth_data)
+    redirect_to session.delete(:auth_path), notice: t('sessions.welcome', nickname: @user.nickname)
   end
 
   private
