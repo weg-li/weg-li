@@ -1,4 +1,7 @@
 # check via Rufus::Scheduler.parse
+analytics:
+   cron: '0 6 * * * Europe/Berlin'
+   class: 'Scheduled::AnalyticsJob'
 stuck:
    cron: '0 * * * * * Europe/Berlin'
    class: 'Scheduled::StuckJob'
