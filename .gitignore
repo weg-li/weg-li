@@ -23,6 +23,7 @@
 config/secrets
 .byebug_history
 
+wrangler.toml
 config/data/opengeodb.csv
 
 /public/packs
