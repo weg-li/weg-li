@@ -9,10 +9,11 @@ module PhotoHelper
     if size == :original
       rails_storage_redirect_url(photo, cdn_url_options)
     else
-      rails_storage_redirect_url(photo.variant(CONFIG[size]), cdn_url_options)
-      # if access?(:admin)
-      # else
-      # end
+      if access?(:admin)
+        cloudflare_image_resize_url(photo, size)
+      else
+        rails_storage_redirect_url(photo.variant(CONFIG[size]), cdn_url_options)
+      end
     end
   rescue ActiveStorage::InvariableError => e
     Rails.logger.warn("rendering broken image #{photo.id}: #{e.message}")
