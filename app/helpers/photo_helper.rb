@@ -10,12 +10,21 @@ module PhotoHelper
       rails_storage_redirect_url(photo, cdn_url_options)
     else
       rails_storage_redirect_url(photo.variant(CONFIG[size]), cdn_url_options)
+      # if access?(:admin)
+      # else
+      # end
     end
   rescue ActiveStorage::InvariableError => e
     Rails.logger.warn("rendering broken image #{photo.id}: #{e.message}")
     url_for(photo)
   end
-
+  
+  def cloudflare_image_resize_url(photo, size)
+    width, height = CONFIG[size][:resize].split('x')
+    quality = CONFIG[size][:quality]
+    "https://images.weg.li/cdn-cgi/image/width=#{width},height=#{height},fit=scale-down,quality=#{quality}/storage/#{photo.key}"
+  end
+  
   def variant_exists?(photo, size: :default)
     photo.variant(CONFIG[size]).processed?
   rescue ActiveStorage::InvariableError => e
