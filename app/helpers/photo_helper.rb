@@ -27,7 +27,7 @@ module PhotoHelper
   end
   
   def variant_exists?(photo, size: :default)
-    photo.variant(CONFIG[size]).processed?
+    access?(:admin) || photo.variant(CONFIG[size]).processed?
   rescue ActiveStorage::InvariableError => e
     Rails.logger.warn("rendering broken image #{photo.id}: #{e.message}")
     false
