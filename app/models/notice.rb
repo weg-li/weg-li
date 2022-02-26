@@ -90,6 +90,10 @@ class Notice < ApplicationRecord
   def display_charge
     standard? ? charge : "#{charge}, #{Notice.human_attribute_name(severity)}"
   end
+  
+  def tbnr
+   Charge.plain_charges_tbnr(charge)
+ end
 
   def wegli_email
     "#{token}@anzeige.weg.li"

@@ -19,7 +19,7 @@ dl.dl-horizontal
   dt= Notice.human_attribute_name(:location)
   dd= notice.full_location
   dt= Notice.human_attribute_name(:charge)
-  - tbnr = Charge.plain_charges_tbnr(notice.charge)
+  - tbnr = notice.tbnr
   - if tbnr
     dd= link_to notice.charge, charge_path(tbnr)
   - else

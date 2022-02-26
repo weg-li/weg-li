@@ -104,6 +104,7 @@ de:
         kind: 'Art'
         color: 'Farbe'
         charge: 'Verstoß'
+        tbnr: 'Tatbestandsnummer'
         date: 'Tatzeit'
         duration: 'Zeitraum'
         note: 'Hinweise'

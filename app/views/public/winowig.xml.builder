@@ -60,7 +60,7 @@ xml.Fall do
   end
   xml.Tatdaten do
     xml.Vorwurf do
-      xml.Tatbestandsnummer Charge.plain_charges_tbnr(@notice.charge)
+      xml.Tatbestandsnummer @notice.tbnr
       xml.VorwurfText @notice.charge
       xml.MitBehinderung @notice.standard? ? 0 : 1
     end
