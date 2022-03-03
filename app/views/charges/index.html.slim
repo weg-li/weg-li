@@ -16,7 +16,7 @@
           li
             = form_tag({url: url_for}, method: :get, class: 'form-dropdown', autocomplete: :off) do
               .input-group.input-group-sm
-                = text_field_tag(:term, params[:term], placeholder: 'z.B. Gehweg', class: 'form-control input-sm')
+                = text_field_tag(:term, params[:term], placeholder: 'z.B. Gehweg', class: 'form-control input-sm', autofocus: true)
                 span.input-group-btn
                   = button_tag(class: "btn btn-default btn-sm")
                     span.glyphicon.glyphicon-search

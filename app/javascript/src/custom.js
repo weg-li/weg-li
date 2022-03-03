@@ -13,3 +13,7 @@ $(document).ready(() => {
 $(document).ready(() => {
   $('select[data-select2-disabled!="true"]').select2({ theme: 'bootstrap' });
 });
+
+$(document).on('shown.bs.dropdown', (event) => {
+  $(event.relatedTarget).siblings().find('form').find('input[autofocus]').focus()
+});

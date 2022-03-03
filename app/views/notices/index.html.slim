@@ -34,7 +34,7 @@
                   = hidden_field_tag('order[column]', @table_params[:order][:column])
                   = hidden_field_tag('order[value]', @table_params[:order][:value])
                   = hidden_field_tag('filter[status]', @table_params[:filter][:status])
-                  = text_field_tag('search[term]', @table_params[:search][:term], placeholder: 'z.B. HH SV 1887', class: 'form-control')
+                  = text_field_tag('search[term]', @table_params[:search][:term], placeholder: 'z.B. HH SV 1887', class: 'form-control', autofocus: true)
                   span.input-group-btn
                     = button_tag(class: "btn btn-default btn-sm")
                       span.glyphicon.glyphicon-search
