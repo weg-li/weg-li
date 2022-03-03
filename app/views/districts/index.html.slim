@@ -31,27 +31,29 @@
                 span.glyphicon.glyphicon-remove>
                 | ohne Suche
 
-  - if @districts.present? || params[:filter]
-    .table-responsive
-      table.table.table-striped.table-hover
-        thead
+  .table-responsive
+    table.table.table-striped.table-hover
+      thead
+        tr
+          th
+          th= District.human_attribute_name(:zip)
+          th= District.human_attribute_name(:name)
+          th= District.human_attribute_name(:state)
+          th= District.human_attribute_name(:email)
+          th= District.human_attribute_name(:updated_at)
+      tbody
+        - if @districts.present?
+          - @districts.each do |district|
+            tr
+              td= render 'actions', district: district
+              td= link_to district.zip, district
+              td= link_to district.name, district
+              td= link_to district.state, district
+              td= link_to district.display_email, district
+              td= link_to l(district.updated_at, format: :short), district
+        - else
           tr
-            th
-            th= District.human_attribute_name(:zip)
-            th= District.human_attribute_name(:name)
-            th= District.human_attribute_name(:state)
-            th= District.human_attribute_name(:email)
-            th= District.human_attribute_name(:updated_at)
-        tbody
-          - if @districts.present?
-            - @districts.each do |district|
-              tr
-                td= render 'actions', district: district
-                td= link_to district.zip, district
-                td= link_to district.name, district
-                td= link_to district.state, district
-                td= link_to district.display_email, district
-                td= link_to l(district.updated_at, format: :short), district
+            td(colspan=6) Es wurden keine Einträge gefunden.
 
 .text-center
   = paginate @districts
