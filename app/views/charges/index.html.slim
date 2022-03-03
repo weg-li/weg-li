@@ -15,6 +15,7 @@
         ul.dropdown-menu.dropdown-menu-right
           li
             = form_tag({url: url_for}, method: :get, class: 'form-dropdown', autocomplete: :off) do
+              = hidden_field_tag(:classification, params[:classification])
               .input-group.input-group-sm
                 = text_field_tag(:term, params[:term], placeholder: 'z.B. Gehweg', class: 'form-control input-sm', autofocus: true)
                 span.input-group-btn
@@ -28,44 +29,46 @@
                 span.glyphicon.glyphicon-remove>
                 | ohne Suche
 
-  - if @charges.present? || params[:filter]
-    .table-responsive
-      table.table.table-striped.table-hover
-        thead
-          tr
-            th
-            th= Charge.human_attribute_name(:tbnr)
-            th= Charge.human_attribute_name(:description)
-            th
-              .dropdown
-                button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown"
-                  - current_status_filter = params[:classification]
-                  => current_status_filter.present? ? Charge.classification_name(current_status_filter) : Charge.human_attribute_name(:classification)
-                  span.caret
-                ul.dropdown-menu.dropdown-menu-right
-                  - Charge::CLASSIFICATIONS.each do |key, name|
-                    li
-                      = link_to url_for(classification: key)
-                        span.label.label-primary= name
-                  li role="separator" class="divider"
+  .table-responsive
+    table.table.table-striped.table-hover
+      thead
+        tr
+          th
+          th= Charge.human_attribute_name(:tbnr)
+          th= Charge.human_attribute_name(:description)
+          th
+            .dropdown
+              button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown"
+                - current_status_filter = params[:classification]
+                => current_status_filter.present? ? Charge.classification_name(current_status_filter) : Charge.human_attribute_name(:classification)
+                span.caret
+              ul.dropdown-menu.dropdown-menu-right
+                - Charge::CLASSIFICATIONS.each do |key, name|
                   li
-                    = link_to url_for(classification: nil)
-                      span.glyphicon.glyphicon-remove>
-                      | kein Filter
-            th= Charge.human_attribute_name(:fine)
-            th= Charge.human_attribute_name(:points)
-            th= Charge.human_attribute_name(:valid_from)
-        tbody
-          - if @charges.present?
-            - @charges.each do |charge|
-              tr
-                td
-                td= link_to(charge.tbnr, charge)
-                td= link_to(charge.description, charge)
-                td= link_to(charge.classification_name, url_for(classification: charge.classification), class: 'label label-primary')
-                td(nowrap)= number_to_currency(charge.fine)
-                td(nowrap)= charge.points
-                td(nowrap)= l(charge.valid_from, format: :date)
+                    = link_to url_for(classification: key, term: params[:term])
+                      span.label.label-primary= name
+                li role="separator" class="divider"
+                li
+                  = link_to url_for(classification: nil)
+                    span.glyphicon.glyphicon-remove>
+                    | kein Filter
+          th= Charge.human_attribute_name(:fine)
+          th= Charge.human_attribute_name(:points)
+          th= Charge.human_attribute_name(:valid_from)
+      tbody
+        - if @charges.present?
+          - @charges.each do |charge|
+            tr
+              td
+              td= link_to(charge.tbnr, charge)
+              td= link_to(charge.description, charge)
+              td= link_to(charge.classification_name, url_for(classification: charge.classification), class: 'label label-primary')
+              td(nowrap)= number_to_currency(charge.fine)
+              td(nowrap)= charge.points
+              td(nowrap)= l(charge.valid_from, format: :date)
+        - else
+          tr
+            td(colspan=7) Es wurden keine Einträge gefunden.
 
 .text-center
   = paginate @charges
