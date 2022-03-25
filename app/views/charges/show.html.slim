@@ -24,6 +24,8 @@ h3 #{@charge.description} (#{Charge.human_attribute_name(:tbnr)} #{@charge.tbnr}
         li.list-group-item #{number_to_currency(@charge.fine)} #{Charge.human_attribute_name(:fine)}
         li.list-group-item
           | #{@charge.points > 0 ? @charge.points : 'keine'} #{Charge.human_attribute_name(:points)}
+          - if @charge.penalty?
+            = " und Fahrverbot"
           - if @charge.fap?
             = " (#{@charge.fap_description})"
 

@@ -76,6 +76,7 @@ de:
         bkat: 'Rechtsgrundlage'
         fine: 'Geldbuße'
         points: 'Punkte'
+        penalty: 'Fahrverbot'
         fap: 'Fahrerlaubnis auf Probe'
         valid_from: 'gültig seit'
         valid_to: 'gültig bis'

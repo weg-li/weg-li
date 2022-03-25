@@ -54,6 +54,7 @@
                     | kein Filter
           th= Charge.human_attribute_name(:fine)
           th= Charge.human_attribute_name(:points)
+          th= Charge.human_attribute_name(:penalty)
           th= Charge.human_attribute_name(:valid_from)
       tbody
         - if @charges.present?
@@ -64,11 +65,12 @@
               td= link_to(charge.description, charge)
               td= link_to(charge.classification_name, url_for(classification: charge.classification), class: 'label label-primary')
               td(nowrap)= number_to_currency(charge.fine)
-              td(nowrap)= charge.points
+              td(nowrap)= charge.points? ? charge.points : ''
+              td(nowrap)= charge.penalty? ? "✔" : ''
               td(nowrap)= l(charge.valid_from, format: :date)
         - else
           tr
-            td(colspan=7) Es wurden keine Einträge gefunden.
+            td(colspan=8) Es wurden keine Einträge gefunden.
 
 .text-center
   = paginate @charges
