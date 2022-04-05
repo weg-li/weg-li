@@ -18,6 +18,7 @@ class ViolationGenerator
       document.text(
         "Sehr geehrte Verkehrsteilnehmer:innen,
 
+
         es wurde festgestellt, dass Sie gegen Verkehrsvorschriften verstoßen haben.
 
         In Kürze werden Sie (ggf. der Halter) einen Bescheid mit weiteren Einzelheiten erhalten und haben dann die Gelegenheit, sich zum Sachverhalt zu äußern. Nutzen Sie hierfür dann gerne auch die Möglichkeit der Online-Anhörung.
