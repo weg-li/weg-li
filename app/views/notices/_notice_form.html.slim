@@ -83,9 +83,12 @@
 .row
   .col-lg-8
     .form-group
-      - nearest_charges = notice.data_sets.proximity.flat_map { |data_set| data_set.charges }.compact
       = form.label :charge, class: "control-label control-label-required"
-      = form.select :charge, nearest_charges.concat(Charge.plain_charges).uniq, { include_blank: 'Verstoß Auswählen' }, { class: "form-control", required: true }
+      - plain_names = Charge.plain_charges
+      - nearest_charges = notice.data_sets.proximity.flat_map { |data_set| data_set.charges }.compact
+      - nearest_charges = nearest_charges & plain_names
+      - charge_options = Charge::CHARGES.map {|tbnr, charge| ["#{charge} [#{tbnr}]", charge]}
+      = form.select :charge, charge_options, { include_blank: 'Verstoß Auswählen' }, { class: "form-control", required: true }
       .input-group#pick_charge
         - if nearest_charges.present?
           - nearest_charge = nearest_charges.first
