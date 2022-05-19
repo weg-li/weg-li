@@ -54,8 +54,7 @@
                   - if bulk_upload.photos.present?
                     = link_to([:edit, bulk_upload]) do
                       - bulk_upload.photos.first(3).each do |photo|
-                        = photo_url_with_variant(photo, size: :preview)
-                          = image_tag(url_for_photo(photo, size: :preview), class: 'index-photo')
+                        = image_tag(url_for_photo(photo, size: :preview), class: 'index-photo')
                   - else
                     = link_to('-', [:edit, bulk_upload])
                 td= d(bulk_upload.created_at)

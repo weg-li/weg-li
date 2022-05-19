@@ -23,21 +23,7 @@ module PhotoHelper
   def cloudflare_image_resize_url(photo, size)
     width, height = CONFIG[size][:resize].split('x')
     quality = CONFIG[size][:quality]
-    "https://images.weg.li/cdn-cgi/image/width=#{width},height=#{height},fit=scale-down,quality=#{quality}/storage/#{photo.key}"
-  end
-
-  def variant_exists?(photo, size: :default)
-    access?(:community) || photo.variant(CONFIG[size]).processed?
-  rescue ActiveStorage::InvariableError => e
-    Rails.logger.warn("rendering broken image #{photo.id}: #{e.message}")
-    false
-  end
-
-  def photo_url_with_variant(photo, size: :default, &block)
-    if variant_exists?(photo, size: size)
-      capture(&block)
-    else
-      tag.span(class: 'glyphicon glyphicon-picture glyphicon-placeholder-picture', title: 'Beweisfoto wird verarbeitet')
-    end
+    host = ENV.fetch('CDN_HOST', 'https://images.weg.li')
+    "#{host}/cdn-cgi/image/width=#{width},height=#{height},fit=scale-down,quality=#{quality}/storage/#{photo.key}"
   end
 end

@@ -13,8 +13,7 @@
           td.text-center
             = link_to(notice)
               - notice.photos.first(1).each do |photo|
-                = photo_url_with_variant(photo, size: :preview)
-                  = image_tag(url_for_photo(photo, size: :preview), class: 'index-photo')
+                = image_tag(url_for_photo(photo, size: :preview), class: 'index-photo')
           td
             = link_to_notice(notice) do
               - if notice.incomplete?

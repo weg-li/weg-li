@@ -2,15 +2,14 @@
   ul.photo-list.droppable-list
     - photos.each_with_index do |photo, index|
       li.list-item(draggable="true" id="drag_#{dom_id(photo)}" ondragstart="ziehen(event)")
-        = photo_url_with_variant(photo, size: :preview)
-          a(href="#" data-toggle="modal" data-target="#modal_#{dom_id(photo)}" draggable="false")
-            = image_tag(url_for_photo(photo, size: :preview), class: 'item-photo', draggable: "false")
-            = hidden_field_tag('bulk_upload[photos][]', photo.id)
-          .flex-buttons.btn-group.btn-group-sm
-            button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal_#{dom_id(photo)}" title="ansehen"
-              span.glyphicon.glyphicon-eye-open
-            button type="button" class="btn btn-default btn-xs" onclick="ablegenMove('drag_#{dom_id(photo)}')" title="zuordnen"
-              span.glyphicon.glyphicon-move
+        a(href="#" data-toggle="modal" data-target="#modal_#{dom_id(photo)}" draggable="false")
+          = image_tag(url_for_photo(photo, size: :preview), class: 'item-photo', draggable: "false")
+          = hidden_field_tag('bulk_upload[photos][]', photo.id)
+        .flex-buttons.btn-group.btn-group-sm
+          button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal_#{dom_id(photo)}" title="ansehen"
+            span.glyphicon.glyphicon-eye-open
+          button type="button" class="btn btn-default btn-xs" onclick="ablegenMove('drag_#{dom_id(photo)}')" title="zuordnen"
+            span.glyphicon.glyphicon-move
 
         .modal.fade id="modal_#{dom_id(photo)}" tabindex="-1" role="dialog"
           .modal-dialog.modal-lg

@@ -9,6 +9,7 @@ export GOOGLE_CONSUMER_KEY=715814087119-08hv5rj74bmq7burc2dpnt3hbd28jg5t.apps.go
 export GOOGLE_CONSUMER_SECRET=UPq0r1YoKno2cz0e9dYB9sKr
 export GOOGLE_CLOUD_PROJECT=weg-li
 export GOOGLE_CLOUD_KEYFILE=config/secrets/gcloud.json
+export CDN_HOST=http://localhost:3000
 export WEB_CONCURRENCY=1
 export VERBOSE_LOGGING=1
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
