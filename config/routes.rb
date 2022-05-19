@@ -156,7 +156,10 @@ Rails.application.routes.draw do
   get '/year2021', to: 'home#year2021', as: :year2021
   get '/year2022', to: 'home#year2022', as: :year2022
 
-  # dev
+  if Rails.env.development?
+    get '/cdn-cgi/image/width=:width,height=:height,fit=:fit,quality=:quality/storage/:key.:extension', to: 'styleguide#photo'
+  end
+
   get '/styleguide', to: 'styleguide#index'
 
   get '/404', to: "errors#not_found"
