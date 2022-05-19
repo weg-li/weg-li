@@ -5,12 +5,12 @@ class SessionsController < ApplicationController
   def create
     auth = request.env['omniauth.auth'].slice('provider', 'uid', 'info')
     Rails.logger.info(auth) if ENV['VERBOSE_LOGGING']
-    if authorization = Authorization.find_by_provider_and_uid(auth['provider'], auth['uid'])
+    if authorization = Authorization.find_by(provider: auth['provider'], uid: auth['uid'])
       sign_in(authorization.user)
 
       redirect_to notices_path, notice: t('sessions.welcome_back', nickname: authorization.user.name)
     elsif signed_in?
-      current_user.authorizations.create!(provider: auth['provider'], uid: auth['uid'])
+      current_user.authorizations.find_or_create_by!(provider: auth['provider'], uid: auth['uid'])
 
       redirect_to edit_user_path, notice: t('sessions.connected', provider: auth['provider'].humanize)
     else
