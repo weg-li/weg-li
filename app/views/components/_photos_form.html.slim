@@ -7,7 +7,7 @@
 
 .well
   = form.label :photos, class: "control-label control-label-required"
-  = form.file_field :photos, id: 'fileupload', required: required, multiple: true, direct_upload: true, class: "form-control-file input-droppable", accept: 'image/jpeg', analyze_url: direct_upload_analyze_path, upload_limit: upload_limit
+  = form.file_field :photos, id: 'fileupload', required: required, multiple: true, direct_upload: true, class: "form-control-file input-droppable", accept: 'image/jpeg', upload_limit: upload_limit
   = hint do
     | Es werden nur Fotos im JPEG-Format bis #{number_to_human_size(upload_limit)} unterstützt. Dateien können auch per Drag&Drop hinzugefügt werden.
 

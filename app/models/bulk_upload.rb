@@ -14,12 +14,6 @@ class BulkUpload < ApplicationRecord
     open.joins(:user).where(created_at: [(21.days.ago.beginning_of_day)..(14.days.ago.end_of_day)]).merge(User.not_disable_reminders).merge(User.active)
   end
 
-  def process!
-    update! status: :processing
-
-    BulkUploadJob.perform_later(self)
-  end
-
   def purge_photo!(photo_id)
     photos.find(photo_id).purge_later
 

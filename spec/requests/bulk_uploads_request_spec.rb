@@ -49,10 +49,8 @@ describe 'bulk_uploads', type: :request do
 
     it "creates a bulk_upload with given params" do
       expect {
-        expect {
-          post bulk_uploads_path, params: params
-        }.to change { user.bulk_uploads.count }.by(1)
-      }.to have_enqueued_job(BulkUploadJob)
+        post bulk_uploads_path, params: params
+      }.to change { user.bulk_uploads.count }.by(1)
     end
   end
 

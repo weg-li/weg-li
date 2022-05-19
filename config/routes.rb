@@ -40,8 +40,6 @@ Rails.application.routes.draw do
     resources :uploads, only: [:create]
   end
 
-  post "/analyze_direct_upload" => "direct_uploads#analyze", as: :direct_upload_analyze
-
   resources :replies
   resources :snippets
 

@@ -59,37 +59,8 @@ addEventListener('direct-upload:error', (event) => {
   errorEl.classList.remove('hidden');
 });
 
-async function triggerAnalyzation(url, data) {
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      headers: {
-        'X-CSRF-Token': document.querySelector("[name='csrf-token']")?.content,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
-    return response.json();
-  } catch (err) {
-    throw new Error(err.message);
-  }
-}
-
 addEventListener('direct-upload:end', (event) => {
   const { target } = event;
 
   target.scrollIntoView({ block: 'end', behavior: 'smooth' });
-
-  const signedID = target.previousElementSibling.value;
-  if (signedID && target.hasAttribute('analyze_url')) {
-    const url = target.attributes.analyze_url.value;
-    const data = { blob: { signed_id: signedID } };
-    setTimeout(triggerAnalyzation, 50, url, data);
-  }
 });

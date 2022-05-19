@@ -14,52 +14,18 @@ class AnalyzerJob < ApplicationJob
   end
 
   def perform(notice)
-    fail NotYetAnalyzedError unless photos_analyzed?(notice)
-    unless photos_processed?(notice)
-      notice.photos.each { |image| ThumbnailerJob.perform_later(image) }
-
-      fail NotYetProcessedError
-    end
-
     analyze(notice)
   end
 
   def analyze(notice)
     handle_exif(notice)
-
-    if ENV["CAR_ML_FLAG"] == 'on'
-      begin
-        handle_ml(notice)
-      rescue HTTP::TimeoutError, HTTP::ResponseError => exception
-        Appsignal.set_error(exception)
-        handle_vision(notice)
-      end
-    else
-      handle_vision(notice)
-    end
+    handle_vision(notice)
 
     notice.status = :open
     notice.save_incomplete!
   end
 
   private
-
-  def handle_ml(notice)
-    notice.photos.each do |photo|
-      result = annotator.annotate_yolo(photo.key)
-
-      if result.present?
-        data_set = notice.data_sets.create!(data: result, kind: :car_ml, keyable: photo)
-        # skip if we got lucky
-        registrations = data_set.registrations
-        if registrations.present?
-          apply_registrations(notice, registrations, data_set)
-
-          return
-        end
-      end
-    end
-  end
 
   def handle_vision(notice)
     prefixes = notice.user.district&.prefixes || []
