@@ -17,6 +17,6 @@ module PhotoHelper
     width, height = CONFIG[size][:resize].split('x')
     quality = CONFIG[size][:quality]
     host = ENV.fetch('CDN_HOST', 'https://images.weg.li')
-    "#{host}/cdn-cgi/image/width=#{width},height=#{height},fit=scale-down,quality=#{quality}/storage/#{photo.key}"
+    "#{host}/cdn-cgi/image/width=#{width},height=#{height},fit=scale-down,metadata=keep,quality=#{quality}/storage/#{photo.key}"
   end
 end
