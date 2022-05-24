@@ -1,4 +1,6 @@
 class NoticeMailer < ApplicationMailer
+  include PhotoHelper
+
   def charge(notice, to: nil, send_via_pdf: false)
     @notice = notice
     @user = notice.user
@@ -46,8 +48,9 @@ class NoticeMailer < ApplicationMailer
 
   def attach_photos(photos)
     photos.each do |photo|
-      variant = photo.variant(PhotoHelper::CONFIG[:default]).processed
-      attachments[photo.key] = photo.service.download(variant.key)
+      url = url_for_photo(photo)
+      file = URI.open(url)
+      attachments[photo.key] = file.read
     end
   end
 end

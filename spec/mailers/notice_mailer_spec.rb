@@ -4,6 +4,10 @@ describe NoticeMailer do
   let(:notice) { Fabricate(:notice) }
   let(:user) { notice.user }
 
+  before do
+    stub_request(:get, /images\.weg\.li/).to_return(status: 200, body: file_fixture('truck.jpg').read)
+  end
+
   describe "charge" do
     it "renders the mail" do
       mail = NoticeMailer.charge(notice)
