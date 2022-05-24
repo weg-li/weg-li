@@ -108,15 +108,6 @@ class BulkUploadsController < ApplicationController
     redirect_to bulk_uploads_path
   end
 
-  def import
-    bulk_upload = current_user.bulk_uploads.create(bulk_upload_import_params)
-    bulk_upload.status = :importing
-    bulk_upload.save!
-    PhotosDownloadJob.perform_later(bulk_upload)
-
-    redirect_to edit_bulk_upload_path(bulk_upload), notice: 'Massen-Upload wurde angelegt, Beweisfotos werden importiert'
-  end
-
   private
 
   def bulk_upload_update_photo_ids

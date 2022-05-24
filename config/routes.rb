@@ -50,7 +50,6 @@ Rails.application.routes.draw do
 
     collection do
       post :bulk
-      post :import
     end
   end
 

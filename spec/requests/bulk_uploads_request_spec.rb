@@ -93,23 +93,6 @@ describe 'bulk_uploads', type: :request do
     end
   end
 
-  context "POST :import" do
-    it "imports images from url" do
-      params = {
-        bulk_upload: {
-          shared_album_url: 'https://photos.app.goo.gl/X4KX7AXNjXXu69Uf9',
-        },
-      }
-      expect {
-        expect {
-          post import_bulk_uploads_path, params: params
-        }.to change { user.bulk_uploads.count }.by(1)
-      }.to have_enqueued_job(PhotosDownloadJob)
-
-      expect(response).to be_a_redirect
-    end
-  end
-
   context "DELETE :destroy" do
     it "should destroy the bulk_upload" do
       bulk_upload = Fabricate(:bulk_upload, user: user)
