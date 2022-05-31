@@ -37,7 +37,7 @@ class Annotator
     "weg-li-#{Rails.env}"
   end
 
-  def annotate_file(file_name = Rails.root.join('spec/support/assets/mercedes.jpg').to_s)
+  def annotate_file(file_name = Rails.root.join('spec/fixtures/files/mercedes.jpg').to_s)
     image = { content: File.binread(file_name) }
 
     annotate(image)

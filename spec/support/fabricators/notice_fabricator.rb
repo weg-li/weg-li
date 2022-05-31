@@ -1,5 +1,5 @@
 Fabricator(:notice) do
-  photos { [Rack::Test::UploadedFile.new(Rails.root.join('spec/support/assets/mercedes.jpg'), 'image/jpeg')] }
+  photos { [Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/mercedes.jpg'), 'image/jpeg')] }
   street { Faker::Address.street_address }
   location { 'Beim Nazis-Raus Aufkleber' }
   city { Faker::Address.city }
