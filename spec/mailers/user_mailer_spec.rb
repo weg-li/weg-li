@@ -86,6 +86,10 @@ describe UserMailer do
     let(:user) { notice.user }
     let(:mail) { UserMailer.pdf(user, [notice.id]) }
 
+    before do
+      stub_request(:get, /images\.weg\.li/).to_return(status: 200, body: file_fixture('mercedes.jpg').read)
+    end
+
     it "renders the mail" do
       expect(mail.subject).to_not be_nil
       expect(mail.to).to eq([user.email])

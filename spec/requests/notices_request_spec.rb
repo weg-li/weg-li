@@ -6,6 +6,7 @@ describe 'notices', type: :request do
 
   before do
     login(user)
+    stub_request(:get, /images\.weg\.li/).to_return(status: 200, body: file_fixture('truck.jpg').read)
   end
 
   context "index" do

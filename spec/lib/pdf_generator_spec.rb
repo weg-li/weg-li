@@ -3,6 +3,10 @@ require 'spec_helper'
 describe PDFGenerator do
   let(:example) { File.binread(file_fixture('anzeige.pdf')) }
 
+  before do
+    stub_request(:get, /.*/).to_return(status: 200, body: file_fixture('mercedes.jpg').read)
+  end
+
   it "handles the pdf generation" do
     travel_to('20.01.2020 15:00:00 UTC'.to_time.utc) do
       district = Fabricate(:district, zip: '12345')
