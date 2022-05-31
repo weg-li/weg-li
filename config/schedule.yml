@@ -2,9 +2,6 @@
 analytics:
    cron: '0 6 * * * Europe/Berlin'
    class: 'Scheduled::AnalyticsJob'
-restart:
-   cron: '0,5,10,15,20,25,30,35,40,45,50,55 * * * * Europe/Berlin'
-   class: 'Scheduled::RestartJob'
 activation_reminder:
   cron: '10 8 * * mon Europe/Berlin'
   class: 'Scheduled::ActivationReminderJob'
