@@ -47,7 +47,8 @@ class ParkGenerator
         inline_format: true,
       )
 
-      qr_code = RQRCode::QRCode.new(Rails.application.routes.url_helpers.violation_url(Rails.configuration.action_mailer.default_url_options))
+      violation_url = Rails.application.routes.url_helpers.violation_url(Rails.configuration.action_mailer.default_url_options)
+      qr_code = RQRCode::QRCode.new(violation_url)
       document.render_qr_code(qr_code, pos: [document.bounds.width - 50, 50])
     end
 
