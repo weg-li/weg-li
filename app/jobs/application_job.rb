@@ -15,14 +15,4 @@ class ApplicationJob < ActiveJob::Base
   discard_on ActiveJob::DeserializationError
 
   queue_as :default
-
-  private
-
-  def photos_analyzed?(record)
-    record.photos.all?(&:analyzed?)
-  end
-
-  def photos_processed?(record)
-    record.photos.all? { |photo| PhotoHelper::CONFIG.values.all? { |config| photo.variant(config).processed? }  }
-  end
 end
