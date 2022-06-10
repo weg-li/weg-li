@@ -55,10 +55,10 @@ class NoticesController < ApplicationController
   def map
     @since = (params[:since] || '7').to_i
     @display = params[:display] || 'cluster'
-    @district = params[:district] || current_user.city
 
+    @default_district = current_user.district || District.active.first
+    @district = params[:district] || @default_district.name
     @notices = current_user.notices.since(@since.days.ago).joins(:district).where(districts: {name: @district})
-    @default_district = District.from_zip(current_user.zip) || District.active.first
   end
 
   def geocode
