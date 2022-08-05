@@ -105,7 +105,7 @@ GOOGLE_CONSUMER_SECRET=google-secret
 
 These are used to let users authenticate with the different providers. Learn how to create your own keys: [GitHub](https://docs.github.com/en/free-pro-team@latest/developers/apps/creating-an-oauth-app), [Twitter](https://developer.twitter.com/en/docs/apps/overview), [Google](https://developers.google.com/identity/sign-in/web/sign-in).
 
-In addition, weg.li uses Google Cloud Storage for storing uploaded data and Google Cloud Vision to read license plates and determine car makes and colors. You will need to [create a Google Cloud Project](https://cloud.google.com/resource-manager/docs/creating-managing-projects) and set up the required API access for *Google Cloud Storage* and *Google Cloud Vision*. Be aware that you might be billed for Google Cloud usage. Please refer to the Google Cloud documentation, and set the following environment variables accordingly:
+In addition, weg.li uses Google Cloud Storage for storing uploaded data and Google Cloud Vision to read license plates and determine car makers and colors. You will need to [create a Google Cloud Project](https://cloud.google.com/resource-manager/docs/creating-managing-projects) and set up the required API access for *Google Cloud Storage* and *Google Cloud Vision*. Be aware that you might be billed for Google Cloud usage. Please refer to the Google Cloud documentation, and set the following environment variables accordingly:
 
 ```bash
 GOOGLE_CLOUD_PROJECT=google-cloud-project-id
