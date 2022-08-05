@@ -31,6 +31,7 @@ class District < ApplicationRecord
   validates :zip, uniqueness: true
   validates :zip, format: { with: /\d{5}/ }
   validates :state, inclusion: {in: STATES}
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
 
   geocoded_by :geocode_address, language: Proc.new { |model| I18n.locale }, no_annotations: true
   after_validation :geocode, if: :geocode_address_changed?
