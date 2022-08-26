@@ -90,10 +90,10 @@ class Notice < ApplicationRecord
   def display_charge
     standard? ? charge : "#{charge}, #{Notice.human_attribute_name(severity)}"
   end
-
+  
   def tbnr
-    Charge.plain_charges_tbnr(charge)
-  end
+   Charge.plain_charges_tbnr(charge)
+ end
 
   def wegli_email
     "#{token}@anzeige.weg.li"
@@ -230,7 +230,7 @@ class Notice < ApplicationRecord
       latitude: result.latitude,
       longitude: result.longitude,
       zip: result.postal_code,
-      city: result.hamlet || result.city || result.state,
+      city: result.city || result.state,
       street: "#{result.street} #{result.house_number}".strip,
     }
   end
