@@ -105,11 +105,12 @@ class District < ApplicationRecord
     aliases.map {|email| anonymize_email(email) }.compact.join(', ')
   end
 
-  def self.from_param(zip)
-    find_by!(zip: zip)
+  def self.from_param(param)
+    param = param.split('-').first || param
+    find_by!(zip: param)
   end
 
   def to_param
-    zip
+    "#{zip}-#{name.parameterize}"
   end
 end

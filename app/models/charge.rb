@@ -88,10 +88,6 @@ class Charge < ApplicationRecord
     @plain_charges_tbnr[charge]
   end
 
-  def self.from_param(tbnr)
-    find_by!(tbnr: tbnr)
-  end
-
   def self.classification_name(classification)
     CLASSIFICATIONS[classification.to_i] || '-'
   end
@@ -103,8 +99,13 @@ class Charge < ApplicationRecord
   def fap_description
     FAP[fap] || '-'
   end
-
+  
+  def self.from_param(param)
+    param = param.split('-').first || param
+    where(tbnr: param).order(valid_from: :desc).first!
+  end
+  
   def to_param
-    tbnr
+    "#{tbnr}-#{description.parameterize}"
   end
 end
