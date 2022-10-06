@@ -36,7 +36,7 @@ gem 'color'
 gem 'prawn'
 gem 'prawn-markup'
 gem 'prawn-qrcode'
-gem 'administrate', '0.17.0'
+gem 'administrate', '0.17.0' # https://github.com/thoughtbot/administrate/issues/507
 gem 'administrate-field-active_storage'
 gem 'appsignal'
 gem 'http'
