@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_19_082032) do
+ActiveRecord::Schema.define(version: 2022_11_03_201034) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -195,6 +195,7 @@ ActiveRecord::Schema.define(version: 2021_04_19_082032) do
     t.index ["registration"], name: "index_notices_on_registration"
     t.index ["status"], name: "index_notices_on_status"
     t.index ["token"], name: "index_notices_on_token", unique: true
+    t.index ["user_id"], name: "index_notices_on_user_id"
     t.index ["zip"], name: "index_notices_on_zip"
   end
 
@@ -242,6 +243,7 @@ ActiveRecord::Schema.define(version: 2021_04_19_082032) do
     t.string "project_access_token"
     t.string "project_user_id"
     t.integer "autosuggest", default: 0, null: false
+    t.index ["access"], name: "index_users_on_access"
     t.index ["api_token"], name: "index_users_on_api_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["token"], name: "index_users_on_token", unique: true
