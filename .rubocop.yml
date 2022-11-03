@@ -25,22 +25,22 @@ Style/FetchEnvVar:
   Enabled: false
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: comma
+Style/GuardClause:
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
 
-convention:Metrics/BlockLength:
+Metrics/BlockLength:
   Enabled: false
-convention:Style/Documentation:
+Metrics/ClassLength:
   Enabled: false
-convention:Metrics/ClassLength:
+Metrics/MethodLength:
   Enabled: false
-convention:Metrics/MethodLength:
+Metrics/AbcSize:
   Enabled: false
-convention:Metrics/AbcSize:
+Metrics/PerceivedComplexity:
   Enabled: false
-convention:Metrics/PerceivedComplexity:
-  Enabled: false
-convention:Metrics/CyclomaticComplexity:
-  Enabled: false
-convention:Style/GuardClause:
-  Enabled: false
-convention:Style/IfUnlessModifier:
+Metrics/CyclomaticComplexity:
   Enabled: false

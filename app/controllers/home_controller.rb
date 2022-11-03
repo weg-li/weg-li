@@ -14,14 +14,14 @@ class HomeController < ApplicationController
     @display = params[:display] || 'cluster'
     @district = params[:district] || current_user&.city || 'Hamburg'
 
-    @notices = Notice.includes(:user).shared.since(@since.days.ago).joins(:district).where(districts: {name: @district})
+    @notices = Notice.includes(:user).shared.since(@since.days.ago).joins(:district).where(districts: { name: @district })
     @active = @notices.map(&:user_id).uniq.size
     @default_district = District.active.find_by(name: @district) || District.active.first
   end
 
   def stats
-    @since = (params[:since] || 6 * 4).to_i
-    @display = params[:display] || 'notice'
+    @since = (params[:since] || 4).to_i
+    @display = params[:display] || 'user'
     @interval = params[:interval] || '1 week'
 
     case @display
