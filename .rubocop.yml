@@ -11,6 +11,9 @@
 # https://github.com/rubocop/rubocop/blob/master/config/default.yml
 AllCops: 
   NewCops: enable
+  Exclude:
+    - 'db/**/*'
+    - 'config/environments/**/*'
 
 Bundler/OrderedGems:
   Enabled: false
@@ -19,4 +22,25 @@ Layout/LineLength:
   Enabled: false
 
 Style/FetchEnvVar:
+  Enabled: false
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+
+convention:Metrics/BlockLength:
+  Enabled: false
+convention:Style/Documentation:
+  Enabled: false
+convention:Metrics/ClassLength:
+  Enabled: false
+convention:Metrics/MethodLength:
+  Enabled: false
+convention:Metrics/AbcSize:
+  Enabled: false
+convention:Metrics/PerceivedComplexity:
+  Enabled: false
+convention:Metrics/CyclomaticComplexity:
+  Enabled: false
+convention:Style/GuardClause:
+  Enabled: false
+convention:Style/IfUnlessModifier:
   Enabled: false

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NoticesController < ApplicationController
   before_action :authenticate!
   before_action :authenticate_community_user!, only: [:colors]
@@ -13,16 +15,21 @@ class NoticesController < ApplicationController
 
     @notices = current_user.notices.with_attached_photos.page(params[:page])
 
-    if search = params[:search]
+    search = params[:search]
+    if search.present?
       @table_params[:search] = search.to_unsafe_hash
       @notices = @notices.search(search[:term]) if search[:term].present?
     end
-    if filter = params[:filter]
+
+    filter = params[:filter]
+    if filter.present?
       @table_params[:filter] = filter.to_unsafe_hash
       @notices = @notices.where(status: filter[:status]) if filter[:status].present?
       @notices = @notices.incomplete if filter[:incomplete].present?
     end
-    if order = params[:order]
+
+    order = params[:order]
+    if order.present?
       @table_params[:order] = order.to_unsafe_hash
       if order[:column].present? && order[:value].present?
         @notices = @notices.reorder(order[:column] => order[:value])
@@ -33,7 +40,7 @@ class NoticesController < ApplicationController
   def dump
     notices = current_user.notices.as_api_response(:public_beta)
 
-    render json: { notices: notices }
+    render json: { notices: }
   end
 
   def suggest
@@ -43,13 +50,13 @@ class NoticesController < ApplicationController
       {
         id: registration,
         text: registration.upcase,
-        brand: brand,
-        color: color,
+        brand:,
+        color:,
       }
     end
     results += [{ id: params[:term], text: params[:term] }]
 
-    render json: { results: results }
+    render json: { results: }
   end
 
   def map
@@ -58,7 +65,7 @@ class NoticesController < ApplicationController
 
     @default_district = current_user.district || District.active.first
     @district = params[:district] || @default_district.name
-    @notices = current_user.notices.since(@since.days.ago).joins(:district).where(districts: {name: @district})
+    @notices = current_user.notices.since(@since.days.ago).joins(:district).where(districts: { name: @district })
   end
 
   def geocode
@@ -66,7 +73,7 @@ class NoticesController < ApplicationController
     longitude = params[:longitude]
 
     result = Notice.geocode([latitude, longitude])
-    render json: { result: result }
+    render json: { result: }
   end
 
   def stats
@@ -134,7 +141,7 @@ class NoticesController < ApplicationController
     token = Token.generate(current_user.token)
     NoticeMailer.forward(notice, token).deliver_later
 
-    redirect_to(notices_path, notice: "Eine E-Mail mit einem geheimen Link zum Übertragen ist zu Dir unterwegs.")
+    redirect_to(notices_path, notice: 'Eine E-Mail mit einem geheimen Link zum Übertragen ist zu Dir unterwegs.')
   end
 
   def retrieve
@@ -144,9 +151,9 @@ class NoticesController < ApplicationController
     notice.user = current_user
     notice.save_incomplete!
 
-    redirect_to(notice, notice: "Meldung wurde in Deinen Account übernommen.")
+    redirect_to(notice, notice: 'Meldung wurde in Deinen Account übernommen.')
   rescue JWT::ExpiredSignature
-    redirect_to(notices_path, alert: "Der Link ist leider schon abgelaufen!")
+    redirect_to(notices_path, alert: 'Der Link ist leider schon abgelaufen!')
   end
 
   def status
@@ -162,7 +169,7 @@ class NoticesController < ApplicationController
     to = notice.district.all_emails.find { |email| email == params[:send_to] }
     to ||= notice.district.email
 
-    NoticeMailer.charge(notice, to: to, send_via_pdf: params[:send_via_pdf]).deliver_later
+    NoticeMailer.charge(notice, to:, send_via_pdf: params[:send_via_pdf]).deliver_later
 
     notice.mark_shared!
 
@@ -239,9 +246,9 @@ class NoticesController < ApplicationController
     when 'pdf'
       notices = notices.complete
       if notices.present?
-         notices.pluck(:id).each_slice(5) do |notice_ids|
-           UserMailer.pdf(current_user, notice_ids).deliver_later
-         end
+        notices.pluck(:id).each_slice(5) do |notice_ids|
+          UserMailer.pdf(current_user, notice_ids).deliver_later
+        end
         flash[:notice] = 'Die vollständigen Meldungen wurden als PDF generiert und per E-Mail zugeschickt'
       else
         flash[:notice] = 'Keine vollständigen Meldungen zum generieren gefunden!'
