@@ -445,6 +445,8 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    scout_apm (5.3.2)
+      parser
     selectize-rails (0.12.6)
     semantic_range (3.0.0)
     sidekiq (6.5.7)
@@ -574,6 +576,7 @@ DEPENDENCIES
   rubocop
   rubyzip
   sass-rails
+  scout_apm
   sidekiq
   sidekiq-scheduler
   slim-rails

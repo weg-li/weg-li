@@ -47,6 +47,7 @@ gem 'strip_attributes'
 gem 'webpacker'
 gem 'utf8-cleaner'
 gem 'rack-cache'
+gem 'scout_apm'
 
 gem 'openapi_client', path: 'client'
 
