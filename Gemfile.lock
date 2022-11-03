@@ -90,7 +90,6 @@ GEM
       rails (>= 6.0)
     appsignal (3.1.4)
       rack
-    ast (2.4.2)
     bindex (0.8.1)
     bitfields (0.14.0)
       activerecord (>= 5.1)
@@ -315,8 +314,6 @@ GEM
       omniauth-oauth (~> 1.1)
       rack
     os (1.1.4)
-    parser (3.1.2.1)
-      ast (~> 2.4.1)
     pdf-core (0.9.0)
     pg (1.4.3)
     prawn (2.4.0)
@@ -428,8 +425,6 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    scout_apm (5.3.2)
-      parser
     selectize-rails (0.12.6)
     semantic_range (3.0.0)
     sidekiq (6.5.7)
@@ -554,7 +549,6 @@ DEPENDENCIES
   rswag-ui
   rubyzip
   sass-rails
-  scout_apm
   sidekiq
   sidekiq-scheduler
   slim-rails
