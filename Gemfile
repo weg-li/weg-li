@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.7.6'
+ruby '3.1.2'
 
 gem 'rails', '6.1.6.1'
 gem 'bootsnap', require: false
@@ -50,6 +50,12 @@ gem 'utf8-cleaner'
 gem 'rack-cache'
 
 gem 'openapi_client', path: 'client'
+
+# ruby 3 https://stackoverflow.com/questions/70500220/rails-7-ruby-3-1-loaderror-cannot-load-such-file-net-smtp
+gem 'matrix', require: false
+gem 'net-smtp', require: false
+gem 'net-imap', require: false
+gem 'net-pop', require: false
 
 group :development do
   gem 'listen'
