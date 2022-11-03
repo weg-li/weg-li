@@ -38,6 +38,7 @@ gem 'prawn-markup'
 gem 'prawn-qrcode'
 gem 'administrate', '0.17.0' # https://github.com/thoughtbot/administrate/issues/507
 gem 'administrate-field-active_storage'
+gem 'scout_apm'
 gem 'appsignal'
 gem 'http'
 gem 'swagger-blocks'
@@ -47,7 +48,6 @@ gem 'strip_attributes'
 gem 'webpacker'
 gem 'utf8-cleaner'
 gem 'rack-cache'
-gem 'scout_apm'
 
 gem 'openapi_client', path: 'client'
 
