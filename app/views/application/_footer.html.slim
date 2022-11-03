@@ -63,8 +63,8 @@ footer
     .col-lg-12.text-center
       small.text-muted
         |
-          weg.li ist jetzt #{link_to "deutschlandweit in 3.500 Bezirken", districts_path } zum Anzeigen von Falschparkern nutzbar <br>
-          #{link_to "Falschparken im Jahr 2022", year2022_path } | #{link_to "im Jahr 2021", year2021_path } | #{link_to "im Jahr 2020", year2020_path } | #{link_to "seit August 2019", year2019_path }
+          weg.li ist jetzt #{link_to 'deutschlandweit in 4.000 Bezirken', districts_path } zum Anzeigen von Falschparkern nutzbar <br>
+          #{link_to 'Falschparken im Jahr 2022', year2022_path } | #{link_to 'im Jahr 2021', year2021_path } | #{link_to 'im Jahr 2020', year2020_path } | #{link_to 'seit August 2019', year2019_path }
 
 - if defined?(Puma)
   | <!-- served Revision #{ENV['RENDER_GIT_COMMIT']} by Puma-#{Puma::Const::PUMA_VERSION} #{Puma::Const::CODE_NAME} Ruby: #{RUBY_VERSION} on Rails #{Rails.version} -->
