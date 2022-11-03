@@ -77,7 +77,7 @@ class Notice < ApplicationRecord
     notices = notices.where(date: (Time.new(year)..Time.new(year).end_of_year)) if year.present?
     {
       count: notices.count,
-      active: notices.distinct(:user_id).count,
+      active: notices.distinct(:user_id).pluck(:user_id).count,
       grouped_states: notices.joins(:district).select('count(districts.state) as state_count, districts.state').group('districts.state').order(state_count: :desc).limit(limit).to_a,
       grouped_cities: notices.select('count(city) as city_count, city').group(:city).order(city_count: :desc).limit(limit).to_a,
       grouped_zips: notices.select('count(zip) as zip_count, zip').group(:zip).order(zip_count: :desc).limit(limit).to_a,
