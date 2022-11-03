@@ -1,6 +1,6 @@
 class Notice < ApplicationRecord
   include Statisticable
-  ADDRESS_ZIP_PATTERN =/.+(\d{5}).+/
+  ADDRESS_ZIP_PATTERN = /.+(\d{5}).+/
 
   extend TimeSplitter::Accessors
   split_accessor :date
@@ -14,7 +14,7 @@ class Notice < ApplicationRecord
   acts_as_api
 
   api_accessible(:public_beta) do |template|
-    %i(token status street city zip latitude longitude registration color brand charge date duration severity photos created_at updated_at sent_at).each { |key| template.add(key) }
+    %i[token status street city zip latitude longitude registration color brand charge date duration severity photos created_at updated_at sent_at].each { |key| template.add(key) }
     Notice.bitfields[:flags].keys.each { |key| template.add(key) }
     template.add(:attachments, as: :photos)
   end
@@ -23,12 +23,12 @@ class Notice < ApplicationRecord
 
   before_validation :defaults
 
-  geocoded_by :geocode_address, language: Proc.new { |model| I18n.locale }, no_annotations: true
+  geocoded_by :geocode_address, language: proc { |_model| I18n.locale }, no_annotations: true
   after_validation :geocode, if: :do_geocoding?
   after_validation :postgisify
 
-  enum status: {open: 0, disabled: 1, analyzing: 2, shared: 3}
-  enum severity: {standard: 0, hinder: 1, endanger: 2}
+  enum status: { open: 0, disabled: 1, analyzing: 2, shared: 3 }
+  enum severity: { standard: 0, hinder: 1, endanger: 2 }
 
   belongs_to :user
   belongs_to :district, optional: true, foreign_key: :zip, primary_key: :zip
@@ -43,22 +43,22 @@ class Notice < ApplicationRecord
   validate :validate_creation_date, on: :create
   validate :validate_date
 
-  scope :since, -> (date) { where('notices.created_at > ?', date) }
-  scope :for_public, -> () { where.not(status: :disabled) }
-  scope :search, -> (term) { where('registration ILIKE :term', term: "%#{term}%") }
-  scope :preselect, -> () { shared.limit(3) }
+  scope :since, ->(date) { where('notices.created_at > ?', date) }
+  scope :for_public, -> { where.not(status: :disabled) }
+  scope :search, ->(term) { where('registration ILIKE :term', term: "%#{term}%") }
+  scope :preselect, -> { shared.limit(3) }
 
   def self.for_reminder
     open.joins(:user).where(date: [(21.days.ago.beginning_of_day)..(14.days.ago.end_of_day)]).merge(User.not_disable_reminders).merge(User.active)
   end
 
   def self.from_param(token)
-    find_by!(token: token)
+    find_by!(token:)
   end
 
   def self.from_email_address(email)
     token = email[/^([^-]+)@.+/, 1]
-    find_by!(token: token)
+    find_by!(token:)
   end
 
   def self.statistics
@@ -90,10 +90,10 @@ class Notice < ApplicationRecord
   def display_charge
     standard? ? charge : "#{charge}, #{Notice.human_attribute_name(severity)}"
   end
-  
+
   def tbnr
-   Charge.plain_charges_tbnr(charge)
- end
+    Charge.plain_charges_tbnr(charge)
+  end
 
   def wegli_email
     "#{token}@anzeige.weg.li"
@@ -127,7 +127,7 @@ class Notice < ApplicationRecord
   def date_doubles
     return false if registration.blank?
 
-    user.notices.where('DATE(date) = DATE(?)', date).where(registration: registration).where.not(id: id)
+    user.notices.where('DATE(date) = DATE(?)', date).where(registration:).where.not(id:)
   end
 
   def photo_doubles
@@ -171,7 +171,7 @@ class Notice < ApplicationRecord
     LIMIT 3
     "
     binds = [longitude, latitude, distance]
-    Notice.connection.exec_query(sql, "distance-quert", binds).to_a
+    Notice.connection.exec_query(sql, 'distance-quert', binds).to_a
   end
 
   def meta
@@ -236,7 +236,7 @@ class Notice < ApplicationRecord
   end
 
   def dates_from_photos
-    date_times = data_sets.exif.map { |data_set| data_set.date_time }.compact.uniq
+    date_times = data_sets.select(&:exif?).map(&:date_time).compact.uniq
     date_times = photos.map { |photo| AnalyzerJob.time_from_filename(photo.filename.to_s) }.compact.uniq if date_times.blank?
     date_times.sort
   end
@@ -259,7 +259,7 @@ class Notice < ApplicationRecord
   end
 
   def location_and_address
-    [street, location].reject(&:blank?).join(", ")
+    [street, location].reject(&:blank?).join(', ')
   end
 
   def geocode_address
@@ -269,11 +269,11 @@ class Notice < ApplicationRecord
 
   def map_data(kind = :public)
     basic = {
-      latitude: latitude,
-      longitude: longitude,
-      charge: charge,
-      date: date,
-      zip: zip,
+      latitude:,
+      longitude:,
+      charge:,
+      date:,
+      zip:,
     }
 
     case kind
@@ -282,9 +282,9 @@ class Notice < ApplicationRecord
     when :private
       basic.merge(
         {
-          registration: registration,
-          full_address: full_address,
-          token: token,
+          registration:,
+          full_address:,
+          token:,
         }
       )
     else

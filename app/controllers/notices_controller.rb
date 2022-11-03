@@ -112,7 +112,7 @@ class NoticesController < ApplicationController
   end
 
   def edit
-    @notice = current_user.notices.from_param(params[:id])
+    @notice = current_user.notices.includes(:data_sets).from_param(params[:id])
   end
 
   def update

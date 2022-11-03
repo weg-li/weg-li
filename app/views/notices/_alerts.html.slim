@@ -33,7 +33,7 @@
 
     strong Achtung, die Verjährungsfrist von Parkvergehen beträgt nur 3 Monate. Es ist fraglich, ob diese Anzeige noch rechtzeitig bearbeitet wird.
 
-- if notice.data_sets.exif.blank?
+- if notice.data_sets.select(&:exif?).blank?
   .alert.alert-info.alert-dismissable
     button type="button" class="close" data-dismiss="alert" ×
     strong Aus den Beweisfotos konnten leider keine EXIF-Metadaten für die automatische Ermittlung von Adresse und Zeitpunkt ausgelesen werden.

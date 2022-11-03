@@ -3,8 +3,8 @@
 .row
   .col-lg-4
     .form-group
-      - registrations = notice.data_sets.google_vision.flat_map { |google_vision| google_vision.registrations }
-      - registrations = notice.data_sets.car_ml.map(&:registrations).concat(registrations).concat([notice.registration]).compact.flatten.uniq
+      - registrations = notice.data_sets.select(&:google_vision?).flat_map { |google_vision| google_vision.registrations }
+      - registrations = notice.data_sets.select(&:car_ml?).map(&:registrations).concat(registrations).concat([notice.registration]).compact.flatten.uniq
       = form.label :registration, class: "control-label control-label-required"
       = form.select :registration, registrations, { include_blank: 'z.B. HH SV 1887' }, { class: "form-control", required: true, data: {'select2-disabled' => true} }
       = render('auto_suggest', notice: notice)
@@ -20,8 +20,8 @@
       = form.label :brand, class: "control-label"
       = form.select :brand, Vehicle.brands, { include_blank: 'Marke Auswählen' }, { class: "form-control" }
       .input-group#pick_brand
-        - brands = notice.data_sets.google_vision.flat_map { |google_vision| google_vision.brands }
-        - brands = notice.data_sets.car_ml.map(&:brands).concat(brands).compact.flatten.uniq
+        - brands = notice.data_sets.select(&:google_vision?).flat_map { |google_vision| google_vision.brands }
+        - brands = notice.data_sets.select(&:car_ml?).map(&:brands).concat(brands).compact.flatten.uniq
         - brands.each do |brand|
             a(href="#" onclick="$('#notice_brand').val('#{brand}').trigger('change'); $('#pick_brand').fadeOut(); return false;")
               span.label.label-default.label-picker(title=brand)
@@ -33,8 +33,8 @@
       = form.label :color, class: "control-label"
       = form.select :color, Vehicle.colors.map { |color| [t(color, scope: "activerecord.attributes.notice.colors"), color] }, { include_blank: 'Farbe Auswählen' }, { class: "form-control" }
       .input-group#pick_color
-        - colors = notice.data_sets.google_vision.flat_map { |google_vision| google_vision.colors }
-        - colors = notice.data_sets.car_ml.map(&:colors).concat(colors).compact.flatten.uniq
+        - colors = notice.data_sets.select(&:google_vision?).flat_map { |google_vision| google_vision.colors }
+        - colors = notice.data_sets.select(&:car_ml?).map(&:colors).concat(colors).compact.flatten.uniq
         - colors.each do |color|
             a(href="#" onclick="$('#notice_color').val('#{color}').trigger('change'); $('#pick_color').fadeOut(); return false;")
               span.label.label-default.label-picker(title=color)
@@ -47,7 +47,7 @@
   .col-lg-4
     .form-group
       = form.label :address, class: "control-label control-label-required"
-      - address = notice.data_sets.geocoder.map { |data_set| data_set.address }.compact.first
+      - address = notice.data_sets.select(&:geocoder?).map { |data_set| data_set.address }.compact.first
       .input-group
         = form.text_field :street, placeholder: 'z.B. Sylvesterallee 7', class: "form-control", required: true
         a.input-group-addon(href="#" data-toggle="modal" data-target="#modal_map")
@@ -85,7 +85,7 @@
     .form-group
       = form.label :charge, class: "control-label control-label-required"
       - plain_names = Charge.plain_charges
-      - nearest_charges = notice.data_sets.proximity.flat_map { |data_set| data_set.charges }.compact
+      - nearest_charges = notice.data_sets.select(&:proximity?).flat_map { |data_set| data_set.charges }.compact
       - nearest_charges = nearest_charges & plain_names
       - charge_options = Charge::CHARGES.map {|tbnr, charge| ["#{charge} [#{tbnr}]", charge]}
       = form.select :charge, charge_options, { include_blank: 'Verstoß Auswählen' }, { class: "form-control", required: true }
