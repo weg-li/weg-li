@@ -210,6 +210,7 @@ GEM
       googleapis-common-protos-types (~> 1.0)
     hashdiff (1.0.1)
     hashie (5.0.0)
+    hiredis (0.6.3)
     http (5.1.0)
       addressable (~> 2.8)
       http-cookie (~> 1.0)
@@ -557,6 +558,7 @@ DEPENDENCIES
   geocoder
   google-cloud-storage
   google-cloud-vision
+  hiredis
   http
   i18n
   image_processing
@@ -584,6 +586,7 @@ DEPENDENCIES
   rack
   rack-cache
   rails (= 6.1.6.1)
+  redis
   rspec-rails
   rspec-retry
   rswag-ui

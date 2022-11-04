@@ -22,4 +22,5 @@ hr.spacer-large
 
 .spacer
 
-= render('yearly_stats', statistics: @statistics)
+= cache('year_2022', expires_in: 12.hours) do
+  = render('yearly_stats', statistics: @statistics)
