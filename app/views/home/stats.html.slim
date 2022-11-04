@@ -36,6 +36,6 @@ ul.nav.nav-tabs.nav-panel.hidden-xs
 
   .panel-body.well-chart
     = cache("home_stats_#{@since}_#{@interval}_#{@display}", expires_in: 12.hours) do
-      = render('components/chart', name: @display, counts: @counts, sums: @sums)
+      = render('components/chart', name: @display, counts: count_sum[:counts], sums: count_sum[:sums])
   .panel-footer
     | Im #{link_to 'Export-Bereich', exports_path} können anonymisierte Datensätze zu Parkverstößen im CSV-Format als Archiv heruntergeladen werden.

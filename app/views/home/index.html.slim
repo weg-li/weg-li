@@ -126,7 +126,7 @@
       ul.list-group
         li.list-group-item
           - goal = weekly_goal
-          - current = @goals[:week]
+          - current = goals[:week]
           p
             strong> Wochenziel:
             span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen (#{number_with_delimiter(current / (Date.today.wday == 0 ? 7 : Date.today.wday))} vs. #{number_with_delimiter(goal / 7)} pro Tag)
@@ -135,7 +135,7 @@
 
         li.list-group-item
           - goal = weekly_goal * 4
-          - current = @goals[:month]
+          - current = goals[:month]
           p
             strong> Monatsziel:
             span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen (#{number_with_delimiter(current / Date.today.day)} vs. #{number_with_delimiter(goal / Date.today.end_of_month.day)} pro Tag)
@@ -144,7 +144,7 @@
 
         li.list-group-item
           - goal = weekly_goal * 52
-          - current = @goals[:year]
+          - current = goals[:year]
           p
             strong> Jahresziel:
             span #{number_with_delimiter(current)} von #{number_with_delimiter(goal)} Anzeigen (#{number_with_delimiter(current / Date.today.yday)} vs. #{number_with_delimiter(goal / Date.today.end_of_year.yday)} pro Tag)
@@ -174,7 +174,7 @@
     .col-lg-6
       h3 📈 Bisherige Daten:
       ul.list-group
-        - @statistics.each do |key, value|
+        - statistics.each do |key, value|
           li.list-group-item
             .badge.pull-right= number_with_delimiter(value)
             = t(key, scope: 'notices.statistics')

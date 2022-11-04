@@ -1,12 +1,7 @@
 class HomeController < ApplicationController
-  def index
-    @goals = {
-      week: Notice.shared.since(Time.zone.now.beginning_of_week).count,
-      month: Notice.shared.since(Time.zone.now.beginning_of_month).count,
-      year: Notice.shared.since(Time.zone.now.beginning_of_year).count,
-    }
-    @statistics = Notice.statistics
-  end
+  helper_method :goals, :statistics, :yearly_statistics, :count_sum
+
+  def index; end
 
   def map
     @limit = (params[:limit] || 5).to_i
@@ -23,44 +18,26 @@ class HomeController < ApplicationController
     @since = (params[:since] || 4).to_i
     @display = params[:display] || 'user'
     @interval = params[:interval] || '1 week'
-
-    case @display
-    when 'user'
-      @counts = User.count_over(User.active, weeks: @since, interval: @interval)
-      @sums = User.sum_over(User.active, weeks: @since, interval: @interval)
-    when 'active'
-      @counts = User.count_over(User.active.joins(:notices), weeks: @since, interval: @interval)
-      @sums = User.sum_over(User.active.joins(:notices), weeks: @since, interval: @interval)
-    when 'notice'
-      @counts = Notice.count_over(Notice.shared, weeks: @since, interval: @interval)
-      @sums = Notice.sum_over(Notice.shared, weeks: @since, interval: @interval)
-    when 'photo'
-      @counts = Notice.count_over(ActiveStorage::Attachment.where(record_type: 'Notice', name: 'photos'), weeks: @since, interval: @interval)
-      @sums = Notice.sum_over(ActiveStorage::Attachment.where(record_type: 'Notice', name: 'photos'), weeks: @since, interval: @interval)
-    else
-      @counts = {}
-      @sums = {}
-    end
   end
 
   def year2019
-    limit = (params[:limit] || 5).to_i
-    @statistics = Notice.yearly_statistics(2019, limit)
+    @limit = (params[:limit] || 5).to_i
+    @yearl = 2019
   end
 
   def year2020
-    limit = (params[:limit] || 5).to_i
-    @statistics = Notice.yearly_statistics(2020, limit)
+    @limit = (params[:limit] || 5).to_i
+    @yearl = 2020
   end
 
   def year2021
-    limit = (params[:limit] || 5).to_i
-    @statistics = Notice.yearly_statistics(2021, limit)
+    @limit = (params[:limit] || 5).to_i
+    @yearl = 2021
   end
 
   def year2022
-    limit = (params[:limit] || 5).to_i
-    @statistics = Notice.yearly_statistics(2022, limit)
+    @limit = (params[:limit] || 5).to_i
+    @yearl = 2022
   end
 
   def leaderboard
@@ -90,5 +67,54 @@ class HomeController < ApplicationController
 
       send_data data, filename: "Parkraum-Management #{params[:parkraummanagement_name]}.pdf"
     end
+  end
+
+  private
+
+  def count_sum
+    @count_sum ||=
+      case @display
+      when 'user'
+        {
+          counts: User.count_over(User.active, weeks: @since, interval: @interval),
+          sums: User.sum_over(User.active, weeks: @since, interval: @interval),
+        }
+      when 'active'
+        {
+          counts: User.count_over(User.active.joins(:notices), weeks: @since, interval: @interval),
+          sums: User.sum_over(User.active.joins(:notices), weeks: @since, interval: @interval),
+        }
+      when 'notice'
+        {
+          counts: Notice.count_over(Notice.shared, weeks: @since, interval: @interval),
+          sums: Notice.sum_over(Notice.shared, weeks: @since, interval: @interval),
+        }
+      when 'photo'
+        {
+          counts: Notice.count_over(ActiveStorage::Attachment.where(record_type: 'Notice', name: 'photos'), weeks: @since, interval: @interval),
+          sums: Notice.sum_over(ActiveStorage::Attachment.where(record_type: 'Notice', name: 'photos'), weeks: @since, interval: @interval),
+        }
+      else
+        {
+          counts: {},
+          sums: {},
+        }
+      end
+  end
+
+  def yearly_statistics
+    @yearly_statistics ||= Notice.yearly_statistics(@year, @limit)
+  end
+
+  def goals
+    @goals ||= {
+      week: Notice.shared.since(Time.zone.now.beginning_of_week).count,
+      month: Notice.shared.since(Time.zone.now.beginning_of_month).count,
+      year: Notice.shared.since(Time.zone.now.beginning_of_year).count,
+    }
+  end
+
+  def statistics
+    @statistics ||= Notice.statistics
   end
 end
