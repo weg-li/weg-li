@@ -1,8 +1,8 @@
 Fabricator(:district) do
-  name      { Faker::Name.name }
+  name      { Faker::Address.city }
   zip       { Faker::Address.zip }
   email     { Faker::Internet.email }
-  prefixes  { Vehicle.plates.keys.shuffle.first }
+  prefixes  { Vehicle.plates.keys.sample }
   latitude  { 53.57532 }
   longitude { 10.01534 }
   aliases   { [Faker::Internet.email] }

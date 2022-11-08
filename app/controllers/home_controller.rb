@@ -7,11 +7,13 @@ class HomeController < ApplicationController
     @limit = (params[:limit] || 5).to_i
     @since = (params[:since] || '7').to_i
     @display = params[:display] || 'cluster'
-    @district = params[:district] || current_user&.city || 'Hamburg'
 
-    @notices = Notice.includes(:user).shared.since(@since.days.ago).joins(:district).where(districts: { name: @district })
+    @district = params[:district] || current_user&.city
+    @default_district = District.active.where('name = ? OR name = ?', @district, 'Hamburg').first || District.active.first
+    @district = @default_district.name
+
+    @notices = Notice.includes(:user).shared.since(@since.days.ago).joins(:district).where(districts: { zip: @default_district.zip })
     @active = @notices.map(&:user_id).uniq.size
-    @default_district = District.active.find_by(name: @district) || District.active.first
   end
 
   def stats

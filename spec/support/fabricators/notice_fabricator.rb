@@ -3,11 +3,11 @@ Fabricator(:notice) do
   street { Faker::Address.street_address }
   location { 'Beim Nazis-Raus Aufkleber' }
   city { Faker::Address.city }
-  charge { Charge.plain_charges.shuffle.first }
+  charge { Charge.plain_charges.sample }
   date { 2.days.ago }
-  registration { "#{Vehicle.plates.keys.shuffle.first} #{('A'..'Z').to_a.shuffle.first(2).join} #{rand(1000)}" }
-  brand { Vehicle.car_brands.shuffle.first }
-  color { Vehicle.colors.shuffle.first }
+  registration { "#{Vehicle.plates.keys.sample} #{('A'..'Z').to_a.sample(2).join} #{rand(1000)}" }
+  brand { Vehicle.car_brands.sample }
+  color { Vehicle.colors.sample }
   vehicle_empty { true }
   duration { 3 }
   severity { 0 }
