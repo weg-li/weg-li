@@ -18,7 +18,6 @@ module Admin
     #   params[:per_page] || 20
     # end
 
-
     private
 
     def order

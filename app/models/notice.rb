@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Notice < ApplicationRecord
   include Statisticable
   ADDRESS_ZIP_PATTERN = /.+(\d{5}).+/
@@ -15,7 +17,7 @@ class Notice < ApplicationRecord
 
   api_accessible(:public_beta) do |template|
     %i[token status street city zip latitude longitude registration color brand charge date duration severity photos created_at updated_at sent_at].each { |key| template.add(key) }
-    Notice.bitfields[:flags].keys.each { |key| template.add(key) }
+    Notice.bitfields[:flags].each_key { |key| template.add(key) }
     template.add(:attachments, as: :photos)
   end
 
@@ -37,7 +39,7 @@ class Notice < ApplicationRecord
   has_many :replies, -> { order(created_at: :desc) }, dependent: :destroy
   has_many :data_sets, -> { order(created_at: :desc) }, dependent: :destroy, as: :setable
 
-  validates :photos, :registration, :charge, :street, :zip, :city, :date, :duration, :severity, presence: :true
+  validates :photos, :registration, :charge, :street, :zip, :city, :date, :duration, :severity, presence: true
   validates :zip, format: { with: /\d{5}/, message: 'PLZ ist nicht korrekt' }
   validates :token, uniqueness: true
   validate :validate_creation_date, on: :create
@@ -285,7 +287,7 @@ class Notice < ApplicationRecord
           registration:,
           full_address:,
           token:,
-        }
+        },
       )
     else
       raise "kind #{kind} not surported"

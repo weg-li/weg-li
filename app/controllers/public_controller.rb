@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PublicController < ApplicationController
   def charge
     @notice = Notice.for_public.from_param(params[:token])
@@ -27,5 +29,4 @@ class PublicController < ApplicationController
       format.xml
     end
   end
-
 end

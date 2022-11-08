@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Colorizor
   COLORS = {
     Color::RGB::AliceBlue => Color::RGB::White,

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChargeVariant < ApplicationRecord
   belongs_to :charge, -> { active }, foreign_key: :tbnr, primary_key: :tbnr, optional: true
 

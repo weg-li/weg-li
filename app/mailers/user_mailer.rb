@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserMailer < ApplicationMailer
   def signup(user)
     @user = user
@@ -34,16 +36,16 @@ class UserMailer < ApplicationMailer
     @user = user
     @notices = user.notices.find(notice_ids)
 
-    subject = "Meldungen jetzt zur Anzeige bringen"
-    mail subject: subject, to: email_address_with_name(@user.email, @user.name)
+    subject = 'Meldungen jetzt zur Anzeige bringen'
+    mail subject:, to: email_address_with_name(@user.email, @user.name)
   end
 
   def reminder_bulk_upload(user, bulk_upload_ids)
     @user = user
     @bulk_uploads = user.bulk_uploads.find(bulk_upload_ids)
 
-    subject = "Massen-Uploads jetzt verarbeiten und zur Anzeige bringen"
-    mail subject: subject, to: email_address_with_name(@user.email, @user.name)
+    subject = 'Massen-Uploads jetzt verarbeiten und zur Anzeige bringen'
+    mail subject:, to: email_address_with_name(@user.email, @user.name)
   end
 
   def pdf(user, notice_ids)
@@ -54,7 +56,7 @@ class UserMailer < ApplicationMailer
       attachments[notice.file_name] = PDFGenerator.new.generate(notice)
     end
     subject = "#{@notices.size} Anzeige(n) wurden als PDF generiert"
-    mail subject: subject, to: email_address_with_name(@user.email, @user.name)
+    mail subject:, to: email_address_with_name(@user.email, @user.name)
   end
 
   def autoreply(user, reply)
@@ -64,9 +66,9 @@ class UserMailer < ApplicationMailer
 
     attachments['original.eml'] = {
       mime_type: 'application/octet-stream',
-      content: reply.action_mailbox_inbound_email.raw_email.download.to_s
+      content: reply.action_mailbox_inbound_email.raw_email.download.to_s,
     }
     subject = "Automatische Antwort auf Anzeige #{@notice.registration} #{@notice.charge}"
-    mail subject: subject, to: email_address_with_name(@user.email, @user.name)
+    mail subject:, to: email_address_with_name(@user.email, @user.name)
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NoticeMailer < ApplicationMailer
   include PhotoHelper
 
@@ -28,11 +30,11 @@ class NoticeMailer < ApplicationMailer
     end
 
     subject = "Anzeige #{@notice.registration} #{@notice.charge}"
-    mail subject: subject,
-     to: to || @district.email,
-     cc: email_address_with_name(@user.email, @user.name),
-     reply_to: email_address_with_name(@user.email, @user.name),
-     from: email_address_with_name(@notice.wegli_email, @user.name)
+    mail subject:,
+         to: to || @district.email,
+         cc: email_address_with_name(@user.email, @user.name),
+         reply_to: email_address_with_name(@user.email, @user.name),
+         from: email_address_with_name(@notice.wegli_email, @user.name)
   end
 
   def forward(notice, token)
@@ -41,7 +43,7 @@ class NoticeMailer < ApplicationMailer
     @token = token
 
     subject = "Meldung übertragen: #{@notice.registration} #{@notice.charge}"
-    mail subject: subject, to: email_address_with_name(@user.email, @user.name)
+    mail subject:, to: email_address_with_name(@user.email, @user.name)
   end
 
   private

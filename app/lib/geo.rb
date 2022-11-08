@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Geo
   MAX_DISTANCE = 30
 
@@ -12,7 +14,7 @@ class Geo
     pi22: [48.138747, 11.607372], # Bogenhausen
     pi23: [48.104362, 11.58274], # Giesing
     pi24: [48.104159, 11.642686], # Perlach
-    pi25: [48.134147, 11.686738],  # Trudering-Riem
+    pi25: [48.134147, 11.686738], # Trudering-Riem
     pi26: [48.228694, 11.670973], # Ismaning
     pi27: [48.106508, 11.741385], # Haar
     pi28: [48.056368, 11.674944], # Ottobrunn
@@ -34,7 +36,7 @@ class Geo
   end
 
   def self.distance(point_a, point_b)
-    2 * 3961 * Math.asin(Math.sqrt((Math.sin(radians((point_a.latitude - point_b.latitude) / 2))) ** 2 + Math.cos(radians(point_b.latitude)) * Math.cos(radians(point_a.latitude)) * (Math.sin(radians((point_a.longitude - point_b.longitude) / 2))) ** 2))
+    2 * 3961 * Math.asin(Math.sqrt((Math.sin(radians((point_a.latitude - point_b.latitude) / 2))**2) + (Math.cos(radians(point_b.latitude)) * Math.cos(radians(point_a.latitude)) * (Math.sin(radians((point_a.longitude - point_b.longitude) / 2))**2))))
   end
 
   def self.regions
@@ -43,7 +45,7 @@ class Geo
       regions = result['features'].map { |data| Geo.new(data.dig('geometry', 'coordinates').first.map { |(lng, lat, _)| [lat, lng] }) }
 
       POLICE_INSPECTIONS.map do |name, point|
-        region = regions.find { |region| region.contains?(point) }
+        region = regions.find { |it| it.contains?(point) }
         raise "did not find PI for #{name} and point #{point}!" unless region
 
         [name, region]
@@ -52,7 +54,7 @@ class Geo
   end
 
   def self.suggest_email(point)
-    region = regions.find { |name, region| region.contains?(point) }
+    region = regions.find { |_name, it| it.contains?(point) }
 
     "pp-mue.muenchen.#{region.first}@polizei.bayern.de" if region
   end
@@ -73,28 +75,26 @@ class Geo
     i = -1
     j = @points.size - 1
     while (i += 1) < @points.size
-     a_point_on_polygon = @points[i]
-     trailing_point_on_polygon = @points[j]
-     if point_is_between_the_ys_of_the_line_segment?(a_point_on_polygon, trailing_point_on_polygon, latitude)
-       if ray_crosses_through_line_segment?(a_point_on_polygon, trailing_point_on_polygon, latitude, longitude)
-         contains_point = !contains_point
-       end
-     end
-     j = i
+      a_point_on_polygon = @points[i]
+      trailing_point_on_polygon = @points[j]
+      if point_is_between_the_ys_of_the_line_segment?(a_point_on_polygon, trailing_point_on_polygon, latitude) && ray_crosses_through_line_segment?(a_point_on_polygon, trailing_point_on_polygon, latitude, longitude)
+        contains_point = !contains_point
+      end
+      j = i
     end
 
     contains_point
-   end
+  end
 
-   private
+  private
 
-   def point_is_between_the_ys_of_the_line_segment?(a_point_on_polygon, trailing_point_on_polygon, latitude)
-     (a_point_on_polygon[0] <= latitude && latitude < trailing_point_on_polygon[0]) ||
-     (trailing_point_on_polygon[0] <= latitude && latitude < a_point_on_polygon[0])
-   end
+  def point_is_between_the_ys_of_the_line_segment?(a_point_on_polygon, trailing_point_on_polygon, latitude)
+    (a_point_on_polygon[0] <= latitude && latitude < trailing_point_on_polygon[0]) ||
+      (trailing_point_on_polygon[0] <= latitude && latitude < a_point_on_polygon[0])
+  end
 
-   def ray_crosses_through_line_segment?(a_point_on_polygon, trailing_point_on_polygon, latitude, longitude)
-     (longitude < (trailing_point_on_polygon[1] - a_point_on_polygon[1]) * (latitude - a_point_on_polygon[0]) /
-     (trailing_point_on_polygon[0] - a_point_on_polygon[0]) + a_point_on_polygon[1])
-   end
+  def ray_crosses_through_line_segment?(a_point_on_polygon, trailing_point_on_polygon, latitude, longitude)
+    (longitude < ((trailing_point_on_polygon[1] - a_point_on_polygon[1]) * (latitude - a_point_on_polygon[0]) /
+    (trailing_point_on_polygon[0] - a_point_on_polygon[0])) + a_point_on_polygon[1])
+  end
 end

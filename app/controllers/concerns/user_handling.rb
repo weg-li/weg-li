@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module UserHandling
   extend ActiveSupport::Concern
 
@@ -64,14 +66,14 @@ module UserHandling
         end
       elsif cookies.encrypted[:remember_me].present?
         user = User.authenticated_with_token(*cookies.encrypted[:remember_me])
-        user.touch(:last_login) if user
+        user&.touch(:last_login)
       end
       user
     end
   end
 
   def current_user
-    alias_user ? alias_user : session_user
+    alias_user || session_user
   end
 
   def find_by_alias
@@ -101,7 +103,7 @@ module UserHandling
     @alias_user = user
     session[:alias_id] = user.id
   end
-  alias_method :sign_in_alias, :alias_user=
+  alias sign_in_alias alias_user=
 
   def sign_out
     session.destroy

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StyleguideController < ApplicationController
   def photo
     key = "#{params[:key]}.#{params[:extension]}"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::Notice < ::Notice
   include Swagger::Blocks
 
@@ -45,7 +47,7 @@ class Api::Notice < ::Notice
     end
     property :date do
       key :type, :string
-      key :format, :"date-time"
+      key :format, :'date-time'
     end
     property :duration do
       key :type, :number
@@ -61,17 +63,17 @@ class Api::Notice < ::Notice
     end
     property :created_at do
       key :type, :string
-      key :format, :"date-time"
+      key :format, :'date-time'
     end
     property :updated_at do
       key :type, :string
-      key :format, :"date-time"
+      key :format, :'date-time'
     end
     property :sent_at do
       key :type, :string
-      key :format, :"date-time"
+      key :format, :'date-time'
     end
-    Notice.bitfields[:flags].keys.each do |it|
+    Notice.bitfields[:flags].each_key do |it|
       property it do
         key :type, :boolean
         key :default, false
@@ -94,10 +96,10 @@ class Api::Notice < ::Notice
   swagger_schema :NoticeInput do
     allOf do
       schema do
-        key :'$ref', :Notice
+        key :$ref, :Notice
       end
       schema do
-        key :required, %i(token street city zip latitude longitude registration charge date duration severity photos)
+        key :required, %i[token street city zip latitude longitude registration charge date duration severity photos]
         property :token do
           key :type, :string
         end

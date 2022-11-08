@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def form_errors(model)
     if model.errors.present?
@@ -44,14 +46,14 @@ module ApplicationHelper
     @meta_description ||= default
   end
 
-  def callout(&block)
+  def callout(&)
     content_tag(:div, class: 'well well-sm callout-info') do
-      content_tag(:small, &block)
+      content_tag(:small, &)
     end
   end
 
-  def hint(&block)
-    content_tag(:small, class: 'help-block', &block)
+  def hint(&)
+    content_tag(:small, class: 'help-block', &)
   end
 
   def registration_label(registration)
@@ -60,11 +62,11 @@ module ApplicationHelper
     end
   end
 
-  def link_to_notice(notice, &block)
+  def link_to_notice(notice, &)
     if notice.open? || notice.analyzing?
-      link_to([:edit, notice], &block)
+      link_to([:edit, notice], &)
     else
-      link_to(notice, &block)
+      link_to(notice, &)
     end
   end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'base64'
 
 module OmniAuth
@@ -6,7 +8,7 @@ module OmniAuth
       include OmniAuth::Strategy
 
       def request_phase
-        redirect "/sessions/email"
+        redirect '/sessions/email'
       end
 
       def callback_phase
@@ -16,9 +18,9 @@ module OmniAuth
         end
 
         # begin
-          decoded_token = Token.decode(token)
+        decoded_token = Token.decode(token)
         # rescue
-          # fail!(:authenticity_error, $!) <-- return from it
+        # fail!(:authenticity_error, $!) <-- return from it
         # end
 
         @email = decoded_token['iss'].to_s.downcase

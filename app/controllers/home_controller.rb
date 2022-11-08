@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class HomeController < ApplicationController
   helper_method :goals, :statistics, :yearly_statistics, :count_sum
 

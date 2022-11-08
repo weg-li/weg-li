@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class Token
   def self.generate(email, expiration: 15.minutes, secret: Rails.application.secrets.secret_key_base)
     now_seconds = Time.now.to_i
     payload = {
-        iss: email,
-        iat: now_seconds,
-        exp: now_seconds + expiration,
+      iss: email,
+      iat: now_seconds,
+      exp: now_seconds + expiration,
     }
     token = ::JWT.encode(payload, secret, 'HS256')
     Base64.encode64(token)

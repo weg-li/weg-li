@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class Api::Error
   include Swagger::Blocks
 
   swagger_schema :Error do
-    key :required, [:code, :message]
+    key :required, %i[code message]
     property :code do
       key :type, :integer
       key :format, :int32

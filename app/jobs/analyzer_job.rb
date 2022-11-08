@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AnalyzerJob < ApplicationJob
   retry_on EXIFR::MalformedJPEG, attempts: 5, wait: :exponentially_longer
   retry_on ActiveStorage::FileNotFoundError, attempts: 5, wait: :exponentially_longer
@@ -10,6 +12,7 @@ class AnalyzerJob < ApplicationJob
     token ||= filename[/.*(20\d{2}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2})/, 1]
 
     return nil unless token
+
     Time.zone.parse(token.gsub('-', '')) rescue nil
   end
 
@@ -40,7 +43,7 @@ class AnalyzerJob < ApplicationJob
         if registrations.present?
           apply_registrations(notice, registrations, data_set)
 
-          return
+          break
         end
       end
     end
@@ -65,34 +68,35 @@ class AnalyzerJob < ApplicationJob
   def handle_exif(notice)
     notice.photos.each do |photo|
       exif = photo.service.download_file(photo.key) { |file| exifer.metadata(file) }
-      if exif.present?
-        exif_data_set = notice.data_sets.create!(data: exif, kind: :exif, keyable: photo)
+      next if exif.blank?
 
-        # the last or first exif is the good as any other
-        coords = exif_data_set.coords
+      exif_data_set = notice.data_sets.create!(data: exif, kind: :exif, keyable: photo)
 
-        if coords.present? && notice.data_sets.geocoder.blank?
-          result = Geocoder.search(coords)
-          if result.present?
-            geocoder_data_set = notice.data_sets.create!(data: result, kind: :geocoder, keyable: photo)
-            if notice.user.from_exif?
-              address = geocoder_data_set.address
-              notice.latitude = address[:latitude]
-              notice.longitude = address[:longitude]
-              notice.zip = address[:zip]
-              notice.city = address[:city]
-              notice.street = address[:street]
-            end
+      # the last or first exif is the good as any other
+      coords = exif_data_set.coords
+      next if coords.blank?
+
+      if notice.data_sets.geocoder.blank?
+        result = Geocoder.search(coords)
+        if result.present?
+          geocoder_data_set = notice.data_sets.create!(data: result, kind: :geocoder, keyable: photo)
+          if notice.user.from_exif?
+            address = geocoder_data_set.address
+            notice.latitude = address[:latitude]
+            notice.longitude = address[:longitude]
+            notice.zip = address[:zip]
+            notice.city = address[:city]
+            notice.street = address[:street]
           end
         end
+      end
 
-        if coords.present? && notice.data_sets.proximity.blank?
-          result = Notice.nearest_charges(*coords)
-          if result.present?
-            proximity_data_set = notice.data_sets.create!(data: result, kind: :proximity, keyable: photo)
-            if notice.user.from_proximity?
-              notice.charge ||= proximity_data_set.charges.first
-            end
+      if notice.data_sets.proximity.blank?
+        result = Notice.nearest_charges(*coords)
+        if result.present?
+          proximity_data_set = notice.data_sets.create!(data: result, kind: :proximity, keyable: photo)
+          if notice.user.from_proximity?
+            notice.charge ||= proximity_data_set.charges.first
           end
         end
       end

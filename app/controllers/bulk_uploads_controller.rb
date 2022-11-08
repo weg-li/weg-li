@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BulkUploadsController < ApplicationController
   before_action :authenticate!
 
@@ -6,11 +8,15 @@ class BulkUploadsController < ApplicationController
     @table_params = {}
 
     @bulk_uploads = current_user.bulk_uploads.with_attached_photos.page(params[:page])
-    if filter = params[:filter]
+
+    filter = params[:filter]
+    if filter.present?
       @table_params[:filter] = filter.to_unsafe_hash
       @bulk_uploads = @bulk_uploads.where(status: filter[:status]) if filter[:status].present?
     end
-    if order = params[:order]
+
+    order = params[:order]
+    if order.present?
       @table_params[:order] = order.to_unsafe_hash
       if order[:column].present? && order[:value].present?
         @bulk_uploads = @bulk_uploads.reorder(order[:column] => order[:value])

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SnippetsController < ApplicationController
   before_action :authenticate!
 
@@ -9,11 +11,14 @@ class SnippetsController < ApplicationController
 
     @snippets = current_user.snippets.page(params[:page])
 
-    if search = params[:search]
+    search = params[:search]
+    if search.present?
       @table_params[:search] = search.to_unsafe_hash
       @snippets = @snippets.search(search[:term]) if search[:term].present?
     end
-    if order = params[:order]
+
+    order = params[:order]
+    if order.present?
       @table_params[:order] = order.to_unsafe_hash
       if order[:column].present? && order[:value].present?
         @snippets = @snippets.reorder(order[:column] => order[:value])

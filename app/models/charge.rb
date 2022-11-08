@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class Charge < ApplicationRecord
   validates :tbnr, :description, presence: true
-  validates :tbnr, length: {is: 6}
+  validates :tbnr, length: { is: 6 }
 
   has_many :charge_variants, -> { joins(:charge).where('charge_variants.date = charges.valid_from') }, foreign_key: :table_id, primary_key: :variant_table_id
 
@@ -9,7 +11,7 @@ class Charge < ApplicationRecord
   acts_as_api
 
   api_accessible :public_beta do |template|
-    %i(tbnr description fine bkat penalty fap points valid_from valid_to implementation classification variant_table_id rule_id table_id required_refinements number_required_refinements max_fine created_at updated_at).each { |key| template.add(key) }
+    %i[tbnr description fine bkat penalty fap points valid_from valid_to implementation classification variant_table_id rule_id table_id required_refinements number_required_refinements max_fine created_at updated_at].each { |key| template.add(key) }
   end
 
   CLASSIFICATIONS = {
@@ -77,7 +79,7 @@ class Charge < ApplicationRecord
     ['44', 'Sonstiges Parkvergehen (siehe Hinweise)', '0', '', '', ''],
   ]
 
-  CHARGES = Hash[UPDATED_CHARGES.map {|a| [a[2].to_i, a[1]] }]
+  CHARGES = UPDATED_CHARGES.to_h { |a| [a[2].to_i, a[1]] }
 
   def self.plain_charges
     @plain_charges ||= CHARGES.values
@@ -99,12 +101,12 @@ class Charge < ApplicationRecord
   def fap_description
     FAP[fap] || '-'
   end
-  
+
   def self.from_param(param)
     param = param.split('-').first || param
     where(tbnr: param).order(valid_from: :desc).first!
   end
-  
+
   def to_param
     "#{tbnr}-#{description.parameterize}"
   end

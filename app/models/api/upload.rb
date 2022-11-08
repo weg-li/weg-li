@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class Api::Upload < ActiveStorage::Blob
   include Swagger::Blocks
 
   swagger_schema :Upload do
-    key :required, [:filename, :byte_size, :checksum, :content_type]
+    key :required, %i[filename byte_size checksum content_type]
     property :filename do
       key :type, :string
     end
@@ -26,10 +28,10 @@ class Api::Upload < ActiveStorage::Blob
   swagger_schema :UploadInput do
     allOf do
       schema do
-        key :'$ref', :Upload
+        key :$ref, :Upload
       end
       schema do
-        key :required, %i(filename byte_size checksum content_type)
+        key :required, %i[filename byte_size checksum content_type]
       end
     end
   end
@@ -37,7 +39,7 @@ class Api::Upload < ActiveStorage::Blob
   def direct_upload_json
     as_json(methods: :signed_id).merge(direct_upload: {
       url: service_url_for_direct_upload,
-      headers: service_headers_for_direct_upload
+      headers: service_headers_for_direct_upload,
     })
   end
 end

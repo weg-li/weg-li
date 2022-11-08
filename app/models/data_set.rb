@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'geocoder/results/nominatim'
 require 'geocoder/results/opencagedata'
 

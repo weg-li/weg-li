@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class Scheduled::ExpiringReminderJob < ApplicationJob
   def perform
-    Rails.logger.info "send reminders"
+    Rails.logger.info 'send reminders'
 
     open_notices = Notice.for_reminder
     groups = open_notices.group_by(&:user)

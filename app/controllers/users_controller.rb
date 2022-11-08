@@ -1,16 +1,17 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   before_action :authenticate!
-  before_action :authenticate_studi_user!, only: [:studi, :generate_export]
+  before_action :authenticate_studi_user!, only: %i[studi generate_export]
 
   def show
     @since = (params[:since] || 4).to_i
-    @display = %w(cluster heat multi).delete(params[:display]) || 'cluster'
+    @display = %w[cluster heat multi].delete(params[:display]) || 'cluster'
     @notices = current_user.notices.shared.since(@since.weeks.ago)
     @positions = current_user.leaderboard_positions
   end
 
-  def edit
-  end
+  def edit; end
 
   def signature
     current_user.update!(signature_params)
@@ -57,7 +58,7 @@ class UsersController < ApplicationController
     interval = params[:export][:interval] || Date.today.cweek
     Rails.logger.info("create export for type #{export_type} in week #{interval}")
 
-    Scheduled::ExportJob.perform_later(export_type: export_type, interval: interval)
+    Scheduled::ExportJob.perform_later(export_type:, interval:)
     redirect_to studi_user_path, notice: "Export #{export_type}/#{interval} wurde gestartet, es kann einige Minuten Dauern bis dieser hier erscheint."
   end
 
@@ -75,6 +76,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit([:email, :nickname, :name, :street, :zip, :city, :appendix, :date_of_birth, :phone] + User.bitfields[:flags].keys + User.bitfields[:autosuggest].keys)
+    params.require(:user).permit(%i[email nickname name street zip city appendix date_of_birth phone] + User.bitfields[:flags].keys + User.bitfields[:autosuggest].keys)
   end
 end

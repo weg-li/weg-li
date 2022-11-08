@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'csv'
 
 class ChargesController < ApplicationController
@@ -10,7 +12,7 @@ class ChargesController < ApplicationController
 
   def show
     @since = (params[:since] || 4).to_i
-    @display = %w(cluster heat multi).delete(params[:display]) || 'cluster'
+    @display = %w[cluster heat multi].delete(params[:display]) || 'cluster'
 
     @charge = Charge.from_param(params[:id])
     @notices = Notice.since(@since.weeks.ago).shared.where(charge: Charge::CHARGES[@charge.tbnr.to_i])
@@ -20,7 +22,7 @@ class ChargesController < ApplicationController
     respond_to do |format|
       format.csv do
         csv_data = CSV.generate(force_quotes: true) do |csv|
-          csv << ["Nr","TBNR","Tatbestand"]
+          csv << %w[Nr TBNR Tatbestand]
           Charge::CHARGES.each_with_index { |(tbnr, charge), index| csv << [index + 1, tbnr, charge] }
         end
         send_data csv_data, type: 'text/csv; charset=UTF-8; header=present', disposition: "attachment; filename=districts-#{Time.now.to_i}.csv"

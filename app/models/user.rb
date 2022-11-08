@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   include Statisticable
   include Bitfields
   bitfield :flags, 1 => :hide_public_profile, 2 => :disable_reminders, 4 => :disable_autoreply_notifications
   bitfield :autosuggest, 1 => :from_exif, 2 => :from_proximity, 4 => :from_recognition, 8 => :from_history
 
-  enum access: {disabled: -99, user: 0, community: 1, studi: 2, admin: 42}
+  enum access: { disabled: -99, user: 0, community: 1, studi: 2, admin: 42 }
 
-  geocoded_by :geocode_address, language: Proc.new { |model| I18n.locale }, no_annotations: true
+  geocoded_by :geocode_address, language: proc { |_model| I18n.locale }, no_annotations: true
   after_validation :geocode, if: :geocode_address_changed?
   after_validation :normalize
   before_validation :defaults
@@ -32,13 +34,13 @@ class User < ApplicationRecord
     errors.add(:email, :invalid) if email =~ /miucce.com/ || email =~ /spamgourmet.com/
   end
 
-  scope :last_login_since, -> (date) { where('last_login > ?', date) }
-  scope :since, -> (date) { where('created_at > ?', date) }
-  scope :for_public, -> () { not_hide_public_profile }
-  scope :active, -> () { where('access >= 0') }
+  scope :last_login_since, ->(date) { where('last_login > ?', date) }
+  scope :since, ->(date) { where('created_at > ?', date) }
+  scope :for_public, -> { not_hide_public_profile }
+  scope :active, -> { where('access >= 0') }
 
   def self.from_param(token)
-    find_by!(token: token)
+    find_by!(token:)
   end
 
   def to_param
@@ -56,7 +58,7 @@ class User < ApplicationRecord
     auth = authorizations.find_or_initialize_by(provider: 'email')
     auth.update! uid: email_uid
 
-    self.update! validation_date: Time.now
+    update! validation_date: Time.now
   end
 
   def email_uid
@@ -113,8 +115,8 @@ class User < ApplicationRecord
 
   def map_data
     {
-      latitude: latitude,
-      longitude: longitude,
+      latitude:,
+      longitude:,
     }
   end
 
@@ -165,7 +167,7 @@ class User < ApplicationRecord
     def add_project_data(data)
       data.stringify_keys!
       data.each do |id, hash|
-        user = User.find_by(id: id)
+        user = User.find_by(id:)
         user&.update_columns(project_access_token: hash[:access_token], project_user_id: hash[:user_id])
       end
     end

@@ -17,12 +17,12 @@ module Slack
   class Client
     def say(text, channel: 'notifications', attachments: nil)
       payload = {
-        text: text,
-        channel: channel,
+        text:,
+        channel:,
         username: "weg-li-#{Rails.env}",
         unfurl_links: false,
         unfurl_media: false,
-        attachments: attachments,
+        attachments:,
       }
       send(payload)
     end
@@ -31,7 +31,7 @@ module Slack
       Rails.logger.debug("slack skipping, no SLACK_WEBHOOK_URL configured: #{payload}") and return if url.blank?
 
       body = URI.encode_www_form(payload: JSON.dump(payload))
-      response = HTTP.post(url, headers: headers, body: body)
+      response = HTTP.post(url, headers:, body:)
 
       raise "slack failed #{response.body}" unless response.status == 200
     end

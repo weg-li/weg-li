@@ -1,26 +1,27 @@
+# frozen_string_literal: true
+
 class Export < ApplicationRecord
-  enum export_type: {notices: 0, photos: 1, profiles: 2}
+  enum export_type: { notices: 0, photos: 1, profiles: 2 }
 
   validates :export_type, :interval, presence: true
 
   has_one_attached :archive
 
-  scope :for_public, -> () { notices }
-  scope :for_studis, -> () { not_notices }
+  scope :for_public, -> { notices }
+  scope :for_studis, -> { not_notices }
 
   def header
     case export_type.to_sym
     when :notices
-      [:date, :charge, :street, :city, :zip, :latitude, :longitude]
+      %i[date charge street city zip latitude longitude]
     when :profiles
-      [:date, :user_id, :charge, :street, :city, :zip, :latitude, :longitude, :severity]
+      %i[date user_id charge street city zip latitude longitude severity]
     when :photos
-      [:photo_uri, :date, :registration, :charge, :brand, :color]
+      %i[photo_uri date registration charge brand color]
     else
       raise "unsupported type #{export_type}"
     end
   end
-
 
   def data(&block)
     scope = send("#{export_type}_scope")
@@ -55,11 +56,11 @@ class Export < ApplicationRecord
   end
 
   def photos_scope
-    Notice.shared.select([:id, :date, :registration, :charge, :brand, :color]).with_attached_photos
+    Notice.shared.select(%i[id date registration charge brand color]).with_attached_photos
   end
 
   def photos_entries(notice)
-    data = [:date, :registration, :charge, :brand, :color].map { |key| notice.send(key) }
+    data = %i[date registration charge brand color].map { |key| notice.send(key) }
     notice.photos.map { |photo| [Annotator.bucket_uri(photo.key)] + data }
   end
 end

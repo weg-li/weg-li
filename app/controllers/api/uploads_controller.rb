@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # see ActiveStorage::DirectUploadsController < ActiveStorage::BaseController
 class Api::UploadsController < Api::ApplicationController
   include ActiveStorage::SetCurrent
@@ -13,19 +15,19 @@ class Api::UploadsController < Api::ApplicationController
         key :description, 'Upload to add'
         key :required, true
         schema do
-          key :'$ref', :UploadInput
+          key :$ref, :UploadInput
         end
       end
       response 201 do
         key :description, 'upload response'
         schema do
-          key :'$ref', :Upload
+          key :$ref, :Upload
         end
       end
       response :default do
         key :description, 'unexpected error'
         schema do
-          key :'$ref', :Error
+          key :$ref, :Error
         end
       end
     end

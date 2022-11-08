@@ -1,10 +1,10 @@
+# frozen_string_literal: true
+
 class Scheduled::GeocodingCleanupJob < ApplicationJob
   def perform
-    Rails.logger.info "fixup for geocoding"
+    Rails.logger.info 'fixup for geocoding'
 
-    Notice.shared.where(latitude: nil).each do |notice|
-      notice.save!
-    end
+    Notice.shared.where(latitude: nil).each(&:save!)
 
     query = "
     SELECT * FROM (

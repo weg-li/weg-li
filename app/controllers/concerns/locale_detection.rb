@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LocaleDetection
   protected
 
@@ -9,8 +11,8 @@ module LocaleDetection
       I18n.locale = I18n.default_locale
     end
     cookies[:locale] = {
-      value:   locale,
-      expires: 1.year.from_now
+      value: locale,
+      expires: 1.year.from_now,
     }
   end
 

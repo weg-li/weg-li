@@ -13,6 +13,8 @@ AllCops:
   NewCops: enable
   Exclude:
     - 'db/**/*'
+    - 'app/controllers/admin/**/*'
+    - 'app/dashboards/**/*'
     - 'config/environments/**/*'
 
 Bundler/OrderedGems:
@@ -20,13 +22,19 @@ Bundler/OrderedGems:
 
 Layout/LineLength:
   Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: false
+
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented_relative_to_receiver
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
 
+Style/Next:
+  Enabled: false
 Style/FetchEnvVar:
   Enabled: false
-Style/TrailingCommaInHashLiteral:
-  EnforcedStyleForMultiline: comma
 Style/GuardClause:
   Enabled: false
 Style/IfUnlessModifier:
@@ -35,6 +43,43 @@ Style/Documentation:
   Enabled: false
 Style/ConditionalAssignment:
   Enabled: false
+Style/RescueModifier:
+  Enabled: false
+Style/PerlBackrefs:
+  Enabled: false
+Style/MutableConstant:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Security/Open:
+  Enabled: false
+Security/JSONLoad:
+  Enabled: false
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+
+Style/FrozenStringLiteralComment:
+  SafeAutoCorrect: true
+Style/SafeNavigation:
+  SafeAutoCorrect: true
+
+Style/MapToHash:
+  Safe: true
+Style/HashEachMethods:
+  Safe: true
+Style/SingleArgumentDig:
+  Safe: true
+Style/RedundantSort:
+  Safe: true
+Style/SymbolProc:
+  Safe: true
+Style/StringConcatenation:
+  Safe: true
 
 Metrics/BlockLength:
   Enabled: false

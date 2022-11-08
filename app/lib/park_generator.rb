@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'prawn'
 require 'prawn/qrcode'
 
@@ -17,7 +19,7 @@ class ParkGenerator
       document.fill_color 'bbbbbb'
       document.fill_rectangle [0, document.cursor], document.bounds.width / 2, 20
       document.fill_color 'ffffff'
-      document.text_box("Freie Fahrt muss sein!", size: 12, at: [0, document.cursor], width: document.bounds.width / 2, height: 20, align: :center, valign: :center)
+      document.text_box('Freie Fahrt muss sein!', size: 12, at: [0, document.cursor], width: document.bounds.width / 2, height: 20, align: :center, valign: :center)
 
       document.move_down(20)
       document.fill_color '333333'

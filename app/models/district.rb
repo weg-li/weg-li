@@ -1,28 +1,30 @@
+# frozen_string_literal: true
+
 class District < ApplicationRecord
-  STATES = [
-    'Baden-Württemberg',
-    'Bayern',
-    'Berlin',
-    'Brandenburg',
-    'Bremen',
-    'Hamburg',
-    'Hessen',
-    'Mecklenburg-Vorpommern',
-    'Niedersachsen',
-    'Nordrhein-Westfalen',
-    'Rheinland-Pfalz',
-    'Saarland',
-    'Sachsen',
-    'Sachsen-Anhalt',
-    'Schleswig-Holstein',
-    'Thüringen',
+  STATES = %w[
+    Baden-Württemberg
+    Bayern
+    Berlin
+    Brandenburg
+    Bremen
+    Hamburg
+    Hessen
+    Mecklenburg-Vorpommern
+    Niedersachsen
+    Nordrhein-Westfalen
+    Rheinland-Pfalz
+    Saarland
+    Sachsen
+    Sachsen-Anhalt
+    Schleswig-Holstein
+    Thüringen
   ]
 
   include Bitfields
   bitfield :flags, 1 => :personal_email
 
-  enum status: {active: 0, proposed: 1}
-  enum config: {standard: 0, winowig: 1, munich: 2, signature: 3, hamburg: 4}
+  enum status: { active: 0, proposed: 1 }
+  enum config: { standard: 0, winowig: 1, munich: 2, signature: 3, hamburg: 4 }
 
   has_many :notices, foreign_key: :zip, primary_key: :zip
   has_many :users, foreign_key: :zip, primary_key: :zip
@@ -30,16 +32,16 @@ class District < ApplicationRecord
   validates :name, :zip, :email, :state, presence: true
   validates :zip, uniqueness: true
   validates :zip, format: { with: /\d{5}/ }
-  validates :state, inclusion: {in: STATES}
+  validates :state, inclusion: { in: STATES }
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
 
-  geocoded_by :geocode_address, language: Proc.new { |model| I18n.locale }, no_annotations: true
+  geocoded_by :geocode_address, language: proc { |_model| I18n.locale }, no_annotations: true
   after_validation :geocode, if: :geocode_address_changed?
 
   acts_as_api
 
   api_accessible :public_beta do |template|
-    %i(name zip email prefixes latitude longitude aliases personal_email created_at updated_at).each { |key| template.add(key) }
+    %i[name zip email prefixes latitude longitude aliases personal_email created_at updated_at].each { |key| template.add(key) }
   end
 
   api_accessible :wegeheld do |template|
@@ -50,14 +52,14 @@ class District < ApplicationRecord
   end
 
   def self.from_zip(zip)
-    active.find_by(zip: zip)
+    active.find_by(zip:)
   end
 
   def map_data
     {
       zoom: 13,
-      latitude: latitude,
-      longitude: longitude,
+      latitude:,
+      longitude:,
     }
   end
 
@@ -102,7 +104,7 @@ class District < ApplicationRecord
   def display_aliases
     return '-' unless aliases.present?
 
-    aliases.map {|email| anonymize_email(email) }.compact.join(', ')
+    aliases.map { |email| anonymize_email(email) }.compact.join(', ')
   end
 
   def self.from_param(param)

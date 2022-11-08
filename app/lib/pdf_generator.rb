@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'prawn'
 require 'prawn/qrcode'
 
@@ -20,15 +22,15 @@ class PDFGenerator
 
       document.move_cursor_to(document.bounds.height)
       document.font_size(10)
-      header = render_template(:header, notice: notice, user: user)
+      header = render_template(:header, notice:, user:)
       document.text(header)
 
       document.move_down(20)
-      details = render_template(:details, notice: notice, user: user)
+      details = render_template(:details, notice:, user:)
       document.text(details)
 
       document.move_down(20)
-      footer = render_template(:footer, notice: notice, user: user)
+      footer = render_template(:footer, notice:, user:)
       document.text(footer)
 
       document.move_down(20)
@@ -38,7 +40,7 @@ class PDFGenerator
         document.move_down(50)
       end
 
-      document.text("_" * 40)
+      document.text('_' * 40)
       document.text("#{user.city}, #{I18n.l(Date.today)}")
 
       if @include_photos
@@ -52,7 +54,7 @@ class PDFGenerator
       end
 
       document.font_size(8)
-      document.number_pages "Seite <page> von <total>", at: [document.bounds.width - 50, -15]
+      document.number_pages 'Seite <page> von <total>', at: [document.bounds.width - 50, -15]
     end
 
     pdf.render
@@ -65,7 +67,7 @@ class PDFGenerator
   end
 
   def render_template(name, locals)
-    result = renderer.render(template: "/notice_mailer/_#{name}", formats: [:text], locals: locals)
+    result = renderer.render(template: "/notice_mailer/_#{name}", formats: [:text], locals:)
     # Your document includes text that's not compatible with the Windows-1252 character set.
     # If you need full UTF-8 support, use external fonts instead of PDF's built-in fonts.
     # REM: Prawn workaround for bad font support

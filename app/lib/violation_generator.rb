@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'prawn'
 require 'prawn/qrcode'
 
@@ -12,7 +14,7 @@ class ViolationGenerator
       document.move_down(25)
 
       document.text(name, size: 14)
-      document.text("Parkraum-Management", size: 14)
+      document.text('Parkraum-Management', size: 14)
 
       document.move_down(50)
       document.text(
@@ -37,17 +39,15 @@ class ViolationGenerator
       document.fill_color 'FFFFFF'
       document.fill_rectangle [2, document.cursor - 2], 16, 16
       document.fill_color '333333'
-      document.text_box("Wegen verkehrsbehindernden Parkens wurde das Beiseiteräumen Ihres Fahrzeuges angeordnet; ein Abschleppauftrag wurde erteilt", size: 10, at: [30, document.cursor], width: document.bounds.width - 30)
+      document.text_box('Wegen verkehrsbehindernden Parkens wurde das Beiseiteräumen Ihres Fahrzeuges angeordnet; ein Abschleppauftrag wurde erteilt', size: 10, at: [30, document.cursor], width: document.bounds.width - 30)
 
       document.move_down(30)
-      document.text_box("Sie haben die Kosten für die Anfahrt des Abschleppwagens auch dann zu tragen, wenn Sie Ihr Kraftfahrzeug vor dessen Eintreffen entfernen.", size: 10, at: [30, document.cursor], width: document.bounds.width - 30)
-
+      document.text_box('Sie haben die Kosten für die Anfahrt des Abschleppwagens auch dann zu tragen, wenn Sie Ihr Kraftfahrzeug vor dessen Eintreffen entfernen.', size: 10, at: [30, document.cursor], width: document.bounds.width - 30)
 
       document.move_down(90)
 
       document.text(name, size: 12)
-      document.text("PARKRAUM-MANAGEMENT", size: 12)
-
+      document.text('PARKRAUM-MANAGEMENT', size: 12)
 
       qr_code = RQRCode::QRCode.new(Rails.application.routes.url_helpers.violation_url(Rails.configuration.action_mailer.default_url_options))
       document.render_qr_code(qr_code, pos: [document.bounds.width - 50, document.cursor + 30])

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   include UserHandling
 
@@ -6,8 +8,8 @@ class ApplicationController < ActionController::Base
   helper_method :signed_in_alias?, :signed_in?, :admin?, :access?, :current_user
 
   rescue_from ActionController::InvalidAuthenticityToken, with: :session_expired
-  rescue_from ActionController::UnknownFormat, with: -> () { head(:not_found) }
-  rescue_from ActiveRecord::RecordNotFound, with: -> () { head(:not_found) }
+  rescue_from ActionController::UnknownFormat, with: -> { head(:not_found) }
+  rescue_from ActiveRecord::RecordNotFound, with: -> { head(:not_found) }
 
   private
 
@@ -19,6 +21,6 @@ class ApplicationController < ActionController::Base
     Rails.logger.warn exception if exception.present?
     Rails.logger.warn "head 404 with params #{params}"
 
-    raise ActionController::RoutingError.new('Not Found')
+    raise ActionController::RoutingError, 'Not Found'
   end
 end

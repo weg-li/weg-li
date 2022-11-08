@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApidocsController < ActionController::Base
   include Swagger::Blocks
 

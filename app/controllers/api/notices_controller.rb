@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::NoticesController < Api::ApplicationController
   swagger_path '/notices' do
     operation :get do
@@ -9,14 +11,14 @@ class Api::NoticesController < Api::ApplicationController
         schema do
           key :type, :array
           items do
-            key :'$ref', :Notice
+            key :$ref, :Notice
           end
         end
       end
       response :default do
         key :description, 'unexpected error'
         schema do
-          key :'$ref', :Error
+          key :$ref, :Error
         end
       end
     end
@@ -38,19 +40,19 @@ class Api::NoticesController < Api::ApplicationController
         key :description, 'Notice to add'
         key :required, true
         schema do
-          key :'$ref', :NoticeInput
+          key :$ref, :NoticeInput
         end
       end
       response 201 do
         key :description, 'notice response'
         schema do
-          key :'$ref', :Notice
+          key :$ref, :Notice
         end
       end
       response :default do
         key :description, 'unexpected error'
         schema do
-          key :'$ref', :Error
+          key :$ref, :Error
         end
       end
     end
@@ -78,13 +80,13 @@ class Api::NoticesController < Api::ApplicationController
       response 200 do
         key :description, 'notice response'
         schema do
-          key :'$ref', :Notice
+          key :$ref, :Notice
         end
       end
       response :default do
         key :description, 'unexpected error'
         schema do
-          key :'$ref', :Error
+          key :$ref, :Error
         end
       end
     end
@@ -112,19 +114,19 @@ class Api::NoticesController < Api::ApplicationController
         key :description, 'Notice to update'
         key :required, true
         schema do
-          key :'$ref', :NoticeInput
+          key :$ref, :NoticeInput
         end
       end
       response 200 do
         key :description, 'notice response'
         schema do
-          key :'$ref', :Notice
+          key :$ref, :Notice
         end
       end
       response :default do
         key :description, 'unexpected error'
         schema do
-          key :'$ref', :Error
+          key :$ref, :Error
         end
       end
     end
@@ -152,13 +154,13 @@ class Api::NoticesController < Api::ApplicationController
       response 200 do
         key :description, 'notice response'
         schema do
-          key :'$ref', :Notice
+          key :$ref, :Notice
         end
       end
       response :default do
         key :description, 'unexpected error'
         schema do
-          key :'$ref', :Error
+          key :$ref, :Error
         end
       end
     end
@@ -186,13 +188,13 @@ class Api::NoticesController < Api::ApplicationController
       response 200 do
         key :description, 'notice response'
         schema do
-          key :'$ref', :Notice
+          key :$ref, :Notice
         end
       end
       response :default do
         key :description, 'unexpected error'
         schema do
-          key :'$ref', :Error
+          key :$ref, :Error
         end
       end
     end

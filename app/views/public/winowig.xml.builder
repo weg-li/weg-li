@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 xml.instruct!
 
 xml.Fall do
@@ -7,36 +9,36 @@ xml.Fall do
     end
   end
   xml.Beteiligte do
-    xml.Beteiligter Funktion: "keine", Typ: "Anzeigenerstatter" do
+    xml.Beteiligter Funktion: 'keine', Typ: 'Anzeigenerstatter' do
       xml.Kontakt do
         xml.Anschrift do
           xml.Anrede '-'
-					xml.Vorname @user.first_name
-					xml.Name @user.last_name
-					xml.Strasse @user.street_without_housenumber
-					xml.Hausnummer @user.housenumber
-					xml.Adresszusatz @user.appendix
+          xml.Vorname @user.first_name
+          xml.Name @user.last_name
+          xml.Strasse @user.street_without_housenumber
+          xml.Hausnummer @user.housenumber
+          xml.Adresszusatz @user.appendix
           xml.PLZ @user.zip
-					xml.Ort @user.city
+          xml.Ort @user.city
           xml.Landeskennzeichen 'D'
         end
         xml.EMail @user.email
         xml.Telefon @user.phone
-  			xml.Zusatzdaten do
-  				xml.Geburtsdatum @user.date_of_birth
-  			end
+        xml.Zusatzdaten do
+          xml.Geburtsdatum @user.date_of_birth
+        end
       end
     end
   end
-	xml.Bemerkungen do
-		xml.Bemerkung @notice.note if @notice.note
-    Notice.details.each { |flag| xml.Bemerkung t(flag, scope: "activerecord.attributes.notice.flags") if @notice.send(flag) }
+  xml.Bemerkungen do
+    xml.Bemerkung @notice.note if @notice.note
+    Notice.details.each { |flag| xml.Bemerkung t(flag, scope: 'activerecord.attributes.notice.flags') if @notice.send(flag) }
     xml.Bemerkung @notice.wegli_email
-	end
+  end
   xml.Falldaten do
     xml.Fahrzeug do
       xml.Nationalitaet 'D'
-      xml.Farbe I18n.t(@notice.color.presence, scope: "activerecord.attributes.notice.colors", default: '-')
+      xml.Farbe I18n.t(@notice.color.presence, scope: 'activerecord.attributes.notice.colors', default: '-')
       xml.Fabrikat @notice.brand
       xml.Kennzeichen @notice.registration
       xml.Kennzeichenart '00'

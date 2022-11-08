@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'exifr/jpeg'
 
 # TODO: read the whole exif and persist it
@@ -5,7 +7,8 @@ class EXIFAnalyzer
   def metadata(image, debug: false)
     meta = {}
 
-    if exif = EXIFR::JPEG.new(image).exif
+    exif = EXIFR::JPEG.new(image).exif
+    if exif.present?
       deepexif = exif.fields[:exif]
       if deepexif
         meta[:date_time] = deepexif.fields[:date_time_original] || deepexif.fields[:date_time_digitized]
@@ -13,7 +16,8 @@ class EXIFAnalyzer
         meta[:date_time] = exif.fields[:date_time]
       end
 
-      if gps = exif.fields[:gps]
+      gps = exif.fields[:gps]
+      if gps.present?
         meta[:latitude] = (gps.fields[:gps_latitude].nil? ? Float::NAN : gps.fields[:gps_latitude].to_f)
         meta[:longitude] = (gps.fields[:gps_longitude].nil? ? Float::NAN : gps.fields[:gps_longitude].to_f)
         meta[:altitude] = (gps.fields[:gps_altitude].nil? ? Float::NAN : gps.fields[:gps_altitude].to_f)
@@ -22,8 +26,8 @@ class EXIFAnalyzer
     end
 
     meta
-  rescue EXIFR::MalformedJPEG => error
-    Rails.logger.warn("could not process image: #{error}")
+  rescue EXIFR::MalformedJPEG => e
+    Rails.logger.warn("could not process image: #{e}")
     {}
   end
 end
