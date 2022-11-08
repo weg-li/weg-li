@@ -33,6 +33,8 @@ Style/IfUnlessModifier:
   Enabled: false
 Style/Documentation:
   Enabled: false
+Style/ConditionalAssignment:
+  Enabled: false
 
 Metrics/BlockLength:
   Enabled: false

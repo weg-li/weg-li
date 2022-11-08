@@ -51,7 +51,7 @@ class BulkUploadsController < ApplicationController
     if params[:one_per_photo]
       photos = bulk_upload.photos
       photos.each do |photo|
-        notice = current_user.notices.build(bulk_upload: bulk_upload)
+        notice = current_user.notices.build(bulk_upload:)
         Notice.transaction do
           notice.save_incomplete!
           photo.update!(record: notice)
@@ -63,7 +63,7 @@ class BulkUploadsController < ApplicationController
       redirect_to edit_bulk_upload_path(bulk_upload), notice: 'Neue Meldungen wurden erzeugt'
     elsif params[:bulk_upload]
       photos = bulk_upload.photos.find(bulk_upload_update_photo_ids)
-      notice = current_user.notices.build(bulk_upload: bulk_upload)
+      notice = current_user.notices.build(bulk_upload:)
       Notice.transaction do
         notice.save_incomplete!
         photos.compact.each { |photo| photo.update!(record: notice) }
