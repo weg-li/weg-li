@@ -1,5 +1,13 @@
 [
   {
+    "brand": "Nio",
+    "models": [
+      "ET7",
+      "ET5",
+      "EL7"
+    ]
+  },
+  {
     "brand": "Lincoln",
     "models": []
   },
