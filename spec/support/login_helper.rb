@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LoginHelper
   def login(user = Fabricate(:user))
     get "/auth/offline_login/#{CGI.escape(user.nickname).gsub('.', '%2E')}"

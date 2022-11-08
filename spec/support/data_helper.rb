@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 module DataHelper
-  def with_fixture(fixture_name, record: !!ENV['RECORD_FIXTURE'])
+  def with_fixture(fixture_name, record: !ENV['RECORD_FIXTURE'].nil?)
     fixture_path = Rails.root.join("spec/fixtures/files/#{fixture_name}.dump")
 
     return Marshal.load(fixture_path.read) if fixture_path.exist? && !record

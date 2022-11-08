@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'users', type: :request do
@@ -5,8 +7,8 @@ describe 'users', type: :request do
     @user = login
   end
 
-  context "GET :edit" do
-    it "renders the page" do
+  context 'GET :edit' do
+    it 'renders the page' do
       get user_path
 
       expect(response).to be_successful
@@ -14,8 +16,8 @@ describe 'users', type: :request do
     end
   end
 
-  context "GET :edit" do
-    it "renders the page" do
+  context 'GET :edit' do
+    it 'renders the page' do
       get edit_user_path
 
       expect(response).to be_successful
@@ -23,20 +25,20 @@ describe 'users', type: :request do
     end
   end
 
-  context "PATCH :update" do
-    it "resets validation and sends an email when address is changed" do
+  context 'PATCH :update' do
+    it 'resets validation and sends an email when address is changed' do
       @user.update! validation_date: Time.new(2015, 1, 1, 0, 0, 0).utc
-      expect {
-        patch user_path(@user), params: {user: {email: 'different@email.com'}}
-      }.to change { @user.reload.validation_date }.from(@user.validation_date).to(nil)
+      expect do
+        patch user_path(@user), params: { user: { email: 'different@email.com' } }
+      end.to change { @user.reload.validation_date }.from(@user.validation_date).to(nil)
 
       expect(response).to be_a_redirect
     end
 
-    it "updates the nickname" do
-      expect {
-        patch user_path(@user), params: {user: {nickname: 'new'}}
-      }.to change { @user.reload.nickname }.from(@user.nickname).to('new')
+    it 'updates the nickname' do
+      expect do
+        patch user_path(@user), params: { user: { nickname: 'new' } }
+      end.to change { @user.reload.nickname }.from(@user.nickname).to('new')
 
       expect(response).to be_a_redirect
     end

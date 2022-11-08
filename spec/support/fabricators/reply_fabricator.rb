@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Fabricator(:reply) do
   notice
   sender  { Faker::Internet.email }

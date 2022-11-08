@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Fabricator(:notice) do
   photos { [Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/mercedes.jpg'), 'image/jpeg')] }
   street { Faker::Address.street_address }

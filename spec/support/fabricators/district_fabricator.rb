@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Fabricator(:district) do
   name      { Faker::Address.city }
   zip       { Faker::Address.zip }

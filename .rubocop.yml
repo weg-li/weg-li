@@ -20,6 +20,13 @@ AllCops:
 Bundler/OrderedGems:
   Enabled: false
 
+Security/Open:
+  Enabled: false
+Security/JSONLoad:
+  Enabled: false
+Security/MarshalLoad:
+  Enabled: false
+
 Layout/LineLength:
   Enabled: false
 
@@ -51,10 +58,6 @@ Style/MutableConstant:
   Enabled: false
 Style/ClassAndModuleChildren:
   Enabled: false
-Security/Open:
-  Enabled: false
-Security/JSONLoad:
-  Enabled: false
 
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: comma
@@ -66,6 +69,8 @@ Style/TrailingCommaInArguments:
 Style/FrozenStringLiteralComment:
   SafeAutoCorrect: true
 Style/SafeNavigation:
+  SafeAutoCorrect: true
+Style/DoubleNegation:
   SafeAutoCorrect: true
 
 Style/MapToHash:

@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Notice do
   let(:notice) { Fabricate.build(:notice) }
 
-  context "validation" do
-    it "is valid" do
+  context 'validation' do
+    it 'is valid' do
       expect(notice).to be_valid
       expect(notice.photos.first.filename.to_s).to eql('mercedes.jpg')
     end
 
-    it "validates the date" do
+    it 'validates the date' do
       expect(notice).to be_valid
       notice.date = 2.minutes.from_now
       expect(notice).to_not be_valid
@@ -20,8 +22,8 @@ describe Notice do
     end
   end
 
-  context "wegli_email" do
-    it "creates and reads the proper notice" do
+  context 'wegli_email' do
+    it 'creates and reads the proper notice' do
       notice =  Fabricate.create(:notice)
 
       email_address = notice.wegli_email
@@ -30,20 +32,20 @@ describe Notice do
     end
   end
 
-  context "duplication" do
-    it "duplicates a notice" do
+  context 'duplication' do
+    it 'duplicates a notice' do
       notice = Fabricate(:notice)
 
-      expect {
+      expect do
         notice.duplicate!
-      }.to change {
+      end.to change {
         Notice.count
       }.by(1)
     end
   end
 
-  context "incomplete" do
-    it "is incomplete" do
+  context 'incomplete' do
+    it 'is incomplete' do
       expect(notice).to be_complete
       notice.charge = nil
       expect(notice).to be_invalid
@@ -52,17 +54,17 @@ describe Notice do
     end
   end
 
-  context "postgis" do
-    it "finds closest match" do
+  context 'postgis' do
+    it 'finds closest match' do
       Fabricate.times(5, :notice, status: :shared)
 
       nearest = Notice.nearest_charges(notice.latitude, notice.longitude)
-      expect(nearest.first.keys).to eql(["charge", "count", "distance", "diff"])
+      expect(nearest.first.keys).to eql(%w[charge count distance diff])
     end
   end
 
-  context "defaults" do
-    it "is valid" do
+  context 'defaults' do
+    it 'is valid' do
       notice = Fabricate(:notice)
 
       expect(notice).to be_open
@@ -70,8 +72,8 @@ describe Notice do
     end
   end
 
-  context "apply_favorites" do
-    it "applies favorites" do
+  context 'apply_favorites' do
+    it 'applies favorites' do
       existing_notice = Fabricate.create(:notice, status: :shared, registration: 'HH PS 123', user: notice.user)
 
       empty_notice = Notice.new(user: notice.user)
@@ -89,8 +91,8 @@ describe Notice do
     end
   end
 
-  context "scopes" do
-    it "finds_for_reminder" do
+  context 'scopes' do
+    it 'finds_for_reminder' do
       notice = Fabricate(:notice, date: 15.days.ago)
 
       expect(Notice.for_reminder.to_a).to eql([notice])
@@ -99,9 +101,9 @@ describe Notice do
     end
   end
 
-  context "statistics" do
-    it "calculates statistics" do
-      notice = Fabricate(:notice)
+  context 'statistics' do
+    it 'calculates statistics' do
+      Fabricate(:notice)
 
       statistics = Notice.statistics
       expect(
@@ -112,14 +114,14 @@ describe Notice do
           photos: 1,
           shared: 0,
           active: 1,
-        }
+        },
       ).to eql(statistics)
     end
   end
 
-  context "yearly_statistics" do
-    it "calculates yearly_statistics" do
-      notice = Fabricate(:notice)
+  context 'yearly_statistics' do
+    it 'calculates yearly_statistics' do
+      Fabricate(:notice)
 
       limit = 5
       yearly_statistics = Notice.yearly_statistics(2020, limit)
@@ -133,7 +135,7 @@ describe Notice do
           grouped_states: [],
           grouped_zips: [],
           grouped_registrations: [],
-        }
+        },
       ).to eql(yearly_statistics)
     end
   end
