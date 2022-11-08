@@ -69,7 +69,7 @@ class Vehicle
   end
 
   def self.brand?(text)
-    res = cars.find do |entry|
+    cars.find do |entry|
       return nil if (entry['falsepositives'] || []).find { |ali| text == ali }
     end
 
