@@ -14,7 +14,7 @@ class HomeController < ApplicationController
     @default_district = District.active.where('name = ? OR name = ?', @district, 'Hamburg').first || District.active.first
     @district = @default_district.name
 
-    @notices = Notice.includes(:user).shared.since(@since.days.ago).joins(:district).where(districts: { zip: @default_district.zip })
+    @notices = Notice.includes(:user).shared.since(@since.days.ago).joins(:district).where(districts: { name: @default_district.name })
     @active = @notices.map(&:user_id).uniq.size
   end
 
