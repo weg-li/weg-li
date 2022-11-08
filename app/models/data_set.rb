@@ -4,6 +4,7 @@ require 'geocoder/results/nominatim'
 require 'geocoder/results/opencagedata'
 
 class DataSet < ApplicationRecord
+  # TODO: (PS) do we need polymorphism here?
   belongs_to :setable, polymorphic: true
   belongs_to :keyable, polymorphic: true
 
@@ -22,7 +23,8 @@ class DataSet < ApplicationRecord
   def registrations
     case kind
     when 'google_vision'
-      with_likelyhood = Annotator.grep_text(data.deep_symbolize_keys) { |it| Vehicle.plate?(it) }
+      district = (setable.district || setable.user.district)
+      with_likelyhood = Annotator.grep_text(data.deep_symbolize_keys) { |it| Vehicle.plate?(it, prefixes: district&.prefixes) }
       Vehicle.by_likelyhood(with_likelyhood)
     when 'car_ml'
       data['suggestions']['license_plate_number']

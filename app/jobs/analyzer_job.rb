@@ -31,8 +31,6 @@ class AnalyzerJob < ApplicationJob
   private
 
   def handle_vision(notice)
-    prefixes = notice.user.district&.prefixes || []
-
     notice.photos.each do |photo|
       result = annotator.annotate_object(photo.key)
 
