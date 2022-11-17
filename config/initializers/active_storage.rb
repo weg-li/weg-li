@@ -1,34 +1,36 @@
-require 'active_storage/downloader'
-require 'active_storage/direct_uploads_controller'
+# frozen_string_literal: true
 
-ActiveStorage::DirectUploadsController.instance_eval do
-  rescue_from(ActionController::InvalidAuthenticityToken, with: lambda { redirect_to('/', alert: 'Deine Sitzung wurde unerwartet beendet!') })
-end
+# require 'active_storage/downloader'
+# require 'active_storage/direct_uploads_controller'
 
-ActiveStorage::Representations::RedirectController.instance_eval do
-  rescue_from(
-    MiniMagick::Error,
-    with: lambda {
-      response.set_header('Retry-After', 2)
-      redirect_to(request.url, status: 302)
-    }
-  )
-  rescue_from(
-    ActiveStorage::FileNotFoundError,
-    with: lambda {
-      response.set_header('Retry-After', 2)
-      redirect_to(request.url, status: 302)
-    }
-  )
-  rescue_from(
-    ActiveRecord::InvalidForeignKey,
-    with: lambda {
-      response.set_header('Retry-After', 2)
-      redirect_to(request.url, status: 302)
-    }
-  )
-  rescue_from(ActiveRecord::RecordNotFound, with: lambda { head(404) })
-end
+# ActiveStorage::DirectUploadsController.instance_eval do
+#   rescue_from(ActionController::InvalidAuthenticityToken, with: lambda { redirect_to('/', alert: 'Deine Sitzung wurde unerwartet beendet!') })
+# end
+
+# ActiveStorage::Representations::RedirectController.instance_eval do
+#   rescue_from(
+#     MiniMagick::Error,
+#     with: lambda {
+#       response.set_header('Retry-After', 2)
+#       redirect_to(request.url, status: 302)
+#     }
+#   )
+#   rescue_from(
+#     ActiveStorage::FileNotFoundError,
+#     with: lambda {
+#       response.set_header('Retry-After', 2)
+#       redirect_to(request.url, status: 302)
+#     }
+#   )
+#   rescue_from(
+#     ActiveRecord::InvalidForeignKey,
+#     with: lambda {
+#       response.set_header('Retry-After', 2)
+#       redirect_to(request.url, status: 302)
+#     }
+#   )
+#   rescue_from(ActiveRecord::RecordNotFound, with: lambda { head(404) })
+# end
 
 require 'active_storage/service/gcs_service'
 require 'active_storage/service/disk_service'
@@ -45,17 +47,16 @@ class ActiveStorage::Service::GCSService
 end
 
 class ActiveStorage::Service::DiskService
-  def download_file(key)
+  def download_file(key, &)
     instrument :streaming_download, key: key do
-      File.open(path_for(key), "rb") do |file|
-        yield file
-      end
+      File.open(path_for(key), 'rb', &)
     end
   end
 end
 
 ActiveSupport::Reloader.to_prepare do
   require 'active_storage/blob'
+
   class ActiveStorage::Blob
     before_validation :set_usable_key_not_the_shait_from_active_storate
 

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe PDFGenerator do
+describe PdfGenerator do
   let(:example) { File.binread(file_fixture('anzeige.pdf')) }
 
   before do
@@ -16,7 +16,7 @@ describe PDFGenerator do
       notice = Fabricate.build(:notice, user:, charge: Charge.plain_charges.first, brand: 'BMW', color: 'black', registration: 'HH AB 123', city: 'Dorf', street: 'Am Weiher 123', zip: '12345', district:, token: '3004b58caa242b8ff9d79766f092a994')
       notice.save!
 
-      result = PDFGenerator.new(quality: :original).generate(notice)
+      result = PdfGenerator.new(quality: :original).generate(notice)
 
       # file_fixture('anzeige.pdf').binwrite(result)
       expect(example.size).to eql(result.size)
@@ -27,6 +27,6 @@ describe PDFGenerator do
     broken_string = 'Telefon: ‭015224026'
     notice = Fabricate(:notice, note: broken_string)
 
-    expect { PDFGenerator.new.generate(notice) }.to_not raise_error
+    expect { PdfGenerator.new.generate(notice) }.to_not raise_error
   end
 end

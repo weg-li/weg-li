@@ -3,7 +3,7 @@
 require 'prawn'
 require 'prawn/qrcode'
 
-class PDFGenerator
+class PdfGenerator
   include PhotoHelper
   include Rails.application.routes.url_helpers
   attr_accessor :include_photos, :quality

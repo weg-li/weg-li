@@ -18,6 +18,7 @@
 /log/*.log
 /tmp
 /storage
+.env.development
 
 *.DS_Store
 config/secrets
