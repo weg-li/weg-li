@@ -1,5 +1,5 @@
 span.zoom(style="position: relative; overflow: hidden; display: inline-block;")
-  = image_tag('404.jpg', class: 'modal-photo', data: {src: url_for_photo(photo, size: :default)})
+  = image_tag('404.jpg', class: 'modal-photo', style: 'max-height: 80vh', data: {src: url_for_photo(photo, size: :default)})
 
 = hint do
   = "#{photo.filename} / #{number_to_human_size(photo.byte_size)}"
