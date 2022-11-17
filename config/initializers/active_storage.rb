@@ -1,12 +1,5 @@
 # frozen_string_literal: true
 
-# require 'active_storage/downloader'
-# require 'active_storage/direct_uploads_controller'
-
-# ActiveStorage::DirectUploadsController.instance_eval do
-#   rescue_from(ActionController::InvalidAuthenticityToken, with: lambda { redirect_to('/', alert: 'Deine Sitzung wurde unerwartet beendet!') })
-# end
-
 # ActiveStorage::Representations::RedirectController.instance_eval do
 #   rescue_from(
 #     MiniMagick::Error,
@@ -64,5 +57,11 @@ ActiveSupport::Reloader.to_prepare do
       # REM: add a file-extension to the key .jpg
       self[:key] ||= "#{SecureRandom.base36(28)}#{File.extname(self[:filename])}" if self[:filename].present?
     end
+  end
+
+  require 'active_storage/direct_uploads_controller'
+
+  ActiveStorage::DirectUploadsController.instance_eval do
+    rescue_from(ActionController::InvalidAuthenticityToken, with: -> { redirect_to('/', alert: 'Deine Sitzung wurde unerwartet beendet!') })
   end
 end
