@@ -2,7 +2,7 @@
 
 require 'builder'
 
-class XMLGenerator
+class XmlGenerator
   def initialize(template: 'winowig')
     @template = template
   end

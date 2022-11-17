@@ -222,7 +222,7 @@ class NoticesController < ApplicationController
 
   def pdf
     notice = current_user.notices.complete.from_param(params[:id])
-    data = PDFGenerator.new.generate(notice)
+    data = PdfGenerator.new.generate(notice)
 
     send_data data, filename: notice.file_name
   end

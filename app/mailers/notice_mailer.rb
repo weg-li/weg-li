@@ -15,15 +15,15 @@ class NoticeMailer < ApplicationMailer
     end
 
     if @district.winowig?
-      data = PDFGenerator.new(include_photos: false).generate(@notice)
+      data = PdfGenerator.new(include_photos: false).generate(@notice)
       attachments[notice.file_name(:pdf)] = data
 
-      data = XMLGenerator.new.generate(@notice)
+      data = XmlGenerator.new.generate(@notice)
       attachments[notice.file_name(:xml)] = data
 
       attach_photos(notice.photos)
     elsif send_via_pdf
-      data = PDFGenerator.new.generate(@notice)
+      data = PdfGenerator.new.generate(@notice)
       attachments[notice.file_name] = data
     else
       attach_photos(notice.photos)

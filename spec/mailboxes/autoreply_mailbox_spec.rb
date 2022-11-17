@@ -29,6 +29,7 @@ describe AutoreplyMailbox do
             to: notice.wegli_email,
             from: 'pk-dummertorf@schnapsschnarcherbayern.de',
             subject: 'Fwd: Status update?',
+            charset: 'UTF-8',
             body: <<~BODY,
               --- Begin forwarded message ---
               From: Uschi Müller <uschi@muller.com>

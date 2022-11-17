@@ -110,6 +110,6 @@ class AnalyzerJob < ApplicationJob
   end
 
   def exifer
-    @exifer ||= EXIFAnalyzer.new
+    @exifer ||= ExifAnalyzer.new
   end
 end

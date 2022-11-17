@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe XMLGenerator do
+describe XmlGenerator do
   let(:example) { File.read(file_fixture('anzeige.xml')) }
 
   it 'handles the xml generation' do
@@ -13,7 +13,7 @@ describe XMLGenerator do
       notice.save!
       notice.photos.first.update!(key: 'test.jpg')
 
-      result = XMLGenerator.new.generate(notice)
+      result = XmlGenerator.new.generate(notice)
 
       # file_fixture('anzeige.xml').write(result)
       expect(example).to eql(result)

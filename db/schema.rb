@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_03_215129) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_11_10_220419) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -20,8 +19,8 @@ ActiveRecord::Schema.define(version: 2022_11_03_215129) do
     t.integer "status", default: 0, null: false
     t.string "message_id", null: false
     t.string "message_checksum", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["message_id", "message_checksum"], name: "index_action_mailbox_inbound_emails_uniqueness", unique: true
   end
 
@@ -30,7 +29,7 @@ ActiveRecord::Schema.define(version: 2022_11_03_215129) do
     t.string "record_type", null: false
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
     t.index ["record_type"], name: "index_active_storage_attachments_on_record_type"
@@ -42,8 +41,8 @@ ActiveRecord::Schema.define(version: 2022_11_03_215129) do
     t.string "content_type"
     t.text "metadata"
     t.bigint "byte_size", null: false
-    t.string "checksum", null: false
-    t.datetime "created_at", null: false
+    t.string "checksum"
+    t.datetime "created_at", precision: nil, null: false
     t.string "service_name", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
@@ -58,14 +57,14 @@ ActiveRecord::Schema.define(version: 2022_11_03_215129) do
     t.string "provider", limit: 255
     t.string "uid", limit: 255
     t.integer "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "bulk_uploads", force: :cascade do |t|
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "status", default: 0
     t.string "error_message"
     t.string "shared_album_url"
@@ -81,9 +80,9 @@ ActiveRecord::Schema.define(version: 2022_11_03_215129) do
     t.string "tbnr"
     t.integer "charge_detail"
     t.integer "table_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.datetime "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "date", precision: nil
     t.index ["table_id", "date"], name: "index_charge_variants_on_table_id_and_date"
     t.index ["table_id"], name: "index_charge_variants_on_table_id"
     t.index ["tbnr"], name: "index_charge_variants_on_tbnr"
@@ -97,8 +96,8 @@ ActiveRecord::Schema.define(version: 2022_11_03_215129) do
     t.string "penalty"
     t.string "fap"
     t.integer "points", default: 0
-    t.datetime "valid_from"
-    t.datetime "valid_to"
+    t.datetime "valid_from", precision: nil
+    t.datetime "valid_to", precision: nil
     t.integer "implementation"
     t.integer "classification"
     t.integer "variant_table_id"
@@ -107,8 +106,8 @@ ActiveRecord::Schema.define(version: 2022_11_03_215129) do
     t.string "required_refinements"
     t.integer "number_required_refinements"
     t.decimal "max_fine"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["classification"], name: "index_charges_on_classification"
     t.index ["tbnr"], name: "index_charges_on_tbnr"
   end
@@ -120,8 +119,8 @@ ActiveRecord::Schema.define(version: 2022_11_03_215129) do
     t.bigint "keyable_id"
     t.json "data"
     t.integer "kind", default: 0
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["keyable_type", "keyable_id"], name: "index_data_sets_on_keyable"
     t.index ["kind"], name: "index_data_sets_on_kind"
     t.index ["setable_type", "setable_id"], name: "index_data_sets_on_setable"
@@ -134,8 +133,8 @@ ActiveRecord::Schema.define(version: 2022_11_03_215129) do
     t.string "prefixes", default: [], array: true
     t.float "latitude"
     t.float "longitude"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "aliases", array: true
     t.integer "flags", default: 0
     t.integer "osm_id"
@@ -150,26 +149,26 @@ ActiveRecord::Schema.define(version: 2022_11_03_215129) do
   create_table "exports", force: :cascade do |t|
     t.integer "export_type", default: 0, null: false
     t.integer "interval", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "identities", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "password_digest"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "notices", force: :cascade do |t|
     t.string "token", limit: 255
     t.integer "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "status", default: 0
     t.integer "flags", default: 0, null: false
-    t.datetime "date"
+    t.datetime "date", precision: nil
     t.string "charge"
     t.string "kind"
     t.string "brand"
@@ -187,7 +186,7 @@ ActiveRecord::Schema.define(version: 2022_11_03_215129) do
     t.integer "duration", default: 0
     t.integer "severity", default: 0
     t.string "location"
-    t.datetime "sent_at"
+    t.datetime "sent_at", precision: nil
     t.geography "lonlat", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
     t.index ["created_at"], name: "index_notices_on_created_at"
     t.index ["date"], name: "index_notices_on_date"
@@ -205,8 +204,8 @@ ActiveRecord::Schema.define(version: 2022_11_03_215129) do
     t.string "sender"
     t.string "subject"
     t.text "content"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "action_mailbox_inbound_email_id"
     t.index ["action_mailbox_inbound_email_id"], name: "index_replies_on_action_mailbox_inbound_email_id"
     t.index ["notice_id"], name: "index_replies_on_notice_id"
@@ -216,18 +215,18 @@ ActiveRecord::Schema.define(version: 2022_11_03_215129) do
     t.bigint "user_id"
     t.string "name"
     t.text "content"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_snippets_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "email", limit: 255
     t.string "nickname", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "token", limit: 255
-    t.datetime "validation_date"
+    t.datetime "validation_date", precision: nil
     t.integer "access", default: 0
     t.integer "flags", default: 0, null: false
     t.string "name"
@@ -239,7 +238,7 @@ ActiveRecord::Schema.define(version: 2022_11_03_215129) do
     t.string "zip"
     t.string "city"
     t.string "appendix"
-    t.datetime "last_login"
+    t.datetime "last_login", precision: nil
     t.date "date_of_birth"
     t.string "project_access_token"
     t.string "project_user_id"
