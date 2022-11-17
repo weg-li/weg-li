@@ -32,11 +32,15 @@
                       | <span class="glyphicon glyphicon-cog"></span> Aktionen <span class="caret"></span>
                     ul.dropdown-menu
                       li
-                        = link_to forward_notice_path(@notice), data: {confirm: 'Die Meldung wird an einen anderen Nutzer übertragen'}, method: :patch
+                        = form.button formnovalidate: true, value: 'incomplete', class: 'btn btn-link'
+                          span.glyphicon.glyphicon-save>
+                          | Meldung zwischenspeichern
+                      li
+                        = button_to forward_notice_path(@notice), class: 'btn btn-link', data: {confirm: 'Die Meldung wird an einen anderen Nutzer übertragen'}, method: :patch
                           span.glyphicon.glyphicon-forward>
                           | Meldung übertragen
                       li
-                        = link_to notice_path(@notice), method: :delete, data: {confirm: 'Die Meldung wird endgültig gelöscht'}, title: 'löschen'
+                        = button_to notice_path(@notice), class: 'btn btn-link', method: :delete, data: {confirm: 'Die Meldung wird endgültig gelöscht'}, title: 'löschen'
                           span.glyphicon.glyphicon-trash>
                           | Meldung löschen
                 = form.submit('Daten speichern', class: "btn btn-success")

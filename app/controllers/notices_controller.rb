@@ -101,7 +101,12 @@ class NoticesController < ApplicationController
   def update
     @notice = current_user.notices.from_param(params[:id])
 
-    if params[:button] == 'upload'
+    if params[:button] == 'incomplete'
+      @notice.assign_attributes(notice_update_params)
+      @notice.save_incomplete!
+
+      redirect_to notices_path, notice: 'Meldunge wurde gespeichert'
+    elsif params[:button] == 'upload'
       @notice.assign_attributes(notice_update_params)
       @notice.save_incomplete!
 

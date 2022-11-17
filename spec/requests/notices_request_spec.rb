@@ -139,11 +139,41 @@ describe 'notices', type: :request do
         },
       }
     end
+    let(:incomplete_params) do
+      {
+        button: 'incomplete',
+        notice: {
+          registration: nil,
+        },
+      }
+    end
+    let(:photo_params) do
+      {
+        button: 'upload',
+        notice: {
+          photos: [Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/mercedes.jpg'), 'image/jpeg')],
+        },
+      }
+    end
 
-    it 'creates a notice with given params' do
+    it 'updates the notice with given params' do
       expect do
         patch notice_path(notice), params:
       end.to change { notice.reload.registration }.from(notice.registration).to('HH XX 123')
+    end
+
+    it 'updates the notice with photos' do
+      expect do
+        patch notice_path(notice), params: photo_params
+      end.to change { notice.reload.photos.size }.by(1)
+    end
+
+    it 'updates the notice forced incomplete' do
+      expect do
+        patch notice_path(notice), params: incomplete_params
+      end.to change { notice.reload.registration }.from(notice.registration).to(nil)
+
+      expect(response).to be_redirect
     end
   end
 
