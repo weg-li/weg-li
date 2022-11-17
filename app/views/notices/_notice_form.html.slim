@@ -6,7 +6,7 @@
       - registrations = notice.data_sets.select(&:google_vision?).flat_map { |google_vision| google_vision.registrations }
       - registrations = notice.data_sets.select(&:car_ml?).map(&:registrations).concat(registrations).concat([notice.registration]).compact.flatten.uniq
       = form.label :registration, class: "control-label control-label-required"
-      = form.select :registration, registrations, { include_blank: 'z.B. HH SV 1887' }, { class: "form-control", required: true, data: {'select2-disabled' => true} }
+      = form.select :registration, registrations, { include_blank: 'z.B. HH-SV 1887' }, { class: "form-control", required: true, data: {'select2-disabled' => true} }
       = render('auto_suggest', notice: notice)
       .input-group#pick_registration
         - registrations.each do |registration|

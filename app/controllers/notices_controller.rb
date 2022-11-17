@@ -27,7 +27,8 @@ class NoticesController < ApplicationController
   end
 
   def suggest
-    notices = current_user.notices.search(params[:term]).order(:registration).limit(25)
+    term = (params[:term] || '').upcase
+    notices = current_user.notices.search(term).order(:registration).limit(25)
 
     results = notices.pluck(:registration, :brand, :color).uniq.map do |registration, brand, color|
       {
@@ -37,7 +38,7 @@ class NoticesController < ApplicationController
         color:,
       }
     end
-    results += [{ id: params[:term], text: params[:term] }]
+    results += [{ id: term, text: term }]
 
     render json: { results: }
   end

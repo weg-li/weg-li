@@ -36,6 +36,7 @@ javascript:
     }
   }).on('select2:open', function (e) {
     $('.select2-search__field').val($('#notice_registration').val());
+    $('[aria-controls="select2-notice_registration-results"]').css('text-transform', 'uppercase');
   }).on('select2:select', function (e) {
     var data = e.params.data;
     if (data.brand) {
