@@ -98,6 +98,14 @@ class Vehicle
     return [res['brand'], 0.5] if res.present?
   end
 
+  def self.brand_options
+    {
+      'PKW' => Vehicle.cars.map { |entry| ["#{entry['brand']} #{" (#{entry['aliases'].join(', ')})" if entry['aliases'].present?}", entry['brand']] },
+      'LKW' => Vehicle.truck_brands,
+      'Camper' => Vehicle.camper_brands,
+    }
+  end
+
   def self.brands
     (car_brands + truck_brands + camper_brands).sort
   end
