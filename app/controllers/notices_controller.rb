@@ -119,7 +119,7 @@ class NoticesController < ApplicationController
     @notice = current_user.notices.from_param(params[:id])
 
     if params[:button] == 'upload'
-      @notice.assign_attributes(notice_update_params)
+      @notice.assign_attributes(notice_photos_update_params)
       @notice.save_incomplete!
 
       redirect_to [:edit, @notice], notice: 'Beweisfotos wurden hinzugefügt'
@@ -294,8 +294,12 @@ class NoticesController < ApplicationController
 
   private
 
-  def notice_update_params
+  def notice_photos_update_params
     params.require(:notice).permit(:charge, :date, :date_date, :date_time, :registration, :brand, :color, :street, :zip, :city, :location, :latitude, :longitude, :note, :duration, :severity, :vehicle_empty, :hazard_lights, :expired_tuv, :expired_eco, photos: [])
+  end
+
+  def notice_update_params
+    params.require(:notice).permit(:charge, :date, :date_date, :date_time, :registration, :brand, :color, :street, :zip, :city, :location, :latitude, :longitude, :note, :duration, :severity, :vehicle_empty, :hazard_lights, :expired_tuv, :expired_eco)
   end
 
   def notice_upload_params
