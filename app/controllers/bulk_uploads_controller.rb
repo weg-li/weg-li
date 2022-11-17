@@ -4,7 +4,6 @@ class BulkUploadsController < ApplicationController
   before_action :authenticate!
 
   def index
-    @order_created_at = 'ASC'
     @table_params = {}
 
     @bulk_uploads = current_user.bulk_uploads.with_attached_photos.page(params[:page])
