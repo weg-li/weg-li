@@ -36,7 +36,6 @@ function initMap(canvas, coords, zoom = 13) {
 
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    maxZoom: 18,
     detectRetina: true,
   }).addTo(map);
   return map;
