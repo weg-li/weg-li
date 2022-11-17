@@ -18,8 +18,7 @@ class ViolationGenerator
 
       document.move_down(50)
       document.text(
-        "Sehr geehrte Verkehrsteilnehmerin,
-        sehr geehrter Verkehrsteilnehmer,
+        "Guten Tag,
 
 
         es wurde festgestellt, dass Sie gegen Verkehrsvorschriften verstoßen haben.
