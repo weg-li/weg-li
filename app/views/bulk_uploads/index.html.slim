@@ -6,15 +6,20 @@
 = form_tag bulk_bulk_uploads_path, method: :post do
   .panel.panel-default
     .panel-heading
-      = link_to new_bulk_upload_path, class: 'btn btn-sm btn-success', title: 'Meldung erfassen' do
-        span.glyphicon.glyphicon-cloud-upload>
-        | Massen-Upload starten
+      .row
+        .col-xs-8
+          = link_to new_bulk_upload_path, class: 'btn btn-sm btn-success', title: 'Massen-Upload starten'
+            span.glyphicon.glyphicon-cloud-upload
+        .col-xs-4.text-right
+          = link_to bulk_uploads_path, class: 'btn btn-sm btn-default', title: 'Filter zurücksetzen'
+            span.glyphicon.glyphicon-remove
+
     .table-responsive.table-padding
       table.table.table-striped.table-hover
         thead
           tr
             th
-            th
+            th= BulkUpload.human_attribute_name(:photos)
             th
               => BulkUpload.human_attribute_name(:created_at)
               - if params.dig(:order, :column) == 'created_at'
@@ -41,6 +46,7 @@
                         = render 'bulk_upload_status', status: status
                   li role="separator" class="divider"
                   li= link_to 'kein Filter', url_for(@table_params.merge(filter: nil))
+
         tbody
           - if @bulk_uploads.present?
             - @bulk_uploads.each do |bulk_upload|
@@ -69,8 +75,8 @@
           .hidden= check_box_tag :select_all, '', false, onchange: "$('.select-all').prop('checked', $(this).prop('checked'))"
           | alle auswählen
 
-        button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-          span> Aktionen
+        button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Aktionen"
+          span.glyphicon.glyphicon-tasks<>
           span.caret
 
         ul.dropdown-menu
