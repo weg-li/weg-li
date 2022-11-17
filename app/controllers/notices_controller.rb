@@ -7,34 +7,17 @@ class NoticesController < ApplicationController
   before_action :validate!, except: [:index]
 
   def index
-    @table_params = {
-      search: {},
-      filter: {},
-      order: {},
-    }
-
     @notices = current_user.notices.with_attached_photos.page(params[:page])
 
-    search = params[:search]
-    if search.present?
-      @table_params[:search] = search.to_unsafe_hash
-      @notices = @notices.search(search[:term]) if search[:term].present?
-    end
+    search = handle_table_params(:search)
+    @notices = @notices.search(search[:term]) if search[:term].present?
 
-    filter = params[:filter]
-    if filter.present?
-      @table_params[:filter] = filter.to_unsafe_hash
-      @notices = @notices.where(status: filter[:status]) if filter[:status].present?
-      @notices = @notices.incomplete if filter[:incomplete].present?
-    end
+    filter = handle_table_params(:filter)
+    @notices = @notices.where(status: filter[:status]) if filter[:status].present?
+    @notices = @notices.incomplete if filter[:incomplete].present?
 
-    order = params[:order]
-    if order.present?
-      @table_params[:order] = order.to_unsafe_hash
-      if order[:column].present? && order[:value].present?
-        @notices = @notices.reorder(order[:column] => order[:value])
-      end
-    end
+    order = handle_table_params(:order)
+    @notices = @notices.reorder(order[:column] => order[:value] || 'ASC') if order[:column].present?
   end
 
   def dump
@@ -293,6 +276,20 @@ class NoticesController < ApplicationController
   end
 
   private
+
+  def handle_table_params(key)
+    session[:notices_table_params] ||= {}
+    @table_params ||= session[:notices_table_params].deep_symbolize_keys
+    case params[key]
+    when 'remove'
+      @table_params[key] = {}
+    when nil
+      @table_params[key] ||= {}
+    else
+      @table_params[key] = params[key].to_unsafe_hash.deep_symbolize_keys
+    end
+    session[:notices_table_params][key] = @table_params[key]
+  end
 
   def notice_update_params
     params.require(:notice).permit(:charge, :date, :date_date, :date_time, :registration, :brand, :color, :street, :zip, :city, :location, :latitude, :longitude, :note, :duration, :severity, :vehicle_empty, :hazard_lights, :expired_tuv, :expired_eco, photos: [])
