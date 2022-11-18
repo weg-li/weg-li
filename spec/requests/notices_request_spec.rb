@@ -185,6 +185,16 @@ describe 'notices', type: :request do
     end
   end
 
+  context 'PATCH :purge' do
+    it 'removes an image from a notice' do
+      expect do
+        patch purge_notice_path(notice, photo_id: notice.photos.first.id)
+
+        expect(response).to be_redirect
+      end.to have_enqueued_job(ActiveStorage::PurgeJob)
+    end
+  end
+
   context 'PATCH :mail' do
     it 'sends a mail to recipient' do
       expect do

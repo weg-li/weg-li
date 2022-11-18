@@ -5,7 +5,7 @@ span.zoom(style="position: relative; overflow: hidden; display: inline-block;")
   = "#{photo.filename} / #{number_to_human_size(photo.byte_size)}"
 
 javascript:
-  $('#modal_#{dom_id(photo)}').on('show.bs.modal', function () {
-    $('#modal_#{dom_id(photo)} .modal-photo').attr('src', $('#modal_#{dom_id(photo)} .modal-photo').data('src'));
-    $('#modal_#{dom_id(photo)} .zoom').zoom();
+  $('#photo_modal_#{photo.id}').on('show.bs.modal', function () {
+    $('#photo_modal_#{photo.id} .modal-photo').attr('src', $('#photo_modal_#{photo.id} .modal-photo').data('src'));
+    $('#photo_modal_#{photo.id} .zoom').zoom();
   })

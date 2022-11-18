@@ -95,6 +95,16 @@ describe 'bulk_uploads', type: :request do
     end
   end
 
+  context 'PATCH :purge' do
+    it 'removes an image from a bulk_upload' do
+      expect do
+        patch purge_bulk_upload_path(bulk_upload, photo_id: bulk_upload.photos.first.id)
+
+        expect(response).to be_redirect
+      end.to have_enqueued_job(ActiveStorage::PurgeJob)
+    end
+  end
+
   context 'DELETE :destroy' do
     it 'should destroy the bulk_upload' do
       bulk_upload = Fabricate(:bulk_upload, user:)

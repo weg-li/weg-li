@@ -7,11 +7,11 @@
         span.glyphicon.glyphicon-plus
   ul.photo-list
     - notice.photos.each_with_index do |photo, index|
-      li.list-item
-        a(href="#" data-toggle="modal" data-target="#modal_#{dom_id(photo)}")
+      li.list-item id="photo_item_#{photo.id}"
+        a(href="#" data-toggle="modal" data-target="#photo_modal_#{photo.id}")
           = image_tag(url_for_photo(photo, size: :preview), class: 'item-photo')
 
-      .modal.fade id="modal_#{dom_id(photo)}" tabindex="-1" role="dialog"
+      .modal.fade id="photo_modal_#{photo.id}" tabindex="-1" role="dialog"
         .modal-dialog.modal-lg
           .modal-content
             .modal-header
@@ -34,7 +34,7 @@
                     | Palette
 
                 - unless publicly
-                  = link_to(purge_notice_path(notice, photo_id: photo.id), method: :patch, data: {confirm: t('notices.confirm')}, class: 'btn btn-sm btn-default', title: 'löschen') do
+                  = link_to(purge_notice_path(notice, photo_id: photo.id), method: :patch, data: {confirm: t('notices.confirm')}, class: 'btn btn-sm btn-default', title: 'löschen', remote: true) do
                     span.glyphicon.glyphicon-trash>
                     | Löschen
 

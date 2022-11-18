@@ -276,9 +276,13 @@ class NoticesController < ApplicationController
 
   def purge
     notice = current_user.notices.from_param(params[:id])
-    notice.photos.find(params[:photo_id]).purge_later
+    photo = notice.photos.find(params[:photo_id])
+    photo.purge_later
 
-    redirect_back fallback_location: notice_path(notice), notice: 'Foto gelöscht'
+    respond_to do |format|
+      format.js { render(layout: false) }
+      format.html { redirect_back(fallback_location: notice_path(notice), notice: 'Foto gelöscht') }
+    end
   end
 
   private
