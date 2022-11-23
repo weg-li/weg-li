@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'csv'
 
 namespace :data do
@@ -5,10 +7,10 @@ namespace :data do
     data = File.readlines(Rails.root.join('bkat/TBKAT.DAT'), chomp: true)
     name = nil
     data.each do |line|
-      if name == nil || line[0] == '.'
+      if name.nil? || line[0] == '.'
         name = line.gsub(/.*\./, '')
         puts name
-        File.open(Rails.root.join("bkat/data/#{name}.csv"), 'w') { |f| f.write "" }
+        File.write(Rails.root.join("bkat/data/#{name}.csv"), '')
       else
         File.open(Rails.root.join("bkat/data/#{name}.csv"), 'a') { |f| f.puts line }
       end
@@ -29,7 +31,7 @@ namespace :data do
         name = row['Ort']
         long_name = "#{name}#{row['Zusatz']}"
         state = row['Bundesland']
-        source = District.active.where('(name = :name OR name = :long_name) AND state = :state AND zip LIKE :zip', name: name, long_name: long_name, state: state, zip: "#{zip.first(2)}%").first
+        source = District.active.where('(name = :name OR name = :long_name) AND state = :state AND zip LIKE :zip', name:, long_name:, state:, zip: "#{zip.first(2)}%").first
         if source.present?
           Rails.logger.info("found source for #{zip}: #{source.id}")
           district = source.dup

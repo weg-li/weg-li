@@ -13,9 +13,10 @@ AllCops:
   NewCops: enable
   Exclude:
     - 'db/**/*'
+    - 'config/**/*'
+    - 'client/**/*'
     - 'app/controllers/admin/**/*'
     - 'app/dashboards/**/*'
-    - 'config/environments/**/*'
 
 Bundler/OrderedGems:
   Enabled: false
