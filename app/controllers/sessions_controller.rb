@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: :create # just for you, fucking apple dipshits
+  skip_before_action :verify_authenticity_token # , only: :create # just for you, fucking apple dipshits
   before_action :set_auth, only: %i[complete ticket signup]
 
   def create
