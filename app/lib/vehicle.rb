@@ -99,10 +99,10 @@ class Vehicle
   end
 
   def self.brand_options
-    {
-      'PKW' => Vehicle.cars.map { |entry| ["#{entry['brand']} #{" (#{entry['aliases'].join(', ')})" if entry['aliases'].present?}", entry['brand']] },
-      'LKW' => Vehicle.truck_brands,
-      'Camper' => Vehicle.camper_brands,
+    @brand_options ||= {
+      'PKW' => Vehicle.cars.map { |entry| ["#{entry['brand']} #{" (#{entry['aliases'].join(', ')})" if entry['aliases'].present?}", entry['brand']] }.sort,
+      'LKW' => Vehicle.truck_brands.sort,
+      'Camper' => Vehicle.camper_brands.sort,
     }
   end
 
