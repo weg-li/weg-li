@@ -93,7 +93,7 @@ module ApplicationHelper
     google_oauth2: 'Google',
     telegram: 'Telegram',
     github: 'GitHub',
-    apple: 'Apple',
+    # apple: 'Apple',
     email: 'E-Mail',
   }
 
