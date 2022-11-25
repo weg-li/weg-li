@@ -5,7 +5,7 @@
         .panel
           a(href="#" data-toggle="modal" data-target="#photo_modal_#{photo.id}" draggable="false")
             = image_tag(url_for_photo(photo, size: :preview), class: 'item-photo', draggable: 'false')
-            = hidden_field_tag('bulk_upload[photos][]', photo.id)
+            = hidden_field_tag('bulk_upload[photos][]', photo.id, id: "photo_input_#{photo.id}")
           .btn-group-vertical
             button type="button" class="btn btn-default btn-s" data-toggle="modal" data-target="#photo_modal_#{photo.id}" title="ansehen"
               span.glyphicon.glyphicon-eye-open
