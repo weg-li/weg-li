@@ -10,3 +10,23 @@
       .pull-right
         .btn-group
           = form.submit 'Hochladen & Zuordnen', class: "btn btn-success"
+
+hr.spacer
+
+.well.well-sm.callout-primary
+  |
+    Massen-Uploads via Google-Photos sind derzeit wieder in BETA verfügbar!
+
+= form_for @bulk_upload, url: import_bulk_uploads_path, method: :post do |form|
+  .row
+    .col-lg-12
+      = form.label :shared_album_url, 'Google-Photos Album', class: "control-label control-label-required"
+      = form.url_field :shared_album_url, class: "form-control", required: true, placeholder: 'z.B. https://photos.app.goo.gl/X4KX7AXNjXXu69Uf9'
+
+  hr
+
+  .row
+    .col-lg-12
+      .pull-right
+        .btn-group
+          = form.submit "Importieren & Zuordnen", class: "btn btn-success"
