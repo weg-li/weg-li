@@ -112,7 +112,7 @@ Rails.application.routes.draw do
   scope '/p' do
     get '/charge/:token', to: 'public#charge', as: :public_charge
     get '/profile/:token', to: 'public#profile', as: :public_profile
-    get '/winowig/:user_token/:notice_token', to: 'public#winowig', as: :public_winowig
+    get '/winowig/:user_token/:notice_token', to: 'public#winowig', as: :public_winowig, defaults: {format: :xml}
   end
 
   scope '/auth' do

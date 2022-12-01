@@ -3,8 +3,12 @@
 
 .panel.panel-default
   .panel-heading
-    .dropdown
-      = render('actions', notice: @notice, button_text: true)
+    .row
+      .col-xs-8
+        .dropdown
+          = render('actions', notice: @notice, button_text: true)
+      .col-xs-4.text-right
+
   .panel-body
     .row
       .col-lg-6
