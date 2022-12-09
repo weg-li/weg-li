@@ -3,10 +3,12 @@
 class User < ApplicationRecord
   include Statisticable
   include Bitfields
+
   bitfield :flags,
            1 => :hide_public_profile,
            2 => :disable_reminders,
            4 => :disable_autoreply_notifications
+
   bitfield :autosuggest,
            1 => :from_exif,
            2 => :from_proximity,
@@ -45,7 +47,7 @@ class User < ApplicationRecord
   validates :email, :token, uniqueness: true
   validates :email,
             format: {
-              with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+              with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i,
             }
   validate :email_block_list
 
@@ -143,7 +145,7 @@ class User < ApplicationRecord
       notices: notices.count,
       incomplete: notices.incomplete.count,
       open: notices.open.count,
-      shared: notices.shared.count
+      shared: notices.shared.count,
     }
   end
 
@@ -183,32 +185,32 @@ class User < ApplicationRecord
         "daily",
         daily.keys.index(id).to_i,
         daily[id].to_i,
-        daily.first&.last.to_i
+        daily.first&.last.to_i,
       ],
       [
         "weekly",
         weekly.keys.index(id).to_i,
         weekly[id].to_i,
-        weekly.first&.last.to_i
+        weekly.first&.last.to_i,
       ],
       [
         "monthly",
         monthly.keys.index(id).to_i,
         monthly[id].to_i,
-        monthly.first&.last.to_i
+        monthly.first&.last.to_i,
       ],
       [
         "yearly",
         yearly.keys.index(id).to_i,
         yearly[id].to_i,
-        yearly.first&.last.to_i
+        yearly.first&.last.to_i,
       ],
       [
         "alltime",
         alltime.keys.index(id).to_i,
         alltime[id].to_i,
-        alltime.first&.last.to_i
-      ]
+        alltime.first&.last.to_i,
+      ],
     ]
   end
 
@@ -237,7 +239,7 @@ class User < ApplicationRecord
         user = User.find_by(id:)
         user&.update_columns(
           project_access_token: hash[:access_token],
-          project_user_id: hash[:user_id]
+          project_user_id: hash[:user_id],
         )
       end
     end
