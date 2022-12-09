@@ -2,31 +2,39 @@
 - set_crumbs t('navigation.bulk_uploads') => bulk_uploads_path, 'Hochladen' => url_for
 
 = form_errors @bulk_upload
-= form_for @bulk_upload do |form|
-  = render 'components/photos_form', form: form, required: true, description: t('bulk_uploads.steps.photos.description')
 
-  .row
-    .col-lg-12
-      .pull-right
-        .btn-group
-          = form.submit 'Hochladen & Zuordnen', class: "btn btn-success"
+.bs-component
+  ul.nav.nav-tabs.nav-panel
+    li.active = link_to 'Fotos hochladen', "#upload", data: { toggle: "tab" }
+    li = link_to 'Google Album importieren', "#import", data: { toggle: "tab" }
 
-hr.spacer
+  .tab-content
+    .tab-pane.fade.active.in#upload
+      .panel.panel-default.panel-nav
+        .panel-body
+          = form_for @bulk_upload do |form|
+            = render 'components/photos_form', form: form, required: true, description: t('bulk_uploads.steps.photos.description')
 
-.well.well-sm.callout-primary
-  |
-    Massen-Uploads via Google-Photos sind derzeit wieder in BETA verfügbar!
+            .row
+              .col-lg-12
+                .pull-right
+                  .btn-group
+                    = form.submit 'Hochladen & Zuordnen', class: "btn btn-success"
 
-= form_for @bulk_upload, url: import_bulk_uploads_path, method: :post do |form|
-  .row
-    .col-lg-12
-      = form.label :shared_album_url, 'Google-Photos Album', class: "control-label control-label-required"
-      = form.url_field :shared_album_url, class: "form-control", required: true, placeholder: 'z.B. https://photos.app.goo.gl/X4KX7AXNjXXu69Uf9'
+    .tab-pane.fade.in#import
+      .panel.panel-default.panel-nav
+        .panel-body
+          .well.well-sm.callout-primary Massen-Uploads via Google-Photos sind derzeit wieder in BETA verfügbar!
+          = form_for @bulk_upload, url: import_bulk_uploads_path, method: :post do |form|
+            .row
+              .col-lg-12
+                = form.label :shared_album_url, 'Google-Photos Album', class: "control-label control-label-required"
+                = form.url_field :shared_album_url, class: "form-control", required: true, placeholder: 'z.B. https://photos.app.goo.gl/X4KX7AXNjXXu69Uf9'
 
-  hr
+            hr
 
-  .row
-    .col-lg-12
-      .pull-right
-        .btn-group
-          = form.submit "Importieren & Zuordnen", class: "btn btn-success"
+            .row
+              .col-lg-12
+                .pull-right
+                  .btn-group
+                    = form.submit "Importieren & Zuordnen", class: "btn btn-success"
