@@ -12,6 +12,7 @@ class Charge < ApplicationRecord
            primary_key: :variant_table_id
 
   scope :active, -> { where(valid_to: nil).where("fine > 0") }
+  scope :ordered, -> { order(valid_from: :desc) }
 
   acts_as_api
 
@@ -49,12 +50,12 @@ class Charge < ApplicationRecord
     6 => "Geschwindigkeitsüberschreitung",
     7 => "Überladung",
     8 => "Alkohol und Rauschmittel",
-    9 => "Abstandsmessung"
+    9 => "Abstandsmessung",
   }
 
   FAP = {
     "A" => "schwerwiegende Zuwiderhandlung bei Fahrerlaubnis auf Probe",
-    "B" => "weniger schwerwiegende Zuwiderhandlung bei Fahrerlaubnis auf Probe"
+    "B" => "weniger schwerwiegende Zuwiderhandlung bei Fahrerlaubnis auf Probe",
   }
 
   UPDATED_CHARGES = [
@@ -64,7 +65,7 @@ class Charge < ApplicationRecord
       "112474",
       "112675",
       "",
-      "neu"
+      "neu",
     ],
     ["2", "Parken auf einem Fußgängerüberweg", "141292", "141293", "", "neu"],
     [
@@ -73,7 +74,7 @@ class Charge < ApplicationRecord
       "141174",
       "141775",
       "",
-      "neu"
+      "neu",
     ],
     [
       "4",
@@ -81,7 +82,7 @@ class Charge < ApplicationRecord
       "141194",
       "141795",
       "",
-      "neu"
+      "neu",
     ],
     [
       "5",
@@ -89,7 +90,7 @@ class Charge < ApplicationRecord
       "141124",
       "141525",
       "",
-      "neu"
+      "neu",
     ],
     [
       "6",
@@ -97,7 +98,7 @@ class Charge < ApplicationRecord
       "142170",
       "142671",
       "",
-      "neu"
+      "neu",
     ],
     [
       "7",
@@ -105,7 +106,7 @@ class Charge < ApplicationRecord
       "112454",
       "112655",
       "",
-      "neu"
+      "neu",
     ],
     [
       "8",
@@ -113,7 +114,7 @@ class Charge < ApplicationRecord
       "142103",
       "142104",
       "",
-      ""
+      "",
     ],
     [
       "9",
@@ -121,7 +122,7 @@ class Charge < ApplicationRecord
       "141184",
       "141785",
       "",
-      "neu"
+      "neu",
     ],
     [
       "10",
@@ -129,7 +130,7 @@ class Charge < ApplicationRecord
       "141302",
       "141303",
       "",
-      ""
+      "",
     ],
     [
       "11",
@@ -137,7 +138,7 @@ class Charge < ApplicationRecord
       "112266",
       "112267",
       "",
-      "neu"
+      "neu",
     ],
     [
       "12",
@@ -145,7 +146,7 @@ class Charge < ApplicationRecord
       "112262",
       "112263",
       "",
-      ""
+      "",
     ],
     [
       "13",
@@ -153,7 +154,7 @@ class Charge < ApplicationRecord
       "141312",
       "141313",
       "",
-      ""
+      "",
     ],
     [
       "14",
@@ -161,7 +162,7 @@ class Charge < ApplicationRecord
       "141322",
       "141323",
       "",
-      ""
+      "",
     ],
     [
       "15",
@@ -169,7 +170,7 @@ class Charge < ApplicationRecord
       "141245",
       "",
       "",
-      ""
+      "",
     ],
     [
       "16",
@@ -177,7 +178,7 @@ class Charge < ApplicationRecord
       "112102",
       "112103",
       "",
-      ""
+      "",
     ],
     [
       "17",
@@ -185,7 +186,7 @@ class Charge < ApplicationRecord
       "112112",
       "112113",
       "",
-      ""
+      "",
     ],
     [
       "18",
@@ -193,7 +194,7 @@ class Charge < ApplicationRecord
       "112464",
       "112665",
       "",
-      "neu"
+      "neu",
     ],
     [
       "19",
@@ -201,7 +202,7 @@ class Charge < ApplicationRecord
       "137012",
       "137013",
       "",
-      ""
+      "",
     ],
     [
       "20",
@@ -209,7 +210,7 @@ class Charge < ApplicationRecord
       "112216",
       "",
       "",
-      ""
+      "",
     ],
     [
       "21",
@@ -217,7 +218,7 @@ class Charge < ApplicationRecord
       "141382",
       "141383",
       "",
-      ""
+      "",
     ],
     [
       "22",
@@ -225,7 +226,7 @@ class Charge < ApplicationRecord
       "112282",
       "112283",
       "",
-      ""
+      "",
     ],
     [
       "23",
@@ -233,7 +234,7 @@ class Charge < ApplicationRecord
       "112292",
       "112293",
       "",
-      ""
+      "",
     ],
     [
       "24",
@@ -241,7 +242,7 @@ class Charge < ApplicationRecord
       "112302",
       "112303",
       "",
-      ""
+      "",
     ],
     ["25", "Parken vor einer Bordsteinabsenkung", "112372", "112373", "", ""],
     [
@@ -250,7 +251,7 @@ class Charge < ApplicationRecord
       "112042",
       "112043",
       "",
-      ""
+      "",
     ],
     ["27", "Parken nicht am rechten Fahrbahnrand", "112062", "112063", "", ""],
     [
@@ -259,7 +260,7 @@ class Charge < ApplicationRecord
       "112428",
       "112429",
       "",
-      ""
+      "",
     ],
     [
       "29",
@@ -267,7 +268,7 @@ class Charge < ApplicationRecord
       "141332",
       "141333",
       "",
-      ""
+      "",
     ],
     [
       "30",
@@ -275,7 +276,7 @@ class Charge < ApplicationRecord
       "141164",
       "",
       "neu",
-      ""
+      "",
     ],
     [
       "31",
@@ -283,7 +284,7 @@ class Charge < ApplicationRecord
       "141342",
       "141343",
       "",
-      ""
+      "",
     ],
     [
       "32",
@@ -291,7 +292,7 @@ class Charge < ApplicationRecord
       "141352",
       "141353",
       "",
-      ""
+      "",
     ],
     [
       "33",
@@ -299,7 +300,7 @@ class Charge < ApplicationRecord
       "141360",
       "141361",
       "",
-      "neu"
+      "neu",
     ],
     [
       "34",
@@ -307,7 +308,7 @@ class Charge < ApplicationRecord
       "141432",
       "141433",
       "",
-      ""
+      "",
     ],
     [
       "35",
@@ -315,7 +316,7 @@ class Charge < ApplicationRecord
       "141402",
       "141403",
       "",
-      ""
+      "",
     ],
     [
       "36",
@@ -323,7 +324,7 @@ class Charge < ApplicationRecord
       "141412",
       "141413",
       "",
-      ""
+      "",
     ],
     [
       "37",
@@ -331,7 +332,7 @@ class Charge < ApplicationRecord
       "141026",
       "141027",
       "",
-      "neu"
+      "neu",
     ],
     [
       "38",
@@ -339,7 +340,7 @@ class Charge < ApplicationRecord
       "112484",
       "112685",
       "",
-      "neu"
+      "neu",
     ],
     [
       "39",
@@ -347,7 +348,7 @@ class Charge < ApplicationRecord
       "141377",
       "",
       "",
-      "neu nur Benutzen des Fahrstreifens 141202 Beh.141203"
+      "neu nur Benutzen des Fahrstreifens 141202 Beh.141203",
     ],
     [
       "40",
@@ -355,7 +356,7 @@ class Charge < ApplicationRecord
       "142278",
       "",
       "",
-      ""
+      "",
     ],
     [
       "41",
@@ -363,26 +364,40 @@ class Charge < ApplicationRecord
       "142262",
       "142263",
       "E-Fahrzeuge während des Ladevorgangs",
-      ""
+      "",
     ],
     ["42", "Parken auf einer Grünfläche", "901400", "", "", ""],
     # ['43', 'Parken auf einer Baumscheibe', '-4', '', '', 'unbekannt'],
-    ["44", "Sonstiges Parkvergehen (siehe Hinweise)", "0", "", "", ""]
+    ["44", "Sonstiges Parkvergehen (siehe Hinweise)", "0", "", "", ""],
   ]
 
   CHARGES = UPDATED_CHARGES.to_h { |a| [a[2].to_i, a[1]] }
 
-  def self.plain_charges
-    @plain_charges ||= CHARGES.values
-  end
+  class << self
+    def plain_charges
+      @plain_charges ||= CHARGES.values
+    end
 
-  def self.plain_charges_tbnr(charge)
-    @plain_charges_tbnr ||= CHARGES.invert
-    @plain_charges_tbnr[charge]
-  end
+    def plain_charges_tbnr(charge)
+      @plain_charges_tbnr ||= CHARGES.invert
+      @plain_charges_tbnr[charge]
+    end
 
-  def self.classification_name(classification)
-    CLASSIFICATIONS[classification.to_i] || "-"
+    def classification_name(classification)
+      CLASSIFICATIONS[classification.to_i] || "-"
+    end
+
+    def from_param(param)
+      by_param(param).ordered.first!
+    end
+
+    def by_param(param)
+      where(tbnr: parse_param(param))
+    end
+
+    def parse_param(param)
+      param.split("-").first || param
+    end
   end
 
   def classification_name
@@ -391,11 +406,6 @@ class Charge < ApplicationRecord
 
   def fap_description
     FAP[fap] || "-"
-  end
-
-  def self.from_param(param)
-    param = param.split("-").first || param
-    where(tbnr: param).order(valid_from: :desc).first!
   end
 
   def to_param

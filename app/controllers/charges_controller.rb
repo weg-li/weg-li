@@ -14,7 +14,8 @@ class ChargesController < ApplicationController
     @since = (params[:since] || 4).to_i
     @display = %w[cluster heat multi].delete(params[:display]) || "cluster"
 
-    @charge = Charge.from_param(params[:id])
+    @charges = Charge.by_param(params[:id]).ordered
+    @charge = @charges.first!
     @notices =
       Notice
         .since(@since.weeks.ago)
@@ -49,12 +50,12 @@ class ChargesController < ApplicationController
     charges =
       charges.where(
         "tbnr ILIKE :term OR description ILIKE :term",
-        term: "%#{params[:term]}%"
+        term: "%#{params[:term]}%",
       ) if params[:term].present?
     charges =
       charges.where(
         "classification = ?",
-        params[:classification].to_i
+        params[:classification].to_i,
       ) if params[:classification].present?
     charges
   end
