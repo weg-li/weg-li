@@ -56,11 +56,15 @@ class Export < ApplicationRecord
   end
 
   def photos_scope
-    Notice.shared.select(%i[id date registration charge brand color]).with_attached_photos
+    Notice
+      .shared
+      .select(%i[id date registration charge brand color])
+      .with_attached_photos
   end
 
   def photos_entries(notice)
-    data = %i[date registration charge brand color].map { |key| notice.send(key) }
+    data =
+      %i[date registration charge brand color].map { |key| notice.send(key) }
     notice.photos.map { |photo| [Annotator.bucket_uri(photo.key)] + data }
   end
 end

@@ -23,7 +23,8 @@ module Admin
           pg_statio_user_tables
       SQL
 
-      @query_cache = ActiveRecord::Base.connection.execute(query_cache_sql).first
+      @query_cache =
+        ActiveRecord::Base.connection.execute(query_cache_sql).first
 
       index_cache_sql = <<-SQL
         SELECT
@@ -34,7 +35,8 @@ module Admin
           pg_statio_user_indexes
       SQL
 
-      @index_cache = ActiveRecord::Base.connection.execute(index_cache_sql).first
+      @index_cache =
+        ActiveRecord::Base.connection.execute(index_cache_sql).first
 
       index_usage_sql = <<-SQL
         SELECT
@@ -51,15 +53,20 @@ module Admin
 
       @cache_stats = Rails.cache.try(:stats)
 
-      @env = ENV.map do |key, value|
-        if /KEY|SECRET|PASSWORD|TOKEN|CREDENTIALS|URL|SECRET|DATABASE/.match?(key)
-          [key, '[FILTERED]']
-        else
-          [key, value]
-        end
-      end.sort
-      @env << ['RAILS_VERSION', Rails.version]
-      @env << ['RUBY_VERSION', RUBY_VERSION]
+      @env =
+        ENV
+          .map do |key, value|
+            if /KEY|SECRET|PASSWORD|TOKEN|CREDENTIALS|URL|SECRET|DATABASE/.match?(
+                 key
+               )
+              [key, "[FILTERED]"]
+            else
+              [key, value]
+            end
+          end
+          .sort
+      @env << ["RAILS_VERSION", Rails.version]
+      @env << ["RUBY_VERSION", RUBY_VERSION]
     end
   end
 end

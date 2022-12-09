@@ -1,5 +1,5 @@
 /* direct_uploads.css */
 
-input[type=file][data-direct-upload-url][disabled] {
+input[type="file"][data-direct-upload-url][disabled] {
   display: none;
 }

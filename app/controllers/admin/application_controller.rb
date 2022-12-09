@@ -8,7 +8,7 @@ module Admin
   class ApplicationController < Administrate::ApplicationController
     include UserHandling
 
-    helper all_helpers_from_path 'app/helpers'
+    helper all_helpers_from_path "app/helpers"
 
     before_action :authenticate_admin_user!
 
@@ -21,15 +21,20 @@ module Admin
     private
 
     def order
-      @order ||= Administrate::Order.new(
-        params.fetch(resource_name, {}).fetch(:order, 'created_at'),
-        params.fetch(resource_name, {}).fetch(:direction, 'desc'),
-      )
+      @order ||=
+        Administrate::Order.new(
+          params.fetch(resource_name, {}).fetch(:order, "created_at"),
+          params.fetch(resource_name, {}).fetch(:direction, "desc")
+        )
     end
 
     def find_resource(param)
       klazz = resource_name.to_s.classify.constantize
-      klazz.respond_to?(:from_param) ? klazz.from_param(param) : klazz.find(param)
+      if klazz.respond_to?(:from_param)
+        klazz.from_param(param)
+      else
+        klazz.find(param)
+      end
     end
   end
 end

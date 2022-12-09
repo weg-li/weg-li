@@ -3,14 +3,17 @@
 class ApplicationMailer < ActionMailer::Base
   include Slack::Slackable
 
-  default from: email_address_with_name('peter@weg.li', 'weg.li')
+  default from: email_address_with_name("peter@weg.li", "weg.li")
 
   private
 
   def email_address_with_name(address, name)
-    Mail::Address.new.tap do |builder|
-      builder.address = address
-      builder.display_name = name
-    end.to_s
+    Mail::Address
+      .new
+      .tap do |builder|
+        builder.address = address
+        builder.display_name = name
+      end
+      .to_s
   end
 end

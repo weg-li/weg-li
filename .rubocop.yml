@@ -9,14 +9,17 @@
 #
 # See https://docs.rubocop.org/rubocop/configuration
 # https://github.com/rubocop/rubocop/blob/master/config/default.yml
-AllCops: 
+AllCops:
   NewCops: enable
   Exclude:
-    - 'db/**/*'
-    - 'config/**/*'
-    - 'client/**/*'
-    - 'app/controllers/admin/**/*'
-    - 'app/dashboards/**/*'
+    - "db/**/*"
+    - "config/**/*"
+    - "client/**/*"
+    - "app/controllers/admin/**/*"
+    - "app/dashboards/**/*"
+
+inherit_from:
+  - node_modules/@prettier/plugin-ruby/rubocop.yml
 
 Bundler/OrderedGems:
   Enabled: false

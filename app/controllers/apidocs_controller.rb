@@ -4,19 +4,18 @@ class ApidocsController < ActionController::Base
   include Swagger::Blocks
 
   swagger_root do
-    key :swagger, '2.0'
+    key :swagger, "2.0"
     security_definition :api_key do
       key :type, :apiKey
-      key :name, 'X-API-KEY'
+      key :name, "X-API-KEY"
       key :in, :header
     end
-    security do
-      key :api_key, []
-    end
+    security { key :api_key, [] }
     info do
-      key :version, '1.0.0'
-      key :title, 'weg.li API Docs'
-      key :description, "
+      key :version, "1.0.0"
+      key :title, "weg.li API Docs"
+      key :description,
+          "
       The weg.li API allows an authorized user to manage notices, upload photos and notify the authorities.
 
       The API-KEY can be obtained via the profile page https://www.weg.li/user
@@ -31,34 +30,30 @@ class ApidocsController < ActionController::Base
 
       An example Implementation can be found here https://github.com/weg-li/weg-li/blob/master/api_usage_example
       "
-      key :termsOfService, 'https://www.weg.li/privacy/'
-      contact do
-        key :name, 'Peter Schröder'
-      end
-      license do
-        key :name, 'MIT'
+      key :termsOfService, "https://www.weg.li/privacy/"
+      contact { key :name, "Peter Schröder" }
+      license { key :name, "MIT" }
+    end
+    tag do
+      key :name, "notice"
+      key :description, "Notice operations"
+      externalDocs do
+        key :description, "Documentation of Types and Operations"
+        key :url, "https://swagger.io/specification/"
       end
     end
     tag do
-      key :name, 'notice'
-      key :description, 'Notice operations'
+      key :name, "upload"
+      key :description, "Upload operations"
       externalDocs do
-        key :description, 'Documentation of Types and Operations'
-        key :url, 'https://swagger.io/specification/'
+        key :description, "Documentation of Types and Operations"
+        key :url, "https://swagger.io/specification/"
       end
     end
-    tag do
-      key :name, 'upload'
-      key :description, 'Upload operations'
-      externalDocs do
-        key :description, 'Documentation of Types and Operations'
-        key :url, 'https://swagger.io/specification/'
-      end
-    end
-    key :host, Rails.env.development? ? 'localhost:3000' : 'www.weg.li'
-    key :basePath, '/api'
-    key :consumes, ['application/json']
-    key :produces, ['application/json']
+    key :host, Rails.env.development? ? "localhost:3000" : "www.weg.li"
+    key :basePath, "/api"
+    key :consumes, ["application/json"]
+    key :produces, ["application/json"]
   end
 
   SWAGGERED_CLASSES = [
@@ -67,7 +62,7 @@ class ApidocsController < ActionController::Base
     Api::UploadsController,
     Api::Upload,
     Api::Error,
-    self,
+    self
   ].freeze
 
   def index

@@ -4,16 +4,10 @@ module Incompletable
   extend ActiveSupport::Concern
 
   included do
-    before_save do
-      self.incomplete = !valid?
-    end
+    before_save { self.incomplete = !valid? }
 
     def save_incomplete!
-      if valid?
-        save!
-      else
-        save!(validate: false)
-      end
+      valid? ? save! : save!(validate: false)
     end
 
     def complete?

@@ -28,7 +28,7 @@ class Geo
     pi45: [48.146, 11.458703], # Pasing
     pi46: [48.10442, 11.42384], # Planegg
     pi47: [48.192195, 11.570237], # Milbertshofen
-    pi48: [48.252436, 11.561391], # Oberschleißheim
+    pi48: [48.252436, 11.561391] # Oberschleißheim
   }
 
   def self.radians(degrees)
@@ -36,21 +36,45 @@ class Geo
   end
 
   def self.distance(point_a, point_b)
-    2 * 3961 * Math.asin(Math.sqrt((Math.sin(radians((point_a.latitude - point_b.latitude) / 2))**2) + (Math.cos(radians(point_b.latitude)) * Math.cos(radians(point_a.latitude)) * (Math.sin(radians((point_a.longitude - point_b.longitude) / 2))**2))))
+    2 * 3961 *
+      Math.asin(
+        Math.sqrt(
+          (Math.sin(radians((point_a.latitude - point_b.latitude) / 2))**2) +
+            (
+              Math.cos(radians(point_b.latitude)) *
+                Math.cos(radians(point_a.latitude)) *
+                (
+                  Math.sin(
+                    radians((point_a.longitude - point_b.longitude) / 2)
+                  )**2
+                )
+            )
+        )
+      )
   end
 
   def self.regions
-    @regions ||= begin
-      result = JSON.parse(Rails.root.join('config/data/munich_regions.json').read)
-      regions = result['features'].map { |data| Geo.new(data.dig('geometry', 'coordinates').first.map { |(lng, lat, _)| [lat, lng] }) }
+    @regions ||=
+      begin
+        result =
+          JSON.parse(Rails.root.join("config/data/munich_regions.json").read)
+        regions =
+          result["features"].map do |data|
+            Geo.new(
+              data
+                .dig("geometry", "coordinates")
+                .first
+                .map { |(lng, lat, _)| [lat, lng] }
+            )
+          end
 
-      POLICE_INSPECTIONS.map do |name, point|
-        region = regions.find { |it| it.contains?(point) }
-        raise "did not find PI for #{name} and point #{point}!" unless region
+        POLICE_INSPECTIONS.map do |name, point|
+          region = regions.find { |it| it.contains?(point) }
+          raise "did not find PI for #{name} and point #{point}!" unless region
 
-        [name, region]
+          [name, region]
+        end
       end
-    end
   end
 
   def self.suggest_email(point)
@@ -77,7 +101,17 @@ class Geo
     while (i += 1) < @points.size
       a_point_on_polygon = @points[i]
       trailing_point_on_polygon = @points[j]
-      if point_is_between_the_ys_of_the_line_segment?(a_point_on_polygon, trailing_point_on_polygon, latitude) && ray_crosses_through_line_segment?(a_point_on_polygon, trailing_point_on_polygon, latitude, longitude)
+      if point_is_between_the_ys_of_the_line_segment?(
+           a_point_on_polygon,
+           trailing_point_on_polygon,
+           latitude
+         ) &&
+           ray_crosses_through_line_segment?(
+             a_point_on_polygon,
+             trailing_point_on_polygon,
+             latitude,
+             longitude
+           )
         contains_point = !contains_point
       end
       j = i
@@ -88,13 +122,34 @@ class Geo
 
   private
 
-  def point_is_between_the_ys_of_the_line_segment?(a_point_on_polygon, trailing_point_on_polygon, latitude)
-    (a_point_on_polygon[0] <= latitude && latitude < trailing_point_on_polygon[0]) ||
-      (trailing_point_on_polygon[0] <= latitude && latitude < a_point_on_polygon[0])
+  def point_is_between_the_ys_of_the_line_segment?(
+    a_point_on_polygon,
+    trailing_point_on_polygon,
+    latitude
+  )
+    (
+      a_point_on_polygon[0] <= latitude &&
+        latitude < trailing_point_on_polygon[0]
+    ) ||
+      (
+        trailing_point_on_polygon[0] <= latitude &&
+          latitude < a_point_on_polygon[0]
+      )
   end
 
-  def ray_crosses_through_line_segment?(a_point_on_polygon, trailing_point_on_polygon, latitude, longitude)
-    (longitude < ((trailing_point_on_polygon[1] - a_point_on_polygon[1]) * (latitude - a_point_on_polygon[0]) /
-    (trailing_point_on_polygon[0] - a_point_on_polygon[0])) + a_point_on_polygon[1])
+  def ray_crosses_through_line_segment?(
+    a_point_on_polygon,
+    trailing_point_on_polygon,
+    latitude,
+    longitude
+  )
+    (
+      longitude <
+        (
+          (trailing_point_on_polygon[1] - a_point_on_polygon[1]) *
+            (latitude - a_point_on_polygon[0]) /
+            (trailing_point_on_polygon[0] - a_point_on_polygon[0])
+        ) + a_point_on_polygon[1]
+    )
   end
 end

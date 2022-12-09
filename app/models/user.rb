@@ -3,12 +3,21 @@
 class User < ApplicationRecord
   include Statisticable
   include Bitfields
-  bitfield :flags, 1 => :hide_public_profile, 2 => :disable_reminders, 4 => :disable_autoreply_notifications
-  bitfield :autosuggest, 1 => :from_exif, 2 => :from_proximity, 4 => :from_recognition, 8 => :from_history
+  bitfield :flags,
+           1 => :hide_public_profile,
+           2 => :disable_reminders,
+           4 => :disable_autoreply_notifications
+  bitfield :autosuggest,
+           1 => :from_exif,
+           2 => :from_proximity,
+           4 => :from_recognition,
+           8 => :from_history
 
   enum access: { disabled: -99, user: 0, community: 1, studi: 2, admin: 42 }
 
-  geocoded_by :geocode_address, language: proc { |_model| I18n.locale }, no_annotations: true
+  geocoded_by :geocode_address,
+              language: proc { |_model| I18n.locale },
+              no_annotations: true
   after_validation :geocode, if: :geocode_address_changed?
   after_validation :normalize
   before_validation :defaults
@@ -25,19 +34,31 @@ class User < ApplicationRecord
 
   accepts_nested_attributes_for :authorizations
 
-  validates :nickname, :email, :token, :name, :street, :zip, :city, presence: true
+  validates :nickname,
+            :email,
+            :token,
+            :name,
+            :street,
+            :zip,
+            :city,
+            presence: true
   validates :email, :token, uniqueness: true
-  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+  validates :email,
+            format: {
+              with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+            }
   validate :email_block_list
 
   def email_block_list
-    errors.add(:email, :invalid) if email =~ /miucce.com/ || email =~ /spamgourmet.com/
+    if email =~ /miucce.com/ || email =~ /spamgourmet.com/
+      errors.add(:email, :invalid)
+    end
   end
 
-  scope :last_login_since, ->(date) { where('last_login > ?', date) }
-  scope :since, ->(date) { where('created_at > ?', date) }
+  scope :last_login_since, ->(date) { where("last_login > ?", date) }
+  scope :since, ->(date) { where("created_at > ?", date) }
   scope :for_public, -> { not_hide_public_profile }
-  scope :active, -> { where('access >= 0') }
+  scope :active, -> { where("access >= 0") }
 
   def self.from_param(token)
     find_by!(token:)
@@ -55,7 +76,7 @@ class User < ApplicationRecord
   end
 
   def validate!
-    auth = authorizations.find_or_initialize_by(provider: 'email')
+    auth = authorizations.find_or_initialize_by(provider: "email")
     auth.update! uid: email_uid
 
     update! validation_date: Time.now
@@ -114,10 +135,7 @@ class User < ApplicationRecord
   end
 
   def map_data
-    {
-      latitude:,
-      longitude:,
-    }
+    { latitude:, longitude: }
   end
 
   def statistics
@@ -125,23 +143,72 @@ class User < ApplicationRecord
       notices: notices.count,
       incomplete: notices.incomplete.count,
       open: notices.open.count,
-      shared: notices.shared.count,
+      shared: notices.shared.count
     }
   end
 
   def leaderboard_positions
-    daily = Notice.shared.since(Time.zone.now.beginning_of_day).group(:user_id).order(count_all: :desc).count
-    weekly = Notice.shared.since(Time.zone.now.beginning_of_week).group(:user_id).order(count_all: :desc).count
-    monthly = Notice.shared.since(Time.zone.now.beginning_of_month).group(:user_id).order(count_all: :desc).count
-    yearly = Notice.shared.since(Time.zone.now.beginning_of_year).group(:user_id).order(count_all: :desc).count
+    daily =
+      Notice
+        .shared
+        .since(Time.zone.now.beginning_of_day)
+        .group(:user_id)
+        .order(count_all: :desc)
+        .count
+    weekly =
+      Notice
+        .shared
+        .since(Time.zone.now.beginning_of_week)
+        .group(:user_id)
+        .order(count_all: :desc)
+        .count
+    monthly =
+      Notice
+        .shared
+        .since(Time.zone.now.beginning_of_month)
+        .group(:user_id)
+        .order(count_all: :desc)
+        .count
+    yearly =
+      Notice
+        .shared
+        .since(Time.zone.now.beginning_of_year)
+        .group(:user_id)
+        .order(count_all: :desc)
+        .count
     alltime = Notice.group(:user_id).order(count_all: :desc).count
 
     @positions = [
-      ['daily', daily.keys.index(id).to_i, daily[id].to_i, daily.first&.last.to_i],
-      ['weekly', weekly.keys.index(id).to_i, weekly[id].to_i, weekly.first&.last.to_i],
-      ['monthly', monthly.keys.index(id).to_i, monthly[id].to_i, monthly.first&.last.to_i],
-      ['yearly', yearly.keys.index(id).to_i, yearly[id].to_i, yearly.first&.last.to_i],
-      ['alltime', alltime.keys.index(id).to_i, alltime[id].to_i, alltime.first&.last.to_i],
+      [
+        "daily",
+        daily.keys.index(id).to_i,
+        daily[id].to_i,
+        daily.first&.last.to_i
+      ],
+      [
+        "weekly",
+        weekly.keys.index(id).to_i,
+        weekly[id].to_i,
+        weekly.first&.last.to_i
+      ],
+      [
+        "monthly",
+        monthly.keys.index(id).to_i,
+        monthly[id].to_i,
+        monthly.first&.last.to_i
+      ],
+      [
+        "yearly",
+        yearly.keys.index(id).to_i,
+        yearly[id].to_i,
+        yearly.first&.last.to_i
+      ],
+      [
+        "alltime",
+        alltime.keys.index(id).to_i,
+        alltime[id].to_i,
+        alltime.first&.last.to_i
+      ]
     ]
   end
 
@@ -168,7 +235,10 @@ class User < ApplicationRecord
       data.stringify_keys!
       data.each do |id, hash|
         user = User.find_by(id:)
-        user&.update_columns(project_access_token: hash[:access_token], project_user_id: hash[:user_id])
+        user&.update_columns(
+          project_access_token: hash[:access_token],
+          project_user_id: hash[:user_id]
+        )
       end
     end
   end

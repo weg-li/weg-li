@@ -10,21 +10,26 @@ function cleanSource(html) {
     }
     return line;
   });
-  lines = lines.join('\n');
+  lines = lines.join("\n");
   return lines;
 }
 
-$(document).on('ready page:load page:change', () => {
-  const $button = $("<div id='source-button' class='btn btn-primary btn-xs'>&lt; &gt;</div>").click(function handler() {
+$(document).on("ready page:load page:change", () => {
+  const $button = $(
+    "<div id='source-button' class='btn btn-primary btn-xs'>&lt; &gt;</div>"
+  ).click(function handler() {
     let html = $(this).parent().html();
     html = cleanSource(html);
-    $('#source-modal pre').text(html);
-    $('#source-modal').modal();
+    $("#source-modal pre").text(html);
+    $("#source-modal").modal();
   });
-  $('.bs-component').hover((function action() {
-    $(this).append($button);
-    $button.show();
-  }), () => {
-    $button.hide();
-  });
+  $(".bs-component").hover(
+    function action() {
+      $(this).append($button);
+      $button.show();
+    },
+    () => {
+      $button.hide();
+    }
+  );
 });

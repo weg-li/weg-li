@@ -8,7 +8,11 @@ class Notice < ApplicationRecord
   split_accessor :date
 
   include Bitfields
-  bitfield :flags, 1 => :vehicle_empty, 2 => :hazard_lights, 4 => :expired_tuv, 8 => :expired_eco
+  bitfield :flags,
+           1 => :vehicle_empty,
+           2 => :hazard_lights,
+           4 => :expired_tuv,
+           8 => :expired_eco
   def self.details
     bitfields[:flags].keys
   end
@@ -16,7 +20,26 @@ class Notice < ApplicationRecord
   acts_as_api
 
   api_accessible(:public_beta) do |template|
-    %i[token status street city zip latitude longitude registration color brand charge date duration severity photos created_at updated_at sent_at].each { |key| template.add(key) }
+    %i[
+      token
+      status
+      street
+      city
+      zip
+      latitude
+      longitude
+      registration
+      color
+      brand
+      charge
+      date
+      duration
+      severity
+      photos
+      created_at
+      updated_at
+      sent_at
+    ].each { |key| template.add(key) }
     Notice.bitfields[:flags].each_key { |key| template.add(key) }
     template.add(:attachments, as: :photos)
   end
@@ -25,7 +48,9 @@ class Notice < ApplicationRecord
 
   before_validation :defaults
 
-  geocoded_by :geocode_address, language: proc { |_model| I18n.locale }, no_annotations: true
+  geocoded_by :geocode_address,
+              language: proc { |_model| I18n.locale },
+              no_annotations: true
   after_validation :geocode, if: :do_geocoding?
   after_validation :postgisify
 
@@ -37,21 +62,38 @@ class Notice < ApplicationRecord
   belongs_to :bulk_upload, optional: true
   has_many_attached :photos
   has_many :replies, -> { order(created_at: :desc) }, dependent: :destroy
-  has_many :data_sets, -> { order(created_at: :desc) }, dependent: :destroy, as: :setable
+  has_many :data_sets,
+           -> { order(created_at: :desc) },
+           dependent: :destroy,
+           as: :setable
 
-  validates :photos, :registration, :charge, :street, :zip, :city, :date, :duration, :severity, presence: true
-  validates :zip, format: { with: /\d{5}/, message: 'PLZ ist nicht korrekt' }
+  validates :photos,
+            :registration,
+            :charge,
+            :street,
+            :zip,
+            :city,
+            :date,
+            :duration,
+            :severity,
+            presence: true
+  validates :zip, format: { with: /\d{5}/, message: "PLZ ist nicht korrekt" }
   validates :token, uniqueness: true
   validate :validate_creation_date, on: :create
   validate :validate_date
 
-  scope :since, ->(date) { where('notices.created_at > ?', date) }
+  scope :since, ->(date) { where("notices.created_at > ?", date) }
   scope :for_public, -> { where.not(status: :disabled) }
-  scope :search, ->(term) { where('registration ILIKE :term', term: "%#{term}%") }
+  scope :search,
+        ->(term) { where("registration ILIKE :term", term: "%#{term}%") }
   scope :preselect, -> { shared.limit(3) }
 
   def self.for_reminder
-    open.joins(:user).where(date: [(21.days.ago.beginning_of_day)..(14.days.ago.end_of_day)]).merge(User.not_disable_reminders).merge(User.active)
+    open
+      .joins(:user)
+      .where(date: [(21.days.ago.beginning_of_day)..(14.days.ago.end_of_day)])
+      .merge(User.not_disable_reminders)
+      .merge(User.active)
   end
 
   def self.from_param(token)
@@ -66,26 +108,67 @@ class Notice < ApplicationRecord
   def self.statistics
     {
       districts: District.active.count,
-      active: Notice.select('DISTINCT user_id').count,
+      active: Notice.select("DISTINCT user_id").count,
       users: User.active.count,
       photos: ActiveStorage::Attachment.where(record_type: Notice.to_s).count,
       notices: Notice.count,
-      shared: Notice.shared.count,
+      shared: Notice.shared.count
     }
   end
 
   def self.yearly_statistics(year, limit, base_scope: Notice.shared)
     notices = base_scope.reorder(nil)
-    notices = notices.where(date: (Time.new(year)..Time.new(year).end_of_year)) if year.present?
+    notices =
+      notices.where(
+        date: (Time.new(year)..Time.new(year).end_of_year)
+      ) if year.present?
     {
       count: notices.count,
       active: notices.distinct(:user_id).pluck(:user_id).count,
-      grouped_states: notices.joins(:district).select('count(districts.state) as state_count, districts.state').group('districts.state').order(state_count: :desc).limit(limit).to_a,
-      grouped_cities: notices.select('count(city) as city_count, city').group(:city).order(city_count: :desc).limit(limit).to_a,
-      grouped_zips: notices.select('count(zip) as zip_count, zip').group(:zip).order(zip_count: :desc).limit(limit).to_a,
-      grouped_charges: notices.select('count(charge) as charge_count, charge').group(:charge).order(charge_count: :desc).limit(limit).to_a,
-      grouped_brands: notices.select('count(brand) as brand_count, brand').where("brand != ''").group(:brand).order(brand_count: :desc).limit(limit).to_a,
-      grouped_registrations: notices.select('count(registration) as registration_count, registration').group(:registration).order(registration_count: :desc).limit(limit).to_a,
+      grouped_states:
+        notices
+          .joins(:district)
+          .select("count(districts.state) as state_count, districts.state")
+          .group("districts.state")
+          .order(state_count: :desc)
+          .limit(limit)
+          .to_a,
+      grouped_cities:
+        notices
+          .select("count(city) as city_count, city")
+          .group(:city)
+          .order(city_count: :desc)
+          .limit(limit)
+          .to_a,
+      grouped_zips:
+        notices
+          .select("count(zip) as zip_count, zip")
+          .group(:zip)
+          .order(zip_count: :desc)
+          .limit(limit)
+          .to_a,
+      grouped_charges:
+        notices
+          .select("count(charge) as charge_count, charge")
+          .group(:charge)
+          .order(charge_count: :desc)
+          .limit(limit)
+          .to_a,
+      grouped_brands:
+        notices
+          .select("count(brand) as brand_count, brand")
+          .where("brand != ''")
+          .group(:brand)
+          .order(brand_count: :desc)
+          .limit(limit)
+          .to_a,
+      grouped_registrations:
+        notices
+          .select("count(registration) as registration_count, registration")
+          .group(:registration)
+          .order(registration_count: :desc)
+          .limit(limit)
+          .to_a
     }
   end
 
@@ -129,20 +212,35 @@ class Notice < ApplicationRecord
   def date_doubles
     return false if registration.blank?
 
-    user.notices.where('DATE(date) = DATE(?)', date).where(registration:).where.not(id:)
+    user
+      .notices
+      .where("DATE(date) = DATE(?)", date)
+      .where(registration:)
+      .where.not(id:)
   end
 
   def photo_doubles
-    user.photos_attachments.joins(:blob).where('active_storage_attachments.record_id != ?', id).where('active_storage_blobs.filename' => photos.map { |photo| photo.filename.to_s })
+    user
+      .photos_attachments
+      .joins(:blob)
+      .where("active_storage_attachments.record_id != ?", id)
+      .where(
+        "active_storage_blobs.filename" =>
+          photos.map { |photo| photo.filename.to_s }
+      )
   end
 
   def apply_favorites(registrations)
-    other = user
-              .notices
-              .shared
-              .where("REPLACE(registration, ' ', '') IN(?)", registrations.map { |registration| registration.gsub(/\s/, '') })
-              .order(created_at: :desc)
-              .first
+    other =
+      user
+        .notices
+        .shared
+        .where(
+          "REPLACE(registration, ' ', '') IN(?)",
+          registrations.map { |registration| registration.gsub(/\s/, "") }
+        )
+        .order(created_at: :desc)
+        .first
 
     if other
       self.registration = other.registration
@@ -158,7 +256,8 @@ class Notice < ApplicationRecord
   end
 
   def self.nearest_charges(latitude, longitude, distance = 50)
-    sql = "
+    sql =
+      "
     SELECT
       charge,
       COUNT(charge) as count,
@@ -173,7 +272,7 @@ class Notice < ApplicationRecord
     LIMIT 3
     "
     binds = [longitude, latitude, distance]
-    Notice.connection.exec_query(sql, 'distance-quert', binds).to_a
+    Notice.connection.exec_query(sql, "distance-quert", binds).to_a
   end
 
   def meta
@@ -233,13 +332,17 @@ class Notice < ApplicationRecord
       longitude: result.longitude,
       zip: result.postal_code,
       city: result.city || result.state,
-      street: "#{result.street} #{result.house_number}".strip,
+      street: "#{result.street} #{result.house_number}".strip
     }
   end
 
   def dates_from_photos
     date_times = data_sets.select(&:exif?).map(&:date_time).compact.uniq
-    date_times = photos.map { |photo| AnalyzerJob.time_from_filename(photo.filename.to_s) }.compact.uniq if date_times.blank?
+    date_times =
+      photos
+        .map { |photo| AnalyzerJob.time_from_filename(photo.filename.to_s) }
+        .compact
+        .uniq if date_times.blank?
     date_times.sort
   end
 
@@ -249,7 +352,7 @@ class Notice < ApplicationRecord
   end
 
   def file_name(extension = :pdf)
-    "#{date.strftime('%Y-%m-%d %H-%M')} #{registration.gsub(' ', '-')}.#{extension}"
+    "#{date.strftime("%Y-%m-%d %H-%M")} #{registration.gsub(" ", "-")}.#{extension}"
   end
 
   def full_address
@@ -261,34 +364,22 @@ class Notice < ApplicationRecord
   end
 
   def location_and_address
-    [street, location].reject(&:blank?).join(', ')
+    [street, location].reject(&:blank?).join(", ")
   end
 
   def geocode_address
     # https://github.com/OpenCageData/opencagedata-misc-docs/blob/master/query-formatting.md
-    "#{street.split(',').first}, #{zip}, #{city}, Deutschland"
+    "#{street.split(",").first}, #{zip}, #{city}, Deutschland"
   end
 
   def map_data(kind = :public)
-    basic = {
-      latitude:,
-      longitude:,
-      charge:,
-      date:,
-      zip:,
-    }
+    basic = { latitude:, longitude:, charge:, date:, zip: }
 
     case kind
     when :public
       basic
     when :private
-      basic.merge(
-        {
-          registration:,
-          full_address:,
-          token:,
-        },
-      )
+      basic.merge({ registration:, full_address:, token: })
     else
       raise "kind #{kind} not surported"
     end
@@ -302,11 +393,12 @@ class Notice < ApplicationRecord
 
   def attachments
     photos.map do |photo|
-      redirect_url = Rails.application.routes.url_helpers.rails_blob_url(photo, Rails.configuration.action_mailer.default_url_options)
-      {
-        filename: photo.filename,
-        url: redirect_url,
-      }
+      redirect_url =
+        Rails.application.routes.url_helpers.rails_blob_url(
+          photo,
+          Rails.configuration.action_mailer.default_url_options
+        )
+      { filename: photo.filename, url: redirect_url }
     end
   end
 

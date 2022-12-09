@@ -4,39 +4,42 @@ class UserMailer < ApplicationMailer
   def signup(user)
     @user = user
 
-    mail to: email_address_with_name(@user.email, @user.name), subject: t('mailers.signup')
+    mail to: email_address_with_name(@user.email, @user.name),
+         subject: t("mailers.signup")
   end
 
   def validate(user)
     @user = user
 
-    mail to: email_address_with_name(@user.email, @user.name), subject: t('mailers.validate')
+    mail to: email_address_with_name(@user.email, @user.name),
+         subject: t("mailers.validate")
   end
 
   def activate(user)
     @user = user
 
-    mail to: email_address_with_name(@user.email, @user.name), subject: t('mailers.activate')
+    mail to: email_address_with_name(@user.email, @user.name),
+         subject: t("mailers.activate")
   end
 
   def login_link(user, token)
     @user = user
     @token = token
 
-    mail to: user.email, subject: t('mailers.login_link')
+    mail to: user.email, subject: t("mailers.login_link")
   end
 
   def signup_link(email, token)
     @token = token
 
-    mail to: email, subject: t('mailers.signup_link')
+    mail to: email, subject: t("mailers.signup_link")
   end
 
   def reminder(user, notice_ids)
     @user = user
     @notices = user.notices.find(notice_ids)
 
-    subject = 'Meldungen jetzt zur Anzeige bringen'
+    subject = "Meldungen jetzt zur Anzeige bringen"
     mail subject:, to: email_address_with_name(@user.email, @user.name)
   end
 
@@ -44,7 +47,7 @@ class UserMailer < ApplicationMailer
     @user = user
     @bulk_uploads = user.bulk_uploads.find(bulk_upload_ids)
 
-    subject = 'Massen-Uploads jetzt verarbeiten und zur Anzeige bringen'
+    subject = "Massen-Uploads jetzt verarbeiten und zur Anzeige bringen"
     mail subject:, to: email_address_with_name(@user.email, @user.name)
   end
 
@@ -64,11 +67,12 @@ class UserMailer < ApplicationMailer
     @reply = reply
     @notice = reply.notice
 
-    attachments['original.eml'] = {
-      mime_type: 'application/octet-stream',
-      content: reply.action_mailbox_inbound_email.raw_email.download.to_s,
+    attachments["original.eml"] = {
+      mime_type: "application/octet-stream",
+      content: reply.action_mailbox_inbound_email.raw_email.download.to_s
     }
-    subject = "Automatische Antwort auf Anzeige #{@notice.registration} #{@notice.charge}"
+    subject =
+      "Automatische Antwort auf Anzeige #{@notice.registration} #{@notice.charge}"
     mail subject:, to: email_address_with_name(@user.email, @user.name)
   end
 end

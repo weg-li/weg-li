@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'json'
-require 'http'
+require "json"
+require "http"
 
 module Slack
   module Slackable
@@ -15,20 +15,24 @@ module Slack
   end
 
   class Client
-    def say(text, channel: 'notifications', attachments: nil)
+    def say(text, channel: "notifications", attachments: nil)
       payload = {
         text:,
         channel:,
         username: "weg-li-#{Rails.env}",
         unfurl_links: false,
         unfurl_media: false,
-        attachments:,
+        attachments:
       }
       send(payload)
     end
 
     def send(payload)
-      Rails.logger.debug("slack skipping, no SLACK_WEBHOOK_URL configured: #{payload}") and return if url.blank?
+      if url.blank?
+        Rails.logger.debug(
+          "slack skipping, no SLACK_WEBHOOK_URL configured: #{payload}"
+        ) and return
+      end
 
       body = URI.encode_www_form(payload: JSON.dump(payload))
       response = HTTP.post(url, headers:, body:)
@@ -37,11 +41,11 @@ module Slack
     end
 
     def url
-      ENV['SLACK_WEBHOOK_URL']
+      ENV["SLACK_WEBHOOK_URL"]
     end
 
     def headers
-      { 'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8' }
+      { "Content-Type" => "application/x-www-form-urlencoded; charset=UTF-8" }
     end
   end
 end

@@ -1,23 +1,24 @@
 # frozen_string_literal: true
 
-require 'builder'
+require "builder"
 
 class XmlGenerator
-  def initialize(template: 'winowig')
+  def initialize(template: "winowig")
     @template = template
   end
 
   def generate(notice)
-    locals = {
-      '@notice': notice,
-      '@user': notice.user,
-    }
+    locals = { "@notice": notice, "@user": notice.user }
     renderer.render(template: "/public/#{@template}", formats: [:xml], locals:)
   end
 
   private
 
   def renderer
-    @renderer ||= ApplicationController.renderer.new(http_host: Rails.application.config.default_host, https: true)
+    @renderer ||=
+      ApplicationController.renderer.new(
+        http_host: Rails.application.config.default_host,
+        https: true
+      )
   end
 end

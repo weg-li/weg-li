@@ -145,7 +145,7 @@ class Colorizor
     Color::RGB::YellowGreen => Color::RGB::Green,
     Color::RGB::Metallic::CoolCopper => Color::RGB::Gold,
     Color::RGB::Metallic::Copper => Color::RGB::Gold,
-    Color::RGB::Metallic::Poly => Color::RGB::Brown,
+    Color::RGB::Metallic::Poly => Color::RGB::Brown
   }
 
   TOTALS = {
@@ -158,7 +158,6 @@ class Colorizor
     Color::RGB::Gray70 => Color::RGB::Gray,
     Color::RGB::Gray80 => Color::RGB::Gray,
     Color::RGB::Gray90 => Color::RGB::Gray,
-
     Color::RGB::Metallic::Aluminum => Color::RGB::Silver,
     Color::RGB::Metallic::Iron => Color::RGB::Silver,
     Color::RGB::Metallic::Lead => Color::RGB::Black,
@@ -168,12 +167,13 @@ class Colorizor
     Color::RGB::Metallic::Silver => Color::RGB::Silver,
     Color::RGB::Metallic::Steel => Color::RGB::Silver,
     Color::RGB::Metallic::Tin => Color::RGB::Silver,
-    Color::RGB::Metallic::Tungsten => Color::RGB::Silver,
+    Color::RGB::Metallic::Tungsten => Color::RGB::Silver
   }.merge(COLORS)
 
   def self.closest_match(color)
     rgb = Color::RGB.new(color[:red], color[:green], color[:blue])
-    closest = rgb.closest_match(COLORS.keys, 20) || rgb.closest_match(TOTALS.keys)
+    closest =
+      rgb.closest_match(COLORS.keys, 20) || rgb.closest_match(TOTALS.keys)
     TOTALS[closest].name
   end
 end

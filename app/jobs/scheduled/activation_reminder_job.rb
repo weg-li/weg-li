@@ -2,7 +2,7 @@
 
 class Scheduled::ActivationReminderJob < ApplicationJob
   def perform
-    Rails.logger.info 'send activation reminders'
+    Rails.logger.info "send activation reminders"
 
     not_validated = User.user.where(validation_date: nil)
     not_validated.each do |user|

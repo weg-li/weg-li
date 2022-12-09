@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'csv'
+require "csv"
 
 class ChargesController < ApplicationController
   def index
@@ -12,33 +12,50 @@ class ChargesController < ApplicationController
 
   def show
     @since = (params[:since] || 4).to_i
-    @display = %w[cluster heat multi].delete(params[:display]) || 'cluster'
+    @display = %w[cluster heat multi].delete(params[:display]) || "cluster"
 
     @charge = Charge.from_param(params[:id])
-    @notices = Notice.since(@since.weeks.ago).shared.where(charge: Charge::CHARGES[@charge.tbnr.to_i])
+    @notices =
+      Notice
+        .since(@since.weeks.ago)
+        .shared
+        .where(charge: Charge::CHARGES[@charge.tbnr.to_i])
   end
 
   def list
     respond_to do |format|
       format.csv do
-        csv_data = CSV.generate(force_quotes: true) do |csv|
-          csv << %w[Nr TBNR Tatbestand]
-          Charge::CHARGES.each_with_index { |(tbnr, charge), index| csv << [index + 1, tbnr, charge] }
-        end
-        send_data csv_data, type: 'text/csv; charset=UTF-8; header=present', disposition: "attachment; filename=districts-#{Time.now.to_i}.csv"
+        csv_data =
+          CSV.generate(force_quotes: true) do |csv|
+            csv << %w[Nr TBNR Tatbestand]
+            Charge::CHARGES.each_with_index do |(tbnr, charge), index|
+              csv << [index + 1, tbnr, charge]
+            end
+          end
+        send_data csv_data,
+                  type: "text/csv; charset=UTF-8; header=present",
+                  disposition:
+                    "attachment; filename=districts-#{Time.now.to_i}.csv"
       end
-      format.json do
-        render json: Charge::CHARGES
-      end
+      format.json { render json: Charge::CHARGES }
     end
   end
 
   private
 
   def search_scope
-    charges = Charge.active.order(params[:order] || 'tbnr ASC').page(params[:page])
-    charges = charges.where('tbnr ILIKE :term OR description ILIKE :term', term: "%#{params[:term]}%") if params[:term].present?
-    charges = charges.where('classification = ?', params[:classification].to_i) if params[:classification].present?
+    charges =
+      Charge.active.order(params[:order] || "tbnr ASC").page(params[:page])
+    charges =
+      charges.where(
+        "tbnr ILIKE :term OR description ILIKE :term",
+        term: "%#{params[:term]}%"
+      ) if params[:term].present?
+    charges =
+      charges.where(
+        "classification = ?",
+        params[:classification].to_i
+      ) if params[:classification].present?
     charges
   end
 end

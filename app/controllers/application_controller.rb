@@ -14,13 +14,13 @@ class ApplicationController < ActionController::Base
   private
 
   def session_expired
-    redirect_to login_path, alert: 'Ihre Sitzung ist abgelaufen'
+    redirect_to login_path, alert: "Ihre Sitzung ist abgelaufen"
   end
 
   def _404(exception = nil)
     Rails.logger.warn exception if exception.present?
     Rails.logger.warn "head 404 with params #{params}"
 
-    raise ActionController::RoutingError, 'Not Found'
+    raise ActionController::RoutingError, "Not Found"
   end
 end

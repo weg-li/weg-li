@@ -4,10 +4,7 @@ class RepliesController < ApplicationController
   before_action :authenticate!
 
   def index
-    @table_params = {
-      search: {},
-      order: {},
-    }
+    @table_params = { search: {}, order: {} }
 
     @replies = current_user.replies.includes(:notice).page(params[:page])
 

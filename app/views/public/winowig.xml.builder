@@ -9,10 +9,10 @@ xml.Fall do
     end
   end
   xml.Beteiligte do
-    xml.Beteiligter Funktion: 'keine', Typ: 'Anzeigenerstatter' do
+    xml.Beteiligter Funktion: "keine", Typ: "Anzeigenerstatter" do
       xml.Kontakt do
         xml.Anschrift do
-          xml.Anrede '-'
+          xml.Anrede "-"
           xml.Vorname @user.first_name
           xml.Name @user.last_name
           xml.Strasse @user.street_without_housenumber
@@ -20,28 +20,34 @@ xml.Fall do
           xml.Adresszusatz @user.appendix
           xml.PLZ @user.zip
           xml.Ort @user.city
-          xml.Landeskennzeichen 'D'
+          xml.Landeskennzeichen "D"
         end
         xml.EMail @user.email
         xml.Telefon @user.phone
-        xml.Zusatzdaten do
-          xml.Geburtsdatum @user.date_of_birth
-        end
+        xml.Zusatzdaten { xml.Geburtsdatum @user.date_of_birth }
       end
     end
   end
   xml.Bemerkungen do
     xml.Bemerkung @notice.note if @notice.note
-    Notice.details.each { |flag| xml.Bemerkung t(flag, scope: 'activerecord.attributes.notice.flags') if @notice.send(flag) }
+    Notice.details.each do |flag|
+      if @notice.send(flag)
+        xml.Bemerkung t(flag, scope: "activerecord.attributes.notice.flags")
+      end
+    end
     xml.Bemerkung @notice.wegli_email
   end
   xml.Falldaten do
     xml.Fahrzeug do
-      xml.Nationalitaet 'D'
-      xml.Farbe I18n.t(@notice.color.presence, scope: 'activerecord.attributes.notice.colors', default: '-')
+      xml.Nationalitaet "D"
+      xml.Farbe I18n.t(
+                  @notice.color.presence,
+                  scope: "activerecord.attributes.notice.colors",
+                  default: "-"
+                )
       xml.Fabrikat @notice.brand
       xml.Kennzeichen @notice.registration
-      xml.Kennzeichenart '00'
+      xml.Kennzeichenart "00"
     end
     xml.Tattag do
       xml.Von l(@notice.date, format: :date)
@@ -52,14 +58,8 @@ xml.Fall do
       xml.Bis l(@notice.date + @notice.duration.minutes, format: :time)
     end
   end
-  xml.Zeuge do
-    xml.Zeilen do
-      xml.Zeile @user.name
-    end
-  end
-  xml.Beweise do
-    xml.Beweis 'Zeugin/Zeuge, Fotos'
-  end
+  xml.Zeuge { xml.Zeilen { xml.Zeile @user.name } }
+  xml.Beweise { xml.Beweis "Zeugin/Zeuge, Fotos" }
   xml.Tatdaten do
     xml.Vorwurf do
       xml.Tatbestandsnummer @notice.tbnr

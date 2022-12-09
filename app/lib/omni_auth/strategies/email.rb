@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'base64'
+require "base64"
 
 module OmniAuth
   module Strategies
@@ -8,14 +8,12 @@ module OmniAuth
       include OmniAuth::Strategy
 
       def request_phase
-        redirect '/sessions/email'
+        redirect "/sessions/email"
       end
 
       def callback_phase
-        token = request.params['token']
-        if token.blank?
-          fail!(:authenticity_error)
-        end
+        token = request.params["token"]
+        fail!(:authenticity_error) if token.blank?
 
         # begin
         decoded_token = Token.decode(token)
@@ -23,21 +21,15 @@ module OmniAuth
         # fail!(:authenticity_error, $!) <-- return from it
         # end
 
-        @email = decoded_token['iss'].to_s.downcase
-        if @email.blank?
-          fail!(:authenticity_error)
-        end
+        @email = decoded_token["iss"].to_s.downcase
+        fail!(:authenticity_error) if @email.blank?
 
         super
       end
 
-      uid do
-        Digest::SHA256.new.hexdigest(@email)
-      end
+      uid { Digest::SHA256.new.hexdigest(@email) }
 
-      info do
-        { 'email' => @email }
-      end
+      info { { "email" => @email } }
     end
   end
 end

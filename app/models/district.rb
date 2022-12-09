@@ -33,15 +33,31 @@ class District < ApplicationRecord
   validates :zip, uniqueness: true
   validates :zip, format: { with: /\d{5}/ }
   validates :state, inclusion: { in: STATES }
-  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+  validates :email,
+            format: {
+              with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+            }
 
-  geocoded_by :geocode_address, language: proc { |_model| I18n.locale }, no_annotations: true
+  geocoded_by :geocode_address,
+              language: proc { |_model| I18n.locale },
+              no_annotations: true
   after_validation :geocode, if: :geocode_address_changed?
 
   acts_as_api
 
   api_accessible :public_beta do |template|
-    %i[name zip email prefixes latitude longitude aliases personal_email created_at updated_at].each { |key| template.add(key) }
+    %i[
+      name
+      zip
+      email
+      prefixes
+      latitude
+      longitude
+      aliases
+      personal_email
+      created_at
+      updated_at
+    ].each { |key| template.add(key) }
   end
 
   api_accessible :wegeheld do |template|
@@ -56,18 +72,14 @@ class District < ApplicationRecord
   end
 
   def map_data
-    {
-      zoom: 13,
-      latitude:,
-      longitude:,
-    }
+    { zoom: 13, latitude:, longitude: }
   end
 
   def statistics(date = 100.years.ago)
     {
       notices: notices.since(date).count,
       active_users: User.where(id: notices.since(date).pluck(:user_id)).count,
-      total_users: users.count,
+      total_users: users.count
     }
   end
 
@@ -92,23 +104,23 @@ class District < ApplicationRecord
   end
 
   def anonymize_email(email)
-    return '-' unless email.present?
+    return "-" unless email.present?
 
     return email unless personal_email?
 
-    address, domain = email.split('@')
+    address, domain = email.split("@")
 
-    "#{address.first}#{'.' * (address.size - 2)}#{address.last}@#{domain}"
+    "#{address.first}#{"." * (address.size - 2)}#{address.last}@#{domain}"
   end
 
   def display_aliases
-    return '-' unless aliases.present?
+    return "-" unless aliases.present?
 
-    aliases.map { |email| anonymize_email(email) }.compact.join(', ')
+    aliases.map { |email| anonymize_email(email) }.compact.join(", ")
   end
 
   def self.from_param(param)
-    param = param.split('-').first || param
+    param = param.split("-").first || param
     find_by!(zip: param)
   end
 

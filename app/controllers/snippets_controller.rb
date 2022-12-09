@@ -4,10 +4,7 @@ class SnippetsController < ApplicationController
   before_action :authenticate!
 
   def index
-    @table_params = {
-      search: {},
-      order: {},
-    }
+    @table_params = { search: {}, order: {} }
 
     @snippets = current_user.snippets.page(params[:page])
 
@@ -40,7 +37,9 @@ class SnippetsController < ApplicationController
     if @snippet.save
       respond_to do |format|
         format.js { render(layout: false) }
-        format.html { redirect_to(snippets_path, notice: 'Vorlage wurde angelegt') }
+        format.html do
+          redirect_to(snippets_path, notice: "Vorlage wurde angelegt")
+        end
       end
     else
       render(:new)
@@ -55,7 +54,7 @@ class SnippetsController < ApplicationController
     @snippet = current_user.snippets.find(params[:id])
 
     if @snippet.update(snippet_params)
-      redirect_to(snippets_path, notice: 'Vorlage wurde gespeichert')
+      redirect_to(snippets_path, notice: "Vorlage wurde gespeichert")
     else
       render(:edit)
     end
@@ -65,7 +64,7 @@ class SnippetsController < ApplicationController
     snippet = current_user.snippets.find(params[:id])
     snippet.destroy!
 
-    redirect_to(snippets_path, notice: 'Vorlage wurde gelöscht')
+    redirect_to(snippets_path, notice: "Vorlage wurde gelöscht")
   end
 
   private

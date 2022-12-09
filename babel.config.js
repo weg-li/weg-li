@@ -1,70 +1,70 @@
-module.exports = function(api) {
-  var validEnv = ['development', 'test', 'production']
-  var currentEnv = api.env()
-  var isDevelopmentEnv = api.env('development')
-  var isProductionEnv = api.env('production')
-  var isTestEnv = api.env('test')
+module.exports = function (api) {
+  var validEnv = ["development", "test", "production"];
+  var currentEnv = api.env();
+  var isDevelopmentEnv = api.env("development");
+  var isProductionEnv = api.env("production");
+  var isTestEnv = api.env("test");
 
   if (!validEnv.includes(currentEnv)) {
     throw new Error(
-      'Please specify a valid `NODE_ENV` or ' +
+      "Please specify a valid `NODE_ENV` or " +
         '`BABEL_ENV` environment variables. Valid values are "development", ' +
         '"test", and "production". Instead, received: ' +
         JSON.stringify(currentEnv) +
-        '.'
-    )
+        "."
+    );
   }
 
   return {
     presets: [
       isTestEnv && [
-        '@babel/preset-env',
+        "@babel/preset-env",
         {
           targets: {
-            node: 'current'
-          }
-        }
+            node: "current",
+          },
+        },
       ],
       (isProductionEnv || isDevelopmentEnv) && [
-        '@babel/preset-env',
+        "@babel/preset-env",
         {
           forceAllTransforms: true,
-          useBuiltIns: 'entry',
+          useBuiltIns: "entry",
           corejs: 3,
           modules: false,
-          exclude: ['transform-typeof-symbol']
-        }
-      ]
+          exclude: ["transform-typeof-symbol"],
+        },
+      ],
     ].filter(Boolean),
     plugins: [
-      'babel-plugin-macros',
-      '@babel/plugin-syntax-dynamic-import',
-      isTestEnv && 'babel-plugin-dynamic-import-node',
-      '@babel/plugin-transform-destructuring',
+      "babel-plugin-macros",
+      "@babel/plugin-syntax-dynamic-import",
+      isTestEnv && "babel-plugin-dynamic-import-node",
+      "@babel/plugin-transform-destructuring",
       [
-        '@babel/plugin-proposal-class-properties',
+        "@babel/plugin-proposal-class-properties",
         {
-          loose: true
-        }
+          loose: true,
+        },
       ],
       [
-        '@babel/plugin-proposal-object-rest-spread',
+        "@babel/plugin-proposal-object-rest-spread",
         {
-          useBuiltIns: true
-        }
+          useBuiltIns: true,
+        },
       ],
       [
-        '@babel/plugin-transform-runtime',
+        "@babel/plugin-transform-runtime",
         {
-          helpers: false
-        }
+          helpers: false,
+        },
       ],
       [
-        '@babel/plugin-transform-regenerator',
+        "@babel/plugin-transform-regenerator",
         {
-          async: false
-        }
-      ]
-    ].filter(Boolean)
-  }
-}
+          async: false,
+        },
+      ],
+    ].filter(Boolean),
+  };
+};

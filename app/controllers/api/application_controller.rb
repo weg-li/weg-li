@@ -6,15 +6,17 @@ class Api::ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   before_action :api_sign_in
 
-  rescue_from ActiveRecord::RecordNotFound, with: ->(ex) { render json: Api::Error.new(404, ex.message) }
-  rescue_from StandardError, with: ->(ex) { render json: Api::Error.new(500, ex.message) }
+  rescue_from ActiveRecord::RecordNotFound,
+              with: ->(ex) { render json: Api::Error.new(404, ex.message) }
+  rescue_from StandardError,
+              with: ->(ex) { render json: Api::Error.new(500, ex.message) }
 
   private
 
   attr_reader :current_user
 
   def api_sign_in
-    api_token = request.headers['X-API-KEY'] || params['X-API-KEY']
+    api_token = request.headers["X-API-KEY"] || params["X-API-KEY"]
     head :unauthorized if api_token.blank?
 
     @current_user = User.active.find_by(api_token:)

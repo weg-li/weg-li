@@ -8,8 +8,8 @@ class AutoreplyMailbox < ApplicationMailbox
     params = {
       action_mailbox_inbound_email: inbound_email,
       sender: mail.from.first,
-      subject: mail.subject || '-',
-      content: self.class.content_from_mail(mail),
+      subject: mail.subject || "-",
+      content: self.class.content_from_mail(mail)
     }
     reply = notice.replies.create!(params)
 
@@ -20,10 +20,6 @@ class AutoreplyMailbox < ApplicationMailbox
   end
 
   def self.content_from_mail(mail)
-    if mail.multipart?
-      mail.text_part.decoded
-    else
-      mail.decoded
-    end
+    mail.multipart? ? mail.text_part.decoded : mail.decoded
   end
 end

@@ -15,24 +15,24 @@
 // const imagePath = (name) => images(name, true)
 
 // allow templates to use $
-window.$ = require('jquery');
+window.$ = require("jquery");
 
 window.jQuery = window.$;
 
 // rails deps
-require('@rails/ujs').start();
-require('@rails/activestorage').start();
+require("@rails/ujs").start();
+require("@rails/activestorage").start();
 
 // 3rdparty deps
-require('bootstrap');
-require('alpinejs');
+require("bootstrap");
+require("alpinejs");
 
 // allow templates to use billboard
-window.bb = require('billboard.js/dist/billboard.js').bb;
+window.bb = require("billboard.js/dist/billboard.js").bb;
 
 // own sources
 // require('src/appsignal');
-require('src/custom');
-require('src/direct_uploads');
-require('src/maps');
-require('src/styleguide');
+require("src/custom");
+require("src/direct_uploads");
+require("src/maps");
+require("src/styleguide");

@@ -1,21 +1,29 @@
 #!/usr/bin/env ruby
 # run as 'bundle exec ruby api_usage_example'
 
-require 'http'
-require 'logger'
-require 'byebug'
+require "http"
+require "logger"
+require "byebug"
 
-API_KEY = ENV.fetch('WEG_LI_API_KEY', '52e68c996991292b101b7c85b6cbf11ccf87095ae8e2cf1b4e3841892b9f03a1')
-HOST = ENV.fetch('WEG_LI_HOST', 'http://localhost:3000')
+API_KEY =
+  ENV.fetch(
+    "WEG_LI_API_KEY",
+    "52e68c996991292b101b7c85b6cbf11ccf87095ae8e2cf1b4e3841892b9f03a1"
+  )
+HOST = ENV.fetch("WEG_LI_HOST", "http://localhost:3000")
 
-client = HTTP.use(logging: {logger: Logger.new(STDOUT, level: :info)})
-headers = { 'X-API-KEY' => API_KEY }
+client = HTTP.use(logging: { logger: Logger.new(STDOUT, level: :info) })
+headers = { "X-API-KEY" => API_KEY }
 
 #######################
 # get a notice
 #######################
 
-response = client.get("#{HOST}/api/notices/36b3d5da606a8787fc86cc5d0421c39e", headers: headers)
+response =
+  client.get(
+    "#{HOST}/api/notices/36b3d5da606a8787fc86cc5d0421c39e",
+    headers: headers
+  )
 if response.status.success?
   notice = JSON.parse(response.body)
   puts notice.keys
@@ -28,36 +36,38 @@ end
 # create an upload
 #######################
 
-file = File.binread('spec/fixtures/files/truck.jpg')
+file = File.binread("spec/fixtures/files/truck.jpg")
 upload = {
-  filename: 'truck.jpg',
+  filename: "truck.jpg",
   byte_size: file.size,
   checksum: Digest::MD5.base64digest(file),
-  content_type: 'image/jpeg',
+  content_type: "image/jpeg"
 }
 
-response = client.post("#{HOST}/api/uploads", headers: headers, json: { upload: upload })
+response =
+  client.post("#{HOST}/api/uploads", headers: headers, json: { upload: upload })
 
 if response.status.success?
   upload = JSON.parse(response.body)
   puts upload.keys
   puts upload
 
-  signed_id = upload['signed_id']
+  signed_id = upload["signed_id"]
 
-  upload_url = upload['direct_upload']['url']
-  upload_headers = upload['direct_upload']['headers']
+  upload_url = upload["direct_upload"]["url"]
+  upload_headers = upload["direct_upload"]["headers"]
 
   response = client.put(upload_url, headers: upload_headers, body: file)
   raise response.body unless response.status.success?
 end
 
 notice = {
-  charge: 'Parken auf einem Radweg (Zeichen 237)',
-  photos: [signed_id],
+  charge: "Parken auf einem Radweg (Zeichen 237)",
+  photos: [signed_id]
 }
 
-response = client.post("#{HOST}/api/notices", headers: headers, json: { notice: notice })
+response =
+  client.post("#{HOST}/api/notices", headers: headers, json: { notice: notice })
 if response.status.success?
   notice = JSON.parse(response.body)
   puts notice.keys

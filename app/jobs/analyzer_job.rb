@@ -2,7 +2,9 @@
 
 class AnalyzerJob < ApplicationJob
   retry_on EXIFR::MalformedJPEG, attempts: 5, wait: :exponentially_longer
-  retry_on ActiveStorage::FileNotFoundError, attempts: 5, wait: :exponentially_longer
+  retry_on ActiveStorage::FileNotFoundError,
+           attempts: 5,
+           wait: :exponentially_longer
   discard_on Encoding::UndefinedConversionError
   discard_on ActiveRecord::RecordInvalid
 
@@ -13,7 +15,11 @@ class AnalyzerJob < ApplicationJob
 
     return nil unless token
 
-    Time.zone.parse(token.gsub('-', '')) rescue nil
+    begin
+      Time.zone.parse(token.gsub("-", ""))
+    rescue StandardError
+      nil
+    end
   end
 
   def perform(notice)
@@ -35,7 +41,12 @@ class AnalyzerJob < ApplicationJob
       result = annotator.annotate_object(photo.key)
 
       if result.present?
-        data_set = notice.data_sets.create!(data: result, kind: :google_vision, keyable: photo)
+        data_set =
+          notice.data_sets.create!(
+            data: result,
+            kind: :google_vision,
+            keyable: photo
+          )
         # skip if we got lucky
         registrations = data_set.registrations
         if registrations.present?
@@ -48,9 +59,7 @@ class AnalyzerJob < ApplicationJob
   end
 
   def apply_registrations(notice, registrations, data_set)
-    if notice.user.from_history?
-      notice.apply_favorites(registrations)
-    end
+    notice.apply_favorites(registrations) if notice.user.from_history?
 
     if notice.user.from_recognition?
       notice.registration ||= registrations.first
@@ -65,10 +74,12 @@ class AnalyzerJob < ApplicationJob
 
   def handle_exif(notice)
     notice.photos.each do |photo|
-      exif = photo.service.download_file(photo.key) { |file| exifer.metadata(file) }
+      exif =
+        photo.service.download_file(photo.key) { |file| exifer.metadata(file) }
       next if exif.blank?
 
-      exif_data_set = notice.data_sets.create!(data: exif, kind: :exif, keyable: photo)
+      exif_data_set =
+        notice.data_sets.create!(data: exif, kind: :exif, keyable: photo)
 
       # the last or first exif is the good as any other
       coords = exif_data_set.coords
@@ -77,7 +88,12 @@ class AnalyzerJob < ApplicationJob
       if notice.data_sets.geocoder.blank?
         result = Geocoder.search(coords)
         if result.present?
-          geocoder_data_set = notice.data_sets.create!(data: result, kind: :geocoder, keyable: photo)
+          geocoder_data_set =
+            notice.data_sets.create!(
+              data: result,
+              kind: :geocoder,
+              keyable: photo
+            )
           if notice.user.from_exif?
             address = geocoder_data_set.address
             notice.latitude = address[:latitude]
@@ -92,7 +108,12 @@ class AnalyzerJob < ApplicationJob
       if notice.data_sets.proximity.blank?
         result = Notice.nearest_charges(*coords)
         if result.present?
-          proximity_data_set = notice.data_sets.create!(data: result, kind: :proximity, keyable: photo)
+          proximity_data_set =
+            notice.data_sets.create!(
+              data: result,
+              kind: :proximity,
+              keyable: photo
+            )
           if notice.user.from_proximity?
             notice.charge ||= proximity_data_set.charges.first
           end
