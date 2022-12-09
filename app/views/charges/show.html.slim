@@ -36,7 +36,7 @@ ul.nav.nav-tabs
             ul.list-group
               li.list-group-item #{number_to_currency(charge.fine)} #{Charge.human_attribute_name(:fine)}
               li.list-group-item
-                | #{charge.points > 0 ? charge.points : 'keine'} #{Charge.human_attribute_name(:points)}
+                | #{charge.points.to_i > 0 ? charge.points : 'keine'} #{Charge.human_attribute_name(:points)}
                 - if charge.penalty?
                   = " und Fahrverbot"
                 - if charge.fap?
