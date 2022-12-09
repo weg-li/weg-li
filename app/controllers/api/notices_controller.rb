@@ -210,7 +210,8 @@ class Api::NoticesController < Api::ApplicationController
       :hazard_lights,
       :expired_tuv,
       :expired_eco,
-      photos: []
+      :over_2_8_tons,
+      photos: [],
     )
   end
 end

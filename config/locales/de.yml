@@ -126,6 +126,7 @@ de:
           hazard_lights: 'Das Fahrzeug hatte die Warnblinkanlage aktiviert'
           expired_tuv: 'Die TÜV-Plakette war abgelaufen'
           expired_eco: 'Die Umwelt-Plakette fehlte oder war ungültig'
+          over_2_8_tons: 'Fahrzeug über 2,8 t zulässige Gesamtmasse'
         colors:
           gold_yellow: 'Gelb/Gold'
           gray_silver: 'Grau/Silber'

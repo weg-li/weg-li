@@ -12,7 +12,9 @@ class Notice < ApplicationRecord
            1 => :vehicle_empty,
            2 => :hazard_lights,
            4 => :expired_tuv,
-           8 => :expired_eco
+           8 => :expired_eco,
+           16 => :over_2_8_tons
+
   def self.details
     bitfields[:flags].keys
   end
@@ -112,7 +114,7 @@ class Notice < ApplicationRecord
       users: User.active.count,
       photos: ActiveStorage::Attachment.where(record_type: Notice.to_s).count,
       notices: Notice.count,
-      shared: Notice.shared.count
+      shared: Notice.shared.count,
     }
   end
 
@@ -120,7 +122,7 @@ class Notice < ApplicationRecord
     notices = base_scope.reorder(nil)
     notices =
       notices.where(
-        date: (Time.new(year)..Time.new(year).end_of_year)
+        date: (Time.new(year)..Time.new(year).end_of_year),
       ) if year.present?
     {
       count: notices.count,
@@ -168,7 +170,7 @@ class Notice < ApplicationRecord
           .group(:registration)
           .order(registration_count: :desc)
           .limit(limit)
-          .to_a
+          .to_a,
     }
   end
 
@@ -226,7 +228,7 @@ class Notice < ApplicationRecord
       .where("active_storage_attachments.record_id != ?", id)
       .where(
         "active_storage_blobs.filename" =>
-          photos.map { |photo| photo.filename.to_s }
+          photos.map { |photo| photo.filename.to_s },
       )
   end
 
@@ -237,7 +239,7 @@ class Notice < ApplicationRecord
         .shared
         .where(
           "REPLACE(registration, ' ', '') IN(?)",
-          registrations.map { |registration| registration.gsub(/\s/, "") }
+          registrations.map { |registration| registration.gsub(/\s/, "") },
         )
         .order(created_at: :desc)
         .first
@@ -332,7 +334,7 @@ class Notice < ApplicationRecord
       longitude: result.longitude,
       zip: result.postal_code,
       city: result.city || result.state,
-      street: "#{result.street} #{result.house_number}".strip
+      street: "#{result.street} #{result.house_number}".strip,
     }
   end
 
@@ -396,7 +398,7 @@ class Notice < ApplicationRecord
       redirect_url =
         Rails.application.routes.url_helpers.rails_blob_url(
           photo,
-          Rails.configuration.action_mailer.default_url_options
+          Rails.configuration.action_mailer.default_url_options,
         )
       { filename: photo.filename, url: redirect_url }
     end

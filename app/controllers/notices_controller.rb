@@ -80,18 +80,18 @@ class NoticesController < ApplicationController
         ActiveStorage::Attachment.where(
           record_type: "Notice",
           record_id: current_user.notices.shared.pluck(:id),
-          name: "photos"
+          name: "photos",
         ),
-        weeks: @since
+        weeks: @since,
       )
     @photo_sums =
       Notice.sum_over(
         ActiveStorage::Attachment.where(
           record_type: "Notice",
           record_id: current_user.notices.shared.pluck(:id),
-          name: "photos"
+          name: "photos",
         ),
-        weeks: @since
+        weeks: @since,
       )
 
     @limit = (params[:limit] || 10).to_i
@@ -101,7 +101,7 @@ class NoticesController < ApplicationController
     if @year.present?
       grouped_statistics_scope =
         grouped_statistics_scope.where(
-          date: (Time.new(@year)..Time.new(@year).end_of_year)
+          date: (Time.new(@year)..Time.new(@year).end_of_year),
         )
     end
     @grouped_statistics = grouped_statistics_scope.count
@@ -110,7 +110,7 @@ class NoticesController < ApplicationController
       Notice.yearly_statistics(
         @year,
         @limit,
-        base_scope: current_user.notices.shared
+        base_scope: current_user.notices.shared,
       )
   end
 
@@ -169,7 +169,7 @@ class NoticesController < ApplicationController
     redirect_to(
       notices_path,
       notice:
-        "Eine E-Mail mit einem geheimen Link zum Übertragen ist zu Dir unterwegs."
+        "Eine E-Mail mit einem geheimen Link zum Übertragen ist zu Dir unterwegs.",
     )
   end
 
@@ -191,7 +191,7 @@ class NoticesController < ApplicationController
 
     redirect_to(
       notices_path,
-      notice: "Deine Anzeige wurde als 'gemeldet' markiert."
+      notice: "Deine Anzeige wurde als 'gemeldet' markiert.",
     )
   end
 
@@ -204,7 +204,7 @@ class NoticesController < ApplicationController
     NoticeMailer.charge(
       notice,
       to:,
-      send_via_pdf: params[:send_via_pdf]
+      send_via_pdf: params[:send_via_pdf],
     ).deliver_later
 
     notice.mark_shared!
@@ -212,7 +212,7 @@ class NoticesController < ApplicationController
     redirect_to(
       notices_path,
       notice:
-        "Deine Anzeige wird per E-Mail an #{Array(to).join(", ")} versendet und als 'gemeldet' markiert."
+        "Deine Anzeige wird per E-Mail an #{Array(to).join(", ")} versendet und als 'gemeldet' markiert.",
     )
   end
 
@@ -351,7 +351,7 @@ class NoticesController < ApplicationController
       format.html do
         redirect_back(
           fallback_location: notice_path(notice),
-          notice: "Foto gelöscht"
+          notice: "Foto gelöscht",
         )
       end
     end
@@ -395,7 +395,8 @@ class NoticesController < ApplicationController
       :hazard_lights,
       :expired_tuv,
       :expired_eco,
-      photos: []
+      :over_2_8_tons,
+      photos: [],
     )
   end
 
@@ -406,7 +407,7 @@ class NoticesController < ApplicationController
       :severity,
       :duration,
       :note,
-      photos: []
+      photos: [],
     )
   end
 end
