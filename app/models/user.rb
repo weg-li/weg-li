@@ -232,17 +232,5 @@ class User < ApplicationRecord
       user = find_by_id(id)
       user && user.token == stored_token ? user : nil
     end
-
-    # TODO: remove this and also the db entries
-    def add_project_data(data)
-      data.stringify_keys!
-      data.each do |id, hash|
-        user = User.find_by(id:)
-        user&.update_columns(
-          project_access_token: hash[:access_token],
-          project_user_id: hash[:user_id],
-        )
-      end
-    end
   end
 end

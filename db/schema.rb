@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_12_130914) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_12_132934) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -242,8 +242,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_12_130914) do
     t.string "appendix"
     t.datetime "last_login", precision: nil
     t.date "date_of_birth"
-    t.string "project_access_token"
-    t.string "project_user_id"
     t.integer "autosuggest", default: 0, null: false
     t.index ["access"], name: "index_users_on_access"
     t.index ["api_token"], name: "index_users_on_api_token", unique: true
