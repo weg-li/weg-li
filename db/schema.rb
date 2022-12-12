@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_10_220419) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_12_130914) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -188,6 +188,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_220419) do
     t.string "location"
     t.datetime "sent_at", precision: nil
     t.geography "lonlat", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.index ["bulk_upload_id"], name: "index_notices_on_bulk_upload_id"
     t.index ["created_at"], name: "index_notices_on_created_at"
     t.index ["date"], name: "index_notices_on_date"
     t.index ["district_id"], name: "index_notices_on_district_id"
