@@ -59,6 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_12_130914) do
     t.integer "user_id"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
+    t.index ["user_id"], name: "index_authorizations_on_user_id"
   end
 
   create_table "bulk_uploads", force: :cascade do |t|
