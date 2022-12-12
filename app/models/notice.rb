@@ -268,6 +268,7 @@ class Notice < ApplicationRecord
     FROM notices
     WHERE
       status = 3
+      AND created_at > (CURRENT_DATE - INTERVAL '6 months')
       AND ST_DWithin(lonlat::geography, ST_MakePoint($1, $2), $3)
     GROUP BY charge
     ORDER BY diff

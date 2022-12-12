@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Notice do
   let(:notice) { Fabricate.build(:notice) }
 
-  context 'validation' do
-    it 'is valid' do
+  context "validation" do
+    it "is valid" do
       expect(notice).to be_valid
-      expect(notice.photos.first.filename.to_s).to eql('mercedes.jpg')
+      expect(notice.photos.first.filename.to_s).to eql("mercedes.jpg")
     end
 
-    it 'validates the date' do
+    it "validates the date" do
       expect(notice).to be_valid
       notice.date = 2.minutes.from_now
       expect(notice).to_not be_valid
@@ -22,9 +22,9 @@ describe Notice do
     end
   end
 
-  context 'wegli_email' do
-    it 'creates and reads the proper notice' do
-      notice =  Fabricate.create(:notice)
+  context "wegli_email" do
+    it "creates and reads the proper notice" do
+      notice = Fabricate.create(:notice)
 
       email_address = notice.wegli_email
       notice = Notice.from_email_address(email_address)
@@ -32,20 +32,16 @@ describe Notice do
     end
   end
 
-  context 'duplication' do
-    it 'duplicates a notice' do
+  context "duplication" do
+    it "duplicates a notice" do
       notice = Fabricate(:notice)
 
-      expect do
-        notice.duplicate!
-      end.to change {
-        Notice.count
-      }.by(1)
+      expect do notice.duplicate! end.to change { Notice.count }.by(1)
     end
   end
 
-  context 'incomplete' do
-    it 'is incomplete' do
+  context "incomplete" do
+    it "is incomplete" do
       expect(notice).to be_complete
       notice.charge = nil
       expect(notice).to be_invalid
@@ -54,17 +50,18 @@ describe Notice do
     end
   end
 
-  context 'postgis' do
-    it 'finds closest match' do
+  context "postgis" do
+    it "finds closest match" do
       Fabricate.times(5, :notice, status: :shared)
+      Fabricate(:notice, status: :shared, created_at: 7.month.ago)
 
       nearest = Notice.nearest_charges(notice.latitude, notice.longitude)
       expect(nearest.first.keys).to eql(%w[charge count distance diff])
     end
   end
 
-  context 'defaults' do
-    it 'is valid' do
+  context "defaults" do
+    it "is valid" do
       notice = Fabricate(:notice)
 
       expect(notice).to be_open
@@ -72,14 +69,20 @@ describe Notice do
     end
   end
 
-  context 'apply_favorites' do
-    it 'applies favorites' do
-      existing_notice = Fabricate.create(:notice, status: :shared, registration: 'HH PS 123', user: notice.user)
+  context "apply_favorites" do
+    it "applies favorites" do
+      existing_notice =
+        Fabricate.create(
+          :notice,
+          status: :shared,
+          registration: "HH PS 123",
+          user: notice.user,
+        )
 
       empty_notice = Notice.new(user: notice.user)
-      empty_notice.apply_favorites(['HH PS 123'])
+      empty_notice.apply_favorites(["HH PS 123"])
 
-      expect(empty_notice.registration).to eql('HH PS 123')
+      expect(empty_notice.registration).to eql("HH PS 123")
       expect(empty_notice.brand).to eql(existing_notice.brand)
       expect(empty_notice.color).to eql(existing_notice.color)
       expect(empty_notice.location).to eql(existing_notice.location)
@@ -91,8 +94,8 @@ describe Notice do
     end
   end
 
-  context 'scopes' do
-    it 'finds_for_reminder' do
+  context "scopes" do
+    it "finds_for_reminder" do
       notice = Fabricate(:notice, date: 15.days.ago)
 
       expect(Notice.for_reminder.to_a).to eql([notice])
@@ -101,26 +104,19 @@ describe Notice do
     end
   end
 
-  context 'statistics' do
-    it 'calculates statistics' do
+  context "statistics" do
+    it "calculates statistics" do
       Fabricate(:notice)
 
       statistics = Notice.statistics
       expect(
-        {
-          notices: 1,
-          users: 1,
-          districts: 1,
-          photos: 1,
-          shared: 0,
-          active: 1,
-        },
+        { notices: 1, users: 1, districts: 1, photos: 1, shared: 0, active: 1 },
       ).to eql(statistics)
     end
   end
 
-  context 'yearly_statistics' do
-    it 'calculates yearly_statistics' do
+  context "yearly_statistics" do
+    it "calculates yearly_statistics" do
       Fabricate(:notice)
 
       limit = 5
