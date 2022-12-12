@@ -233,6 +233,7 @@ class User < ApplicationRecord
       user && user.token == stored_token ? user : nil
     end
 
+    # TODO: remove this and also the db entries
     def add_project_data(data)
       data.stringify_keys!
       data.each do |id, hash|
