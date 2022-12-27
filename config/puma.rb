@@ -42,3 +42,19 @@ preload_app!
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
 plugin :appsignal
+
+sidekiq = nil
+on_worker_boot do
+  sidekiq = Sidekiq.configure_embed do |config|
+    config.logger.level = ENV.fetch('RAILS_LOG_LEVEL', 'warn').to_sym
+    config.queues = %w[critical default low action_mailbox_incineration action_mailbox_routing]
+    config.concurrency = 2
+  end
+  Sidekiq.schedule = YAML.load_file(Rails.root.join('config/schedule.yml'))
+  Sidekiq::Scheduler.reload_schedule!
+  sidekiq.run
+end
+
+on_worker_shutdown do
+  sidekiq&.stop
+end

@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/sidekiq-scheduler/sidekiq-scheduler.git
+  revision: f664996648f4b5b12ab4ba1747d9d50875faea84
+  branch: master
+  specs:
+    sidekiq-scheduler (5.0.0.beta1)
+      rufus-scheduler (~> 3.2)
+      sidekiq (>= 4, < 8)
+      tilt (>= 1.4.0)
+
 PATH
   remote: client
   specs:
@@ -367,7 +377,7 @@ GEM
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.6.1)
-    rack (2.2.4)
+    rack (2.2.5)
     rack-cache (1.13.0)
       rack (>= 0.4)
     rack-protection (3.0.4)
@@ -409,6 +419,8 @@ GEM
       ffi (~> 1.0)
     rbs (2.8.1)
     redis (4.8.0)
+    redis-client (0.11.2)
+      connection_pool
     regexp_parser (2.6.1)
     representable (3.2.0)
       declarative (< 0.1.0)
@@ -477,15 +489,11 @@ GEM
       tilt
     selectize-rails (0.12.6)
     semantic_range (3.0.0)
-    sidekiq (6.5.8)
-      connection_pool (>= 2.2.5, < 3)
-      rack (~> 2.0)
-      redis (>= 4.5.0, < 5)
-    sidekiq-scheduler (4.0.3)
-      redis (>= 4.2.0)
-      rufus-scheduler (~> 3.2)
-      sidekiq (>= 4, < 7)
-      tilt (>= 1.4.0)
+    sidekiq (7.0.2)
+      concurrent-ruby (< 2)
+      connection_pool (>= 2.3.0)
+      rack (>= 2.2.4)
+      redis-client (>= 0.11.0)
     signet (0.17.0)
       addressable (~> 2.8)
       faraday (>= 0.17.5, < 3.a)
@@ -623,8 +631,8 @@ DEPENDENCIES
   rubocop
   rubyzip
   sass-rails
-  sidekiq
-  sidekiq-scheduler
+  sidekiq (~> 7.0.2)
+  sidekiq-scheduler!
   slim-rails
   slim_lint
   sprockets (~> 3.7.2)

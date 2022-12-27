@@ -5,10 +5,6 @@ Rails.application.configure do
 
   # Prepare the ingress controller used to receive mail
   config.action_mailbox.ingress = :sendgrid
-  config.action_mailbox.queues = {
-    incineration: 'default',
-    routing: 'default',
-  }
 
   # Code is not reloaded between requests.
   config.cache_classes = true
