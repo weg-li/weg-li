@@ -56,7 +56,7 @@
             .progress-bar.progress-bar-success(style="width: #{[100, current / (goal.fdiv(100))].min}%")
 
 .row
-  - [2021, 2020, 2019].each do |year|
+  - @year_leaders.keys.each do |year|
     .col-lg-6
       h3 🥇 #{year}-Winner:
       ul.list-group

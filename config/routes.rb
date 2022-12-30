@@ -151,10 +151,11 @@ Rails.application.routes.draw do
   get "/violation", to: "home#violation", as: :violation
   get "/privacy", to: "home#privacy", as: :privacy
   get "/donate", to: "home#donate", as: :donate
-  get "/year2019", to: "home#year2019", as: :year2019
-  get "/year2020", to: "home#year2020", as: :year2020
-  get "/year2021", to: "home#year2021", as: :year2021
-  get "/year2022", to: "home#year2022", as: :year2022
+  get "/year", to: "home#year", as: :year
+  get "/year2022" => redirect("/year?year=2022")
+  get "/year2021" => redirect("/year?year=2021")
+  get "/year2020" => redirect("/year?year=2020")
+  get "/year2019" => redirect("/year?year=2019")
 
   if Rails.env.development?
     get "/cdn-cgi/image/width=:width,height=:height,fit=:fit,quality=:quality/storage/:key.:extension",

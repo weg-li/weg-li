@@ -1,0 +1,16 @@
+- set_title "Falschparker-Übersicht #{@year}"
+
+.page-header
+  h2.text-primary weg.li das Jahr #{@year}
+
+= render("year_head", year: @year, users_count: yearly_statistics[:count], users_active: yearly_statistics[:active])
+
+hr.spacer
+
+ul.nav.nav-tabs.nav-panel
+  - @years.each do |year|
+    li(class="#{'active' if year == @year}") = link_to year, url_for(year: year)
+
+= cache("year_#{@year}_#{@limit}", expires_in: 12.hours) do
+    = render("year#{@year}", year: @year)
+    = render('yearly_stats', statistics: yearly_statistics)

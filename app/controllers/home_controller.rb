@@ -33,101 +33,24 @@ class HomeController < ApplicationController
     @interval = params[:interval] || "1 week"
   end
 
-  def year2019
+  def year
     @limit = (params[:limit] || 5).to_i
-    @yearl = 2019
-  end
-
-  def year2020
-    @limit = (params[:limit] || 5).to_i
-    @yearl = 2020
-  end
-
-  def year2021
-    @limit = (params[:limit] || 5).to_i
-    @yearl = 2021
-  end
-
-  def year2022
-    @limit = (params[:limit] || 5).to_i
-    @yearl = 2022
+    @years = years
+    @year = @years.include?(params[:year].to_i) ? params[:year].to_i : @years.max
   end
 
   def leaderboard
     @limit = (params[:limit] || 5).to_i
 
-    @weekly_leaders =
-      Notice
-        .shared
-        .since(Time.zone.now.beginning_of_week)
-        .group(:user_id)
-        .order(count_all: :desc)
-        .limit(@limit)
-        .count
-    @monthly_leaders =
-      Notice
-        .shared
-        .since(Time.zone.now.beginning_of_month)
-        .group(:user_id)
-        .order(count_all: :desc)
-        .limit(@limit)
-        .count
-    @yearly_leaders =
-      Notice
-        .shared
-        .since(Time.zone.now.beginning_of_year)
-        .group(:user_id)
-        .order(count_all: :desc)
-        .limit(@limit)
-        .count
-    @total_leaders =
-      Notice.shared.group(:user_id).order(count_all: :desc).limit(@limit).count
+    @weekly_leaders = leaders(Time.zone.now.beginning_of_week, @limit)
+    @monthly_leaders = leaders(Time.zone.now.beginning_of_month, @limit)
+    @yearly_leaders = leaders(Time.zone.now.beginning_of_year, @limit)
+    @total_leaders = leaders(10.years.ago, @limit)
 
-    @year_leaders = {
-      2019 =>
-        Notice
-          .where(
-            date: ("01.08.2019".to_date)..("01.08.2019".to_date.end_of_year)
-          )
-          .shared
-          .group(:user_id)
-          .order(count_all: :desc)
-          .limit(@limit)
-          .count,
-      2020 =>
-        Notice
-          .where(
-            date:
-              ("01.01.2020".to_date.beginning_of_year)..(
-                "31.12.2020".to_date.end_of_year
-              )
-          )
-          .shared
-          .group(:user_id)
-          .order(count_all: :desc)
-          .limit(@limit)
-          .count,
-      2021 =>
-        Notice
-          .where(
-            date:
-              ("01.01.2021".to_date.beginning_of_year)..(
-                "31.12.2021".to_date.end_of_year
-              )
-          )
-          .shared
-          .group(:user_id)
-          .order(count_all: :desc)
-          .limit(@limit)
-          .count
-    }
+    @year_leaders = years[1..-1].to_h { |year| [year, leaders_count(year, @limit)] }
 
-    @users =
-      User.where(
-        id:
-          @weekly_leaders.keys + @monthly_leaders.keys + @yearly_leaders.keys +
-            @total_leaders.keys + @year_leaders.values.flat_map(&:keys)
-      )
+    user_ids = @weekly_leaders.keys + @monthly_leaders.keys + @yearly_leaders.keys + @total_leaders.keys + @year_leaders.values.flat_map(&:keys)
+    @users = User.find(user_ids)
   end
 
   def generator
@@ -146,6 +69,29 @@ class HomeController < ApplicationController
   end
 
   private
+
+  def years
+    (2019..Time.zone.now.year).to_a.reverse
+  end
+
+  def leaders(since, limit)
+    Notice
+        .shared
+        .since(since)
+        .group(:user_id)
+        .order(count_all: :desc)
+        .limit(limit)
+        .count
+  end
+
+  def leaders_count(year, limit)
+    Notice.where(date: ("01.01.#{year}".to_date.beginning_of_year)..("31.12.#{year}".to_date.end_of_year))
+          .shared
+          .group(:user_id)
+          .order(count_all: :desc)
+          .limit(limit)
+          .count
+  end
 
   def count_sum
     @count_sum ||=

@@ -80,4 +80,13 @@ describe 'home', type: :request do
       assert_select('h2', 'Spenden für weg.li')
     end
   end
+
+  context 'GET :year' do
+    it 'shows the page' do
+      get year_path
+
+      expect(response).to be_successful
+      assert_select('h2', 'weg.li das Jahr 2022')
+    end
+  end
 end
