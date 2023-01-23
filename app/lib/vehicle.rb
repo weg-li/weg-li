@@ -52,6 +52,9 @@ class Vehicle
     return "" if text.blank?
 
     text
+      .gsub("ö", "Ö")
+      .gsub("ä", "Ä")
+      .gsub("ü", "Ü")
       .gsub(/^([^A-Z,ÖÄÜ])+/, "")
       .gsub(/([^E,0-9])+$/, "")
       .gsub(/([^A-Z,ÖÄÜ0-9])+/, "-")

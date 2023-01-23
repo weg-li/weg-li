@@ -28,6 +28,7 @@ describe Vehicle do
     expect(Vehicle.normalize('1.HH GK 6400')).to eql('HH-GK-6400')
     expect(Vehicle.normalize('HHoGK 6400')).to eql('HH-GK-6400')
     expect(Vehicle.normalize('BiGK 6400')).to eql('B-GK-6400')
+    expect(Vehicle.normalize('Gö X 2656')).to eql('GÖ-X-2656')
   end
 
   it 'it checks possible plate matches' do
@@ -42,6 +43,8 @@ describe Vehicle do
   end
 
   it 'realworld plate matches' do
+    expect(Vehicle.plate?('GÖ TY 814')).to eql(['GÖ TY 814', 1.0])
+    expect(Vehicle.plate?('Gö TY 814')).to eql(['GÖ TY 814', 1.0])
     expect(Vehicle.plate?('RD WN.200')).to eql(['RD WN 200', 1.0])
     expect(Vehicle.plate?('»HH GB 382')).to eql(['HH GB 382', 1.0])
     expect(Vehicle.plate?('HHTX 1267')).to eql(['HHTX 1267', 0.8])
