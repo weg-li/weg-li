@@ -27,12 +27,3 @@ services:
   domains:
   - weg.li
   - www.weg.li
-- type: worker
-  name: weg-li-worker
-  plan: standard
-  env: ruby
-  buildCommand: "./entrypoints/render-build-worker.sh"
-  startCommand: bundle exec sidekiq
-  numInstances: 1
-  envVars:
-  - fromGroup: weg-li-production

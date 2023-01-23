@@ -55,6 +55,9 @@ Rails.application.configure do
   # Tell Active Support which deprecation messages to disallow.
   config.active_support.disallowed_deprecation_warnings = []
 
+  # use sidekiq for jobs
+  config.active_job.queue_adapter = :sidekiq
+
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
 
