@@ -369,6 +369,14 @@ class Charge < ApplicationRecord
     ["42", "Parken auf einer Grünfläche", "901400", "", "", ""],
     # ['43', 'Parken auf einer Baumscheibe', '-4', '', '', 'unbekannt'],
     ["44", "Sonstiges Parkvergehen (siehe Hinweise)", "0", "", "", ""],
+    [
+      "45",
+      "Parken auf einem Gehweg entgegen der (durch Zeichen 315) vorgeschriebenen Aufstellungsart",
+      "142222",
+      "142223",
+      "",
+      "neu",
+    ],
   ]
 
   CHARGES = UPDATED_CHARGES.to_h { |a| [a[2].to_i, a[1]] }
