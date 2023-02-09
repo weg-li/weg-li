@@ -140,6 +140,13 @@ class SessionsController < ApplicationController
                 notice: t("sessions.welcome", nickname: @user.nickname)
   end
 
+  def disconnect
+    authorization = current_user.authorizations.find_by!(provider: params[:provider])
+    authorization.destroy!
+
+    redirect_back_or_to(edit_user_path(current_user), notice: "Verknüpfung wurde entfernt")
+  end
+
   private
 
   def user_params

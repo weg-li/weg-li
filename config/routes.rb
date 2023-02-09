@@ -118,6 +118,7 @@ Rails.application.routes.draw do
       get "/offline_login/:nickname", to: "sessions#offline_login"
     end
     get "/:provider/callback", to: "sessions#create", as: :provider_callback
+    delete "/:provider", to: "sessions#disconnect"
     get "/failure", to: "sessions#failure"
     get "/destroy_alias_session",
         to: "sessions#destroy_alias",

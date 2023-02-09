@@ -19,6 +19,24 @@ describe 'session', type: :request do
     end
   end
 
+  context "with authorization" do
+    before do
+      @user = Fabricate(:authorization).user
+      login(@user)
+    end
+
+    describe "DELETE :disconnect" do
+      it 'deletes an authorization' do
+        expect do
+          provider = @user.authorizations.first.provider
+          delete "/auth/#{provider}"
+  
+          expect(response).to be_a_redirect
+        end.to change { @user.authorizations.count }.by(-1)
+     end
+    end
+  end
+
   context 'without login' do
     context 'POST :email_signup' do
       it 'renders the page' do

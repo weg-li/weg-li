@@ -101,8 +101,8 @@ module ApplicationHelper
     email: "E-Mail"
   }
 
-  def login_links
-    PROVIDERS.each do |provider, name|
+  def login_links(providers = PROVIDERS)
+    providers.each do |provider, name|
       path = "/auth/#{provider}"
       yield(name, path, provider.to_s)
     end

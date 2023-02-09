@@ -121,15 +121,19 @@
     .panel.panel-default
       .panel-heading Verknüpfungen 🔐
       .panel-body
-        - existing_providers = current_user.authorizations.map(&:provider)
-        - login_links do |name, path, key|
-          p
-            - if existing_providers.include?(key)
-              = link_to "#", class: "btn btn-default btn-block disabled"
-                span>= name
-                span.glyphicon.glyphicon-ok
-            - else
-              = button_to(t('users.connect_via', provider: name), path, {class: "btn btn-default btn-block"})
+        - auths = current_user.authorizations
+        - auths.each do |auth|
+          p.btn-group
+            = link_to "#", class: "btn btn-default disabled"
+              span>= ApplicationHelper::PROVIDERS[auth.provider.to_sym]
+              span.glyphicon.glyphicon-ok
+            - if auths.size > 1
+              = link_to("/auth/#{auth.provider}", method: :delete, title: "Verknüpfung entfernen", data: {confirm: 'Die Verknüpfung für den Login wirklich löschen?'}, class: "btn btn-danger")
+                span.glyphicon.glyphicon-trash
+
+        - existing_providers = auths.map(&:provider)
+        - login_links(ApplicationHelper::PROVIDERS.select {|p| !existing_providers.include?(p.to_s)}) do |name, path, key|
+          p = button_to(t('users.connect_via', provider: name), path, {class: "btn btn-default btn-block"})
 
     = render('api_token')
 
