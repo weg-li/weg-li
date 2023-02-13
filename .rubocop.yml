@@ -18,9 +18,6 @@ AllCops:
     - "app/controllers/admin/**/*"
     - "app/dashboards/**/*"
 
-inherit_from:
-  - node_modules/@prettier/plugin-ruby/rubocop.yml
-
 Bundler/OrderedGems:
   Enabled: false
 
