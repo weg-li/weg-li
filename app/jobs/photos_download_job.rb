@@ -5,7 +5,7 @@ require "zip"
 class PhotosDownloadJob < ApplicationJob
   def perform(bulk_upload)
     Rails.logger.info(
-      "importing photos for #{bulk_upload.id} from #{bulk_upload.shared_album_url}"
+      "importing photos for #{bulk_upload.id} from #{bulk_upload.shared_album_url}",
     )
     album = URI.open(bulk_upload.shared_album_url)
     content = album.read
@@ -15,12 +15,12 @@ class PhotosDownloadJob < ApplicationJob
     if download_url.blank?
       error_message =
         "Es konnte kein Bilder-Archiv zum herunterladen gefunden werden!"
-      bulk_upload.update! status: :error, error_message: error_message
+      bulk_upload.update!(status: :error, error_message:)
       return
     end
 
     Rails.logger.info(
-      "downloading photos for #{bulk_upload.id} from #{download_url}"
+      "downloading photos for #{bulk_upload.id} from #{download_url}",
     )
     album = URI.open(download_url)
 
@@ -28,14 +28,14 @@ class PhotosDownloadJob < ApplicationJob
       Zip::File.open(album.path) do |zipfile|
         zipfile.each do |entry|
           Rails.logger.info(
-            "uploading photo #{entry.name} for #{bulk_upload.id}"
+            "uploading photo #{entry.name} for #{bulk_upload.id}",
           )
 
           io = StringIO.new(entry.get_input_stream.read)
           bulk_upload.photos.attach(
             io:,
             filename: entry.name,
-            content_type: "image/jpeg"
+            content_type: "image/jpeg",
           )
         end
       end
@@ -45,14 +45,14 @@ class PhotosDownloadJob < ApplicationJob
       bulk_upload.photos.attach(
         io: album,
         filename: album.path,
-        content_type: "image/jpeg"
+        content_type: "image/jpeg",
       )
     else
       Rails.logger.info(
-        "could not process #{album.metas["content-type"]} for #{bulk_upload.id}"
+        "could not process #{album.metas['content-type']} for #{bulk_upload.id}",
       )
       error_message =
-        "Der Datei-Typ #{album.metas["content-type"]} wird nicht unterstützt!"
+        "Der Datei-Typ #{album.metas['content-type']} wird nicht unterstützt!"
       bulk_upload.update! status: :error, error_message:
     end
 

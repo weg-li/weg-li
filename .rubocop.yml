@@ -28,12 +28,11 @@ Security/JSONLoad:
 Security/MarshalLoad:
   Enabled: false
 
-Layout/LineLength:
-  Enabled: false
-
 Naming/AccessorMethodName:
   Enabled: false
-
+  
+Layout/LineLength:
+  Enabled: false
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented_relative_to_receiver
 Layout/FirstHashElementIndentation:
@@ -59,21 +58,20 @@ Style/MutableConstant:
   Enabled: false
 Style/ClassAndModuleChildren:
   Enabled: false
-
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: comma
 Style/TrailingCommaInArrayLiteral:
   EnforcedStyleForMultiline: comma
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
-
 Style/FrozenStringLiteralComment:
   SafeAutoCorrect: true
 Style/SafeNavigation:
   SafeAutoCorrect: true
 Style/DoubleNegation:
   SafeAutoCorrect: true
-
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
 Style/MapToHash:
   Safe: true
 Style/HashEachMethods:

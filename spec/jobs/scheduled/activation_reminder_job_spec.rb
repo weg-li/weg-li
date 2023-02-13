@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Scheduled::ActivationReminderJob do
-  context 'perform' do
-    it 'should remind users' do
+  context "perform" do
+    it "should remind users" do
       Fabricate.create(:user, validation_date: nil)
 
       expect do
@@ -12,7 +12,7 @@ describe Scheduled::ActivationReminderJob do
       end.to change { ActionMailer::Base.deliveries.count }.by(1)
     end
 
-    it 'should delete users' do
+    it "should delete users" do
       Fabricate.create(:user, validation_date: nil, updated_at: 3.weeks.ago)
 
       expect do

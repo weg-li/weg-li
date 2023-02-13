@@ -2,6 +2,6 @@
 
 Fabricator(:authorization) do
   uid { SecureRandom.hex(16) }
-  provider 'twitter'
+  provider "twitter"
   user
 end

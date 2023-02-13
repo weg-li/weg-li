@@ -14,7 +14,7 @@ class Scheduled::AnalyticsJob < ApplicationJob
         .count
 
     notify(
-      "Replies last 24 hours #{replies.map { |city, count| "#{city}: #{count}" }.join(", ")}"
+      "Replies last 24 hours #{replies.map { |city, count| "#{city}: #{count}" }.join(', ')}",
     )
   end
 end

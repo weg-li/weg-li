@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rake::Task["db:migrate"].enhance do
   tables = ActiveRecord::Base.connection.tables
   all_foreign_keys =
@@ -23,6 +25,6 @@ Rake::Task["db:migrate"].enhance do
   unindexed_foreign_keys = (all_foreign_keys - indexed_columns)
 
   if unindexed_foreign_keys.any?
-    warn "WARNING: The following foreign key columns don't have an index, which can hurt performance: #{unindexed_foreign_keys.join(", ")}"
+    warn "WARNING: The following foreign key columns don't have an index, which can hurt performance: #{unindexed_foreign_keys.join(', ')}"
   end
 end

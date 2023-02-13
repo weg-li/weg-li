@@ -7,7 +7,7 @@ module TimeHelper
     content_tag(
       :span,
       l(date, format: :short, default:),
-      title: l(date, format: :long, default:)
+      title: l(date, format: :long, default:),
     )
   end
 end

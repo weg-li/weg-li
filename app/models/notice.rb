@@ -120,10 +120,12 @@ class Notice < ApplicationRecord
 
   def self.yearly_statistics(year, limit, base_scope: Notice.shared)
     notices = base_scope.reorder(nil)
-    notices =
-      notices.where(
-        date: (Time.new(year)..Time.new(year).end_of_year),
-      ) if year.present?
+    if year.present?
+      notices =
+        notices.where(
+          date: (Time.new(year)..Time.new(year).end_of_year),
+        )
+    end
     {
       count: notices.count,
       active: notices.distinct(:user_id).pluck(:user_id).count,
@@ -341,11 +343,13 @@ class Notice < ApplicationRecord
 
   def dates_from_photos
     date_times = data_sets.select(&:exif?).map(&:date_time).compact.uniq
-    date_times =
-      photos
-        .map { |photo| AnalyzerJob.time_from_filename(photo.filename.to_s) }
-        .compact
-        .uniq if date_times.blank?
+    if date_times.blank?
+      date_times =
+        photos
+          .map { |photo| AnalyzerJob.time_from_filename(photo.filename.to_s) }
+          .compact
+          .uniq
+    end
     date_times.sort
   end
 
@@ -355,7 +359,7 @@ class Notice < ApplicationRecord
   end
 
   def file_name(extension = :pdf)
-    "#{date.strftime("%Y-%m-%d %H-%M")} #{registration.gsub(" ", "-")}.#{extension}"
+    "#{date.strftime('%Y-%m-%d %H-%M')} #{registration.gsub(' ', '-')}.#{extension}"
   end
 
   def full_address
@@ -372,7 +376,7 @@ class Notice < ApplicationRecord
 
   def geocode_address
     # https://github.com/OpenCageData/opencagedata-misc-docs/blob/master/query-formatting.md
-    "#{street.split(",").first}, #{zip}, #{city}, Deutschland"
+    "#{street.split(',').first}, #{zip}, #{city}, Deutschland"
   end
 
   def map_data(kind = :public)

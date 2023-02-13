@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 # run as 'bundle exec ruby api_usage_example'
 
 require "http"
@@ -8,7 +10,7 @@ require "byebug"
 API_KEY =
   ENV.fetch(
     "WEG_LI_API_KEY",
-    "52e68c996991292b101b7c85b6cbf11ccf87095ae8e2cf1b4e3841892b9f03a1"
+    "52e68c996991292b101b7c85b6cbf11ccf87095ae8e2cf1b4e3841892b9f03a1",
   )
 HOST = ENV.fetch("WEG_LI_HOST", "http://localhost:3000")
 
@@ -22,7 +24,7 @@ headers = { "X-API-KEY" => API_KEY }
 response =
   client.get(
     "#{HOST}/api/notices/36b3d5da606a8787fc86cc5d0421c39e",
-    headers: headers
+    headers:,
   )
 if response.status.success?
   notice = JSON.parse(response.body)
@@ -41,11 +43,11 @@ upload = {
   filename: "truck.jpg",
   byte_size: file.size,
   checksum: Digest::MD5.base64digest(file),
-  content_type: "image/jpeg"
+  content_type: "image/jpeg",
 }
 
 response =
-  client.post("#{HOST}/api/uploads", headers: headers, json: { upload: upload })
+  client.post("#{HOST}/api/uploads", headers:, json: { upload: })
 
 if response.status.success?
   upload = JSON.parse(response.body)
@@ -63,11 +65,11 @@ end
 
 notice = {
   charge: "Parken auf einem Radweg (Zeichen 237)",
-  photos: [signed_id]
+  photos: [signed_id],
 }
 
 response =
-  client.post("#{HOST}/api/notices", headers: headers, json: { notice: notice })
+  client.post("#{HOST}/api/notices", headers:, json: { notice: })
 if response.status.success?
   notice = JSON.parse(response.body)
   puts notice.keys

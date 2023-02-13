@@ -3,8 +3,7 @@
 class HomeController < ApplicationController
   helper_method :goals, :statistics, :yearly_statistics, :count_sum
 
-  def index
-  end
+  def index; end
 
   def map
     @limit = (params[:limit] || 5).to_i
@@ -14,7 +13,7 @@ class HomeController < ApplicationController
     @district = params[:district] || current_user&.city
     @default_district =
       District.active.find_by(name: @district) ||
-        District.active.find_by(name: "Hamburg") || District.active.first
+      District.active.find_by(name: "Hamburg") || District.active.first
     @district = @default_district.name
 
     @notices =
@@ -76,21 +75,21 @@ class HomeController < ApplicationController
 
   def leaders(since, limit)
     Notice
-        .shared
-        .since(since)
-        .group(:user_id)
-        .order(count_all: :desc)
-        .limit(limit)
-        .count
+      .shared
+      .since(since)
+      .group(:user_id)
+      .order(count_all: :desc)
+      .limit(limit)
+      .count
   end
 
   def leaders_count(year, limit)
     Notice.where(date: ("01.01.#{year}".to_date.beginning_of_year)..("31.12.#{year}".to_date.end_of_year))
-          .shared
-          .group(:user_id)
-          .order(count_all: :desc)
-          .limit(limit)
-          .count
+      .shared
+      .group(:user_id)
+      .order(count_all: :desc)
+      .limit(limit)
+      .count
   end
 
   def count_sum
@@ -100,7 +99,7 @@ class HomeController < ApplicationController
         {
           counts:
             User.count_over(User.active, weeks: @since, interval: @interval),
-          sums: User.sum_over(User.active, weeks: @since, interval: @interval)
+          sums: User.sum_over(User.active, weeks: @since, interval: @interval),
         }
       when "active"
         {
@@ -108,14 +107,14 @@ class HomeController < ApplicationController
             User.count_over(
               User.active.joins(:notices),
               weeks: @since,
-              interval: @interval
+              interval: @interval,
             ),
           sums:
             User.sum_over(
               User.active.joins(:notices),
               weeks: @since,
-              interval: @interval
-            )
+              interval: @interval,
+            ),
         }
       when "notice"
         {
@@ -123,10 +122,10 @@ class HomeController < ApplicationController
             Notice.count_over(
               Notice.shared,
               weeks: @since,
-              interval: @interval
+              interval: @interval,
             ),
           sums:
-            Notice.sum_over(Notice.shared, weeks: @since, interval: @interval)
+            Notice.sum_over(Notice.shared, weeks: @since, interval: @interval),
         }
       when "photo"
         {
@@ -134,20 +133,20 @@ class HomeController < ApplicationController
             Notice.count_over(
               ActiveStorage::Attachment.where(
                 record_type: "Notice",
-                name: "photos"
+                name: "photos",
               ),
               weeks: @since,
-              interval: @interval
+              interval: @interval,
             ),
           sums:
             Notice.sum_over(
               ActiveStorage::Attachment.where(
                 record_type: "Notice",
-                name: "photos"
+                name: "photos",
               ),
               weeks: @since,
-              interval: @interval
-            )
+              interval: @interval,
+            ),
         }
       else
         { counts: {}, sums: {} }
@@ -162,7 +161,7 @@ class HomeController < ApplicationController
     @goals ||= {
       week: Notice.shared.since(Time.zone.now.beginning_of_week).count,
       month: Notice.shared.since(Time.zone.now.beginning_of_month).count,
-      year: Notice.shared.since(Time.zone.now.beginning_of_year).count
+      year: Notice.shared.since(Time.zone.now.beginning_of_year).count,
     }
   end
 

@@ -6,7 +6,7 @@ require "zip"
 class Scheduled::ExportJob < ApplicationJob
   def perform(export_type: :notices, interval: Date.today.cweek)
     Rails.logger.info(
-      "create export for type #{export_type} in week #{interval}"
+      "create export for type #{export_type} in week #{interval}",
     )
 
     export = Export.new(export_type:, interval:)
@@ -24,7 +24,7 @@ class Scheduled::ExportJob < ApplicationJob
     export.archive.attach(
       io: archive,
       filename: "#{name}.zip",
-      content_type: "application/zip"
+      content_type: "application/zip",
     )
   end
 end

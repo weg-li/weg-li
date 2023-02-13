@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Geo do
-  it 'it checks if a point is included' do
+  it "it checks if a point is included" do
     geo = Geo.new([[50.0, 50.0], [50.0, 55.0], [55.0, 55.0]])
 
     expect(geo.contains?([50.0, 49.9])).to be_falsey
@@ -21,13 +21,13 @@ describe Geo do
     expect(geo.contains?([50.0, 55.1])).to be_falsey
   end
 
-  it 'loads all PIs with a region' do
+  it "loads all PIs with a region" do
     expect(Geo.regions.size).to be(25)
     expect(Geo.regions.first.first).to be(:pi11)
-    expect(Geo.suggest_email([48.07, 11.67])).to eql('pp-mue.muenchen.pi28@polizei.bayern.de')
+    expect(Geo.suggest_email([48.07, 11.67])).to eql("pp-mue.muenchen.pi28@polizei.bayern.de")
   end
 
-  it 'calculates the distance between 2 points' do
+  it "calculates the distance between 2 points" do
     district = Fabricate.build(:district, latitude: 53, longitude: 9)
     notice = Fabricate.build(:notice)
 

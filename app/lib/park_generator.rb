@@ -15,7 +15,7 @@ class ParkGenerator
             document.image(
               file,
               fit: [100, 100],
-              at: [document.bounds.width - 150, document.cursor]
+              at: [document.bounds.width - 150, document.cursor],
             )
           end
 
@@ -32,7 +32,7 @@ class ParkGenerator
           width: document.bounds.width / 2,
           height: 20,
           align: :center,
-          valign: :center
+          valign: :center,
         )
 
         document.move_down(20)
@@ -48,7 +48,7 @@ class ParkGenerator
           width: document.bounds.width / 2,
           height: 20,
           align: :center,
-          valign: :center
+          valign: :center,
         )
 
         document.move_down(20)
@@ -64,7 +64,7 @@ class ParkGenerator
           width: document.bounds.width / 2,
           height: 200,
           valign: :bottom,
-          inline_format: true
+          inline_format: true,
         )
         Rails
           .root
@@ -73,7 +73,7 @@ class ParkGenerator
             document.image(
               file,
               at: [document.bounds.width / 2, document.cursor],
-              fit: [document.bounds.width / 2, document.bounds.width / 2]
+              fit: [document.bounds.width / 2, document.bounds.width / 2],
             )
           end
 
@@ -94,12 +94,12 @@ class ParkGenerator
         Vielen Dank für Ihr Verständnis,
         #{name}",
           size: 12,
-          inline_format: true
+          inline_format: true,
         )
 
         violation_url =
           Rails.application.routes.url_helpers.violation_url(
-            Rails.configuration.action_mailer.default_url_options
+            Rails.configuration.action_mailer.default_url_options,
           )
         qr_code = RQRCode::QRCode.new(violation_url)
         document.render_qr_code(qr_code, pos: [document.bounds.width - 50, 50])

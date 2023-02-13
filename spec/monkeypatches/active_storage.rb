@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe ActiveStorage::Blob do
-  it 'sets a key with a file extension' do
-    blob = ActiveStorage::Blob.new(filename: 'uschi.jpg')
+  it "sets a key with a file extension" do
+    blob = ActiveStorage::Blob.new(filename: "uschi.jpg")
 
     expect do
       blob.valid?

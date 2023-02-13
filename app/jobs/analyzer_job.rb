@@ -45,7 +45,7 @@ class AnalyzerJob < ApplicationJob
           notice.data_sets.create!(
             data: result,
             kind: :google_vision,
-            keyable: photo
+            keyable: photo,
           )
         # skip if we got lucky
         registrations = data_set.registrations
@@ -92,7 +92,7 @@ class AnalyzerJob < ApplicationJob
             notice.data_sets.create!(
               data: result,
               kind: :geocoder,
-              keyable: photo
+              keyable: photo,
             )
           if notice.user.from_exif?
             address = geocoder_data_set.address
@@ -112,7 +112,7 @@ class AnalyzerJob < ApplicationJob
             notice.data_sets.create!(
               data: result,
               kind: :proximity,
-              keyable: photo
+              keyable: photo,
             )
           if notice.user.from_proximity?
             notice.charge ||= proximity_data_set.charges.first

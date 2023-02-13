@@ -15,12 +15,12 @@ class SessionsController < ApplicationController
                   notice:
                     t(
                       "sessions.welcome_back",
-                      nickname: authorization.user.name
+                      nickname: authorization.user.name,
                     )
     elsif signed_in?
       current_user.authorizations.find_or_create_by!(
         provider: auth["provider"],
-        uid: auth["uid"]
+        uid: auth["uid"],
       )
 
       redirect_to edit_user_path,
@@ -57,7 +57,7 @@ class SessionsController < ApplicationController
     Rails.logger.warn("oauth failed: #{params[:message]}")
     redirect_to root_path,
                 alert:
-                  "#{t("sessions.ups_something_went_wrong")} (#{params[:message]})"
+                  "#{t('sessions.ups_something_went_wrong')} (#{params[:message]})"
   end
 
   def offline_login
@@ -68,8 +68,7 @@ class SessionsController < ApplicationController
     redirect_to edit_user_path, notice: "Offline Login for #{user.nickname}!"
   end
 
-  def email
-  end
+  def email; end
 
   def email_signup
     email = normalize_email(params[:email])
@@ -157,7 +156,7 @@ class SessionsController < ApplicationController
       :name,
       :street,
       :zip,
-      :city
+      :city,
     )
   end
 
@@ -177,7 +176,7 @@ class SessionsController < ApplicationController
       flash.now[:alert] = t(
         "sessions.existing_user",
         email:,
-        providers: providers.to_sentence
+        providers: providers.to_sentence,
       )
     end
   end

@@ -22,7 +22,7 @@ module Slack
         username: "weg-li-#{Rails.env}",
         unfurl_links: false,
         unfurl_media: false,
-        attachments:
+        attachments:,
       }
       send(payload)
     end
@@ -30,7 +30,7 @@ module Slack
     def send(payload)
       if url.blank?
         Rails.logger.debug(
-          "slack skipping, no SLACK_WEBHOOK_URL configured: #{payload}"
+          "slack skipping, no SLACK_WEBHOOK_URL configured: #{payload}",
         ) and return
       end
 

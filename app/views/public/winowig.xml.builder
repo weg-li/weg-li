@@ -41,10 +41,10 @@ xml.Fall do
     xml.Fahrzeug do
       xml.Nationalitaet "D"
       xml.Farbe I18n.t(
-                  @notice.color.presence,
-                  scope: "activerecord.attributes.notice.colors",
-                  default: "-"
-                )
+        @notice.color.presence,
+        scope: "activerecord.attributes.notice.colors",
+        default: "-",
+      )
       xml.Fabrikat @notice.brand
       xml.Kennzeichen @notice.registration
       xml.Kennzeichenart "00"

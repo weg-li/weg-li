@@ -78,13 +78,13 @@ module ApplicationHelper
 
       if suggested.nil?
         Rails.logger.warn(
-          "found no suggested email for #{district.zip} point #{point}"
+          "found no suggested email for #{district.zip} point #{point}",
         )
       elsif district.all_emails.include?(suggested)
         selected = suggested
       else
         Rails.logger.warn(
-          "found suggested email #{suggested} for point #{point} but was not in aliases for #{district.zip}"
+          "found suggested email #{suggested} for point #{point} but was not in aliases for #{district.zip}",
         )
       end
     end
@@ -98,7 +98,7 @@ module ApplicationHelper
     telegram: "Telegram",
     github: "GitHub",
     # apple: 'Apple',
-    email: "E-Mail"
+    email: "E-Mail",
   }
 
   def login_links(providers = PROVIDERS)

@@ -18,7 +18,7 @@ class Tbnr
     7 => "Kenn-Nr. für die Tabellen",
     8 => "FZV",
     9 =>
-      "Auffangtatbestand zur freien Verfügung, sofern kein auf den Sachverhalt zutreffender Tatbestand vorgesehen ist"
+      "Auffangtatbestand zur freien Verfügung, sofern kein auf den Sachverhalt zutreffender Tatbestand vorgesehen ist",
   }
 
   attr_reader :tbnr

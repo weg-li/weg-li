@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::Notice < ::Notice
+class Api::Notice < Notice
   include Swagger::Blocks
 
   swagger_schema :Notice do

@@ -18,7 +18,7 @@ class XmlGenerator
     @renderer ||=
       ApplicationController.renderer.new(
         http_host: Rails.application.config.default_host,
-        https: true
+        https: true,
       )
   end
 end

@@ -99,7 +99,7 @@ module UserHandling
       value: [user.id, user.token],
       expires: 1.month,
       httponly: true,
-      secure: Rails.env.production?
+      secure: Rails.env.production?,
     }
   end
 

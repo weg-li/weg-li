@@ -18,6 +18,6 @@ class ChargeVariant < ApplicationRecord
     4 => "Parken > 1 Stunde",
     5 => "Parken > 3 Stunden",
     6 => "mehr als 5 Minuten",
-    7 => ">2 Geschw.-üb.sch."
+    7 => ">2 Geschw.-üb.sch.",
   }
 end

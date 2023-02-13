@@ -20,7 +20,7 @@ class SitemapsController < ApplicationController
       violation_url,
       wegeheld_url,
       generator_url,
-      api_url
+      api_url,
     ]
 
     District.active.in_batches do |districts|

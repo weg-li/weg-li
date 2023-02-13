@@ -9,10 +9,10 @@ class Reply < ApplicationRecord
   validates :sender, :subject, :content, presence: true
 
   scope :search,
-        ->(term) {
+        lambda { |term|
           joins(:notice).where(
             "subject ILIKE :term OR content ILIKE :term OR sender ILIKE :term OR notices.registration ILIKE :term",
-            term: "%#{term}%"
+            term: "%#{term}%",
           )
         }
 end

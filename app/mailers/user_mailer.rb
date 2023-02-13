@@ -69,7 +69,7 @@ class UserMailer < ApplicationMailer
 
     attachments["original.eml"] = {
       mime_type: "application/octet-stream",
-      content: reply.action_mailbox_inbound_email.raw_email.download.to_s
+      content: reply.action_mailbox_inbound_email.raw_email.download.to_s,
     }
     subject =
       "Automatische Antwort auf Anzeige #{@notice.registration} #{@notice.charge}"

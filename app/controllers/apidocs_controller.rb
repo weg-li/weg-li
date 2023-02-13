@@ -62,7 +62,7 @@ class ApidocsController < ActionController::Base
     Api::UploadsController,
     Api::Upload,
     Api::Error,
-    self
+    self,
   ].freeze
 
   def index

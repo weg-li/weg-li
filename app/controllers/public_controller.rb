@@ -30,6 +30,6 @@ class PublicController < ApplicationController
         .from_param(params[:notice_token])
     _404 and return if @notice.blank?
 
-    respond_to { |format| format.xml }
+    respond_to(&:xml)
   end
 end

@@ -4,7 +4,7 @@ Fabricator(:charge) do
   tbnr            { sequence(:tbnr, 111_111) }
   description     { Faker::Lorem.sentence }
   fine            { 20 }
-  bkat            { '§ 12 Abs. 4, § 1 Abs. 2, § 49 StVO; § 24 StVG; -- BKat; § 19 OWiG' }
+  bkat            { "§ 12 Abs. 4, § 1 Abs. 2, § 49 StVO; § 24 StVG; -- BKat; § 19 OWiG" }
   penalty         { nil }
   fap             { nil }
   points          { 0 }

@@ -6,13 +6,13 @@ class BulkUpload < ApplicationRecord
   has_many_attached :photos
 
   enum status: {
-         initial: 0,
-         processing: 1,
-         open: 2,
-         done: 3,
-         importing: 4,
-         error: -99
-       }
+    initial: 0,
+    processing: 1,
+    open: 2,
+    done: 3,
+    importing: 4,
+    error: -99,
+  }
 
   validates :photos,
             presence: true,
@@ -23,7 +23,7 @@ class BulkUpload < ApplicationRecord
     open
       .joins(:user)
       .where(
-        created_at: [(21.days.ago.beginning_of_day)..(14.days.ago.end_of_day)]
+        created_at: [(21.days.ago.beginning_of_day)..(14.days.ago.end_of_day)],
       )
       .merge(User.not_disable_reminders)
       .merge(User.active)

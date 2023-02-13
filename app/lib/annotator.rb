@@ -86,15 +86,15 @@ class Annotator
         {
           image:,
           image_context: {
-            language_hints: ["de"]
+            language_hints: ["de"],
           },
           features: [
             { type: "DOCUMENT_TEXT_DETECTION" },
-            { type: "IMAGE_PROPERTIES" }
+            { type: "IMAGE_PROPERTIES" },
             # {type: 'SAFE_SEARCH_DETECTION'},
-          ]
-        }
-      ]
+          ],
+        },
+      ],
     }
     response = image_annotator.batch_annotate_images(request)
     response.responses.first.to_h

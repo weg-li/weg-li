@@ -11,8 +11,7 @@ class UsersController < ApplicationController
     @positions = current_user.leaderboard_positions
   end
 
-  def edit
-  end
+  def edit; end
 
   def signature
     current_user.update!(signature_params)
@@ -61,7 +60,7 @@ class UsersController < ApplicationController
     export_type = params[:export][:export_type] || :photos
     interval = params[:export][:interval] || Date.today.cweek
     Rails.logger.info(
-      "create export for type #{export_type} in week #{interval}"
+      "create export for type #{export_type} in week #{interval}",
     )
 
     Scheduled::ExportJob.perform_later(export_type:, interval:)
@@ -86,7 +85,7 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(
       %i[email nickname name street zip city appendix date_of_birth phone] +
-        User.bitfields[:flags].keys + User.bitfields[:autosuggest].keys
+        User.bitfields[:flags].keys + User.bitfields[:autosuggest].keys,
     )
   end
 end

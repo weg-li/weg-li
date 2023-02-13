@@ -21,7 +21,7 @@ class PdfGenerator
         qr_code = qr_code(notice)
         document.render_qr_code(
           qr_code,
-          pos: [document.bounds.width - 50, document.cursor]
+          pos: [document.bounds.width - 50, document.cursor],
         )
 
         document.move_cursor_to(document.bounds.height)
@@ -59,7 +59,7 @@ class PdfGenerator
             URI.open(url) do |file|
               document.image(
                 file,
-                fit: [document.bounds.width, document.bounds.height / 2]
+                fit: [document.bounds.width, document.bounds.height / 2],
               )
             end
           end
@@ -84,7 +84,7 @@ class PdfGenerator
       renderer.render(
         template: "/notice_mailer/_#{name}",
         formats: [:text],
-        locals:
+        locals:,
       )
     # Your document includes text that's not compatible with the Windows-1252 character set.
     # If you need full UTF-8 support, use external fonts instead of PDF's built-in fonts.
@@ -96,7 +96,7 @@ class PdfGenerator
     url =
       Rails.application.routes.url_helpers.public_charge_url(
         notice,
-        default_url_options
+        default_url_options,
       )
     RQRCode::QRCode.new(url)
   end

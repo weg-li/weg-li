@@ -5,7 +5,7 @@ class Charge < ApplicationRecord
   validates :tbnr, length: { is: 6 }
 
   has_many :charge_variants,
-           -> {
+           lambda {
              joins(:charge).where("charge_variants.date = charges.valid_from")
            },
            foreign_key: :table_id,

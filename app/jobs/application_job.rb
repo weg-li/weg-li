@@ -5,6 +5,7 @@ class ApplicationJob < ActiveJob::Base
 
   class NotYetAnalyzedError < StandardError
   end
+
   class NotYetProcessedError < StandardError
   end
   retry_on NotYetAnalyzedError, attempts: 20, wait: :exponentially_longer

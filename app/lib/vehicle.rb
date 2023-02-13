@@ -36,15 +36,15 @@ class Vehicle
     text = normalize(text)
 
     if prefixes.present? && text =~ plate_regex(prefixes)
-      ["#{$1} #{$2} #{$3}#{$4.to_s.gsub(/[^E]+/, "")}", 1.2]
+      ["#{$1} #{$2} #{$3}#{$4.to_s.gsub(/[^E]+/, '')}", 1.2]
     elsif prefixes.present? && text =~ relaxed_plate_regex(prefixes)
-      ["#{$1} #{$2} #{$3}#{$4.to_s.gsub(/[^E]+/, "")}", 1.1]
+      ["#{$1} #{$2} #{$3}#{$4.to_s.gsub(/[^E]+/, '')}", 1.1]
     elsif text =~ plate_regex
-      ["#{$1} #{$2} #{$3}#{$4.to_s.gsub(/[^E]+/, "")}", 1.0]
+      ["#{$1} #{$2} #{$3}#{$4.to_s.gsub(/[^E]+/, '')}", 1.0]
     elsif text =~ relaxed_plate_regex
-      ["#{$1}#{$2} #{$3}#{$4.to_s.gsub(/[^E]+/, "")}", 0.8]
+      ["#{$1}#{$2} #{$3}#{$4.to_s.gsub(/[^E]+/, '')}", 0.8]
     elsif text =~ quirky_mode_plate_regex
-      ["#{$1}#{$2} #{$3}#{$4.to_s.gsub(/[^E]+/, "")}", 0.5]
+      ["#{$1}#{$2} #{$3}#{$4.to_s.gsub(/[^E]+/, '')}", 0.5]
     end
   end
 
@@ -61,16 +61,16 @@ class Vehicle
   end
 
   def self.plate_regex(prefixes = Vehicle.plates.keys)
-    Regexp.new("^(#{prefixes.join("|")})-([A-Z]{1,3})-?(\\d{1,4})(-?E)?$")
+    Regexp.new("^(#{prefixes.join('|')})-([A-Z]{1,3})-?(\\d{1,4})(-?E)?$")
   end
 
   def self.relaxed_plate_regex(prefixes = Vehicle.plates.keys)
-    Regexp.new("^(#{prefixes.join("|")})O?:?-?([A-Z]{1,3})-?(\\d{1,4})(-?E)?$")
+    Regexp.new("^(#{prefixes.join('|')})O?:?-?([A-Z]{1,3})-?(\\d{1,4})(-?E)?$")
   end
 
   def self.quirky_mode_plate_regex(prefixes = Vehicle.plates.keys)
     Regexp.new(
-      "^P?D?C?O?B?(#{prefixes.join("|")})O?:?-?0?([A-Z]{1,3})-?(\\d{1,4})(-?E)?$"
+      "^P?D?C?O?B?(#{prefixes.join('|')})O?:?-?0?([A-Z]{1,3})-?(\\d{1,4})(-?E)?$",
     )
   end
 
@@ -120,13 +120,13 @@ class Vehicle
           .cars
           .map do |entry|
             [
-              "#{entry["brand"]} #{" (#{entry["aliases"].join(", ")})" if entry["aliases"].present?}",
-              entry["brand"]
+              "#{entry['brand']} #{" (#{entry['aliases'].join(', ')})" if entry['aliases'].present?}",
+              entry["brand"],
             ]
           end
           .sort,
       "LKW" => Vehicle.truck_brands.sort,
-      "Camper" => Vehicle.camper_brands.sort
+      "Camper" => Vehicle.camper_brands.sort,
     }
   end
 
@@ -195,7 +195,7 @@ class Vehicle
       "Lancia" => [28_860, 0.1],
       "Lexus" => [27_282, 0.1],
       "MG Rover" => [28_777, 0.1],
-      "Saab" => [44_345, 0.1]
+      "Saab" => [44_345, 0.1],
     }
   end
 
@@ -242,7 +242,7 @@ class Vehicle
       ["länger als 30 Minuten", 30],
       ["länger als 45 Minuten", 45],
       ["länger als 1 Stunde", 60],
-      ["länger als 3 Stunden", 180]
+      ["länger als 3 Stunden", 180],
     ]
   end
 end

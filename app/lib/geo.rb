@@ -28,7 +28,7 @@ class Geo
     pi45: [48.146, 11.458703], # Pasing
     pi46: [48.10442, 11.42384], # Planegg
     pi47: [48.192195, 11.570237], # Milbertshofen
-    pi48: [48.252436, 11.561391] # Oberschleißheim
+    pi48: [48.252436, 11.561391], # Oberschleißheim
   }
 
   def self.radians(degrees)
@@ -45,11 +45,11 @@ class Geo
                 Math.cos(radians(point_a.latitude)) *
                 (
                   Math.sin(
-                    radians((point_a.longitude - point_b.longitude) / 2)
+                    radians((point_a.longitude - point_b.longitude) / 2),
                   )**2
                 )
-            )
-        )
+            ),
+        ),
       )
   end
 
@@ -64,7 +64,7 @@ class Geo
               data
                 .dig("geometry", "coordinates")
                 .first
-                .map { |(lng, lat, _)| [lat, lng] }
+                .map { |(lng, lat, _)| [lat, lng] },
             )
           end
 
@@ -102,16 +102,16 @@ class Geo
       a_point_on_polygon = @points[i]
       trailing_point_on_polygon = @points[j]
       if point_is_between_the_ys_of_the_line_segment?(
+        a_point_on_polygon,
+        trailing_point_on_polygon,
+        latitude,
+      ) &&
+         ray_crosses_through_line_segment?(
            a_point_on_polygon,
            trailing_point_on_polygon,
-           latitude
-         ) &&
-           ray_crosses_through_line_segment?(
-             a_point_on_polygon,
-             trailing_point_on_polygon,
-             latitude,
-             longitude
-           )
+           latitude,
+           longitude,
+         )
         contains_point = !contains_point
       end
       j = i

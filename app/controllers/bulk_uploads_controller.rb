@@ -118,7 +118,7 @@ class BulkUploadsController < ApplicationController
       format.html do
         redirect_back(
           fallback_location: edit_bulk_upload_path(bulk_upload),
-          notice: "Foto gelöscht"
+          notice: "Foto gelöscht",
         )
       end
     end

@@ -3,14 +3,14 @@
 # Preview all emails at http://localhost:3000/rails/mailers/
 class UserMailerPreview < ActionMailer::Preview
   def signup_link
-    email = 'uschi@sushi.de'
-    token = 'MMuuRRkkSS'
+    email = "uschi@sushi.de"
+    token = "MMuuRRkkSS"
     UserMailer.signup_link(email, token)
   end
 
   def login_link
     user = User.first!
-    token = 'MMuuRRkkSS'
+    token = "MMuuRRkkSS"
     UserMailer.login_link(user, token)
   end
 

@@ -11,7 +11,7 @@ class NoticeMailerPreview < ActionMailer::Preview
   def charge_via_pdf
     notice = Notice.shared.first!
 
-    NoticeMailer.charge(notice, to: 'uschi@muschi.de', send_via_pdf: true)
+    NoticeMailer.charge(notice, to: "uschi@muschi.de", send_via_pdf: true)
   end
 
   def charge_winowig
@@ -24,7 +24,7 @@ class NoticeMailerPreview < ActionMailer::Preview
   def forward
     notice = Notice.shared.first!
 
-    token = '12345t5r65t4regafsvcbsgasfdffdf'
+    token = "12345t5r65t4regafsvcbsgasfdffdf"
     NoticeMailer.forward(notice, token)
   end
 end

@@ -16,7 +16,7 @@ class ViolationGenerator
             document.image(
               file,
               fit: [50, 50],
-              at: [document.bounds.width - 50, document.cursor - 15]
+              at: [document.bounds.width - 50, document.cursor - 15],
             )
           end
 
@@ -40,7 +40,7 @@ class ViolationGenerator
 
         Nur ankreuzen, wenn zutreffend:",
           size: 10,
-          inline_format: true
+          inline_format: true,
         )
 
         document.move_down(20)
@@ -52,7 +52,7 @@ class ViolationGenerator
           "Wegen verkehrsbehindernden Parkens wurde das Beiseiteräumen Ihres Fahrzeuges angeordnet; ein Abschleppauftrag wurde erteilt",
           size: 10,
           at: [30, document.cursor],
-          width: document.bounds.width - 30
+          width: document.bounds.width - 30,
         )
 
         document.move_down(30)
@@ -60,7 +60,7 @@ class ViolationGenerator
           "Sie haben die Kosten für die Anfahrt des Abschleppwagens auch dann zu tragen, wenn Sie Ihr Kraftfahrzeug vor dessen Eintreffen entfernen.",
           size: 10,
           at: [30, document.cursor],
-          width: document.bounds.width - 30
+          width: document.bounds.width - 30,
         )
 
         document.move_down(90)
@@ -71,12 +71,12 @@ class ViolationGenerator
         qr_code =
           RQRCode::QRCode.new(
             Rails.application.routes.url_helpers.violation_url(
-              Rails.configuration.action_mailer.default_url_options
-            )
+              Rails.configuration.action_mailer.default_url_options,
+            ),
           )
         document.render_qr_code(
           qr_code,
-          pos: [document.bounds.width - 50, document.cursor + 30]
+          pos: [document.bounds.width - 50, document.cursor + 30],
         )
       end
 

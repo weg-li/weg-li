@@ -6,13 +6,13 @@ module PhotoHelper
     default: {
       resize: "1280x1280",
       quality: "90",
-      auto_orient: true
+      auto_orient: true,
     },
     preview: {
       resize: "200x200",
       quality: "90",
-      auto_orient: true
-    }
+      auto_orient: true,
+    },
   }
 
   def url_for_photo(photo, size: :default)

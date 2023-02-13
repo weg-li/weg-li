@@ -36,7 +36,7 @@ describe Notice do
     it "duplicates a notice" do
       notice = Fabricate(:notice)
 
-      expect do notice.duplicate! end.to change { Notice.count }.by(1)
+      expect { notice.duplicate! }.to change { Notice.count }.by(1)
     end
   end
 

@@ -12,7 +12,7 @@ class ExifAnalyzer
       deepexif = exif.fields[:exif]
       if deepexif
         meta[:date_time] = deepexif.fields[:date_time_original] ||
-          deepexif.fields[:date_time_digitized]
+                           deepexif.fields[:date_time_digitized]
       elsif exif.fields[:date_time]
         meta[:date_time] = exif.fields[:date_time]
       end

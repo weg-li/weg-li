@@ -19,10 +19,12 @@ class NoticesController < ApplicationController
     @notices = @notices.incomplete if filter[:incomplete].present?
 
     order = handle_table_params(:order)
-    @notices =
-      @notices.reorder(order[:column] => order[:value] || "ASC") if order[
+    if order[
       :column
     ].present?
+      @notices =
+        @notices.reorder(order[:column] => order[:value] || "ASC")
+    end
   end
 
   def dump
@@ -212,7 +214,7 @@ class NoticesController < ApplicationController
     redirect_to(
       notices_path,
       notice:
-        "Deine Anzeige wird per E-Mail an #{Array(to).join(", ")} versendet und als 'gemeldet' markiert.",
+        "Deine Anzeige wird per E-Mail an #{Array(to).join(', ')} versendet und als 'gemeldet' markiert.",
     )
   end
 
@@ -245,7 +247,7 @@ class NoticesController < ApplicationController
     @exif = @notice.data_sets.exif.find_by(keyable: @photo)
     @recognition =
       @notice.data_sets.google_vision.find_by(keyable: @photo) ||
-        @notice.data_sets.car_ml.find_by(keyable: @photo)
+      @notice.data_sets.car_ml.find_by(keyable: @photo)
     @geolocation = @notice.data_sets.geocoder.find_by(keyable: @photo)
     @proximity = @notice.data_sets.proximity.find_by(keyable: @photo)
   end

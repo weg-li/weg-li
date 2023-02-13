@@ -52,13 +52,13 @@ class DistrictsController < ApplicationController
           .map { |key, (from, to)| "#{key} changed from #{from} to #{to}" }
           .join(", ")
       notify(
-        "district changes proposed: #{message} #{admin_district_url(district)}#{" by #{current_user.email}" if signed_in?}"
+        "district changes proposed: #{message} #{admin_district_url(district)}#{" by #{current_user.email}" if signed_in?}",
       )
     end
 
     redirect_to(
       districts_path,
-      notice: "Änderungen wurden erfasst und warten nun auf Freischaltung"
+      notice: "Änderungen wurden erfasst und warten nun auf Freischaltung",
     )
   end
 
@@ -70,12 +70,12 @@ class DistrictsController < ApplicationController
     @district = District.new(district_params.merge(status: :proposed))
     if @district.save
       notify(
-        "new district proposed: #{admin_district_url(@district)}#{" by #{current_user.email}" if signed_in?}"
+        "new district proposed: #{admin_district_url(@district)}#{" by #{current_user.email}" if signed_in?}",
       )
 
       redirect_to(
         districts_path,
-        notice: "Bezirk wurde erfasst und wartet nun auf Freischaltung"
+        notice: "Bezirk wurde erfasst und wartet nun auf Freischaltung",
       )
     else
       render(:new)
@@ -94,7 +94,7 @@ class DistrictsController < ApplicationController
 
   def district_params
     params[:district][:prefixes] = params[:district][:prefixes].split(
-      /;|,|\s/
+      /;|,|\s/,
     ).reject(&:blank?)
     params.require(:district).permit(
       :name,
@@ -102,7 +102,7 @@ class DistrictsController < ApplicationController
       :zip,
       :state,
       :osm_id,
-      prefixes: []
+      prefixes: [],
     )
   end
 
@@ -110,11 +110,13 @@ class DistrictsController < ApplicationController
     scope =
       District.active.order(params[:order] || "zip ASC").page(params[:page])
     scope = scope.where("state = ?", params[:state]) if params[:state].present?
-    scope =
-      scope.where(
-        "zip ILIKE :term OR name ILIKE :term OR email ILIKE :term",
-        term: "%#{params[:term]}%"
-      ) if params[:term].present?
+    if params[:term].present?
+      scope =
+        scope.where(
+          "zip ILIKE :term OR name ILIKE :term OR email ILIKE :term",
+          term: "%#{params[:term]}%",
+        )
+    end
     scope
   end
 end

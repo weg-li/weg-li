@@ -36,8 +36,8 @@ class Api::Upload < ActiveStorage::Blob
     as_json(methods: :signed_id).merge(
       direct_upload: {
         url: service_url_for_direct_upload,
-        headers: service_headers_for_direct_upload
-      }
+        headers: service_headers_for_direct_upload,
+      },
     )
   end
 end

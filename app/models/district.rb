@@ -35,7 +35,7 @@ class District < ApplicationRecord
   validates :state, inclusion: { in: STATES }
   validates :email,
             format: {
-              with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+              with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i,
             }
 
   geocoded_by :geocode_address,
@@ -79,7 +79,7 @@ class District < ApplicationRecord
     {
       notices: notices.since(date).count,
       active_users: User.where(id: notices.since(date).pluck(:user_id)).count,
-      total_users: users.count
+      total_users: users.count,
     }
   end
 
@@ -110,7 +110,7 @@ class District < ApplicationRecord
 
     address, domain = email.split("@")
 
-    "#{address.first}#{"." * (address.size - 2)}#{address.last}@#{domain}"
+    "#{address.first}#{'.' * (address.size - 2)}#{address.last}@#{domain}"
   end
 
   def display_aliases

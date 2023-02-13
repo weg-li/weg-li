@@ -1,40 +1,40 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
-describe 'notices', type: :request do
+describe "notices", type: :request do
   let(:user) { Fabricate(:user) }
   let(:notice) { Fabricate(:notice, user:) }
 
   before do
     login(user)
-    stub_request(:get, /images\.weg\.li/).to_return(status: 200, body: file_fixture('truck.jpg').read)
+    stub_request(:get, /images\.weg\.li/).to_return(status: 200, body: file_fixture("truck.jpg").read)
   end
 
-  context 'index' do
-    it 'index works' do
+  context "index" do
+    it "index works" do
       get notices_path
 
       expect(response).to be_ok
     end
   end
 
-  context 'GET :new' do
-    it 'renders the page' do
+  context "GET :new" do
+    it "renders the page" do
       get new_notice_path
 
       expect(response).to be_successful
     end
   end
 
-  context 'GET :edit' do
-    it 'renders the page' do
+  context "GET :edit" do
+    it "renders the page" do
       get edit_notice_path(notice)
 
       expect(response).to be_successful
     end
 
-    it 'renders the page with incomplete data' do
+    it "renders the page with incomplete data" do
       notice = user.notices.build
       notice.save_incomplete!
 
@@ -44,8 +44,8 @@ describe 'notices', type: :request do
     end
   end
 
-  context 'GET :map' do
-    it 'renders the page' do
+  context "GET :map" do
+    it "renders the page" do
       Fabricate(:notice, user:)
 
       get map_notices_path
@@ -54,8 +54,8 @@ describe 'notices', type: :request do
     end
   end
 
-  context 'GET :stats' do
-    it 'renders the page' do
+  context "GET :stats" do
+    it "renders the page" do
       Fabricate(:notice, user:)
 
       get stats_notices_path
@@ -64,8 +64,8 @@ describe 'notices', type: :request do
     end
   end
 
-  context 'GET :dump' do
-    it 'renders the json' do
+  context "GET :dump" do
+    it "renders the json" do
       Fabricate(:notice, user:)
 
       get dump_notices_path
@@ -75,11 +75,11 @@ describe 'notices', type: :request do
     end
   end
 
-  context 'POST :bulk' do
-    it 'destroys notices en bulk' do
+  context "POST :bulk" do
+    it "destroys notices en bulk" do
       notice = Fabricate(:notice, user:)
       params = {
-        bulk_action: 'destroy',
+        bulk_action: "destroy",
         selected: [notice.id],
       }
 
@@ -88,10 +88,10 @@ describe 'notices', type: :request do
       end.to change { user.notices.count }.by(-1)
     end
 
-    it 'shares notices en bulk' do
+    it "shares notices en bulk" do
       notice = Fabricate(:notice, user:)
       params = {
-        bulk_action: 'share',
+        bulk_action: "share",
         selected: [notice.id],
       }
 
@@ -102,10 +102,10 @@ describe 'notices', type: :request do
       end.to have_enqueued_mail(NoticeMailer, :charge)
     end
 
-    it 'marks notices shared en bulk' do
+    it "marks notices shared en bulk" do
       notice = Fabricate(:notice, user:)
       params = {
-        bulk_action: 'status',
+        bulk_action: "status",
         selected: [notice.id],
       }
 
@@ -115,33 +115,33 @@ describe 'notices', type: :request do
     end
   end
 
-  context 'POST :create' do
+  context "POST :create" do
     let(:params) do
       {
         notice: {
-          photos: [Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/mercedes.jpg'), 'image/jpeg')],
+          photos: [Rack::Test::UploadedFile.new(Rails.root.join("spec/fixtures/files/mercedes.jpg"), "image/jpeg")],
         },
       }
     end
 
-    it 'creates a notice with given params' do
+    it "creates a notice with given params" do
       expect do
         post notices_path, params:
       end.to change { user.notices.count }.by(1)
     end
   end
 
-  context 'PATCH :update' do
+  context "PATCH :update" do
     let(:params) do
       {
         notice: {
-          registration: 'HH XX 123',
+          registration: "HH XX 123",
         },
       }
     end
     let(:incomplete_params) do
       {
-        button: 'incomplete',
+        button: "incomplete",
         notice: {
           registration: nil,
         },
@@ -149,26 +149,26 @@ describe 'notices', type: :request do
     end
     let(:photo_params) do
       {
-        button: 'upload',
+        button: "upload",
         notice: {
-          photos: [Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/mercedes.jpg'), 'image/jpeg')],
+          photos: [Rack::Test::UploadedFile.new(Rails.root.join("spec/fixtures/files/mercedes.jpg"), "image/jpeg")],
         },
       }
     end
 
-    it 'updates the notice with given params' do
+    it "updates the notice with given params" do
       expect do
         patch notice_path(notice), params:
-      end.to change { notice.reload.registration }.from(notice.registration).to('HH XX 123')
+      end.to change { notice.reload.registration }.from(notice.registration).to("HH XX 123")
     end
 
-    it 'updates the notice with photos' do
+    it "updates the notice with photos" do
       expect do
         patch notice_path(notice), params: photo_params
       end.to change { notice.reload.photos.size }.by(1)
     end
 
-    it 'updates the notice forced incomplete' do
+    it "updates the notice forced incomplete" do
       expect do
         patch notice_path(notice), params: incomplete_params
       end.to change { notice.reload.registration }.from(notice.registration).to(nil)
@@ -177,16 +177,16 @@ describe 'notices', type: :request do
     end
   end
 
-  context 'GET :share' do
-    it 'renders the share preview' do
+  context "GET :share" do
+    it "renders the share preview" do
       get share_notice_path(notice)
 
       expect(response).to be_successful
     end
   end
 
-  context 'PATCH :purge' do
-    it 'removes an image from a notice' do
+  context "PATCH :purge" do
+    it "removes an image from a notice" do
       expect do
         patch purge_notice_path(notice, photo_id: notice.photos.first.id)
 
@@ -195,8 +195,8 @@ describe 'notices', type: :request do
     end
   end
 
-  context 'PATCH :mail' do
-    it 'sends a mail to recipient' do
+  context "PATCH :mail" do
+    it "sends a mail to recipient" do
       expect do
         patch mail_notice_path(notice)
 
@@ -204,7 +204,7 @@ describe 'notices', type: :request do
       end.to have_enqueued_mail(NoticeMailer, :charge)
     end
 
-    it 'sends a mail to recipient with notice as PDF' do
+    it "sends a mail to recipient with notice as PDF" do
       expect do
         patch mail_notice_path(notice, send_via_pdf: true)
 
@@ -217,8 +217,8 @@ describe 'notices', type: :request do
     end
   end
 
-  context 'PATCH :forward' do
-    it 'sends a mail for forwarding' do
+  context "PATCH :forward" do
+    it "sends a mail for forwarding" do
       expect do
         patch forward_notice_path(notice)
 
@@ -227,12 +227,12 @@ describe 'notices', type: :request do
     end
   end
 
-  context 'GET :retrieve' do
+  context "GET :retrieve" do
     let(:other_notice) { Fabricate(:notice) }
     let(:other_user) { other_notice.user }
     let(:token) { Token.generate(other_user.token) }
 
-    it 'retrieves a forwarded notice' do
+    it "retrieves a forwarded notice" do
       expect do
         get retrieve_notice_path(other_notice), params: { token: }
 
@@ -243,8 +243,8 @@ describe 'notices', type: :request do
     end
   end
 
-  context 'PATCH :duplicate' do
-    it 'duplicates a notice' do
+  context "PATCH :duplicate" do
+    it "duplicates a notice" do
       expect do
         patch duplicate_notice_path(notice)
 
@@ -253,8 +253,8 @@ describe 'notices', type: :request do
     end
   end
 
-  context 'DELETE :destroy' do
-    it 'should destroy the notice' do
+  context "DELETE :destroy" do
+    it "should destroy the notice" do
       notice = Fabricate(:notice, user:)
 
       expect do
