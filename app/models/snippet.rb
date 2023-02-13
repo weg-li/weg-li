@@ -5,8 +5,6 @@ class Snippet < ApplicationRecord
 
   validates :name, :content, presence: true
 
-  scope :search,
-        ->(term) {
-          where("name ILIKE :term OR content ILIKE :term", term: "%#{term}%")
-        }
+  scope :ordered, -> { order(:priority, :id) }
+  scope :search, ->(term) { where("name ILIKE :term OR content ILIKE :term", term: "%#{term}%") }
 end

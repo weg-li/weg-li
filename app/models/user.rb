@@ -28,7 +28,7 @@ class User < ApplicationRecord
   has_many :bulk_uploads, -> { order(created_at: :desc) }, dependent: :destroy
   has_many :notices, -> { order(created_at: :desc) }, dependent: :destroy
   has_many :replies, -> { order(created_at: :desc) }, through: :notices
-  has_many :snippets, -> { order(created_at: :desc) }
+  has_many :snippets, -> { order(:priority, [created_at: :desc]) }
   has_many :authorizations, dependent: :destroy
   has_many :photos_attachments, through: :notices
 

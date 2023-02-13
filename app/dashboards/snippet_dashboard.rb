@@ -10,6 +10,7 @@ class SnippetDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     name: Field::String,
+    priority: Field::Integer,
     content: Field::String,
     user: Field::BelongsTo,
     created_at: Field::DateTime,
@@ -33,6 +34,7 @@ class SnippetDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
     :id,
     :name,
+    :priority,
     :content,
     :user,
     :created_at,
@@ -44,6 +46,7 @@ class SnippetDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :name,
+    :priority,
     :content,
   ].freeze
 

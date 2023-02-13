@@ -47,6 +47,20 @@
             - else
               = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'}))
                 span.glyphicon.glyphicon-arrow-up.smaller.text-muted
+          th
+            => Snippet.human_attribute_name(:priority)
+            - if params.dig(:order, :column) == 'priority'
+              - if params.dig(:order, :value) == 'ASC'
+                = link_to url_for(@table_params.deep_merge(order: {column: :priority, value: 'DESC'}))
+                  span.glyphicon.glyphicon-arrow-up.smaller
+              - else
+                = link_to url_for(@table_params.deep_merge(order: {column: :priority, value: 'ASC'}))
+                  span.glyphicon.glyphicon-arrow-down.smaller
+              = link_to url_for(@table_params.merge(order: {}))
+                span.text-muted.glyphicon.glyphicon-remove.smaller
+            - else
+              = link_to url_for(@table_params.deep_merge(order: {column: :priority, value: 'ASC'}))
+                span.glyphicon.glyphicon-arrow-up.smaller.text-muted
           th= Snippet.human_attribute_name(:name)
           th= Snippet.human_attribute_name(:content)
       tbody
@@ -59,6 +73,7 @@
                 .btn-group.dropdown
                   = render('snippet_actions', snippet: snippet)
               td(nowrap)= link_to l(snippet.created_at, format: :short, default: '-'), snippet_path(snippet)
+              td= snippet.priority
               td= link_to snippet.name, snippet_path(snippet)
               td= link_to truncate(snippet.content), snippet_path(snippet)
 

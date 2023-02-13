@@ -7,18 +7,7 @@
             span aria-hidden="true" &times;
           h4.modal-title Vorlage speichern
         .modal-body
-          .row
-            .col-lg-12
-              .form-group
-                = form.label :name, class: "control-label control-label-required"
-                = form.text_field :name, class: "form-control", required: true, placeholder: 'z.B. Behinderung'
-
-          .row
-            .col-lg-12
-              .form-group
-                = form.label :content, class: "control-label control-label-required"
-                = form.text_area :content, required: true, placeholder: 'z.B. konkrete Behinderung / Gefährdung beschreiben', class: "form-control"
-
+          = render('snippets/form_inputs', form:)
         .modal-footer
           .btn-group
             = form.submit "Vorlage speichern", class: "btn btn-sm btn-success"

@@ -1,20 +1,8 @@
 = form_errors(snippet)
 
-
 = form_for snippet do |form|
   .well
-    .row
-      .col-lg-12
-        .form-group
-          = form.label :name, class: "control-label control-label-required"
-          = form.text_field :name, class: "form-control", required: true, placeholder: 'z.B. Behinderung'
-
-    .row
-      .col-lg-12
-        .form-group
-          = form.label :content, class: "control-label control-label-required"
-          = form.text_area :content, required: true, placeholder: 'z.B. konkrete Behinderung / Gefährdung beschreiben', class: "form-control"
-
+    = render('form_inputs', form:)
   .row
     .col-lg-12
       .pull-right

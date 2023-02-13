@@ -1,0 +1,17 @@
+.row
+  .col-lg-8
+    .form-group
+      = form.label :name, class: "control-label control-label-required"
+      = form.text_field :name, class: "form-control", required: true, placeholder: 'z.B. Behinderung'
+  .col-lg-4
+    .form-group
+      = form.label :priority, class: "control-label control-label-required"
+      = form.number_field :priority, class: "form-control", required: true, placeholder: 'Prio', min: 0, max: 10
+      = hint do
+        | Sortierung für die Nurzung im Meldungs-Formular
+
+.row
+  .col-lg-12
+    .form-group
+      = form.label :content, class: "control-label control-label-required"
+      = form.text_area :content, required: true, placeholder: 'z.B. konkrete Behinderung / Gefährdung beschreiben', class: "form-control"

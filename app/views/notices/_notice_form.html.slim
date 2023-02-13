@@ -144,7 +144,7 @@
       = form.label :note, class: "control-label"
       = form.text_area :note, placeholder: 'z.B. konkrete Behinderung / Gefährdung beschreiben', class: "form-control"
       = hint do
-        .pull-right= render('snippet_buttons', notes: current_user.snippets.pluck(:content))
+        .pull-right= render('snippet_buttons', notes: current_user.snippets.ordered.pluck(:content))
         | Für die Hinweise können #{link_to 'Texte als Vorlagen', snippets_path}  hinterlegt werden.
 
   .col-lg-4

@@ -58,6 +58,8 @@ de:
         content: Inhalt
       snippet:
         created_at: Erstellt
+        name: Name
+        priority: Sortierung
         content: Inhalt
       bulk_upload:
         created_at: 'Erstellt'
