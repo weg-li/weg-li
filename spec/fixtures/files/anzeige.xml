@@ -21,7 +21,7 @@
           <!-- Required -->
           <Hausnummer>123</Hausnummer>
           <!-- Optional -->
-          <Adresszusatz/>
+          <Adresszusatz>2. OG</Adresszusatz>
           <!-- Required -->
           <PLZ>54321</PLZ>
           <!-- Required -->
@@ -32,10 +32,10 @@
         <!-- Required -->
         <EMail>test@example.com</EMail>
         <!-- Optional -->
-        <Telefon/>
+        <Telefon>0178123456</Telefon>
         <!-- Optional -->
         <Zusatzdaten>
-          <Geburtsdatum/>
+          <Geburtsdatum>2000-12-31</Geburtsdatum>
         </Zusatzdaten>
       </Kontakt>
     </Beteiligter>
