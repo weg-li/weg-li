@@ -16,6 +16,7 @@ Fabricator(:notice) do
   status   { 0 }
   latitude { 53.57532 }
   longitude { 10.01534 }
+  note { "Gehweg war versperrt" }
   user
   district
 end
