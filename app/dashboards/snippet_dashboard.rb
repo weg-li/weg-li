@@ -10,7 +10,7 @@ class SnippetDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     name: Field::String,
-    priority: Field::Integer,
+    priority: Field::Number,
     content: Field::String,
     user: Field::BelongsTo,
     created_at: Field::DateTime,
