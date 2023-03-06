@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Fall>
   <Bilder>
+    <!-- Required -->
     <!-- Dateiname -> Filename of E-Mail Attachment Image -->
     <!-- Length -> byte_size of Image -->
     <Bild Length="2258722" Dateiname="test.jpg"/>
@@ -11,17 +12,28 @@
         <Anschrift>
           <!-- Default is '-' weg.li does use salutations -->
           <Anrede>-</Anrede>
+          <!-- Required -->
           <Vorname>Uschi</Vorname>
+          <!-- Required -->
           <Name>Müller</Name>
+          <!-- Required -->
           <Strasse>Am Weiher</Strasse>
+          <!-- Required -->
           <Hausnummer>123</Hausnummer>
+          <!-- Optional -->
           <Adresszusatz/>
+          <!-- Required -->
           <PLZ>54321</PLZ>
+          <!-- Required -->
           <Ort>Dorf</Ort>
+          <!-- Default is 'D' weg.li permits DE only -->
           <Landeskennzeichen>D</Landeskennzeichen>
         </Anschrift>
+        <!-- Required -->
         <EMail>test@example.com</EMail>
+        <!-- Optional -->
         <Telefon/>
+        <!-- Optional -->
         <Zusatzdaten>
           <Geburtsdatum/>
         </Zusatzdaten>
@@ -29,31 +41,41 @@
     </Beteiligter>
   </Beteiligte>
   <Bemerkungen>
+    <!-- Optional -->
+    <!-- Optional -->
     <Bemerkung>Das Fahrzeug war verlassen</Bemerkung>
+    <!-- Required -->
     <Bemerkung>xxxxxxx@anzeige.weg.li</Bemerkung>
   </Bemerkungen>
   <Falldaten>
     <Fahrzeug>
+      <!-- Default is 'D' weg.li permits DE only -->
       <Nationalitaet>D</Nationalitaet>
+      <!-- Required -->
       <!-- Possible values: Gelb/Gold,Grau/Silber,Lila,Schwarz,Silber,Grau,Weiß,Beige,Blau,Braun,Gelb,Grün,Rot,Violett,Lila,Pink,Orange,Gold -->
       <!-- List is not updated -->
       <Farbe>Schwarz</Farbe>
+      <!-- Required -->
       <!-- Possible values: Abarth,Adria,Aixam,Alfa Romeo,Alpine,Aston Martin,Audi,BMW,Bentley,Brabus,Brixton,Buick,CFMOTO,Cadillac,Chevrolet,Chrysler,Citroën,Corvette,Cupra,DAF,DS Automobiles,Dacia,Daewoo,Daihatsu,Dodge,Ferrari,Fiat,Ford,Genesis,Honda,Hummer,Hymer,Hyundai,IVECO,Infiniti,Isuzu,Jaguar,Jeep,Kia,Lada,Lamborghini,Lancia,Land Rover,Lexus,Lincoln,Lotus,Lynk & Co,MAN,MG,MINI,Maserati,Maxus,Maybach,Mazda,McLaren,Mercedes-Benz,Mitsubishi,Morgan,Nio,Nissan,Opel,Pagani,Peugeot,Polestar,Porsche,Qoros,RAM Trucks,Renault,Rolls Royce,Rover,SCANIA,Saab,Saleen,Seat,Setra,Smart,Spyker,SsangYong,Streetscooter,Subaru,Suzuki,Tata,Tesla,Toyota,Trabant,Venturi,Volkswagen,Volvo,Wiesmann,Škoda -->
       <!-- List is updated -->
       <Fabrikat>märzer</Fabrikat>
+      <!-- Required -->
       <Kennzeichen>HH AB 123</Kennzeichen>
       <!-- Default is '00' -->
       <Kennzeichenart>00</Kennzeichenart>
     </Fahrzeug>
+    <!-- Required -->
     <Tattag>
       <Von>18.01.2020</Von>
       <Bis>18.01.2020</Bis>
     </Tattag>
+    <!-- Required -->
     <Tatzeit>
       <Von>16:00</Von>
       <Bis>16:03</Bis>
     </Tatzeit>
   </Falldaten>
+  <!-- Required -->
   <Zeuge>
     <Zeilen>
       <Zeile>Uschi Müller</Zeile>
@@ -64,13 +86,18 @@
   </Beweise>
   <Tatdaten>
     <Vorwurf>
+      <!-- Required -->
       <Tatbestandsnummer>112474</Tatbestandsnummer>
+      <!-- Required -->
       <VorwurfText>Parken auf einem unbeschilderten Radweg</VorwurfText>
+      <!-- Required -->
       <MitBehinderung>0</MitBehinderung>
     </Vorwurf>
   </Tatdaten>
   <Tatorte>
+    <!-- Required -->
     <Tatort>Am Weiher 123, Beim Nazis-Raus Aufkleber</Tatort>
+    <!-- Required -->
     <!-- Geocoordinates -->
     <Latitude>53.57532</Latitude>
     <Longitude>10.01534</Longitude>
