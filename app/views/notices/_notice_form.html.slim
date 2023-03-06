@@ -31,7 +31,7 @@
   .col-lg-4
     .form-group
       = form.label :color, class: "control-label"
-      = form.select :color, Vehicle.colors.map { |color| [t(color, scope: "activerecord.attributes.notice.colors"), color] }, { include_blank: 'Farbe Auswählen' }, { class: "form-control" }
+      = form.select :color, Vehicle.colors.map { |color| [color_name(color), color] }, { include_blank: 'Farbe Auswählen' }, { class: "form-control" }
       .input-group#pick_color
         - colors = notice.data_sets.select(&:google_vision?).flat_map { |google_vision| google_vision.colors }
         - colors = notice.data_sets.select(&:car_ml?).map(&:colors).concat(colors).compact.flatten.uniq

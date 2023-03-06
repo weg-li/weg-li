@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Fall>
   <Bilder>
+    <!-- Dateiname -> Filename of E-Mail Attachment Image -->
+    <!-- Length -> byte_size of Image -->
     <Bild Length="2258722" Dateiname="test.jpg"/>
   </Bilder>
   <Beteiligte>
     <Beteiligter Funktion="keine" Typ="Anzeigenerstatter">
       <Kontakt>
         <Anschrift>
+          <!-- Default is '-' weg.li does use salutations -->
           <Anrede>-</Anrede>
           <Vorname>Uschi</Vorname>
           <Name>Müller</Name>
@@ -32,9 +35,14 @@
   <Falldaten>
     <Fahrzeug>
       <Nationalitaet>D</Nationalitaet>
+      <!-- Possible values: Gelb/Gold,Grau/Silber,Lila,Schwarz,Silber,Grau,Weiß,Beige,Blau,Braun,Gelb,Grün,Rot,Violett,Lila,Pink,Orange,Gold -->
+      <!-- List is not updated -->
       <Farbe>Schwarz</Farbe>
+      <!-- Possible values: Abarth,Adria,Aixam,Alfa Romeo,Alpine,Aston Martin,Audi,BMW,Bentley,Brabus,Brixton,Buick,CFMOTO,Cadillac,Chevrolet,Chrysler,Citroën,Corvette,Cupra,DAF,DS Automobiles,Dacia,Daewoo,Daihatsu,Dodge,Ferrari,Fiat,Ford,Genesis,Honda,Hummer,Hymer,Hyundai,IVECO,Infiniti,Isuzu,Jaguar,Jeep,Kia,Lada,Lamborghini,Lancia,Land Rover,Lexus,Lincoln,Lotus,Lynk & Co,MAN,MG,MINI,Maserati,Maxus,Maybach,Mazda,McLaren,Mercedes-Benz,Mitsubishi,Morgan,Nio,Nissan,Opel,Pagani,Peugeot,Polestar,Porsche,Qoros,RAM Trucks,Renault,Rolls Royce,Rover,SCANIA,Saab,Saleen,Seat,Setra,Smart,Spyker,SsangYong,Streetscooter,Subaru,Suzuki,Tata,Tesla,Toyota,Trabant,Venturi,Volkswagen,Volvo,Wiesmann,Škoda -->
+      <!-- List is updated -->
       <Fabrikat>märzer</Fabrikat>
       <Kennzeichen>HH AB 123</Kennzeichen>
+      <!-- Default is '00' -->
       <Kennzeichenart>00</Kennzeichenart>
     </Fahrzeug>
     <Tattag>
@@ -63,6 +71,7 @@
   </Tatdaten>
   <Tatorte>
     <Tatort>Am Weiher 123, Beim Nazis-Raus Aufkleber</Tatort>
+    <!-- Geocoordinates -->
     <Latitude>53.57532</Latitude>
     <Longitude>10.01534</Longitude>
   </Tatorte>

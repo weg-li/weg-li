@@ -115,19 +115,17 @@ class Vehicle
 
   def self.brand_options
     @brand_options ||= {
-      "PKW" =>
-        Vehicle
-          .cars
-          .map do |entry|
-            [
-              "#{entry['brand']} #{" (#{entry['aliases'].join(', ')})" if entry['aliases'].present?}",
-              entry["brand"],
-            ]
-          end
-          .sort,
-      "LKW" => Vehicle.truck_brands.sort,
-      "Camper" => Vehicle.camper_brands.sort,
+      "PKW" => pkw_options,
+      "LKW" => truck_brands,
+      "Camper" => camper_brands,
     }
+  end
+
+  def self.pkw_options
+    Vehicle
+      .cars
+      .map { |entry| ["#{entry['brand']}#{" (#{entry['aliases'].join(', ')})" if entry['aliases'].present?}", entry["brand"]] }
+      .sort
   end
 
   def self.brands
@@ -135,15 +133,15 @@ class Vehicle
   end
 
   def self.car_brands
-    cars.map { |entry| entry["brand"] }
+    cars.map { |entry| entry["brand"] }.sort
   end
 
   def self.camper_brands
-    %w[Adria Hymer]
+    %w[Adria Hymer].sort
   end
 
   def self.truck_brands
-    %w[MAN IVECO SCANIA DAF Setra]
+    %w[MAN IVECO SCANIA DAF Setra].sort
   end
 
   def self.models(brand)

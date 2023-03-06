@@ -92,6 +92,10 @@ module ApplicationHelper
     options_for_select(district.all_emails, selected)
   end
 
+  def color_name(color)
+    t(color, scope: "activerecord.attributes.notice.colors", default: "-")
+  end
+
   PROVIDERS = {
     twitter: "Twitter",
     google_oauth2: "Google",

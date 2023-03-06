@@ -5,6 +5,8 @@ xml.instruct!
 xml.Fall do
   xml.Bilder do
     @notice.photos.each do |photo|
+      xml.comment! "Dateiname -> Filename of E-Mail Attachment Image"
+      xml.comment! "Length -> byte_size of Image"
       xml.Bild Length: photo.byte_size, Dateiname: photo.key
     end
   end
@@ -12,6 +14,7 @@ xml.Fall do
     xml.Beteiligter Funktion: "keine", Typ: "Anzeigenerstatter" do
       xml.Kontakt do
         xml.Anschrift do
+          xml.comment! "Default is '-' weg.li does use salutations"
           xml.Anrede "-"
           xml.Vorname @user.first_name
           xml.Name @user.last_name
@@ -40,13 +43,14 @@ xml.Fall do
   xml.Falldaten do
     xml.Fahrzeug do
       xml.Nationalitaet "D"
-      xml.Farbe I18n.t(
-        @notice.color.presence,
-        scope: "activerecord.attributes.notice.colors",
-        default: "-",
-      )
+      xml.comment! "Possible values: #{Vehicle.colors.map { |color| color_name(color) }.join(',')}"
+      xml.comment! "List is not updated"
+      xml.Farbe color_name(@notice.color.presence)
+      xml.comment! "Possible values: #{Vehicle.brands.join(',')}"
+      xml.comment! "List is updated"
       xml.Fabrikat @notice.brand
       xml.Kennzeichen @notice.registration
+      xml.comment! "Default is '00'"
       xml.Kennzeichenart "00"
     end
     xml.Tattag do
@@ -55,7 +59,7 @@ xml.Fall do
     end
     xml.Tatzeit do
       xml.Von l(@notice.date, format: :time)
-      xml.Bis l(@notice.date + @notice.duration.minutes, format: :time)
+      xml.Bis l(@notice.date + @notice.duration.minutes + 1, format: :time)
     end
   end
   xml.Zeuge { xml.Zeilen { xml.Zeile @user.name } }
@@ -69,6 +73,7 @@ xml.Fall do
   end
   xml.Tatorte do
     xml.Tatort @notice.location_and_address
+    xml.comment! "Geocoordinates"
     xml.Latitude @notice.latitude
     xml.Longitude @notice.longitude
   end
