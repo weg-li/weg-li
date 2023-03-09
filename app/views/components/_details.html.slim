@@ -1,39 +1,41 @@
 dl.dl-horizontal
-  dt= Notice.human_attribute_name(:status)
+  dt = Notice.human_attribute_name(:status)
   dd
-    => render 'status', status: @notice.status
+    => render "status", status: @notice.status
     - if @notice.incomplete?
-      = render 'status', status: :incomplete
-  dt= Notice.human_attribute_name(:created_at)
-  dd= d(notice.created_at)
-  dt= Notice.human_attribute_name(:sent_at)
-  dd= d(notice.sent_at)
-  dt= Notice.human_attribute_name(:registration)
-  dd= notice.registration.presence || '-'
-  dt= Notice.human_attribute_name(:brand)
-  dd= notice.brand.presence || '-'
-  dt= Notice.human_attribute_name(:color)
-  dd= I18n.t(notice.color.presence, scope: "activerecord.attributes.notice.colors", default: '-')
-  dt= Notice.human_attribute_name(:district)
-  dd= notice.district.present? ? "#{notice.district.zip} #{notice.district.name}" : '-'
-  dt= Notice.human_attribute_name(:location)
-  dd= notice.full_location
-  dt= Notice.human_attribute_name(:charge)
-  - tbnr = notice.tbnr
-  - if tbnr
-    dd= link_to notice.charge, charge_path(tbnr)
-  - else
-    dd= notice.charge.presence || '-'
-  dt= Notice.human_attribute_name(:severity)
-  dd= Notice.human_attribute_name(notice.severity)
-  dt= Notice.human_attribute_name(:date)
-  dd= d(notice.date)
-  dt= Notice.human_attribute_name(:duration)
-  dd= Vehicle.durations.to_h.invert[notice.duration]
+      = render "status", status: :incomplete
+  dt = Notice.human_attribute_name(:created_at)
+  dd = d(notice.created_at)
+  dt = Notice.human_attribute_name(:sent_at)
+  dd = d(notice.sent_at)
+  dt = Notice.human_attribute_name(:registration)
+  dd = notice.registration.presence || "-"
+  dt = Notice.human_attribute_name(:brand)
+  dd = notice.brand.presence || "-"
+  dt = Notice.human_attribute_name(:color)
+  dd = I18n.t(notice.color.presence, scope: "activerecord.attributes.notice.colors", default: "-")
+  dt = Notice.human_attribute_name(:district)
+  dd = notice.district.present? ? "#{notice.district.zip} #{notice.district.name}" : "-"
+  dt = Notice.human_attribute_name(:location)
+  dd = notice.full_location
+  dt = Notice.human_attribute_name(:charge)
+  dd = notice.charge.presence || "-"
+  dt = Notice.human_attribute_name(:tbnr)
+  dd
+    - if notice.tbnr.present?
+      = link_to(notice.tbnr, charge_path(notice.tbnr))
+    - else
+      = "-"
+  dt = Notice.human_attribute_name(:severity)
+  dd = Notice.human_attribute_name(notice.severity)
+  dt = Notice.human_attribute_name(:date)
+  dd = d(notice.date)
+  dt = Notice.human_attribute_name(:duration)
+  dd = Vehicle.durations.to_h.invert[notice.duration]
   - if notice.flags.positive?
     dt Details
     - Notice.details.each do |flag|
       - if notice.send(flag)
-        dd= t(flag, scope: "activerecord.attributes.notice.flags")
-  dt= Notice.human_attribute_name(:note)
-  dd= notice.note.presence || '-'
+        dd = t(flag, scope: "activerecord.attributes.notice.flags")
+  dt = Notice.human_attribute_name(:note)
+  dd = notice.note.presence || "-"

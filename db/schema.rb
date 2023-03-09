@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_13_113357) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_09_102559) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -189,6 +189,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_13_113357) do
     t.string "location"
     t.datetime "sent_at", precision: nil
     t.geography "lonlat", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.string "tbnr"
     t.index ["bulk_upload_id"], name: "index_notices_on_bulk_upload_id"
     t.index ["created_at"], name: "index_notices_on_created_at"
     t.index ["date"], name: "index_notices_on_date"
@@ -196,6 +197,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_13_113357) do
     t.index ["lonlat"], name: "index_notices_on_lonlat", using: :gist
     t.index ["registration"], name: "index_notices_on_registration"
     t.index ["status"], name: "index_notices_on_status"
+    t.index ["tbnr"], name: "index_notices_on_tbnr"
     t.index ["token"], name: "index_notices_on_token", unique: true
     t.index ["user_id"], name: "index_notices_on_user_id"
     t.index ["zip"], name: "index_notices_on_zip"

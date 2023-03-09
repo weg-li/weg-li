@@ -181,7 +181,7 @@ class Notice < ApplicationRecord
   end
 
   def tbnr
-    Charge.plain_charges_tbnr(charge)
+    self[:tbnr] || Charge.plain_charges_tbnr(charge)
   end
 
   def wegli_email
@@ -419,5 +419,6 @@ class Notice < ApplicationRecord
 
   def defaults
     self.token ||= SecureRandom.hex(16)
+    self.tbnr ||= tbnr
   end
 end
