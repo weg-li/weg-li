@@ -104,15 +104,39 @@
       = hint do
         | Beweisfotos und Hinweise zur Behinderung/Gefährdung beifügen
 
+#duration-alert.alert.alert-info.alert-dismissable.hidden
+  button type="button" class="close" data-dismiss="alert" ×
+  p Der Beobachtungszeitraum darf nicht in der Zukunft enden. Bitte Zeitraum oder Tatzeit anpassen.
+
+javascript:
+  function validateDuration() {
+    $("#duration-alert").addClass("hidden");
+    const date_string = $("#notice_date_date").val();
+    const time_string = $("#notice_date_time").val();
+    if (date_string && time_string) {
+      const parsed = Date.parse(`${date_string} ${time_string}`);
+      const date = new Date(parsed);
+      const duration_string = $("#notice_duration").val();
+      const duration = parseInt(duration_string, 10);
+      if (duration > 0) {
+        date.setMinutes(date.getMinutes() + duration);
+        if (date.getTime() > Date.now()) {
+          $("#duration-alert").removeClass("hidden");
+          return;
+        }
+      }
+    }
+  }
+
 .row
   .col-lg-8
     .form-group
       = form.label :date, class: "control-label control-label-required"
       .input-group
-        = form.date_field :date_date, class: "form-control", required: true
+        = form.date_field :date_date, class: "form-control", required: true, onchange: "validateDuration()"
         label.input-group-addon(for="notice_date_date")
           span.glyphicon.glyphicon-calendar
-        = form.time_field :date_time, class: "form-control", required: true, value: form.object.date_time&.strftime('%H:%M')
+        = form.time_field :date_time, class: "form-control", required: true, value: form.object.date_time&.strftime('%H:%M'), onchange: "validateDuration()"
         label.input-group-addon(for="notice_date_time")
           span.glyphicon.glyphicon-time
 
@@ -127,7 +151,7 @@
   .col-lg-4
     .form-group
       = form.label :duration, class: "control-label control-label-required"
-      = form.select :duration, Vehicle.durations, { include_blank: 'Dauer Auswählen' }, { class: "form-control", required: true }
+      = form.select :duration, Vehicle.durations, { include_blank: 'Dauer Auswählen' }, { class: "form-control", required: true, onchange: "validateDuration()" }
 
       - duration = notice.duration_from_photos
       - duration = Vehicle.durations.to_h.values.reverse.find { |d| duration >= d.minutes }

@@ -75,12 +75,12 @@ xml.Fall do
     xml.comment! "Required"
     xml.Tattag do
       xml.Von l(@notice.date, format: :date)
-      xml.Bis l(@notice.date + @notice.duration.minutes, format: :date)
+      xml.Bis l(@notice.end_date, format: :date)
     end
     xml.comment! "Required"
     xml.Tatzeit do
       xml.Von l(@notice.date, format: :time)
-      xml.Bis l(@notice.date + @notice.duration.minutes + 1, format: :time)
+      xml.Bis l(@notice.end_date, format: :time)
     end
   end
   xml.comment! "Required"

@@ -83,6 +83,7 @@ class Notice < ApplicationRecord
   validates :token, uniqueness: true
   validate :validate_creation_date, on: :create
   validate :validate_date
+  validate :validate_duration
 
   scope :since, ->(date) { where("notices.created_at > ?", date) }
   scope :for_public, -> { where.not(status: :disabled) }
@@ -396,6 +397,10 @@ class Notice < ApplicationRecord
     token
   end
 
+  def end_date
+    date? ? date + duration.minutes + 1 : nil
+  end
+
   private
 
   def attachments
@@ -415,6 +420,10 @@ class Notice < ApplicationRecord
 
   def validate_creation_date
     errors.add(:date, :invalid) if date.to_i < 3.month.ago.to_i
+  end
+
+  def validate_duration
+    errors.add(:duration, :future) if end_date.to_i > Time.zone.now.to_i
   end
 
   def defaults

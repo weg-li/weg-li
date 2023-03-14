@@ -20,6 +20,12 @@ describe Notice do
       notice.date = 4.months.ago
       expect(notice).to_not be_valid
     end
+
+    it "validates the end_date" do
+      expect(notice).to be_valid
+      notice.date = Time.zone.now
+      expect(notice).to_not be_valid
+    end
   end
 
   context "wegli_email" do
