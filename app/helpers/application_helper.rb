@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+  def canonical_tag
+    tag(:link, rel: :canonical, href: url_for({ host: Rails.application.config.default_host }))
+  end
+
   def form_errors(model)
     if model.errors.present?
       content_tag(:ul, class: "well errors") do
