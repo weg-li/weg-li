@@ -4,7 +4,8 @@ require "spec_helper"
 
 describe "public", type: :request do
   before do
-    @notice = Fabricate(:notice)
+    charge = Fabricate(:charge, tbnr: "112454")
+    @notice = Fabricate(:notice, charge:, registration: "HH-PS 1234")
     @user = @notice.user
   end
 
@@ -13,7 +14,7 @@ describe "public", type: :request do
       get public_charge_path(token: @notice.to_param)
 
       expect(response).to be_successful
-      assert_select(".panel-heading", "Anzeige: #{@notice.registration} #{@notice.charge}")
+      assert_select(".panel-heading", "Anzeige: HH-PS 1234 112454")
     end
   end
 

@@ -16,11 +16,7 @@ class ChargesController < ApplicationController
 
     @charges = Charge.by_param(params[:id]).ordered
     @charge = @charges.first!
-    @notices =
-      Notice
-        .since(@since.weeks.ago)
-        .shared
-        .where(charge: Charge::CHARGES[@charge.tbnr.to_i])
+    @notices = @charge.notices.shared.since(@since.weeks.ago)
   end
 
   def list
@@ -29,37 +25,28 @@ class ChargesController < ApplicationController
         csv_data =
           CSV.generate(force_quotes: true) do |csv|
             csv << %w[Nr TBNR Tatbestand]
-            Charge::CHARGES.each_with_index do |(tbnr, charge), index|
+            Charge.active.parking.pluck(:tbnr, :description).each_with_index do |(tbnr, charge), index|
               csv << [index + 1, tbnr, charge]
             end
           end
-        send_data csv_data,
-                  type: "text/csv; charset=UTF-8; header=present",
-                  disposition:
-                    "attachment; filename=districts-#{Time.now.to_i}.csv"
+        send_data(
+          csv_data,
+          type: "text/csv; charset=UTF-8; header=present",
+          disposition: "attachment; filename=districts-#{Time.now.to_i}.csv",
+        )
       end
-      format.json { render json: Charge::CHARGES }
     end
   end
 
   private
 
   def search_scope
-    charges =
-      Charge.active.order(params[:order] || "tbnr ASC").page(params[:page])
+    charges = Charge.active.order(params[:order] || "tbnr ASC").page(params[:page])
     if params[:term].present?
-      charges =
-        charges.where(
-          "tbnr ILIKE :term OR description ILIKE :term",
-          term: "%#{params[:term]}%",
-        )
+      charges = charges.where("tbnr ILIKE :term OR description ILIKE :term", term: "%#{params[:term]}%")
     end
     if params[:classification].present?
-      charges =
-        charges.where(
-          "classification = ?",
-          params[:classification].to_i,
-        )
+      charges = charges.where("classification = ?", params[:classification].to_i)
     end
     charges
   end

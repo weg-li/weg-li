@@ -9,7 +9,7 @@ Falldaten:
 <%= Notice.human_attribute_name(:color) %>: <%= t(notice.color, scope: "activerecord.attributes.notice.colors") %>
 <% end %>
 <%= Notice.human_attribute_name(:location) %>: <%= notice.full_location %>
-<%= Notice.human_attribute_name(:charge) %>: <%= notice.display_charge %>
+<%= Notice.human_attribute_name(:charge) %>: <%= notice.charge&.description %>
 <%= Notice.human_attribute_name(:tbnr) %>: <%= notice.tbnr %>
 <%= Notice.human_attribute_name(:date) %>: <%= l(notice.date, format: :short) %>
 <%= Notice.human_attribute_name(:duration) %>: <%= l(notice.date, format: :time) %> ~ <%= l(notice.end_date, format: :time) %>

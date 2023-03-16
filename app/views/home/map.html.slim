@@ -18,7 +18,7 @@
     .col-lg-8
       h3 📈 Die häufigsten Vergehen
       ul.list-group
-        - grouped = @notices.reject { |notice| notice.charge.blank? }.group_by(&:charge).sort_by {|_, group| group.size }.reverse
+        - grouped = @notices.group_by(&:tbnr).sort_by {|_, group| group.size }.reverse
         - grouped.first(@limit).each do |key, group|
           li.list-group-item
             .badge.pull-right= number_with_delimiter(group.size)

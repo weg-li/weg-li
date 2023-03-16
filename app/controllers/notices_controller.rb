@@ -377,7 +377,7 @@ class NoticesController < ApplicationController
 
   def notice_update_params
     params.require(:notice).permit(
-      :charge,
+      :tbnr,
       :date,
       :date_date,
       :date_time,
@@ -404,7 +404,7 @@ class NoticesController < ApplicationController
 
   def notice_upload_params
     params.require(:notice).permit(
-      :charge,
+      :tbnr,
       :flags,
       :severity,
       :duration,

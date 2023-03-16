@@ -15,7 +15,7 @@ html lang=I18n.locale
   body
     = render('navigation')
     .container
-      .spacer-large.hidden-xs
+      = render('header')
       = render('flash')
       = yield
       = render('footer')

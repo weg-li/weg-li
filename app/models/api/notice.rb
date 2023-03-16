@@ -41,9 +41,9 @@ class Api::Notice < Notice
       key :type, :string
       key :enum, Vehicle.colors
     end
-    property :charge do
+    property :tbnr do
       key :type, :string
-      key :enum, Charge.plain_charges
+      key :enum, Charge.parking.pluck(:tbnr)
     end
     property :date do
       key :type, :string

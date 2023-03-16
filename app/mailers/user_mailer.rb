@@ -72,7 +72,7 @@ class UserMailer < ApplicationMailer
       content: reply.action_mailbox_inbound_email.raw_email.download.to_s,
     }
     subject =
-      "Automatische Antwort auf Anzeige #{@notice.registration} #{@notice.charge}"
+      "Automatische Antwort auf Anzeige #{@notice.registration} #{@notice.tbnr}"
     mail subject:, to: email_address_with_name(@user.email, @user.name)
   end
 end

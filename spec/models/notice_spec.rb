@@ -49,7 +49,7 @@ describe Notice do
   context "incomplete" do
     it "is incomplete" do
       expect(notice).to be_complete
-      notice.charge = nil
+      notice.tbnr = ""
       expect(notice).to be_invalid
       notice.save_incomplete!
       expect(notice.reload).to be_incomplete
@@ -61,8 +61,8 @@ describe Notice do
       Fabricate.times(5, :notice, status: :shared)
       Fabricate(:notice, status: :shared, created_at: 7.month.ago)
 
-      nearest = Notice.nearest_charges(notice.latitude, notice.longitude)
-      expect(nearest.first.keys).to eql(%w[charge count distance diff])
+      nearest = Notice.nearest_tbnrs(notice.latitude, notice.longitude)
+      expect(nearest.first.keys).to eql(%w[tbnr count distance diff])
     end
   end
 
@@ -72,7 +72,6 @@ describe Notice do
 
       expect(notice).to be_open
       expect(notice.token).to be_present
-      expect(notice[:tbnr]).to eql("142170")
     end
   end
 

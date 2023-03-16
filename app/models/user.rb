@@ -77,6 +77,12 @@ class User < ApplicationRecord
     end
   end
 
+  def favorite_tbnrs(max: 25)
+    @favorite_tbnrs ||= notices.since(6.month.ago).reorder(nil).distinct(:tbnr).limit(max).pluck(:tbnr)
+
+    (@favorite_tbnrs + Charge::FAVS).first(max)
+  end
+
   def validate!
     auth = authorizations.find_or_initialize_by(provider: "email")
     auth.update! uid: email_uid

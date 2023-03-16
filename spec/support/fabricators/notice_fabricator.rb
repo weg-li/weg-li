@@ -5,8 +5,6 @@ Fabricator(:notice) do
   street { Faker::Address.street_address }
   location { "Beim Nazis-Raus Aufkleber" }
   city { Faker::Address.city }
-  charge { Charge.plain_charges.sample }
-  tbnr { "142170" }
   date { 2.days.ago }
   registration { "#{Vehicle.plates.keys.sample} #{('A'..'Z').to_a.sample(2).join} #{rand(1000)}" }
   brand { Vehicle.car_brands.sample }
@@ -18,6 +16,7 @@ Fabricator(:notice) do
   latitude { 53.57532 }
   longitude { 10.01534 }
   note { "Gehweg war versperrt" }
+  charge
   user
   district
 end

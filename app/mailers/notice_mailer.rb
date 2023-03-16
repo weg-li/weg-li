@@ -29,7 +29,7 @@ class NoticeMailer < ApplicationMailer
       attach_photos(notice.photos)
     end
 
-    subject = "Anzeige #{@notice.registration} #{@notice.charge}"
+    subject = "Anzeige #{@notice.registration} / #{@notice.charge.description}"
     mail subject:,
          to: to || @district.email,
          cc: email_address_with_name(@user.email, @user.name),
@@ -42,7 +42,7 @@ class NoticeMailer < ApplicationMailer
     @user = notice.user
     @token = token
 
-    subject = "Meldung übertragen: #{@notice.registration} #{@notice.charge}"
+    subject = "Meldung übertragen: #{@notice.registration}"
     mail subject:, to: email_address_with_name(@user.email, @user.name)
   end
 

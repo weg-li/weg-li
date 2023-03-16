@@ -91,8 +91,6 @@
       <Tatbestandsnummer>142170</Tatbestandsnummer>
       <!-- Required -->
       <VorwurfText>Parken auf einem unbeschilderten Radweg</VorwurfText>
-      <!-- Required -->
-      <MitBehinderung>0</MitBehinderung>
     </Vorwurf>
   </Tatdaten>
   <Tatorte>

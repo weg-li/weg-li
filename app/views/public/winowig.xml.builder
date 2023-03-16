@@ -91,9 +91,7 @@ xml.Fall do
       xml.comment! "Required"
       xml.Tatbestandsnummer @notice.tbnr
       xml.comment! "Required"
-      xml.VorwurfText @notice.charge
-      xml.comment! "Required"
-      xml.MitBehinderung @notice.standard? ? 0 : 1
+      xml.VorwurfText @notice.charge.description
     end
   end
   xml.Tatorte do

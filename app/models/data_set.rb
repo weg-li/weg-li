@@ -10,11 +10,10 @@ class DataSet < ApplicationRecord
 
   enum kind: { google_vision: 0, exif: 1, car_ml: 2, geocoder: 3, proximity: 4 }
 
-  def charges
+  def tbnrs
     case kind
     when "proximity"
-      # [{"charge"=>"Parken weniger als 5 Meter vor/hinter der Kreuzung/Einmündung", "count"=>2, "distance"=>0.0, "diff"=>0.0}]
-      data.map { |it| it["charge"] }.compact
+      data.map { |it| it["tbnr"] }.compact
     else
       raise "not supported by #{kind}"
     end

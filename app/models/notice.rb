@@ -21,29 +21,28 @@ class Notice < ApplicationRecord
 
   acts_as_api
 
-  api_accessible(:public_beta) do |template|
-    %i[
-      token
-      status
-      street
-      city
-      zip
-      latitude
-      longitude
-      registration
-      color
-      brand
-      charge
-      date
-      duration
-      severity
-      photos
-      created_at
-      updated_at
-      sent_at
-    ].each { |key| template.add(key) }
-    Notice.bitfields[:flags].each_key { |key| template.add(key) }
-    template.add(:attachments, as: :photos)
+  api_accessible(:public_beta) do |api|
+    api.add(:token)
+    api.add(:status)
+    api.add(:street)
+    api.add(:city)
+    api.add(:zip)
+    api.add(:latitude)
+    api.add(:longitude)
+    api.add(:registration)
+    api.add(:color)
+    api.add(:brand)
+    api.add(:charge)
+    api.add(:tbnr)
+    api.add(:date)
+    api.add(:duration)
+    api.add(:severity)
+    api.add(:photos)
+    api.add(:created_at)
+    api.add(:updated_at)
+    api.add(:sent_at)
+    api.add(:attachments, as: :photos)
+    Notice.bitfields[:flags].each_key { |key| api.add(key) }
   end
 
   include Incompletable
@@ -57,9 +56,9 @@ class Notice < ApplicationRecord
   after_validation :postgisify
 
   enum status: { open: 0, disabled: 1, analyzing: 2, shared: 3 }
-  enum severity: { standard: 0, hinder: 1, endanger: 2 }
 
   belongs_to :user
+  belongs_to :charge, optional: true, foreign_key: :tbnr, primary_key: :tbnr
   belongs_to :district, optional: true, foreign_key: :zip, primary_key: :zip
   belongs_to :bulk_upload, optional: true
   has_many_attached :photos
@@ -69,17 +68,9 @@ class Notice < ApplicationRecord
            dependent: :destroy,
            as: :setable
 
-  validates :photos,
-            :registration,
-            :charge,
-            :street,
-            :zip,
-            :city,
-            :date,
-            :duration,
-            :severity,
-            presence: true
+  validates :photos, :registration, :street, :zip, :city, :date, :duration, presence: true
   validates :zip, format: { with: /\d{5}/, message: "PLZ ist nicht korrekt" }
+  validates :tbnr, length: { is: 6 }
   validates :token, uniqueness: true
   validate :validate_creation_date, on: :create
   validate :validate_date
@@ -154,9 +145,9 @@ class Notice < ApplicationRecord
           .to_a,
       grouped_charges:
         notices
-          .select("count(charge) as charge_count, charge")
-          .group(:charge)
-          .order(charge_count: :desc)
+          .select("count(tbnr) as tbnr_count, tbnr")
+          .group(:tbnr)
+          .order(tbnr_count: :desc)
           .limit(limit)
           .to_a,
       grouped_brands:
@@ -175,14 +166,6 @@ class Notice < ApplicationRecord
           .limit(limit)
           .to_a,
     }
-  end
-
-  def display_charge
-    standard? ? charge : "#{charge}, #{Notice.human_attribute_name(severity)}"
-  end
-
-  def tbnr
-    self[:tbnr] || Charge.plain_charges_tbnr(charge)
   end
 
   def wegli_email
@@ -252,7 +235,7 @@ class Notice < ApplicationRecord
       self.brand = other.brand if !brand? && other.brand?
       self.color = other.color if !color? && other.color?
       self.location = other.location if !location? && other.location?
-      self.charge = other.charge if !charge? && other.charge?
+      self.tbnr = other.tbnr if !tbnr? && other.tbnr?
       self.severity = other.severity if !severity? && other.severity?
       self.duration = other.duration if !duration? && other.duration?
       self.flags = other.flags if !flags? && other.flags?
@@ -260,20 +243,20 @@ class Notice < ApplicationRecord
     end
   end
 
-  def self.nearest_charges(latitude, longitude, distance = 50)
+  def self.nearest_tbnrs(latitude, longitude, distance = 50)
     sql =
       "
     SELECT
-      charge,
-      COUNT(charge) as count,
+      tbnr,
+      COUNT(tbnr) as count,
       SUM(ST_DistanceSphere(lonlat::geometry, ST_MakePoint($1, $2))) as distance,
-      SUM(ST_DistanceSphere(lonlat::geometry, ST_MakePoint($1, $2))) / COUNT(charge) as diff
+      SUM(ST_DistanceSphere(lonlat::geometry, ST_MakePoint($1, $2))) / COUNT(tbnr) as diff
     FROM notices
     WHERE
       status = 3
       AND created_at > (CURRENT_DATE - INTERVAL '6 months')
       AND ST_DWithin(lonlat::geography, ST_MakePoint($1, $2), $3)
-    GROUP BY charge
+    GROUP BY tbnr
     ORDER BY diff
     LIMIT 3
     "
@@ -381,7 +364,7 @@ class Notice < ApplicationRecord
   end
 
   def map_data(kind = :public)
-    basic = { latitude:, longitude:, charge:, date:, zip: }
+    basic = { latitude:, longitude:, charge: charge.description, date:, zip: }
 
     case kind
     when :public
@@ -428,6 +411,5 @@ class Notice < ApplicationRecord
 
   def defaults
     self.token ||= SecureRandom.hex(16)
-    self[:tbnr] ||= tbnr
   end
 end

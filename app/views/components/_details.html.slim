@@ -19,7 +19,7 @@ dl.dl-horizontal
   dt = Notice.human_attribute_name(:location)
   dd = notice.full_location
   dt = Notice.human_attribute_name(:charge)
-  dd = notice.charge.presence || "-"
+  dd = notice.charge&.description || "-"
   dt = Notice.human_attribute_name(:tbnr)
   dd
     - if notice.tbnr.present?

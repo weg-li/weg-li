@@ -31,12 +31,8 @@
     ul.list-group
       - statistics[:grouped_charges].each do |entry|
         li.list-group-item
-          .badge.pull-right= number_with_delimiter(entry.charge_count)
-          - tbnr = Charge.plain_charges_tbnr(entry.charge)
-          - if tbnr
-            = link_to entry.charge, charge_path(tbnr)
-          - else
-            = entry.charge
+          .badge.pull-right= number_with_delimiter(entry.tbnr_count)
+          = link_to entry.tbnr, charge_path(entry.tbnr)
 
   .col-lg-4
     h3 📈 Top Automarken

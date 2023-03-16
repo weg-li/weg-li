@@ -47,19 +47,19 @@
   .col-lg-4
     .form-group
       = form.label :address, class: "control-label control-label-required"
-      - address = notice.data_sets.select(&:geocoder?).map { |data_set| data_set.address }.compact.first
+      - address = notice.data_sets.select(&:geocoder?).map(&:address).compact.first
       .input-group
         = form.text_field :street, placeholder: 'z.B. Sylvesterallee 7', class: "form-control", required: true
         a.input-group-addon(href="#" data-toggle="modal" data-target="#modal_map")
           span.glyphicon.glyphicon-map-marker
         - coordinates = notice.coordinates? ? notice.map_data : address.present? ? { latitude: address[:latitude], longitude: address[:longitude] } : current_user.map_data
-        = render('picker_modal', coordinates: coordinates)
+        = render('picker_modal', coordinates:)
 
       - if address.present?
         .input-group#pick_address
           a(href="#" onclick="$('#notice_street').val('#{address[:street]}'); $('#notice_city').val('#{address[:city]}'); $('#notice_zip').val('#{address[:zip]}'); $('#notice_latitude').val('#{address[:latitude]}'); $('#notice_longitude').val('#{address[:longitude]}'); $('#pick_address').fadeOut(); return false;")
               span.label.label-default.label-picker(title=address[:street])
-                span(style="text-decoration:none")=> address[:street]
+                span(style="text-decoration:none") => address[:street]
                 span.glyphicon.glyphicon-circle-arrow-left
 
   .col-lg-4
@@ -81,28 +81,25 @@
         | Bei Verstößen z.B. im Kreuzungsbereich, oder falls eine Hausnummer fehlt, wird dieser Hinweis der Adresse hinzugefügt.
 
 .row
-  .col-lg-8
+  .col-lg-12
     .form-group
       = form.label :charge, class: "control-label control-label-required"
-      - plain_names = Charge.plain_charges
-      - nearest_charges = notice.data_sets.select(&:proximity?).flat_map { |data_set| data_set.charges }.compact
-      - nearest_charges = nearest_charges & plain_names
-      - charge_options = Charge::CHARGES.map {|tbnr, charge| ["#{charge} [#{tbnr}]", charge]}
-      = form.select :charge, charge_options, { include_blank: 'Verstoß Auswählen' }, { class: "form-control", required: true }
+      ruby:
+        nearest_tbnrs = notice.data_sets.select(&:proximity?).flat_map(&:charges).compact
+        charges = Charge.active.parking.ordered.pluck(:tbnr, :description)
+        favorites = charges.select { |tbnr, _charge| current_user.favorite_tbnrs.include?(tbnr) }
+        charge_options = [
+         ["Favoriten", favorites.map {|tbnr, description| ["#{description} [#{tbnr}]", tbnr]}],
+         ["BKAT", charges.map { |tbnr, description| ["#{description} [#{tbnr}]", tbnr] }]
+        ]
+      = form.select :tbnr, charge_options, { include_blank: 'Verstoß Auswählen' }, { class: "form-control", required: true }
       .input-group#pick_charge
-        - if nearest_charges.present?
-          - nearest_charge = nearest_charges.first
+        - if nearest_tbnrs.present?
+          - nearest_charge = nearest_tbnrs.first(3)
           a(href="#" onclick="$('#notice_charge').val('#{nearest_charge}').trigger('change'); $('#pick_charge').fadeOut(); return false;")
             span.label.label-default.label-picker(title=nearest_charge)
-              span=> nearest_charge
+              span => nearest_charge
               span.glyphicon.glyphicon-circle-arrow-left
-
-  .col-lg-4
-    .form-group
-      = form.label :severity, class: "control-label control-label-required"
-      = form.select :severity, Notice.severities.keys.map { |key| [Notice.human_attribute_name(key), key]}, { include_blank: 'Behinderung Auswählen' }, { class: "form-control", required: true }
-      = hint do
-        | Beweisfotos und Hinweise zur Behinderung/Gefährdung beifügen
 
 #duration-alert.alert.alert-info.alert-dismissable.hidden
   button type="button" class="close" data-dismiss="alert" ×
@@ -145,7 +142,7 @@ javascript:
         - date_times.each do |date_time|
           a(href="#" onclick="$('#notice_date_date').val('#{date_time.strftime('%Y-%m-%d')}'); $('#notice_date_time').val('#{date_time.strftime('%H:%M')}'); $('#pick_date').fadeOut(); return false;")
               span.label.label-default.label-picker(title=l(date_time))
-                span(style="text-decoration:none")=> l(date_time, format: :short)
+                span(style="text-decoration:none") => l(date_time, format: :short)
                 span.glyphicon.glyphicon-circle-arrow-left
 
   .col-lg-4
@@ -159,7 +156,7 @@ javascript:
         .input-group#pick_duration
           a(href="#" onclick="$('#notice_duration').val('#{duration}').trigger('change'); $('#pick_duration').fadeOut(); return false;")
               span.label.label-default.label-picker(title=Vehicle.durations[duration])
-                span(style="text-decoration:none")=> Vehicle.durations.to_h.invert[duration]
+                span(style="text-decoration:none") => Vehicle.durations.to_h.invert[duration]
                 span.glyphicon.glyphicon-circle-arrow-left
 
 .row
@@ -178,4 +175,4 @@ javascript:
         .checkbox
           label
             = form.check_box flag
-            span= t(flag, scope: "activerecord.attributes.notice.flags")
+            span = t(flag, scope: "activerecord.attributes.notice.flags")
