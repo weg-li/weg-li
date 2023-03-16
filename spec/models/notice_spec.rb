@@ -72,6 +72,7 @@ describe Notice do
 
       expect(notice).to be_open
       expect(notice.token).to be_present
+      expect(notice[:tbnr]).to eql("142170")
     end
   end
 

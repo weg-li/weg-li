@@ -221,10 +221,8 @@ class User < ApplicationRecord
   end
 
   def defaults
-    if new_record?
-      self.token = SecureRandom.hex(16)
-      self.api_token = SecureRandom.hex(32)
-    end
+    self.token ||= SecureRandom.hex(16)
+    self.api_token ||= SecureRandom.hex(32)
   end
 
   class << self

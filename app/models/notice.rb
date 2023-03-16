@@ -428,6 +428,6 @@ class Notice < ApplicationRecord
 
   def defaults
     self.token ||= SecureRandom.hex(16)
-    self.tbnr ||= tbnr
+    self[:tbnr] ||= tbnr
   end
 end
