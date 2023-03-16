@@ -26,10 +26,6 @@ module ApplicationHelper
     end
   end
 
-  def set_crumbs(crumbs = {})
-    @crumbs = crumbs
-  end
-
   def set_title(*title)
     content_for(:title, title.join(" · "))
   end
