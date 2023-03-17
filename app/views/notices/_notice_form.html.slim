@@ -85,7 +85,7 @@
     .form-group
       = form.label :charge, class: "control-label control-label-required"
       ruby:
-        nearest_tbnrs = notice.data_sets.select(&:proximity?).flat_map(&:charges).compact
+        nearest_tbnrs = notice.data_sets.select(&:proximity?).flat_map(&:tbnrs).compact
         charges = Charge.active.parking.ordered.pluck(:tbnr, :description)
         favorites = charges.select { |tbnr, _charge| current_user.favorite_tbnrs.include?(tbnr) }
         charge_options = [
