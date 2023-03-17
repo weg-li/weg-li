@@ -2,7 +2,12 @@
 
 module ApplicationHelper
   def canonical_tag
-    tag(:link, rel: :canonical, href: url_for({ host: Rails.application.config.default_host }))
+    href =  content_for?(:canonical) ? content_for(:canonical) : url_for({ host: Rails.application.config.default_host })
+    tag(:link, rel: :canonical, href:)
+  end
+
+  def set_canonical(canonical)
+    content_for(:canonical, canonical)
   end
 
   def form_errors(model)

@@ -1,4 +1,5 @@
 - set_title [t('navigation.districts'), @district.zip, @district.name, @district.state].join(' ')
+- set_canonical district_url(@district)
 - set_meta_description t('meta_description.district', name: @district.name, zip: @district.zip, state: @district.state)
 
 h3= "Bezirk #{@district.zip} #{@district.name} im Bundesland #{@district.state}"

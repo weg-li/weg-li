@@ -1,4 +1,5 @@
 - set_title [t('navigation.charges'), @charge.tbnr, @charge.description].join(' ')
+- set_canonical charge_url(@charge)
 - set_meta_description t('meta_description.charge', tbnr: @charge.tbnr, description: @charge.description, bkat: @charge.bkat)
 
 h3 #{@charge.description} (#{Charge.human_attribute_name(:tbnr)} #{@charge.tbnr})
