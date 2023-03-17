@@ -5,7 +5,7 @@ require "spec_helper"
 describe Scheduled::GeocodingCleanupJob do
   context "perform" do
     it "should fixup geocoding" do
-      notice = Fabricate.create(:notice, latitude: -30)
+      notice = Fabricate.create(:notice, latitude: -30, status: :shared)
 
       expect do
         Scheduled::GeocodingCleanupJob.perform_now

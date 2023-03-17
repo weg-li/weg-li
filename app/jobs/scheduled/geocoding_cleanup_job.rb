@@ -15,7 +15,7 @@ class Scheduled::GeocodingCleanupJob < ApplicationJob
       JOIN users ON notices.user_id = users.id AND users.access >= 0
       JOIN districts ON notices.zip = districts.zip
       WHERE
-      notice.status = 3
+      notices.status = 3
       AND
       notices.latitude IS NOT NULL
       AND
