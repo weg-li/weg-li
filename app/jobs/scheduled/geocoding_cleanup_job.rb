@@ -9,7 +9,17 @@ class Scheduled::GeocodingCleanupJob < ApplicationJob
     query =
       "
     SELECT * FROM (
-    SELECT notices.id, 2 * 3961 * ASIN(SQRT((SIN(RADIANS((districts.latitude - notices.latitude) / 2))) ^ 2 + COS(RADIANS(notices.latitude)) * COS(RADIANS(districts.latitude)) * (SIN(RADIANS((districts.longitude - notices.longitude) / 2))) ^ 2)) AS distance FROM notices JOIN users ON notices.user_id = users.id AND users.access >= 0 JOIN districts ON notices.zip = districts.zip WHERE notices.latitude IS NOT NULL AND districts.latitude IS NOT NULL
+      SELECT
+      notices.id, 2 * 3961 * ASIN(SQRT((SIN(RADIANS((districts.latitude - notices.latitude) / 2))) ^ 2 + COS(RADIANS(notices.latitude)) * COS(RADIANS(districts.latitude)) * (SIN(RADIANS((districts.longitude - notices.longitude) / 2))) ^ 2)) AS distance
+      FROM notices
+      JOIN users ON notices.user_id = users.id AND users.access >= 0
+      JOIN districts ON notices.zip = districts.zip
+      WHERE
+      notice.status = 3
+      AND
+      notices.latitude IS NOT NULL
+      AND
+      districts.latitude IS NOT NULL
     ) AS res WHERE res.distance > #{Geo::MAX_DISTANCE};
     "
 
@@ -20,6 +30,18 @@ class Scheduled::GeocodingCleanupJob < ApplicationJob
       distance = row["distance"]
       Rails.logger.info "distance for #{id} is > #{distance}"
       notice = Notice.find(id)
+      notice.geocode
+      notice.save(validate: false)
+    end
+
+    # clean it up again
+    cursor = Notice.connection.execute(query)
+    cursor.each do |row|
+      id = row["id"]
+      distance = row["distance"]
+      Rails.logger.info "distance for #{id} is > #{distance}"
+      notice = Notice.find(id)
+      notice.city = notice.district.city
       notice.geocode
       notice.save(validate: false)
     end
