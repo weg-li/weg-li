@@ -41,7 +41,7 @@ class Scheduled::GeocodingCleanupJob < ApplicationJob
       distance = row["distance"]
       Rails.logger.info "distance for #{id} is > #{distance}"
       notice = Notice.find(id)
-      notice.city = notice.district.city
+      notice.city = notice.district.name
       notice.geocode
       notice.save(validate: false)
     end
