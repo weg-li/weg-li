@@ -364,7 +364,7 @@ class Notice < ApplicationRecord
   end
 
   def map_data(kind = :public)
-    basic = { latitude:, longitude:, charge: charge.description, date:, zip: }
+    basic = { latitude:, longitude:, tbnr:, date:, zip: }
 
     case kind
     when :public
