@@ -54,10 +54,6 @@ class Api::Notice < Notice
       key :format, :int64
       key :enum, Vehicle.durations.map(&:last)
     end
-    property :severity do
-      key :type, :string
-      key :enum, Notice.severities.keys
-    end
     property :note do
       key :type, :string
     end
