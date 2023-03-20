@@ -72,7 +72,7 @@ hr.spacer
                 | Durch das Versenden per PDF-Anhang wird die Meldung als PDF generiert und ggf. die #{link_to 'im Profil', edit_user_path(anchor: :signature)} hinterlegte Unterschrift mit eingefügt.
 
       .col-lg-4
-        = render("components/map/single", notice: @notice, kind: :private, css_class: 'mini-map-canvas')
+        = render("components/map/canvas", notices: @notice, kind: :private, css_class: "mini-map-canvas")
 
   - else
     .alert.alert-warning

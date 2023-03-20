@@ -1,8 +1,0 @@
-- css_class ||= "map-canvas"
-= content_tag(:div, id: "map_#{dom_id(notice)}", class: css_class, data: { notice: notice.map_data(kind) }) do
-  p Enable JS to view Map!
-
-javascript:
-  (function() {
-    new GMap($("#map_#{dom_id(notice)}")).show();
-  })();

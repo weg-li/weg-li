@@ -1,0 +1,10 @@
+- type ||= 'GMultiMap'
+- init ||= {latitude: 50.9, longitude: 10.5, zoom: 5}
+- css_class ||= "map-canvas"
+= content_tag(:div, id: "map_canvas", class: css_class, data: { notices: Array(notices).map(&:map_data), init: init }) do
+  p Enable JS to view Map!
+
+javascript:
+  (function() {
+    new #{type}($("#map_canvas")).show();
+  })();

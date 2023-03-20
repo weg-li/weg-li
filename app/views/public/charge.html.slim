@@ -10,4 +10,4 @@
 
   - if @notice.coordinates?
     .panel-body.panel-body-map
-      = render("components/map/single", notice: @notice, kind: :public)
+      = render("components/map/canvas", notices: @notice, kind: :public)

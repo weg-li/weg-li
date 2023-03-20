@@ -11,4 +11,8 @@ ul.nav.nav-tabs.nav-panel
       = render('components/register')
 
   .panel-body.panel-body-map
-    = render("components/map/#{display}", notices: notices, kind: :public, css_class: 'large-map-canvas')
+    ruby:
+      type ||= "GMultiMap"
+      type = "GHeatMap" if display == "heat"
+      type = "GClusterMap" if display == "cluster"
+    = render("components/map/canvas", notices:, kind: :public, css_class: 'large-map-canvas')

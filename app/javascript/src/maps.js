@@ -16,7 +16,8 @@ function mapHTML(notice) {
         <dt>Kennzeichen</dt>
         <dd>${notice.registration || '-'}</dd>
         <dt>Verstoß</dt>
-        <dd>${notice.tbnr || '-'}</dd>
+        <dd>${I18n.charges[notice.tbnr] || '-'}</dd>
+        <dd><a href="/charges/${notice.tbnr}">${notice.tbnr}</a></dd>
         <dt>Adresse</dt>
         <dd>${notice.full_address || '-'}</dd>
         <dt><a href="/notices/${notice.token}">Details ansehen</a></dt>
@@ -28,7 +29,8 @@ function mapHTML(notice) {
       <dt>Datum</dt>
       <dd>${date}</dd>
       <dt>Verstoß</dt>
-      <dd>${notice.tbnr || '-'}</dd>
+      <dd>${I18n.charges[notice.tbnr] || '-'}</dd>
+      <dd><a href="/charges/${notice.tbnr}">${notice.tbnr}</a></dd>
     </dl>
   `;
 }
@@ -41,24 +43,6 @@ function initMap(canvas, coords, zoom = 13) {
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
   return map;
-}
-
-class GMap {
-  constructor(canvas) {
-    this.canvas = canvas[0];
-    this.notice = canvas.data('notice');
-  }
-
-  show() {
-    const map = initMap(this.canvas, [
-      this.notice.latitude,
-      this.notice.longitude,
-    ]);
-
-    L.marker([this.notice.latitude, this.notice.longitude])
-      .addTo(map)
-      .bindPopup(mapHTML(this.notice));
-  }
 }
 
 async function geocode(latitude, longitude) {
@@ -231,7 +215,6 @@ class GHeatMap {
   }
 }
 
-window.GMap = GMap;
 window.GPickerMap = GPickerMap;
 window.GMultiMap = GMultiMap;
 window.GClusterMap = GClusterMap;

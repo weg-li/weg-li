@@ -366,14 +366,7 @@ class Notice < ApplicationRecord
   def map_data(kind = :public)
     basic = { latitude:, longitude:, tbnr:, date:, zip: }
 
-    case kind
-    when :public
-      basic
-    when :private
-      basic.merge({ registration:, full_address:, token: })
-    else
-      raise "kind #{kind} not surported"
-    end
+    kind == :private ? basic.merge({ registration:, full_address:, token: }) : basic
   end
 
   def to_param

@@ -26,13 +26,4 @@
 .well
   | Du hast in den letzten #{@since} Wochen #{@notices.blank? ? 'noch keine' : @notices.size } Anzeigen gegen Falschparker erstattet.
 
-a.anchor#map_filter Map Anchor
-
-ul.nav.nav-tabs.nav-panel
-  li(class="#{ 'active' if @display == 'cluster' }")= link_to 'Cluster', url_for(since: @since, display: 'cluster', anchor: :map_filter)
-  li(class="#{ 'active' if @display == 'heat' }")= link_to 'Heatmap', url_for(since: @since, display: 'heat', anchor: :map_filter)
-  li(class="#{ 'active' if @display == 'multi' }")= link_to 'Karte', url_for(since: @since, display: 'multi', anchor: :map_filter)
-
-.panel.panel-default
-  .panel-body.panel-body-map
-    = render("components/map/#{@display}", notices: @notices, kind: :private, init: current_user.district&.map_data)
+= render("components/map/filter", notices: @notices, district: current_user.district, display: @display, since: @since, kind: :private, init: current_user.district&.map_data)

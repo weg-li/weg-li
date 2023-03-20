@@ -11,7 +11,7 @@ ul.nav.nav-tabs.nav-panel
   .panel-heading
     .row
       .col-lg-12
-        = form_tag(map_path(anchor: :map_filter), method: :get, class: 'form-inline pull-right') do |form|
+        = form_tag(url_for(anchor: :map_filter), method: :get, class: 'form-inline pull-right') do |form|
           = hidden_field_tag(:display, display)
           .form-group.form-group-sm.text-right
             = render('dropdown', name: :since, value: since, items: {7 => 'letzte Woche', 30 => 'letzter Monat', 30 * 3 => 'letztes Quartal'})
@@ -19,6 +19,10 @@ ul.nav.nav-tabs.nav-panel
             = submit_tag('Los', class: "btn btn-default btn-sm")
 
   .panel-body.panel-body-map
-    = render("components/map/#{display}", notices: notices, init: init, kind: kind, css_class: 'large-map-canvas') if display == 'cluster' || display == 'multi' || display == 'heat'
+    ruby:
+      type ||= "GMultiMap"
+      type = "GHeatMap" if display == "heat"
+      type = "GClusterMap" if display == "cluster"
+    = render("components/map/canvas", notices:, kind:, type:, init:, css_class: "large-map-canvas")
   .panel-footer
     | Dein Bezirk fehlt in der Liste? Dann schlage ihn gleich über #{link_to 'unser Formular für neue Bezirke', new_district_path} hinzu!

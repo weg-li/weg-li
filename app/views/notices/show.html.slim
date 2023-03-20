@@ -18,4 +18,4 @@
     = render('reply_list', replies: @notice.replies)
   - if @notice.coordinates?
     .panel-body.panel-body-map
-      = render("components/map/single", notice: @notice, kind: :private)
+      = render("components/map/canvas", notices: @notice, kind: :private)

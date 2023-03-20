@@ -3,28 +3,29 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ["airbnb-base"],
+  extends: ['airbnb-base'],
   globals: {
-    $: "readonly",
-    L: "readonly",
+    $: 'readonly',
+    L: 'readonly',
+    I18n: 'readonly',
   },
   parserOptions: {
     ecmaVersion: 12,
-    sourceType: "module",
+    sourceType: 'module',
   },
   rules: {
-    "max-len": "off",
-    "prefer-destructuring": "off",
-    "no-alert": "off",
-    "no-console": "off",
-    "max-classes-per-file": "off",
-    "no-new": "off",
+    'max-len': 'off',
+    'prefer-destructuring': 'off',
+    'no-alert': 'off',
+    'no-console': 'off',
+    'max-classes-per-file': 'off',
+    'no-new': 'off',
   },
   settings: {
-    "import/resolver": {
+    'import/resolver': {
       node: {
-        paths: ["app/javascript/"],
-        extensions: [".js", ".js.erb"],
+        paths: ['app/javascript/'],
+        extensions: ['.js', '.js.erb'],
       },
     },
   },
