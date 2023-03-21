@@ -34,7 +34,7 @@ function mapHTML(notice) {
 }
 
 function initMap(canvas, coords, zoom = 13) {
-  const map = L.map(canvas).setView(coords, zoom);
+  const map = L.map(canvas, {tab: L.Browser.safari && L.Browser.mobile}).setView(coords, zoom);
 
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution:
