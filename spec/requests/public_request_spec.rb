@@ -14,7 +14,7 @@ describe "public", type: :request do
       get public_charge_path(token: @notice.to_param)
 
       expect(response).to be_successful
-      assert_select(".panel-heading", "Anzeige: HH-PS 1234 112454")
+      assert_select(".panel-heading", "Anzeige: HH-PS 1234 / 112454")
     end
   end
 
