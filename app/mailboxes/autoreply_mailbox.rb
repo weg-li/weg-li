@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class AutoreplyMailbox < ApplicationMailbox
+  include ActionView::Helpers::SanitizeHelper
+
   rescue_from(ActiveRecord::RecordNotFound) { bounced! }
 
   def process
@@ -9,7 +11,7 @@ class AutoreplyMailbox < ApplicationMailbox
       action_mailbox_inbound_email: inbound_email,
       sender: mail.from.first,
       subject: mail.subject || "-",
-      content: self.class.content_from_mail(mail),
+      content: content_from_mail(mail),
     }
     reply = notice.replies.create!(params)
 
@@ -19,7 +21,10 @@ class AutoreplyMailbox < ApplicationMailbox
     end
   end
 
-  def self.content_from_mail(mail)
-    mail.multipart? ? mail.text_part.decoded : mail.decoded
+  private
+
+  def content_from_mail(mail)
+    content = mail.multipart? ? (mail.text_part || mail.html_part).decoded : mail.decoded
+    strip_tags(content)
   end
 end
