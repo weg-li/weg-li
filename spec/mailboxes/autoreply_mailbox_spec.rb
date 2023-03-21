@@ -9,7 +9,7 @@ describe AutoreplyMailbox do
     it "parses complex stuffs" do
       source = file_fixture("example.eml").read
       mail = Mail.from_source(source)
-      expect(AutoreplyMailbox.content_from_mail(mail)).to eql("puffig\n\nknuffig\n")
+      expect(mail.text_part.decoded).to eql("puffig\n\nknuffig\n")
     end
   end
 
