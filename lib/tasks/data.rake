@@ -19,9 +19,10 @@ namespace :data do
 
   task fill_up_districts: :environment do
     zips_and_city.each do |row|
-      # Ort;Zusatz;Plz;Vorwahl;Bundesland
-      zip = row["Plz"]
+      # PLZ,Ort,Ortstteil,
+      zip = row["PLZ"]
 
+      puts zip
       next if zip.blank?
 
       district = District.from_zip(zip)
@@ -29,9 +30,7 @@ namespace :data do
         Rails.logger.info("found #{zip}: #{district.id}")
       else
         name = row["Ort"]
-        long_name = "#{name}#{row['Zusatz']}"
-        state = row["Bundesland"]
-        source = District.active.where("(name = :name OR name = :long_name) AND state = :state AND zip LIKE :zip", name:, long_name:, state:, zip: "#{zip.first(2)}%").first
+        source = District.active.where("name = :name AND zip LIKE :zip", name:, zip: "#{zip.first(2)}%").first
         if source.present?
           Rails.logger.info("found source for #{zip}: #{source.id}")
           district = source.dup
@@ -127,9 +126,9 @@ namespace :data do
   end
 
   def zips_and_city
-    # Ort;Zusatz;Plz;Vorwahl;Bundesland
-    # Aach;b Trier;54298;0651;Rheinland-Pfalz
-    @zips_and_city ||= CSV.parse(File.read("config/data/zips_and_city.csv"), headers: true, col_sep: ";")
+    # PLZ,Ort,Ortstteil,
+    # 01067,Dresden,,
+    @zips_and_city ||= CSV.parse(File.read("config/data/zips_and_city.csv"), headers: true)
   end
 
   def opengeodb
