@@ -154,11 +154,11 @@ de:
   slogan_2: "Macht die Bahn frei!"
   slogan_3: "Für sichere Radwege und freie Bürgersteige!"
   meta_description:
-    default: "Mit weg.li kannst Du ganz einfach Falschparker melden. Lade Beweisfotos hoch und weg.li erkennt automatisch das Kennzeichen, den Tatort und vieles mehr. Erstatte dann Anzeige bei der zuständigen Stelle, damit der Fahrzeughalter umgehend bestraft wird."
-    charges: 'Alles Wichtige über Verstöße aus dem Bußgeldkatalog der Straßenverkehrsordnung (StVO): Tatbestandsnummer (TBNR), höhe der Bußgelder oder Verwarngelder, Fahrverbote und Punktezahl aus dem aktuellen bundeseinheitlichen Bußgeldkatalog (bkat owi 18.05.2020)'
-    charge: "%{tbnr}: %{description} Diese Geldbußen oder Verwarngelder drohen beim Verstoß gegen %{bkat}."
-    districts: 'Alles Wichtige über das Melden von Falschparkern in der ganzen Bundesrepublik. Deutschlandweit werden Vertöße zur Anzeige gebracht.'
-    district: "Falschparker melden in %{zip} %{name}: So werden in %{state} Vertöße zur Anzeige gebracht."
+    default: "Mit weg.li kannst Du ganz einfach Falschparker anzeigen. Lade Beweisfotos hoch und weg.li erkennt automatisch das Kennzeichen, den Tatort und vieles mehr. Erstatte dann Anzeige bei der zuständigen Stelle, damit der Fahrzeughalter umgehend bestraft wird."
+    charges: 'Alles Wichtige über Verstöße aus dem Bußgeldkatalog der Straßenverkehrsordnung (StVO) zum Anzeigen von Falschparkern: Tatbestandsnummer (TBNR), höhe der Bußgelder oder Verwarngelder, Fahrverbote und Punktezahl aus dem aktuellen bundeseinheitlichen Bußgeldkatalog (bkat owi 18.05.2020)'
+    charge: "Falschparker anzeigen mit TBNR %{tbnr}: %{description} Diese Geldbußen oder Verwarngelder drohen beim Verstoß gegen %{bkat}."
+    districts: 'Alles Wichtige über das Anzeigen von Falschparkern in der ganzen Bundesrepublik. Deutschlandweit werden Vertöße zur Anzeige gebracht.'
+    district: "Falschparker anzeigen in %{zip} %{name}: So werden in %{state} Vertöße zur Anzeige gebracht."
     map: "Die Falschparker-Karte zeigt alle gemeldeten Parkverstöße und Anzeigen gegen Falschparker in %{district}."
     exports: "Die Falschparker-Exporte beinhalten anonymisiert die gemeldeten Parkverstöße und Anzeigen gegen Falschparker in Deutschland."
     leaderboard: "Das who-is-who der Falschparker-Melder auf weg.li. Wer erstattet die meisten Anzeigen gegen Falschparker in Deutschland."
