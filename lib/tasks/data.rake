@@ -35,7 +35,7 @@ namespace :data do
           Rails.logger.info("found source for #{zip}: #{source.id}")
           district = source.dup
           district.zip = zip
-          district.prefix ||= [zip_to_prefix[zip]]
+          district.prefixes ||= [zip_to_prefix[zip]]
           district.save!
         else
           Rails.logger.info("could not find anything for #{zip}")
