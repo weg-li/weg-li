@@ -47,26 +47,22 @@ class Notice < ApplicationRecord
 
   include Incompletable
 
+  geocoded_by :geocode_address, language: proc { |_model| I18n.locale }, no_annotations: true
+
   before_validation :defaults
 
-  geocoded_by :geocode_address,
-              language: proc { |_model| I18n.locale },
-              no_annotations: true
   after_validation :geocode, if: :do_geocoding?
   after_validation :postgisify
 
   enum status: { open: 0, disabled: 1, analyzing: 2, shared: 3 }
 
   belongs_to :user
-  belongs_to :charge, optional: true, foreign_key: :tbnr, primary_key: :tbnr
+  belongs_to :charge, -> { order(valid_from: :desc) }, optional: true, foreign_key: :tbnr, primary_key: :tbnr
   belongs_to :district, optional: true, foreign_key: :zip, primary_key: :zip
   belongs_to :bulk_upload, optional: true
   has_many_attached :photos
   has_many :replies, -> { order(created_at: :desc) }, dependent: :destroy
-  has_many :data_sets,
-           -> { order(created_at: :desc) },
-           dependent: :destroy,
-           as: :setable
+  has_many :data_sets, -> { order(created_at: :desc) }, dependent: :destroy, as: :setable
 
   validates :photos, :registration, :street, :zip, :city, :date, :duration, presence: true
   validates :zip, format: { with: /\d{5}/, message: "PLZ ist nicht korrekt" }
@@ -78,8 +74,7 @@ class Notice < ApplicationRecord
 
   scope :since, ->(date) { where("notices.created_at > ?", date) }
   scope :for_public, -> { where.not(status: :disabled) }
-  scope :search,
-        ->(term) { where("registration ILIKE :term", term: "%#{term}%") }
+  scope :search, ->(term) { where("registration ILIKE :term", term: "%#{term}%") }
   scope :preselect, -> { shared.limit(3) }
 
   def self.for_reminder
