@@ -1,2 +1,3 @@
+- stuff = { charges: Charge.active.pluck(:tbnr, :description).to_h.transform_values { |v| h(v) } }
 javascript:
-  I18n = {};
+  I18n = #{stuff.to_json.html_safe};

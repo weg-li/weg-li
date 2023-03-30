@@ -2,6 +2,7 @@
 
 class ApplicationMailer < ActionMailer::Base
   include Slack::Slackable
+  helper :application
 
   default from: email_address_with_name("peter@weg.li", "weg.li")
 

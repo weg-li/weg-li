@@ -74,46 +74,34 @@ class NoticesController < ApplicationController
   def stats
     @since = (params[:since] || "8").to_i
 
-    @notice_counts =
-      Notice.count_over(current_user.notices.shared, weeks: @since)
+    @notice_counts = Notice.count_over(current_user.notices.shared, weeks: @since)
     @notice_sums = Notice.sum_over(current_user.notices.shared, weeks: @since)
-    @photo_counts =
-      Notice.count_over(
-        ActiveStorage::Attachment.where(
-          record_type: "Notice",
-          record_id: current_user.notices.shared.pluck(:id),
-          name: "photos",
-        ),
-        weeks: @since,
-      )
-    @photo_sums =
-      Notice.sum_over(
-        ActiveStorage::Attachment.where(
-          record_type: "Notice",
-          record_id: current_user.notices.shared.pluck(:id),
-          name: "photos",
-        ),
-        weeks: @since,
-      )
+    @photo_counts = Notice.count_over(
+      ActiveStorage::Attachment.where(
+        record_type: "Notice",
+        record_id: current_user.notices.shared.pluck(:id),
+        name: "photos",
+      ),
+      weeks: @since,
+    )
+    @photo_sums = Notice.sum_over(
+      ActiveStorage::Attachment.where(
+        record_type: "Notice",
+        record_id: current_user.notices.shared.pluck(:id),
+        name: "photos",
+      ),
+      weeks: @since,
+    )
 
     @limit = (params[:limit] || 10).to_i
     @current_year = Date.today.year
     @year = params[:year]
+
     grouped_statistics_scope = current_user.notices.reorder(nil).group(:status)
-    if @year.present?
-      grouped_statistics_scope =
-        grouped_statistics_scope.where(
-          date: (Time.new(@year)..Time.new(@year).end_of_year),
-        )
-    end
+    grouped_statistics_scope = grouped_statistics_scope.where(date: (Time.new(@year)..Time.new(@year).end_of_year)) if @year.present?
     @grouped_statistics = grouped_statistics_scope.count
 
-    @statistics =
-      Notice.yearly_statistics(
-        @year,
-        @limit,
-        base_scope: current_user.notices.shared,
-      )
+    @statistics = Notice.yearly_statistics(@year, @limit, base_scope: current_user.notices.shared)
   end
 
   def show

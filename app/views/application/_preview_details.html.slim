@@ -2,7 +2,7 @@ dl
   dt= Notice.human_attribute_name(:tbnr)
   dd= notice.tbnr || '-'
   dt= Notice.human_attribute_name(:charge)
-  dd= notice.charge&.description || '-'
+  dd= to_charge(notice.tbnr) || '-'
   dt= Notice.human_attribute_name(:severity)
   dd= Notice.human_attribute_name(notice.severity)
   dt= Notice.human_attribute_name(:date)

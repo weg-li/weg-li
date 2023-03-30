@@ -13,6 +13,7 @@ class Charge < ApplicationRecord
   scope :active, -> { where(valid_to: nil).where("fine > 0") }
   scope :ordered, -> { order(:tbnr, :valid_from) }
   scope :parking, -> { where(classification: 5) }
+  scope :by_param, ->(param) { where(tbnr: parse_param(param)) }
 
   acts_as_api
 
@@ -65,10 +66,6 @@ class Charge < ApplicationRecord
 
     def from_param(param)
       by_param(param).ordered.first!
-    end
-
-    def by_param(param)
-      where(tbnr: parse_param(param))
     end
 
     def parse_param(param)

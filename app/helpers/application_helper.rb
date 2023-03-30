@@ -67,6 +67,14 @@ module ApplicationHelper
     end
   end
 
+  def to_charge(tbnr)
+    @charge_descriptions ||= {}
+    @charge_descriptions[tbnr] ||= begin
+      charge = Charge.by_param(tbnr).active.ordered.first || Charge.by_param(tbnr).first
+      charge&.description
+    end
+  end
+
   def link_to_notice(notice, &)
     if notice.open? || notice.analyzing?
       link_to([:edit, notice], &)

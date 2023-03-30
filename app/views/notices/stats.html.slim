@@ -38,7 +38,7 @@ ul.nav.nav-tabs.nav-panel
           - @statistics[:grouped_charges].each do |entry|
             li.list-group-item
               .badge.pull-right= number_with_delimiter(entry.tbnr_count)
-              = entry.tbnr
+              = to_charge(entry.tbnr)
 
       .col-lg-3
         h4 📈 Top-#{@limit} Kennzeichen

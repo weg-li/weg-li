@@ -16,7 +16,7 @@ function mapHTML(notice) {
         <dt>Kennzeichen</dt>
         <dd>${notice.registration || '-'}</dd>
         <dt>Verstoß</dt>
-        <dd>${notice.tbnr || '-'}</dd>
+        <dd>${I18n.charges[notice.tbnr] || notice.tbnr || '-'}</dd>
         <dt>Adresse</dt>
         <dd>${notice.full_address || '-'}</dd>
         <dt><a href="/notices/${notice.token}">Details ansehen</a></dt>
@@ -28,7 +28,7 @@ function mapHTML(notice) {
       <dt>Datum</dt>
       <dd>${date}</dd>
       <dt>Verstoß</dt>
-      <dd>${notice.tbnr || '-'}</dd>
+      <dd>${I18n.charges[notice.tbnr] || notice.tbnr || '-'}</dd>
     </dl>
   `;
 }
