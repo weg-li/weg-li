@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-ruby "3.1.3"
+ruby "3.1.4"
 
 gem "rails", "7.0.4.3"
 gem "bootsnap", require: false
