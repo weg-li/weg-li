@@ -70,7 +70,7 @@ module ApplicationHelper
   def to_charge(tbnr)
     @charge_descriptions ||= {}
     @charge_descriptions[tbnr] ||= begin
-      charge = Charge.by_param(tbnr).active.ordered.first || Charge.by_param(tbnr).first
+      charge = Charge.by_param(tbnr).ordered.take
       charge&.description
     end
   end

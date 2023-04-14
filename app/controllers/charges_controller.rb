@@ -15,7 +15,7 @@ class ChargesController < ApplicationController
     @display = %w[cluster heat multi].delete(params[:display]) || "cluster"
 
     @charges = Charge.by_param(params[:id]).ordered
-    @charge = @charges.first!
+    @charge = @charges.active.take
     @notices = @charge.notices.shared.since(@since.weeks.ago)
   end
 
