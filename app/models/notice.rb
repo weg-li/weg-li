@@ -163,6 +163,14 @@ class Notice < ApplicationRecord
     }
   end
 
+  def photos=(attachables)
+    attachables = Array(attachables).compact_blank
+    # BC config.active_storage.replace_on_assign_to_many set to true before upgrading
+    if attachables.any?
+      attachment_changes["photos"] = ActiveStorage::Attached::Changes::CreateMany.new("photos", self, photos.blobs + attachables)
+    end
+  end
+
   def wegli_email
     "#{token}@anzeige.weg.li"
   end
