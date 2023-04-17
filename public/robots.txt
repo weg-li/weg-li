@@ -2,3 +2,4 @@
 #
 User-agent: *
 Disallow: /p/
+Disallow: /rails/active_storage/blobs/redirect/
