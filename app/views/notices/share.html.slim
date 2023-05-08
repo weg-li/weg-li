@@ -7,8 +7,7 @@
 .row
   .col-lg-12
     pre.charge
-      - @user = current_user
-      = render template: '/notice_mailer/charge', formats: [:text]
+      = @mail.text_part.decoded
     = render 'components/photos', notice: @notice, publicly: true
 
 hr.spacer
