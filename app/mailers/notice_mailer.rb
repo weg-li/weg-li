@@ -9,11 +9,6 @@ class NoticeMailer < ApplicationMailer
     @district = notice.district
     @send_via_pdf = send_via_pdf
 
-    if @district.blank?
-      notify("no district found with zip #{notice.zip} for #{notice.id}")
-      return
-    end
-
     if @district.winowig?
       data = PdfGenerator.new(include_photos: false).generate(@notice)
       attachments[notice.file_name(:pdf)] = data

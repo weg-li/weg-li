@@ -52,7 +52,7 @@ class DistrictsController < ApplicationController
           .map { |key, (from, to)| "#{key} changed from #{from} to #{to}" }
           .join(", ")
       notify(
-        "district changes proposed: #{message} #{admin_district_url(district)}#{" by #{current_user.email}" if signed_in?}",
+        "district changes proposed: #{message} #{edit_admin_district_url(district)}#{" by #{current_user.email}" if signed_in?}",
       )
     end
 
@@ -70,7 +70,7 @@ class DistrictsController < ApplicationController
     @district = District.new(district_params.merge(status: :proposed))
     if @district.save
       notify(
-        "new district proposed: #{admin_district_url(@district)}#{" by #{current_user.email}" if signed_in?}",
+        "new district proposed: #{edit_admin_district_url(@district)}#{" by #{current_user.email}" if signed_in?}",
       )
 
       redirect_to(

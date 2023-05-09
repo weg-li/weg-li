@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class NoticesController < ApplicationController
+  include Slack::Slackable
+
   before_action :authenticate!
   before_action :authenticate_community_user!, only: [:colors]
   before_action :authenticate_admin_user!, only: [:inspect]
@@ -147,8 +149,13 @@ class NoticesController < ApplicationController
 
   def share
     @notice = current_user.notices.complete.from_param(params[:id])
+    @district = @notice.district
 
-    @mail = NoticeMailer.charge(@notice)
+    if @district.blank?
+      notify("no district found with zip #{@notice.zip} for #{@notice.id} #{edit_admin_notice_url(@notice.token)}")
+    else
+      @mail = NoticeMailer.charge(@notice)
+    end
   end
 
   def forward

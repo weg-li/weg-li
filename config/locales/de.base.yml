@@ -110,6 +110,7 @@ de:
   errors:
     format: "%{attribute} %{message}"
     messages:
+      future: darf nicht in der Zukunft liegen
       accepted: muss akzeptiert werden
       blank: muss ausgefüllt werden
       confirmation: stimmt nicht mit %{attribute} überein
