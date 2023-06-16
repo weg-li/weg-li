@@ -202,7 +202,7 @@ GEM
     google-cloud-vision-v1p3beta1 (0.10.1)
       gapic-common (>= 0.19.1, < 2.a)
       google-cloud-errors (~> 1.0)
-    google-protobuf (3.23.2)
+    google-protobuf (3.23.3)
     googleapis-common-protos (1.4.0)
       google-protobuf (~> 3.14)
       googleapis-common-protos-types (~> 1.2)
@@ -216,7 +216,7 @@ GEM
       multi_json (~> 1.11)
       os (>= 0.9, < 2.0)
       signet (>= 0.16, < 2.a)
-    grpc (1.55.0)
+    grpc (1.56.0)
       google-protobuf (~> 3.23)
       googleapis-common-protos-types (~> 1.0)
     haml (6.1.1)
@@ -251,7 +251,7 @@ GEM
       bindata
       faraday (~> 2.0)
       faraday-follow_redirects
-    jwt (2.7.0)
+    jwt (2.7.1)
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.2)
@@ -298,7 +298,7 @@ GEM
     msgpack (1.7.1)
     multi_json (1.15.0)
     multi_xml (0.6.0)
-    net-imap (0.3.4)
+    net-imap (0.3.6)
       date
       net-protocol
     net-pop (0.1.2)
@@ -363,7 +363,7 @@ GEM
     prawn (2.4.0)
       pdf-core (~> 0.9.0)
       ttfunk (~> 1.7)
-    prawn-markup (0.3.7)
+    prawn-markup (1.0.0)
       nokogiri
       prawn
       prawn-table
@@ -377,7 +377,7 @@ GEM
     puma (6.3.0)
       nio4r (~> 2.0)
     raabro (1.4.0)
-    racc (1.7.0)
+    racc (1.7.1)
     rack (2.2.7)
     rack-cache (1.13.0)
       rack (>= 0.4)
@@ -424,7 +424,7 @@ GEM
       redis-client (>= 0.9.0)
     redis-client (0.14.1)
       connection_pool
-    regexp_parser (2.8.0)
+    regexp_parser (2.8.1)
     representable (3.2.0)
       declarative (< 0.1.0)
       trailblazer-option (>= 0.1.1, < 0.2.0)
@@ -461,10 +461,10 @@ GEM
     rswag-ui (2.9.0)
       actionpack (>= 3.1, < 7.1)
       railties (>= 3.1, < 7.1)
-    rubocop (1.52.0)
+    rubocop (1.52.1)
       json (~> 2.3)
       parallel (~> 1.10)
-      parser (>= 3.2.0.0)
+      parser (>= 3.2.2.3)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml (>= 3.2.5, < 4.0)
