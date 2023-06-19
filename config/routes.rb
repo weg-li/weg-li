@@ -117,6 +117,7 @@ Rails.application.routes.draw do
     unless Rails.env.production?
       get "/offline_login/:nickname", to: "sessions#offline_login"
     end
+    post "/twitter_murks", to: "sessions#twitter_murks"
     get "/:provider/callback", to: "sessions#create", as: :provider_callback
     delete "/:provider", to: "sessions#disconnect"
     get "/failure", to: "sessions#failure"

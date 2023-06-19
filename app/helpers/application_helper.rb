@@ -110,7 +110,7 @@ module ApplicationHelper
   end
 
   PROVIDERS = {
-    twitter: "Twitter",
+    twitter_murks: "Twitter",
     google_oauth2: "Google",
     telegram: "Telegram",
     github: "GitHub",
