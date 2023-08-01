@@ -6,7 +6,7 @@
         = form.label :name, class: "control-label control-label-required"
         = form.text_field :name, class: "form-control", required: true, placeholder: 'z.B. Hamburg'
         = hint do
-          | Der Name der Stadt, Gemeinde oder der Ordnungsbehörde
+          | Der Name des Ortes, der Stadt oder Gemeinde
     .col-lg-6
       .form-group
         = form.label :email, class: "control-label control-label-required"
@@ -30,12 +30,6 @@
         = form.text_field :prefixes, class: "form-control", placeholder: 'z.B. HH'
         = hint do
           | Optional die örtlichen Kennzeichen (mit Leerzeichen getrennt)
-    .col-lg-6
-      .form-group
-        = form.label :osm_id, class: "control-label"
-        = form.text_field :osm_id, class: "form-control", placeholder: 'z.B. 62782'
-        = hint do
-          | Optional die OpenStreetmap-ID des Ortes
 
   .row
     .col-lg-12
