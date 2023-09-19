@@ -10,7 +10,7 @@ class Charge < ApplicationRecord
            foreign_key: :table_id,
            primary_key: :variant_table_id
 
-  scope :active, -> { where(valid_to: nil).where("fine > 0") }
+  scope :active, -> { where(valid_to: nil) }
   scope :ordered, -> { order(:tbnr, valid_from: :desc) }
   scope :parking, -> { where(classification: 5) }
   scope :by_param, ->(param) { where(tbnr: parse_param(param)) }
