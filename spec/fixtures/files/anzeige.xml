@@ -57,7 +57,7 @@
       <!-- List is not updated -->
       <Farbe>Schwarz</Farbe>
       <!-- Required -->
-      <!-- Possible values: Abarth,Adria,Aixam,Alfa Romeo,Alpine,Aston Martin,Audi,BMW,BYD,Bentley,Brabus,Brixton,Buick,CFMOTO,Cadillac,Chevrolet,Chrysler,Citroën,Corvette,Cupra,DAF,DS Automobiles,Dacia,Daewoo,Daihatsu,Dodge,Dong Feng,Ferrari,Fiat,Ford,Genesis,Honda,Hummer,Hymer,Hyundai,IVECO,Infiniti,Isuzu,Jaguar,Jeep,Kia,Lada,Lamborghini,Lancia,Land Rover,Lexus,Lincoln,Lotus,Lynk & Co,MAN,MG,MINI,Maserati,Maxus,Maybach,Mazda,McLaren,Mercedes-Benz,Mitsubishi,Morgan,Nio,Nissan,Opel,Pagani,Peugeot,Polestar,Porsche,Qoros,RAM Trucks,Renault,Rolls Royce,Rover,SCANIA,SKYWELL,Saab,Saleen,Seat,Setra,Smart,Spyker,SsangYong,Streetscooter,Subaru,Suzuki,Tata,Tesla,Toyota,Trabant,Venturi,Volkswagen,Volvo,Wiesmann,Škoda -->
+      <!-- Possible values: Abarth,Adria,Aixam,Alfa Romeo,Alpine,Aston Martin,Audi,BMW,BYD,Bentley,Brabus,Brixton,Buick,CFMOTO,Cadillac,Chevrolet,Chrysler,Citroën,Corvette,Cupra,DAF,DS Automobiles,Dacia,Daewoo,Daihatsu,Dodge,Dong Feng,Dong Feng,Ferrari,Fiat,Ford,Genesis,Honda,Hummer,Hymer,Hyundai,IVECO,Infiniti,Isuzu,Jaguar,Jeep,Kia,Lada,Lamborghini,Lancia,Land Rover,Lexus,Lincoln,Lotus,Lynk & Co,MAN,MG,MINI,Maserati,Maxus,Maybach,Mazda,McLaren,Mercedes-Benz,Mitsubishi,Morgan,Nio,Nissan,Opel,Pagani,Peugeot,Polestar,Porsche,Qoros,RAM Trucks,Renault,Rolls Royce,Rover,SCANIA,SKYWELL,SKYWELL,Saab,Saleen,Seat,Setra,Smart,Spyker,SsangYong,Streetscooter,Subaru,Suzuki,Tata,Tesla,Toyota,Trabant,Venturi,Volkswagen,Volvo,Wiesmann,Škoda -->
       <!-- List is updated -->
       <Fabrikat>märzer</Fabrikat>
       <!-- Required -->
