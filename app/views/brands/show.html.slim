@@ -1,0 +1,42 @@
+- set_title [t('navigation.brands'), @brand.name].join(' ')
+- set_canonical brand_url(@brand)
+- set_meta_description t('meta_description.brand', name: @brand.name)
+
+h3 #{@brand.name}
+
+.spacer
+
+.well
+  | Für die Marke "#{@brand.name}" wurden in den letzten #{@since} Wochen deutschlandweit #{@notices.blank? ? 'noch keine' : @notices.size } Anzeigen gegen Falschparker erstattet.
+
+- if @notices
+  .spacer
+
+  .row
+    .col-lg-6
+      .panel.panel-default
+        .panel-heading Statistiken zu den Parkverstößen von Fahrzeugen der Marke #{@brand.name}
+        ul.list-group
+          - grouped = @notices.group_by(&:tbnr).sort_by {|_, group| group.size }.reverse
+          - if grouped.present?
+            - grouped.first(10).each do |key, group|
+              li.list-group-item
+                .badge.pull-right= number_with_delimiter(group.size)
+                - charge = Charge.find_by(tbnr: key)
+                = link_to charge.description, charge_path(key)
+          - else
+            li.list-group-item In diesem Zeitraum keine Statistiken verfügbar
+    .col-lg-6
+      .panel.panel-default
+        .panel-heading Modelle der Marke #{@brand.name}
+        ul.list-group
+          - if @brand.models.present?
+            - @brand.models.each do |model|
+              li.list-group-item= model
+          - else
+            li.list-group-item Keine Modelle hinterlegt
+
+
+.spacer-lage
+
+= render('components/map/login', notices: @notices, display: @display, since: @since)

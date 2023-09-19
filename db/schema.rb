@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_16_210727) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_19_153939) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -60,6 +60,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_16_210727) do
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.index ["user_id"], name: "index_authorizations_on_user_id"
+  end
+
+  create_table "brands", force: :cascade do |t|
+    t.string "name"
+    t.string "token"
+    t.integer "kind", default: 0
+    t.string "aliases", default: [], array: true
+    t.string "models", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_brands_on_name"
+    t.index ["token"], name: "index_brands_on_token"
   end
 
   create_table "bulk_uploads", force: :cascade do |t|
@@ -223,6 +235,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_16_210727) do
     t.datetime "updated_at", null: false
     t.integer "priority", default: 0
     t.index ["user_id"], name: "index_snippets_on_user_id"
+  end
+
+  create_table "user_messages", force: :cascade do |t|
+    t.bigint "sender_id"
+    t.bigint "receiver_id"
+    t.string "message"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["receiver_id"], name: "index_user_messages_on_receiver_id"
+    t.index ["sender_id"], name: "index_user_messages_on_sender_id"
   end
 
   create_table "users", force: :cascade do |t|

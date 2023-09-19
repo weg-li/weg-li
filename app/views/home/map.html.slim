@@ -22,7 +22,8 @@
         - grouped.first(@limit).each do |key, group|
           li.list-group-item
             .badge.pull-right= number_with_delimiter(group.size)
-            = key
+            - charge = Charge.find_by(tbnr: key)
+            = link_to charge.description, charge_path(key)
 
     .col-lg-4
       h3 📈 Die häufigsten Automarken

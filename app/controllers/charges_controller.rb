@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "csv"
-
 class ChargesController < ApplicationController
   def index
     respond_to do |format|

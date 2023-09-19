@@ -17,6 +17,7 @@ de:
       data_set: 'Datensatz'
       authorization: 'Auth'
       export: 'Export'
+      brand: 'Marke'
       charge: 'Tatbestand'
       charge_variant: 'Variante'
     attributes:
@@ -72,6 +73,12 @@ de:
         importing: importieren
         error_message: Fehler
         shared_album_url: Album
+      brand:
+        name: 'Name'
+        token: 'Token'
+        kind: 'Art'
+        models: 'Modelle'
+        aliases: 'Aliase'
       charge:
         tbnr: 'TBNR'
         description: 'Tatbestandstext'
@@ -155,6 +162,8 @@ de:
   slogan_3: "Für sichere Radwege und freie Bürgersteige!"
   meta_description:
     default: "Mit weg.li kannst Du ganz einfach Falschparker anzeigen. Lade Beweisfotos hoch und weg.li erkennt automatisch das Kennzeichen, den Tatort und vieles mehr. Erstatte dann Anzeige bei der zuständigen Stelle, damit der Fahrzeughalter umgehend bestraft wird."
+    brands: 'Alles Fahrzeugmarken mit denen Parkverstöße begangen werden.'
+    brand: "Falschparker mit der Fahrzeug Marke %{name}."
     charges: 'Alles Wichtige über Verstöße aus dem Bußgeldkatalog der Straßenverkehrsordnung (StVO) zum Anzeigen von Falschparkern: Tatbestandsnummer (TBNR), höhe der Bußgelder oder Verwarngelder, Fahrverbote und Punktezahl aus dem aktuellen bundeseinheitlichen Bußgeldkatalog (bkat owi 18.05.2020)'
     charge: "Falschparker anzeigen mit TBNR %{tbnr}: %{description} Diese Geldbußen oder Verwarngelder drohen beim Verstoß gegen %{bkat}."
     districts: 'Alles Wichtige über das Anzeigen von Falschparkern in der ganzen Bundesrepublik. Deutschlandweit werden Vertöße zur Anzeige gebracht.'
@@ -164,6 +173,7 @@ de:
     leaderboard: "Das who-is-who der Falschparker-Melder auf weg.li. Wer erstattet die meisten Anzeigen gegen Falschparker in Deutschland."
   navigation:
     charges: 'Bußgeldkatalog'
+    brands: 'Marken'
     districts: 'Bezirke'
     notices: 'Meldungen'
     replies: 'Antworten'

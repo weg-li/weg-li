@@ -11,7 +11,11 @@ dl.dl-horizontal
   dt = Notice.human_attribute_name(:registration)
   dd = notice.registration.presence || "-"
   dt = Notice.human_attribute_name(:brand)
-  dd = notice.brand.presence || "-"
+  dd
+    - if notice.brand.present?
+      = link_to(notice.brand, brand_path(notice.brand.parameterize))
+    - else
+      = "-"
   dt = Notice.human_attribute_name(:color)
   dd = I18n.t(notice.color.presence, scope: "activerecord.attributes.notice.colors", default: "-")
   dt = Notice.human_attribute_name(:district)
@@ -19,7 +23,11 @@ dl.dl-horizontal
   dt = Notice.human_attribute_name(:location)
   dd = notice.full_location
   dt = Notice.human_attribute_name(:charge)
-  dd = notice.charge&.description || "-"
+  dd
+    - if notice.charge.present?
+      = link_to(notice.charge.description, charge_path(notice.charge.tbnr))
+    - else
+      = "-"
   dt = Notice.human_attribute_name(:tbnr)
   dd
     - if notice.tbnr.present?

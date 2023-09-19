@@ -1,5 +1,5 @@
 .badge.pull-right= number_with_delimiter(brand_count)
-= brand
+= link_to brand, brand_path(brand.parameterize)
 - percentage = brand_count / count.fdiv(100)
 - market_percentage = Vehicle.percentage(brand)
 - if market_percentage

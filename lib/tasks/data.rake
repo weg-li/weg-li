@@ -67,6 +67,21 @@ namespace :data do
     end
   end
 
+  task import_brands: :environment do
+    Brand.connection.truncate("brands")
+    Vehicle.cars.each do |item|
+      params = {
+        name: item["brand"],
+        token: item["brand"].parameterize,
+        kind: :car,
+        aliases: item["aliases"],
+        models: item["models"],
+      }
+      puts params
+      Brand.create!(params)
+    end
+  end
+
   task import_charge_variants: :environment do
     ChargeVariant.connection.truncate("charge_variants")
     CSV.foreach(Rails.root.join("bkat/data/Tatbestandstabelleneintrag.csv"), headers: true, quote_char: "'") do |row|
