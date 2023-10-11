@@ -48,7 +48,7 @@ createuser -s postgres # create general purpose postgres user
 brew install imagemagick # image-processing
 
 # project setup
-bin/setup
+script/setup
 ```
 
 ```bash
