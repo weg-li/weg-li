@@ -46,7 +46,7 @@ class HomeController < ApplicationController
     @yearly_leaders = leaders(Time.zone.now.beginning_of_year, @limit)
     @total_leaders = leaders(10.years.ago, @limit)
 
-    @year_leaders = years[1..-1].to_h { |year| [year, leaders_count(year, @limit)] }
+    @year_leaders = years[1..].to_h { |year| [year, leaders_count(year, @limit)] }
 
     user_ids = @weekly_leaders.keys + @monthly_leaders.keys + @yearly_leaders.keys + @total_leaders.keys + @year_leaders.values.flat_map(&:keys)
     @users = User.find(user_ids)

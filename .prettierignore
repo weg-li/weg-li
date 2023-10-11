@@ -1,0 +1,4 @@
+app/assets/stylesheets/**/*
+client/**/*
+config/**/*
+public/packs*/**/*

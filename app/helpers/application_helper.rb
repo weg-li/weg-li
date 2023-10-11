@@ -2,7 +2,7 @@
 
 module ApplicationHelper
   def canonical_tag
-    href =  content_for?(:canonical) ? content_for(:canonical) : url_for({ host: Rails.application.config.default_host })
+    href = content_for?(:canonical) ? content_for(:canonical) : url_for({ host: Rails.application.config.default_host })
     tag(:link, rel: :canonical, href:)
   end
 
