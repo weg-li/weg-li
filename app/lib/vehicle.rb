@@ -12,7 +12,7 @@ class Vehicle
   end
 
   def self.most_often?(matches)
-    return nil if matches.blank?
+    return false if matches.blank?
 
     matches.group_by(&:itself).max_by { |_match, group| group.size }[0]
   end
@@ -81,7 +81,7 @@ class Vehicle
 
   def self.brand?(text)
     cars.find do |entry|
-      return nil if (entry["falsepositives"] || []).find { |ali| text == ali }
+      return false if (entry["falsepositives"] || []).find { |ali| text == ali }
     end
 
     text = text.strip.downcase
@@ -110,7 +110,7 @@ class Vehicle
           model =~ /\D{3,}/ && text == model.strip.downcase
         end
       end
-    return res["brand"], 0.5 if res.present?
+    [res["brand"], 0.5] if res.present?
   end
 
   def self.brand_options
