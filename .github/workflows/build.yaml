@@ -30,7 +30,6 @@ jobs:
           --health-retries 5
         ports:
           - 6379:6379
-
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
@@ -68,3 +67,23 @@ jobs:
           RAILS_ENV: test
           RSPEC_RETRY_RETRY_COUNT: 3
         run: bundle exec rake
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          cache: "yarn"
+          node-version: 18
+      - run: yarn
+      - run: yarn lint
+  checkPrettier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          cache: "yarn"
+          node-version: 18
+      - run: yarn
+      - run: yarn prettier -c .

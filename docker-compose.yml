@@ -30,7 +30,7 @@ services:
     depends_on:
       - postgres
       - redis
-  
+
 volumes:
   gem_cache:
   db_data:

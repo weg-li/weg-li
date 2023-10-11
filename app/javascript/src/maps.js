@@ -1,24 +1,25 @@
-const L = require('leaflet');
-require('leaflet.heat');
-require('leaflet.markercluster');
+/* global I18n */
+const L = require("leaflet");
+require("leaflet.heat");
+require("leaflet.markercluster");
 
-L.Icon.Default.imagePath = '/img/map/';
+L.Icon.Default.imagePath = "/img/map/";
 
 function mapHTML(notice) {
   const date = notice.date
     ? new Date(Date.parse(notice.date)).toLocaleDateString()
-    : '-';
+    : "-";
   if (notice.token) {
     return `
       <dl>
         <dt>Datum</dt>
         <dd>${date}</dd>
         <dt>Kennzeichen</dt>
-        <dd>${notice.registration || '-'}</dd>
+        <dd>${notice.registration || "-"}</dd>
         <dt>Verstoß</dt>
-        <dd>${I18n.charges[notice.tbnr] || notice.tbnr || '-'}</dd>
+        <dd>${I18n.charges[notice.tbnr] || notice.tbnr || "-"}</dd>
         <dt>Adresse</dt>
-        <dd>${notice.full_address || '-'}</dd>
+        <dd>${notice.full_address || "-"}</dd>
         <dt><a href="/notices/${notice.token}">Details ansehen</a></dt>
       </dl>
     `;
@@ -28,15 +29,17 @@ function mapHTML(notice) {
       <dt>Datum</dt>
       <dd>${date}</dd>
       <dt>Verstoß</dt>
-      <dd>${I18n.charges[notice.tbnr] || notice.tbnr || '-'}</dd>
+      <dd>${I18n.charges[notice.tbnr] || notice.tbnr || "-"}</dd>
     </dl>
   `;
 }
 
 function initMap(canvas, coords, zoom = 13) {
-  const map = L.map(canvas, {tab: L.Browser.safari && L.Browser.mobile}).setView(coords, zoom);
+  const map = L.map(canvas, {
+    tab: L.Browser.safari && L.Browser.mobile,
+  }).setView(coords, zoom);
 
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
@@ -46,7 +49,7 @@ function initMap(canvas, coords, zoom = 13) {
 class GMap {
   constructor(canvas) {
     this.canvas = canvas[0];
-    this.notice = canvas.data('notice');
+    this.notice = canvas.data("notice");
   }
 
   show() {
@@ -63,14 +66,14 @@ class GMap {
 
 async function geocode(latitude, longitude) {
   try {
-    const response = await fetch('/notices/geocode', {
-      method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
+    const response = await fetch("/notices/geocode", {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
       headers: {
-        'X-CSRF-Token': document.querySelector("[name='csrf-token']")?.content,
-        'Content-Type': 'application/json',
+        "X-CSRF-Token": document.querySelector("[name='csrf-token']")?.content,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ latitude, longitude }),
     });
@@ -86,13 +89,13 @@ async function geocode(latitude, longitude) {
 class GPickerMap {
   constructor(canvas) {
     this.canvas = canvas[0];
-    this.coordinates = canvas.data('coordinates');
-    this.street = canvas.data('street');
-    this.zip = canvas.data('zip');
-    this.city = canvas.data('city');
-    this.latitude = canvas.data('latitude');
-    this.longitude = canvas.data('longitude');
-    this.trigger = canvas.data('trigger');
+    this.coordinates = canvas.data("coordinates");
+    this.street = canvas.data("street");
+    this.zip = canvas.data("zip");
+    this.city = canvas.data("city");
+    this.latitude = canvas.data("latitude");
+    this.longitude = canvas.data("longitude");
+    this.trigger = canvas.data("trigger");
     this.map = null;
   }
 
@@ -118,15 +121,15 @@ class GPickerMap {
           $(this.latitude).val(latlng.lat);
           $(this.longitude).val(latlng.lng);
         } else {
-          window.alert('Es konnten keine Ergebnisse gefunden werden.');
+          window.alert("Es konnten keine Ergebnisse gefunden werden.");
         }
       }
     };
 
-    marker.addEventListener('dragend', markerMoved);
-    this.map.addEventListener('dblclick', markerMoved);
+    marker.addEventListener("dragend", markerMoved);
+    this.map.addEventListener("dblclick", markerMoved);
 
-    $(window.document).on('click', this.trigger, () => {
+    $(window.document).on("click", this.trigger, () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
@@ -139,11 +142,11 @@ class GPickerMap {
             markerMoved({ latlng });
           },
           (error) => {
-            console.log('error getting current location', error);
-          },
+            console.log("error getting current location", error);
+          }
         );
       } else {
-        window.alert('Der Browser unterstützt keine Geolocation');
+        window.alert("Der Browser unterstützt keine Geolocation");
       }
     });
   }
@@ -152,15 +155,15 @@ class GPickerMap {
 class GMultiMap {
   constructor(canvas) {
     this.canvas = canvas[0];
-    this.init = canvas.data('init');
-    this.notices = canvas.data('notices');
+    this.init = canvas.data("init");
+    this.notices = canvas.data("notices");
   }
 
   show() {
     const map = initMap(
       this.canvas,
       [this.init.latitude, this.init.longitude],
-      this.init.zoom,
+      this.init.zoom
     );
 
     if (this.notices.length > 0) {
@@ -179,15 +182,15 @@ class GMultiMap {
 class GClusterMap {
   constructor(canvas) {
     this.canvas = canvas[0];
-    this.init = canvas.data('init');
-    this.notices = canvas.data('notices');
+    this.init = canvas.data("init");
+    this.notices = canvas.data("notices");
   }
 
   show() {
     const map = initMap(
       this.canvas,
       [this.init.latitude, this.init.longitude],
-      this.init.zoom,
+      this.init.zoom
     );
 
     if (this.notices.length > 0) {
@@ -207,15 +210,15 @@ class GClusterMap {
 class GHeatMap {
   constructor(canvas) {
     this.canvas = canvas[0];
-    this.init = canvas.data('init');
-    this.notices = canvas.data('notices');
+    this.init = canvas.data("init");
+    this.notices = canvas.data("notices");
   }
 
   show() {
     const map = initMap(
       this.canvas,
       [this.init.latitude, this.init.longitude],
-      this.init.zoom,
+      this.init.zoom
     );
 
     if (this.notices.length > 0) {
