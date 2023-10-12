@@ -49,10 +49,6 @@ jobs:
           PGPASSWORD: password
           RAILS_ENV: test
         run: bundle exec rake db:test:prepare
-      - name: Build assets
-        env:
-          RAILS_ENV: test
-        run: NODE_OPTIONS=--openssl-legacy-provider bundle exec rake assets:precompile
       - name: Run Tests
         env:
           PGHOST: localhost
