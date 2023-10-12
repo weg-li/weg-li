@@ -32,33 +32,27 @@ jobs:
           - 6379:6379
 
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          cache: yarn
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       - name: Install PostgreSQL 11 client
         run: sudo apt-get update && sudo apt-get install postgresql postgresql-contrib libpq-dev --fix-missing
-      - name: Get yarn cache
-        id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - uses: actions/cache@v1
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
       - name: Install yarn && dependencies
-        run: yarn install --ignore-engines
-
+        run: yarn install --frozen-lockfile
       - name: Prepare database
         env:
           PGHOST: localhost
           PGPASSWORD: password
           RAILS_ENV: test
-        run: |
-          bundle exec rake db:test:prepare
-
+        run: bundle exec rake db:test:prepare
+      - name: Build assets
+        env:
+          RAILS_ENV: test
+        run: NODE_OPTIONS=--openssl-legacy-provider bundle exec rake assets:precompile
       - name: Run Tests
         env:
           PGHOST: localhost
