@@ -2,10 +2,10 @@
 
 ## Properties
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **error** | **String** |  |  |
-| **description** | **String** |  | [optional] |
+| Name            | Type       | Description | Notes      |
+| --------------- | ---------- | ----------- | ---------- |
+| **error**       | **String** |             |            |
+| **description** | **String** |             | [optional] |
 
 ## Example
 
@@ -17,4 +17,3 @@ instance = OpenapiClient::Error.new(
   description: null
 )
 ```
-

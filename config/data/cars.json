@@ -21,9 +21,7 @@
   },
   {
     "brand": "BYD",
-    "aliases": [
-      "Build your dreams"
-    ],
+    "aliases": ["Build your dreams"],
     "models": []
   },
   {
@@ -32,11 +30,7 @@
   },
   {
     "brand": "Nio",
-    "models": [
-      "ET7",
-      "ET5",
-      "EL7"
-    ]
+    "models": ["ET7", "ET5", "EL7"]
   },
   {
     "brand": "Lincoln",
@@ -172,12 +166,7 @@
   },
   {
     "brand": "Bentley",
-    "models": [
-      "Bentayga",
-      "Continental GT",
-      "Flying Spur",
-      "Mulsanne"
-    ]
+    "models": ["Bentayga", "Continental GT", "Flying Spur", "Mulsanne"]
   },
   {
     "brand": "Maserati",
@@ -368,9 +357,7 @@
   },
   {
     "brand": "Citroën",
-    "aliases": [
-      "Citroen"
-    ],
+    "aliases": ["Citroen"],
     "models": [
       "Berlingo",
       "C-Crosser",
@@ -459,9 +446,7 @@
   },
   {
     "brand": "Škoda",
-    "aliases": [
-      "Skoda"
-    ],
+    "aliases": ["Skoda"],
     "models": [
       "Favorit",
       "Felicia",
@@ -742,9 +727,7 @@
   },
   {
     "brand": "Volkswagen",
-    "aliases": [
-      "VW"
-    ],
+    "aliases": ["VW"],
     "models": [
       "Amarok",
       "Beetle",
@@ -819,9 +802,7 @@
   },
   {
     "brand": "Mercedes-Benz",
-    "aliases": [
-      "MERCEDES"
-    ],
+    "aliases": ["MERCEDES"],
     "models": [
       "100 D",
       "115",
@@ -1084,10 +1065,7 @@
   },
   {
     "brand": "Hummer",
-    "models": [
-      "H2",
-      "H3"
-    ]
+    "models": ["H2", "H3"]
   },
   {
     "brand": "Hyundai",
@@ -1127,14 +1105,7 @@
   },
   {
     "brand": "Tesla",
-    "models": [
-      "Roadster",
-      "Model S",
-      "Model 3",
-      "Model X",
-      "Model Y",
-      "Semi"
-    ]
+    "models": ["Roadster", "Model S", "Model 3", "Model X", "Model Y", "Semi"]
   },
   {
     "brand": "Daihatsu",
@@ -1163,15 +1134,7 @@
   },
   {
     "brand": "Infiniti",
-    "models": [
-      "EX",
-      "FX",
-      "G",
-      "G Coupé",
-      "M",
-      "Q",
-      "QX"
-    ]
+    "models": ["EX", "FX", "G", "G Coupé", "M", "Q", "QX"]
   },
   {
     "brand": "Jaguar",
@@ -1357,10 +1320,7 @@
   },
   {
     "brand": "MINI",
-    "falsepositives": [
-      "Minibus",
-      "Minivan"
-    ],
+    "falsepositives": ["Minibus", "Minivan"],
     "models": [
       "Cooper",
       "Cooper Cabrio",
@@ -1377,17 +1337,7 @@
   },
   {
     "brand": "Rover",
-    "models": [
-      "200",
-      "214",
-      "218",
-      "25",
-      "400",
-      "414",
-      "416",
-      "620",
-      "75"
-    ]
+    "models": ["200", "214", "218", "25", "400", "414", "416", "620", "75"]
   },
   {
     "brand": "Aston Martin",

@@ -28,6 +28,6 @@ class Brand < ApplicationRecord
   end
 
   def to_param
-    "#{name.parameterize}"
+    name.parameterize.to_s
   end
 end

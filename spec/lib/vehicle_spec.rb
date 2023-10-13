@@ -96,8 +96,8 @@ describe Vehicle do
     ].shuffle!
     expect(Vehicle.most_often?(colors)).to eql("gray")
 
-    expect(Vehicle.most_often?([])).to be_nil
-    expect(Vehicle.most_often?(nil)).to be_nil
+    expect(Vehicle.most_often?([])).to be_falsy
+    expect(Vehicle.most_often?(nil)).to be_falsy
   end
 
   it "it checks possible brand matches" do

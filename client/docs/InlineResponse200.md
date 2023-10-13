@@ -2,9 +2,9 @@
 
 ## Properties
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **user_id** | **String** |  | [optional] |
+| Name             | Type       | Description                                                        | Notes      |
+| ---------------- | ---------- | ------------------------------------------------------------------ | ---------- |
+| **user_id**      | **String** |                                                                    | [optional] |
 | **access_token** | **String** | The corresponding access token for the newly created user account. | [optional] |
 
 ## Example
@@ -17,4 +17,3 @@ instance = OpenapiClient::InlineResponse200.new(
   access_token: null
 )
 ```
-

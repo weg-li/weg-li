@@ -17,6 +17,8 @@ AllCops:
     - "client/**/*"
     - "app/controllers/admin/**/*"
     - "app/dashboards/**/*"
+    - "node_modules/**/*"
+    - "vendor/**/*" # The github actions uses the vendor folder to install the gems. We should not try to lint it.
 
 Bundler/OrderedGems:
   Enabled: false

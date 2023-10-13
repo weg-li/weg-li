@@ -288,8 +288,8 @@ class Notice < ApplicationRecord
   end
 
   def distance_too_large?
-    return if coordinates_missing?
-    return if district.blank?
+    return false if coordinates_missing?
+    return false if district.blank?
 
     Geo.distance(self, district) > Geo::MAX_DISTANCE
   end
