@@ -1,3 +1,4 @@
 app/assets/stylesheets/**/*
 public/assets/**/*
 public/packs*/**/*
+imagine/**/*
