@@ -36,3 +36,4 @@ yarn-debug.log*
 .yarn-integrity
 /bkat/TBKAT.DAT
 .vscode/
+public/assets/

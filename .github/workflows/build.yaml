@@ -89,3 +89,31 @@ jobs:
           bundler-cache: true
       - run: bundle install
       - run: bundle exec rubocop
+  setup:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgis/postgis:11-2.5
+        env:
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: weg-li_test
+        ports: ["5432:5432"]
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          cache: yarn
+          node-version: 18
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+      - name: Install PostgreSQL 11 client
+        run: sudo apt-get update && sudo apt-get install postgresql postgresql-contrib libpq-dev --fix-missing
+      - run: bundle install
+      - run: yarn
+      - name: Prepare database
+        env:
+          PGHOST: localhost
+          PGPASSWORD: password
+        run: script/setup
