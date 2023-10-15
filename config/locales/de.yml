@@ -8,50 +8,50 @@ de:
       truncate: "&hellip;"
   activerecord:
     models:
-      bulk_upload: 'Massen-Upload'
-      user: 'Benutzer'
-      notice: 'Meldung'
-      district: 'Bezirk'
-      reply: 'Antwort'
-      snippet: 'Vorlage'
-      data_set: 'Datensatz'
-      authorization: 'Auth'
-      export: 'Export'
-      brand: 'Marke'
-      charge: 'Tatbestand'
-      charge_variant: 'Variante'
+      bulk_upload: "Massen-Upload"
+      user: "Benutzer"
+      notice: "Meldung"
+      district: "Bezirk"
+      reply: "Antwort"
+      snippet: "Vorlage"
+      data_set: "Datensatz"
+      authorization: "Auth"
+      export: "Export"
+      brand: "Marke"
+      charge: "Tatbestand"
+      charge_variant: "Variante"
     attributes:
       export:
-        export_type: 'Art'
-        interval: 'Kalenderwoche'
-        created_at: 'Erstellt'
-        archive: 'Archiv'
+        export_type: "Art"
+        interval: "Kalenderwoche"
+        created_at: "Erstellt"
+        archive: "Archiv"
         export_types:
           notices: Meldungen
           photos: Fotos
           profiles: Meldungs-Profil
       district:
-        zip: 'PLZ'
-        name: 'Name'
-        email: 'E-Mail'
-        prefixes: 'Ortskennzeichen'
-        state: 'Bundesland'
-        aliases: 'Alternative Adressen'
-        osm_id: 'OpenStreetmap-ID'
-        updated_at: 'Aktualisiert'
-        status: 'Status'
+        zip: "PLZ"
+        name: "Name"
+        email: "E-Mail"
+        prefixes: "Ortskennzeichen"
+        state: "Bundesland"
+        aliases: "Alternative Adressen"
+        osm_id: "OpenStreetmap-ID"
+        updated_at: "Aktualisiert"
+        status: "Status"
       user:
-        time_zone: 'Zeitzone'
-        nickname: 'Spitzname'
-        name: 'Name'
-        address: 'Anschrift'
-        email: 'E-Mail'
-        phone: 'Telefon'
-        street: 'Straße & Hausnummer'
-        appendix: 'Adresszusatz'
-        zip: 'PLZ'
-        city: 'Stadt'
-        date_of_birth: 'Geburtsdatum'
+        time_zone: "Zeitzone"
+        nickname: "Spitzname"
+        name: "Name"
+        address: "Anschrift"
+        email: "E-Mail"
+        phone: "Telefon"
+        street: "Straße & Hausnummer"
+        appendix: "Adresszusatz"
+        zip: "PLZ"
+        city: "Stadt"
+        date_of_birth: "Geburtsdatum"
       reply:
         created_at: Eingang
         sender: Absender
@@ -63,8 +63,8 @@ de:
         priority: Sortierung
         content: Inhalt
       bulk_upload:
-        created_at: 'Erstellt'
-        photos: 'Beweisfotos'
+        created_at: "Erstellt"
+        photos: "Beweisfotos"
         initial: neu
         processing: verarbeiten
         open: offen
@@ -74,87 +74,87 @@ de:
         error_message: Fehler
         shared_album_url: Album
       brand:
-        name: 'Name'
-        token: 'Token'
-        kind: 'Art'
-        models: 'Modelle'
-        aliases: 'Aliase'
+        name: "Name"
+        token: "Token"
+        kind: "Art"
+        models: "Modelle"
+        aliases: "Aliase"
       charge:
-        tbnr: 'TBNR'
-        description: 'Tatbestandstext'
-        bkat: 'Rechtsgrundlage'
-        fine: 'Geldbuße'
-        points: 'Punkte'
-        penalty: 'Fahrverbot'
-        fap: 'Fahrerlaubnis auf Probe'
-        valid_from: 'gültig seit'
-        valid_to: 'gültig bis'
-        valid: 'Gültigkeit'
-        classification: 'Kategorie'
+        tbnr: "TBNR"
+        description: "Tatbestandstext"
+        bkat: "Rechtsgrundlage"
+        fine: "Geldbuße"
+        points: "Punkte"
+        penalty: "Fahrverbot"
+        fap: "Fahrerlaubnis auf Probe"
+        valid_from: "gültig seit"
+        valid_to: "gültig bis"
+        valid: "Gültigkeit"
+        classification: "Kategorie"
       charge_variant:
-        row_number: 'Zeile'
-        from: 'Von'
-        to: 'Bis'
-        impediment: 'Behinderung'
-        charge: 'Tatbestand'
-        charge_detail: 'Zusatzinformation'
+        row_number: "Zeile"
+        from: "Von"
+        to: "Bis"
+        impediment: "Behinderung"
+        charge: "Tatbestand"
+        charge_detail: "Zusatzinformation"
       notice:
-        created_at: 'Erstellt'
-        sent_at: 'Versendet'
-        district: 'Bezirk'
-        photos: 'Beweisfotos'
-        location: 'Tatort'
-        address: 'Straße & Hausnummer'
-        zip: 'PLZ'
-        city: 'Stadt'
-        registration: 'Kennzeichen'
-        make: 'Fabrikat'
-        brand: 'Marke'
-        model: 'Modell'
-        kind: 'Art'
-        color: 'Farbe'
-        charge: 'Verstoß'
-        tbnr: 'Tatbestandsnummer'
-        date: 'Tatzeit'
-        duration: 'Zeitraum'
-        note: 'Hinweise'
-        empty: 'Verlassen'
-        severity: 'Behinderung'
-        standard: 'ohne Behinderung'
-        hinder: 'mit Behinderung (z.B. Anhalten, Ausweichen, Absteigen)'
-        endanger: 'mit Gefährdung (z.B. Ausweichen in Fließverkehr)'
-        incomplete: 'unvollständig'
-        status: 'Status'
-        open: 'offen'
-        disabled: 'deaktiviert'
-        analyzing: 'analysieren'
-        shared: 'gemeldet'
+        created_at: "Erstellt"
+        sent_at: "Versendet"
+        district: "Bezirk"
+        photos: "Beweisfotos"
+        location: "Tatort"
+        address: "Straße & Hausnummer"
+        zip: "PLZ"
+        city: "Stadt"
+        registration: "Kennzeichen"
+        make: "Fabrikat"
+        brand: "Marke"
+        model: "Modell"
+        kind: "Art"
+        color: "Farbe"
+        charge: "Verstoß"
+        tbnr: "Tatbestandsnummer"
+        date: "Tatzeit"
+        duration: "Zeitraum"
+        note: "Hinweise"
+        empty: "Verlassen"
+        severity: "Behinderung"
+        standard: "ohne Behinderung"
+        hinder: "mit Behinderung (z.B. Anhalten, Ausweichen, Absteigen)"
+        endanger: "mit Gefährdung (z.B. Ausweichen in Fließverkehr)"
+        incomplete: "unvollständig"
+        status: "Status"
+        open: "offen"
+        disabled: "deaktiviert"
+        analyzing: "analysieren"
+        shared: "gemeldet"
         flags:
-          one: 'Flags'
-          vehicle_empty: 'Das Fahrzeug war verlassen'
-          hazard_lights: 'Das Fahrzeug hatte die Warnblinkanlage aktiviert'
-          expired_tuv: 'Die TÜV-Plakette war abgelaufen'
-          expired_eco: 'Die Umwelt-Plakette fehlte oder war ungültig'
-          over_2_8_tons: 'Fahrzeug über 2,8 t zulässige Gesamtmasse'
+          one: "Flags"
+          vehicle_empty: "Das Fahrzeug war verlassen"
+          hazard_lights: "Das Fahrzeug hatte die Warnblinkanlage aktiviert"
+          expired_tuv: "Die TÜV-Plakette war abgelaufen"
+          expired_eco: "Die Umwelt-Plakette fehlte oder war ungültig"
+          over_2_8_tons: "Fahrzeug über 2,8 t zulässige Gesamtmasse"
         colors:
-          gold_yellow: 'Gelb/Gold'
-          gray_silver: 'Grau/Silber'
-          pink_purple_violet: 'Lila'
-          beige: 'Beige'
-          blue: 'Blau'
-          brown: 'Braun'
-          yellow: 'Gelb'
-          gray: 'Grau'
-          green: 'Grün'
-          red: 'Rot'
-          black: 'Schwarz'
-          silver: 'Silber'
-          violet: 'Violett'
-          purple: 'Lila'
-          pink: 'Pink'
-          white: 'Weiß'
-          orange: 'Orange'
-          gold: 'Gold'
+          gold_yellow: "Gelb/Gold"
+          gray_silver: "Grau/Silber"
+          pink_purple_violet: "Lila"
+          beige: "Beige"
+          blue: "Blau"
+          brown: "Braun"
+          yellow: "Gelb"
+          gray: "Grau"
+          green: "Grün"
+          red: "Rot"
+          black: "Schwarz"
+          silver: "Silber"
+          violet: "Violett"
+          purple: "Lila"
+          pink: "Pink"
+          white: "Weiß"
+          orange: "Orange"
+          gold: "Gold"
   title: "📸 📝 ✊ weg.li: 1, 2, 3 - Macht die Bahn frei! Einfach Falschparker online Anzeigen."
   slogan: "1, 2, 3 - Macht die Bahn frei!"
   slogan_1: "1, 2, 3 -  📸 📝 ✊"
@@ -162,189 +162,189 @@ de:
   slogan_3: "Für sichere Radwege und freie Bürgersteige!"
   meta_description:
     default: "Mit weg.li kannst Du ganz einfach Falschparker anzeigen. Lade Beweisfotos hoch und weg.li erkennt automatisch das Kennzeichen, den Tatort und vieles mehr. Erstatte dann Anzeige bei der zuständigen Stelle, damit der Fahrzeughalter umgehend bestraft wird."
-    brands: 'Alles Fahrzeugmarken mit denen Parkverstöße begangen werden.'
+    brands: "Alles Fahrzeugmarken mit denen Parkverstöße begangen werden."
     brand: "Falschparker mit der Fahrzeug Marke %{name}."
-    charges: 'Alles Wichtige über Verstöße aus dem Bußgeldkatalog der Straßenverkehrsordnung (StVO) zum Anzeigen von Falschparkern: Tatbestandsnummer (TBNR), höhe der Bußgelder oder Verwarngelder, Fahrverbote und Punktezahl aus dem aktuellen bundeseinheitlichen Bußgeldkatalog (bkat owi 18.05.2020)'
+    charges: "Alles Wichtige über Verstöße aus dem Bußgeldkatalog der Straßenverkehrsordnung (StVO) zum Anzeigen von Falschparkern: Tatbestandsnummer (TBNR), höhe der Bußgelder oder Verwarngelder, Fahrverbote und Punktezahl aus dem aktuellen bundeseinheitlichen Bußgeldkatalog (bkat owi 18.05.2020)"
     charge: "Falschparker anzeigen mit TBNR %{tbnr}: %{description} Diese Geldbußen oder Verwarngelder drohen beim Verstoß gegen %{bkat}."
-    districts: 'Alles Wichtige über das Anzeigen von Falschparkern in der ganzen Bundesrepublik. Deutschlandweit werden Vertöße zur Anzeige gebracht.'
+    districts: "Alles Wichtige über das Anzeigen von Falschparkern in der ganzen Bundesrepublik. Deutschlandweit werden Vertöße zur Anzeige gebracht."
     district: "Falschparker anzeigen in %{zip} %{name}: So werden in %{state} Vertöße zur Anzeige gebracht."
     map: "Die Falschparker-Karte zeigt alle gemeldeten Parkverstöße und Anzeigen gegen Falschparker in %{district}."
     exports: "Die Falschparker-Exporte beinhalten anonymisiert die gemeldeten Parkverstöße und Anzeigen gegen Falschparker in Deutschland."
     leaderboard: "Das who-is-who der Falschparker-Melder auf weg.li. Wer erstattet die meisten Anzeigen gegen Falschparker in Deutschland."
   navigation:
-    charges: 'Bußgeldkatalog'
-    brands: 'Marken'
-    districts: 'Bezirke'
-    notices: 'Meldungen'
-    replies: 'Antworten'
-    snippets: 'Vorlagen'
-    map: 'Kartenansicht'
-    draft: 'Erfassen'
-    dashboard: 'Übersicht'
-    bulk_uploads: 'Massen-Uploads'
-    locale: 'Sprache'
-    logout: 'Abmelden'
-    profile: 'Profil'
-    edit_profile: 'Profil bearbeiten'
-    view_profile: 'Profil ansehen'
-    view_public_profile: 'öffentliches Profil'
+    charges: "Bußgeldkatalog"
+    brands: "Marken"
+    districts: "Bezirke"
+    notices: "Meldungen"
+    replies: "Antworten"
+    snippets: "Vorlagen"
+    map: "Kartenansicht"
+    draft: "Erfassen"
+    dashboard: "Übersicht"
+    bulk_uploads: "Massen-Uploads"
+    locale: "Sprache"
+    logout: "Abmelden"
+    profile: "Profil"
+    edit_profile: "Profil bearbeiten"
+    view_profile: "Profil ansehen"
+    view_public_profile: "öffentliches Profil"
   footer:
-    references: 'In den Medien und im Netz'
+    references: "In den Medien und im Netz"
   locale:
-    en: 'Englisch'
-    de: 'Deutsch'
+    en: "Englisch"
+    de: "Deutsch"
   home:
     register_with_oauth: 'Anmelden mit Twitter & Co <span class="caret"></span>'
-    select_oauth_provider: 'Wähle eine der Möglichkeiten zum Anmelden:'
+    select_oauth_provider: "Wähle eine der Möglichkeiten zum Anmelden:"
   sessions:
-    sign_in_provider: 'Einfach mit OAuth anmelden'
-    enter_data: 'Bitte gib Deine Daten ein'
+    sign_in_provider: "Einfach mit OAuth anmelden"
+    enter_data: "Bitte gib Deine Daten ein"
     not_logged_in: "Du bist nicht eingeloggt!"
     not_proper_account: "Du bist nicht mit dem richtigen Benutzerkonto eingeloggt!"
     welcome_back: "Hallo %{nickname}, willkommen zurück!"
     connected: "Erfolgreich verbunden mit %{provider}!"
-    validation_successful: 'Deine E-Mail Adresse wurde erfolgreich bestätigt.'
+    validation_successful: "Deine E-Mail Adresse wurde erfolgreich bestätigt."
     bye: "Tschüss und bis bald!"
     ups_something_went_wrong: "Mist, da ist was schief gelaufen."
     welcome: "Hallo %{nickname}, herzlich willkommen bei weg.li!"
     existing_user: "Die E-Mail Adresse %{email} ist bereits registriert, bitte nutze %{providers} zum Einloggen!"
-    please_enter_email_for_login: 'Bitte gib Deine E-Mail Adresse zum Einloggen ein!'
-    authorize_button: 'per E-Mail einloggen'
-    signup_button: 'Registrierung abschließen'
+    please_enter_email_for_login: "Bitte gib Deine E-Mail Adresse zum Einloggen ein!"
+    authorize_button: "per E-Mail einloggen"
+    signup_button: "Registrierung abschließen"
     callouts:
       signup_nickname:
-        hint: 'Dein Spitzname wird später für Deine Anrede verwendet.'
-        title: 'Spitznamen ändern'
-        text: 'Nachdem Du registriert bist, kannst Du jederzeit Deinen Spitznamen ändern.'
+        hint: "Dein Spitzname wird später für Deine Anrede verwendet."
+        title: "Spitznamen ändern"
+        text: "Nachdem Du registriert bist, kannst Du jederzeit Deinen Spitznamen ändern."
       signup_email:
-        hint: 'Deine E-Mail Adresse wird für den Login und für Benachrichtigungen verwendet.'
-        title: 'Valide Adresse ist nötig'
-        text: 'Du musst Deine E-Mail Adresse bestätigen, damit wir Dich später erreichen können.'
+        hint: "Deine E-Mail Adresse wird für den Login und für Benachrichtigungen verwendet."
+        title: "Valide Adresse ist nötig"
+        text: "Du musst Deine E-Mail Adresse bestätigen, damit wir Dich später erreichen können."
       provider:
         hint: 'Wähle einen <a href="http://en.wikipedia.org/wiki/OAuth">OAuth</a> Anbieter aus und akzeptiere die benötigten Berechtigungen.'
-        title: 'Warum OAuth?'
-        text: 'OAuth ist ein offener Standard für Authentifizierung, der es dem Nutzer erlaubt, flexibel Berechtigungen zu erteilen oder zu entfernen.'
+        title: "Warum OAuth?"
+        text: "OAuth ist ein offener Standard für Authentifizierung, der es dem Nutzer erlaubt, flexibel Berechtigungen zu erteilen oder zu entfernen."
       email:
-        hint: 'Du wirst zu <em>jedem</em> neuen Login per Mail eine neue Login E-Mail erhalten!'
-        title: 'per E-Mail einloggen'
-        text: 'Bei jedem Login erhältst Du eine neue E-Mail, in der ein Login-Link enthalten ist. Einfach auf den enthaltenen Link klicken und loslegen!'
+        hint: "Du wirst zu <em>jedem</em> neuen Login per Mail eine neue Login E-Mail erhalten!"
+        title: "per E-Mail einloggen"
+        text: "Bei jedem Login erhältst Du eine neue E-Mail, in der ein Login-Link enthalten ist. Einfach auf den enthaltenen Link klicken und loslegen!"
   mailers:
-    signup: 'Du hast Dich erfolgreich registriert, bitte bestätige Deine E-Mail Adresse!'
-    validate: 'Bitte bestätige Deine E-Mail Adresse!'
-    activate: 'Dein Zugang wird demnächst deaktiviert!'
-    login_link: 'Logge Dich bei weg.li ein!'
-    signup_link: 'Registriere Dich bei weg.li!'
+    signup: "Du hast Dich erfolgreich registriert, bitte bestätige Deine E-Mail Adresse!"
+    validate: "Bitte bestätige Deine E-Mail Adresse!"
+    activate: "Dein Zugang wird demnächst deaktiviert!"
+    login_link: "Logge Dich bei weg.li ein!"
+    signup_link: "Registriere Dich bei weg.li!"
   districts:
     statistics:
-      notices: 'Meldungen insgesamt'
-      active_users: 'Aktive Melder'
-      total_users: 'Registrierte Bürger'
+      notices: "Meldungen insgesamt"
+      active_users: "Aktive Melder"
+      total_users: "Registrierte Bürger"
   users:
     access:
-      admin: 'Admin'
-      community: 'Community'
-      user: 'User'
-      disabled: 'Disabled'
+      admin: "Admin"
+      community: "Community"
+      user: "User"
+      disabled: "Disabled"
     leaderboard:
-      daily: 'Tageswertung'
-      weekly: 'Wochenwertung'
-      monthly: 'Monatswertung'
-      yearly: 'Jahreswertung'
-      alltime: 'Allzeitwertung'
+      daily: "Tageswertung"
+      weekly: "Wochenwertung"
+      monthly: "Monatswertung"
+      yearly: "Jahreswertung"
+      alltime: "Allzeitwertung"
     confirmation_mail: "Eine Bestätigungs-Mail wurde an %{email} versendet."
     signup_link: "Eine E-Mail mit Registierungs-Link wurde an %{email} versendet."
     login_link: "Eine E-Mail mit Login-Link wurde an %{email} versendet."
-    profile_updated_and_confirmation_email: 'Dein Profil wurde aktualisiert und eine Bestätigungs-Mail wurde an Deine E-Mail Adresse versendet!'
-    profile_updated: 'Dein Profil wurde aktualisiert.'
-    authorizations: 'Verknüpfungen'
+    profile_updated_and_confirmation_email: "Dein Profil wurde aktualisiert und eine Bestätigungs-Mail wurde an Deine E-Mail Adresse versendet!"
+    profile_updated: "Dein Profil wurde aktualisiert."
+    authorizations: "Verknüpfungen"
     connect_via: "per %{provider} verbinden"
-    actions: 'Aktionen'
-    email_confirmed: 'E-Mail Adresse bestätigt'
+    actions: "Aktionen"
+    email_confirmed: "E-Mail Adresse bestätigt"
     confirm_email: "E-Mail zur Bestätigung erneut senden"
     change_nickname: "Name ändern"
     change_email: "E-Mail ändern"
     delete_account: "Konto löschen"
     destroyed: "Dein Konto und alle Daten wurden gelöscht!"
-    settings: 'Einstellungen'
-    change_settings: 'Einstellungen ändern'
+    settings: "Einstellungen"
+    change_settings: "Einstellungen ändern"
     autosuggest:
-      one: 'Auto-Suggest'
-      from_exif: 'Standort, Datum und Dauer aus Metadaten'
-      from_history: 'Fahrzeug- und Tatdaten von Wiederholungstätern'
-      from_recognition: 'Fahrzeugdaten aus Beweisfotos'
-      from_proximity: 'Verstoß aus Umgebungsdaten'
+      one: "Auto-Suggest"
+      from_exif: "Standort, Datum und Dauer aus Metadaten"
+      from_history: "Fahrzeug- und Tatdaten von Wiederholungstätern"
+      from_recognition: "Fahrzeugdaten aus Beweisfotos"
+      from_proximity: "Verstoß aus Umgebungsdaten"
     flags:
-      hide_public_profile: 'öffentliches Profil deaktivieren'
-      disable_reminders: 'Erinnerungen deaktivieren'
-      disable_autoreply_notifications: 'Eingangsbenachrichtigung deaktivieren'
+      hide_public_profile: "öffentliches Profil deaktivieren"
+      disable_reminders: "Erinnerungen deaktivieren"
+      disable_autoreply_notifications: "Eingangsbenachrichtigung deaktivieren"
   bulk_uploads:
     status:
-      initial: 'neu'
-      processing: 'verarbeiten'
-      open: 'offen'
-      done: 'erledigt'
-      error: 'fehlerhaft'
-      importing: 'importiern'
+      initial: "neu"
+      processing: "verarbeiten"
+      open: "offen"
+      done: "erledigt"
+      error: "fehlerhaft"
+      importing: "importiern"
     status-hints:
-      initial: 'Der Massen-Upload ist noch leer.'
-      processing: 'Die Beweisfotos wurden gespeichert und werden verarbeitet, der Massen-Upload ist in kürze verfügbar.'
-      open: 'Die Beweisfotos wurden verarbeitet, bitte Meldungungen daraus erzeugen, vervollständigen und eine Anzeige erstatten.'
-      done: 'Alle Beweisfotos des Massen-Uploads wurden neuen Meldungen zugeordnet.'
-      error: 'Die Verarbeitung des Massen-Uploads wurde nach einem Fehler abgebrochen.'
-      importing: 'Die Beweisfotos werden aus einem Album importiert.'
+      initial: "Der Massen-Upload ist noch leer."
+      processing: "Die Beweisfotos wurden gespeichert und werden verarbeitet, der Massen-Upload ist in kürze verfügbar."
+      open: "Die Beweisfotos wurden verarbeitet, bitte Meldungungen daraus erzeugen, vervollständigen und eine Anzeige erstatten."
+      done: "Alle Beweisfotos des Massen-Uploads wurden neuen Meldungen zugeordnet."
+      error: "Die Verarbeitung des Massen-Uploads wurde nach einem Fehler abgebrochen."
+      importing: "Die Beweisfotos werden aus einem Album importiert."
     steps:
       photos:
         title: Hochladen
         description: Der Massen-Upload ermöglicht es viele Beweisfotos für unterschiedliche Meldungen auf einmal hochzuladen. Durch die Gruppierungsfunktion können anschließend schnell neue Meldungen erzeugt werden.
   replies:
-    nothing_found: 'Keine Antworten gefunden'
+    nothing_found: "Keine Antworten gefunden"
   snippets:
-    nothing_found: 'Keine Vorlagen gefunden'
+    nothing_found: "Keine Vorlagen gefunden"
   notices:
-    new_notice: 'Neue Meldung'
-    create_button: 'Meldung erstellen'
-    manage_your_history: 'Verwalte Deine Meldungen'
-    nothing_found: 'Keine Meldungen gefunden'
+    new_notice: "Neue Meldung"
+    create_button: "Meldung erstellen"
+    manage_your_history: "Verwalte Deine Meldungen"
+    nothing_found: "Keine Meldungen gefunden"
     status:
-      open: 'offen'
-      disabled: 'deaktiviert'
-      analyzing: 'analysieren'
-      shared: 'gemeldet'
-      incomplete: 'unvollständig'
-      complete: 'vollständig'
+      open: "offen"
+      disabled: "deaktiviert"
+      analyzing: "analysieren"
+      shared: "gemeldet"
+      incomplete: "unvollständig"
+      complete: "vollständig"
     status-hints:
-      open: 'Die Beweisfotos wurden gespeichert, bitte die Meldung überprüfen, vervollständigen und eine Anzeige erstatten.'
-      disabled: 'Die Meldung ist deaktiviert und im Internet nicht mehr zu erreichen.'
-      analyzing: 'Im Hintergrund wird automatisch versucht, möglichst viele Informationen aus den Beweisfotos zu ermitteln.'
-      shared: 'Die Meldung wurde zur Anzeige gebracht.'
-      complete: 'Alle Daten, die für eine Anzeige notwendig sind, wurden erfasst.'
-      incomplete: 'Es fehlen noch ein paar Daten, bitte die Meldung bearbeiten und die fehlenden Daten nachtragen.'
+      open: "Die Beweisfotos wurden gespeichert, bitte die Meldung überprüfen, vervollständigen und eine Anzeige erstatten."
+      disabled: "Die Meldung ist deaktiviert und im Internet nicht mehr zu erreichen."
+      analyzing: "Im Hintergrund wird automatisch versucht, möglichst viele Informationen aus den Beweisfotos zu ermitteln."
+      shared: "Die Meldung wurde zur Anzeige gebracht."
+      complete: "Alle Daten, die für eine Anzeige notwendig sind, wurden erfasst."
+      incomplete: "Es fehlen noch ein paar Daten, bitte die Meldung bearbeiten und die fehlenden Daten nachtragen."
     confirm: "Diese Aktion kann nicht rückgängig gemacht werden!"
-    actions: 'Aktionen'
-    read: 'lesen'
-    share: 'melden'
-    enable: 'aktivieren'
-    disable: 'deaktivieren'
-    destroy: 'löschen'
-    created: 'Du hast eine neue Meldung erstellt!'
-    enabled: 'Die Meldung wurde reaktiviert!'
-    disabled: 'Die Meldung wurde deaktiviert!'
-    destroyed: 'Die Meldung wurde gelöscht!'
-    share_message: 'Verschicke deine Anzeige'
-    send_email: 'per E-Mail senden'
-    copy_to_clipboard: 'in die Zwischenablage kopieren'
-    copy_hint: 'Kopieren in die Zwischenablage: CMD+C / Ctrl+C, lange Antippen und kopieren für Touch'
-    back_to_dashboard: 'zurück zur Übersicht'
+    actions: "Aktionen"
+    read: "lesen"
+    share: "melden"
+    enable: "aktivieren"
+    disable: "deaktivieren"
+    destroy: "löschen"
+    created: "Du hast eine neue Meldung erstellt!"
+    enabled: "Die Meldung wurde reaktiviert!"
+    disabled: "Die Meldung wurde deaktiviert!"
+    destroyed: "Die Meldung wurde gelöscht!"
+    share_message: "Verschicke deine Anzeige"
+    send_email: "per E-Mail senden"
+    copy_to_clipboard: "in die Zwischenablage kopieren"
+    copy_hint: "Kopieren in die Zwischenablage: CMD+C / Ctrl+C, lange Antippen und kopieren für Touch"
+    back_to_dashboard: "zurück zur Übersicht"
     statistics:
-      notices: 'Meldungen insgesamt'
-      incomplete: 'Unvollständige Meldungen'
-      complete: 'Vollständige Meldungen'
-      open: 'Offene Meldungen'
-      shared: 'Erstattete Anzeigen'
-      photos: 'Geknipste Fotos'
-      active: 'Aktive Melder'
-      users: 'Registrierte Bürger'
-      districts: 'Unterstützte Bezirke'
+      notices: "Meldungen insgesamt"
+      incomplete: "Unvollständige Meldungen"
+      complete: "Vollständige Meldungen"
+      open: "Offene Meldungen"
+      shared: "Erstattete Anzeigen"
+      photos: "Geknipste Fotos"
+      active: "Aktive Melder"
+      users: "Registrierte Bürger"
+      districts: "Unterstützte Bezirke"
     steps:
       photos:
         title: Erfassen
@@ -357,10 +357,10 @@ de:
         description: Aus den Daten kann direkt eine Anzeige erstattet werden, die dann an die zuständige Stelle gesendet wird. Alle Meldungen werden zudem anonymisiert auf der öffentlich erreichbaren weg.li Karte angezeigt.
     callouts:
       send_email:
-        hint: 'Erstatte die Anzeige direkt per E-Mail, Du erhältst eine Kopie in CC.'
-        title: 'Anzeige per E-Mail'
-        text: 'Ist eine Anzeige einmal erstattet worden, so wird sie verfolgt und kann nicht wieder zurückgenommen werden. Anzeigen sollten niemals leichtfertig und nur mit begründetem Verdacht gemeldet werden.'
+        hint: "Erstatte die Anzeige direkt per E-Mail, Du erhältst eine Kopie in CC."
+        title: "Anzeige per E-Mail"
+        text: "Ist eine Anzeige einmal erstattet worden, so wird sie verfolgt und kann nicht wieder zurückgenommen werden. Anzeigen sollten niemals leichtfertig und nur mit begründetem Verdacht gemeldet werden."
       copy_link:
-        hint: 'Per <em>copy &amp; paste</em> den Link zur Meldung z.B. auf Twitter teilen.'
-        title: 'Copy &amp; Paste'
-        text: 'Der Link zur Meldung wird in Deine Zwischenablage kopiert. Einfügen mit <code>CMD+V</code> auf Mac oder <code>CTRL+V</code> auf Windows, lange Antippen und kopieren für Touch.'
+        hint: "Per <em>copy &amp; paste</em> den Link zur Meldung z.B. auf Twitter teilen."
+        title: "Copy &amp; Paste"
+        text: "Der Link zur Meldung wird in Deine Zwischenablage kopiert. Einfügen mit <code>CMD+V</code> auf Mac oder <code>CTRL+V</code> auf Windows, lange Antippen und kopieren für Touch."

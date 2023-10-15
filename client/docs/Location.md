@@ -2,10 +2,10 @@
 
 ## Properties
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **latitude** | **Float** | The latitude value of the location&#39;s coordinates. |  |
-| **longitude** | **Float** | The longitude value of the location&#39;s coordinates. |  |
+| Name          | Type      | Description                                            | Notes |
+| ------------- | --------- | ------------------------------------------------------ | ----- |
+| **latitude**  | **Float** | The latitude value of the location&#39;s coordinates.  |       |
+| **longitude** | **Float** | The longitude value of the location&#39;s coordinates. |       |
 
 ## Example
 
@@ -17,4 +17,3 @@ instance = OpenapiClient::Location.new(
   longitude: 13.370763
 )
 ```
-

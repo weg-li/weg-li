@@ -1,8 +1,8 @@
 [
-    {
-      "origin": ["*"],
-      "responseHeader": ["Content-Type", "Content-Md5", "Content-Disposition"],
-      "method": ["PUT", "GET", "HEAD", "DELETE", "OPTIONS"],
-      "maxAgeSeconds": 3600
-    }
+  {
+    "origin": ["*"],
+    "responseHeader": ["Content-Type", "Content-Md5", "Content-Disposition"],
+    "method": ["PUT", "GET", "HEAD", "DELETE", "OPTIONS"],
+    "maxAgeSeconds": 3600
+  }
 ]

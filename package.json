@@ -13,6 +13,9 @@
     "leaflet": "^1.7.1",
     "leaflet.heat": "^0.2.0",
     "leaflet.markercluster": "^1.4.1",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-import": "^15.1.0",
+    "postcss-preset-env": "^9.2.0",
     "rails-erb-loader": "^5.5.2",
     "select2": "^4.0.12",
     "select2-bootstrap-theme": "^0.1.0-beta.10"
@@ -20,12 +23,21 @@
   "devDependencies": {
     "eslint": "^7.17.0",
     "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^9.0.0",
     "eslint-import-resolver-webpack": "^0.13.0",
     "eslint-plugin-import": "^2.22.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
     "prettier": "^2.8.1",
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
-    "lint": "NODE_ENV=development eslint --fix app/javascript/**"
+    "lint": "eslint",
+    "bootstrap": "docker compose run dev script/setup",
+    "docker": "docker compose run dev",
+    "dev": "docker compose run --service-ports app",
+    "test": "docker compose run tester bundle exec rake",
+    "test:prepare": "docker compose run tester script/prepare_tests",
+    "prepare": "husky install"
   }
 }

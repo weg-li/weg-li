@@ -1,5 +1,5 @@
-default: &defaults
-  # Your Push API Key, it is possible to set this dynamically using ERB. Requred
+default:
+  &defaults # Your Push API Key, it is possible to set this dynamically using ERB. Requred
   push_api_key: "<%= ENV['APPSIGNAL_PUSH_API_KEY'] %>"
   revision: "<%= ENV['RENDER_GIT_COMMIT'] %>"
 

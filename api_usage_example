@@ -14,7 +14,7 @@ API_KEY =
   )
 HOST = ENV.fetch("WEG_LI_HOST", "http://localhost:3000")
 
-client = HTTP.use(logging: { logger: Logger.new(STDOUT, level: :info) })
+client = HTTP.use(logging: { logger: Logger.new($stdout, level: :info) })
 headers = { "X-API-KEY" => API_KEY }
 
 #######################

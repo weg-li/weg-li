@@ -29,8 +29,11 @@ config/data/opengeodb.csv
 
 /public/packs
 /public/packs-test
+/public/assets
 /node_modules
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
 /bkat/TBKAT.DAT
+.vscode/
+public/assets/

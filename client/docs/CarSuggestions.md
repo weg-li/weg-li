@@ -2,9 +2,9 @@
 
 ## Properties
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **suggestions** | [**CarSuggestionsSuggestions**](CarSuggestionsSuggestions.md) |  | [optional] |
+| Name            | Type                                                          | Description | Notes      |
+| --------------- | ------------------------------------------------------------- | ----------- | ---------- |
+| **suggestions** | [**CarSuggestionsSuggestions**](CarSuggestionsSuggestions.md) |             | [optional] |
 
 ## Example
 
@@ -15,4 +15,3 @@ instance = OpenapiClient::CarSuggestions.new(
   suggestions: null
 )
 ```
-

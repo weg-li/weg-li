@@ -2,11 +2,11 @@
 
 ## Properties
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **violation_type** | **Integer** |  | [optional] |
-| **score** | **Float** |  | [optional] |
-| **severity_type** | **Integer** |  | [optional] |
+| Name               | Type        | Description | Notes      |
+| ------------------ | ----------- | ----------- | ---------- |
+| **violation_type** | **Integer** |             | [optional] |
+| **score**          | **Float**   |             | [optional] |
+| **severity_type**  | **Integer** |             | [optional] |
 
 ## Example
 
@@ -19,4 +19,3 @@ instance = OpenapiClient::ViolationSuggestion.new(
   severity_type: 0
 )
 ```
-

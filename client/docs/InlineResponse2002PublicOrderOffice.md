@@ -2,10 +2,10 @@
 
 ## Properties
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **name** | **String** | The name of the public order office (usually the corresponding city name). | [optional] |
-| **email_address** | **String** | The email address to which a violation report must be sent. | [optional] |
+| Name              | Type       | Description                                                                | Notes      |
+| ----------------- | ---------- | -------------------------------------------------------------------------- | ---------- |
+| **name**          | **String** | The name of the public order office (usually the corresponding city name). | [optional] |
+| **email_address** | **String** | The email address to which a violation report must be sent.                | [optional] |
 
 ## Example
 
@@ -17,4 +17,3 @@ instance = OpenapiClient::InlineResponse2002PublicOrderOffice.new(
   email_address: null
 )
 ```
-

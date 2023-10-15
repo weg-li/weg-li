@@ -2,10 +2,10 @@
 
 ## Properties
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **user_id** | **String** |  | [optional] |
-| **report** | [**Report**](Report.md) |  |  |
+| Name        | Type                    | Description | Notes      |
+| ----------- | ----------------------- | ----------- | ---------- |
+| **user_id** | **String**              |             | [optional] |
+| **report**  | [**Report**](Report.md) |             |            |
 
 ## Example
 
@@ -17,4 +17,3 @@ instance = OpenapiClient::InlineObject1.new(
   report: null
 )
 ```
-

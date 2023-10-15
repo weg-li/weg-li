@@ -2,11 +2,11 @@
 
 ## Properties
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **user_id** | **String** |  | [optional] |
-| **time** | **Integer** | The unix time of the violation in milliseconds. |  |
-| **location** | [**Location**](Location.md) | The location of the violation. |  |
+| Name         | Type                        | Description                                     | Notes      |
+| ------------ | --------------------------- | ----------------------------------------------- | ---------- |
+| **user_id**  | **String**                  |                                                 | [optional] |
+| **time**     | **Integer**                 | The unix time of the violation in milliseconds. |            |
+| **location** | [**Location**](Location.md) | The location of the violation.                  |            |
 
 ## Example
 
@@ -19,4 +19,3 @@ instance = OpenapiClient::InlineObject.new(
   location: null
 )
 ```
-

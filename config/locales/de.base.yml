@@ -3,64 +3,65 @@ de:
   activerecord:
     errors:
       messages:
-        record_invalid: 'Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'
+        record_invalid: "Gültigkeitsprüfung ist fehlgeschlagen: %{errors}"
         restrict_dependent_destroy:
-          has_one: Datensatz kann nicht gelöscht werden, da ein abhängiger %{record}-Datensatz
+          has_one:
+            Datensatz kann nicht gelöscht werden, da ein abhängiger %{record}-Datensatz
             existiert.
           has_many: Datensatz kann nicht gelöscht werden, da abhängige %{record} existieren.
   date:
     abbr_day_names:
-    - So
-    - Mo
-    - Di
-    - Mi
-    - Do
-    - Fr
-    - Sa
+      - So
+      - Mo
+      - Di
+      - Mi
+      - Do
+      - Fr
+      - Sa
     abbr_month_names:
-    -
-    - Jan
-    - Feb
-    - Mär
-    - Apr
-    - Mai
-    - Jun
-    - Jul
-    - Aug
-    - Sep
-    - Okt
-    - Nov
-    - Dez
+      -
+      - Jan
+      - Feb
+      - Mär
+      - Apr
+      - Mai
+      - Jun
+      - Jul
+      - Aug
+      - Sep
+      - Okt
+      - Nov
+      - Dez
     day_names:
-    - Sonntag
-    - Montag
-    - Dienstag
-    - Mittwoch
-    - Donnerstag
-    - Freitag
-    - Samstag
+      - Sonntag
+      - Montag
+      - Dienstag
+      - Mittwoch
+      - Donnerstag
+      - Freitag
+      - Samstag
     formats:
       default: "%d.%m.%Y"
       long: "%e. %B %Y"
       short: "%e. %b"
     month_names:
-    -
-    - Januar
-    - Februar
-    - März
-    - April
-    - Mai
-    - Juni
-    - Juli
-    - August
-    - September
-    - Oktober
-    - November
-    - Dezember
+      -
+      - Januar
+      - Februar
+      - März
+      - April
+      - Mai
+      - Juni
+      - Juli
+      - August
+      - September
+      - Oktober
+      - November
+      - Dezember
     order:
-    - :day
-    - :month
-    - :year
+      - :day
+      - :month
+      - :year
   datetime:
     distance_in_words:
       about_x_hours:
@@ -124,7 +125,7 @@ de:
       invalid: ist nicht gültig
       less_than: muss kleiner als %{count} sein
       less_than_or_equal_to: muss kleiner oder gleich %{count} sein
-      model_invalid: 'Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'
+      model_invalid: "Gültigkeitsprüfung ist fehlgeschlagen: %{errors}"
       not_a_number: ist keine Zahl
       not_an_integer: muss ganzzahlig sein
       odd: muss ungerade sein
@@ -142,10 +143,10 @@ de:
         one: hat die falsche Länge (muss genau %{count} Zeichen haben)
         other: hat die falsche Länge (muss genau %{count} Zeichen haben)
     template:
-      body: 'Bitte überprüfen Sie die folgenden Felder:'
+      body: "Bitte überprüfen Sie die folgenden Felder:"
       header:
-        one: 'Konnte %{model} nicht speichern: ein Fehler.'
-        other: 'Konnte %{model} nicht speichern: %{count} Fehler.'
+        one: "Konnte %{model} nicht speichern: ein Fehler."
+        other: "Konnte %{model} nicht speichern: %{count} Fehler."
   helpers:
     select:
       prompt: Bitte wählen
@@ -187,9 +188,9 @@ de:
           trillion:
             one: Billion
             other: Billionen
-          unit: ''
+          unit: ""
       format:
-        delimiter: ''
+        delimiter: ""
         precision: 3
         significant: true
         strip_insignificant_zeros: true
@@ -207,11 +208,11 @@ de:
           tb: TB
     percentage:
       format:
-        delimiter: ''
+        delimiter: ""
         format: "%n %"
     precision:
       format:
-        delimiter: ''
+        delimiter: ""
   support:
     array:
       last_word_connector: " und "
@@ -222,7 +223,7 @@ de:
     formats:
       default: "%A, %d. %B %Y, %H:%M Uhr"
       long: "%A, %d. %B %Y, %H:%M Uhr"
-      short: '%d.%m.%Y %H:%M'
+      short: "%d.%m.%Y %H:%M"
       date: "%d.%m.%Y"
       time: "%H:%M"
     pm: nachmittags

@@ -1,29 +1,29 @@
 databases:
-- name: weg-li-postgres
-  databaseName: weg_li_postgres
-  plan: standard
+  - name: weg-li-postgres
+    databaseName: weg_li_postgres
+    plan: standard
 services:
-- type: pserv
-  name: weg-li-redis
-  plan: starter
-  env: docker
-  repo: https://github.com/render-examples/redis.git
-  region: frankfurt
-  disk:
-    name: data
-    mountPath: /var/lib/redis
-    sizeGB: 1
-- type: web
-  name: weg-li-web
-  plan: standard
-  env: ruby
-  region: frankfurt
-  buildCommand: "./entrypoints/render-build.sh"
-  startCommand: bundle exec puma -C config/puma.rb
-  numInstances: 1
-  healthCheckPath: /ping
-  envVars:
-  - fromGroup: weg-li-production
-  domains:
-  - weg.li
-  - www.weg.li
+  - type: pserv
+    name: weg-li-redis
+    plan: starter
+    env: docker
+    repo: https://github.com/render-examples/redis.git
+    region: frankfurt
+    disk:
+      name: data
+      mountPath: /var/lib/redis
+      sizeGB: 1
+  - type: web
+    name: weg-li-web
+    plan: standard
+    env: ruby
+    region: frankfurt
+    buildCommand: "./entrypoints/render-build.sh"
+    startCommand: bundle exec puma -C config/puma.rb
+    numInstances: 1
+    healthCheckPath: /ping
+    envVars:
+      - fromGroup: weg-li-production
+    domains:
+      - weg.li
+      - www.weg.li

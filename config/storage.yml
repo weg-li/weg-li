@@ -7,7 +7,7 @@ google_development:
   service: GCS
   project: "weg-li"
   bucket: "weg-li-development"
-  credentials: "<%= Rails.root.join("config/secrets/gcloud.json") %>"
+  credentials: <%= Rails.root.join("config/secrets/gcloud.json") %>
   public: false
 
 google_production:

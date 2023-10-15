@@ -63,7 +63,7 @@ OpenapiClient.configure do |config|
 end
 
 api_instance = OpenapiClient::AnalyzeApi.new
-inline_object = OpenapiClient::InlineObject.new({time: 1605481357079, location: OpenapiClient::Location.new({latitude: 52.550081, longitude: 13.370763})}) # InlineObject | 
+inline_object = OpenapiClient::InlineObject.new({time: 1605481357079, location: OpenapiClient::Location.new({latitude: 52.550081, longitude: 13.370763})}) # InlineObject |
 
 begin
   result = api_instance.analyze_data_post(inline_object)
@@ -78,37 +78,33 @@ end
 
 All URIs are relative to *https://europe-west3-wegli-296209.cloudfunctions.net/api*
 
-Class | Method | HTTP request | Description
------------- | ------------- | ------------- | -------------
-*OpenapiClient::AnalyzeApi* | [**analyze_data_post**](docs/AnalyzeApi.md#analyze_data_post) | **POST** /analyze/data | 
-*OpenapiClient::AnalyzeApi* | [**analyze_image_image_token_get**](docs/AnalyzeApi.md#analyze_image_image_token_get) | **GET** /analyze/image/{image_token} | 
-*OpenapiClient::AnalyzeApi* | [**analyze_image_upload_get**](docs/AnalyzeApi.md#analyze_image_upload_get) | **GET** /analyze/image/upload | 
-*OpenapiClient::ReportApi* | [**report_district_zipcode_get**](docs/ReportApi.md#report_district_zipcode_get) | **GET** /report/district/{zipcode} | 
-*OpenapiClient::ReportApi* | [**report_post**](docs/ReportApi.md#report_post) | **POST** /report | 
-*OpenapiClient::UserApi* | [**user_post**](docs/UserApi.md#user_post) | **POST** /user | 
-*OpenapiClient::UserApi* | [**user_user_id_delete**](docs/UserApi.md#user_user_id_delete) | **DELETE** /user/{user_id} | 
-
+| Class                       | Method                                                                                | HTTP request                         | Description |
+| --------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------ | ----------- |
+| _OpenapiClient::AnalyzeApi_ | [**analyze_data_post**](docs/AnalyzeApi.md#analyze_data_post)                         | **POST** /analyze/data               |
+| _OpenapiClient::AnalyzeApi_ | [**analyze_image_image_token_get**](docs/AnalyzeApi.md#analyze_image_image_token_get) | **GET** /analyze/image/{image_token} |
+| _OpenapiClient::AnalyzeApi_ | [**analyze_image_upload_get**](docs/AnalyzeApi.md#analyze_image_upload_get)           | **GET** /analyze/image/upload        |
+| _OpenapiClient::ReportApi_  | [**report_district_zipcode_get**](docs/ReportApi.md#report_district_zipcode_get)      | **GET** /report/district/{zipcode}   |
+| _OpenapiClient::ReportApi_  | [**report_post**](docs/ReportApi.md#report_post)                                      | **POST** /report                     |
+| _OpenapiClient::UserApi_    | [**user_post**](docs/UserApi.md#user_post)                                            | **POST** /user                       |
+| _OpenapiClient::UserApi_    | [**user_user_id_delete**](docs/UserApi.md#user_user_id_delete)                        | **DELETE** /user/{user_id}           |
 
 ## Documentation for Models
 
- - [OpenapiClient::CarSuggestions](docs/CarSuggestions.md)
- - [OpenapiClient::CarSuggestionsSuggestions](docs/CarSuggestionsSuggestions.md)
- - [OpenapiClient::Error](docs/Error.md)
- - [OpenapiClient::InlineObject](docs/InlineObject.md)
- - [OpenapiClient::InlineObject1](docs/InlineObject1.md)
- - [OpenapiClient::InlineResponse200](docs/InlineResponse200.md)
- - [OpenapiClient::InlineResponse2001](docs/InlineResponse2001.md)
- - [OpenapiClient::InlineResponse2002](docs/InlineResponse2002.md)
- - [OpenapiClient::InlineResponse2002PublicOrderOffice](docs/InlineResponse2002PublicOrderOffice.md)
- - [OpenapiClient::Location](docs/Location.md)
- - [OpenapiClient::Report](docs/Report.md)
- - [OpenapiClient::ViolationSuggestion](docs/ViolationSuggestion.md)
-
+- [OpenapiClient::CarSuggestions](docs/CarSuggestions.md)
+- [OpenapiClient::CarSuggestionsSuggestions](docs/CarSuggestionsSuggestions.md)
+- [OpenapiClient::Error](docs/Error.md)
+- [OpenapiClient::InlineObject](docs/InlineObject.md)
+- [OpenapiClient::InlineObject1](docs/InlineObject1.md)
+- [OpenapiClient::InlineResponse200](docs/InlineResponse200.md)
+- [OpenapiClient::InlineResponse2001](docs/InlineResponse2001.md)
+- [OpenapiClient::InlineResponse2002](docs/InlineResponse2002.md)
+- [OpenapiClient::InlineResponse2002PublicOrderOffice](docs/InlineResponse2002PublicOrderOffice.md)
+- [OpenapiClient::Location](docs/Location.md)
+- [OpenapiClient::Report](docs/Report.md)
+- [OpenapiClient::ViolationSuggestion](docs/ViolationSuggestion.md)
 
 ## Documentation for Authorization
-
 
 ### AccessTokenAuth
 
 - **Type**: Bearer authentication
-

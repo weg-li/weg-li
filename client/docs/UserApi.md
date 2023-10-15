@@ -2,17 +2,14 @@
 
 All URIs are relative to *https://europe-west3-wegli-296209.cloudfunctions.net/api*
 
-| Method | HTTP request | Description |
-| ------ | ------------ | ----------- |
-| [**user_post**](UserApi.md#user_post) | **POST** /user |  |
-| [**user_user_id_delete**](UserApi.md#user_user_id_delete) | **DELETE** /user/{user_id} |  |
-
+| Method                                                    | HTTP request               | Description |
+| --------------------------------------------------------- | -------------------------- | ----------- |
+| [**user_post**](UserApi.md#user_post)                     | **POST** /user             |             |
+| [**user_user_id_delete**](UserApi.md#user_user_id_delete) | **DELETE** /user/{user_id} |             |
 
 ## user_post
 
 > <InlineResponse200> user_post
-
-
 
 Create a new user for the analysis platform.
 
@@ -25,7 +22,7 @@ require 'openapi_client'
 api_instance = OpenapiClient::UserApi.new
 
 begin
-  
+
   result = api_instance.user_post
   p result
 rescue OpenapiClient::ApiError => e
@@ -41,7 +38,7 @@ This returns an Array which contains the response data, status code and headers.
 
 ```ruby
 begin
-  
+
   data, status_code, headers = api_instance.user_post_with_http_info
   p status_code # => 2xx
   p headers # => { ... }
@@ -68,12 +65,9 @@ No authorization required
 - **Content-Type**: Not defined
 - **Accept**: application/json
 
-
 ## user_user_id_delete
 
 > user_user_id_delete(user_id)
-
-
 
 Deletes the information that is associated to the provided anonymous user id on the analysis platform.
 
@@ -89,10 +83,10 @@ OpenapiClient.configure do |config|
 end
 
 api_instance = OpenapiClient::UserApi.new
-user_id = 'user_id_example' # String | 
+user_id = 'user_id_example' # String |
 
 begin
-  
+
   api_instance.user_user_id_delete(user_id)
 rescue OpenapiClient::ApiError => e
   puts "Error when calling UserApi->user_user_id_delete: #{e}"
@@ -107,7 +101,7 @@ This returns an Array which contains the response data (`nil` in this case), sta
 
 ```ruby
 begin
-  
+
   data, status_code, headers = api_instance.user_user_id_delete_with_http_info(user_id)
   p status_code # => 2xx
   p headers # => { ... }
@@ -119,9 +113,9 @@ end
 
 ### Parameters
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **user_id** | **String** |  |  |
+| Name        | Type       | Description | Notes |
+| ----------- | ---------- | ----------- | ----- |
+| **user_id** | **String** |             |       |
 
 ### Return type
 
@@ -135,4 +129,3 @@ nil (empty response body)
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
-

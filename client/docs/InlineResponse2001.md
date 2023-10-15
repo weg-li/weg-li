@@ -2,10 +2,10 @@
 
 ## Properties
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **token** | **String** | A unique image token |  |
-| **google_cloud_urls** | **Array&lt;String&gt;** | The Google Cloud Storage urls to which the image(s) should be uploaded. |  |
+| Name                  | Type                    | Description                                                             | Notes |
+| --------------------- | ----------------------- | ----------------------------------------------------------------------- | ----- |
+| **token**             | **String**              | A unique image token                                                    |       |
+| **google_cloud_urls** | **Array&lt;String&gt;** | The Google Cloud Storage urls to which the image(s) should be uploaded. |       |
 
 ## Example
 
@@ -17,4 +17,3 @@ instance = OpenapiClient::InlineResponse2001.new(
   google_cloud_urls: [&quot;https://api.google.com/...&quot;]
 )
 ```
-

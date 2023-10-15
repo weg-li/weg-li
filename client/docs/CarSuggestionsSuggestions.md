@@ -2,11 +2,11 @@
 
 ## Properties
 
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
+| Name                     | Type                    | Description                                                                                   | Notes      |
+| ------------------------ | ----------------------- | --------------------------------------------------------------------------------------------- | ---------- |
 | **license_plate_number** | **Array&lt;String&gt;** | Suggestions for the license plate number. Empty list when no license plate number recognized. | [optional] |
-| **make** | **Array&lt;String&gt;** | Suggestions for the make. Empty list when no make recognized. | [optional] |
-| **color** | **Array&lt;String&gt;** | Suggestions for the color. Empty list when no color recognized. | [optional] |
+| **make**                 | **Array&lt;String&gt;** | Suggestions for the make. Empty list when no make recognized.                                 | [optional] |
+| **color**                | **Array&lt;String&gt;** | Suggestions for the color. Empty list when no color recognized.                               | [optional] |
 
 ## Example
 
@@ -19,4 +19,3 @@ instance = OpenapiClient::CarSuggestionsSuggestions.new(
   color: [&quot;blue&quot;,&quot;white&quot;]
 )
 ```
-
