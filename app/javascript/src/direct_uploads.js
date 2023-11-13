@@ -12,7 +12,7 @@ $(document).ready(() => {
     if (files.some((file) => !accepts.includes(file.type))) {
       target.insertAdjacentHTML(
         "beforebegin",
-        '<div id="direct-upload-error-size" class="alert alert-warning">Es werden nur Fotos im JPEG Format unterstützt!</div>'
+        '<div id="direct-upload-error-size" class="alert alert-warning">Es werden nur Fotos im JPEG Format unterstützt!</div>',
       );
       target.value = "";
     } else if (files.some((file) => file.size > uploadLimit)) {
@@ -20,7 +20,7 @@ $(document).ready(() => {
         "beforebegin",
         `<div id="direct-upload-error-size" class="alert alert-warning">Es können nur Fotos bis ${
           uploadLimit / 1048576
-        } MB hochgeladen werden!</div>`
+        } MB hochgeladen werden!</div>`,
       );
       target.value = "";
     } else {
@@ -28,14 +28,14 @@ $(document).ready(() => {
       const items = files.map(
         (file) =>
           `<li class="list-item"><img src="${window.URL.createObjectURL(
-            file
-          )}" class="index-photo"></li>`
+            file,
+          )}" class="index-photo"></li>`,
       );
       target.insertAdjacentHTML(
         "beforebegin",
         `<div id="photos-preview"><ul class="photo-list">${items.join(
-          " "
-        )}</ul></div>`
+          " ",
+        )}</ul></div>`,
       );
     }
   });
@@ -52,7 +52,7 @@ addEventListener("direct-upload:initialize", (event) => {
     "beforebegin",
     `
     <p><img src="${window.URL.createObjectURL(
-      file
+      file,
     )}" class="index-photo" style="v-align:middle" /> ${file.name} (${(
       file.size / 1048576
     ).toFixed(2)} MB)</p>
@@ -62,14 +62,14 @@ addEventListener("direct-upload:initialize", (event) => {
     <div id="direct-upload-error-${id}" class="alert alert-warning hidden">
       ERROR
     </div>
-  `
+  `,
   );
 });
 
 addEventListener("direct-upload:progress", (event) => {
   const { id, progress } = event.detail;
   const progressElement = document.getElementById(
-    `direct-upload-progress-${id}`
+    `direct-upload-progress-${id}`,
   );
   progressElement.style.width = `${progress}%`;
 });

@@ -2,16 +2,14 @@
 
 Rake::Task["db:migrate"].enhance do
   tables = ActiveRecord::Base.connection.tables
-  all_foreign_keys =
-    yolo = tables
-             .flat_map do |table_name|
-      ActiveRecord::Base
-        .connection
-        .columns(table_name)
-        .map { |c| [table_name, c.name].join(".") }
-    end
+  all_keys = tables.flat_map do |table_name|
+    ActiveRecord::Base
+      .connection
+      .columns(table_name)
+      .map { |c| [table_name, c.name].join(".") }
+  end
 
-  yolo.select { |c| c.ends_with?("_id") }
+  all_foreign_keys = all_keys.select { |c| c.ends_with?("_id") }
 
   indexed_columns =
     tables

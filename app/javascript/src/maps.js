@@ -143,7 +143,7 @@ class GPickerMap {
           },
           (error) => {
             console.log("error getting current location", error);
-          }
+          },
         );
       } else {
         window.alert("Der Browser unterstützt keine Geolocation");
@@ -163,7 +163,7 @@ class GMultiMap {
     const map = initMap(
       this.canvas,
       [this.init.latitude, this.init.longitude],
-      this.init.zoom
+      this.init.zoom,
     );
 
     if (this.notices.length > 0) {
@@ -190,7 +190,7 @@ class GClusterMap {
     const map = initMap(
       this.canvas,
       [this.init.latitude, this.init.longitude],
-      this.init.zoom
+      this.init.zoom,
     );
 
     if (this.notices.length > 0) {
@@ -218,7 +218,7 @@ class GHeatMap {
     const map = initMap(
       this.canvas,
       [this.init.latitude, this.init.longitude],
-      this.init.zoom
+      this.init.zoom,
     );
 
     if (this.notices.length > 0) {
