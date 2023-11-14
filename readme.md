@@ -20,7 +20,6 @@ To run weg.li locally, you'll need:
 - NodeJS & Yarn
 - Redis
 
-
 #### Quick setup for Linux (Ubuntu)
 
 See [this guide](https://gorails.com/setup/ubuntu/20.10) which guides you through installing Ruby, Rails and PostgreSQL.
@@ -75,7 +74,7 @@ Once you have successfully authenticated, make your user an admin: Start the rai
 
 ### Importing base data
 
-For proper functionality, you need to populate your database with *districts*.
+For proper functionality, you need to populate your database with _districts_.
 
 To fabricate random districts, run `rake dev:data`. This will synthesize all the kinds of data you need to get dashboards, stats, etc. working right.
 
@@ -105,7 +104,7 @@ GOOGLE_CONSUMER_SECRET=google-secret
 
 These are used to let users authenticate with the different providers. Learn how to create your own keys: [GitHub](https://docs.github.com/en/free-pro-team@latest/developers/apps/creating-an-oauth-app), [Twitter](https://developer.twitter.com/en/docs/apps/overview), [Google](https://developers.google.com/identity/sign-in/web/sign-in).
 
-In addition, weg.li uses Google Cloud Storage for storing uploaded data and Google Cloud Vision to read license plates and determine car makes and colors. You will need to [create a Google Cloud Project](https://cloud.google.com/resource-manager/docs/creating-managing-projects) and set up the required API access for *Google Cloud Storage* and *Google Cloud Vision*. Be aware that you might be billed for Google Cloud usage. Please refer to the Google Cloud documentation, and set the following environment variables accordingly:
+In addition, weg.li uses Google Cloud Storage for storing uploaded data and Google Cloud Vision to read license plates and determine car makes and colors. You will need to [create a Google Cloud Project](https://cloud.google.com/resource-manager/docs/creating-managing-projects) and set up the required API access for _Google Cloud Storage_ and _Google Cloud Vision_. Be aware that you might be billed for Google Cloud usage. Please refer to the Google Cloud documentation, and set the following environment variables accordingly:
 
 ```bash
 GOOGLE_CLOUD_PROJECT=google-cloud-project-id
@@ -135,8 +134,6 @@ Werden Sie ein finanzieller Spender und helfen Sie uns, unsere Gemeinschaft zu e
 Unterstützen Sie dieses Projekt mit Ihrer Organisation. Ihr Logo wird hier mit einem Link zu Ihrer Website angezeigt.[[Beitragen](https://opencollective.com/weg-li/contribute)]
 
 <a href="https://opencollective.com/weg-li/organization/0/website"><img src="https://opencollective.com/weg-li/organization/0/avatar.svg"></a>
-
-
 
 ## License
 

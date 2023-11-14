@@ -34,3 +34,4 @@ config/data/opengeodb.csv
 yarn-debug.log*
 .yarn-integrity
 /bkat/TBKAT.DAT
+.vscode/

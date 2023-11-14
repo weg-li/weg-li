@@ -32,7 +32,7 @@ paths:
                 type: object
                 properties:
                   user_id:
-                    $ref: '#/components/schemas/UserID'
+                    $ref: "#/components/schemas/UserID"
                   access_token:
                     type: string
                     description: The corresponding access token for the newly created user account.
@@ -50,7 +50,7 @@ paths:
           in: path
           required: true
           schema:
-            $ref: '#/components/schemas/UserID'
+            $ref: "#/components/schemas/UserID"
       responses:
         "200":
           description: The operation was successful.
@@ -81,7 +81,7 @@ paths:
                 - location
               properties:
                 user_id:
-                  $ref: '#/components/schemas/UserID'
+                  $ref: "#/components/schemas/UserID"
                 time:
                   type: integer
                   format: int64
@@ -90,7 +90,7 @@ paths:
                 location:
                   description: The location of the violation.
                   allOf:
-                    - $ref: '#/components/schemas/Location'
+                    - $ref: "#/components/schemas/Location"
       responses:
         "200":
           description: "Returns ordered list of recommendations with their score and corresponding severity type."
@@ -99,7 +99,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ViolationSuggestion'
+                  $ref: "#/components/schemas/ViolationSuggestion"
         "400":
           $ref: "#/components/responses/BadRequestError"
         "401":
@@ -190,7 +190,7 @@ paths:
                 - report
               properties:
                 user_id:
-                  $ref: '#/components/schemas/UserID'
+                  $ref: "#/components/schemas/UserID"
                 report:
                   $ref: "#/components/schemas/Report"
       responses:
@@ -289,19 +289,19 @@ components:
               items:
                 type: string
               description: Suggestions for the license plate number. Empty list when no license plate number recognized.
-              example: ['B-WL 1234', 'KA KK 3455']
+              example: ["B-WL 1234", "KA KK 3455"]
             make:
               type: array
               items:
                 type: string
               description: Suggestions for the make. Empty list when no make recognized.
-              example: ['Mercedes-Benz']
+              example: ["Mercedes-Benz"]
             color:
               type: array
               items:
                 type: string
               description: Suggestions for the color. Empty list when no color recognized.
-              example: ['blue', 'white']
+              example: ["blue", "white"]
     ViolationSuggestion:
       type: object
       required:
@@ -333,7 +333,7 @@ components:
           example: 1606756404
           description: The date and time of the violation as Unix timestamp (in seconds since epoch).
         location:
-          $ref: '#/components/schemas/Location'
+          $ref: "#/components/schemas/Location"
         image_token:
           type: string
     Error:
