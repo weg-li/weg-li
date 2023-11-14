@@ -2,3 +2,4 @@ app/assets/stylesheets/**/*
 client/**/*
 config/**/*
 public/packs*/**/*
+public/assets/**/*
