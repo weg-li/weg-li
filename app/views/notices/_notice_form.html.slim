@@ -95,11 +95,12 @@
       = form.select :tbnr, charge_options, { include_blank: 'Verstoß Auswählen' }, { class: "form-control", required: true }
       .input-group#pick_charge
         - if nearest_tbnrs.present?
-          - nearest_charge = nearest_tbnrs.first(3)
-          a(href="#" onclick="$('#notice_charge').val('#{nearest_charge}').trigger('change'); $('#pick_charge').fadeOut(); return false;")
-            span.label.label-default.label-picker(title=nearest_charge)
-              span => nearest_charge
-              span.glyphicon.glyphicon-circle-arrow-left
+          - nearest_charges = charges.select { |tbnr, _charge| nearest_tbnrs.first(3).include?(tbnr) }
+          - nearest_charges.each do |nearest_tbnr, nearest_charge|
+            a(href="#" onclick="$('#notice_tbnr').val('#{nearest_tbnr}').trigger('change'); $('#pick_charge').fadeOut(); return false;")
+              span.label.label-default.label-picker(title=nearest_charge)
+                span => nearest_charge
+                span.glyphicon.glyphicon-circle-arrow-left
 
 #duration-alert.alert.alert-info.alert-dismissable.hidden
   button type="button" class="close" data-dismiss="alert" ×
