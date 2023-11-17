@@ -124,8 +124,7 @@ GEM
       rake (>= 12.0.0, < 14.0.0)
     dnsruby (1.70.0)
       simpleidn (~> 0.2.1)
-    domain_name (0.5.20190701)
-      unf (>= 0.0.5, < 1.0.0)
+    domain_name (0.6.20231109)
     dotenv (2.8.1)
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
@@ -205,7 +204,7 @@ GEM
     google-cloud-vision-v1p3beta1 (0.11.0)
       gapic-common (>= 0.20.0, < 2.a)
       google-cloud-errors (~> 1.0)
-    google-protobuf (3.25.0)
+    google-protobuf (3.25.1)
     googleapis-common-protos (1.4.0)
       google-protobuf (~> 3.14)
       googleapis-common-protos-types (~> 1.2)
@@ -280,7 +279,7 @@ GEM
     llhttp-ffi (0.4.0)
       ffi-compiler (~> 1.0)
       rake (~> 13.0)
-    loofah (2.21.4)
+    loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
     mail (2.8.1)
@@ -300,7 +299,7 @@ GEM
     msgpack (1.7.2)
     multi_json (1.15.0)
     multi_xml (0.6.0)
-    net-imap (0.4.4)
+    net-imap (0.4.5)
       date
       net-protocol
     net-pop (0.1.2)
@@ -309,7 +308,7 @@ GEM
       timeout
     net-smtp (0.4.0)
       net-protocol
-    nio4r (2.5.9)
+    nio4r (2.6.0)
     nokogiri (1.15.4)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
@@ -435,7 +434,7 @@ GEM
       uber (< 0.2.0)
     retriable (3.1.2)
     rexml (3.2.6)
-    rgeo (3.0.0)
+    rgeo (3.0.1)
     rgeo-activerecord (7.0.1)
       activerecord (>= 5.0)
       rgeo (>= 1.0.0)
@@ -513,7 +512,7 @@ GEM
       multi_json (~> 1.10)
     simpleidn (0.2.1)
       unf (~> 0.1.4)
-    slim (5.1.1)
+    slim (5.2.0)
       temple (~> 0.10.0)
       tilt (>= 2.1.0)
     slim-rails (3.6.3)
@@ -560,7 +559,7 @@ GEM
     uber (0.1.0)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.8.2)
+    unf_ext (0.0.9.1)
     unicode-display_width (2.5.0)
     utf8-cleaner (1.0.0)
       activesupport
