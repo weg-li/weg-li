@@ -36,6 +36,7 @@ class Notice < ApplicationRecord
     api.add(:tbnr)
     api.add(:date)
     api.add(:duration)
+    api.add(:note)
     api.add(:severity)
     api.add(:photos)
     api.add(:created_at)
