@@ -385,7 +385,7 @@ class Notice < ApplicationRecord
   end
 
   def end_date
-    date? ? date + duration.to_i.minutes + 1 : nil
+    date? ? date + duration.to_i.minutes + 2 : nil
   end
 
   private
