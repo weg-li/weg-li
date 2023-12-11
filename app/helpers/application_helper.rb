@@ -110,12 +110,12 @@ module ApplicationHelper
   end
 
   PROVIDERS = {
-    twitter_murks: "Twitter",
+    apple: "Apple",
     google_oauth2: "Google",
     telegram: "Telegram",
     github: "GitHub",
-    # apple: 'Apple',
     email: "E-Mail",
+    twitter_murks: "Twitter",
   }
 
   def login_links(providers = PROVIDERS)

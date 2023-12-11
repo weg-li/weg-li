@@ -194,7 +194,7 @@ de:
     en: 'Englisch'
     de: 'Deutsch'
   home:
-    register_with_oauth: 'Anmelden mit Twitter & Co <span class="caret"></span>'
+    register_with_oauth: 'Anmelden via Apple & Co <span class="caret"></span>'
     select_oauth_provider: 'Wähle eine der Möglichkeiten zum Anmelden:'
   sessions:
     sign_in_provider: 'Einfach mit OAuth anmelden'

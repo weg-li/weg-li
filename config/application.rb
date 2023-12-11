@@ -44,6 +44,11 @@ module WegLi
     # custom 404
     config.exceptions_app = routes
 
+    # https://www.mattlins.com/adding-sign-in-with-apple-to-your-ruby-on-rails-71-app-a-step-by-step-guide
+    config.action_dispatch.cookies_same_site_protection = lambda do |request|
+      request.path.starts_with?("/auth/apple") ? :none : :lax
+    end
+
     config.generators do |g|
       g.test_framework  :rspec, fixture: false
       g.view_specs      false
