@@ -12,6 +12,7 @@
 AllCops:
   NewCops: enable
   Exclude:
+    - "config.ru"
     - "db/**/*"
     - "config/**/*"
     - "client/**/*"
