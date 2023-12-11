@@ -121,6 +121,7 @@ Rails.application.routes.draw do
     end
     post "/twitter_murks", to: "sessions#twitter_murks"
     get "/:provider/callback", to: "sessions#create", as: :provider_callback
+    post "/:provider/callback", to: "sessions#create" # just for Apple
     delete "/:provider", to: "sessions#disconnect"
     get "/failure", to: "sessions#failure"
     get "/destroy_alias_session",
