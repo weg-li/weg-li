@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     resources :charges
     resources :charge_variants
     resources :authorizations
+    resources :brands
 
     get :system, to: "system#index", as: :system_status
     root to: "users#index"

@@ -1,9 +1,9 @@
-- set_title t('navigation.charges')
-- set_meta_description t('meta_description.charges')
+- set_title t('navigation.brands')
+- set_meta_description t('meta_description.brands')
 
 .well
   |
-    Bei weg.li sind #{number_with_delimiter(Charge.active.count)} Tatbestände aus dem aktuellen #{link_to 'Bußgeldkatalog (bkat_owi Stand 09.11.2021)', '/pdf/bkat_owi_09_11_2021.pdf', target: '_blank'} hinterlegt.
+    Bei weg.li sind #{number_with_delimiter(Brand.count)} Fahrzeugmarken für die Kategorien #{Brand.kinds.keys.join(', ')} hinterlegt.
 
 .panel.panel-default
   .panel-heading
@@ -15,9 +15,9 @@
         ul.dropdown-menu.dropdown-menu-right
           li
             = form_tag({url: url_for}, method: :get, class: 'form-dropdown', autocomplete: :off) do
-              = hidden_field_tag(:classification, params[:classification])
+              = hidden_field_tag(:kind, params[:kind])
               .input-group.input-group-sm
-                = text_field_tag(:term, params[:term], placeholder: 'z.B. Gehweg', class: 'form-control input-sm', autofocus: true)
+                = text_field_tag(:term, params[:term], placeholder: 'z.B. BMW', class: 'form-control input-sm', autofocus: true)
                 span.input-group-btn
                   = button_tag(class: "btn btn-default btn-sm")
                     span.glyphicon.glyphicon-search
@@ -25,7 +25,7 @@
           - if params[:term].present?
             li.divider
             li
-              = link_to url_for(classification: params[:classification])
+              = link_to url_for(kind: params[:kind])
                 span.glyphicon.glyphicon-remove>
                 | ohne Suche
 
@@ -34,43 +34,37 @@
       thead
         tr
           th
-          th= Charge.human_attribute_name(:tbnr)
-          th= Charge.human_attribute_name(:description)
+          th= Brand.human_attribute_name(:name)
+          th= Brand.human_attribute_name(:aliases)
+          th= Brand.human_attribute_name(:models)
           th
             .dropdown
               button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown"
-                - current_status_filter = params[:classification]
-                => current_status_filter.present? ? Charge.classification_name(current_status_filter) : Charge.human_attribute_name(:classification)
+                - current_status_filter = params[:kind]
+                => current_status_filter.present? ? Brand.kind_name(current_status_filter) : Brand.human_attribute_name(:kind)
                 span.caret
               ul.dropdown-menu.dropdown-menu-right
-                - Charge::CLASSIFICATIONS.each do |key, name|
+                - Brand.kinds.each do |key, name|
                   li
-                    = link_to url_for(classification: key, term: params[:term])
+                    = link_to url_for(kind: key, term: params[:term])
                       span.label.label-primary= name
                 li role="separator" class="divider"
                 li
-                  = link_to url_for(classification: nil)
+                  = link_to url_for(kind: nil)
                     span.glyphicon.glyphicon-remove>
                     | kein Filter
-          th= Charge.human_attribute_name(:fine)
-          th= Charge.human_attribute_name(:points)
-          th= Charge.human_attribute_name(:penalty)
-          th= Charge.human_attribute_name(:valid_from)
       tbody
-        - if @charges.present?
-          - @charges.each do |charge|
+        - if @brands.present?
+          - @brands.each do |brand|
             tr
               td
-              td= link_to(charge.tbnr, charge)
-              td= link_to(charge.description, charge)
-              td= link_to(charge.classification_name, url_for(classification: charge.classification), class: 'label label-primary')
-              td(nowrap)= number_to_currency(charge.fine)
-              td(nowrap)= charge.points? ? charge.points : ''
-              td(nowrap)= charge.penalty? ? "✔" : ''
-              td(nowrap)= l(charge.valid_from, format: :date)
+              td= link_to(brand.name, brand)
+              td= link_to((brand.aliases || []).take(3).join(', ').presence || "-", brand)
+              td= link_to(brand.models.take(3).join(', ').presence || "-", brand)
+              td= brand.kind
         - else
           tr
             td(colspan=8) Es wurden keine Einträge gefunden.
 
 .text-center
-  = paginate @charges
+  = paginate @brands

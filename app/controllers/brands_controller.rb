@@ -3,7 +3,7 @@
 class BrandsController < ApplicationController
   def index
     respond_to do |format|
-      format.html { @charges = search_scope }
+      format.html { @brands = search_scope }
     end
   end
 

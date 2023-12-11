@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Brand < ApplicationRecord
-  enum status: { car: 0, truck: 1, bike: 2, scooter: 3 }
+  enum kind: { car: 0, truck: 1, bike: 2, scooter: 3 }
 
   has_many :notices, foreign_key: :brand, primary_key: :name
 
