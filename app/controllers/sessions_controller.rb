@@ -2,6 +2,7 @@
 
 class SessionsController < ApplicationController
   before_action :set_auth, only: %i[complete ticket signup]
+  skip_forgery_protection only: :create # Apple sends POST to /auth/apple/callback with no CSRF token
 
   def create
     auth = request.env["omniauth.auth"].slice("provider", "uid", "info")
