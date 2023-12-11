@@ -41,13 +41,13 @@
             .dropdown
               button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown"
                 - current_status_filter = params[:kind]
-                => current_status_filter.present? ? Brand.kind_name(current_status_filter) : Brand.human_attribute_name(:kind)
+                => current_status_filter.present? ? t(current_status_filter, scope: 'activerecord.attributes.brand.kinds') : Brand.human_attribute_name(:kind)
                 span.caret
               ul.dropdown-menu.dropdown-menu-right
-                - Brand.kinds.each do |key, name|
+                - Brand.kinds.each do |key, value|
                   li
                     = link_to url_for(kind: key, term: params[:term])
-                      span.label.label-primary= name
+                      span.label.label-primary= t(key, scope: 'activerecord.attributes.brand.kinds')
                 li role="separator" class="divider"
                 li
                   = link_to url_for(kind: nil)
@@ -61,7 +61,7 @@
               td= link_to(brand.name, brand)
               td= link_to((brand.aliases || []).take(3).join(', ').presence || "-", brand)
               td= link_to(brand.models.take(3).join(', ').presence || "-", brand)
-              td= brand.kind
+              td= t(brand.kind, scope: 'activerecord.attributes.brand.kinds')
         - else
           tr
             td(colspan=8) Es wurden keine Einträge gefunden.

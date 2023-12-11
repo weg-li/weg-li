@@ -79,6 +79,11 @@ de:
         kind: 'Art'
         models: 'Modelle'
         aliases: 'Aliase'
+        kinds:
+          car: 'PKW'
+          truck: 'LKW'
+          bike: 'Kraftrad'
+          scooter: 'Scooter'
       charge:
         tbnr: 'TBNR'
         description: 'Tatbestandstext'

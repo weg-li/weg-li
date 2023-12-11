@@ -23,7 +23,7 @@ class BrandsController < ApplicationController
       brands = brands.where("name ILIKE :term", term: "%#{params[:term]}%")
     end
     if params[:kind].present?
-      brands = brands.where("kind = ?", params[:kind].to_i)
+      brands = brands.where("kind = ?", Brand.kinds[params[:kind]])
     end
     brands
   end
