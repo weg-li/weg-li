@@ -98,11 +98,10 @@ class Notice < ApplicationRecord
   def self.statistics
     {
       districts: District.active.count,
-      active: Notice.select("DISTINCT user_id").count,
       users: User.active.count,
-      photos: ActiveStorage::Attachment.where(record_type: Notice.to_s).count,
-      notices: Notice.count,
+      active: Notice.select("DISTINCT user_id").count,
       shared: Notice.shared.count,
+      photos: ActiveStorage::Attachment.where(record_type: Notice.to_s).count,
     }
   end
 

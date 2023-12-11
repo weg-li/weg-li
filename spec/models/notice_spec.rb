@@ -116,7 +116,7 @@ describe Notice do
 
       statistics = Notice.statistics
       expect(
-        { notices: 1, users: 1, districts: 1, photos: 1, shared: 0, active: 1 },
+        { users: 1, districts: 1, photos: 1, shared: 0, active: 1 },
       ).to eql(statistics)
     end
   end

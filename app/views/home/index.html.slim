@@ -174,7 +174,15 @@
     .col-lg-6
       h3 📈 Bisherige Daten:
       ul.list-group
+        ruby:
+          links = {
+            shared: stats_path(display: :notice),
+            photos: stats_path(display: :photo),
+            users: stats_path(display: :active),
+            active: leaderboard_path,
+            districts: districts_path,
+          }
         - statistics.each do |key, value|
           li.list-group-item
             .badge.pull-right= number_with_delimiter(value)
-            = t(key, scope: 'notices.statistics')
+            = link_to t(key, scope: 'notices.statistics'), links[key], title: t(key, scope: 'notices.statistics')

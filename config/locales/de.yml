@@ -336,10 +336,6 @@ de:
     copy_hint: 'Kopieren in die Zwischenablage: CMD+C / Ctrl+C, lange Antippen und kopieren für Touch'
     back_to_dashboard: 'zurück zur Übersicht'
     statistics:
-      notices: 'Meldungen insgesamt'
-      incomplete: 'Unvollständige Meldungen'
-      complete: 'Vollständige Meldungen'
-      open: 'Offene Meldungen'
       shared: 'Erstattete Anzeigen'
       photos: 'Geknipste Fotos'
       active: 'Aktive Melder'
