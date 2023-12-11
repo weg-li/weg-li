@@ -115,7 +115,7 @@ module ApplicationHelper
     telegram: "Telegram",
     github: "GitHub",
     email: "E-Mail",
-    twitter_murks: "Twitter",
+    twitter: "Twitter",
   }
 
   def login_links(providers = PROVIDERS)
