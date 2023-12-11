@@ -35,6 +35,6 @@ class PublicController < ApplicationController
   end
 
   def notice
-    @notice ||= user.notices.for_public.where("date > ?", 400.weeks.ago).from_param(params[:notice_token])
+    @notice ||= user.notices.for_public.where("date > ?", 4.weeks.ago).from_param(params[:notice_token])
   end
 end
