@@ -22,7 +22,7 @@ class DataSet < ApplicationRecord
   def registrations
     case kind
     when "google_vision"
-      district = (setable.district || setable.user.district)
+      district = setable.district || setable.user.district
       with_likelyhood =
         Annotator.grep_text(data.deep_symbolize_keys) do |it|
           Vehicle.plate?(it, prefixes: district&.prefixes)
