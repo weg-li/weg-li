@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 ruby "3.1.4"
 
-gem "rails", "7.0.7.2"
+gem "rails", "7.1.2"
 gem "bootsnap", require: false
 gem "rack"
 gem "sprockets", "~> 3.7.2"

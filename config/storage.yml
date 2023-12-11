@@ -3,6 +3,11 @@ test:
   root: <%= Rails.root.join("tmp/storage") %>
   public: false
 
+local:
+  service: Disk
+  root: <%= Rails.root.join("tmp/storage") %>
+  public: false
+
 google_development:
   service: GCS
   project: "weg-li"

@@ -8,7 +8,7 @@ class XmlGenerator
   end
 
   def generate(notice)
-    locals = { "@notice": notice, "@user": notice.user }
+    locals = { notice:, user: notice.user }
     renderer.render(template: "/public/#{@template}", formats: [:xml], locals:)
   end
 
