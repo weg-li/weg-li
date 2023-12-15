@@ -10,7 +10,7 @@ require "byebug"
 API_KEY =
   ENV.fetch(
     "WEG_LI_API_KEY",
-    "17a02fb1ffa8003091e1b57c37b522f9990873628ca905976093eb59a6b7332b",
+    "52e68c996991292b101b7c85b6cbf11ccf87095ae8e2cf1b4e3841892b9f03a1",
   )
 HOST = ENV.fetch("WEG_LI_HOST", "http://localhost:3000")
 
@@ -23,8 +23,8 @@ headers = { "X-API-KEY" => API_KEY }
 
 response =
   client.get(
-    "#{HOST}/api/notices/d6c5b319418185c79e09ac559cfbb2d8",
-    headers:,
+    "#{HOST}/api/notices/36b3d5da606a8787fc86cc5d0421c39e",
+    headers: headers,
   )
 if response.status.success?
   notice = JSON.parse(response.body)
@@ -47,7 +47,7 @@ upload = {
 }
 
 response =
-  client.post("#{HOST}/api/uploads", headers:, json: { upload: })
+  client.post("#{HOST}/api/uploads", headers: headers, json: { upload: upload })
 
 if response.status.success?
   upload = JSON.parse(response.body)
@@ -64,12 +64,12 @@ if response.status.success?
 end
 
 notice = {
-  tbnr: "112474",
+  charge: "Parken auf einem Radweg (Zeichen 237)",
   photos: [signed_id],
 }
 
 response =
-  client.post("#{HOST}/api/notices", headers:, json: { notice: })
+  client.post("#{HOST}/api/notices", headers: headers, json: { notice: notice })
 if response.status.success?
   notice = JSON.parse(response.body)
   puts notice.keys
