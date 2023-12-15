@@ -10,7 +10,7 @@ require "byebug"
 API_KEY =
   ENV.fetch(
     "WEG_LI_API_KEY",
-    "52e68c996991292b101b7c85b6cbf11ccf87095ae8e2cf1b4e3841892b9f03a1",
+    "17a02fb1ffa8003091e1b57c37b522f9990873628ca905976093eb59a6b7332b",
   )
 HOST = ENV.fetch("WEG_LI_HOST", "http://localhost:3000")
 
@@ -23,7 +23,7 @@ headers = { "X-API-KEY" => API_KEY }
 
 response =
   client.get(
-    "#{HOST}/api/notices/36b3d5da606a8787fc86cc5d0421c39e",
+    "#{HOST}/api/notices/d6c5b319418185c79e09ac559cfbb2d8",
     headers: headers,
   )
 if response.status.success?
