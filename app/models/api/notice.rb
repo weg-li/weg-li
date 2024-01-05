@@ -4,7 +4,6 @@ class Api::Notice < Notice
   include Swagger::Blocks
 
   swagger_schema :Notice do
-    key :required, [:token]
     property :token do
       key :type, :string
     end
