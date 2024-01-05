@@ -7,7 +7,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    abbrev (0.1.1)
+    abbrev (0.1.2)
     actioncable (7.1.2)
       actionpack (= 7.1.2)
       activesupport (= 7.1.2)
@@ -101,15 +101,15 @@ GEM
       momentjs-rails (~> 2.8)
       sassc-rails (~> 2.1)
       selectize-rails (~> 0.6)
-    administrate-field-active_storage (1.0.0)
+    administrate-field-active_storage (1.0.1)
       administrate (>= 0.2.2)
       rails (>= 7.0)
     aes_key_wrap (1.1.0)
-    appsignal (3.5.0)
+    appsignal (3.5.3)
       rack
     ast (2.4.2)
     base64 (0.2.0)
-    bigdecimal (3.1.4)
+    bigdecimal (3.1.5)
     bindata (2.4.15)
     bindex (0.8.1)
     bitfields (0.14.0)
@@ -168,14 +168,14 @@ GEM
     fugit (1.9.0)
       et-orbi (~> 1, >= 1.2.7)
       raabro (~> 1.4)
-    gapic-common (0.20.0)
+    gapic-common (0.21.1)
       faraday (>= 1.9, < 3.a)
       faraday-retry (>= 1.0, < 3.a)
-      google-protobuf (~> 3.14)
-      googleapis-common-protos (>= 1.3.12, < 2.a)
-      googleapis-common-protos-types (>= 1.3.1, < 2.a)
-      googleauth (~> 1.0)
-      grpc (~> 1.36)
+      google-protobuf (~> 3.18)
+      googleapis-common-protos (>= 1.4.0, < 2.a)
+      googleapis-common-protos-types (>= 1.11.0, < 2.a)
+      googleauth (~> 1.9)
+      grpc (~> 1.59)
     geocoder (1.8.2)
     globalid (1.2.1)
       activesupport (>= 6.1)
@@ -237,7 +237,7 @@ GEM
       temple (>= 0.8.2)
       thor
       tilt
-    hashdiff (1.0.1)
+    hashdiff (1.1.0)
     hashie (5.0.0)
     hiredis (0.6.3)
     http (5.1.1)
@@ -254,8 +254,8 @@ GEM
     image_processing (1.12.2)
       mini_magick (>= 4.9.5, < 5)
       ruby-vips (>= 2.0.17, < 3)
-    io-console (0.6.0)
-    irb (1.10.1)
+    io-console (0.7.1)
+    irb (1.11.0)
       rdoc
       reline (>= 0.3.8)
     jquery-rails (4.6.0)
@@ -263,9 +263,10 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (2.7.1)
-    json-jwt (1.16.3)
+    json-jwt (1.16.5)
       activesupport (>= 4.2)
       aes_key_wrap
+      base64
       bindata
       faraday (~> 2.0)
       faraday-follow_redirects
@@ -316,17 +317,17 @@ GEM
     multi_json (1.15.0)
     multi_xml (0.6.0)
     mutex_m (0.2.0)
-    net-imap (0.4.7)
+    net-imap (0.4.9.1)
       date
       net-protocol
     net-pop (0.1.2)
       net-protocol
     net-protocol (0.2.2)
       timeout
-    net-smtp (0.4.0)
+    net-smtp (0.4.0.1)
       net-protocol
     nio4r (2.7.0)
-    nokogiri (1.15.5)
+    nokogiri (1.16.0)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     oauth (1.1.0)
@@ -342,7 +343,7 @@ GEM
       rack (>= 1.2, < 4)
       snaky_hash (~> 2.0)
       version_gem (~> 1.1)
-    omniauth (2.1.1)
+    omniauth (2.1.2)
       hashie (>= 3.4.6)
       rack (>= 2.2.3)
       rack-protection
@@ -372,7 +373,7 @@ GEM
       omniauth-oauth (~> 1.1)
       rack
     os (1.1.4)
-    parallel (1.23.0)
+    parallel (1.24.0)
     parser (3.2.2.4)
       ast (~> 2.4.1)
       racc
@@ -391,17 +392,18 @@ GEM
     prawn-table (0.2.2)
       prawn (>= 1.3.0, < 3.0.0)
     prettier_print (1.2.1)
-    psych (5.1.1.1)
+    psych (5.1.2)
       stringio
     public_suffix (5.0.4)
-    puma (6.4.0)
+    puma (6.4.1)
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.7.3)
     rack (2.2.8)
     rack-cache (1.15.0)
       rack (>= 0.4)
-    rack-protection (3.1.0)
+    rack-protection (3.2.0)
+      base64 (>= 0.1.0)
       rack (~> 2.2, >= 2.2.4)
     rack-proxy (0.7.7)
       rack
@@ -446,13 +448,13 @@ GEM
     rb-fsevent (0.11.2)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    rbs (3.3.2)
+    rbs (3.4.1)
       abbrev
-    rdoc (6.6.1)
+    rdoc (6.6.2)
       psych (>= 4.0.0)
     redis (5.0.8)
       redis-client (>= 0.17.0)
-    redis-client (0.19.0)
+    redis-client (0.19.1)
       connection_pool
     regexp_parser (2.8.3)
     reline (0.4.1)
