@@ -86,7 +86,7 @@ describe "home", type: :request do
       get year_path
 
       expect(response).to be_successful
-      assert_select("h2", "weg.li das Jahr 2023")
+      assert_select("h2", "weg.li das Jahr 2024")
     end
   end
 end
