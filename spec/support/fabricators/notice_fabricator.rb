@@ -5,12 +5,12 @@ Fabricator(:notice) do
   street { Faker::Address.street_address }
   location { "Beim Nazis-Raus Aufkleber" }
   city { Faker::Address.city }
-  date { 2.days.ago }
+  start_date { 2.days.ago }
+  end_date { 2.days.ago + 3.minutes }
   registration { "#{Vehicle.plates.keys.sample} #{('A'..'Z').to_a.sample(2).join} #{rand(1000)}" }
   brand { Vehicle.car_brands.sample }
   color { Vehicle.colors.sample }
   vehicle_empty { true }
-  duration { 3 }
   severity { 0 }
   status   { 0 }
   latitude { 53.57532 }

@@ -84,7 +84,7 @@ class HomeController < ApplicationController
   end
 
   def leaders_count(year, limit)
-    Notice.where(date: ("01.01.#{year}".to_date.beginning_of_year)..("31.12.#{year}".to_date.end_of_year))
+    Notice.where(start_date: ("01.01.#{year}".to_date.beginning_of_year)..("31.12.#{year}".to_date.end_of_year))
       .shared
       .group(:user_id)
       .order(count_all: :desc)

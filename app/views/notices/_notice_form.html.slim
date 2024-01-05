@@ -102,62 +102,71 @@
                 span => nearest_charge
                 span.glyphicon.glyphicon-circle-arrow-left
 
-#duration-alert.alert.alert-info.alert-dismissable.hidden
+#duration-future-alert.alert.alert-info.alert-dismissable.hidden
   button type="button" class="close" data-dismiss="alert" ×
-  p Der Beobachtungszeitraum darf nicht in der Zukunft enden. Bitte Zeitraum oder Tatzeit anpassen.
+  p Der Beobachtungszeitraum darf nicht in der Zukunft enden.
+#duration-flip-alert.alert.alert-info.alert-dismissable.hidden
+  button type="button" class="close" data-dismiss="alert" ×
+  p Das Ende darf nicht vor dem Anfang liegen.
 
 javascript:
   function validateDuration() {
-    $("#duration-alert").addClass("hidden");
-    const date_string = $("#notice_date_date").val();
-    const time_string = $("#notice_date_time").val();
-    if (date_string && time_string) {
-      const parsed = Date.parse(`${date_string} ${time_string}`);
-      const date = new Date(parsed);
-      const duration_string = $("#notice_duration").val();
-      const duration = parseInt(duration_string, 10);
-      if (duration > 0) {
-        date.setMinutes(date.getMinutes() + duration);
-        if (date.getTime() > Date.now()) {
-          $("#duration-alert").removeClass("hidden");
-          return;
-        }
+    $("#duration-future-alert").addClass("hidden");
+    $("#duration-flip-alert").addClass("hidden");
+    const start_date_string = $("#notice_start_date_date").val();
+    const start_time_string = $("#notice_start_date_time").val();
+    const end_date_string = $("#notice_end_date_date").val();
+    const end_time_string = $("#notice_end_date_time").val();
+    if (start_date_string && start_time_string && end_date_string && end_time_string) {
+      const start_parsed = Date.parse(`${start_date_string} ${start_time_string}`);
+      const end_parsed = Date.parse(`${end_date_string} ${end_time_string}`);
+
+      if (end_parsed.getTime() > Date.now()) {
+        $("#duration-future-alert").removeClass("hidden");
+      }
+      if (end_parsed > start_date) {
+        $("#duration-flip-alert").removeClass("hidden");
       }
     }
   }
 
 .row
-  .col-lg-8
+  .col-lg-6
     .form-group
-      = form.label :date, class: "control-label control-label-required"
+      = form.label :start_date, class: "control-label control-label-required"
       .input-group
-        = form.date_field :date_date, class: "form-control", required: true, onchange: "validateDuration()"
-        label.input-group-addon(for="notice_date_date")
+        = form.date_field :start_date_date, class: "form-control", required: true, onchange: "validateDuration()"
+        label.input-group-addon(for="notice_start_date_date")
           span.glyphicon.glyphicon-calendar
-        = form.time_field :date_time, class: "form-control", required: true, value: form.object.date_time&.strftime('%H:%M'), onchange: "validateDuration()"
-        label.input-group-addon(for="notice_date_time")
+        = form.time_field :start_date_time, class: "form-control", required: true, value: form.object.start_date_time&.strftime('%H:%M'), onchange: "validateDuration()"
+        label.input-group-addon(for="notice_start_date_time")
           span.glyphicon.glyphicon-time
 
       - date_times = notice.dates_from_photos.first(3)
-      .input-group#pick_date
+      .input-group#pick_start_date
         - date_times.each do |date_time|
-          a(href="#" onclick="$('#notice_date_date').val('#{date_time.strftime('%Y-%m-%d')}'); $('#notice_date_time').val('#{date_time.strftime('%H:%M')}'); $('#pick_date').fadeOut(); return false;")
+          a(href="#" onclick="$('#notice_start_date_date').val('#{date_time.strftime('%Y-%m-%d')}'); $('#notice_start_date_time').val('#{date_time.strftime('%H:%M')}'); $('#pick_date').fadeOut(); return false;")
               span.label.label-default.label-picker(title=l(date_time))
                 span(style="text-decoration:none") => l(date_time, format: :short)
                 span.glyphicon.glyphicon-circle-arrow-left
 
-  .col-lg-4
+  .col-lg-6
     .form-group
-      = form.label :duration, class: "control-label control-label-required"
-      = form.select :duration, Vehicle.durations, { include_blank: 'Dauer Auswählen' }, { class: "form-control", required: true, onchange: "validateDuration()" }
+      = form.label :end_date, class: "control-label control-label-required"
+      .input-group
+        = form.date_field :end_date_date, class: "form-control", required: true, onchange: "validateDuration()"
+        label.input-group-addon(for="notice_end_date_date")
+          span.glyphicon.glyphicon-calendar
+        = form.time_field :end_date_time, class: "form-control", required: true, value: form.object.end_date_time&.strftime('%H:%M'), onchange: "validateDuration()"
+        label.input-group-addon(for="notice_end_date_time")
+          span.glyphicon.glyphicon-time
 
-      - duration = notice.duration_from_photos
-      - duration = Vehicle.durations.to_h.values.reverse.find { |d| duration >= d.minutes }
-      - if duration
-        .input-group#pick_duration
-          a(href="#" onclick="$('#notice_duration').val('#{duration}').trigger('change'); $('#pick_duration').fadeOut(); return false;")
-              span.label.label-default.label-picker(title=Vehicle.durations[duration])
-                span(style="text-decoration:none") => Vehicle.durations.to_h.invert[duration]
+      - date_times = notice.dates_from_photos.last(3)
+      .input-group#pick_end_date
+        - date_times.each do |date_time|
+          a(href="#" onclick="$('#notice_end_date_date').val('#{date_time.strftime('%Y-%m-%d')}'); $('#notice_end_date_time').val('#{date_time.strftime('%H:%M')}'); $('#pick_end_date').fadeOut(); return false;")
+              span.label.label-default.label-picker(title=l(date_time))
+                span(style="text-decoration:none") => l(date_time, format: :short)
                 span.glyphicon.glyphicon-circle-arrow-left
 
 .row

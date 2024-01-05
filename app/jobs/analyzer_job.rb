@@ -118,10 +118,8 @@ class AnalyzerJob < ApplicationJob
 
     if notice.user.from_exif?
       dates = notice.dates_from_photos
-      notice.date ||= dates.first
-
-      duration = notice.duration_from_photos
-      notice.duration ||= duration
+      notice.start_date ||= dates.first
+      notice.end_date ||= dates.last
     end
   end
 

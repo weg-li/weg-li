@@ -111,7 +111,7 @@ class NoticesController < ApplicationController
   end
 
   def new
-    @notice = current_user.notices.build(date: Time.zone.today)
+    @notice = current_user.notices.build(start_date: Time.zone.today)
   end
 
   def create
@@ -373,9 +373,12 @@ class NoticesController < ApplicationController
   def notice_update_params
     params.require(:notice).permit(
       :tbnr,
-      :date,
-      :date_date,
-      :date_time,
+      :start_date,
+      :start_date_date,
+      :start_date_time,
+      :end_date,
+      :end_date_date,
+      :end_date_time,
       :registration,
       :brand,
       :color,
@@ -386,7 +389,6 @@ class NoticesController < ApplicationController
       :latitude,
       :longitude,
       :note,
-      :duration,
       :severity,
       :vehicle_empty,
       :hazard_lights,
@@ -402,7 +404,6 @@ class NoticesController < ApplicationController
       :tbnr,
       :flags,
       :severity,
-      :duration,
       :note,
       photos: [],
     )

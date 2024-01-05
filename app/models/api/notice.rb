@@ -45,14 +45,13 @@ class Api::Notice < Notice
       key :type, :string
       key :enum, Charge.parking.pluck(:tbnr)
     end
-    property :date do
+    property :start_date do
       key :type, :string
       key :format, :"date-time"
     end
-    property :duration do
-      key :type, :number
-      key :format, :int64
-      key :enum, Vehicle.durations.map(&:last)
+    property :end_date do
+      key :type, :string
+      key :format, :"date-time"
     end
     property :note do
       key :type, :string

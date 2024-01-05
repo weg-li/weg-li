@@ -191,9 +191,8 @@ class Api::NoticesController < Api::ApplicationController
   def notice_params
     params.require(:notice).permit(
       :charge,
-      :date,
-      :date_date,
-      :date_time,
+      :start_date,
+      :end_date,
       :registration,
       :brand,
       :color,
@@ -204,7 +203,6 @@ class Api::NoticesController < Api::ApplicationController
       :latitude,
       :longitude,
       :note,
-      :duration,
       :severity,
       :vehicle_empty,
       :hazard_lights,

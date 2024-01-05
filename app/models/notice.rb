@@ -5,7 +5,7 @@ class Notice < ApplicationRecord
   ADDRESS_ZIP_PATTERN = /.+(\d{5}).+/
 
   extend TimeSplitter::Accessors
-  split_accessor :date
+  split_accessor :start_date, :end_date
 
   include Bitfields
   bitfield :flags,
@@ -34,8 +34,8 @@ class Notice < ApplicationRecord
     api.add(:brand)
     api.add(:charge)
     api.add(:tbnr)
-    api.add(:date)
-    api.add(:duration)
+    api.add(:start_date)
+    api.add(:end_date)
     api.add(:note)
     api.add(:severity)
     api.add(:photos)
@@ -65,7 +65,7 @@ class Notice < ApplicationRecord
   has_many :replies, -> { order(created_at: :desc) }, dependent: :destroy
   has_many :data_sets, -> { order(created_at: :desc) }, dependent: :destroy, as: :setable
 
-  validates :photos, :registration, :street, :zip, :city, :date, :duration, presence: true
+  validates :photos, :registration, :street, :zip, :city, :start_date, :end_date, presence: true
   validates :zip, format: { with: /\d{5}/, message: "PLZ ist nicht korrekt" }
   validates :tbnr, length: { is: 6 }
   validates :token, uniqueness: true
@@ -81,7 +81,7 @@ class Notice < ApplicationRecord
   def self.for_reminder
     open
       .joins(:user)
-      .where(date: [(21.days.ago.beginning_of_day)..(14.days.ago.end_of_day)])
+      .where(start_date: [(21.days.ago.beginning_of_day)..(14.days.ago.end_of_day)])
       .merge(User.not_disable_reminders)
       .merge(User.active)
   end
@@ -110,7 +110,7 @@ class Notice < ApplicationRecord
     if year.present?
       notices =
         notices.where(
-          date: (Time.new(year)..Time.new(year).end_of_year),
+          start_date: (Time.new(year)..Time.new(year).end_of_year),
         )
     end
     {
@@ -205,7 +205,7 @@ class Notice < ApplicationRecord
 
     user
       .notices
-      .where("DATE(date) = DATE(?)", date)
+      .where("DATE(start_date) = DATE(?)", start_date)
       .where(registration:)
       .where.not(id:)
   end
@@ -240,7 +240,6 @@ class Notice < ApplicationRecord
       self.location = other.location if !location? && other.location?
       self.tbnr = other.tbnr if !tbnr? && other.tbnr?
       self.severity = other.severity if !severity? && other.severity?
-      self.duration = other.duration if !duration? && other.duration?
       self.flags = other.flags if !flags? && other.flags?
       self.note = other.note if !note? && other.note?
     end
@@ -340,13 +339,8 @@ class Notice < ApplicationRecord
     date_times.sort
   end
 
-  def duration_from_photos
-    sorted_dates = dates_from_photos
-    (sorted_dates.last.to_i - sorted_dates.first.to_i)
-  end
-
   def file_name(extension = :pdf)
-    "#{date.strftime('%Y-%m-%d %H-%M')} #{registration.gsub(' ', '-')}.#{extension}"
+    "#{start_date.strftime('%Y-%m-%d %H-%M')} #{registration.gsub(' ', '-')}.#{extension}"
   end
 
   def full_address
@@ -367,7 +361,7 @@ class Notice < ApplicationRecord
   end
 
   def map_data(kind = :public)
-    basic = { latitude:, longitude:, tbnr:, date:, zip: }
+    basic = { latitude:, longitude:, tbnr:, start_date:, zip: }
 
     case kind
     when :public
@@ -381,10 +375,6 @@ class Notice < ApplicationRecord
 
   def to_param
     token
-  end
-
-  def end_date
-    date? ? date + duration.to_i.minutes + 2 : nil
   end
 
   private
@@ -401,15 +391,16 @@ class Notice < ApplicationRecord
   end
 
   def validate_date
-    errors.add(:date, :invalid) if date.to_i > Time.zone.now.to_i
+    errors.add(:start_date, :invalid) if start_date.to_i > Time.zone.now.to_i
+    errors.add(:end_date, :invalid) if start_date.to_i > end_date.to_i
   end
 
   def validate_creation_date
-    errors.add(:date, :invalid) if date.to_i < 3.month.ago.to_i
+    errors.add(:start_date, :invalid) if start_date.to_i < 3.month.ago.to_i
   end
 
   def validate_duration
-    errors.add(:duration, :future) if end_date.to_i > Time.zone.now.to_i
+    errors.add(:end_date, :future) if end_date.to_i > Time.zone.now.to_i
   end
 
   def defaults

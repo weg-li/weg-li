@@ -24,7 +24,7 @@
       - date_doubles.each do |notice|
         =< link_to "Meldung ##{notice.id}", notice
 
-- if notice.date.present? && notice.date < 2.months.ago
+- if notice.start_date.present? && notice.start_date < 2.months.ago
   .alert.alert-warning.alert-dismissable
     button type="button" class="close" data-dismiss="alert" ×
     .pull-right

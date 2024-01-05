@@ -5,10 +5,10 @@ dl
   dd= to_charge(notice.tbnr) || '-'
   dt= Notice.human_attribute_name(:severity)
   dd= Notice.human_attribute_name(notice.severity)
-  dt= Notice.human_attribute_name(:date)
-  dd= d(notice.date)
-  dt= Notice.human_attribute_name(:duration)
-  dd= Vehicle.durations.to_h.invert[notice.duration]
+  dt= Notice.human_attribute_name(:start_date)
+  dd= d(notice.start_date)
+  dt= Notice.human_attribute_name(:end_date)
+  dd= d(notice.end_date)
   - if notice.flags.positive?
     dt Details
     - Notice.details.each do |flag|

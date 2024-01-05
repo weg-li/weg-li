@@ -84,18 +84,18 @@
                   = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'}))
                     span.glyphicon.glyphicon-arrow-up.smaller.text-muted
               th
-                => Notice.human_attribute_name(:date)
-                - if @table_params.dig(:order, :column) == 'date'
+                => Notice.human_attribute_name(:start_date)
+                - if @table_params.dig(:order, :column) == 'start_date'
                   - if @table_params.dig(:order, :value) == 'ASC'
-                    = link_to url_for(@table_params.deep_merge(order: {column: :date, value: 'DESC'}))
+                    = link_to url_for(@table_params.deep_merge(order: {column: :start_date, value: 'DESC'}))
                       span.glyphicon.glyphicon-arrow-up.smaller
                   - else
-                    = link_to url_for(@table_params.deep_merge(order: {column: :date, value: 'ASC'}))
+                    = link_to url_for(@table_params.deep_merge(order: {column: :start_date, value: 'ASC'}))
                       span.glyphicon.glyphicon-arrow-down.smaller
                   = link_to url_for(@table_params.merge(order: :remove))
                     span.text-muted.glyphicon.glyphicon-remove.smaller
                 - else
-                  = link_to url_for(@table_params.deep_merge(order: {column: :date, value: 'ASC'}))
+                  = link_to url_for(@table_params.deep_merge(order: {column: :start_date, value: 'ASC'}))
                     span.glyphicon.glyphicon-arrow-up.smaller.text-muted
               th
                 .dropdown
@@ -140,7 +140,7 @@
                       = d(notice.created_at)
                   td(nowrap)
                     = link_to_notice(notice) do
-                      = d(notice.date, default: '-')
+                      = d(notice.start_date, default: '-')
                   td
                     = link_to_notice(notice) do
                       = render 'status', status: notice.status

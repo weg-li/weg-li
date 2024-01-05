@@ -13,17 +13,17 @@ describe Notice do
 
     it "validates the date" do
       expect(notice).to be_valid
-      notice.date = 2.minutes.from_now
+      notice.start_date = 2.minutes.from_now
       expect(notice).to_not be_valid
-      notice.date = 2.months.ago
+      notice.start_date = 2.months.ago
       expect(notice).to be_valid
-      notice.date = 4.months.ago
+      notice.start_date = 4.months.ago
       expect(notice).to_not be_valid
     end
 
     it "validates the end_date" do
       expect(notice).to be_valid
-      notice.date = Time.zone.now
+      notice.start_date = Time.zone.now
       expect(notice).to_not be_valid
     end
   end
@@ -94,7 +94,6 @@ describe Notice do
       expect(empty_notice.location).to eql(existing_notice.location)
       expect(empty_notice.charge).to eql(existing_notice.charge)
       expect(empty_notice.severity).to eql(existing_notice.severity)
-      expect(empty_notice.duration).to eql(existing_notice.duration)
       expect(empty_notice.flags).to eql(existing_notice.flags)
       expect(empty_notice.note).to eql(existing_notice.note)
     end
@@ -102,7 +101,7 @@ describe Notice do
 
   context "scopes" do
     it "finds_for_reminder" do
-      notice = Fabricate(:notice, date: 15.days.ago)
+      notice = Fabricate(:notice, start_date: 15.days.ago)
 
       expect(Notice.for_reminder.to_a).to eql([notice])
       notice.user.update! disable_reminders: true

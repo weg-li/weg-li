@@ -11,8 +11,8 @@ Falldaten:
 <%= Notice.human_attribute_name(:location) %>: <%= notice.full_location %>
 <%= Notice.human_attribute_name(:charge) %>: <%= to_charge(notice.tbnr) %>
 <%= Notice.human_attribute_name(:tbnr) %>: <%= notice.tbnr %>
-<%= Notice.human_attribute_name(:date) %>: <%= l(notice.date, format: :short) %>
-<%= Notice.human_attribute_name(:duration) %>: <%= l(notice.date, format: :time) %> ~ <%= l(notice.end_date, format: :time) %>
+<%= Notice.human_attribute_name(:date) %>: <%= l(notice.start_date, format: :short) %>
+<%= Notice.human_attribute_name(:duration) %>: <%= l(notice.start_date, format: :time) %> bis <%= l(notice.end_date, format: :time) %>
 <% Notice.details.each do |flag| %>
 <% if notice.send(flag) %>
 <%= t(flag, scope: "activerecord.attributes.notice.flags") %>.
