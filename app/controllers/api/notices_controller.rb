@@ -190,7 +190,7 @@ class Api::NoticesController < Api::ApplicationController
 
   def notice_params
     params.require(:notice).permit(
-      :charge,
+      :tbnr,
       :date,
       :date_date,
       :date_time,

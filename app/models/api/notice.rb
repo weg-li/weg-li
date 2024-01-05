@@ -95,22 +95,18 @@ class Api::Notice < Notice
       schema do
         key :required,
             %i[
-              token
               street
               city
               zip
               latitude
               longitude
               registration
-              charge
+              tbnr
               date
               duration
               severity
               photos
             ]
-        property :token do
-          key :type, :string
-        end
       end
     end
   end
