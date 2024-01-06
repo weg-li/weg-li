@@ -1,0 +1,25 @@
+= form_errors(brand)
+= form_for(brand) do |form|
+  .row
+    .col-lg-6
+      .form-group
+        = form.label :name, class: "control-label control-label-required"
+        = form.text_field :name, class: "form-control", required: true, placeholder: 'z.B. BMW'
+    .col-lg-6
+      .form-group
+        = form.label :kind, class: "control-label control-label-required"
+        = form.select :kind, Brand.kinds.keys.map{|key| [t(key, scope: 'activerecord.attributes.brand.kinds'), key] }, { include_blank: 'Typ Auswählen' }, { class: "form-control", required: true }
+
+  .row
+    .col-lg-12
+      .form-group
+        = form.label :models, class: "control-label"
+        = form.text_field :models, class: "form-control", placeholder: 'z.B. 3er'
+        = hint do
+          | Optional die Modelle (mit Leerzeichen getrennt)
+
+  .row
+    .col-lg-12
+      .pull-right
+        .btn-group
+          = form.submit button_title, class: "btn btn-success"

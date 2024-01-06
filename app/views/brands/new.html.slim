@@ -1,0 +1,15 @@
+.well.well-sm.callout-primary
+  | Die Marke wird gespeichert und kann benutzt werden sobald er vom Support aktiviert wurde.
+
+= render('form', brand: @brand, button_title: 'Marke vorschlagen')
+
+hr.spacer-large
+
+.row
+  .col-lg-3
+    - body = "Bitte folgende Marke einspielen:\n\nName / Aliase / Modelle / Typ"
+    = mail_to "peter@weg.li", subject: "Neue Marke erfassen", body: body, class: 'btn btn-block btn-default', title: 'Marke erfassen'
+      | E-Mail schreiben
+
+  .col-lg-9
+    .well.well-sm.callout-primary Alternativ kannst Du uns Informationen zu Marken auch weiterhin per E-Mail mitteilen.

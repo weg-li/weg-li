@@ -42,7 +42,7 @@ Rails.application.routes.draw do
 
   resources :replies
   resources :snippets
-  resources :brands, only: [:index, :show]
+  resources :brands, except: [:delete]
 
   resources :bulk_uploads do
     member { patch :purge }
