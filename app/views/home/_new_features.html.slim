@@ -4,6 +4,15 @@
 
     ul.list-group
       li.list-group-item
+        span.badge Meldung
+        | ⏱ Beim Erstellen von Meldungen kann nun der Beobachtungszeitraum exakt angegeben werden.
+      li.list-group-item
+        span.badge Marken
+        | 🚗 Zusätzlich zu den Bezirken, können nun auch #{link_to 'Fahrzeugmarken', brands_path} vorgeschlagen werden.
+      li.list-group-item
+        span.badge Profil
+        | 🍎 Für den Login kann nun auch "Sign-In with Apple" verwendet werden.
+      li.list-group-item
         span.badge Massen-Uploads
         | 💯 Alle Tatbestände können bei der #{link_to 'Erstellung einer Meldung', new_notice_path} verwendet werden.
       li.list-group-item
@@ -18,9 +27,3 @@
       li.list-group-item
         span.badge Meldung
         | 👾 Die #{link_to 'weg.li APIs', api_path} stehen nun zur allgemeinen Nutzung zur Verfügung.
-      li.list-group-item
-        span.badge Profil
-        | 🎖 Auf deiner #{link_to 'Profil-Seite', user_path} kannst Du jetzt einen den aktuellen Stand im Leaderboard-Ranking sehen.
-      li.list-group-item
-        span.badge Karten
-        | 🌍 Die #{link_to 'weg.li Karte', map_path} kann nun als Cluster, Heat-Map oder mit normalen Markern dargestellt werden.
