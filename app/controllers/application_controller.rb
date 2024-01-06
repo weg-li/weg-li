@@ -9,8 +9,8 @@ class ApplicationController < ActionController::Base
   helper_method :signed_in_alias?, :signed_in?, :admin?, :access?, :current_user
 
   rescue_from ActionController::InvalidAuthenticityToken, with: :session_expired
-  rescue_from ActionController::UnknownFormat, with: -> { head(:not_found) }
-  rescue_from ActiveRecord::RecordNotFound, with: -> { head(:not_found) }
+  rescue_from ActionController::UnknownFormat, with: :_404
+  rescue_from ActiveRecord::RecordNotFound, with: :_404
 
   private
 
