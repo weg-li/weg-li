@@ -203,7 +203,6 @@ class Api::NoticesController < Api::ApplicationController
       :latitude,
       :longitude,
       :note,
-      :severity,
       :vehicle_empty,
       :hazard_lights,
       :expired_tuv,

@@ -13,7 +13,6 @@
             = render('preview_details', notice: notice)
             fieldset(disabled='disabled' id="fieldset_#{index}" class="disabled-fieldsets")
               = form.hidden_field :tbnr, value: notice.tbnr
-              = form.hidden_field :severity, value: notice.severity
               = form.hidden_field :flags, value: notice.flags
               = form.hidden_field :note, value: notice.note
 

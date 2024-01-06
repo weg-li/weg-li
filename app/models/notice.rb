@@ -37,7 +37,6 @@ class Notice < ApplicationRecord
     api.add(:start_date)
     api.add(:end_date)
     api.add(:note)
-    api.add(:severity)
     api.add(:photos)
     api.add(:created_at)
     api.add(:updated_at)
@@ -239,7 +238,6 @@ class Notice < ApplicationRecord
       self.color = other.color if !color? && other.color?
       self.location = other.location if !location? && other.location?
       self.tbnr = other.tbnr if !tbnr? && other.tbnr?
-      self.severity = other.severity if !severity? && other.severity?
       self.flags = other.flags if !flags? && other.flags?
       self.note = other.note if !note? && other.note?
     end

@@ -399,7 +399,6 @@ class NoticesController < ApplicationController
       :latitude,
       :longitude,
       :note,
-      :severity,
       :vehicle_empty,
       :hazard_lights,
       :expired_tuv,
@@ -413,7 +412,6 @@ class NoticesController < ApplicationController
     params.require(:notice).permit(
       :tbnr,
       :flags,
-      :severity,
       :note,
       photos: [],
     )

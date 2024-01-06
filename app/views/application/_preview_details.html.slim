@@ -3,8 +3,6 @@ dl
   dd= notice.tbnr || '-'
   dt= Notice.human_attribute_name(:charge)
   dd= to_charge(notice.tbnr) || '-'
-  dt= Notice.human_attribute_name(:severity)
-  dd= Notice.human_attribute_name(notice.severity)
   dt= Notice.human_attribute_name(:start_date)
   dd= d(notice.start_date)
   dt= Notice.human_attribute_name(:end_date)

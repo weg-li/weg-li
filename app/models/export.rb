@@ -15,7 +15,7 @@ class Export < ApplicationRecord
     when :notices
       %i[start_date end_date tbnr street city zip latitude longitude]
     when :profiles
-      %i[start_date end_date user_id tbnr street city zip latitude longitude severity]
+      %i[start_date end_date user_id tbnr street city zip latitude longitude]
     when :photos
       %i[photo_uri start_date end_date registration tbnr brand color]
     else
