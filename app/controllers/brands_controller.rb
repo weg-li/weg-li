@@ -41,7 +41,7 @@ class BrandsController < ApplicationController
 
     if changes.present?
       message = changes.map { |key, (from, to)| "#{key} changed from #{from} to #{to}" }.join(", ")
-      notify("brand changes proposed: #{message} #{edit_admin_brand_url(brand)}#{" by #{current_user.email}" if signed_in?}",)
+      notify("brand changes proposed: #{message} #{edit_admin_brand_url(brand)}#{" by #{current_user.email}" if signed_in?}")
     end
 
     redirect_to(brands_path, notice: "Änderungen wurden erfasst und warten nun auf Freischaltung")

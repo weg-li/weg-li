@@ -191,8 +191,8 @@ class Api::NoticesController < Api::ApplicationController
   def notice_params
     params.require(:notice).permit(
       :tbnr,
-      :date_date,
-      :date_time,
+      :start_date,
+      :end_date,
       :registration,
       :brand,
       :color,
