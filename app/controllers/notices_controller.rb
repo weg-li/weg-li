@@ -266,6 +266,16 @@ class NoticesController < ApplicationController
     send_data data, filename: notice.file_name
   end
 
+  def winowig
+    notice = current_user.notices.complete.from_param(params[:id])
+    _404 and return if notice.blank?
+
+    locals = { notice:, user: current_user }
+    respond_to do |format|
+      format.xml { render(template: "public/winowig", locals:) }
+    end
+  end
+
   def bulk
     action = params[:bulk_action]
     notices = current_user.notices.where(id: params[:selected])

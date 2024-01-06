@@ -60,6 +60,7 @@ Rails.application.routes.draw do
       get :share
       get :suggest
       get :pdf
+      get :winowig
       get :retrieve
       patch :forward
       patch :status
