@@ -13,11 +13,11 @@ class Export < ApplicationRecord
   def header
     case export_type.to_sym
     when :notices
-      %i[date tbnr street city zip latitude longitude]
+      %i[start_date end_date tbnr street city zip latitude longitude]
     when :profiles
-      %i[date user_id tbnr street city zip latitude longitude severity]
+      %i[start_date end_date user_id tbnr street city zip latitude longitude]
     when :photos
-      %i[photo_uri date registration tbnr brand color]
+      %i[photo_uri start_date end_date registration tbnr brand color]
     else
       raise "unsupported type #{export_type}"
     end
@@ -34,7 +34,7 @@ class Export < ApplicationRecord
   end
 
   def display_name
-    "#{export_type} #{interval}"
+    "#{export_type} #{interval} #{(created_at || Date.today).year}"
   end
 
   private
@@ -56,11 +56,11 @@ class Export < ApplicationRecord
   end
 
   def photos_scope
-    Notice.shared.with_attached_photos.select(%i[id date registration tbnr brand color])
+    Notice.shared.with_attached_photos.select(%i[id start_date end_date registration tbnr brand color])
   end
 
   def photos_entries(notice)
-    data = %i[date registration tbnr brand color].map { |key| notice.send(key) }
+    data = %i[start_date end_date registration tbnr brand color].map { |key| notice.send(key) }
     notice.photos.map { |photo| [Annotator.bucket_uri(photo.key)] + data }
   end
 end

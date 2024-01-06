@@ -25,5 +25,5 @@
               = d(notice.created_at)
           td(nowrap)
             = link_to_notice(notice) do
-              = d(notice.date, default: '-')
+              = d(notice.start_date, default: '-')
           td= render 'status', status: notice.status

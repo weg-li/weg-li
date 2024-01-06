@@ -3,12 +3,15 @@
 
 .well
   |
-    Bei weg.li sind #{number_with_delimiter(Brand.count)} Fahrzeugmarken für die Kategorien #{Brand.kinds.keys.join(', ')} hinterlegt.
+    Bei weg.li sind #{number_with_delimiter(Brand.count)} Fahrzeugmarken für die Kategorien #{Brand.kinds.keys.map{|key| t(key, scope: 'activerecord.attributes.brand.kinds')}.join(', ')} hinterlegt.
 
 .panel.panel-default
   .panel-heading
     .row
       .col-xs-8
+        = link_to(new_brand_path, class: 'btn btn-sm btn-success')
+          span.glyphicon.glyphicon-plus>
+          | Neue Marke erfassen
       .col-xs-4.text-right
         button.btn.btn-default.btn-sm.dropdown-toggle type="button" data-toggle="dropdown"
           | <span class="glyphicon glyphicon-search"></span> Suche <span class="caret"></span>

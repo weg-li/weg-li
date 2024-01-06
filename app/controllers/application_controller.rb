@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::Base
   include UserHandling
+  include Slack::Slackable
 
   protect_from_forgery with: :exception
 

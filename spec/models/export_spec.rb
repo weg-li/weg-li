@@ -13,7 +13,7 @@ describe Export do
 
   context "header" do
     it "is present" do
-      expect(export.header).to eql(%i[date tbnr street city zip latitude longitude])
+      expect(export.header).to eql(%i[start_date end_date tbnr street city zip latitude longitude])
 
       Export.export_types.each_key do |export_type|
         export = Fabricate.build(:export, export_type:)

@@ -143,6 +143,8 @@ class User < ApplicationRecord
   end
 
   def map_data
+    return { latitude: 53.6090811, longitude: 13.6022952 } unless coordinates?
+
     { latitude:, longitude: }
   end
 

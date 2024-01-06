@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_19_153939) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_06_121512) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -70,6 +70,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_19_153939) do
     t.string "models", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0, null: false
     t.index ["name"], name: "index_brands_on_name"
     t.index ["token"], name: "index_brands_on_token"
   end
@@ -181,7 +182,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_19_153939) do
     t.datetime "updated_at", precision: nil
     t.integer "status", default: 0
     t.integer "flags", default: 0, null: false
-    t.datetime "date", precision: nil
+    t.datetime "start_date", precision: nil
     t.string "old_charge"
     t.string "kind"
     t.string "brand"
@@ -202,12 +203,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_19_153939) do
     t.datetime "sent_at", precision: nil
     t.geography "lonlat", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
     t.string "tbnr"
+    t.datetime "end_date", precision: nil
     t.index ["bulk_upload_id"], name: "index_notices_on_bulk_upload_id"
     t.index ["created_at"], name: "index_notices_on_created_at"
-    t.index ["date"], name: "index_notices_on_date"
     t.index ["district_id"], name: "index_notices_on_district_id"
+    t.index ["end_date"], name: "index_notices_on_end_date"
     t.index ["lonlat"], name: "index_notices_on_lonlat", using: :gist
     t.index ["registration"], name: "index_notices_on_registration"
+    t.index ["start_date"], name: "index_notices_on_start_date"
     t.index ["status"], name: "index_notices_on_status"
     t.index ["tbnr"], name: "index_notices_on_tbnr"
     t.index ["token"], name: "index_notices_on_token", unique: true

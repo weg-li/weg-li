@@ -6,8 +6,8 @@ require("leaflet.markercluster");
 L.Icon.Default.imagePath = "/img/map/";
 
 function mapHTML(notice) {
-  const date = notice.date
-    ? new Date(Date.parse(notice.date)).toLocaleDateString()
+  const date = notice.start_date
+    ? new Date(Date.parse(notice.start_date)).toLocaleDateString()
     : "-";
   if (notice.token) {
     return `

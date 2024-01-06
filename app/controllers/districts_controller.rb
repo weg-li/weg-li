@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class DistrictsController < ApplicationController
-  include Slack::Slackable
-
   def index
     respond_to do |format|
       format.html { @districts = search_scope }

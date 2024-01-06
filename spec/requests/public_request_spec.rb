@@ -42,7 +42,7 @@ describe "public", type: :request do
     end
 
     it "renders 404 with exired data" do
-      @notice.update!(date: 2.months.ago)
+      @notice.update!(start_date: 2.months.ago)
       get public_winowig_path(user_token: @user.to_param, notice_token: @notice.to_param, format: :xml)
 
       expect(response).to be_not_found

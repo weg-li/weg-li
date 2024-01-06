@@ -223,24 +223,4 @@ class Vehicle
   def self.kinds
     @kinds ||= %w[PKW LKW Motorrad]
   end
-
-  def self.durations
-    @durations ||= [
-      ["bis zu 2 Minuten", 1],
-      ["länger als 2 Minuten", 2],
-      ["länger als 3 Minuten", 3],
-      ["länger als 4 Minuten", 4],
-      ["länger als 5 Minuten", 5],
-      ["länger als 6 Minuten", 6],
-      ["länger als 7 Minuten", 7],
-      ["länger als 8 Minuten", 8],
-      ["länger als 9 Minuten", 9],
-      ["länger als 10 Minuten", 10],
-      ["länger als 15 Minuten", 15],
-      ["länger als 30 Minuten", 30],
-      ["länger als 45 Minuten", 45],
-      ["länger als 1 Stunde", 60],
-      ["länger als 3 Stunden", 180],
-    ]
-  end
 end

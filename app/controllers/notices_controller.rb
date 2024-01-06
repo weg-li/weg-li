@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class NoticesController < ApplicationController
-  include Slack::Slackable
-
   before_action :authenticate!
   before_action :authenticate_community_user!, only: [:colors]
   before_action :authenticate_admin_user!, only: [:inspect]
@@ -111,7 +109,7 @@ class NoticesController < ApplicationController
   end
 
   def new
-    @notice = current_user.notices.build(date: Time.zone.today)
+    @notice = current_user.notices.build(start_date: Time.zone.today)
   end
 
   def create
@@ -266,6 +264,16 @@ class NoticesController < ApplicationController
     send_data data, filename: notice.file_name
   end
 
+  def winowig
+    notice = current_user.notices.complete.from_param(params[:id])
+    _404 and return if notice.blank?
+
+    locals = { notice:, user: current_user }
+    respond_to do |format|
+      format.xml { render(template: "public/winowig", locals:) }
+    end
+  end
+
   def bulk
     action = params[:bulk_action]
     notices = current_user.notices.where(id: params[:selected])
@@ -373,9 +381,12 @@ class NoticesController < ApplicationController
   def notice_update_params
     params.require(:notice).permit(
       :tbnr,
-      :date,
-      :date_date,
-      :date_time,
+      :start_date,
+      :start_date_date,
+      :start_date_time,
+      :end_date,
+      :end_date_date,
+      :end_date_time,
       :registration,
       :brand,
       :color,
@@ -386,8 +397,6 @@ class NoticesController < ApplicationController
       :latitude,
       :longitude,
       :note,
-      :duration,
-      :severity,
       :vehicle_empty,
       :hazard_lights,
       :expired_tuv,
@@ -401,8 +410,6 @@ class NoticesController < ApplicationController
     params.require(:notice).permit(
       :tbnr,
       :flags,
-      :severity,
-      :duration,
       :note,
       photos: [],
     )

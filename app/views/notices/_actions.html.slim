@@ -46,7 +46,7 @@ ul.dropdown-menu
         span.glyphicon.glyphicon-save-file>
         | Meldung als PDF
     li
-      = link_to(public_winowig_path(current_user.token, notice.token), target: :blank) do
+      = link_to(winowig_notice_path(notice, format: :xml), target: :blank) do
         span.glyphicon.glyphicon-save-file>
         | Meldung als WiNOWiG
 
