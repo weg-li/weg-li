@@ -84,7 +84,7 @@
                   = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'}))
                     span.glyphicon.glyphicon-arrow-up.smaller.text-muted
               th
-                => Notice.human_attribute_name(:start_date)
+                => Notice.human_attribute_name(:date)
                 - if @table_params.dig(:order, :column) == 'start_date'
                   - if @table_params.dig(:order, :value) == 'ASC'
                     = link_to url_for(@table_params.deep_merge(order: {column: :start_date, value: 'DESC'}))
