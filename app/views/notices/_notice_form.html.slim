@@ -83,7 +83,7 @@
 .row
   .col-lg-12
     .form-group
-      = form.label :charge, class: "control-label control-label-required"
+      = form.label :tbnr, class: "control-label control-label-required"
       ruby:
         nearest_tbnrs = notice.data_sets.select(&:proximity?).flat_map(&:tbnrs).compact
         charges = Charge.active.parking.ordered.pluck(:tbnr, :description)
