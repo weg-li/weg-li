@@ -14,6 +14,7 @@ class BrandDashboard < Administrate::BaseDashboard
     token: Field::String,
     aliases: Field::String,
     models: Field::String,
+    status:  Field::String.with_options(searchable: false),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -28,6 +29,7 @@ class BrandDashboard < Administrate::BaseDashboard
     :name,
     :token,
     :kind,
+    :status,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -37,6 +39,7 @@ class BrandDashboard < Administrate::BaseDashboard
     :name,
     :token,
     :kind,
+    :status,
     :aliases,
     :models,
     :created_at,
@@ -50,6 +53,7 @@ class BrandDashboard < Administrate::BaseDashboard
     :name,
     :token,
     :kind,
+    :status,
     :aliases,
     :models,
     :created_at,
