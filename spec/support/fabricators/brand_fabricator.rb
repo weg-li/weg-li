@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 Fabricator(:brand) do
-  name     { Faker::Lorem.name }
-  token    { Faker::Lorem.name.parameterize }
+  name     { Faker::Name.name }
   kind     { :car }
-  models   { [Faker::Lorem.name] }
+  status   { :active }
+  models   { [Faker::Name.name] }
   aliases  { ["some alias"] }
 end

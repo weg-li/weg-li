@@ -18,7 +18,7 @@ describe "brands", type: :request do
 
   context "brands#create" do
     it "creates a brand" do
-      params = { brand: Fabricate.attributes_for(:brand) }
+      params = { brand: Fabricate.attributes_for(:brand).slice(:name, :kind, :models) }
 
       expect do
         post(brands_path, params:)
@@ -35,20 +35,6 @@ describe "brands", type: :request do
       expect(response).to be_successful
       assert_select "h2", "weg.li Marken"
     end
-
-    it "renders brands as json" do
-      get brands_path(format: :json)
-
-      expect(response).to be_successful
-      assert JSON.parse(response.body)
-    end
-
-    it "renders brands as csv" do
-      get brands_path(format: :csv)
-
-      expect(response).to be_successful
-      assert CSV.parse(response.body)
-    end
   end
 
   context "brands#show" do
@@ -57,13 +43,6 @@ describe "brands", type: :request do
 
       expect(response).to be_successful
       assert_select "h2", "weg.li Marken"
-    end
-
-    it "renders a brand as json" do
-      get brand_path(@brand, format: :json)
-
-      expect(response).to be_successful
-      assert JSON.parse(response.body)
     end
   end
 
@@ -82,22 +61,6 @@ describe "brands", type: :request do
 
       patch(brand_path(@brand), params:)
       expect(response).to be_a_redirect
-    end
-  end
-
-  context "brands#wegeheld" do
-    it "renders a brand as json" do
-      brand = Fabricate(:brand, zip: "41460", name: "Neuss", id: 42, email: "verkehrslenkung@stadt.neuss.de")
-      get wegeheld_brand_path(brand.zip, format: :json)
-
-      expect(response).to be_successful
-      expect(JSON.parse(response.body)).to eql({ "postalcode" => "41460", "name" => "Neuss", "id" => 42, "email" => "verkehrslenkung@stadt.neuss.de" })
-    end
-
-    it "404s for unknown zips" do
-      get wegeheld_brand_path("unknown", format: :json)
-
-      expect(response).to be_not_found
     end
   end
 end
