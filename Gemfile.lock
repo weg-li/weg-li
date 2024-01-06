@@ -1,9 +1,3 @@
-PATH
-  remote: client
-  specs:
-    openapi_client (1.0.0)
-      typhoeus (~> 1.0, >= 1.0.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -146,8 +140,6 @@ GEM
     erubi (1.12.0)
     et-orbi (1.2.7)
       tzinfo
-    ethon (0.16.0)
-      ffi (>= 1.15.0)
     exifr (1.4.0)
     fabrication (2.31.0)
     faker (3.2.2)
@@ -584,8 +576,6 @@ GEM
     timeout (0.4.1)
     trailblazer-option (0.1.2)
     ttfunk (1.7.0)
-    typhoeus (1.4.1)
-      ethon (>= 0.9.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
@@ -657,7 +647,6 @@ DEPENDENCIES
   omniauth-rails_csrf_protection (>= 1.0)
   omniauth-telegram
   omniauth-twitter
-  openapi_client!
   pg
   prawn
   prawn-markup
