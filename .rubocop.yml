@@ -15,7 +15,6 @@ AllCops:
     - "config.ru"
     - "db/**/*"
     - "config/**/*"
-    - "client/**/*"
     - "app/controllers/admin/**/*"
     - "app/dashboards/**/*"
     - "node_modules/**/*"
