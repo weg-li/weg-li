@@ -98,7 +98,7 @@ class NoticesController < ApplicationController
     @year = params[:year]
 
     grouped_statistics_scope = current_user.notices.reorder(nil).group(:status)
-    grouped_statistics_scope = grouped_statistics_scope.where(date: (Time.new(@year)..Time.new(@year).end_of_year)) if @year.present?
+    grouped_statistics_scope = grouped_statistics_scope.where(date_start: (Time.new(@year)..Time.new(@year).end_of_year)) if @year.present?
     @grouped_statistics = grouped_statistics_scope.count
 
     @statistics = Notice.yearly_statistics(@year, @limit, base_scope: current_user.notices.shared)
