@@ -75,6 +75,7 @@ class Notice < ApplicationRecord
   scope :since, ->(date) { where("notices.created_at > ?", date) }
   scope :for_public, -> { where.not(status: :disabled) }
   scope :search, ->(term) { where("registration ILIKE :term", term: "%#{term}%") }
+  scope :search_address, ->(term) { where("city ILIKE :term OR street ILIKE :term OR zip ILIKE :term", term: "%#{term}%") }
   scope :preselect, -> { shared.limit(3) }
 
   def self.for_reminder

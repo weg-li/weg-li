@@ -1,0 +1,38 @@
+javascript:
+  $('select#notice_street').select2({
+    theme: 'bootstrap',
+    language: {
+      inputTooShort: function () {
+        return "Tippen zum vervollständigen";
+      },
+      searching: function () {
+        return "Kurz warten, es wird gesucht";
+      }
+    },
+    tags: true,
+    selectOnClose: true,
+    minimumInputLength: 1,
+    templateResult: function(data) {
+      if (!data.id) {
+        return data.text;
+      }
+
+      return $('<span>' + data.id + '</span>');
+    },
+    ajax: {
+      delay: 250,
+      url: '#{ suggest_address_notice_path(notice) }',
+      dataType: 'json'
+    }
+  }).on('select2:open', function (e) {
+    debugger
+    $('.select2-search__field').val($('#notice_street').val());
+  }).on('select2:select', function (e) {
+    var data = e.params.data;
+    if (data.city) {
+      $('#notice_city').val(data.city).trigger('change');
+    }
+    if (data.zip) {
+      $('#notice_zip').val(data.zip).trigger('change');
+    }
+  });

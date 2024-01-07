@@ -1,7 +1,7 @@
 .well.well-sm.callout-primary= t('notices.steps.infos.description')
 
 .row
-  .col-lg-4
+  .col-lg-5
     .form-group
       - registrations = notice.data_sets.select(&:google_vision?).flat_map { |google_vision| google_vision.registrations }
       - registrations = notice.data_sets.select(&:car_ml?).map(&:registrations).concat(registrations).concat([notice.registration]).compact.flatten.uniq
@@ -15,7 +15,7 @@
                 span(style="text-decoration:none")=> registration
                 span.glyphicon.glyphicon-circle-arrow-left
 
-  .col-lg-4
+  .col-lg-3
     .form-group
       = form.label :brand, class: "control-label"
       = form.select :brand, Vehicle.brand_options, { include_blank: 'Marke Auswählen' }, { class: "form-control" }
@@ -44,33 +44,35 @@
 .row
   = form.hidden_field(:latitude)
   = form.hidden_field(:longitude)
-  .col-lg-4
+  - addresses = notice.data_sets.select(&:geocoder?).map(&:address).compact
+  - address = addresses.first
+  .col-lg-5
     .form-group
-      = form.label :address, class: "control-label control-label-required"
-      - address = notice.data_sets.select(&:geocoder?).map(&:address).compact.first
+      = form.label :street, class: "control-label control-label-required"
+      = form.select :street, { include_blank: 'z.B. Sylvesterallee 7' }, { class: "form-control", required: true, data: {'select2-disabled' => true} }
+      //= render('address_suggest', notice: notice)
+      - if address.present?
+        .input-group#pick_address
+          a(href="#" onclick="$('#notice_street').val('#{address[:street]}').trigger('change'); $('#notice_city').val('#{address[:city]}'); $('#notice_zip').val('#{address[:zip]}'); $('#notice_latitude').val('#{address[:latitude]}'); $('#notice_longitude').val('#{address[:longitude]}'); $('#pick_address').fadeOut(); return false;")
+              span.label.label-default.label-picker(title=address[:street])
+                span(style="text-decoration:none") => address[:street]
+                span.glyphicon.glyphicon-circle-arrow-left
+
+  .col-lg-3
+    .form-group
+      = form.label :zip, class: "control-label control-label-required"
       .input-group
-        = form.text_field :street, placeholder: 'z.B. Sylvesterallee 7', class: "form-control", required: true
+        = form.text_field :zip, placeholder: 'z.B. 22525', class: "form-control", required: true, maxlength: 5, pattern: '\d{5}'
         a.input-group-addon(href="#" data-toggle="modal" data-target="#modal_map")
           span.glyphicon.glyphicon-map-marker
         - coordinates = notice.coordinates? ? notice.map_data : address.present? ? { latitude: address[:latitude], longitude: address[:longitude] } : current_user.map_data
         = render('picker_modal', coordinates:)
 
-      - if address.present?
-        .input-group#pick_address
-          a(href="#" onclick="$('#notice_street').val('#{address[:street]}'); $('#notice_city').val('#{address[:city]}'); $('#notice_zip').val('#{address[:zip]}'); $('#notice_latitude').val('#{address[:latitude]}'); $('#notice_longitude').val('#{address[:longitude]}'); $('#pick_address').fadeOut(); return false;")
-              span.label.label-default.label-picker(title=address[:street])
-                span(style="text-decoration:none") => address[:street]
-                span.glyphicon.glyphicon-circle-arrow-left
 
   .col-lg-4
     .form-group
       = form.label :city, class: "control-label control-label-required"
       = form.text_field :city, placeholder: 'z.B. Hamburg', class: "form-control", required: true
-
-  .col-lg-4
-    .form-group
-      = form.label :zip, class: "control-label control-label-required"
-      = form.text_field :zip, placeholder: 'z.B. 22525', class: "form-control", required: true, maxlength: 5, pattern: '\d{5}'
 
 .row
   .col-lg-12

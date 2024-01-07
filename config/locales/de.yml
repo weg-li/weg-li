@@ -110,6 +110,7 @@ de:
         photos: 'Beweisfotos'
         location: 'Tatort'
         address: 'Straße & Hausnummer'
+        street: 'Straße & Hausnummer'
         zip: 'PLZ'
         city: 'Stadt'
         registration: 'Kennzeichen'

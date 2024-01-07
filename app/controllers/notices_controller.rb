@@ -49,6 +49,23 @@ class NoticesController < ApplicationController
     render json: { results: }
   end
 
+  def suggest_address
+    term = params[:term] || ""
+    notices = current_user.notices.search_address(term).order(:street).limit(25)
+
+    results =
+      notices
+        .pluck(:street, :city, :zip)
+        .uniq
+        .map do |street, city, zip|
+          address = "#{street}, #{zip} #{city}"
+          { id: address, text: street, city:, zip: }
+        end
+    results += [{ id: term, text: term }]
+
+    render json: { results: }
+  end
+
   def map
     @since = (params[:since] || "7").to_i
     @display = params[:display] || "cluster"

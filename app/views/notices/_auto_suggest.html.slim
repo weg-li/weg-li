@@ -20,11 +20,11 @@ javascript:
       var text = '<span class="label label-license">' + data.text + '</span>';
 
       if (data.brand) {
-        text += ' <small>' + data.brand + '</span>';
+        text += ' <small>' + data.brand + '</small>';
       }
       if (data.color) {
         var colors = #{ t("activerecord.attributes.notice.colors").to_json.html_safe }
-        text += ' <small>' + colors[data.color] + '</span>';
+        text += ' <small>' + colors[data.color] + '</small>';
       }
 
       return $('<span>' + text + '</span>');
