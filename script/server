@@ -14,5 +14,6 @@ export WEB_CONCURRENCY=2
 export RAILS_MIN_THREADS=2
 export VERBOSE_LOGGING=1
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+export NODE_OPTIONS=--openssl-legacy-provider
 
 bundle exec rails server -b 0.0.0.0
