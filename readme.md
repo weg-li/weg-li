@@ -47,7 +47,7 @@ createuser -s postgres # create general purpose postgres user
 brew install imagemagick # image-processing
 
 # project setup
-bin/setup
+script/setup
 ```
 
 ```bash
@@ -58,11 +58,45 @@ rbenv install
 script/server
 ```
 
-### Docker setup
+### Docker dev environment
+
+You can use docker to start the redis and the postgresql databases in a virtual network. You probably want to do this in order to keep your system
+clean from these databases. However you will have to run all commands within instances of a docker service which is part of that network. On your host system you still have to install `docker`, `docker-compose`, `nodejs` and `yarn`.
+
+Please first start the databases in the background with
 
 ```bash
-docker-compose up
+docker-compose up -d
 ```
+
+(you can stop them with `docker-compose down`).
+
+You then need to bootstrap the project (install all gems, npm packages and run the migrations) by running:
+
+```bash
+yarn bootstrap
+```
+
+After that, you can start the dev server with
+
+```bash
+yarn dev
+```
+
+In order to run the tests please first run
+
+```bash
+yarn test:prepare
+```
+
+and then you can run
+
+```bash
+yarn test
+```
+
+There is a convenience script `yarn docker` to run any command within a container in the virtual network.
+So you can do for example: `yarn docker bundle exec rake` which executes `bundle exec rake` in the container (service "dev").
 
 ## Contributing
 

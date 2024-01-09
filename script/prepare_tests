@@ -1,5 +1,3 @@
 #!/bin/sh
-bundle install
-yarn
-bundle exec rake db:setup db:migrate
+bundle exec rake db:test:prepare
 NODE_OPTIONS=--openssl-legacy-provider bundle exec rake assets:precompile

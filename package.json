@@ -27,6 +27,11 @@
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
-    "lint": "eslint app/javascript/**"
+    "lint": "eslint app/javascript/**",
+    "bootstrap": "docker compose run dev script/setup",
+    "docker": "docker compose run dev",
+    "dev": "docker compose run --service-ports app",
+    "test": "docker compose run tester bundle exec rake",
+    "test:prepare": "docker compose run tester script/prepare_tests"
   }
 }
