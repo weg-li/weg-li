@@ -22,7 +22,7 @@ window.jQuery = window.$;
 // rails deps
 require("@rails/ujs").start();
 require("@rails/activestorage").start();
-require("@hotwired/turbo-rails");
+// require("@hotwired/turbo-rails");
 
 // 3rdparty deps
 require("bootstrap");
