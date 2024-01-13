@@ -1,3 +1,8 @@
+= turbo_stream_from @notice
+
+p
+  =debug @notice.attributes
+
 p
   = image_tag(url_for_photo(@photo, size: :default), class: 'item-photo')
   = image_tag(cloudflare_image_resize_url(@photo, :default), class: 'item-photo')

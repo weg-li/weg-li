@@ -2,6 +2,7 @@
   "dependencies": {
     "@appsignal/javascript": "^1.3.6",
     "@appsignal/plugin-window-events": "^1.0.0",
+    "@hotwired/turbo-rails": "^8.0.0-beta.2",
     "@rails/activestorage": "^6.1.0",
     "@rails/ujs": "^6.1.0",
     "@rails/webpacker": "5.4.3",
