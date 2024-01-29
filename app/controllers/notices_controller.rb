@@ -13,17 +13,13 @@ class NoticesController < ApplicationController
     @notices = @notices.search(search[:term]) if search[:term].present?
 
     filter = handle_table_params(:filter)
-    @notices = @notices.where(status: filter[:status]) if filter[
-      :status
-    ].present?
+    @notices = @notices.where(status: filter[:status]) if filter[:status].present?
     @notices = @notices.incomplete if filter[:incomplete].present?
 
     order = handle_table_params(:order)
-    if order[
-      :column
-    ].present?
-      @notices =
-        @notices.reorder(order[:column] => order[:value] || "ASC")
+    if order[:column].present?
+      order[:column] = "start_date" if order[:column] == "date"
+      @notices = @notices.reorder(order[:column] => order[:value] || "ASC")
     end
   end
 
@@ -37,13 +33,10 @@ class NoticesController < ApplicationController
     term = (params[:term] || "").upcase
     notices = current_user.notices.search(term).order(:registration).limit(25)
 
-    results =
-      notices
-        .pluck(:registration, :brand, :color)
-        .uniq
-        .map do |registration, brand, color|
-          { id: registration, text: registration.upcase, brand:, color: }
-        end
+    results = notices
+                .pluck(:registration, :brand, :color)
+                .uniq
+                .map { |registration, brand, color| { id: registration, text: registration.upcase, brand:, color: } }
     results += [{ id: term, text: term }]
 
     render json: { results: }
@@ -55,12 +48,7 @@ class NoticesController < ApplicationController
 
     @default_district = current_user.district || District.active.first
     @district = params[:district] || @default_district.name
-    @notices =
-      current_user
-        .notices
-        .since(@since.days.ago)
-        .joins(:district)
-        .where(districts: { name: @district })
+    @notices = current_user.notices.since(@since.days.ago).joins(:district).where(districts: { name: @district })
   end
 
   def geocode
@@ -116,9 +104,7 @@ class NoticesController < ApplicationController
     notice = current_user.notices.build(notice_upload_params)
     notice.analyze!
 
-    redirect_to edit_notice_path(notice),
-                notice:
-                  "Eine Meldung mit Beweisfotos wurde erfasst und die Analyse gestartet"
+    redirect_to edit_notice_path(notice), notice: "Eine Meldung mit Beweisfotos wurde erfasst und die Analyse gestartet"
   end
 
   def edit
@@ -163,8 +149,7 @@ class NoticesController < ApplicationController
 
     redirect_to(
       notices_path,
-      notice:
-        "Eine E-Mail mit einem geheimen Link zum Übertragen ist zu Dir unterwegs.",
+      notice: "Eine E-Mail mit einem geheimen Link zum Übertragen ist zu Dir unterwegs.",
     )
   end
 
@@ -206,8 +191,7 @@ class NoticesController < ApplicationController
 
     redirect_to(
       notices_path,
-      notice:
-        "Deine Anzeige wird per E-Mail an #{Array(to).join(', ')} versendet und als 'gemeldet' markiert.",
+      notice: "Deine Anzeige wird per E-Mail an #{Array(to).join(', ')} versendet und als 'gemeldet' markiert.",
     )
   end
 
@@ -286,39 +270,25 @@ class NoticesController < ApplicationController
           NoticeMailer.charge(notice).deliver_later
           notice.mark_shared!
         end
-        flash[
-          :notice
-        ] = "Die noch offenen, vollständigen Meldungen werden im Hintergrund per E-Mail gemeldet"
+        flash[:notice] = "Die noch offenen, vollständigen Meldungen werden im Hintergrund per E-Mail gemeldet"
       else
         flash[:notice] = "Keine vollständigen Meldungen zum melden gefunden!"
       end
     when "pdf"
       notices = notices.complete
       if notices.present?
-        notices
-          .pluck(:id)
-          .each_slice(5) do |notice_ids|
-            UserMailer.pdf(current_user, notice_ids).deliver_later
-          end
-        flash[
-          :notice
-        ] = "Die vollständigen Meldungen wurden als PDF generiert und per E-Mail zugeschickt"
+        notices.pluck(:id).each_slice(5) { |notice_ids| UserMailer.pdf(current_user, notice_ids).deliver_later }
+        flash[:notice] = "Die vollständigen Meldungen wurden als PDF generiert und per E-Mail zugeschickt"
       else
-        flash[
-          :notice
-        ] = "Keine vollständigen Meldungen zum generieren gefunden!"
+        flash[:notice] = "Keine vollständigen Meldungen zum generieren gefunden!"
       end
     when "status"
       notices = notices.open.complete
       if notices.present?
         notices.mark_shared
-        flash[
-          :notice
-        ] = 'Die offenen, vollständigen Meldungen wurden als "gemeldet" markiert'
+        flash[:notice] = 'Die offenen, vollständigen Meldungen wurden als "gemeldet" markiert'
       else
-        flash[
-          :notice
-        ] = "Keine offenen, vollständigen Meldungen zum markieren gefunden!"
+        flash[:notice] = "Keine offenen, vollständigen Meldungen zum markieren gefunden!"
       end
     when "destroy"
       if notices.present?
@@ -336,13 +306,11 @@ class NoticesController < ApplicationController
     notice = current_user.notices.from_param(params[:id])
 
     if notice.analyzing?
-      redirect_back fallback_location: notice_path(notice),
-                    notice: "Analyse läuft bereits"
+      redirect_back fallback_location: notice_path(notice), notice: "Analyse läuft bereits"
     else
       notice.analyze!
 
-      redirect_back fallback_location: notice_path(notice),
-                    notice: "Analyse gestartet, es kann einen Augenblick dauern"
+      redirect_back fallback_location: notice_path(notice), notice: "Analyse gestartet, es kann einen Augenblick dauern"
     end
   end
 
