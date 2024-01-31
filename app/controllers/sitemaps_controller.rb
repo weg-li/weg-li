@@ -9,6 +9,7 @@ class SitemapsController < ApplicationController
       stats_url,
       districts_url,
       charges_url,
+      brands_url,
       exports_url,
       features_url,
       privacy_url,
@@ -23,11 +24,14 @@ class SitemapsController < ApplicationController
       api_url,
     ]
 
-    District.active.in_batches do |districts|
-      @urls += districts.map { |district| district_url(district) }
+    District.active.in_batches do |items|
+      @urls += items.map { |item| district_url(item) }
     end
-    Charge.active.in_batches do |charges|
-      @urls += charges.map { |charge| charge_url(charge) }
+    Charge.active.in_batches do |items|
+      @urls += items.map { |item| charge_url(item) }
+    end
+    Brand.active.in_batches do |items|
+      @urls += items.map { |item| brand_url(item) }
     end
   end
 end
