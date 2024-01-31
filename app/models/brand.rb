@@ -8,7 +8,7 @@ class Brand < ApplicationRecord
 
   before_validation :defaults
 
-  validates :name, :token, presence: true
+  validates :name, :token, :kind, presence: true
   validates :token, uniqueness: true
 
   scope :ordered, -> { order(:name) }
