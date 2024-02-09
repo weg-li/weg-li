@@ -7,9 +7,9 @@ describe ParkGenerator do
 
   it "handles the pdf generation" do
     travel_to("20.01.2020 15:00:00 UTC".to_time.utc) do
-      result = ParkGenerator.new.generate("Hambuach")
+      result = ParkGenerator.new.generate("🤷‍♂️ Hambüach")
 
-      # file_fixture('park.pdf').binwrite(result)
+      # file_fixture("park.pdf").binwrite(result)
       expect(example.size).to eql(result.size)
     end
   end
