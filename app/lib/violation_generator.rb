@@ -2,22 +2,24 @@
 
 require "prawn"
 require "prawn/qrcode"
+require "prawn/emoji"
 
 class ViolationGenerator
   def generate(name)
     pdf =
       Prawn::Document.new(page_size: "A5") do |document|
+        document.font_families.update("Roboto" => {
+          normal: "public/fonts/Roboto-Regular.ttf",
+          italic: "public/fonts/Roboto-Italic.ttf",
+        })
+        document.font "Roboto"
         document.move_down(25)
 
         Rails
           .root
           .join("app/assets/images/parkraummanagement.png")
           .open do |file|
-            document.image(
-              file,
-              fit: [50, 50],
-              at: [document.bounds.width - 50, document.cursor - 15],
-            )
+            document.image(file, fit: [50, 50], at: [document.bounds.width - 50, document.cursor - 15])
           end
 
         document.fill_color "333333"
@@ -68,16 +70,8 @@ class ViolationGenerator
         document.text(name, size: 12)
         document.text("PARKRAUM-MANAGEMENT", size: 12)
 
-        qr_code =
-          RQRCode::QRCode.new(
-            Rails.application.routes.url_helpers.violation_url(
-              Rails.configuration.action_mailer.default_url_options,
-            ),
-          )
-        document.render_qr_code(
-          qr_code,
-          pos: [document.bounds.width - 50, document.cursor + 30],
-        )
+        qr_code = RQRCode::QRCode.new(Rails.application.routes.url_helpers.violation_url(Rails.configuration.action_mailer.default_url_options))
+        document.render_qr_code(qr_code, pos: [document.bounds.width - 50, document.cursor + 30])
       end
 
     pdf.render

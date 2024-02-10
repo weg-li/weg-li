@@ -56,14 +56,11 @@ class HomeController < ApplicationController
     if params[:stadtreinigung].present?
       data = ParkGenerator.new.generate(params[:stadtreinigung_name])
 
-      send_data data,
-                filename: "Stadtreinigung #{params[:stadtreinigung_name]}.pdf"
+      send_data data, filename: "Stadtreinigung #{params[:stadtreinigung_name]}.pdf"
     elsif params[:parkraummanagement].present?
       data = ViolationGenerator.new.generate(params[:parkraummanagement_name])
 
-      send_data data,
-                filename:
-                  "Parkraum-Management #{params[:parkraummanagement_name]}.pdf"
+      send_data data, filename: "Parkraum-Management #{params[:parkraummanagement_name]}.pdf"
     end
   end
 
