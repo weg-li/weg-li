@@ -52,7 +52,7 @@ class User < ApplicationRecord
   validate :email_block_list
 
   def email_block_list
-    if email =~ /miucce.com/ || email =~ /spamgourmet.com/ || email =~ /wireconnected.com/
+    if email =~ /miucce.com/ || email =~ /spamgourmet.com/ || email =~ /wireconnected.com/ || email =~ /opayq.com/
       errors.add(:email, :invalid)
     end
   end
