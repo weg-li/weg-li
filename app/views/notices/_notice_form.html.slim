@@ -10,7 +10,7 @@
       = render('auto_suggest', notice: notice)
       .input-group#pick_registration
         - registrations.each do |registration|
-          a(href="#" onclick="$('#notice_registration').val('#{registration}').trigger('change'); $('#pick_registration').fadeOut(); return false;")
+          a(href="javascript:;" onclick="$('#notice_registration').val('#{registration}').trigger('change'); $('#pick_registration').fadeOut(); return false;")
               span.label.label-default.label-picker(title=registration)
                 span(style="text-decoration:none")=> registration
                 span.glyphicon.glyphicon-circle-arrow-left
@@ -23,7 +23,7 @@
         - brands = notice.data_sets.select(&:google_vision?).flat_map { |google_vision| google_vision.brands }
         - brands = notice.data_sets.select(&:car_ml?).map(&:brands).concat(brands).compact.flatten.uniq
         - brands.each do |brand|
-            a(href="#" onclick="$('#notice_brand').val('#{brand}').trigger('change'); $('#pick_brand').fadeOut(); return false;")
+            a(href="javascript:;" onclick="$('#notice_brand').val('#{brand}').trigger('change'); $('#pick_brand').fadeOut(); return false;")
               span.label.label-default.label-picker(title=brand)
                 span=> brand
                 span.glyphicon.glyphicon-circle-arrow-left
@@ -36,7 +36,7 @@
         - colors = notice.data_sets.select(&:google_vision?).flat_map { |google_vision| google_vision.colors }
         - colors = notice.data_sets.select(&:car_ml?).map(&:colors).concat(colors).compact.flatten.uniq
         - colors.each do |color|
-            a(href="#" onclick="$('#notice_color').val('#{color}').trigger('change'); $('#pick_color').fadeOut(); return false;")
+            a(href="javascript:;" onclick="$('#notice_color').val('#{color}').trigger('change'); $('#pick_color').fadeOut(); return false;")
               span.label.label-default.label-picker(title=color)
                 span=> t(color, scope: "activerecord.attributes.notice.colors")
                 span.glyphicon.glyphicon-circle-arrow-left
@@ -57,7 +57,7 @@
 
       - if address.present?
         .input-group#pick_address
-          a(href="#" onclick="$('#notice_street').val('#{address[:street]}'); $('#notice_city').val('#{address[:city]}'); $('#notice_zip').val('#{address[:zip]}'); $('#notice_latitude').val('#{address[:latitude]}'); $('#notice_longitude').val('#{address[:longitude]}'); $('#pick_address').fadeOut(); return false;")
+          a(href="javascript:;" onclick="$('#notice_street').val('#{address[:street]}'); $('#notice_city').val('#{address[:city]}'); $('#notice_zip').val('#{address[:zip]}'); $('#notice_latitude').val('#{address[:latitude]}'); $('#notice_longitude').val('#{address[:longitude]}'); $('#pick_address').fadeOut(); return false;")
               span.label.label-default.label-picker(title=address[:street])
                 span(style="text-decoration:none") => address[:street]
                 span.glyphicon.glyphicon-circle-arrow-left
@@ -97,7 +97,7 @@
         - if nearest_tbnrs.present?
           - nearest_charges = charges.select { |tbnr, _charge| nearest_tbnrs.first(3).include?(tbnr) }
           - nearest_charges.each do |nearest_tbnr, nearest_charge|
-            a(href="#" onclick="$('#notice_tbnr').val('#{nearest_tbnr}').trigger('change'); $('#pick_charge').fadeOut(); return false;")
+            a(href="javascript:;" onclick="$('#notice_tbnr').val('#{nearest_tbnr}').trigger('change'); $('#pick_charge').fadeOut(); return false;")
               span.label.label-default.label-picker(title=nearest_charge)
                 span => nearest_charge
                 span.glyphicon.glyphicon-circle-arrow-left
@@ -146,12 +146,12 @@ javascript:
       .input-group#pick_start_date
         - if date_times.present?
           - date_times.each do |date_time|
-            a(href="#" onclick="$('#notice_start_date_date').val('#{date_time.strftime('%Y-%m-%d')}'); $('#notice_start_date_time').val('#{date_time.strftime('%H:%M')}'); $('#pick_start_date').fadeOut(); return false;")
+            a(href="javascript:;" onclick="$('#notice_start_date_date').val('#{date_time.strftime('%Y-%m-%d')}'); $('#notice_start_date_time').val('#{date_time.strftime('%H:%M')}'); $('#pick_start_date').fadeOut(); return false;")
                 span.label.label-default.label-picker(title=l(date_time))
                   span(style="text-decoration:none") => l(date_time, format: :short)
                   span.glyphicon.glyphicon-circle-arrow-left
         - else
-          a(href="#" onclick="$('#notice_start_date_date').val('#{Time.now.strftime('%Y-%m-%d')}'); $('#notice_start_date_time').val('#{Time.now.strftime('%H:%M')}'); $('#pick_start_date').fadeOut(); return false;")
+          a(href="javascript:;" onclick="$('#notice_start_date_date').val('#{Time.now.strftime('%Y-%m-%d')}'); $('#notice_start_date_time').val('#{Time.now.strftime('%H:%M')}'); $('#pick_start_date').fadeOut(); return false;")
               span.label.label-default.label-picker(title="Jetzt")
                 span(style="text-decoration:none") => "Jetzt"
                 span.glyphicon.glyphicon-circle-arrow-left
@@ -169,17 +169,21 @@ javascript:
 
       - date_times = notice.dates_from_photos.last(3)
       .input-group#pick_end_date
-        - if date_times.present?
+        - if date_times.size > 1
           - date_times.each do |date_time|
-            a(href="#" onclick="$('#notice_end_date_date').val('#{date_time.strftime('%Y-%m-%d')}'); $('#notice_end_date_time').val('#{date_time.strftime('%H:%M')}'); $('#pick_end_date').fadeOut(); return false;")
+            a(href="javascript:;" onclick="$('#notice_end_date_date').val('#{date_time.strftime('%Y-%m-%d')}'); $('#notice_end_date_time').val('#{date_time.strftime('%H:%M')}'); $('#pick_end_date').fadeOut(); return false;")
                 span.label.label-default.label-picker(title=l(date_time))
                   span(style="text-decoration:none") => l(date_time, format: :short)
                   span.glyphicon.glyphicon-circle-arrow-left
         - else
-          a(href="#" onclick="$('#notice_end_date_date').val('#{Time.now.strftime('%Y-%m-%d')}'); $('#notice_end_date_time').val('#{Time.now.strftime('%H:%M')}'); $('#pick_end_date').fadeOut(); return false;")
-              span.label.label-default.label-picker(title="Jetzt")
-                span(style="text-decoration:none") => "Jetzt"
-                span.glyphicon.glyphicon-circle-arrow-left
+          - start_date = date_times.first || Time.now
+          - date_suggestions = { '1 Min.' => start_date + 1.minutes, '3 Min.' => start_date + 4.minutes, '15 Min.' => start_date + 16.minutes, '1 Std.' => start_date + 61.minutes }
+          - date_suggestions.each do |desc, date_time|
+            a(href="javascript:;" onclick="$('#notice_end_date_date').val('#{date_time.strftime('%Y-%m-%d')}'); $('#notice_end_date_time').val('#{date_time.strftime('%H:%M')}'); $('#pick_end_date').fadeOut(); return false;")
+                span.label.label-default.label-picker(title=desc)
+                  span(style="text-decoration:none") => desc
+                  span.glyphicon.glyphicon-circle-arrow-left
+
 
 .row
   .col-lg-8
