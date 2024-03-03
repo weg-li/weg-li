@@ -9,6 +9,12 @@ describe District do
     it "is valid" do
       expect(district).to be_valid
     end
+
+    it "blocks common email providers" do
+      district.email = "uschi@gmx.de"
+      expect(district).to_not be_valid
+      expect(district.errors.first.attribute).to eql(:email)
+    end
   end
 
   context "emails" do

@@ -42,6 +42,13 @@ class District < ApplicationRecord
               language: proc { |_model| I18n.locale },
               no_annotations: true
   after_validation :geocode, if: :geocode_address_changed?
+  validate :email_block_list
+
+  def email_block_list
+    if email =~ /gmail.com/ || email =~ /web.de/ || email =~ /t-online.de/ || email =~ /gmx.de/
+      errors.add(:email, :invalid)
+    end
+  end
 
   acts_as_api
 
