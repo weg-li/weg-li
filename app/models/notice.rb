@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Notice < ApplicationRecord
-  broadcasts_refreshes
+  # broadcasts_refreshes
 
   include Statisticable
   ADDRESS_ZIP_PATTERN = /.+(\d{5}).+/
