@@ -34,7 +34,7 @@ describe "home", type: :request do
 
   context "GET :leaderboard" do
     it "shows the page" do
-      Fabricate(:notice)
+      10.times.each { |i| Fabricate(:notice, status: :shared, created_at: i.years.ago) }
 
       get leaderboard_path
 

@@ -49,24 +49,26 @@ class HomeController < ApplicationController
   end
 
   def leaderboard_users
-    user_ids = weekly_leaders.keys + monthly_leaders.keys + yearly_leaders.keys + total_leaders.keys + year_leaders.values.flat_map(&:keys)
-    @users = User.find(user_ids)
+    @leaderboard_users ||= begin
+      user_ids = weekly_leaders.keys + monthly_leaders.keys + yearly_leaders.keys + total_leaders.keys + year_leaders.values.flat_map(&:keys)
+      User.find(user_ids)
+    end
   end
 
   def weekly_leaders
-    @weekly_leaders = leaders(Time.zone.now.beginning_of_week, @limit)
+    @weekly_leaders ||= leaders(Time.zone.now.beginning_of_week, @limit)
   end
 
   def monthly_leaders
-    @monthly_leaders = leaders(Time.zone.now.beginning_of_month, @limit)
+    @monthly_leaders ||= leaders(Time.zone.now.beginning_of_month, @limit)
   end
 
   def yearly_leaders
-    @yearly_leaders = leaders(Time.zone.now.beginning_of_year, @limit)
+    @yearly_leaders ||= leaders(Time.zone.now.beginning_of_year, @limit)
   end
 
   def total_leaders
-    @total_leaders = leaders(10.years.ago, @limit)
+    @total_leaders ||= leaders(10.years.ago, @limit)
   end
 
   def generator
