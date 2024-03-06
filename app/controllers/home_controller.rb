@@ -42,13 +42,13 @@ class HomeController < ApplicationController
     @limit = (params[:limit] || 5).to_i
   end
 
-  helper_method :weekly_leaders, :monthly_leaders, :yearly_leaders, :total_leaders, :year_leaders, :leaderboard_leaders
+  helper_method :weekly_leaders, :monthly_leaders, :yearly_leaders, :total_leaders, :year_leaders, :leaderboard_users
 
   def year_leaders
     @year_leaders = years[1..].to_h { |year| [year, leaders_count(year, @limit)] }
   end
 
-  def leaderboard_leaders
+  def leaderboard_users
     user_ids = weekly_leaders.keys + monthly_leaders.keys + yearly_leaders.keys + total_leaders.keys + year_leaders.values.flat_map(&:keys)
     @users = User.find(user_ids)
   end
