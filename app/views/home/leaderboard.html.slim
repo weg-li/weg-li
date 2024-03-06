@@ -7,7 +7,8 @@
 .well
   | Das Leaderboard zeigt die Nutzer mit den meisten Falschparker-Meldungen. Derzeit werden 80% der Anzeigen gegen Falschparker von den aktivsten 20% der Nutzer erstattet.
 
-= cache('home_leaderboard', expires_in: 12.hours) do
+- ttl = 1.hour
+= cache("home_leaderboard_#{@limit}", expires_in: ttl) do
   .row
     .col-lg-6
       h3 🥇 Wochen-Lead:
@@ -69,3 +70,5 @@
                 strong=> "#{index+1}. #{leaderboard_users.find { |user| user.id == user_id }&.public_nickname}"
               .progress.progress-striped.active
                 .progress-bar.progress-bar-success(style="width: #{[100, current / (goal.fdiv(100))].min}%")
+
+  p.small.muted = "Wird aktualisiert: #{l Time.now + ttl, format: :short}"
