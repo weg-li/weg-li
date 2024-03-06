@@ -40,16 +40,33 @@ class HomeController < ApplicationController
 
   def leaderboard
     @limit = (params[:limit] || 5).to_i
+  end
 
-    @weekly_leaders = leaders(Time.zone.now.beginning_of_week, @limit)
-    @monthly_leaders = leaders(Time.zone.now.beginning_of_month, @limit)
-    @yearly_leaders = leaders(Time.zone.now.beginning_of_year, @limit)
-    @total_leaders = leaders(10.years.ago, @limit)
+  helper_method :weekly_leaders, :monthly_leaders, :yearly_leaders, :total_leaders, :year_leaders, :leaderboard_leaders
 
+  def year_leaders
     @year_leaders = years[1..].to_h { |year| [year, leaders_count(year, @limit)] }
+  end
 
-    user_ids = @weekly_leaders.keys + @monthly_leaders.keys + @yearly_leaders.keys + @total_leaders.keys + @year_leaders.values.flat_map(&:keys)
+  def leaderboard_leaders
+    user_ids = weekly_leaders.keys + monthly_leaders.keys + yearly_leaders.keys + total_leaders.keys + year_leaders.values.flat_map(&:keys)
     @users = User.find(user_ids)
+  end
+
+  def weekly_leaders
+    @weekly_leaders = leaders(Time.zone.now.beginning_of_week, @limit)
+  end
+
+  def monthly_leaders
+    @monthly_leaders = leaders(Time.zone.now.beginning_of_month, @limit)
+  end
+
+  def yearly_leaders
+    @yearly_leaders = leaders(Time.zone.now.beginning_of_year, @limit)
+  end
+
+  def total_leaders
+    @total_leaders = leaders(10.years.ago, @limit)
   end
 
   def generator
