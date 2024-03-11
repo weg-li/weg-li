@@ -47,7 +47,7 @@ class District < ApplicationRecord
   validate :email_block_list
 
   def email_block_list
-    if email =~ /gmail.com/ || email =~ /web.de/ || email =~ /t-online.de/ || email =~ /gmx.de/
+    if email =~ /gmail.com/ || email =~ /web.de/ || email =~ /t-online.de/ || email =~ /gmx.de/ || email =~ /hotmail.de/
       errors.add(:email, :invalid)
     end
   end
