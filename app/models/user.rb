@@ -45,21 +45,12 @@ class User < ApplicationRecord
             :city,
             presence: true
   validates :email, :token, uniqueness: true
-  validates :email,
-            format: {
-              with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i,
-            }
-  validates :name,
-            format: {
-              with: /\D+\s+\D/,
-            }
-  validate :email_block_list
-
-  def email_block_list
-    if email =~ /miucce.com/ || email =~ /spamgourmet.com/ || email =~ /wireconnected.com/ || email =~ /opayq.com/
-      errors.add(:email, :invalid)
-    end
-  end
+  validates :email, email: {
+    mx: true,
+    ban_disposable_email: true,
+    partial: true,
+  }
+  validates :name, format: { with: /\D+\s+\D/ }
 
   scope :last_login_since, ->(date) { where("last_login > ?", date) }
   scope :since, ->(date) { where("created_at > ?", date) }
