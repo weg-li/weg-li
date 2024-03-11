@@ -9,7 +9,7 @@ class Scheduled::DataCleanupJob < ApplicationJob
     notify("cleaning up old data #{data_sets.count} data_sets")
     data_sets.delete_all
 
-    data_sets = DataSet.joins("INNER JOIN notices ON notices.id = setable_id AND notices.status = 3").order(:created_at).where("data_sets.created_at < ?", 1.month.ago).limit(1000)
+    data_sets = DataSet.joins("INNER JOIN notices ON notices.id = setable_id AND notices.status = 3").order(:created_at).where("data_sets.created_at < ?", 1.month.ago).limit(10_000)
 
     notify("cleaning up shared data #{data_sets.count} data_sets")
     data_sets.delete_all
