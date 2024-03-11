@@ -50,7 +50,7 @@ class BrandsController < ApplicationController
   private
 
   def search_scope
-    brands = Brand.order(params[:order] || "name ASC").page(params[:page])
+    brands = Brand.active.order(params[:order] || "name ASC").page(params[:page])
     if params[:term].present?
       brands = brands.where("name ILIKE :term", term: "%#{params[:term]}%")
     end
