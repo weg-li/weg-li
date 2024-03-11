@@ -85,3 +85,5 @@ group :development, :test do
 end
 
 gem "prawn-emoji", "~> 5.3"
+
+gem "valid_email", "~> 0.2.0"

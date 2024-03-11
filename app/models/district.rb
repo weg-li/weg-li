@@ -33,10 +33,11 @@ class District < ApplicationRecord
   validates :zip, uniqueness: true
   validates :zip, format: { with: /\d{5}/ }
   validates :state, inclusion: { in: STATES }
-  validates :email,
-            format: {
-              with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i,
-            }
+  validates :email, email: {
+    mx_with_fallback: true,
+    ban_disposable_email: true,
+    partial: true,
+  }
 
   geocoded_by :geocode_address,
               language: proc { |_model| I18n.locale },
