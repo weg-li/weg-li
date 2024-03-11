@@ -34,10 +34,11 @@ class District < ApplicationRecord
   validates :zip, format: { with: /\d{5}/ }
   validates :state, inclusion: { in: STATES }
   validates :email, email: {
-    mx_with_fallback: true,
+    mx: true,
     ban_disposable_email: true,
     partial: true,
   }
+  # District.pluck(:email).reject {|email| ValidateEmail.valid?(email, {mx: true, ban_disposable_email: true, partial: true })}
 
   geocoded_by :geocode_address,
               language: proc { |_model| I18n.locale },
