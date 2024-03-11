@@ -15,6 +15,17 @@ describe User do
       user.email = "123@miucce.com"
       expect(user).to_not be_valid
     end
+
+    it "has first and lastname" do
+      user.name = "klaus"
+      expect(user).to_not be_valid
+
+      user.name = "klaus 1"
+      expect(user).to_not be_valid
+
+      user.name = "klaus pöter"
+      expect(user).to be_valid
+    end
   end
 
   context "normalization" do

@@ -49,6 +49,10 @@ class User < ApplicationRecord
             format: {
               with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i,
             }
+  validates :name,
+            format: {
+              with: /\D+\s+\D/,
+            }
   validate :email_block_list
 
   def email_block_list
