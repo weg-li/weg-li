@@ -81,6 +81,7 @@ group :development, :test do
   gem "rspec-rails"
   gem "rspec-retry"
   gem "webmock"
+  gem "debugbar"
 end
 
 gem "prawn-emoji", "~> 5.3"

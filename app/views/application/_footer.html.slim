@@ -69,5 +69,8 @@ footer
           weg.li ist jetzt #{link_to 'deutschlandweit in 4.400 Bezirken', districts_path } zum Anzeigen von Falschparkern nutzbar <br>
           #{link_to "Anzeigen von Falschparkern im Jahr #{Time.zone.now.year}", year_path}
 
-- if defined?(Puma)
+- if defined? Puma
   | <!-- served Revision #{ENV['RENDER_GIT_COMMIT']} by Puma-#{Puma::Const::PUMA_VERSION} #{Puma::Const::CODE_NAME} Ruby: #{RUBY_VERSION} on Rails #{Rails.version} -->
+
+- if defined? Debugbar
+  = debugbar_javascript
