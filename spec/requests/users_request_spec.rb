@@ -35,6 +35,14 @@ describe "users", type: :request do
       expect(response).to be_a_redirect
     end
 
+    it "renders an error when invalid" do
+      expect do
+        patch user_path(@user), params: { user: { name: "invalid" } }
+      end.not_to(change { @user.reload.name })
+
+      expect(response).to be_a_redirect
+    end
+
     it "updates the nickname" do
       expect do
         patch user_path(@user), params: { user: { nickname: "new" } }
