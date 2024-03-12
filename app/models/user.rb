@@ -80,9 +80,10 @@ class User < ApplicationRecord
 
   def validate!
     auth = authorizations.find_or_initialize_by(provider: "email")
-    auth.update! uid: email_uid
+    auth.update!(uid: email_uid)
 
-    update! validation_date: Time.now
+    self.validation_date = Time.now
+    save(validate: false)
   end
 
   def email_uid
