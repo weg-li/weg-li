@@ -582,6 +582,7 @@ GEM
       syntax_tree (>= 2.0.1)
     temple (0.10.3)
     thor (1.3.1)
+    thruster (0.1.0)
     tilt (2.3.0)
     time_splitter (1.1.0)
     timeout (0.4.1)
@@ -700,6 +701,7 @@ DEPENDENCIES
   syntax_tree
   syntax_tree-haml
   syntax_tree-rbs
+  thruster (~> 0.1.0)
   time_splitter
   turbo-rails (= 2.0.0.pre.beta.2)
   utf8-cleaner
