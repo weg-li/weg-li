@@ -8,6 +8,8 @@ module Blockable
     validate :email_block_list
 
     def email_block_list
+      return if email.blank?
+
       self.class.blockables.each do |blockable|
         if email.match(blockable)
           errors.add(:email, :invalid)
