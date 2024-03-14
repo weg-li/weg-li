@@ -402,6 +402,8 @@ GEM
     raabro (1.4.0)
     racc (1.7.3)
     rack (2.2.8.1)
+    rack-attack (6.7.0)
+      rack (>= 1.0, < 4)
     rack-cache (1.16.0)
       rack (>= 0.4)
     rack-protection (3.2.0)
@@ -678,6 +680,7 @@ DEPENDENCIES
   prettier_print
   puma
   rack
+  rack-attack (~> 6.7)
   rack-cache
   rails (= 7.1.3.2)
   redis
