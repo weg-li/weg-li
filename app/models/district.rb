@@ -40,9 +40,7 @@ class District < ApplicationRecord
   }
   # District.pluck(:email).reject {|email| ValidateEmail.valid?(email, {mx: true, ban_disposable_email: true, partial: true })}
 
-  geocoded_by :geocode_address,
-              language: proc { |_model| I18n.locale },
-              no_annotations: true
+  geocoded_by :geocode_address, language: proc { |_model| I18n.locale }, no_annotations: true
   after_validation :geocode, if: :geocode_address_changed?
 
   include Blockable
