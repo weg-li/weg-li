@@ -168,9 +168,9 @@ de:
   slogan_2: "Macht die Bahn frei!"
   slogan_3: "Für sichere Radwege und freie Bürgersteige!"
   meta_description:
-    default: "Mit weg.li kannst Du ganz einfach Falschparker anzeigen. Lade Beweisfotos hoch und weg.li erkennt automatisch das Kennzeichen, den Tatort und vieles mehr. Erstatte dann Anzeige bei der zuständigen Stelle, damit der Fahrzeughalter umgehend bestraft wird."
-    brands: 'Alles Fahrzeugmarken mit denen Parkverstöße begangen werden.'
-    brand: "Falschparker mit der Fahrzeug Marke %{name}."
+    default: "Mit der Falschparker App weg.li, kannst Du ganz einfach Falschparker melden! Lade Beweisfotos hoch und weg.li erkennt automatisch das Kennzeichen, den Tatort und vieles mehr. Erstatte dann Anzeige beim zuständigen Ordnungsamt, damit der Fahrzeughalter umgehend ein Bußgeld erhält."
+    brands: 'Alle Fahrzeugmarken mit denen Parkverstöße begangen werden.'
+    brand: "Falschparker mit der Fahrzeugmarke %{name}."
     charges: 'Alles Wichtige über Verstöße aus dem Bußgeldkatalog der Straßenverkehrsordnung (StVO) zum Anzeigen von Falschparkern: Tatbestandsnummer (TBNR), höhe der Bußgelder oder Verwarngelder, Fahrverbote und Punktezahl aus dem aktuellen bundeseinheitlichen Bußgeldkatalog (bkat owi 18.05.2020)'
     charge: "Falschparker anzeigen mit TBNR %{tbnr}: %{description} Diese Geldbußen oder Verwarngelder drohen beim Verstoß gegen %{bkat}."
     districts: 'Alles Wichtige über das Anzeigen von Falschparkern in der ganzen Bundesrepublik. Deutschlandweit werden Vertöße zur Anzeige gebracht.'
