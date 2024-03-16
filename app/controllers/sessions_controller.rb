@@ -7,26 +7,15 @@ class SessionsController < ApplicationController
   def create
     auth = request.env["omniauth.auth"].slice("provider", "uid", "info")
     Rails.logger.info(auth) if ENV["VERBOSE_LOGGING"]
-    authorization =
-      Authorization.find_by(provider: auth["provider"], uid: auth["uid"])
+    authorization = Authorization.find_by(provider: auth["provider"], uid: auth["uid"])
     if authorization.present?
       sign_in(authorization.user)
 
-      redirect_to notices_path,
-                  notice:
-                    t(
-                      "sessions.welcome_back",
-                      nickname: authorization.user.name,
-                    )
+      redirect_to notices_path, notice: t("sessions.welcome_back", nickname: authorization.user.name)
     elsif signed_in?
-      current_user.authorizations.find_or_create_by!(
-        provider: auth["provider"],
-        uid: auth["uid"],
-      )
+      current_user.authorizations.find_or_create_by!(provider: auth["provider"], uid: auth["uid"])
 
-      redirect_to edit_user_path,
-                  notice:
-                    t("sessions.connected", provider: auth["provider"].humanize)
+      redirect_to edit_user_path, notice: t("sessions.connected", provider: auth["provider"].humanize)
     else
       session[:auth_path] = notices_path
       session[:auth_data] = auth
@@ -56,9 +45,7 @@ class SessionsController < ApplicationController
 
   def failure
     Rails.logger.warn("oauth failed: #{params[:message]}")
-    redirect_to root_path,
-                alert:
-                  "#{t('sessions.ups_something_went_wrong')} (#{params[:message]})"
+    redirect_to root_path, alert: "#{t('sessions.ups_something_went_wrong')} (#{params[:message]})"
   end
 
   def offline_login
@@ -125,8 +112,7 @@ class SessionsController < ApplicationController
       UserMailer.signup(@user).deliver_later
       sign_in(@user)
 
-      redirect_to session.delete(:auth_path),
-                  notice: t("sessions.welcome", nickname: @user.nickname)
+      redirect_to session.delete(:auth_path), notice: t("sessions.welcome", nickname: @user.nickname)
     else
       email = normalize_email(params[:user][:email])
       check_existing_user(email)
@@ -136,8 +122,7 @@ class SessionsController < ApplicationController
   rescue ActiveRecord::RecordNotUnique
     # user should already be signed in from a concurrent request
     session.delete(:auth_data)
-    redirect_to session.delete(:auth_path),
-                notice: t("sessions.welcome", nickname: @user.nickname)
+    redirect_to session.delete(:auth_path), notice: t("sessions.welcome", nickname: @user.nickname)
   end
 
   def disconnect
@@ -174,11 +159,7 @@ class SessionsController < ApplicationController
     existing_user = User.find_by_email(email)
     if email.present? && existing_user.present?
       providers = existing_user.authorizations.map(&:provider)
-      flash.now[:alert] = t(
-        "sessions.existing_user",
-        email:,
-        providers: providers.to_sentence,
-      )
+      flash.now[:alert] = t("sessions.existing_user", email:, providers: providers.to_sentence)
     end
   end
 end
