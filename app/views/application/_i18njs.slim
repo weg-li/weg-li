@@ -1,3 +1,4 @@
-- stuff = { charges: Charge.active.pluck(:tbnr, :description).to_h.transform_values { |v| h(v) } }
-javascript:
-  I18n = #{stuff.to_json.html_safe};
+= cache('i18njs', expires_in: 1.hour) do
+  - stuff = { charges: Charge.active.pluck(:tbnr, :description).to_h.transform_values { |v| h(v) } }
+  javascript:
+    I18n = #{stuff.to_json.html_safe};
