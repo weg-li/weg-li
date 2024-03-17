@@ -23,7 +23,7 @@ class ChargesController < ApplicationController
         csv_data =
           CSV.generate(force_quotes: true) do |csv|
             csv << %w[Nr TBNR Tatbestand]
-            Charge.active.parking.pluck(:tbnr, :description).each_with_index do |(tbnr, charge), index|
+            Charge.tbnrs_with_description.each_with_index do |(tbnr, charge), index|
               csv << [index + 1, tbnr, charge]
             end
           end

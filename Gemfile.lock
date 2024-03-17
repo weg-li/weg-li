@@ -303,6 +303,7 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.2)
+    memo-it (0.5.0)
     mini_magick (4.12.0)
     mini_mime (1.1.5)
     mini_portile2 (2.8.5)
@@ -662,6 +663,7 @@ DEPENDENCIES
   letter_opener
   listen
   matrix
+  memo-it (~> 0.5.0)
   mini_magick
   net-imap
   net-pop

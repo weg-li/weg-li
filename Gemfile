@@ -91,3 +91,5 @@ gem "valid_email", "~> 0.2.0"
 gem "rack-attack", "~> 6.7"
 
 gem "thruster", "~> 0.1.0"
+
+gem "memo-it", "~> 0.5.0"

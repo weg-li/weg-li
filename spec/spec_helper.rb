@@ -30,6 +30,7 @@ Geocoder::Lookup::Test.set_default_stub(
   ],
 )
 I18n.locale = :de
+Memo.disable
 
 ENV["WEGLI_API_KEY"] = "dingSbums"
 

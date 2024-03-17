@@ -86,7 +86,7 @@
       = form.label :tbnr, class: "control-label control-label-required"
       ruby:
         nearest_tbnrs = notice.data_sets.select(&:proximity?).flat_map(&:tbnrs).compact
-        charges = Charge.active.parking.ordered.pluck(:tbnr, :description)
+        charges = Charge.tbnrs_with_description
         favorites = charges.select { |tbnr, _charge| current_user.favorite_tbnrs.include?(tbnr) }
         charge_options = [
          ["Favoriten", favorites.map {|tbnr, description| ["#{description} [#{tbnr}]", tbnr]}],

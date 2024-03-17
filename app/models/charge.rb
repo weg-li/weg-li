@@ -60,6 +60,10 @@ class Charge < ApplicationRecord
   FAVS = %w[112454 141312 112262 141174 141194 141245 112474 142103 141322]
 
   class << self
+    def tbnrs_with_description
+      memo { active.parking.ordered.pluck(:tbnr, :description) }
+    end
+
     def classification_name(classification)
       CLASSIFICATIONS[classification.to_i] || "-"
     end
