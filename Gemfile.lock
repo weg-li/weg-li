@@ -583,7 +583,7 @@ GEM
       syntax_tree (>= 2.0.1)
     temple (0.10.3)
     thor (1.3.1)
-    thruster (0.1.0)
+    thruster (0.1.1)
     tilt (2.3.0)
     time_splitter (1.1.0)
     timeout (0.4.1)
