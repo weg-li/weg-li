@@ -30,15 +30,17 @@ Rack::Attack.blocklist('allow2ban login scrapers') do |req|
   end
 end
 
+# Always allow requests from render
+Rack::Attack.safelist_ip("10.0.0.0/8")
+
 require_relative '../../app/lib/slack'
 
 ActiveSupport::Notifications.subscribe(/rack_attack/) do |name, start, finish, instrumenter_id, payload|
-  @slack_client ||= Slack::Client.new
-  req = payload[:request]
-  msg = "#{req.env['HTTP_TRUE_CLIENT_IP']} #{req.env['HTTP_X_FORWARDED_FOR']} #{req.env['PATH_INFO']} #{req.env['REMOTE_ADDR']}"
+  unless name.match?(/safelist/)
+    @slack_client ||= Slack::Client.new
+    req = payload[:request]
+    msg = "#{req.env['HTTP_TRUE_CLIENT_IP']} #{req.env['HTTP_X_FORWARDED_FOR']} #{req.env['PATH_INFO']} #{req.env['REMOTE_ADDR']}"
 
-  @slack_client.say("Rack Attack: #{name} #{msg}")
+    @slack_client.say("Rack Attack: #{name} #{msg}")
+  end
 end
-
-# Always allow requests from render
-Rack::Attack.safelist_ip("10.0.0.0/8")
