@@ -39,3 +39,6 @@ ActiveSupport::Notifications.subscribe(/rack_attack/) do |name, start, finish, i
 
   @slack_client.say("Rack Attack: #{name} #{msg}")
 end
+
+# Always allow requests from render
+Rack::Attack.safelist_ip("10.0.0.0/8")
