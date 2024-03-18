@@ -175,6 +175,6 @@ Rails.application.routes.draw do
   get "/422", to: "errors#unacceptable"
   get "/500", to: "errors#internal_error"
 
-  get "/ping",
-      to: ->(env) { [200, { "Content-Type" => "text/html" }, ["pong"]] }
+  get "/ping", to: ->(env) { [200, { "Content-Type" => "text/html" }, ["pong"]] }
+  match '*path.php', via: :all, to: ->(_env) { [302, { 'Location' => 'https://www.weg.li/violation/' }, ['Scheiße geparkt? Parkt nicht auf unseren Wegen!']] }
 end
