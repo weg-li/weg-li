@@ -33,6 +33,6 @@ end
 require_relative '../../app/lib/slack'
 
 ActiveSupport::Notifications.subscribe(/rack_attack/) do |name, start, finish, instrumenter_id, payload|
-  @slack_client ||= Client.new
+  @slack_client ||= Slack::Client.new
   @slack_client.say("Rack Attack: #{name} #{start} #{finish} #{instrumenter_id} #{payload}")
 end
