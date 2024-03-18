@@ -61,7 +61,7 @@ class Charge < ApplicationRecord
 
   class << self
     def tbnrs_with_description
-      memo { active.parking.ordered.pluck(:tbnr, :description) }
+      @tbnrs_with_description ||= active.parking.ordered.pluck(:tbnr, :description)
     end
 
     def classification_name(classification)
