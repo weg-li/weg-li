@@ -34,5 +34,8 @@ require_relative '../../app/lib/slack'
 
 ActiveSupport::Notifications.subscribe(/rack_attack/) do |name, start, finish, instrumenter_id, payload|
   @slack_client ||= Slack::Client.new
-  @slack_client.say("Rack Attack: #{name} #{start} #{finish} #{instrumenter_id} #{payload}")
+  req = payload[:request]
+  msg = "#{req.env['HTTP_TRUE_CLIENT_IP']} #{req.env['HTTP_X_FORWARDED_FOR']} #{req.env['PATH_INFO']} #{req.env['REMOTE_ADDR']}"
+
+  @slack_client.say("Rack Attack: #{name} #{msg}")
 end
