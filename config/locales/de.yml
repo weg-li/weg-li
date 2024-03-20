@@ -168,13 +168,13 @@ de:
   slogan_2: "Macht die Bahn frei!"
   slogan_3: "Für sichere Radwege und freie Bürgersteige!"
   meta_description:
-    default: "Mit der Falschparker App weg.li, kannst Du ganz einfach Falschparker melden! Lade Beweisfotos hoch und weg.li erkennt automatisch das Kennzeichen, den Tatort und vieles mehr. Erstatte dann Anzeige beim zuständigen Ordnungsamt, damit der Fahrzeughalter umgehend ein Bußgeld erhält."
+    default: "Mit der Falschparker App weg.li kannst Du ganz einfach Falschparker melden! Lade Beweisfotos hoch und weg.li erkennt automatisch das Kennzeichen, den Tatort und vieles mehr. Erstatte dann Anzeige beim zuständigen Ordnungsamt, damit der Fahrzeughalter umgehend ein Bußgeld erhält."
     brands: 'Alle Fahrzeugmarken mit denen Parkverstöße begangen werden.'
     brand: "Falschparker mit der Fahrzeugmarke %{name}."
-    charges: 'Alles Wichtige über Verstöße aus dem Bußgeldkatalog der Straßenverkehrsordnung (StVO) zum Anzeigen von Falschparkern: Tatbestandsnummer (TBNR), höhe der Bußgelder oder Verwarngelder, Fahrverbote und Punktezahl aus dem aktuellen bundeseinheitlichen Bußgeldkatalog (bkat owi 18.05.2020)'
+    charges: 'Alles Wichtige über Verstöße aus dem Bußgeldkatalog der Straßenverkehrsordnung (StVO) zum Anzeigen von Falschparkern: Tatbestandsnummer (TBNR), Höhe der Bußgelder oder Verwarngelder, Fahrverbote und Punktezahl aus dem aktuellen bundeseinheitlichen Bußgeldkatalog (bkat owi 18.05.2020)'
     charge: "Falschparker anzeigen mit TBNR %{tbnr}: %{description} Diese Geldbußen oder Verwarngelder drohen beim Verstoß gegen %{bkat}."
-    districts: 'Alles Wichtige über das Anzeigen von Falschparkern in der ganzen Bundesrepublik. Deutschlandweit werden Vertöße zur Anzeige gebracht.'
-    district: "Falschparker anzeigen in %{zip} %{name}: So werden in %{state} Vertöße zur Anzeige gebracht."
+    districts: 'Alles Wichtige über das Anzeigen von Falschparkern in der ganzen Bundesrepublik. Deutschlandweit werden Verstöße zur Anzeige gebracht.'
+    district: "Falschparker anzeigen in %{zip} %{name}: So werden in %{state} Verstöße zur Anzeige gebracht."
     map: "Die Falschparker-Karte zeigt alle gemeldeten Parkverstöße und Anzeigen gegen Falschparker in %{district}."
     exports: "Die Falschparker-Exporte beinhalten anonymisiert die gemeldeten Parkverstöße und Anzeigen gegen Falschparker in Deutschland."
     leaderboard: "Das who-is-who der Falschparker-Melder auf weg.li. Wer erstattet die meisten Anzeigen gegen Falschparker in Deutschland."
@@ -294,8 +294,8 @@ de:
       importing: 'importiern'
     status-hints:
       initial: 'Der Massen-Upload ist noch leer.'
-      processing: 'Die Beweisfotos wurden gespeichert und werden verarbeitet, der Massen-Upload ist in kürze verfügbar.'
-      open: 'Die Beweisfotos wurden verarbeitet, bitte Meldungungen daraus erzeugen, vervollständigen und eine Anzeige erstatten.'
+      processing: 'Die Beweisfotos wurden gespeichert und werden verarbeitet, der Massen-Upload ist in Kürze verfügbar.'
+      open: 'Die Beweisfotos wurden verarbeitet, bitte Meldungen daraus erzeugen, vervollständigen und eine Anzeige erstatten.'
       done: 'Alle Beweisfotos des Massen-Uploads wurden neuen Meldungen zugeordnet.'
       error: 'Die Verarbeitung des Massen-Uploads wurde nach einem Fehler abgebrochen.'
       importing: 'Die Beweisfotos werden aus einem Album importiert.'
