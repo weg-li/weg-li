@@ -39,7 +39,7 @@ ActiveSupport::Notifications.subscribe(/rack_attack/) do |name, start, finish, i
   unless name.match?(/safelist/)
     @slack_client ||= Slack::Client.new
     req = payload[:request]
-    msg = "#{req.env['HTTP_TRUE_CLIENT_IP']} #{req.env['HTTP_X_FORWARDED_FOR']} #{req.env['PATH_INFO']} #{req.env['REMOTE_ADDR']}"
+    msg = "#{req.env['HTTP_TRUE_CLIENT_IP']} #{req.env['HTTP_X_FORWARDED_FOR']} #{req.env['HTTP_HOST']} #{req.env['PATH_INFO']} #{req.env['REMOTE_ADDR']}"
 
     @slack_client.say("Rack Attack: #{name} #{msg}")
   end
