@@ -23,8 +23,7 @@ module Admin
           pg_statio_user_tables
       SQL
 
-      @query_cache =
-        ActiveRecord::Base.connection.execute(query_cache_sql).first
+      @query_cache = ActiveRecord::Base.connection.execute(query_cache_sql).first
 
       index_cache_sql = <<-SQL
         SELECT
@@ -35,8 +34,7 @@ module Admin
           pg_statio_user_indexes
       SQL
 
-      @index_cache =
-        ActiveRecord::Base.connection.execute(index_cache_sql).first
+      @index_cache = ActiveRecord::Base.connection.execute(index_cache_sql).first
 
       index_usage_sql = <<-SQL
         SELECT
@@ -52,6 +50,8 @@ module Admin
       @index_usage = ActiveRecord::Base.connection.execute(index_usage_sql)
 
       @cache_stats = Rails.cache.try(:stats)
+
+      @api_stats = Counter.stats
 
       @env =
         ENV
