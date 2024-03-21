@@ -38,7 +38,7 @@ class District < ApplicationRecord
     ban_disposable_email: true,
     partial: true,
   }
-  # District.pluck(:email).reject {|email| ValidateEmail.valid?(email, {mx: true, ban_disposable_email: true, partial: true })}
+  normalizes :email, with: ->(email) { email.strip.downcase }
 
   geocoded_by :geocode_address, language: proc { |_model| I18n.locale }, no_annotations: true
   after_validation :geocode, if: :geocode_address_changed?

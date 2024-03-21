@@ -24,6 +24,14 @@ describe User do
   end
 
   context "normalization" do
+    it "handles emails" do
+      user.email = "  UpperCaseWithWhiteSpace@sushI.de  \n"
+      expect(user).to be_valid
+      expect(user.email).to eql("uppercasewithwhitespace@sushi.de")
+    end
+  end
+
+  context "normalization" do
     it "downcases the email" do
       user.update!(email: "E-mail@uschi.de")
       expect(user.reload.email).to eql("e-mail@uschi.de")

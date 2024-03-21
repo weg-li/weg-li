@@ -17,6 +17,14 @@ describe District do
     end
   end
 
+  context "normalization" do
+    it "handles emails" do
+      district.email = "  UpperCaseWithWhiteSpace@sushI.de  \n"
+      expect(district).to be_valid
+      expect(district.email).to eql("uppercasewithwhitespace@sushi.de")
+    end
+  end
+
   context "emails" do
     it "handles aliases" do
       expect(district.all_emails).to eql([district.email] + district.aliases)

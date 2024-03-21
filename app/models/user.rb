@@ -17,11 +17,8 @@ class User < ApplicationRecord
 
   enum access: { disabled: -99, user: 0, community: 1, studi: 2, admin: 42 }
 
-  geocoded_by :geocode_address,
-              language: proc { |_model| I18n.locale },
-              no_annotations: true
+  geocoded_by :geocode_address, language: proc { |_model| I18n.locale }, no_annotations: true
   after_validation :geocode, if: :geocode_address_changed?
-  after_validation :normalize
   before_validation :defaults
 
   belongs_to :district, optional: true, foreign_key: :zip, primary_key: :zip
@@ -52,6 +49,8 @@ class User < ApplicationRecord
   }
   validates :name, format: { with: /\D+\s+\D/ }
 
+  normalizes :email, with: ->(email) { email.strip.downcase }
+
   scope :last_login_since, ->(date) { where("last_login > ?", date) }
   scope :since, ->(date) { where("created_at > ?", date) }
   scope :for_public, -> { not_hide_public_profile }
@@ -70,6 +69,10 @@ class User < ApplicationRecord
       source.notices.update_all(user_id: id)
       source.bulk_uploads.update_all(user_id: id)
     end
+  end
+
+  def counter
+    @counter ||= Counter.new(self)
   end
 
   def favorite_tbnrs(max: 25)
