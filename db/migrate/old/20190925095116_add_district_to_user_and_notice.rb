@@ -5,7 +5,7 @@ class AddDistrictToUserAndNotice < ActiveRecord::Migration[6.0]
       dir.up do
         rename_column(:notices, :district, :district_legacy)
         # DistrictLegacy.all.each do |dis_leg|
-        #   district = District.from_zip(dis_leg.zip)
+        #   district = District.from_param(dis_leg.zip)
         #   Notice.where(district_legacy: dis_leg.name, district_id: nil).update_all(district_id: district.id) if district.present?
         # end
       end

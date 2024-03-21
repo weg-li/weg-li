@@ -17,4 +17,14 @@ describe "api/charges", type: :request do
       expect(response.body).to eql(Charge.active.as_api_response(:public_beta).to_json)
     end
   end
+
+  context "GET: show" do
+    it "index works" do
+      charge = Fabricate(:charge)
+      get api_charge_path(charge.tbnr), headers: @headers
+
+      expect(response).to be_ok
+      expect(response.body).to eql(charge.as_api_response(:public_beta).to_json)
+    end
+  end
 end

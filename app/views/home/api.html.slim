@@ -58,22 +58,26 @@
   .col-lg-12
     h3 🌟 Daten-Schnittstellen:
 
+    .alert.alert-warning
+      |
+        Diese Endpunkte sind veraltet und werden in Zukunft deaktiviert, die #{link_to('personalisierte API', '/api-docs')} sollte stattdessen verwendet werden!
+
     ul.list-group
       li.list-group-item
         span.badge(title="ohne login") allgemein
-        | Alle Bezirke als JSON <code>#{districts_url(format: :json)}</code> oder im Legacy-Format als CSV <code>#{districts_url(format: :csv)}</code>.
+        del Alle Bezirke als JSON <code>#{districts_url(format: :json)}</code> oder im Legacy-Format als CSV <code>#{districts_url(format: :csv)}</code>.
       li.list-group-item
         span.badge(title="ohne login") allgemein
-        | Ein Bezirk als JSON <code>#{district_url('PLZ', format: :json)}</code> 5-Stellige <code>PLZ</code> erforderlich.
+        del Ein Bezirk als JSON <code>#{district_url('PLZ', format: :json)}</code> 5-Stellige <code>PLZ</code> erforderlich.
       li.list-group-item
         span.badge(title="ohne login") allgemein
-        | Alle Tatbestände als JSON <code>#{charges_url(format: :json)}</code>.
+        del Alle Tatbestände als JSON <code>#{charges_url(format: :json)}</code>.
       li.list-group-item
         span.badge(title="ohne login") allgemein
-        | Alle intern verwendeten Tatbestände als CSV <code>#{list_charges_url(format: :csv)}</code>.
+        del Alle intern verwendeten Tatbestände als CSV <code>#{list_charges_url(format: :csv)}</code>.
       li.list-group-item
         span.badge(title="login notwendig") personalisiert
-        | Alle eigenen Parkverstöße als JSON <code>#{dump_notices_url(format: :json)}</code>.
+        del Alle eigenen Parkverstöße als JSON <code>#{dump_notices_url(format: :json)}</code>.
       li.list-group-item
         span.badge(title="ohne login") allgemein
-        | Alle Parkverstöße als anonymisierte Datensätze per Archiv-Download im #{link_to('Export-Bereich', exports_path)}.
+        del Alle Parkverstöße als anonymisierte Datensätze per Archiv-Download im #{link_to('Export-Bereich', exports_path)}.

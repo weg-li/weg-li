@@ -25,7 +25,7 @@ namespace :data do
       puts zip
       next if zip.blank?
 
-      district = District.from_zip(zip)
+      district = District.from_param(zip)
       if district.present?
         Rails.logger.info("found #{zip}: #{district.id}")
       else
@@ -47,7 +47,7 @@ namespace :data do
   task extend_district_data: :environment do
     zips_and_osm.each do |row|
       zip = row["plz"]
-      district = from_zip(zip)
+      district = from_param(zip)
       if district.present?
         Rails.logger.info("found #{zip}: #{district.id}")
       else

@@ -39,8 +39,8 @@ Rails.application.routes.draw do
       member { patch :mail }
     end
     resources :uploads, only: [:create]
-    resources :districts, only: [:index]
-    resources :charges, only: [:index]
+    resources :districts, only: [:index, :show]
+    resources :charges, only: [:index, :show]
   end
 
   resources :replies
