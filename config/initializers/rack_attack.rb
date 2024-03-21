@@ -31,6 +31,21 @@ Rack::Attack.blocklist('allow2ban login scrapers') do |req|
   end
 end
 
+Rack::Attack.blocklist_ip("167.88.61.92")
+Rack::Attack.blocklist_ip("170.64.189.9")
+Rack::Attack.blocklist_ip("189.71.230.38")
+Rack::Attack.blocklist_ip("23.26.220.31")
+Rack::Attack.blocklist_ip("23.26.220.8")
+Rack::Attack.blocklist_ip("24.50.225.166")
+Rack::Attack.blocklist_ip("31.186.172.143")
+Rack::Attack.blocklist_ip("47.107.64.152")
+Rack::Attack.blocklist_ip("50.63.17.204")
+Rack::Attack.blocklist_ip("51.75.247.45")
+Rack::Attack.blocklist_ip("52.178.204.143")
+Rack::Attack.blocklist_ip("66.115.142.161")
+Rack::Attack.blocklist_ip("84.247.181.144")
+Rack::Attack.blocklist_ip("91.92.249.96")
+
 # Always allow requests from render
 Rack::Attack.safelist_ip("10.0.0.0/8")
 
