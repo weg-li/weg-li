@@ -4,7 +4,7 @@ class Export < ApplicationRecord
   enum export_type: { notices: 0, replies: 1 }
   enum file_extension: { csv: 0, json: 1 }
 
-  validates :export_type, :interval, presence: true
+  validates :export_type, presence: true
 
   has_one_attached :archive
   belongs_to :user, optional: true
@@ -15,7 +15,6 @@ class Export < ApplicationRecord
 
   api_accessible(:public_beta) do |api|
     api.add(:export_type)
-    api.add(:interval)
     api.add(:file_extension)
     api.add(:created_at)
     api.add(:download)
@@ -46,7 +45,7 @@ class Export < ApplicationRecord
   end
 
   def display_name
-    "#{export_type} #{interval} #{(created_at || Date.today).year}"
+    "#{export_type} #{file_extension} #{I18n.l(created_at || Time.now, format: :short)}"
   end
 
   private

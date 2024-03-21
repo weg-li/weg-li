@@ -162,7 +162,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_21_085138) do
 
   create_table "exports", force: :cascade do |t|
     t.integer "export_type", default: 0, null: false
-    t.integer "interval", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"

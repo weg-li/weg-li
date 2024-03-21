@@ -20,6 +20,13 @@ describe Export do
     end
   end
 
+  context "display_name" do
+    it "is present" do
+      export = Fabricate.build(:export)
+      expect(export.display_name).to eql("moin")
+    end
+  end
+
   context "finders" do
     it "should have a scope for public" do
       export = Fabricate.create(:export)

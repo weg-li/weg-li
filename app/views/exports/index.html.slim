@@ -15,7 +15,6 @@
           tr
             th = Export.human_attribute_name(:created_at)
             th = Export.human_attribute_name(:export_type)
-            th = Export.human_attribute_name(:interval)
             th = Export.human_attribute_name(:file_extension)
             th = Export.human_attribute_name(:archive)
             th
@@ -25,7 +24,6 @@
               tr
                 td = d(export.created_at)
                 td = export.translate_enum(:export_type)
-                td = export.interval
                 td = export.translate_enum(:file_extension)
                 td = "#{export.archive.filename} / #{number_to_human_size(export.archive.byte_size)}"
                 td

@@ -3,13 +3,8 @@
 require "csv"
 require "zip"
 
-class Scheduled::ExportJob < ApplicationJob
-  def perform(export_type: :notices)
-    Rails.logger.info(
-      "create export for type #{export_type}",
-    )
-
-    export = Export.new(export_type:)
+class UserExportJob < ApplicationJob
+  def perform(export)
     name = export.display_name.parameterize
 
     archive =

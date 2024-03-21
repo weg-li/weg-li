@@ -24,7 +24,6 @@ de:
       export:
         export_type: 'Art'
         file_extension: 'Format'
-        interval: 'Kalenderwoche'
         created_at: 'Erstellt'
         archive: 'Archiv'
         file_extensions:
