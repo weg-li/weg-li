@@ -96,9 +96,7 @@ Rails.application.routes.draw do
   # https://github.com/rails/rails/issues/1769#issuecomment-301643924
   resolve("User") { [:user] }
 
-  resources :districts do
-    member { get :wegeheld }
-  end
+  resources :districts
 
   resources :charges, only: %i[index show] do
     collection { get :list }

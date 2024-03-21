@@ -63,13 +63,6 @@ class District < ApplicationRecord
     ].each { |key| template.add(key) }
   end
 
-  api_accessible :wegeheld do |template|
-    template.add :id
-    template.add :name
-    template.add :email
-    template.add :zip, as: :postalcode
-  end
-
   def self.from_zip(zip)
     active.find_by(zip:)
   end

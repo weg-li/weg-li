@@ -80,14 +80,6 @@ class DistrictsController < ApplicationController
     end
   end
 
-  def wegeheld
-    district = District.active.from_param(params[:id])
-
-    respond_to do |format|
-      format.json { render json: district.as_api_response(:wegeheld) }
-    end
-  end
-
   private
 
   def district_params

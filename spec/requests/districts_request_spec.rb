@@ -84,20 +84,4 @@ describe "districts", type: :request do
       expect(response).to be_a_redirect
     end
   end
-
-  context "districts#wegeheld" do
-    it "renders a district as json" do
-      district = Fabricate(:district, zip: "41460", name: "Neuss", id: 42, email: "verkehrslenkung@stadt.neuss.de")
-      get wegeheld_district_path(district.zip, format: :json)
-
-      expect(response).to be_successful
-      expect(JSON.parse(response.body)).to eql({ "postalcode" => "41460", "name" => "Neuss", "id" => 42, "email" => "verkehrslenkung@stadt.neuss.de" })
-    end
-
-    it "404s for unknown zips" do
-      get wegeheld_district_path("unknown", format: :json)
-
-      expect(response).to be_not_found
-    end
-  end
 end
