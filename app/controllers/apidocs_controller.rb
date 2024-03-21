@@ -57,6 +57,10 @@ class ApidocsController < ActionController::Base
   end
 
   SWAGGERED_CLASSES = [
+    Api::ChargesController,
+    Api::Charge,
+    Api::DistrictsController,
+    Api::District,
     Api::NoticesController,
     Api::Notice,
     Api::UploadsController,
