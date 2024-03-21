@@ -99,6 +99,17 @@ describe UserMailer do
     end
   end
 
+  describe "pdf" do
+    let(:user) { Fabricate(:user) }
+    let(:export) { Fabricate(:export, user:) }
+    let(:mail) { UserMailer.export(export) }
+
+    it "renders the mail" do
+      expect(mail.subject).to_not be_nil
+      expect(mail.to).to eq([user.email])
+    end
+  end
+
   describe "autoreply" do
     let(:inbound_email) { create_inbound_email_from_fixture("example.eml", status: :delivered) }
     let(:reply) { Fabricate(:reply) }

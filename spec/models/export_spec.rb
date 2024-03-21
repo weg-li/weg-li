@@ -11,19 +11,20 @@ describe Export do
     end
   end
 
-  context "header" do
+  context "fields" do
     it "is present" do
-      expect(export.header).to eql(%i[start_date end_date tbnr street city zip latitude longitude])
-
-      export = Fabricate.build(:export)
-      expect(export.header).to be_present
+      expect(export.send(:notices_fields)).to eql(%i[start_date end_date tbnr street city zip latitude longitude])
+      export.user = Fabricate.create(:user)
+      expect(export.send(:notices_fields)).to eql(%i[token registration brand color street city zip location tbnr note start_date end_date latitude longitude vehicle_empty hazard_lights expired_tuv expired_eco over_2_8_tons])
     end
   end
 
   context "display_name" do
     it "is present" do
-      export = Fabricate.build(:export)
-      expect(export.display_name).to eql("moin")
+      travel_to("20.01.2020 15:00:00 UTC".to_time.utc) do
+        export = Fabricate.build(:export)
+        expect(export.display_name).to eql("notices csv 20.01.2020 16:00")
+      end
     end
   end
 

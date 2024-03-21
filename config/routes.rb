@@ -78,7 +78,6 @@ Rails.application.routes.draw do
     end
 
     collection do
-      get :dump
       get :stats
       get :map
       post :geocode
@@ -99,11 +98,7 @@ Rails.application.routes.draw do
   resolve("User") { [:user] }
 
   namespace :user do
-    resources :exports, only: %i[index] do
-      collection do
-        post :generate
-      end
-    end
+    resources :exports, only: %i[index create destroy]
   end
 
   resources :districts do

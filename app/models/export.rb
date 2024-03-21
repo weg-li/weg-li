@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Export < ApplicationRecord
-  enum export_type: { notices: 0, replies: 1 }
-  enum file_extension: { csv: 0, json: 1 }
+  enum export_type: { notices: 0 }
+  enum file_extension: { csv: 0 }
 
   validates :export_type, presence: true
 
@@ -25,16 +25,9 @@ class Export < ApplicationRecord
     { filename: archive.filename, url: redirect_url }
   end
 
-  def header
-    case export_type.to_sym
-    when :notices
-      %i[start_date end_date tbnr street city zip latitude longitude]
-    else
-      raise "unsupported type #{export_type}"
-    end
-  end
-
   def data(&block)
+    header = send("#{export_type}_fields")
+    block.call(header)
     scope = send("#{export_type}_scope")
     scope.in_batches do |batch|
       batch.each do |record|
@@ -50,11 +43,23 @@ class Export < ApplicationRecord
 
   private
 
+  def notices_fields
+    if user.present?
+      %i[token registration brand color street city zip location tbnr note start_date end_date latitude longitude] + Notice.bitfields[:flags].keys
+    else
+      %i[start_date end_date tbnr street city zip latitude longitude]
+    end
+  end
+
   def notices_scope
-    Notice.shared.select(header)
+    if user.present?
+      user.notices
+    else
+      Notice.shared.select(notices_fields)
+    end
   end
 
   def notices_entries(notice)
-    [header.map { |key| notice.send(key) }]
+    [notices_fields.map { |key| notice.send(key) }]
   end
 end

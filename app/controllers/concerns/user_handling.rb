@@ -29,13 +29,9 @@ module UserHandling
 
   def validate!
     if !current_user.validated?
-      redirect_to edit_user_path,
-                  alert:
-                    "Die E-Mail Adresse wurde noch nicht per Link bestätigt, bitte überprüfe Deine E-Mails!"
+      redirect_to edit_user_path, alert: "Die E-Mail Adresse wurde noch nicht per Link bestätigt, bitte überprüfe Deine E-Mails!"
     elsif current_user.disabled?
-      redirect_to edit_user_path,
-                  alert:
-                    'Dein Account wurde vorrübergehend deaktiviert, bitte wende Dich an den <a href="mailto:peter@weg.li?subject=Konto aktivieren">Support</a>!'
+      redirect_to edit_user_path, alert: 'Dein Account wurde vorrübergehend deaktiviert, bitte wende Dich an den <a href="mailto:peter@weg.li?subject=Konto aktivieren">Support</a>!'
     end
   end
 

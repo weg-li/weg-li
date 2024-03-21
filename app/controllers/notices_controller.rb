@@ -23,12 +23,6 @@ class NoticesController < ApplicationController
     end
   end
 
-  def dump
-    notices = current_user.notices.as_api_response(:public_beta)
-
-    render json: { notices: }
-  end
-
   def suggest
     term = (params[:term] || "").upcase
     notices = current_user.notices.search(term).order(:registration).limit(25)

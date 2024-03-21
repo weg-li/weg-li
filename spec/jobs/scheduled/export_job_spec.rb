@@ -17,7 +17,7 @@ describe Scheduled::ExportJob do
         end.to change { Export.count }.by(1)
 
         result = Export.last.archive.download
-        file_fixture("notice_export.zip").binwrite(result)
+        # file_fixture("notice_export.zip").binwrite(result)
         expect(notice_export.size).to eql(result.size)
 
         Zip::File.open_buffer(result) do |zip_file|

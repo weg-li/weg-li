@@ -73,7 +73,9 @@
         | Alle intern verwendeten Tatbestände als CSV <code>#{list_charges_url(format: :csv)}</code>.
       li.list-group-item
         span.badge(title="login notwendig") personalisiert
-        | Alle eigenen Parkverstöße als JSON <code>#{dump_notices_url(format: :json)}</code>.
+        del Alle eigenen Parkverstöße als JSON.
+        br
+        em Parkverstöße können können nur noch #{link_to "als Export", user_exports_path } heruntergeladen werden.
       li.list-group-item
         span.badge(title="ohne login") allgemein
         | Alle Parkverstöße als anonymisierte Datensätze per Archiv-Download im #{link_to('Export-Bereich', exports_path)}.

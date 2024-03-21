@@ -1,11 +1,22 @@
+- max_exports_size = 10
+- too_many_exports = @exports.size >= max_exports_size
+- if too_many_exports
+  .alert.alert-info
+    | Es können maximal #{max_exports_size} gespeichert werden. Bitte lösche alte Exporte nach dem Download.
 
 .well
-  = form_for(Export.new(export_type: nil, file_extension: nil), url: generate_user_exports_path, html:{ class: 'form-inline' }) do |form|
-    .form-group
-      = form.select :export_type, [:notices, :replies].map {|type| [Export.human_enum_name(:export_type, type), type]}, { include_blank: 'Typ Auswählen' }, { class: "form-control", required: true }
-      = form.select :file_extension, [:csv, :json].map {|extension| [Export.human_enum_name(:file_extension, extension), extension]}, { include_blank: 'Format Auswählen' }, { class: "form-control", required: true }
-      = form.submit "Export starten", class: "btn btn-success", data: {confirm: 'Immer nur einen Export zur Zeit starten!'}
-
+  .row
+    .col-sm-6
+      p
+        |
+          Wähle den Typ und das Format für den Export aus und klicke dann auf Starten.
+          Sobald die Export-Archiv zum Download bereit steht, erhältst Du eine E-Mail.
+    .col-sm-6
+      = form_for(Export.new(export_type: nil, file_extension: nil), url: user_exports_path, html:{ class: 'form-inline' }) do |form|
+        fieldset.form-group(disabled = too_many_exports)
+          = form.select :export_type, Export.export_types.keys.map {|type| [Export.human_enum_name(:export_type, type), type]}, { include_blank: 'Typ Auswählen' }, { class: "form-control", required: true }
+          = form.select :file_extension, Export.file_extensions.keys.map {|extension| [Export.human_enum_name(:file_extension, extension), extension]}, { include_blank: 'Format Auswählen' }, { class: "form-control", required: true }
+          = form.submit "Export starten", class: "btn btn-success", data: {confirm: 'Immer nur einen Export zur Zeit starten!'}
 
 .panel.panel-default
   .table-responsive
@@ -23,13 +34,14 @@
             tr
               td = d(export.created_at)
               td = export.translate_enum(:export_type)
-              td = export.translate_enum(:export_type)
-              td = "#{export.archive.filename} / #{number_to_human_size(export.archive.byte_size)}"
+              td = export.translate_enum(:file_extension)
               td
-                = link_to(rails_blob_path(export.archive, disposition: "attachment"), class: 'btn btn-sm btn-default', rel: "noindex, nofollow", title: 'herunterladen') do
-                  span.glyphicon.glyphicon-download>
-                  | Herunterladen
-
+                - if export.archive.attached?
+                   = link_to("#{export.archive.filename} / #{number_to_human_size(export.archive.byte_size)}", rails_blob_path(export.archive, disposition: "attachment"), title: 'herunterladen')
+                - else
+                  span.glyphicon.glyphicon-hourglass>
+                  | Wird generiert
+              td = render("actions", export: export)
         - else
           tr
             td(colspan=5) Es wurden keine Einträge gefunden

@@ -1,0 +1,14 @@
+.dropdown
+  button.btn.btn-default.btn-sm.dropdown-toggle type="button" data-toggle="dropdown"
+    | <span class="glyphicon glyphicon-cog"></span>
+    =<> 'Aktionen'
+    | <span class="caret"></span>
+  ul.dropdown-menu
+    li
+      - if export.archive.attached?
+        = link_to(rails_blob_path(export.archive, disposition: "attachment"), rel: "noindex, nofollow", title: 'herunterladen') do
+          span.glyphicon.glyphicon-download>
+          | Herunterladen
+      = link_to user_export_path(export), method: :delete, data: {confirm: 'Der Export wird endgültig gelöscht'}, title: 'löschen'
+        span.glyphicon.glyphicon-trash>
+        | löschen

@@ -4,22 +4,19 @@ class UserMailer < ApplicationMailer
   def signup(user)
     @user = user
 
-    mail to: email_address_with_name(@user.email, @user.name),
-         subject: t("mailers.signup")
+    mail to: email_address_with_name(@user.email, @user.name), subject: t("mailers.signup")
   end
 
   def validate(user)
     @user = user
 
-    mail to: email_address_with_name(@user.email, @user.name),
-         subject: t("mailers.validate")
+    mail to: email_address_with_name(@user.email, @user.name), subject: t("mailers.validate")
   end
 
   def activate(user)
     @user = user
 
-    mail to: email_address_with_name(@user.email, @user.name),
-         subject: t("mailers.activate")
+    mail to: email_address_with_name(@user.email, @user.name), subject: t("mailers.activate")
   end
 
   def login_link(user, token)
@@ -62,6 +59,14 @@ class UserMailer < ApplicationMailer
     mail subject:, to: email_address_with_name(@user.email, @user.name)
   end
 
+  def export(export)
+    @export = export
+    @user = export.user
+
+    subject = "Dein Export #{export.display_name} wurde generiert"
+    mail subject:, to: email_address_with_name(@user.email, @user.name)
+  end
+
   def autoreply(user, reply)
     @user = user
     @reply = reply
@@ -71,8 +76,7 @@ class UserMailer < ApplicationMailer
       mime_type: "application/octet-stream",
       content: reply.action_mailbox_inbound_email.raw_email.download.to_s,
     }
-    subject =
-      "Automatische Antwort auf Anzeige #{@notice.registration} #{@notice.tbnr}"
+    subject = "Automatische Antwort auf Anzeige #{@notice.registration} #{@notice.tbnr}"
     mail subject:, to: email_address_with_name(@user.email, @user.name)
   end
 end
