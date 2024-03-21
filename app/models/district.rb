@@ -44,7 +44,7 @@ class District < ApplicationRecord
   after_validation :geocode, if: :geocode_address_changed?
 
   include Blockable
-  self.blockables = %w[gmail.com web.de t-online.de gmx.de hotmail.de vodafone.de 1und1.de freenet.de aol.com yahoo.de outlook.de]
+  self.blockables = %w[gmail.com web.de t-online.de gmx.de hotmail.de vodafone.de 1und1.de freenet.de aol.com yahoo.de yahoo.com outlook.de]
 
   acts_as_api
 
