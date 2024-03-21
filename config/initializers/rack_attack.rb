@@ -32,6 +32,7 @@ Rack::Attack.blocklist('allow2ban login scrapers') do |req|
 end
 
 Rack::Attack.blocklist_ip("143.110.185.65")
+Rack::Attack.blocklist_ip("159.65.1.205")
 Rack::Attack.blocklist_ip("167.88.61.92")
 Rack::Attack.blocklist_ip("170.64.189.9")
 Rack::Attack.blocklist_ip("189.71.230.38")
