@@ -1,20 +1,10 @@
-= form_for(Export.new(interval: Date.today.cweek), url: generate_user_exports_path) do |form|
-  .well
-    .row
-      .col-lg-6
-        .form-group
-          = form.label :export_type, class: "control-label control-label-required"
-          = form.select :export_type, [:photos, :profiles].map {|type| [Export.human_enum_name(:export_type, type), type]}, { include_blank: 'Typ Auswählen' }, { class: "form-control", required: true }
-      .col-lg-6
-        .form-group
-          = form.label :interval, class: "control-label control-label-required"
-          = form.text_field :interval, class: "form-control", required: true
 
-  .row
-    .col-lg-12
-      .pull-right
-        .btn-group
-          = form.submit "Export starten", class: "btn btn-success", data: {confirm: 'Immer nur einen Export zur Zeit starten!'}
+.well
+  = form_for(Export.new(export_type: nil, file_extension: nil), url: generate_user_exports_path, html:{ class: 'form-inline' }) do |form|
+    .form-group
+      = form.select :export_type, [:notices, :replies].map {|type| [Export.human_enum_name(:export_type, type), type]}, { include_blank: 'Typ Auswählen' }, { class: "form-control", required: true }
+      = form.select :file_extension, [:csv, :json].map {|extension| [Export.human_enum_name(:file_extension, extension), extension]}, { include_blank: 'Format Auswählen' }, { class: "form-control", required: true }
+      = form.submit "Export starten", class: "btn btn-success", data: {confirm: 'Immer nur einen Export zur Zeit starten!'}
 
 
 .panel.panel-default
@@ -24,6 +14,7 @@
         tr
           th = Export.human_attribute_name(:created_at)
           th = Export.human_attribute_name(:export_type)
+          th = Export.human_attribute_name(:file_extension)
           th = Export.human_attribute_name(:archive)
           th
       tbody
@@ -32,7 +23,7 @@
             tr
               td = d(export.created_at)
               td = export.translate_enum(:export_type)
-              td = export.interval
+              td = export.translate_enum(:export_type)
               td = "#{export.archive.filename} / #{number_to_human_size(export.archive.byte_size)}"
               td
                 = link_to(rails_blob_path(export.archive, disposition: "attachment"), class: 'btn btn-sm btn-default', rel: "noindex, nofollow", title: 'herunterladen') do

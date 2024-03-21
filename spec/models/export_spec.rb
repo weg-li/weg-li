@@ -15,10 +15,17 @@ describe Export do
     it "is present" do
       expect(export.header).to eql(%i[start_date end_date tbnr street city zip latitude longitude])
 
-      Export.export_types.each_key do |export_type|
-        export = Fabricate.build(:export, export_type:)
-        expect(export.header).to be_present
-      end
+      export = Fabricate.build(:export)
+      expect(export.header).to be_present
+    end
+  end
+
+  context "finders" do
+    it "should have a scope for public" do
+      export = Fabricate.create(:export)
+      Fabricate.create(:export, user: Fabricate.create(:user))
+
+      expect(Export.for_public.to_a).to eql([export])
     end
   end
 
@@ -26,11 +33,9 @@ describe Export do
     it "should have data" do
       Fabricate.create(:notice, status: :shared)
 
-      Export.export_types.each_key do |export_type|
-        export = Fabricate.build(:export, export_type:)
-        export.data do |data|
-          expect(data).to_not be_nil
-        end
+      export = Fabricate.build(:export)
+      export.data do |data|
+        expect(data).to_not be_nil
       end
     end
   end

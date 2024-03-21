@@ -23,13 +23,16 @@ de:
     attributes:
       export:
         export_type: 'Art'
+        file_extension: 'Format'
         interval: 'Kalenderwoche'
         created_at: 'Erstellt'
         archive: 'Archiv'
+        file_extensions:
+          csv: 'CSV'
+          json: 'JSON'
         export_types:
           notices: Meldungen
-          photos: Fotos
-          profiles: Meldungs-Profil
+          replies: Antworten
       district:
         zip: 'PLZ'
         name: 'Name'

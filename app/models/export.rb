@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Export < ApplicationRecord
-  enum export_type: { notices: 0 }
+  enum export_type: { notices: 0, replies: 1 }
   enum file_extension: { csv: 0, json: 1 }
 
   validates :export_type, :interval, presence: true
@@ -30,10 +30,6 @@ class Export < ApplicationRecord
     case export_type.to_sym
     when :notices
       %i[start_date end_date tbnr street city zip latitude longitude]
-    when :profiles
-      %i[start_date end_date user_id tbnr street city zip latitude longitude]
-    when :photos
-      %i[photo_uri start_date end_date registration tbnr brand color]
     else
       raise "unsupported type #{export_type}"
     end
@@ -61,22 +57,5 @@ class Export < ApplicationRecord
 
   def notices_entries(notice)
     [header.map { |key| notice.send(key) }]
-  end
-
-  def profiles_scope
-    Notice.shared.select(header)
-  end
-
-  def profiles_entries(notice)
-    [header.map { |key| notice.send(key) }]
-  end
-
-  def photos_scope
-    Notice.shared.with_attached_photos.select(%i[id start_date end_date registration tbnr brand color])
-  end
-
-  def photos_entries(notice)
-    data = %i[start_date end_date registration tbnr brand color].map { |key| notice.send(key) }
-    notice.photos.map { |photo| [Annotator.bucket_uri(photo.key)] + data }
   end
 end
