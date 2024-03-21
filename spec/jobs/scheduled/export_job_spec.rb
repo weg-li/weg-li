@@ -19,6 +19,12 @@ describe Scheduled::ExportJob do
         result = Export.last.archive.download
         # file_fixture('notice_export.zip').binwrite(result)
         expect(notice_export.size).to eql(result.size)
+
+        Zip::File.open_buffer(result) do |zip_file|
+          zip_file.each do |entry|
+            expect(entry.get_input_stream.read).to eql(File.read(file_fixture(entry.name)))
+          end
+        end
       end
     end
 
