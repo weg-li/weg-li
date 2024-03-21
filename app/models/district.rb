@@ -63,10 +63,6 @@ class District < ApplicationRecord
     ].each { |key| template.add(key) }
   end
 
-  def self.from_param(zip)
-    active.find_by(zip:)
-  end
-
   def map_data
     { zoom: 13, latitude:, longitude: }
   end
