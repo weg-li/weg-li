@@ -26,6 +26,7 @@ class User < ApplicationRecord
 
   belongs_to :district, optional: true, foreign_key: :zip, primary_key: :zip
   has_many :bulk_uploads, -> { order(created_at: :desc) }, dependent: :destroy
+  has_many :exports, -> { order(created_at: :desc) }, dependent: :destroy
   has_many :notices, -> { order(created_at: :desc) }, dependent: :destroy
   has_many :replies, -> { order(created_at: :desc) }, through: :notices
   has_many :snippets, -> { order(:priority, [created_at: :desc]) }

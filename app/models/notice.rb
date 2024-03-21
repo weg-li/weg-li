@@ -381,11 +381,7 @@ class Notice < ApplicationRecord
 
   def attachments
     photos.map do |photo|
-      redirect_url =
-        Rails.application.routes.url_helpers.rails_blob_url(
-          photo,
-          Rails.configuration.action_mailer.default_url_options,
-        )
+      redirect_url = Rails.application.routes.url_helpers.rails_blob_url(photo, Rails.configuration.action_mailer.default_url_options)
       { filename: photo.filename, url: redirect_url }
     end
   end

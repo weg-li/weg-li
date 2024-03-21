@@ -16,9 +16,8 @@ class ApidocsController < ActionController::Base
       key :title, "weg.li API Docs"
       key :description,
           "
-      The weg.li API allows an authorized user to manage notices, upload photos and notify the authorities.
-
-      The API-KEY can be obtained via the profile page https://www.weg.li/user
+      The weg.li API allows an authorized user to manage noExport upload photos and notify the authorities.
+Export API-KEY can be obtained via the profile page https://www.weg.li/user
 
       Creating a notice requires creating uploads for each photo previously and uploading the binary data through a presigned URL to the gcloud.
 
@@ -50,6 +49,14 @@ class ApidocsController < ActionController::Base
         key :url, "https://swagger.io/specification/"
       end
     end
+    tag do
+      key :name, "export"
+      key :description, "Export operations"
+      externalDocs do
+        key :description, "Documentation of Types and Operations"
+        key :url, "https://swagger.io/specification/"
+      end
+    end
     key :host, Rails.env.development? ? "localhost:3000" : "www.weg.li"
     key :basePath, "/api"
     key :consumes, ["application/json"]
@@ -59,6 +66,8 @@ class ApidocsController < ActionController::Base
   SWAGGERED_CLASSES = [
     Api::NoticesController,
     Api::Notice,
+    Api::ExportsController,
+    Api::Export,
     Api::UploadsController,
     Api::Upload,
     Api::Error,

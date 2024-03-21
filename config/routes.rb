@@ -39,6 +39,9 @@ Rails.application.routes.draw do
       member { patch :mail }
     end
     resources :uploads, only: [:create]
+    resources :exports, only: [:index] do
+      collection { get :public }
+    end
   end
 
   resources :replies
@@ -87,7 +90,6 @@ Rails.application.routes.draw do
   resource :user, except: %i[create new index] do
     member do
       get :studi
-      post :generate_export
       patch :confirmation_mail
       patch :signature
       patch :destroy_signature
@@ -95,6 +97,14 @@ Rails.application.routes.draw do
   end
   # https://github.com/rails/rails/issues/1769#issuecomment-301643924
   resolve("User") { [:user] }
+
+  namespace :user do
+    resources :exports, only: %i[index] do
+      collection do
+        post :generate
+      end
+    end
+  end
 
   resources :districts do
     member { get :wegeheld }

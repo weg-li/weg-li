@@ -1,14 +1,30 @@
 # frozen_string_literal: true
 
 class Export < ApplicationRecord
-  enum export_type: { notices: 0, photos: 1, profiles: 2 }
+  enum export_type: { notices: 0 }
+  enum file_extension: { csv: 0, json: 1 }
 
   validates :export_type, :interval, presence: true
 
   has_one_attached :archive
+  belongs_to :user, optional: true
 
-  scope :for_public, -> { notices }
-  scope :for_studis, -> { not_notices }
+  scope :for_public, -> { where(user_id: nil) }
+
+  acts_as_api
+
+  api_accessible(:public_beta) do |api|
+    api.add(:export_type)
+    api.add(:interval)
+    api.add(:file_extension)
+    api.add(:created_at)
+    api.add(:download)
+  end
+
+  def download
+    redirect_url = Rails.application.routes.url_helpers.rails_blob_url(archive, Rails.configuration.action_mailer.default_url_options)
+    { filename: archive.filename, url: redirect_url }
+  end
 
   def header
     case export_type.to_sym

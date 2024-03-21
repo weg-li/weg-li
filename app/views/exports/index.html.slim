@@ -3,7 +3,9 @@
 
 .well
   |
-    Im Export-Bereich können anonymisierte Datensätze zu Parkverstößen im CSV-Format als Archiv heruntergeladen werden. Die Archive werden wöchentlich bereitgestellt.
+    Im Export-Bereich können anonymisierte Datensätze zu Parkverstößen im CSV-Format als Archiv heruntergeladen werden.
+    Die Archive werden wöchentlich bereitgestellt und enthalten den kompletten Datensatz. Der Download ist nur für angemeldete Nutzer möglich.
+    Bot-Nutzer können die #{link_to 'API', '/api-docs'} für den Zugriff mittels Token nutzen.
 
 .panel.panel-default
   - if @exports.present?
@@ -25,9 +27,14 @@
                 td = export.interval
                 td = "#{export.archive.filename} / #{number_to_human_size(export.archive.byte_size)}"
                 td
-                  = link_to(rails_blob_path(export.archive, disposition: "attachment"), class: 'btn btn-sm btn-default', rel: "noindex, nofollow", title: 'herunterladen') do
-                    span.glyphicon.glyphicon-download>
-                    | Herunterladen
+                  - if signed_in?
+                    = link_to(rails_blob_path(export.archive, disposition: "attachment"), class: 'btn btn-sm btn-default', rel: "noindex, nofollow", title: 'herunterladen') do
+                      span.glyphicon.glyphicon-download>
+                      | Herunterladen
+                  - else
+                    = link_to "#", data: {confirm: 'Der Download ist nur für angemeldete Nutzer möglich.'}, class: 'btn btn-sm btn-default'
+                      span.glyphicon.glyphicon-download>
+                      | Herunterladen
 
 .text-center
   = paginate @exports

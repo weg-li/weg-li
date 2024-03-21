@@ -68,10 +68,6 @@
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">#{gravatar(current_user)} <span class="caret"></span></a>
             ul.dropdown-menu
               li
-                = link_to snippets_path do
-                  span.glyphicon.glyphicon-pencil>
-                  span.margin-left-small Vorlagen verwalten
-              li
                 = link_to edit_user_path do
                   span.glyphicon.glyphicon-edit>
                   span.margin-left-small= t('navigation.edit_profile')
@@ -84,6 +80,14 @@
                   = link_to public_profile_path(current_user), target: '_blank' do
                     span.glyphicon.glyphicon-globe>
                     span.margin-left-small= t('navigation.view_public_profile')
+              li
+                = link_to snippets_path do
+                  span.glyphicon.glyphicon-pencil>
+                  span.margin-left-small Vorlagen verwalten
+              li
+                = link_to user_exports_path do
+                  span.glyphicon.glyphicon-pencil>
+                  span.margin-left-small Exporte ansehen
           li
             = link_to logout_path, title: t('navigation.logout') do
               span.glyphicon.glyphicon-log-out.small>
