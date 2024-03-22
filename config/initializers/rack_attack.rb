@@ -61,6 +61,6 @@ ActiveSupport::Notifications.subscribe(/rack_attack/) do |name, start, finish, i
     req = payload[:request]
     msg = "#{req.env['HTTP_TRUE_CLIENT_IP']} #{req.env['HTTP_USER_AGENT']} #{req.env['HTTP_X_FORWARDED_FOR']} #{req.env['HTTP_HOST']} #{req.env['PATH_INFO']} #{req.env['REMOTE_ADDR']}"
 
-    @slack_client.say("Rack Attack: #{name} #{msg}", "rack-attack")
+    @slack_client.say("Rack Attack: #{name} #{msg}", channel: "rack-attack")
   end
 end
