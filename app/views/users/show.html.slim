@@ -8,8 +8,6 @@
         li.list-group-item Mitglied seit: #{l(current_user.created_at.to_date)}
         li.list-group-item Status: #{render('access', access: current_user.access)}
 
-    = render('api_token')
-
     .panel.panel-default
       .panel-heading Statistik
       ul.list-group
@@ -17,6 +15,8 @@
           li.list-group-item
             = t(key, scope: 'notices.statistics')
             .badge.pull-right= value
+
+    = render('api_token')
 
   .col-lg-6
     = render('components/leaderboard', positions: @positions)

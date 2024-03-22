@@ -5,5 +5,12 @@
     = button_tag class: "btn btn-default btn-block", onclick: "event.preventDefault(); window.prompt('#{t('notices.copy_hint')}', '#{current_user.api_token}')" do
       span.glyphicon.glyphicon-list-alt>
       span API-Token kopieren
+  - counter_stats = current_user.counter.stats
+  - if counter_stats.present?
+    ul.list-group
+      - counter_stats.each do |key, value|
+        li.list-group-item
+          = key
+          .badge.pull-right= value
   .panel-footer
     | Schema und Beispiele können Entwickler in der #{link_to 'API-Documentation', '/api-docs', target: '_blank'} nachschauen.

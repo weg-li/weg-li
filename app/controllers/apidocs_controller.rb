@@ -64,6 +64,10 @@ Export API-KEY can be obtained via the profile page https://www.weg.li/user
   end
 
   SWAGGERED_CLASSES = [
+    Api::ChargesController,
+    Api::Charge,
+    Api::DistrictsController,
+    Api::District,
     Api::NoticesController,
     Api::Notice,
     Api::ExportsController,

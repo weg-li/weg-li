@@ -42,6 +42,8 @@ Rails.application.routes.draw do
     resources :exports, only: [:index] do
       collection { get :public }
     end
+    resources :districts, only: [:index, :show]
+    resources :charges, only: [:index, :show]
   end
 
   resources :replies
@@ -101,9 +103,7 @@ Rails.application.routes.draw do
     resources :exports, only: %i[index create destroy]
   end
 
-  resources :districts do
-    member { get :wegeheld }
-  end
+  resources :districts
 
   resources :charges, only: %i[index show] do
     collection { get :list }
