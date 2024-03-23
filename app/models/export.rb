@@ -45,7 +45,7 @@ class Export < ApplicationRecord
 
   def notices_fields
     if user.present?
-      %i[token registration brand color street city zip location tbnr note start_date end_date latitude longitude] + Notice.bitfields[:flags].keys
+      %i[token status registration brand color street city zip location tbnr note start_date end_date latitude longitude] + Notice.bitfields[:flags].keys
     else
       %i[start_date end_date tbnr street city zip latitude longitude]
     end

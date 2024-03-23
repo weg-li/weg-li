@@ -1,2 +1,2 @@
-token,registration,brand,color,street,city,zip,location,tbnr,note,start_date,end_date,latitude,longitude,vehicle_empty,hazard_lights,expired_tuv,expired_eco,over_2_8_tons
-1234,HH PS 123,BMW,black,Nazis boxen 42,Hamburg,22525,Beim Nazis-Raus Aufkleber,142170,Gehweg war versperrt,2024-01-18 16:00:00 +0100,2024-01-18 16:03:00 +0100,53.57532,10.01534,true,false,false,false,false
+token,status,registration,brand,color,street,city,zip,location,tbnr,note,start_date,end_date,latitude,longitude,vehicle_empty,hazard_lights,expired_tuv,expired_eco,over_2_8_tons
+1234,shared,HH PS 123,BMW,black,Nazis boxen 42,Hamburg,22525,Beim Nazis-Raus Aufkleber,142170,Gehweg war versperrt,2024-01-18 16:00:00 +0100,2024-01-18 16:03:00 +0100,53.57532,10.01534,true,false,false,false,false

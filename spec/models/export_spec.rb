@@ -15,7 +15,7 @@ describe Export do
     it "is present" do
       expect(export.send(:notices_fields)).to eql(%i[start_date end_date tbnr street city zip latitude longitude])
       export.user = Fabricate.create(:user)
-      expect(export.send(:notices_fields)).to eql(%i[token registration brand color street city zip location tbnr note start_date end_date latitude longitude vehicle_empty hazard_lights expired_tuv expired_eco over_2_8_tons])
+      expect(export.send(:notices_fields)).to eql(%i[token status registration brand color street city zip location tbnr note start_date end_date latitude longitude vehicle_empty hazard_lights expired_tuv expired_eco over_2_8_tons])
     end
   end
 
