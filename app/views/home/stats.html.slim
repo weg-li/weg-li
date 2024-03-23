@@ -17,25 +17,30 @@
 
 a.anchor#stats Stats Anchor
 
-ul.nav.nav-tabs.nav-panel.hidden-xs
-  - stats.each do |display, name|
-    li(class="#{'active' if display == @display}")= link_to(name, url_for(since: @since, interval: @interval, display: display, anchor: :stats))
+- if signed_in?
+  ul.nav.nav-tabs.nav-panel.hidden-xs
+    - stats.each do |display, name|
+      li(class="#{'active' if display == @display}")= link_to(name, url_for(since: @since, interval: @interval, display: display, anchor: :stats))
 
-.panel.panel-default.panel-nav
-  .panel-heading.text-right
-    = form_tag({url: url_for(anchor: :stats)}, method: :get, class: 'form-inline') do |form|
-      = hidden_field_tag(:display, @display)
-      .form-group.form-group-sm
-        .visible-xs
-          = select_tag(:display, options_for_select(stats.invert, @display), class: 'form-control')
-        - intervals = [['täglich', '1 day'], ['wöchentlich', '1 week'], ['monatlich', '1 month']]
-        = select_tag(:interval, options_for_select(intervals, @interval), class: 'form-control')
-        - durations = [['letzte Woche', 1], ['letzter Monat', 4], ['letztes Quartal', 4 * 3], ['halbes Jahr', 4 * 6], ['Jahr', 4 * 12]]
-        = select_tag(:since, options_for_select(durations, @since), class: 'form-control')
-        = submit_tag('Los', class: "btn btn-default btn-sm")
+  .panel.panel-default.panel-nav
+    .panel-heading.text-right
+      = form_tag({url: url_for(anchor: :stats)}, method: :get, class: 'form-inline') do |form|
+        = hidden_field_tag(:display, @display)
+        .form-group.form-group-sm
+          .visible-xs
+            = select_tag(:display, options_for_select(stats.invert, @display), class: 'form-control')
+          - intervals = [['täglich', '1 day'], ['wöchentlich', '1 week'], ['monatlich', '1 month']]
+          = select_tag(:interval, options_for_select(intervals, @interval), class: 'form-control')
+          - durations = [['letzte Woche', 1], ['letzter Monat', 4], ['letztes Quartal', 4 * 3], ['halbes Jahr', 4 * 6], ['Jahr', 4 * 12]]
+          = select_tag(:since, options_for_select(durations, @since), class: 'form-control')
+          = submit_tag('Los', class: "btn btn-default btn-sm")
 
-  .panel-body.well-chart
-    = cache("home_stats_#{@since}_#{@interval}_#{@display}", expires_in: 12.hours) do
-      = render('components/chart', name: @display, counts: count_sum[:counts], sums: count_sum[:sums])
-  .panel-footer
-    | Im #{link_to 'Export-Bereich', exports_path} können anonymisierte Datensätze zu Parkverstößen im CSV-Format als Archiv heruntergeladen werden.
+    .panel-body.well-chart
+      = cache("home_stats_#{@since}_#{@interval}_#{@display}", expires_in: 12.hours) do
+        = render('components/chart', name: @display, counts: count_sum[:counts], sums: count_sum[:sums])
+    .panel-footer
+      | Im #{link_to 'Export-Bereich', exports_path} können anonymisierte Datensätze zu Parkverstößen im CSV-Format als Archiv heruntergeladen werden.
+- else
+  .well
+    = render('components/register', text: 'Diese Inhalte stehen nur unseren registrierten Benutzern zur Verfügung!')
+    = image_tag  "stats.png", class: "img-responsive center-block img-rounded", alt: "Statistik zur Falschparker App"

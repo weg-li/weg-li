@@ -1,4 +1,4 @@
-- set_title "Falschparker-Melder-Leaderboard"
+- set_title "Falschparker Melder Leaderboard"
 - set_meta_description t('meta_description.leaderboard')
 
 .page-header
@@ -7,68 +7,73 @@
 .well
   | Das Leaderboard zeigt die Nutzer mit den meisten Falschparker-Meldungen. Derzeit werden 80% der Anzeigen gegen Falschparker von den aktivsten 20% der Nutzer erstattet.
 
-- ttl = 1.hour
-= cache("home_leaderboard_#{@limit}", expires_in: ttl) do
-  .row
-    .col-lg-6
-      h3 🥇 Wochen-Lead:
-      ul.list-group
-        - weekly_leaders.each_with_index do |(user_id, current), index|
-          li.list-group-item
-            - goal = weekly_leaders.first.last
-            .badge.pull-right #{number_with_delimiter(current)} Anzeigen
-            p
-              strong=> "#{index+1}. #{leaderboard_users.find { |user| user.id == user_id }&.public_nickname}"
-            .progress.progress-striped.active
-              .progress-bar.progress-bar-success(style="width: #{[100, current / (goal.fdiv(100))].min}%")
-    .col-lg-6
-      h3 🥇 Monats-Lead:
-      ul.list-group
-        - monthly_leaders.each_with_index do |(user_id, current), index|
-          li.list-group-item
-            - goal = monthly_leaders.first.last
-            .badge.pull-right #{number_with_delimiter(current)} Anzeigen
-            p
-              strong=> "#{index+1}. #{leaderboard_users.find { |user| user.id == user_id }&.public_nickname}"
-            .progress.progress-striped.active
-              .progress-bar.progress-bar-success(style="width: #{[100, current / (goal.fdiv(100))].min}%")
-
-  .row
-    .col-lg-6
-      h3 🥇 Jahres-Lead:
-      ul.list-group
-        - yearly_leaders.each_with_index do |(user_id, current), index|
-          li.list-group-item
-            - goal = yearly_leaders.first.last
-            .badge.pull-right #{number_with_delimiter(current)} Anzeigen
-            p
-              strong=> "#{index+1}. #{leaderboard_users.find { |user| user.id == user_id }&.public_nickname}"
-            .progress.progress-striped.active
-              .progress-bar.progress-bar-success(style="width: #{[100, current / (goal.fdiv(100))].min}%")
-    .col-lg-6
-      h3 🥇 All-Time-Lead:
-      ul.list-group
-        - total_leaders.each_with_index do |(user_id, current), index|
-          li.list-group-item
-            - goal = total_leaders.first.last
-            .badge.pull-right #{number_with_delimiter(current)} Anzeigen
-            p
-              strong=> "#{index+1}. #{leaderboard_users.find { |user| user.id == user_id }&.public_nickname}"
-            .progress.progress-striped.active
-              .progress-bar.progress-bar-success(style="width: #{[100, current / (goal.fdiv(100))].min}%")
-
-  .row
-    - year_leaders.keys.each do |year|
+- if signed_in?
+  - ttl = 1.hour
+  = cache("home_leaderboard_#{@limit}", expires_in: ttl) do
+    .row
       .col-lg-6
-        h3 🥇 #{year}-Winner:
+        h3 🥇 Wochen-Lead:
         ul.list-group
-          - year_leaders[year].each_with_index do |(user_id, current), index|
+          - weekly_leaders.each_with_index do |(user_id, current), index|
             li.list-group-item
-              - goal = year_leaders[year].first.last
+              - goal = weekly_leaders.first.last
+              .badge.pull-right #{number_with_delimiter(current)} Anzeigen
+              p
+                strong=> "#{index+1}. #{leaderboard_users.find { |user| user.id == user_id }&.public_nickname}"
+              .progress.progress-striped.active
+                .progress-bar.progress-bar-success(style="width: #{[100, current / (goal.fdiv(100))].min}%")
+      .col-lg-6
+        h3 🥇 Monats-Lead:
+        ul.list-group
+          - monthly_leaders.each_with_index do |(user_id, current), index|
+            li.list-group-item
+              - goal = monthly_leaders.first.last
               .badge.pull-right #{number_with_delimiter(current)} Anzeigen
               p
                 strong=> "#{index+1}. #{leaderboard_users.find { |user| user.id == user_id }&.public_nickname}"
               .progress.progress-striped.active
                 .progress-bar.progress-bar-success(style="width: #{[100, current / (goal.fdiv(100))].min}%")
 
-  p.small.muted = "Wird aktualisiert: #{l Time.now + ttl, format: :short}"
+    .row
+      .col-lg-6
+        h3 🥇 Jahres-Lead:
+        ul.list-group
+          - yearly_leaders.each_with_index do |(user_id, current), index|
+            li.list-group-item
+              - goal = yearly_leaders.first.last
+              .badge.pull-right #{number_with_delimiter(current)} Anzeigen
+              p
+                strong=> "#{index+1}. #{leaderboard_users.find { |user| user.id == user_id }&.public_nickname}"
+              .progress.progress-striped.active
+                .progress-bar.progress-bar-success(style="width: #{[100, current / (goal.fdiv(100))].min}%")
+      .col-lg-6
+        h3 🥇 All-Time-Lead:
+        ul.list-group
+          - total_leaders.each_with_index do |(user_id, current), index|
+            li.list-group-item
+              - goal = total_leaders.first.last
+              .badge.pull-right #{number_with_delimiter(current)} Anzeigen
+              p
+                strong=> "#{index+1}. #{leaderboard_users.find { |user| user.id == user_id }&.public_nickname}"
+              .progress.progress-striped.active
+                .progress-bar.progress-bar-success(style="width: #{[100, current / (goal.fdiv(100))].min}%")
+
+    .row
+      - year_leaders.keys.each do |year|
+        .col-lg-6
+          h3 🥇 #{year}-Winner:
+          ul.list-group
+            - year_leaders[year].each_with_index do |(user_id, current), index|
+              li.list-group-item
+                - goal = year_leaders[year].first.last
+                .badge.pull-right #{number_with_delimiter(current)} Anzeigen
+                p
+                  strong=> "#{index+1}. #{leaderboard_users.find { |user| user.id == user_id }&.public_nickname}"
+                .progress.progress-striped.active
+                  .progress-bar.progress-bar-success(style="width: #{[100, current / (goal.fdiv(100))].min}%")
+
+    p.small.muted = "Wird aktualisiert: #{l Time.now + ttl, format: :short}"
+- else
+  .well
+    = render('components/register', text: 'Diese Inhalte stehen nur unseren registrierten Benutzern zur Verfügung!')
+    = image_tag "leaderboard.png", class: "img-responsive center-block img-rounded", alt: "Leaderboard zur Falschparker App"

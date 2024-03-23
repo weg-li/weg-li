@@ -7,28 +7,33 @@
 .well
   | In den letzten #{@since} Tagen wurden in #{@district} insgesamt #{number_with_delimiter(@notices.size)} Anzeigen gegen Falschparker von #{number_with_delimiter(@active)} Benutzern erstattet.
 
-.row
-  .col-lg-12
-    = render("components/map/filter", notices: @notices, district: @district, display: @display, since: @since, init: @default_district.map_data)
-
-- if @notices.present?
-  hr.spacer
-
+- if signed_in?
   .row
-    .col-lg-8
-      h3 📈 Die häufigsten Vergehen
-      ul.list-group
-        - grouped = @notices.group_by(&:tbnr).sort_by {|_, group| group.size }.reverse
-        - grouped.first(@limit).each do |key, group|
-          li.list-group-item
-            .badge.pull-right= number_with_delimiter(group.size)
-            - charge = Charge.find_by(tbnr: key)
-            = link_to charge.description, charge_path(key)
+    .col-lg-12
+      = render("components/map/filter", notices: @notices, district: @district, display: @display, since: @since, init: @default_district.map_data)
 
-    .col-lg-4
-      h3 📈 Die häufigsten Automarken
-      ul.list-group
-        - grouped = @notices.reject { |notice| notice.brand.blank? }.group_by(&:brand).sort_by {|_, group| group.size }.reverse
-        - grouped.first(@limit).each do |key, group|
-          li.list-group-item
-            = render('components/vehicle_count', count: @notices.size, brand_count: group.size, brand: key)
+  - if @notices.present?
+    hr.spacer
+
+    .row
+      .col-lg-8
+        h3 📈 Die häufigsten Vergehen
+        ul.list-group
+          - grouped = @notices.group_by(&:tbnr).sort_by {|_, group| group.size }.reverse
+          - grouped.first(@limit).each do |key, group|
+            li.list-group-item
+              .badge.pull-right= number_with_delimiter(group.size)
+              - charge = Charge.find_by(tbnr: key)
+              = link_to charge.description, charge_path(key)
+
+      .col-lg-4
+        h3 📈 Die häufigsten Automarken
+        ul.list-group
+          - grouped = @notices.reject { |notice| notice.brand.blank? }.group_by(&:brand).sort_by {|_, group| group.size }.reverse
+          - grouped.first(@limit).each do |key, group|
+            li.list-group-item
+              = render('components/vehicle_count', count: @notices.size, brand_count: group.size, brand: key)
+- else
+  .well
+    = render('components/register', text: 'Diese Inhalte stehen nur unseren registrierten Benutzern zur Verfügung!')
+    = image_tag "map.jpg", class: "img-responsive center-block img-rounded", alt: "Karte zur Falschparker App"
