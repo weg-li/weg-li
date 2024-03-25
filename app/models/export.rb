@@ -38,7 +38,7 @@ class Export < ApplicationRecord
   end
 
   def display_name
-    "#{export_type} #{file_extension} #{I18n.l(created_at || Time.now, format: :short)}"
+    "#{export_type} #{file_extension} #{I18n.l((created_at || Time.now).utc, format: :short)}"
   end
 
   private

@@ -21,10 +21,10 @@ describe Export do
 
   context "display_name" do
     it "is present" do
-      travel_to("20.01.2020 15:00:00 UTC".to_time.utc) do
+      travel_to("20.01.2020 15:00:00 UTC") do
         Time.use_zone("UTC") do
           export = Fabricate.build(:export)
-          expect(export.display_name).to eql("notices csv 20.01.2020 16:00")
+          expect(export.display_name).to eql("notices csv 20.01.2020 15:00")
         end
       end
     end

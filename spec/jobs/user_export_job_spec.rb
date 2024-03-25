@@ -25,7 +25,7 @@ describe UserExportJob do
 
           Zip::File.open_buffer(result) do |zip_file|
             zip_file.each do |entry|
-              expect(entry.get_input_stream.read).to eql(File.read(file_fixture("notices-csv-20-01-2024-16-00.csv")))
+              expect(entry.get_input_stream.read).to eql(File.read(file_fixture(entry.name)))
             end
           end
         end
