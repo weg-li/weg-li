@@ -1,38 +1,42 @@
-= form_errors(district)
-= form_for(district) do |form|
-  .row
-    .col-lg-6
-      .form-group
-        = form.label :name, class: "control-label control-label-required"
-        = form.text_field :name, class: "form-control", required: true, placeholder: 'z.B. Hamburg'
-        = hint do
-          | Der Name des Ortes, der Stadt oder Gemeinde
-    .col-lg-6
-      .form-group
-        = form.label :email, class: "control-label control-label-required"
-        = form.email_field :email, class: "form-control", required: true, placeholder: 'z.B. anzeigen@hamburg.de'
-        = hint do
-          | Offizielle Adresse einer Behörde für Anzeigen in diesem Bezirk
-  .row
-    .col-lg-6
-      .form-group
-        = form.label :zip, class: "control-label control-label-required"
-        = form.text_field :zip, class: "form-control", required: true, placeholder: 'z.B. 22525', maxlength: 5, pattern: '\d{5}'
-    .col-lg-6
-      .form-group
-        = form.label :state, class: "control-label control-label-required"
-        = form.select :state, District::STATES, { include_blank: 'Bundesland Auswählen' }, { class: "form-control", required: true }
+- if signed_in?
+  = form_errors(district)
+  = form_for(district) do |form|
+    .row
+      .col-lg-6
+        .form-group
+          = form.label :name, class: "control-label control-label-required"
+          = form.text_field :name, class: "form-control", required: true, placeholder: 'z.B. Hamburg'
+          = hint do
+            | Der Name des Ortes, der Stadt oder Gemeinde
+      .col-lg-6
+        .form-group
+          = form.label :email, class: "control-label control-label-required"
+          = form.email_field :email, class: "form-control", required: true, placeholder: 'z.B. anzeigen@hamburg.de'
+          = hint do
+            | Offizielle Adresse einer Behörde für Anzeigen in diesem Bezirk
+    .row
+      .col-lg-6
+        .form-group
+          = form.label :zip, class: "control-label control-label-required"
+          = form.text_field :zip, class: "form-control", required: true, placeholder: 'z.B. 22525', maxlength: 5, pattern: '\d{5}'
+      .col-lg-6
+        .form-group
+          = form.label :state, class: "control-label control-label-required"
+          = form.select :state, District::STATES, { include_blank: 'Bundesland Auswählen' }, { class: "form-control", required: true }
 
-  .row
-    .col-lg-6
-      .form-group
-        = form.label :prefixes, class: "control-label"
-        = form.text_field :prefixes, class: "form-control", placeholder: 'z.B. HH'
-        = hint do
-          | Optional die örtlichen Kennzeichen (mit Leerzeichen getrennt)
+    .row
+      .col-lg-6
+        .form-group
+          = form.label :prefixes, class: "control-label"
+          = form.text_field :prefixes, class: "form-control", placeholder: 'z.B. HH'
+          = hint do
+            | Optional die örtlichen Kennzeichen (mit Leerzeichen getrennt)
 
-  .row
-    .col-lg-12
-      .pull-right
-        .btn-group
-          = form.submit button_title, class: "btn btn-success"
+    .row
+      .col-lg-12
+        .pull-right
+          .btn-group
+            = form.submit button_title, class: "btn btn-success"
+- else
+  .well
+    = render('components/register', text: 'Diese Funktion steht nur unseren registrierten Benutzern zur Verfügung!')
