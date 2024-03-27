@@ -9,7 +9,7 @@ class ExportDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    interval: Field::Number,
+    user: Field::BelongsTo,
     export_type: Field::String.with_options(searchable: false),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -23,7 +23,7 @@ class ExportDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :id,
     :created_at,
-    :interval,
+    :user,
     :export_type,
   ].freeze
 
@@ -31,7 +31,7 @@ class ExportDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
     :id,
-    :interval,
+    :user,
     :export_type,
     :created_at,
     :updated_at,
@@ -41,7 +41,7 @@ class ExportDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-    :interval,
+    :user,
     :export_type,
   ].freeze
 
