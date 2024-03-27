@@ -6,6 +6,8 @@ class AutoreplyMailbox < ApplicationMailbox
   rescue_from(ActiveRecord::RecordNotFound) { bounced! }
 
   def process
+    return if mail.to.blank?
+
     notice = Notice.from_email_address(mail.to.first)
     params = {
       action_mailbox_inbound_email: inbound_email,
