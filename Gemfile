@@ -86,7 +86,7 @@ end
 
 gem "prawn-emoji", "~> 5.3"
 
-gem "valid_email", "~> 0.2.0"
+gem "valid_email", github: "phoet/valid_email"
 
 gem "rack-attack", "~> 6.7"
 
