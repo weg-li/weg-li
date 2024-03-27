@@ -1,12 +1,3 @@
-GIT
-  remote: https://github.com/phoet/valid_email.git
-  revision: 8e1655fce1b05a774dcd412ce443760e23fec56a
-  specs:
-    valid_email (0.2.1)
-      activemodel
-      mail (>= 2.6.1)
-      simpleidn
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -616,6 +607,9 @@ GEM
     uri (0.13.0)
     utf8-cleaner (1.0.0)
       activesupport
+    valid_email2 (5.2.1)
+      activemodel (>= 3.2)
+      mail (~> 2.5)
     version_gem (1.1.4)
     web-console (4.2.1)
       actionview (>= 6.0.0)
@@ -712,7 +706,7 @@ DEPENDENCIES
   time_splitter
   turbo-rails (= 2.0.0.pre.beta.2)
   utf8-cleaner
-  valid_email!
+  valid_email2 (~> 5.2)
   web-console
   webmock
   webpacker

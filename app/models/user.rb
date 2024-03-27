@@ -43,10 +43,9 @@ class User < ApplicationRecord
             :city,
             presence: true
   validates :email, :token, uniqueness: true
-  validates :email, email: {
+  validates :email, "valid_email_2/email": {
     mx: true,
-    ban_disposable_email: true,
-    partial: true,
+    disposable: true,
   }
   validates :name, format: { with: /\D+\s+\D/ }
 

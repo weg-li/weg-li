@@ -33,10 +33,9 @@ class District < ApplicationRecord
   validates :zip, uniqueness: true
   validates :zip, format: { with: /\d{5}/ }
   validates :state, inclusion: { in: STATES }
-  validates :email, email: {
+  validates :email, "valid_email_2/email": {
     mx: true,
-    ban_disposable_email: true,
-    partial: true,
+    disposable: true,
   }
   normalizes :email, with: ->(email) { email.strip.downcase }
 

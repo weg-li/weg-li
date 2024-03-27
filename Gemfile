@@ -86,10 +86,10 @@ end
 
 gem "prawn-emoji", "~> 5.3"
 
-gem "valid_email", github: "phoet/valid_email"
-
 gem "rack-attack", "~> 6.7"
 
 gem "thruster", "~> 0.1.0"
 
 gem "memo-it", "~> 0.5.0"
+
+gem "valid_email2", "~> 5.2"

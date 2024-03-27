@@ -29,7 +29,7 @@ describe "users", type: :request do
     it "resets validation and sends an email when address is changed" do
       @user.update! validation_date: Time.new(2015, 1, 1, 0, 0, 0).utc
       expect do
-        patch user_path(@user), params: { user: { email: "different@email.com" } }
+        patch user_path(@user), params: { user: { email: "different@posteo.com" } }
       end.to change { @user.reload.validation_date }.from(@user.validation_date).to(nil)
 
       expect(response).to be_a_redirect
