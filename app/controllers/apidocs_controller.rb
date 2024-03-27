@@ -12,7 +12,7 @@ class ApidocsController < ActionController::Base
     end
     security { key :api_key, [] }
     info do
-      key :version, "1.0.0"
+      key :version, "1.1.0"
       key :title, "weg.li API Docs"
       key :description,
           "
