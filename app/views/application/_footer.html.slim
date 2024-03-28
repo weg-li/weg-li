@@ -36,14 +36,14 @@ footer
           = link_to faq_path, title: 'weg.li FAQ' do
             <span class="glyphicon glyphicon-info-sign"></span> FAQ
         li
-          = link_to api_path, title: 'weg.li API' do
-            <span class="glyphicon glyphicon-transfer"></span> API
-        li
-          = link_to wegeheld_path, title: 'Wegeheld + weg.li' do
-            <span class="glyphicon glyphicon-phone"></span> Wegeheld
+          = link_to year_path, title: 'weg.li Faschparker Historie' do
+            <span class="glyphicon glyphicon-calendar"></span> Historie
         li
           = link_to features_path, title: 'weg.li Funktionen' do
             <span class="glyphicon glyphicon-ok-sign"></span> Funktionen
+        li
+          = link_to api_path, title: 'weg.li API' do
+            <span class="glyphicon glyphicon-transfer"></span> API
         li
           = link_to donate_path, title: 'weg.li Sponsor werden' do
             <span class="glyphicon glyphicon-piggy-bank"></span> Spenden
@@ -58,6 +58,9 @@ footer
         li
           = link_to 'https://github.com/weg-li', title: 'weg.li on GitHub - We <3 Open-Source!', target: '_blank' do
             <span class="glyphicon glyphicon-heart"></span> GitHub
+        li
+          = link_to wegeheld_path, title: 'Wegeheld + weg.li' do
+            <span class="glyphicon glyphicon-phone"></span> Wegeheld
 
     .col-lg-4.col-xs-12
       = render('short_imprint')
