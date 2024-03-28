@@ -9,6 +9,12 @@ describe User do
   context "validation" do
     it "is valid" do
       expect(user).to be_valid
+      user.email = "invalid"
+      expect(user).to_not be_valid
+      user.email = "uschi@murksi.orgsi"
+      expect(user).to_not be_valid
+      user.email = "asdf@privaterelay.appleid.com"
+      expect(user).to be_valid
     end
 
     it "has first and lastname" do
