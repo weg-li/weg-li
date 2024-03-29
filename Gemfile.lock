@@ -99,7 +99,7 @@ GEM
       administrate (>= 0.2.2)
       rails (>= 7.0)
     aes_key_wrap (1.1.0)
-    appsignal (3.6.3)
+    appsignal (3.6.4)
       rack
     ast (2.4.2)
     base64 (0.2.0)
@@ -130,7 +130,7 @@ GEM
     diff-lcs (1.5.1)
     digest-crc (0.6.5)
       rake (>= 12.0.0, < 14.0.0)
-    dnsruby (1.71.0)
+    dnsruby (1.72.0)
       simpleidn (~> 0.2.1)
     domain_name (0.6.20240107)
     dotenv (3.1.0)
@@ -141,11 +141,11 @@ GEM
     email_verifier (0.1.0)
       dnsruby (>= 1.5)
     erubi (1.12.0)
-    et-orbi (1.2.10)
+    et-orbi (1.2.11)
       tzinfo
     exifr (1.4.0)
     fabrication (2.31.0)
-    faker (3.2.3)
+    faker (3.3.0)
       i18n (>= 1.8.11, < 2)
     faraday (2.9.0)
       faraday-net_http (>= 2.0, < 3.2)
@@ -183,7 +183,7 @@ GEM
       rexml
     google-apis-iamcredentials_v1 (0.20.0)
       google-apis-core (>= 0.14.0, < 2.a)
-    google-apis-storage_v1 (0.36.0)
+    google-apis-storage_v1 (0.37.0)
       google-apis-core (>= 0.14.0, < 2.a)
     google-cloud-core (1.7.0)
       google-cloud-env (>= 1.0, < 3.a)
@@ -323,7 +323,7 @@ GEM
       net-protocol
     net-protocol (0.2.2)
       timeout
-    net-smtp (0.4.0.1)
+    net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.1)
     nokogiri (1.16.3)
@@ -459,10 +459,10 @@ GEM
       psych (>= 4.0.0)
     redis (5.1.0)
       redis-client (>= 0.17.0)
-    redis-client (0.21.0)
+    redis-client (0.21.1)
       connection_pool
     regexp_parser (2.9.0)
-    reline (0.4.3)
+    reline (0.5.0)
       io-console (~> 0.5)
     representable (3.2.0)
       declarative (< 0.1.0)
@@ -560,7 +560,8 @@ GEM
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
-    sprockets (3.7.2)
+    sprockets (3.7.3)
+      base64
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
     sprockets-rails (3.4.2)
