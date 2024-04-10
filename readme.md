@@ -61,7 +61,14 @@ script/server
 ### Docker setup
 
 ```bash
+# build the app
+docker-compose build
+# start services
 docker-compose up
+# setup database
+docker-compose exec app bundle exec rails db:setup
+# generate test data
+docker-compose exec app bundle exec rake dev:data
 ```
 
 ## Contributing

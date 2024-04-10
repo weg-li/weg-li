@@ -8,7 +8,7 @@ services:
     ports:
       - 6379
   postgres:
-    image: postgres
+    image: postgis/postgis:12-3.4-alpine
     environment:
       POSTGRES_DB: weg-li_development
       POSTGRES_HOST_AUTH_METHOD: trust
@@ -20,6 +20,8 @@ services:
     build: .
     environment:
       RAILS_ENV: development
+      POSTGRES_HOST: postgres
+      REDIS_URL: redis://redis:6379
     volumes:
       - .:/app
       - gem_cache:/usr/local/bundle/gems
