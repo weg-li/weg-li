@@ -12,6 +12,7 @@ class AnalyzerJob < ApplicationJob
   def self.time_from_filename(filename)
     token = filename[/.*(20\d{6}_\d{6})/, 1]
     token ||= filename[/.*(20\d{2}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2})/, 1]
+    token ||= filename[/.*(20\d{2}-\d{2}-\d{2}-\d{2}-\d{2}-\d{2})-.*/, 1]
 
     return nil unless token
 
