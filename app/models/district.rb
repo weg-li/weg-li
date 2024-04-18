@@ -42,6 +42,8 @@ class District < ApplicationRecord
   geocoded_by :geocode_address, language: proc { |_model| I18n.locale }, no_annotations: true
   after_validation :geocode, if: :geocode_address_changed?
 
+  attribute :reason, :string
+
   include Blockable
   self.blockables = %w[gmail.com web.de t-online.de gmx.de hotmail.de vodafone.de 1und1.de freenet.de aol.com yahoo.de yahoo.com outlook.de]
 

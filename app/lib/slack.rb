@@ -28,11 +28,7 @@ module Slack
     end
 
     def send(payload)
-      if url.blank?
-        Rails.logger.debug(
-          "slack skipping, no SLACK_WEBHOOK_URL configured: #{payload}",
-        ) and return
-      end
+      Rails.logger.debug("slack skipping, no SLACK_WEBHOOK_URL configured: #{payload}") and return if url.blank?
 
       body = URI.encode_www_form(payload: JSON.dump(payload))
       response = HTTP.post(url, headers:, body:)

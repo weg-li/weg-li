@@ -42,6 +42,7 @@ de:
         osm_id: 'OpenStreetmap-ID'
         updated_at: 'Aktualisiert'
         status: 'Status'
+        reason: 'Begründung'
       user:
         time_zone: 'Zeitzone'
         nickname: 'Spitzname'

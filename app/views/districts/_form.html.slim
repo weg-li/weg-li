@@ -7,18 +7,18 @@
           = form.label :name, class: "control-label control-label-required"
           = form.text_field :name, class: "form-control", required: true, placeholder: 'z.B. Hamburg'
           = hint do
-            | Der Name des Ortes, der Stadt oder Gemeinde
+            | Der Name des Ortes, der Stadt oder ggf. der Gemeinde
       .col-lg-6
         .form-group
           = form.label :email, class: "control-label control-label-required"
           = form.email_field :email, class: "form-control", required: true, placeholder: 'z.B. anzeigen@hamburg.de'
           = hint do
-            | Offizielle Adresse einer Behörde für Anzeigen in diesem Bezirk
+            | Offizielle Adresse einer Behörde zuständig für Anzeigen in diesem Bezirk
     .row
       .col-lg-6
         .form-group
           = form.label :zip, class: "control-label control-label-required"
-          = form.text_field :zip, class: "form-control", required: true, placeholder: 'z.B. 22525', maxlength: 5, pattern: '\d{5}'
+          = form.text_field :zip, class: "form-control", required: true, placeholder: 'z.B. 22525', maxlength: 5, pattern: '\d{5}', disabled: district.persisted?
       .col-lg-6
         .form-group
           = form.label :state, class: "control-label control-label-required"
@@ -27,10 +27,17 @@
     .row
       .col-lg-6
         .form-group
-          = form.label :prefixes, class: "control-label"
-          = form.text_field :prefixes, class: "form-control", placeholder: 'z.B. HH'
+          = form.label :prefixes, class: "control-label control-label-required"
+          = form.text_field :prefixes, class: "form-control", placeholder: 'z.B. HH', required: true
           = hint do
-            | Optional die örtlichen Kennzeichen (mit Leerzeichen getrennt)
+            | örtliche Kennzeichen (mit Leerzeichen oder Komma getrennt)
+      - if district.persisted?
+        .col-lg-6
+          .form-group
+            = form.label :reason, class: "control-label control-label-required"
+            = form.text_field :reason, class: "form-control", required: true
+            = hint do
+              | weshalb sind die bestehenden Daten falsch oder unvollständig?
 
     .row
       .col-lg-12

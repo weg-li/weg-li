@@ -45,13 +45,8 @@ class DistrictsController < ApplicationController
     changes = district.changes
 
     if changes.present?
-      message =
-        changes
-          .map { |key, (from, to)| "#{key} changed from #{from} to #{to}" }
-          .join(", ")
-      notify(
-        "district changes proposed: #{message} #{edit_admin_district_url(district)}#{" by #{current_user.email}" if signed_in?}",
-      )
+      message = changes.map { |key, (from, to)| "#{key} changed from #{from} to #{to}" }.join(", ")
+      notify("district changes proposed: #{message} #{edit_admin_district_url(district)}#{" by #{current_user.email}" if signed_in?}")
     end
 
     redirect_to(
@@ -92,6 +87,7 @@ class DistrictsController < ApplicationController
       :zip,
       :state,
       :osm_id,
+      :reason,
       prefixes: [],
     )
   end
