@@ -61,7 +61,7 @@ ActiveSupport::Notifications.subscribe(/rack_attack/) do |name, start, finish, i
     @redis_client ||= Redis.new
 
     req = payload[:request]
-    msg = "#{req.env['HTTP_TRUE_CLIENT_IP']} #{req.env['HTTP_USER_AGENT']} #{req.env['HTTP_X_FORWARDED_FOR']} #{req.env['HTTP_HOST']} #{req.env['PATH_INFO']} #{req.env['REMOTE_ADDR']}"
+    msg = "#{req.env['HTTP_TRUE_CLIENT_IP']} (#{req.env['HTTP_USER_AGENT']}) -> #{req.env['HTTP_X_FORWARDED_FOR']} -> #{req.env['REMOTE_ADDR']} #{req.env['HTTP_HOST']}#{req.env['PATH_INFO']}"
 
     key = Digest::MD5.base64digest(msg)
 
