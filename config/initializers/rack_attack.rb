@@ -55,19 +55,19 @@ Rack::Attack.safelist_ip("10.0.0.0/8")
 
 require_relative '../../app/lib/slack'
 
+slack_client = Slack::Client.new
+redis_client = Redis.new
+
 ActiveSupport::Notifications.subscribe(/rack_attack/) do |name, start, finish, instrumenter_id, payload|
   unless name.match?(/safelist/)
-    @slack_client ||= Slack::Client.new
-    @redis_client ||= Redis.new
-
     req = payload[:request]
     slug = "#{req.env['HTTP_HOST']}#{req.env['PATH_INFO']}"
 
     key = Digest::MD5.base64digest(slug)
-    count = @redis_client.incr(key)
+    count = redis_client.incr(key)
     if count == 1 || count % 10 == 0
       msg = "#{req.env['HTTP_TRUE_CLIENT_IP']} (#{req.env['HTTP_USER_AGENT']}) -> #{req.env['HTTP_X_FORWARDED_FOR']} -> #{req.env['REMOTE_ADDR']} #{slug}"
-      @slack_client.say("#{name} #{msg} (#{count} times)", channel: "rack-attack")
+      slack_client.say("#{name} #{msg} (#{count} times)", channel: "rack-attack")
     end
   end
 end
