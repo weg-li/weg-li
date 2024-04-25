@@ -31,6 +31,25 @@ Rack::Attack.blocklist('allow2ban login scrapers') do |req|
   end
 end
 
+require_relative '../../app/lib/slack'
+
+slack_client = Slack::Client.new
+redis_client = Redis.new
+
+ActiveSupport::Notifications.subscribe(/rack_attack/) do |name, start, finish, instrumenter_id, payload|
+  unless name.match?(/safelist/)
+    req = payload[:request]
+    slug = "#{req.env['HTTP_HOST']}#{req.env['PATH_INFO']}"
+
+    key = Digest::MD5.base64digest(slug)
+    count = redis_client.incr(key)
+    if count == 1 || count % 10 == 0
+      msg = "#{req.env['HTTP_TRUE_CLIENT_IP']} (#{req.env['HTTP_USER_AGENT']}) -> #{req.env['HTTP_X_FORWARDED_FOR']} -> #{req.env['REMOTE_ADDR']} #{slug}"
+      slack_client.say("#{name} #{msg} (#{count} times)", channel: "rack-attack")
+    end
+  end
+end
+
 Rack::Attack.blocklist_ip("143.110.185.65")
 Rack::Attack.blocklist_ip("159.65.1.205")
 Rack::Attack.blocklist_ip("167.88.61.92")
@@ -52,22 +71,131 @@ Rack::Attack.blocklist_ip("91.92.249.96")
 
 # Always allow requests from render
 Rack::Attack.safelist_ip("10.0.0.0/8")
-
-require_relative '../../app/lib/slack'
-
-slack_client = Slack::Client.new
-redis_client = Redis.new
-
-ActiveSupport::Notifications.subscribe(/rack_attack/) do |name, start, finish, instrumenter_id, payload|
-  unless name.match?(/safelist/)
-    req = payload[:request]
-    slug = "#{req.env['HTTP_HOST']}#{req.env['PATH_INFO']}"
-
-    key = Digest::MD5.base64digest(slug)
-    count = redis_client.incr(key)
-    if count == 1 || count % 10 == 0
-      msg = "#{req.env['HTTP_TRUE_CLIENT_IP']} (#{req.env['HTTP_USER_AGENT']}) -> #{req.env['HTTP_X_FORWARDED_FOR']} -> #{req.env['REMOTE_ADDR']} #{slug}"
-      slack_client.say("#{name} #{msg} (#{count} times)", channel: "rack-attack")
-    end
-  end
-end
+# Googlebot IPs
+Rack::Attack.safelist_ip("192.178.5.0")
+Rack::Attack.safelist_ip("34.100.182.96")
+Rack::Attack.safelist_ip("34.101.50.144")
+Rack::Attack.safelist_ip("34.118.254.0")
+Rack::Attack.safelist_ip("34.118.66.0")
+Rack::Attack.safelist_ip("34.126.178.96")
+Rack::Attack.safelist_ip("34.146.150.144")
+Rack::Attack.safelist_ip("34.147.110.144")
+Rack::Attack.safelist_ip("34.151.74.144")
+Rack::Attack.safelist_ip("34.152.50.64")
+Rack::Attack.safelist_ip("34.154.114.144")
+Rack::Attack.safelist_ip("34.155.98.32")
+Rack::Attack.safelist_ip("34.165.18.176")
+Rack::Attack.safelist_ip("34.175.160.64")
+Rack::Attack.safelist_ip("34.176.130.16")
+Rack::Attack.safelist_ip("34.22.85.0")
+Rack::Attack.safelist_ip("34.64.82.64")
+Rack::Attack.safelist_ip("34.65.242.112")
+Rack::Attack.safelist_ip("34.80.50.80")
+Rack::Attack.safelist_ip("34.88.194.0")
+Rack::Attack.safelist_ip("34.89.10.80")
+Rack::Attack.safelist_ip("34.89.198.80")
+Rack::Attack.safelist_ip("34.96.162.48")
+Rack::Attack.safelist_ip("35.247.243.240")
+Rack::Attack.safelist_ip("66.249.64.0")
+Rack::Attack.safelist_ip("66.249.64.128")
+Rack::Attack.safelist_ip("66.249.64.160")
+Rack::Attack.safelist_ip("66.249.64.224")
+Rack::Attack.safelist_ip("66.249.64.32")
+Rack::Attack.safelist_ip("66.249.64.64")
+Rack::Attack.safelist_ip("66.249.64.96")
+Rack::Attack.safelist_ip("66.249.65.0")
+Rack::Attack.safelist_ip("66.249.65.160")
+Rack::Attack.safelist_ip("66.249.65.192")
+Rack::Attack.safelist_ip("66.249.65.224")
+Rack::Attack.safelist_ip("66.249.65.32")
+Rack::Attack.safelist_ip("66.249.65.64")
+Rack::Attack.safelist_ip("66.249.65.96")
+Rack::Attack.safelist_ip("66.249.66.0")
+Rack::Attack.safelist_ip("66.249.66.128")
+Rack::Attack.safelist_ip("66.249.66.160")
+Rack::Attack.safelist_ip("66.249.66.192")
+Rack::Attack.safelist_ip("66.249.66.32")
+Rack::Attack.safelist_ip("66.249.66.64")
+Rack::Attack.safelist_ip("66.249.66.96")
+Rack::Attack.safelist_ip("66.249.68.0")
+Rack::Attack.safelist_ip("66.249.68.32")
+Rack::Attack.safelist_ip("66.249.68.64")
+Rack::Attack.safelist_ip("66.249.69.0")
+Rack::Attack.safelist_ip("66.249.69.128")
+Rack::Attack.safelist_ip("66.249.69.160")
+Rack::Attack.safelist_ip("66.249.69.192")
+Rack::Attack.safelist_ip("66.249.69.224")
+Rack::Attack.safelist_ip("66.249.69.32")
+Rack::Attack.safelist_ip("66.249.69.64")
+Rack::Attack.safelist_ip("66.249.69.96")
+Rack::Attack.safelist_ip("66.249.70.0")
+Rack::Attack.safelist_ip("66.249.70.128")
+Rack::Attack.safelist_ip("66.249.70.160")
+Rack::Attack.safelist_ip("66.249.70.192")
+Rack::Attack.safelist_ip("66.249.70.224")
+Rack::Attack.safelist_ip("66.249.70.32")
+Rack::Attack.safelist_ip("66.249.70.64")
+Rack::Attack.safelist_ip("66.249.70.96")
+Rack::Attack.safelist_ip("66.249.71.0")
+Rack::Attack.safelist_ip("66.249.71.128")
+Rack::Attack.safelist_ip("66.249.71.160")
+Rack::Attack.safelist_ip("66.249.71.192")
+Rack::Attack.safelist_ip("66.249.71.224")
+Rack::Attack.safelist_ip("66.249.71.32")
+Rack::Attack.safelist_ip("66.249.71.64")
+Rack::Attack.safelist_ip("66.249.71.96")
+Rack::Attack.safelist_ip("66.249.72.0")
+Rack::Attack.safelist_ip("66.249.72.128")
+Rack::Attack.safelist_ip("66.249.72.160")
+Rack::Attack.safelist_ip("66.249.72.192")
+Rack::Attack.safelist_ip("66.249.72.224")
+Rack::Attack.safelist_ip("66.249.72.32")
+Rack::Attack.safelist_ip("66.249.72.64")
+Rack::Attack.safelist_ip("66.249.72.96")
+Rack::Attack.safelist_ip("66.249.73.0")
+Rack::Attack.safelist_ip("66.249.73.128")
+Rack::Attack.safelist_ip("66.249.73.160")
+Rack::Attack.safelist_ip("66.249.73.192")
+Rack::Attack.safelist_ip("66.249.73.224")
+Rack::Attack.safelist_ip("66.249.73.32")
+Rack::Attack.safelist_ip("66.249.73.64")
+Rack::Attack.safelist_ip("66.249.73.96")
+Rack::Attack.safelist_ip("66.249.74.0")
+Rack::Attack.safelist_ip("66.249.74.128")
+Rack::Attack.safelist_ip("66.249.74.32")
+Rack::Attack.safelist_ip("66.249.74.64")
+Rack::Attack.safelist_ip("66.249.74.96")
+Rack::Attack.safelist_ip("66.249.75.0")
+Rack::Attack.safelist_ip("66.249.75.128")
+Rack::Attack.safelist_ip("66.249.75.160")
+Rack::Attack.safelist_ip("66.249.75.192")
+Rack::Attack.safelist_ip("66.249.75.224")
+Rack::Attack.safelist_ip("66.249.75.32")
+Rack::Attack.safelist_ip("66.249.75.64")
+Rack::Attack.safelist_ip("66.249.75.96")
+Rack::Attack.safelist_ip("66.249.76.0")
+Rack::Attack.safelist_ip("66.249.76.128")
+Rack::Attack.safelist_ip("66.249.76.160")
+Rack::Attack.safelist_ip("66.249.76.192")
+Rack::Attack.safelist_ip("66.249.76.224")
+Rack::Attack.safelist_ip("66.249.76.32")
+Rack::Attack.safelist_ip("66.249.76.64")
+Rack::Attack.safelist_ip("66.249.76.96")
+Rack::Attack.safelist_ip("66.249.77.0")
+Rack::Attack.safelist_ip("66.249.77.128")
+Rack::Attack.safelist_ip("66.249.77.160")
+Rack::Attack.safelist_ip("66.249.77.192")
+Rack::Attack.safelist_ip("66.249.77.224")
+Rack::Attack.safelist_ip("66.249.77.32")
+Rack::Attack.safelist_ip("66.249.77.64")
+Rack::Attack.safelist_ip("66.249.77.96")
+Rack::Attack.safelist_ip("66.249.78.0")
+Rack::Attack.safelist_ip("66.249.78.32")
+Rack::Attack.safelist_ip("66.249.79.0")
+Rack::Attack.safelist_ip("66.249.79.128")
+Rack::Attack.safelist_ip("66.249.79.160")
+Rack::Attack.safelist_ip("66.249.79.192")
+Rack::Attack.safelist_ip("66.249.79.224")
+Rack::Attack.safelist_ip("66.249.79.32")
+Rack::Attack.safelist_ip("66.249.79.64")
+Rack::Attack.safelist_ip("66.249.79.96")
