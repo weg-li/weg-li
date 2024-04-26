@@ -20,7 +20,7 @@ class Scheduled::GeocodingCleanupJob < ApplicationJob
       notices.latitude IS NOT NULL
       AND
       districts.latitude IS NOT NULL
-    ) AS res WHERE res.distance > #{Geo::MAX_DISTANCE};
+    ) AS res WHERE res.distance > #{Geo::MAX_DISTANCE} LIMIT 100;
     "
 
     # clean it up
