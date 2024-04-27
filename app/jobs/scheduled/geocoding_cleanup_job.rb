@@ -4,7 +4,7 @@ class Scheduled::GeocodingCleanupJob < ApplicationJob
   def perform
     Rails.logger.info "fixup for geocoding"
 
-    Notice.shared.where(latitude: nil).each(&:save!)
+    # Notice.shared.where(latitude: nil).each(&:save!)
 
     query =
       "
