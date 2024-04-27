@@ -8,7 +8,7 @@ class NoticeDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    user: Field::BelongsTo,
+    user: Field::BelongsTo.with_options(limit: 100),
     photos: Field::ActiveStorage.with_options(destroy_url: nil),
     id: Field::Number.with_options(searchable: true),
     meta: Field::String.with_options(searchable: false),
