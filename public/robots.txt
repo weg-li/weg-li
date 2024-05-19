@@ -3,3 +3,18 @@
 User-agent: *
 Disallow: /p/
 Disallow: /rails/active_storage/blobs/redirect/
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: CCbot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
