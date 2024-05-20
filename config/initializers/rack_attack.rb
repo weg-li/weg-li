@@ -70,6 +70,7 @@ Rack::Attack.blocklist_ip("84.247.181.144")
 Rack::Attack.blocklist_ip("91.92.249.96")
 Rack::Attack.blocklist_ip("213.152.176.252")
 Rack::Attack.blocklist_ip("185.241.208.126")
+Rack::Attack.blocklist_ip("165.22.99.36")
 
 # Always allow requests from render
 Rack::Attack.safelist_ip("10.0.0.0/8")
