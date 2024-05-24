@@ -110,6 +110,7 @@ module ApplicationHelper
   end
 
   PROVIDERS = {
+    amazon: "Amazon",
     apple: "Apple",
     google_oauth2: "Google",
     telegram: "Telegram",

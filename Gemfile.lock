@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/davidtaylorhq/omniauth-amazon.git
+  revision: c9ad85deaef3e268347e9ec88ce668fb4e98de02
+  branch: omniauth-2
+  specs:
+    omniauth-amazon (2.0.0)
+      multi_json
+      omniauth (~> 2.0)
+      omniauth-oauth2 (~> 1.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -675,6 +685,7 @@ DEPENDENCIES
   net-pop
   net-smtp
   omniauth (>= 2.0)
+  omniauth-amazon!
   omniauth-apple
   omniauth-github (>= 2.0)
   omniauth-google-oauth2
