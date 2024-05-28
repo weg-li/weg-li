@@ -45,7 +45,8 @@ ActiveSupport::Notifications.subscribe(/rack_attack/) do |name, start, finish, i
     count = redis_client.incr(key)
     if count == 1 || count % 10 == 0
       msg = "#{req.env['HTTP_TRUE_CLIENT_IP']} (#{req.env['HTTP_USER_AGENT']}) -> #{req.env['HTTP_X_FORWARDED_FOR']} -> #{req.env['REMOTE_ADDR']} #{slug}"
-      slack_client.say("#{name} #{msg} (#{count} times)", channel: "rack-attack")
+      link = "https://www.weg.li/admin/system?ip=#{req.env['HTTP_TRUE_CLIENT_IP']}"
+      slack_client.say("#{name} #{msg} (#{count} times, block #{link})", channel: "rack-attack")
     end
   end
 end

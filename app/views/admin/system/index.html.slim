@@ -5,7 +5,7 @@ section.main-content__body
         .field-unit__label
           label(for="district_email") IP
         .field-unit__field
-          = text_field_tag(:ip)
+          = text_field_tag(:ip, params[:ip])
         .field-unit__field
           input(type="submit" name="commit" value="Blocklist IP" data-disable-with="Blocklist IP")
 
