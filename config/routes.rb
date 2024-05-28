@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     resources :brands
 
     get :system, to: "system#index", as: :system_status
+    post :blocklist_ip, to: "system#blocklist_ip", as: :blocklist_ip
     root to: "users#index"
   end
 

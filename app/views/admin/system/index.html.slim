@@ -1,3 +1,14 @@
+section.main-content__body
+  dl
+    = form_tag(admin_blocklist_ip_path, method: :post)
+      .field-unit.field-unit--string.field-unit--required
+        .field-unit__label
+          label(for="district_email") IP
+        .field-unit__field
+          = text_field_tag(:ip)
+        .field-unit__field
+          input(type="submit" name="commit" value="Blocklist IP" data-disable-with="Blocklist IP")
+
 h2 DB infos
 
 table.table.table-condensed

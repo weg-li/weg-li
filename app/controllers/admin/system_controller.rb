@@ -1,5 +1,11 @@
 module Admin
   class SystemController < Admin::ApplicationController
+    def blocklist_ip
+      Rack::Attack.blocklist_ip(params[:ip])
+
+      redirect_to admin_system_index_path, notice: "'#{params[:ip]}' wurde geblockt"
+    end
+
     def index
       table_size_sql = <<-SQL
         SELECT
