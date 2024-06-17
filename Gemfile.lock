@@ -109,7 +109,7 @@ GEM
       administrate (>= 0.2.2)
       rails (>= 7.0)
     aes_key_wrap (1.1.0)
-    appsignal (3.7.4)
+    appsignal (3.8.1)
       rack
     ast (2.4.2)
     base64 (0.2.0)
