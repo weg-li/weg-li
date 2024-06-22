@@ -15,30 +15,25 @@
                 span(style="text-decoration:none")=> registration
                 span.glyphicon.glyphicon-circle-arrow-left
 
-  .col-lg-4
+  .col-lg-8
     .form-group
-      = form.label :brand, class: "control-label"
-      = form.select :brand, Vehicle.brand_options, { include_blank: 'Marke Auswählen' }, { class: "form-control" }
-      .input-group#pick_brand
-        - brands = notice.data_sets.select(&:google_vision?).flat_map { |google_vision| google_vision.brands }
-        - brands = notice.data_sets.select(&:car_ml?).map(&:brands).concat(brands).compact.flatten.uniq
-        - brands.each do |brand|
-            a(href="javascript:;" onclick="$('#notice_brand').val('#{brand}').trigger('change'); $('#pick_brand').fadeOut(); return false;")
-              span.label.label-default.label-picker(title=brand)
-                span=> brand
-                span.glyphicon.glyphicon-circle-arrow-left
-
-  .col-lg-4
-    .form-group
-      = form.label :color, class: "control-label"
-      = form.select :color, Vehicle.colors.map { |color| [color_name(color), color] }, { include_blank: 'Farbe Auswählen' }, { class: "form-control" }
-      .input-group#pick_color
-        - colors = notice.data_sets.select(&:google_vision?).flat_map { |google_vision| google_vision.colors }
-        - colors = notice.data_sets.select(&:car_ml?).map(&:colors).concat(colors).compact.flatten.uniq
-        - colors.each do |color|
-            a(href="javascript:;" onclick="$('#notice_color').val('#{color}').trigger('change'); $('#pick_color').fadeOut(); return false;")
-              span.label.label-default.label-picker(title=color)
-                span=> t(color, scope: "activerecord.attributes.notice.colors")
+      = form.label :tbnr, class: "control-label control-label-required"
+      ruby:
+        nearest_tbnrs = notice.data_sets.select(&:proximity?).flat_map(&:tbnrs).compact
+        charges = Charge.tbnrs_with_description
+        favorites = charges.select { |tbnr, _charge| current_user.favorite_tbnrs.include?(tbnr) }
+        charge_options = [
+         ["Favoriten", favorites.map {|tbnr, description| ["#{description} [#{tbnr}]", tbnr]}],
+         ["BKAT", charges.map { |tbnr, description| ["#{description} [#{tbnr}]", tbnr] }]
+        ]
+      = form.select :tbnr, charge_options, { include_blank: 'Verstoß Auswählen' }, { class: "form-control", required: true }
+      .input-group#pick_charge
+        - if nearest_tbnrs.present?
+          - nearest_charges = charges.select { |tbnr, _charge| nearest_tbnrs.first(3).include?(tbnr) }
+          - nearest_charges.each do |nearest_tbnr, nearest_charge|
+            a(href="javascript:;" onclick="$('#notice_tbnr').val('#{nearest_tbnr}').trigger('change'); $('#pick_charge').fadeOut(); return false;")
+              span.label.label-default.label-picker(title=nearest_charge)
+                span => nearest_charge
                 span.glyphicon.glyphicon-circle-arrow-left
 
 .row
@@ -79,28 +74,6 @@
       = form.text_field :location, placeholder: 'z.B. Ecke Dorfstraße / Gegenüber vom Bäcker', class: "form-control"
       = hint do
         | Bei Verstößen z.B. im Kreuzungsbereich, oder falls eine Hausnummer fehlt, wird dieser Hinweis der Adresse hinzugefügt.
-
-.row
-  .col-lg-12
-    .form-group
-      = form.label :tbnr, class: "control-label control-label-required"
-      ruby:
-        nearest_tbnrs = notice.data_sets.select(&:proximity?).flat_map(&:tbnrs).compact
-        charges = Charge.tbnrs_with_description
-        favorites = charges.select { |tbnr, _charge| current_user.favorite_tbnrs.include?(tbnr) }
-        charge_options = [
-         ["Favoriten", favorites.map {|tbnr, description| ["#{description} [#{tbnr}]", tbnr]}],
-         ["BKAT", charges.map { |tbnr, description| ["#{description} [#{tbnr}]", tbnr] }]
-        ]
-      = form.select :tbnr, charge_options, { include_blank: 'Verstoß Auswählen' }, { class: "form-control", required: true }
-      .input-group#pick_charge
-        - if nearest_tbnrs.present?
-          - nearest_charges = charges.select { |tbnr, _charge| nearest_tbnrs.first(3).include?(tbnr) }
-          - nearest_charges.each do |nearest_tbnr, nearest_charge|
-            a(href="javascript:;" onclick="$('#notice_tbnr').val('#{nearest_tbnr}').trigger('change'); $('#pick_charge').fadeOut(); return false;")
-              span.label.label-default.label-picker(title=nearest_charge)
-                span => nearest_charge
-                span.glyphicon.glyphicon-circle-arrow-left
 
 #duration-future-alert.alert.alert-warning.alert-dismissable.hidden
   button type="button" class="close" data-dismiss="alert" ×
