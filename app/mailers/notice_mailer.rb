@@ -10,10 +10,13 @@ class NoticeMailer < ApplicationMailer
     @send_via_pdf = send_via_pdf
 
     if @district.winowig?
+      data = ZipGenerator.new.generate(@notice)
+      attachments["winowig-#{@notice.token}.zip"] = data
+    elsif @district.dresden?
       data = PdfGenerator.new(include_photos: false).generate(@notice)
       attachments[notice.file_name(:pdf)] = data
 
-      data = XmlGenerator.new.generate(@notice)
+      data = XmlGenerator.new.generate(@notice, :dresden)
       attachments[notice.file_name(:xml)] = data
 
       attach_photos(notice.photos)

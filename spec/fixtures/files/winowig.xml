@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OWIGMDEData Version="1">
+  <Header Herkunft="WinowigMobil-Export" Sachbearbeitername="Admin"/>
+  <Mandant>
+    <Fall FallArt="VOWI">
+      <Falldaten>
+        <Fahrzeug>
+          <Nationalitaet>D</Nationalitaet>
+          <Verkehrsbeteiligung>Führer/Halter des PKW</Verkehrsbeteiligung>
+          <Fabrikat>Volkswagen</Fabrikat>
+          <Kennzeichen>RW-WO 888</Kennzeichen>
+          <Kennzeichenart>00</Kennzeichenart>
+          <Kennzeichenzusatz>E</Kennzeichenzusatz>
+        </Fahrzeug>
+        <Aktenzeichen>239003626</Aktenzeichen>
+        <Kassenzeichen>30003621</Kassenzeichen>
+        <Tattag>
+          <Von>29.05.2024</Von>
+        </Tattag>
+        <Tatzeit>
+          <Von>09:05:00</Von>
+          <Bis>09:11:00</Bis>
+        </Tatzeit>
+        <Ventilstellung>
+          <Text>links V8/H7</Text>
+        </Ventilstellung>
+      </Falldaten>
+      <Tatbestaende>
+        <Tatbestand>
+          <Texttyp>9</Texttyp>
+          <Tatbestandsnummer>113300</Tatbestandsnummer>
+          <Verstossart>8</Verstossart>
+          <Konkretisierungen>;314;</Konkretisierungen>
+          <Tatdaten>
+            <ErsteKontrollzeit>09:05:00</ErsteKontrollzeit>
+            <Ventilstellung>
+              <Vorne>8</Vorne>
+              <Hinten>7</Hinten>
+            </Ventilstellung>
+            <Wagenseite>links</Wagenseite>
+          </Tatdaten>
+          <BETOriginaltext>Sie parkten bei Zeichen xml.314/315&gt;, ohne die durch Zusatzzeichen vorgeschriebene Parkscheibe (Bild 318) von au�en gut lesbar im oder am Fahrzeug angebracht zu haben.
+� 13 Abs. 1, 2, � 49 StVO; � 24 Abs. 1, 3 Nr. 5 StVG; 63.1 BKat</BETOriginaltext>
+        </Tatbestand>
+      </Tatbestaende>
+      <Bilder>
+        <Bild Inhalt="Gesamtbild" Dateiname="20240529090933166101.jpg"/>
+        <Bild Inhalt="Fahrerbild" Dateiname="20240529090946168101.jpg"/>
+        <Bild Inhalt="KFZKennzeichenbild" Dateiname="20240529090955169101.jpg"/>
+        <Bild Inhalt="Rotlichtbild" Dateiname="20240529091038172101.jpg"/>
+        <Bild Inhalt="Zusatzbild1" Dateiname="20240529091004170101.jpg"/>
+        <Bild Inhalt="Zusatzbild2" Dateiname="20240529091021171101.jpg"/>
+      </Bilder>
+      <Beweise>
+        <Beweis>Foto</Beweis>
+      </Beweise>
+      <Zeuge>
+        <Zeilen>
+          <Zeile>02; 10</Zeile>
+          <Zeile>Müller, Henry</Zeile>
+        </Zeilen>
+      </Zeuge>
+      <Tatorte>
+        <Tatort>Musterstadt</Tatort>
+        <Tatort>August-Bebel-Platz, auf dem PPL</Tatort>
+      </Tatorte>
+    </Fall>
+  </Mandant>
+</OWIGMDEData>

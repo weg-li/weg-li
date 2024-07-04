@@ -22,6 +22,13 @@ class PublicController < ApplicationController
     _404 and return if user.blank?
     _404 and return if notice.blank?
 
+    respond_to(&:zip)
+  end
+
+  def dresden
+    _404 and return if user.blank?
+    _404 and return if notice.blank?
+
     respond_to(&:xml)
   end
 
