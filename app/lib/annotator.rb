@@ -12,21 +12,21 @@ class Annotator
   end
 
   def self.grep_text(result, &)
-    result[:text_annotations]
+    (result[:text_annotations] || [])
       .flat_map { |entry| entry[:description].split("\n").map(&) }
       .compact
       .uniq
   end
 
   def self.grep_label(result, &)
-    result[:label_annotations]
+    (result[:label_annotations] || [])
       .flat_map { |entry| entry[:description].split("\n").map(&) }
       .compact
       .uniq
   end
 
   def self.grep_logo(result, &)
-    result[:logo_annotations]
+    (result[:logo_annotations] || [])
       .flat_map { |entry| entry[:description].split("\n").map(&) }
       .compact
       .uniq
