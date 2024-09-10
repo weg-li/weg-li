@@ -39,8 +39,8 @@ describe User do
 
   context "normalization" do
     it "downcases the email" do
-      user.update!(email: "E-mail@uschi.de")
-      expect(user.reload.email).to eql("e-mail@uschi.de")
+      user.update!(email: "E-mail@web.de")
+      expect(user.reload.email).to eql("e-mail@web.de")
     end
   end
 
