@@ -21,3 +21,6 @@ Disallow: /
 
 User-agent: SeekportBot
 Disallow: /
+
+User-agent: barkrowler
+Disallow: /
