@@ -72,7 +72,7 @@
                 .progress.progress-striped.active
                   .progress-bar.progress-bar-success(style="width: #{[100, current / (goal.fdiv(100))].min}%")
 
-    p.small.muted = "Wird aktualisiert: #{l Time.now + ttl, format: :short}"
+    p.small.muted = "Wird aktualisiert: #{l Time.zone.now + ttl, format: :short}"
 - else
   .well
     = render('components/register', text: 'Diese Inhalte stehen nur unseren registrierten Benutzern zur Verfügung!')
