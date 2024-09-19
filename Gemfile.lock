@@ -226,7 +226,7 @@ GEM
     google-cloud-vision-v1p3beta1 (0.13.1)
       gapic-common (>= 0.21.1, < 2.a)
       google-cloud-errors (~> 1.0)
-    google-protobuf (4.28.1)
+    google-protobuf (4.28.2)
       bigdecimal
       rake (>= 13)
     googleapis-common-protos (1.6.0)
