@@ -108,7 +108,7 @@ GEM
       administrate (>= 0.2.2)
       rails (>= 7.0)
     aes_key_wrap (1.1.0)
-    appsignal (4.0.9)
+    appsignal (4.1.0)
       logger
       rack
     ast (2.4.2)
@@ -200,7 +200,7 @@ GEM
       retriable (>= 2.0, < 4.a)
     google-apis-iamcredentials_v1 (0.21.0)
       google-apis-core (>= 0.15.0, < 2.a)
-    google-apis-storage_v1 (0.44.0)
+    google-apis-storage_v1 (0.45.0)
       google-apis-core (>= 0.15.0, < 2.a)
     google-cloud-core (1.7.1)
       google-cloud-env (>= 1.0, < 3.a)
@@ -269,7 +269,7 @@ GEM
       mini_magick (>= 4.9.5, < 5)
       ruby-vips (>= 2.0.17, < 3)
     io-console (0.7.2)
-    irb (1.14.0)
+    irb (1.14.1)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     jquery-rails (4.6.0)
@@ -284,7 +284,7 @@ GEM
       bindata
       faraday (~> 2.0)
       faraday-follow_redirects
-    jwt (2.9.0)
+    jwt (2.9.1)
       base64
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
