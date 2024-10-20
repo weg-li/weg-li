@@ -55,12 +55,19 @@ describe "api/notices", type: :request do
       params = {
         notice: {
           registration: "HH XX 123",
+          tbnr: "112454"
         },
       }
 
       expect do
-        patch api_notice_path(@notice), params:, headers: @headers
-      end.to change { @notice.reload.registration }.from(@notice.registration).to("HH XX 123")
+        expect do
+          patch api_notice_path(@notice), params:, headers: @headers
+        end.to change {
+          @notice.reload.tbnr
+        }.from(@notice.tbnr).to("112454")
+      end.to change {
+        @notice.reload.registration
+      }.from(@notice.registration).to("HH XX 123")
     end
   end
 
