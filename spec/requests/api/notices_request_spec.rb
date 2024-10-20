@@ -55,7 +55,7 @@ describe "api/notices", type: :request do
       params = {
         notice: {
           registration: "HH XX 123",
-          tbnr: "112454"
+          tbnr: "112454",
         },
       }
 
