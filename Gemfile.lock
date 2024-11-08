@@ -108,7 +108,7 @@ GEM
       administrate (>= 0.2.2)
       rails (>= 7.0)
     aes_key_wrap (1.1.0)
-    appsignal (4.1.2)
+    appsignal (4.1.3)
       logger
       rack
     ast (2.4.2)
@@ -198,7 +198,7 @@ GEM
       mutex_m
       representable (~> 3.0)
       retriable (>= 2.0, < 4.a)
-    google-apis-iamcredentials_v1 (0.21.0)
+    google-apis-iamcredentials_v1 (0.22.0)
       google-apis-core (>= 0.15.0, < 2.a)
     google-apis-storage_v1 (0.47.0)
       google-apis-core (>= 0.15.0, < 2.a)
@@ -276,7 +276,7 @@ GEM
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
-    json (2.7.5)
+    json (2.8.1)
     json-jwt (1.16.7)
       activesupport (>= 4.2)
       aes_key_wrap
@@ -336,7 +336,7 @@ GEM
     multi_xml (0.7.1)
       bigdecimal (~> 3.1)
     mutex_m (0.2.0)
-    net-http (0.4.1)
+    net-http (0.5.0)
       uri
     net-imap (0.5.0)
       date
@@ -396,7 +396,7 @@ GEM
       rack
     os (1.1.4)
     parallel (1.26.3)
-    parser (3.3.5.1)
+    parser (3.3.6.0)
       ast (~> 2.4.1)
       racc
     pdf-core (0.10.0)
@@ -418,7 +418,7 @@ GEM
     prawn-table (0.2.2)
       prawn (>= 1.3.0, < 3.0.0)
     prettier_print (1.2.1)
-    psych (5.1.2)
+    psych (5.2.0)
       stringio
     public_suffix (6.0.1)
     puma (6.4.3)
@@ -485,7 +485,7 @@ GEM
     redis-client (0.22.2)
       connection_pool
     regexp_parser (2.9.2)
-    reline (0.5.10)
+    reline (0.5.11)
       io-console (~> 0.5)
     representable (3.2.0)
       declarative (< 0.1.0)
@@ -533,7 +533,7 @@ GEM
       rubocop-ast (>= 1.32.2, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.33.0)
+    rubocop-ast (1.34.1)
       parser (>= 3.3.1.0)
     ruby-progressbar (1.13.0)
     ruby-vips (2.2.2)
@@ -591,7 +591,7 @@ GEM
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
-    stringio (3.1.1)
+    stringio (3.1.2)
     strip_attributes (1.13.0)
       activemodel (>= 3.0, < 8.0)
     swagger-blocks (3.0.0)
@@ -610,7 +610,7 @@ GEM
     thruster (0.1.8)
     tilt (2.4.0)
     time_splitter (1.1.0)
-    timeout (0.4.1)
+    timeout (0.4.2)
     trailblazer-option (0.1.2)
     ttfunk (1.8.0)
       bigdecimal (~> 3.1)
@@ -625,7 +625,7 @@ GEM
     unicode-emoji (3.8.0)
       unicode-version (~> 1.0)
     unicode-version (1.4.0)
-    uri (0.13.1)
+    uri (1.0.1)
     utf8-cleaner (1.0.0)
       activesupport
     valid_email2 (5.3.0)
@@ -646,7 +646,7 @@ GEM
       rack-proxy (>= 0.6.1)
       railties (>= 5.2)
       semantic_range (>= 2.3.0)
-    webrick (1.8.2)
+    webrick (1.9.0)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
