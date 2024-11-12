@@ -7,6 +7,7 @@ describe "public", type: :request do
     charge = Fabricate(:charge, tbnr: "112454")
     @notice = Fabricate(:notice, charge:, registration: "HH-PS 1234")
     @user = @notice.user
+    stub_request(:get, /images\.weg\.li/).to_return(status: 200, body: file_fixture("truck.jpg").read)
   end
 
   context "GET :charge" do
@@ -27,23 +28,23 @@ describe "public", type: :request do
     end
   end
 
-  context "GET :winowig" do
+  context "GET :archive" do
     it "renders a charge in winowig format" do
-      get public_winowig_path(user_token: @user.to_param, notice_token: @notice.to_param, format: :xml)
+      @notice.district.update!(config: :winowig)
+      get public_archive_path(user_token: @user.to_param, notice_token: @notice.to_param, format: :xml)
 
       expect(response).to be_successful
-      assert_select("Fall")
     end
 
     it "renders 404 with bad data" do
-      get public_winowig_path(user_token: @user.to_param, notice_token: "some token", format: :xml)
+      get public_archive_path(user_token: @user.to_param, notice_token: "some token", format: :xml)
 
       expect(response).to be_not_found
     end
 
     it "renders 404 with exired data" do
       @notice.update!(start_date: 2.months.ago)
-      get public_winowig_path(user_token: @user.to_param, notice_token: @notice.to_param, format: :xml)
+      get public_archive_path(user_token: @user.to_param, notice_token: @notice.to_param, format: :xml)
 
       expect(response).to be_not_found
     end

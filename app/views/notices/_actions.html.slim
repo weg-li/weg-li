@@ -45,10 +45,6 @@ ul.dropdown-menu
       = link_to pdf_notice_path(notice)
         span.glyphicon.glyphicon-save-file>
         | Meldung als PDF
-    li
-      = link_to(winowig_notice_path(notice, format: :xml), target: :blank) do
-        span.glyphicon.glyphicon-save-file>
-        | Meldung als WiNOWiG
 
   - if notice.disabled?
     li

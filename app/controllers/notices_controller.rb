@@ -242,6 +242,7 @@ class NoticesController < ApplicationController
     send_data data, filename: notice.file_name
   end
 
+  # TODO: (PS) add links for owi21 and winowig to the detail page
   def winowig
     notice = current_user.notices.complete.from_param(params[:id])
     _404 and return if notice.blank?
