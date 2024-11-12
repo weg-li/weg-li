@@ -7,62 +7,43 @@
         <Fahrzeug>
           <Nationalitaet>D</Nationalitaet>
           <Verkehrsbeteiligung>Führer/Halter des PKW</Verkehrsbeteiligung>
-          <Fabrikat>Volkswagen</Fabrikat>
-          <Kennzeichen>RW-WO 888</Kennzeichen>
+          <Fabrikat>märzer</Fabrikat>
+          <Kennzeichen>HH AB 123</Kennzeichen>
           <Kennzeichenart>00</Kennzeichenart>
-          <Kennzeichenzusatz>E</Kennzeichenzusatz>
         </Fahrzeug>
-        <Aktenzeichen>239003626</Aktenzeichen>
-        <Kassenzeichen>30003621</Kassenzeichen>
         <Tattag>
-          <Von>29.05.2024</Von>
+          <Von>18.01.2020</Von>
+          <Bis>18.01.2020</Bis>
         </Tattag>
         <Tatzeit>
-          <Von>09:05:00</Von>
-          <Bis>09:11:00</Bis>
+          <Von>16:00:00</Von>
+          <Bis>16:03:00</Bis>
         </Tatzeit>
-        <Ventilstellung>
-          <Text>links V8/H7</Text>
-        </Ventilstellung>
       </Falldaten>
       <Tatbestaende>
         <Tatbestand>
           <Texttyp>9</Texttyp>
-          <Tatbestandsnummer>113300</Tatbestandsnummer>
+          <Tatbestandsnummer>142170</Tatbestandsnummer>
           <Verstossart>8</Verstossart>
-          <Konkretisierungen>;314;</Konkretisierungen>
-          <Tatdaten>
-            <ErsteKontrollzeit>09:05:00</ErsteKontrollzeit>
-            <Ventilstellung>
-              <Vorne>8</Vorne>
-              <Hinten>7</Hinten>
-            </Ventilstellung>
-            <Wagenseite>links</Wagenseite>
-          </Tatdaten>
-          <BETOriginaltext>Sie parkten bei Zeichen xml.314/315&gt;, ohne die durch Zusatzzeichen vorgeschriebene Parkscheibe (Bild 318) von au�en gut lesbar im oder am Fahrzeug angebracht zu haben.
-� 13 Abs. 1, 2, � 49 StVO; � 24 Abs. 1, 3 Nr. 5 StVG; 63.1 BKat</BETOriginaltext>
         </Tatbestand>
       </Tatbestaende>
       <Bilder>
-        <Bild Inhalt="Gesamtbild" Dateiname="20240529090933166101.jpg"/>
-        <Bild Inhalt="Fahrerbild" Dateiname="20240529090946168101.jpg"/>
-        <Bild Inhalt="KFZKennzeichenbild" Dateiname="20240529090955169101.jpg"/>
-        <Bild Inhalt="Rotlichtbild" Dateiname="20240529091038172101.jpg"/>
-        <Bild Inhalt="Zusatzbild1" Dateiname="20240529091004170101.jpg"/>
-        <Bild Inhalt="Zusatzbild2" Dateiname="20240529091021171101.jpg"/>
+        <Bild Inhalt="Gesamtbild" Dateiname="test.jpg"/>
       </Bilder>
       <Beweise>
-        <Beweis>Foto</Beweis>
+        <Beweis>Zeugin/Zeuge</Beweis>
+        <Beweis>Fotos</Beweis>
       </Beweise>
       <Zeuge>
         <Zeilen>
-          <Zeile>02; 10</Zeile>
-          <Zeile>Müller, Henry</Zeile>
+          <Zeile>Uschi Müller</Zeile>
+          <Zeile>2. OG, Am Weiher 123, 54321 Dorf</Zeile>
         </Zeilen>
       </Zeuge>
       <Tatorte>
-        <Tatort>Musterstadt</Tatort>
-        <Tatort>August-Bebel-Platz, auf dem PPL</Tatort>
+        <Tatort>Am Weiher 123, 12345 Dorf</Tatort>
+        <Tatort>Beim Nazis-Raus Aufkleber</Tatort>
+        <Tatort>(53.57532,10.01534)</Tatort>
       </Tatorte>
     </Fall>
   </Mandant>
