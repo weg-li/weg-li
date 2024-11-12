@@ -17,7 +17,7 @@ describe XmlGenerator do
 
       result = XmlGenerator.new.generate(notice, :winowig)
 
-      file_fixture("winowig.xml").write(result)
+      # file_fixture("winowig.xml").write(result)
       expect(winowig).to eql(result)
     end
   end

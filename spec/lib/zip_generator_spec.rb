@@ -10,7 +10,7 @@ describe ZipGenerator do
   end
 
   it "handles the zip generation" do
-    travel_to("20.01.2020 15:00:00 UTC".to_time.utc) do
+    travel_to("12.11.2024 11:00:00 UTC".to_time.utc) do
       district = Fabricate(:district, zip: "12345")
       user = Fabricate.build(:user, name: "Uschi Müller", email: "test@example.com", city: "Dorf", zip: "54321", street: "Am Weiher 123", appendix: "2. OG", phone: "0178123456", date_of_birth: "31.12.2000")
       charge = Fabricate.build(:charge, tbnr: "142170", description: "Parken auf einem unbeschilderten Radweg")
@@ -20,7 +20,7 @@ describe ZipGenerator do
 
       result = ZipGenerator.new.generate(notice)
 
-      file_fixture("winowig.zip").binwrite(result.read)
+      # file_fixture("winowig.zip").binwrite(result.read)
 
       Zip::File.open_buffer(result) do |zip_file|
         zip_file.each do |entry|
