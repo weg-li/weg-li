@@ -45,8 +45,8 @@ class User < ApplicationRecord
   validates :email, :token, uniqueness: true
   validates :email, "valid_email_2/email": {
     mx: true,
-    disposable_with_whitelist: true,
-    blacklist: true,
+    disposable_with_allow_list: true,
+    deny_list: true,
   }
   validates :name, format: { with: /\D+\s+\D/ }
 
