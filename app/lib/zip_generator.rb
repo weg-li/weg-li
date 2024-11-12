@@ -15,7 +15,7 @@ class ZipGenerator
       notice.photos.each do |photo|
         stream.put_next_entry(photo.key)
         url = url_for_photo(photo)
-        URI.open(url) { |file| stream << file.read }
+        URI(url).open { |file| stream << file.read }
       end
     end
     archive.rewind
