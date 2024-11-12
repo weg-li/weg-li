@@ -10,8 +10,8 @@ xml.Datenstrom "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance", "xsi:
         Tatort: notice.full_location,
         Tattag: notice.start_date.strftime("%Y-%m-%d"),
         Tatzeit: notice.start_date.strftime("%H:%M"),
-        Beweis_Schluessel_1: "1",
-        Beweis_Schluessel_2: "4",
+        Beweis_Schluessel_1: "1", # rubocop:disable RuboCopNaming/VariableNumber
+        Beweis_Schluessel_2: "4", # rubocop:disable RuboCopNaming/VariableNumber
         Beteiligung_Schluessel: "2",
         Fahrzeugtyp_Schluessel: "D",
         KFZ_Kennzeichen: notice.registration,
