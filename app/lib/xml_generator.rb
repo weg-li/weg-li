@@ -3,22 +3,17 @@
 require "builder"
 
 class XmlGenerator
-  def initialize(template: "winowig")
-    @template = template
-  end
-
-  def generate(notice)
+  def generate(notice, template = :winowig)
     locals = { notice:, user: notice.user }
-    renderer.render(template: "/public/#{@template}", formats: [:xml], locals:)
+    renderer.render(template: "/public/#{template}", formats: [:xml], locals:)
   end
 
   private
 
   def renderer
-    @renderer ||=
-      ApplicationController.renderer.new(
-        http_host: Rails.application.config.default_host,
-        https: true,
-      )
+    @renderer ||= ApplicationController.renderer.new(
+      http_host: Rails.application.config.default_host,
+      https: true,
+    )
   end
 end

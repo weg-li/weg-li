@@ -12,11 +12,10 @@ class Scheduled::ExportJob < ApplicationJob
     export = Export.new(export_type:)
     name = export.display_name.parameterize
 
-    archive =
-      Zip::OutputStream.write_buffer do |stream|
-        stream.put_next_entry("#{name}.csv")
-        export.data { |data| stream.print(data.to_csv) }
-      end
+    archive = Zip::OutputStream.write_buffer do |stream|
+      stream.put_next_entry("#{name}.csv")
+      export.data { |data| stream.print(data.to_csv) }
+    end
     archive.rewind
 
     export.save!

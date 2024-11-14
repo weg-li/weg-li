@@ -225,4 +225,5 @@ de:
       short: '%d.%m.%Y %H:%M'
       date: "%d.%m.%Y"
       time: "%H:%M"
+      longtime: "%H:%M:%S"
     pm: nachmittags

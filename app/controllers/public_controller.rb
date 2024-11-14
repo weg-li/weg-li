@@ -18,11 +18,13 @@ class PublicController < ApplicationController
     @positions = @user.leaderboard_positions
   end
 
-  def winowig
+  def archive
     _404 and return if user.blank?
     _404 and return if notice.blank?
 
-    respond_to(&:xml)
+    template = notice.district.config
+    file = ZipGenerator.new.generate(notice, template)
+    send_data file.read, filename: "#{template}-#{notice.token}.zip"
   end
 
   private

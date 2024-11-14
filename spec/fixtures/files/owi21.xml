@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Datenstrom xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="xowi_bestand.xsd">
+  <Bestaende>
+    <Hinzufuegen>
+      <Bestand Gemarkung="Dorf" Tatort="Am Weiher 123, Beim Nazis-Raus Aufkleber, 12345 Dorf" Tattag="2020-01-18" Tatzeit="16:00" Beweis_Schluessel_1="1" Beweis_Schluessel_2="4" Beteiligung_Schluessel="2" Fahrzeugtyp_Schluessel="D" KFZ_Kennzeichen="HH AB 123" KFZ_Kennzeichen_Merkmal="1">
+        <Tatbestan TBNr="142170"/>
+        <Person PersonenTypId="10" Anrede_Schluessel="3" Vorname="Uschi" Nachname="Müller" Strasse="Am Weiher 123" Hausnummer="123" PLZ="54321" Ort="Dorf"/>
+        <Dokumente Typ="700" Schluessel="7">
+          <Dokument Titel="Uebersicht" Format="image/jpeg" Datei="test.jpg"/>
+        </Dokumente>
+      </Bestand>
+    </Hinzufuegen>
+  </Bestaende>
+</Datenstrom>

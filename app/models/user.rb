@@ -102,6 +102,10 @@ class User < ApplicationRecord
     "#{street}, #{zip}, #{city}, Deutschland"
   end
 
+  def house_number
+    street[/(\d+\w?)$/, 1]
+  end
+
   def geocode_address_changed?
     street_changed? || zip_changed? || city_changed?
   end

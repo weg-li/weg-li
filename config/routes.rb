@@ -115,12 +115,7 @@ Rails.application.routes.draw do
   scope "/p" do
     get "/charge/:token", to: "public#charge", as: :public_charge
     get "/profile/:token", to: "public#profile", as: :public_profile
-    get "/winowig/:user_token/:notice_token",
-        to: "public#winowig",
-        as: :public_winowig,
-        defaults: {
-          format: :xml,
-        }
+    get "/archive/:user_token/:notice_token", to: "public#archive", as: :public_archive, defaults: { format: :zip }
   end
 
   scope "/auth" do
@@ -132,9 +127,7 @@ Rails.application.routes.draw do
     post "/:provider/callback", to: "sessions#create" # just for Apple
     delete "/:provider", to: "sessions#disconnect"
     get "/failure", to: "sessions#failure"
-    get "/destroy_alias_session",
-        to: "sessions#destroy_alias",
-        as: :logout_alias
+    get "/destroy_alias_session", to: "sessions#destroy_alias", as: :logout_alias
     get "/destroy_session", to: "sessions#destroy", as: :logout
     get "/validation/:token", to: "sessions#validation", as: :validation
     get "/signup", to: "sessions#signup", as: :signup
@@ -171,8 +164,7 @@ Rails.application.routes.draw do
   get "/year2019" => redirect("/year?year=2019")
 
   if Rails.env.development?
-    get "/cdn-cgi/image/width=:width,height=:height,fit=:fit,quality=:quality/storage/:key.:extension",
-        to: "styleguide#photo"
+    get "/cdn-cgi/image/width=:width,height=:height,fit=:fit,quality=:quality/storage/:key.:extension", to: "styleguide#photo"
   end
 
   get "/styleguide", to: "styleguide#index"
