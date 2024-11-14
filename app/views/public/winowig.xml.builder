@@ -3,16 +3,15 @@
 xml.instruct!
 
 xml.OWIGMDEData Version: "1" do
-  xml.Header Herkunft: "WinowigMobil-Export", Sachbearbeitername: "Admin"
+  xml.Header Herkunft: "weg.li", Sachbearbeitername: "Admin"
   xml.Mandant do
-    xml.Fall FallArt: "VOWI" do
+    xml.Fall FallArt: "VOWI", GPS: "#{notice.latitude};#{notice.longitude}" do
       xml.Falldaten do
         xml.Fahrzeug do
           xml.Nationalitaet "D"
           xml.Verkehrsbeteiligung "Führer/Halter des PKW"
           xml.Fabrikat notice.brand
           xml.Kennzeichen notice.registration
-          xml.Kennzeichenart "00"
         end
         xml.Tattag do
           xml.Von l(notice.start_date, format: :date)
@@ -27,7 +26,6 @@ xml.OWIGMDEData Version: "1" do
         xml.Tatbestand do
           xml.Texttyp "9"
           xml.Tatbestandsnummer notice.tbnr
-          xml.Verstossart "8"
         end
       end
       xml.Bilder do
@@ -48,7 +46,6 @@ xml.OWIGMDEData Version: "1" do
       xml.Tatorte do
         xml.Tatort notice.full_address
         xml.Tatort notice.location if notice.location.present?
-        xml.Tatort "(#{notice.latitude},#{notice.longitude})"
       end
     end
   end

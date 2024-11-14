@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OWIGMDEData Version="1">
-  <Header Herkunft="WinowigMobil-Export" Sachbearbeitername="Admin"/>
+  <Header Herkunft="weg.li" Sachbearbeitername="Admin"/>
   <Mandant>
-    <Fall FallArt="VOWI">
+    <Fall FallArt="VOWI" GPS="53.57532;10.01534">
       <Falldaten>
         <Fahrzeug>
           <Nationalitaet>D</Nationalitaet>
           <Verkehrsbeteiligung>Führer/Halter des PKW</Verkehrsbeteiligung>
           <Fabrikat>märzer</Fabrikat>
           <Kennzeichen>HH AB 123</Kennzeichen>
-          <Kennzeichenart>00</Kennzeichenart>
         </Fahrzeug>
         <Tattag>
           <Von>10.11.2024</Von>
@@ -24,7 +23,6 @@
         <Tatbestand>
           <Texttyp>9</Texttyp>
           <Tatbestandsnummer>142170</Tatbestandsnummer>
-          <Verstossart>8</Verstossart>
         </Tatbestand>
       </Tatbestaende>
       <Bilder>
@@ -43,7 +41,6 @@
       <Tatorte>
         <Tatort>Am Weiher 123, 12345 Dorf</Tatort>
         <Tatort>Beim Nazis-Raus Aufkleber</Tatort>
-        <Tatort>(53.57532,10.01534)</Tatort>
       </Tatorte>
     </Fall>
   </Mandant>

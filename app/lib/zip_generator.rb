@@ -29,7 +29,7 @@ class ZipGenerator
   end
 
   def generate_winowig(notice, data, stream)
-    stream.put_next_entry("#{notice.token}.xml")
+    stream.put_next_entry("XMLMDE_#{notice.token}.xml")
     stream.print(data)
 
     notice.photos.each do |photo|
