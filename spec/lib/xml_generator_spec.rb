@@ -18,7 +18,7 @@ describe XmlGenerator do
 
       result = XmlGenerator.new.generate(notice, :owi21)
 
-      file_fixture("owi21.xml").write(result)
+      # file_fixture("owi21.xml").write(result)
       expect(owi21).to eql(result)
     end
   end
