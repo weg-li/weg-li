@@ -339,8 +339,8 @@ class Notice < ApplicationRecord
     date_times.sort
   end
 
-  def file_name(extension = :pdf)
-    "#{start_date.strftime('%Y-%m-%d %H-%M')} #{registration.gsub(' ', '-')}.#{extension}"
+  def file_name(extension = :pdf, prefix: nil)
+    "#{"#{prefix}_" if prefix}#{start_date.strftime('%Y%m%d_%H%M%S')}_#{registration.gsub(' ', '-')}.#{extension}"
   end
 
   def full_address

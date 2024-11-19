@@ -43,12 +43,12 @@ describe ZipGenerator do
 
       result = ZipGenerator.new.generate(notice, :winowig)
 
-      # file_fixture("XMLMDE_#{token}.zip").binwrite(result.read)
+      file_fixture("XMLDE_20241110_1200_HH-AB-123.zip").binwrite(result.read)
 
       Zip::File.open_buffer(result) do |zip_file|
         zip_file.each do |entry|
           actual = entry.get_input_stream.read.force_encoding("UTF-8")
-          expected = File.read(file_fixture("XMLMDE_#{token}/#{entry.name}"))
+          expected = File.read(file_fixture("XMLDE_20241110_1200_HH-AB-123/#{entry.name}"))
           expect(actual).to eql(expected)
         end
       end

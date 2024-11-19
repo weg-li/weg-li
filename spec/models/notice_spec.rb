@@ -3,7 +3,7 @@
 require "spec_helper"
 
 describe Notice do
-  let(:notice) { Fabricate.build(:notice) }
+  let(:notice) { Fabricate.build(:notice, registration: "BÜR-CO 443") }
 
   context "validation" do
     it "is valid" do
@@ -106,6 +106,16 @@ describe Notice do
       expect(Notice.for_reminder.to_a).to eql([notice])
       notice.user.update! disable_reminders: true
       expect(Notice.for_reminder).to be_empty
+    end
+  end
+
+  context "file_name" do
+    it "generates nice names" do
+      travel_to("12.11.2024 11:00:00 UTC".to_time.utc) do
+        expect(notice.file_name).to eql("20241110_120000_BÜR-CO-443.pdf")
+        expect(notice.file_name(:xml)).to eql("20241110_120000_BÜR-CO-443.xml")
+        expect(notice.file_name(:zip, prefix: XmlGenerator::PREFIX_WINOWIG)).to eql("XMLDE_20241110_120000_BÜR-CO-443.zip")
+      end
     end
   end
 

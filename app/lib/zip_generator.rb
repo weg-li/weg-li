@@ -6,10 +6,8 @@ class ZipGenerator
   include PhotoHelper
 
   def generate(notice, template = :winowig)
-    data = XmlGenerator.new.generate(notice, template)
-
     archive = Zip::OutputStream.write_buffer do |stream|
-      send("generate_#{template}", notice, data, stream)
+      send("generate_#{template}", notice, stream)
     end
     archive.rewind
     archive
@@ -17,7 +15,9 @@ class ZipGenerator
 
   private
 
-  def generate_owi21(notice, data, stream)
+  def generate_owi21(notice, stream)
+    data = XmlGenerator.new.generate(notice, :owi21)
+
     stream.put_next_entry("#{notice.token}.xml")
     stream.print(data)
 
@@ -28,9 +28,19 @@ class ZipGenerator
     end
   end
 
-  def generate_winowig(notice, data, stream)
-    stream.put_next_entry("XMLMDE_#{notice.token}.xml")
+  def generate_winowig(notice, stream)
+    pdf = PdfGenerator.new(include_photos: false).generate(notice)
+    pdf_name = notice.file_name(:pdf)
+
+    xml_name = notice.file_name(:xml, prefix: XmlGenerator::PREFIX_WINOWIG)
+    data = XmlGenerator.new.generate(notice, :winowig, files: [pdf_name])
+
+    stream.put_next_entry(pdf_name)
+    stream.print(pdf)
+
+    stream.put_next_entry(xml_name)
     stream.print(data)
+
 
     notice.photos.each do |photo|
       stream.put_next_entry(photo.key)

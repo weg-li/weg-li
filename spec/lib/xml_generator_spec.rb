@@ -32,7 +32,7 @@ describe XmlGenerator do
       notice.save!
       notice.photos.first.update!(key: "test.jpg")
 
-      result = XmlGenerator.new.generate(notice, :winowig)
+      result = XmlGenerator.new.generate(notice, :winowig, files: ["test.jpg"])
 
       # file_fixture("winowig.xml").write(result)
       expect(winowig).to eql(result)

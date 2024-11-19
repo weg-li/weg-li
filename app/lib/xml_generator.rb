@@ -3,8 +3,10 @@
 require "builder"
 
 class XmlGenerator
-  def generate(notice, template = :winowig)
-    locals = { notice:, user: notice.user }
+  PREFIX_WINOWIG = "XMLDE"
+
+  def generate(notice, template = :winowig, locals = {})
+    locals = locals.merge({ notice:, user: notice.user, now: Time.zone.now })
     renderer.render(template: "/public/#{template}", formats: [:xml], locals:)
   end
 
