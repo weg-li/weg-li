@@ -38,7 +38,7 @@
             <Telefon>0178123456</Telefon>
             <!-- Optional -->
             <Zusatzdaten>
-              <Geburtsdatum>2000-12-31</Geburtsdatum>
+              <Geburtsdatum>31.12.2000</Geburtsdatum>
             </Zusatzdaten>
           </Kontakt>
         </Beteiligter>

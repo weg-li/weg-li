@@ -40,7 +40,7 @@ xml.OWIGMDEData Version: "1" do
             xml.comment! "Optional"
             xml.Telefon user.phone if user.phone.present?
             xml.comment! "Optional"
-            xml.Zusatzdaten { xml.Geburtsdatum user.date_of_birth } if user.date_of_birth.present?
+            xml.Zusatzdaten { xml.Geburtsdatum l(user.date_of_birth) } if user.date_of_birth.present?
           end
         end
       end
