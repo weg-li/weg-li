@@ -36,11 +36,11 @@
             <EMail>test@example.com</EMail>
             <!-- Optional -->
             <Telefon>0178123456</Telefon>
-            <!-- Optional -->
-            <Zusatzdaten>
-              <Geburtsdatum>31.12.2000</Geburtsdatum>
-            </Zusatzdaten>
           </Kontakt>
+          <!-- Optional -->
+          <Zusatzdaten>
+            <Geburtsdatum>31.12.2000</Geburtsdatum>
+          </Zusatzdaten>
         </Beteiligter>
       </Beteiligte>
       <!-- Optional -->
