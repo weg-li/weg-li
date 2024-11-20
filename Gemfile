@@ -5,7 +5,7 @@ source "https://rubygems.org"
 ruby "3.2.6"
 
 gem "rails", "7.1.3.4"
-gem "turbo-rails", "2.0.0.pre.beta.2"
+gem "turbo-rails"
 
 gem "bootsnap", require: false
 gem "rack"
@@ -55,6 +55,11 @@ gem "strip_attributes"
 gem "webpacker"
 gem "utf8-cleaner"
 gem "rack-cache"
+gem "prawn-emoji"
+gem "rack-attack"
+gem "thruster"
+gem "memo-it"
+gem "valid_email2"
 
 # ruby 3 https://stackoverflow.com/questions/70500220/rails-7-ruby-3-1-loaderror-cannot-load-such-file-net-smtp
 gem "matrix", require: false
@@ -84,13 +89,3 @@ group :development, :test do
   gem "webmock"
   gem "debugbar"
 end
-
-gem "prawn-emoji", "~> 5.3"
-
-gem "rack-attack", "~> 6.7"
-
-gem "thruster", "~> 0.1.0"
-
-gem "memo-it", "~> 0.5.0"
-
-gem "valid_email2", "~> 5.2"
