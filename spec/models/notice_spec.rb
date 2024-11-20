@@ -114,7 +114,7 @@ describe Notice do
       travel_to("12.11.2024 11:00:00 UTC".to_time.utc) do
         expect(notice.file_name).to eql("20241110_120000_BÜR-CO-443.pdf")
         expect(notice.file_name(:xml)).to eql("20241110_120000_BÜR-CO-443.xml")
-        expect(notice.file_name(:zip, prefix: XmlGenerator::PREFIX_WINOWIG)).to eql("XMLDE_20241110_120000_BÜR-CO-443.zip")
+        expect(notice.file_name(:zip, prefix: XmlGenerator::PREFIX_WINOWIG)).to eql("XMLMDE_20241110_120000_BÜR-CO-443.zip")
       end
     end
   end

@@ -41,7 +41,6 @@ class ZipGenerator
     stream.put_next_entry(xml_name)
     stream.print(data)
 
-
     notice.photos.each do |photo|
       stream.put_next_entry(photo.key)
       url = url_for_photo(photo)
