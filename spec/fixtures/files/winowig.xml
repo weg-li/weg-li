@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OWIGMDEData Version="1">
-  <Header Herkunft="weg.li" Sachbearbeitername="Admin"/>
+  <!-- Required -->
+  <Header Herkunft="weg.li" Sachbearbeitername="xxxxxxx@anzeige.weg.li"/>
+  <!-- Multiple -->
   <Mandant>
+    <!-- Multiple -->
     <Fall FallArt="VOWI" GPS="53.57532;10.01534">
+      <!-- Required -->
       <Beteiligte>
+        <!-- Required -->
         <Beteiligter Funktion="keine" Typ="Anzeigenerstatter">
+          <!-- Optional -->
           <Kontakt>
             <Anschrift>
-              <!-- Default is '-' weg.li does use salutations -->
+              <!-- Default is '-' weg.li does not use salutations -->
               <Anrede>-</Anrede>
               <!-- Required -->
               <Vorname>Uschi</Vorname>
@@ -37,56 +43,83 @@
           </Kontakt>
         </Beteiligter>
       </Beteiligte>
+      <!-- Optional -->
       <Bemerkungen>
-        <!-- Optional -->
+        <!-- Optional max 2 (lets hope there are not too many flags) -->
         <Bemerkung>Gehweg war versperrt</Bemerkung>
-        <!-- Optional -->
         <Bemerkung>Das Fahrzeug war verlassen</Bemerkung>
-        <!-- Required -->
-        <Bemerkung>xxxxxxx@anzeige.weg.li</Bemerkung>
       </Bemerkungen>
+      <!-- Optional -->
       <Falldaten>
+        <!-- Optional -->
         <Fahrzeug>
+          <!-- Optional -->
           <Nationalitaet>D</Nationalitaet>
+          <!-- Optional -->
           <Verkehrsbeteiligung>Führer/Halter des PKW</Verkehrsbeteiligung>
+          <!-- Optional -->
           <Fabrikat>märzer</Fabrikat>
+          <!-- Optional -->
           <Kennzeichen>HH AB 123</Kennzeichen>
+          <!-- Optional -->
           <Farbe>Schwarz</Farbe>
         </Fahrzeug>
+        <!-- Required -->
         <Tattag>
+          <!-- Required -->
           <Von>18.01.2020</Von>
+          <!-- Optional -->
           <Bis>18.01.2020</Bis>
         </Tattag>
+        <!-- Required -->
         <Tatzeit>
+          <!-- Required -->
           <Von>16:00:00</Von>
+          <!-- Optional -->
           <Bis>16:03:00</Bis>
         </Tatzeit>
       </Falldaten>
+      <!-- Required -->
       <Tatbestaende>
+        <!-- Multiple -->
         <Tatbestand>
+          <!-- Optional (BKAT) -->
           <Texttyp>9</Texttyp>
+          <!-- Required -->
           <Tatbestandsnummer>142170</Tatbestandsnummer>
-          <VorwurfText>Parken auf einem unbeschilderten Radweg</VorwurfText>
         </Tatbestand>
       </Tatbestaende>
+      <!-- Optional -->
       <Bilder>
+        <!-- Multiple -->
         <Bild Inhalt="Gesamtbild" Dateiname="test.jpg"/>
       </Bilder>
+      <!-- Optional -->
       <Beweise>
+        <!-- Optional (0-2) -->
         <Beweis>Zeugen/Zeuge, Foto</Beweis>
       </Beweise>
+      <!-- Optional -->
       <Zeuge>
+        <!-- Optional -->
         <Zeilen>
+          <!-- Optional (0-3) -->
           <Zeile>Uschi Müller</Zeile>
         </Zeilen>
       </Zeuge>
+      <!-- Optional -->
       <Tatorte>
+        <!-- Optional (0-3) -->
         <Tatort>Am Weiher 123, 12345 Dorf</Tatort>
         <Tatort>Beim Nazis-Raus Aufkleber</Tatort>
       </Tatorte>
+      <!-- Optional -->
       <Historie>
+        <!-- Multiple -->
         <Eintrag Typ="Posteingang" Beschreibung="Privatanzeige" Status="ausgeführt" Datum="20.01.2020" Uhrzeit="16:00:00">
+          <!-- Optional -->
           <Dokumente>
+            <!-- Multiple -->
             <Dokument Dateiname="test.jpg"/>
           </Dokumente>
         </Eintrag>

@@ -3,7 +3,7 @@
 require "builder"
 
 class XmlGenerator
-  PREFIX_WINOWIG = "XMLDE"
+  PREFIX_WINOWIG = "XMLMDE"
 
   def generate(notice, template = :winowig, locals = {})
     locals = locals.merge({ notice:, user: notice.user, now: Time.zone.now })
