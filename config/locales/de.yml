@@ -87,6 +87,9 @@ de:
           truck: 'LKW'
           bike: 'Kraftrad'
           scooter: 'Scooter'
+      sign:
+        number: 'Nummer'
+        description: 'Beschreibung'
       charge:
         tbnr: 'TBNR'
         description: 'Tatbestandstext'
@@ -176,6 +179,8 @@ de:
     brand: "Falschparker mit der Fahrzeugmarke %{name}."
     charges: 'Alles Wichtige über Verstöße aus dem Bußgeldkatalog der Straßenverkehrsordnung (StVO) zum Anzeigen von Falschparkern: Tatbestandsnummer (TBNR), Höhe der Bußgelder oder Verwarngelder, Fahrverbote und Punktezahl aus dem aktuellen bundeseinheitlichen Bußgeldkatalog (bkat owi 18.05.2020)'
     charge: "Falschparker anzeigen mit TBNR %{tbnr}: %{description} Diese Geldbußen oder Verwarngelder drohen beim Verstoß gegen %{bkat}."
+    signs: 'Alles Wichtige über die Verkehrszeichen und Symbole aus dem aktuellen Katalog der Bundesanstalt für Straßenwesen'
+    sign: 'Informationen über das Verkehrszeichen bzw Symbol %{number}: %{description}'
     districts: 'Alles Wichtige über das Anzeigen von Falschparkern in der ganzen Bundesrepublik. Deutschlandweit werden Verstöße zur Anzeige gebracht.'
     district: "Falschparker anzeigen in %{zip} %{name}: So werden in %{state} Verstöße zur Anzeige gebracht."
     map: "Die Falschparker-Karte zeigt alle gemeldeten Parkverstöße und Anzeigen gegen Falschparker in %{district}."
@@ -183,6 +188,7 @@ de:
     leaderboard: "Das who-is-who der Falschparker-Melder auf weg.li. Wer erstattet die meisten Anzeigen gegen Falschparker in Deutschland."
   navigation:
     charges: 'Bußgeldkatalog'
+    signs: 'Verkehrszeichen'
     brands: 'Marken'
     districts: 'Bezirke'
     notices: 'Meldungen'

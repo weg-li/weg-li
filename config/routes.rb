@@ -105,10 +105,11 @@ Rails.application.routes.draw do
   end
 
   resources :districts
-
+  resources :signs, only: %i[index show]
   resources :charges, only: %i[index show] do
     collection { get :list }
   end
+
   resources :exports, only: :index
   resource :sitemap, only: :show
 

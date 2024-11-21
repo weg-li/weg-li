@@ -133,6 +133,19 @@ namespace :data do
     end
   end
 
+  task import_signs: :environment do
+    Sign.connection.truncate("signs")
+    CSV.foreach(Rails.root.join("config/data/schilder.csv"), headers: false) do |row|
+      # Nr,Bezeichnung
+      params = {
+        number: row[0],
+        description: row[1],
+      }
+      puts params
+      Sign.create!(params)
+    end
+  end
+
   private
 
   def zips_and_osm

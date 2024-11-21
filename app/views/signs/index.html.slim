@@ -1,0 +1,51 @@
+- set_title t('navigation.signs')
+- set_meta_description t('meta_description.signs')
+
+.well
+  |
+    Bei weg.li sind #{number_with_delimiter(Sign.count)} Verkehrszeichen und Symbole aus dem aktuellen Katalog der #{link_to 'Bundesanstalt für Straßenwesen', 'https://www.bast.de/DE/Verkehrstechnik/Fachthemen/v1-verkehrszeichen/vz-download.html', target: '_blank'} hinterlegt.
+
+.panel.panel-default
+  .panel-heading
+    .row
+      .col-xs-8
+      .col-xs-4.text-right
+        button.btn.btn-default.btn-sm.dropdown-toggle type="button" data-toggle="dropdown"
+          | <span class="glyphicon glyphicon-search"></span> Suche <span class="caret"></span>
+        ul.dropdown-menu.dropdown-menu-right
+          li
+            = form_tag({url: url_for}, method: :get, class: 'form-dropdown', autocomplete: :off) do
+              = hidden_field_tag(:classification, params[:classification])
+              .input-group.input-group-sm
+                = text_field_tag(:term, params[:term], placeholder: 'z.B. Gehweg', class: 'form-control input-sm', autofocus: true)
+                span.input-group-btn
+                  = button_tag(class: "btn btn-default btn-sm")
+                    span.glyphicon.glyphicon-search
+
+          - if params[:term].present?
+            li.divider
+            li
+              = link_to url_for(classification: params[:classification])
+                span.glyphicon.glyphicon-remove>
+                | ohne Suche
+
+  .table-responsive
+    table.table.table-striped.table-hover
+      thead
+        tr
+          th
+          th= Sign.human_attribute_name(:number)
+          th= Sign.human_attribute_name(:description)
+      tbody
+        - if @signs.present?
+          - @signs.each do |sign|
+            tr
+              td
+              td= link_to(sign.number, sign)
+              td= link_to(sign.description, sign)
+        - else
+          tr
+            td(colspan=8) Es wurden keine Einträge gefunden.
+
+.text-center
+  = paginate @signs

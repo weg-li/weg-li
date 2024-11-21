@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_21_085138) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_21_144643) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -230,6 +230,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_21_085138) do
     t.bigint "action_mailbox_inbound_email_id"
     t.index ["action_mailbox_inbound_email_id"], name: "index_replies_on_action_mailbox_inbound_email_id"
     t.index ["notice_id"], name: "index_replies_on_notice_id"
+  end
+
+  create_table "signs", force: :cascade do |t|
+    t.string "number"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["number"], name: "index_signs_on_number", unique: true
   end
 
   create_table "snippets", force: :cascade do |t|
