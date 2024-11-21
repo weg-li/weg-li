@@ -9,15 +9,6 @@ class SignsController < ApplicationController
   end
 
   def show
-    @since = (params[:since] || 4).to_i
-    @display = %w[cluster heat multi].delete(params[:display]) || "cluster"
-
-    @signs = Sign.by_param(params[:id]).ordered
-    @sign = @signs.first!
-    @notices = @sign.notices.shared.since(@since.weeks.ago)
-  end
-
-  def show
     @sign = Sign.from_param(params[:id])
     respond_to do |format|
       format.html
