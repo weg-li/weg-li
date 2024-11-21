@@ -15,7 +15,7 @@
   .row
     .col-lg-12
       pre.charge
-        = @mail.text_part.decoded
+        = render template: 'notice_mailer/charge', formats: :text
       = render 'components/photos', notice: @notice, publicly: true
 
   hr.spacer

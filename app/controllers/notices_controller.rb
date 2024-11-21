@@ -128,11 +128,10 @@ class NoticesController < ApplicationController
   def share
     @notice = current_user.notices.complete.from_param(params[:id])
     @district = @notice.district
+    @user = current_user
 
     if @district.blank?
       notify("no district found with zip #{@notice.zip} for #{@notice.id} #{edit_admin_notice_url(@notice.token)}")
-    else
-      @mail = NoticeMailer.charge(@notice)
     end
   end
 
