@@ -46,7 +46,6 @@
       <!-- Optional -->
       <Bemerkungen>
         <!-- Optional max 2 (lets hope there are not too many flags) -->
-        <Bemerkung>Gehweg war versperrt</Bemerkung>
         <Bemerkung>Das Fahrzeug war verlassen</Bemerkung>
       </Bemerkungen>
       <!-- Optional -->
@@ -64,6 +63,8 @@
           <!-- Optional -->
           <Farbe>Schwarz</Farbe>
         </Fahrzeug>
+        <!-- Optional -->
+        <Notiz>Gehweg war versperrt</Notiz>
         <!-- Required -->
         <Tattag>
           <!-- Required -->

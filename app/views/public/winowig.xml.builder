@@ -47,9 +47,6 @@ xml.OWIGMDEData Version: "1" do
       xml.comment! "Optional"
       xml.Bemerkungen do
         xml.comment! "Optional max 2 (lets hope there are not too many flags)"
-        if notice.note.present?
-          xml.Bemerkung notice.note
-        end
         Notice.details.each do |flag|
           if notice.send(flag)
             xml.Bemerkung t(flag, scope: "activerecord.attributes.notice.flags")
@@ -70,6 +67,10 @@ xml.OWIGMDEData Version: "1" do
           xml.Kennzeichen notice.registration
           xml.comment! "Optional"
           xml.Farbe color_name(notice.color.presence)
+        end
+        if notice.note.present?
+          xml.comment! "Optional"
+          xml.Notiz notice.note
         end
         xml.comment! "Required"
         xml.Tattag do
