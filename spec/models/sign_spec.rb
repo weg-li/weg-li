@@ -23,6 +23,23 @@ describe Sign do
     end
   end
 
+  context "grouping" do
+    it "handles the grouping" do
+      group = Fabricate.create(:sign, number: "1000", description: "bla")
+      sub = Fabricate.create(:sign, number: "1000-10", description: "bla")
+
+      expect(group.grouped?).to be_falsy
+      expect(group.category?).to be_truthy
+      expect(group.parent).to be_nil
+      expect(group.parent_number).to be_nil
+
+      expect(sub.grouped?).to be_truthy
+      expect(sub.category?).to be_falsy
+      expect(sub.parent_number).to eql("1000")
+      expect(sub.parent).to eql(group)
+    end
+  end
+
   context "acts_as_api" do
     let(:sign) { Fabricate.build(:sign, number: "999-1", description: "bla") }
     it "generates proper results" do

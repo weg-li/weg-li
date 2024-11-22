@@ -4,29 +4,31 @@ footer
     .col-lg-8.col-xs-12
       ul.list-unstyled.clearfix
         li
+          = link_to leaderboard_path, title: 'weg.li Leaderboard' do
+            <span class="glyphicon glyphicon-blackboard"></span> Leaderboard
+        li
           = link_to map_path, title: 'weg.li Karte' do
             <span class="glyphicon glyphicon-map-marker"></span> Karte
         li
           = link_to stats_path, title: 'weg.li Statistik' do
             <span class="glyphicon glyphicon-stats"></span> Statistik
         li
-          = link_to leaderboard_path, title: 'weg.li Leaderboard' do
-            <span class="glyphicon glyphicon-blackboard"></span> Leaderboard
-        li
-          = link_to districts_path, title: 'weg.li Bezirke' do
-            <span class="glyphicon glyphicon-list"></span> Bezirke
+          = link_to exports_path, title: 'weg.li Exporte' do
+            <span class="glyphicon glyphicon-compressed"></span> Exporte
+
+      ul.list-unstyled.clearfix
         li
           = link_to charges_path, title: 'weg.li Tatbestandskatalog' do
             <span class="glyphicon glyphicon-book"></span> Tatbestandskatalog
         li
           = link_to signs_path, title: 'weg.li Verkehrszeichen und Symbole' do
-            <span class="glyphicon glyphicon-tower"></span> Verkehrszeichen
+            <span class="glyphicon glyphicon-warning-sign"></span> Verkehrszeichen
+        li
+          = link_to districts_path, title: 'weg.li Bezirke' do
+            <span class="glyphicon glyphicon-list"></span> Bezirke
         li
           = link_to brands_path, title: 'weg.li Marken' do
             <span class="glyphicon glyphicon-tower"></span> Marken
-        li
-          = link_to exports_path, title: 'weg.li Exporte' do
-            <span class="glyphicon glyphicon-compressed"></span> Exporte
 
       ul.list-unstyled.clearfix
         li

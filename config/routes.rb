@@ -44,6 +44,7 @@ Rails.application.routes.draw do
       collection { get :public }
     end
     resources :districts, only: [:index, :show]
+    resources :signs, only: [:index, :show]
     resources :charges, only: [:index, :show]
   end
 

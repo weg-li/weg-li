@@ -89,6 +89,7 @@ de:
           scooter: 'Scooter'
       sign:
         number: 'Nummer'
+        icon: 'Symbol'
         description: 'Beschreibung'
       charge:
         tbnr: 'TBNR'

@@ -34,15 +34,17 @@
       thead
         tr
           th
-          th= Sign.human_attribute_name(:number)
-          th= Sign.human_attribute_name(:description)
+          th = Sign.human_attribute_name(:icon)
+          th = Sign.human_attribute_name(:number)
+          th = Sign.human_attribute_name(:description)
       tbody
         - if @signs.present?
           - @signs.each do |sign|
             tr
               td
-              td= link_to(sign.number, sign)
-              td= link_to(sign.description, sign)
+              td = image_tag asset_url(sign.image), class: 'img-thumbnail', style: "width: 5em;", title: sign.description if sign.file.exist?
+              td = link_to(sign.number, sign, class: sign.category? ? 'text-muted' : '')
+              td = link_to(sign.description, sign, class: sign.category? ? 'text-muted' : '')
         - else
           tr
             td(colspan=8) Es wurden keine Einträge gefunden.

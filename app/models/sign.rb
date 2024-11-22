@@ -18,6 +18,28 @@ class Sign < ApplicationRecord
 
   scope(:ordered, -> { order(number: :asc) })
 
+  def grouped?
+    number =~ /-/
+  end
+
+  def category?
+    return false if grouped?
+
+    !file.exist?
+  end
+
+  def parent_number
+    return nil if category?
+
+    number.split("-")[0]
+  end
+
+  def parent
+    return nil if category?
+
+    self.class.from_param(parent_number)
+  end
+
   def image
     "signs/#{number}.jpg.png"
   end
