@@ -32,7 +32,7 @@ class Api::DistrictsController < Api::ApplicationController
       parameter do
         key :name, :zip
         key :in, :path
-        key :description, "Zip of notice"
+        key :description, "Zip of district"
         key :required, true
         key :type, :string
       end
