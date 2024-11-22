@@ -37,7 +37,7 @@ class Sign < ApplicationRecord
   def parent
     return nil if category?
 
-    self.class.from_param(parent_number)
+    @parent ||= self.class.from_param(parent_number)
   end
 
   def image

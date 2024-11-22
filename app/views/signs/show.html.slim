@@ -2,15 +2,16 @@
 - set_canonical sign_url(@sign)
 - set_meta_description t('meta_description.sign', number: @sign.number, description: @sign.description)
 
-h3 #{@sign.description} (#{Charge.human_attribute_name(:number)} #{@sign.number})
+h3 #{@sign.description} (#{@sign.number})
 
 .spacer
 
 .panel.panel-default.panel-nav
   .panel-heading Details zum Schild/Zeichen
   ul.list-group
-    li.list-group-item = @sign.number
-    li.list-group-item = @sign.description
+    - if @sign.grouped?
+      li.list-group-item.text-muted #{@sign.parent.description} (#{@sign.parent.number})
     - if @sign.file.exist?
+      li.list-group-item
+        code = @sign.url
       li.list-group-item = image_tag asset_url(@sign.image), class: 'img-responsive', title: @sign.description
-      li.list-group-item = @sign.url
