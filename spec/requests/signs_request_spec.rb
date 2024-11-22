@@ -12,14 +12,7 @@ describe "signs", type: :request do
       get signs_path
 
       expect(response).to be_successful
-      assert_select "h2", "weg.li Verkehrszeichen"
-    end
-
-    it "renders signs as json" do
-      get signs_path(format: :json)
-
-      expect(response).to be_successful
-      assert JSON.parse(response.body)
+      assert_select "h2", "weg.li Verkehrszeichen und Symbole"
     end
 
     it "renders a list of legacy signs as CSV" do
@@ -35,7 +28,7 @@ describe "signs", type: :request do
       get sign_path(@sign)
 
       expect(response).to be_successful
-      assert_select "h2", "weg.li Verkehrszeichen"
+      assert_select "h2", "weg.li Verkehrszeichen und Symbole"
     end
 
     it "gets a sign as json" do

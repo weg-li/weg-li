@@ -4,7 +4,6 @@ class SignsController < ApplicationController
   def index
     respond_to do |format|
       format.html { @signs = search_scope }
-      format.json { render json: Sign.as_api_response(:public_beta) }
       format.csv do
         csv_data = CSV.generate(force_quotes: true) do |csv|
           csv << %w[Nummber Beschreibung]
