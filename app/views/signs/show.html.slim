@@ -12,4 +12,4 @@ h3 #{@sign.description} (#{Charge.human_attribute_name(:number)} #{@sign.number}
     li.list-group-item = @sign.number
     li.list-group-item = @sign.description
     li.list-group-item = image_tag asset_url(@sign.image), class: 'img-responsive'
-    li.list-group-item = sign_url(@sign, format: :png)
+    li.list-group-item = @sign.url

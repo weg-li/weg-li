@@ -20,18 +20,11 @@ class ChargesController < ApplicationController
   def list
     respond_to do |format|
       format.csv do
-        csv_data =
-          CSV.generate(force_quotes: true) do |csv|
-            csv << %w[Nr TBNR Tatbestand]
-            Charge.tbnrs_with_description.each_with_index do |(tbnr, charge), index|
-              csv << [index + 1, tbnr, charge]
-            end
-          end
-        send_data(
-          csv_data,
-          type: "text/csv; charset=UTF-8; header=present",
-          disposition: "attachment; filename=districts-#{Time.now.to_i}.csv",
-        )
+        csv_data = CSV.generate(force_quotes: true) do |csv|
+          csv << %w[Nr TBNR Tatbestand]
+          Charge.tbnrs_with_description.each_with_index { |(tbnr, charge), index| csv << [index + 1, tbnr, charge] }
+        end
+        send_data(csv_data, type: "text/csv; charset=UTF-8; header=present", disposition: "attachment; filename=districts-#{Time.now.to_i}.csv")
       end
     end
   end

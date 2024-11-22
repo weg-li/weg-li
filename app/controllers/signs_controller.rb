@@ -5,6 +5,13 @@ class SignsController < ApplicationController
     respond_to do |format|
       format.html { @signs = search_scope }
       format.json { render json: Sign.as_api_response(:public_beta) }
+      format.csv do
+        csv_data = CSV.generate(force_quotes: true) do |csv|
+          csv << %w[Nummber Beschreibung]
+          Sign.ordered.pluck(:number, :description).each { |sign| csv << sign }
+        end
+        send_data(csv_data, type: "text/csv; charset=UTF-8; header=present", disposition: "attachment; filename=signs-#{Time.now.to_i}.csv")
+      end
     end
   end
 
@@ -12,6 +19,7 @@ class SignsController < ApplicationController
     @sign = Sign.from_param(params[:id])
     respond_to do |format|
       format.html
+      format.json { render json: @sign.as_api_response(:public_beta) }
       format.png do
         send_data @sign.file.read, type: "image/png", disposition: "inline"
       end
