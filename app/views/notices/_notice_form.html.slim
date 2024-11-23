@@ -84,16 +84,10 @@
   .col-lg-12
     .form-group
       = form.label :tbnr, class: "control-label control-label-required"
-      ruby:
-        nearest_tbnrs = notice.data_sets.select(&:proximity?).flat_map(&:tbnrs).compact
-        charges = Charge.tbnrs_with_description
-        favorites = charges.select { |tbnr, _charge| current_user.favorite_tbnrs.include?(tbnr) }
-        charge_options = [
-         ["Favoriten", favorites.map {|tbnr, description| ["#{description} [#{tbnr}]", tbnr]}],
-         ["BKAT", charges.map { |tbnr, description| ["#{description} [#{tbnr}]", tbnr] }]
-        ]
-      = form.select :tbnr, charge_options, { include_blank: 'Verstoß Auswählen' }, { class: "form-control", required: true }
+      = form.select :tbnr, [], { include_blank: 'Verstoß Auswählen' }, { class: "form-control", required: true, data: {'select2-disabled' => true} }
+      = render('charge_select')
       .input-group#pick_charge
+        - nearest_tbnrs = notice.data_sets.select(&:proximity?).flat_map(&:tbnrs).compact
         - if nearest_tbnrs.present?
           - nearest_charges = charges.select { |tbnr, _charge| nearest_tbnrs.first(3).include?(tbnr) }
           - nearest_charges.each do |nearest_tbnr, nearest_charge|
