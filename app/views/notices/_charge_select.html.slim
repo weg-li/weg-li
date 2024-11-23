@@ -13,5 +13,8 @@ javascript:
     templateResult: function(data) {
       return $('<span>' + data.text + '</span>');
     },
+    templateSelection: function(data) {
+      return $('<span>' + data.text + '</span>');
+    },
     data: #{raw(charge_options.to_json.html_safe)},
   });
