@@ -2,8 +2,8 @@ ruby:
   charges = Charge.tbnrs_with_description
   favorites = charges.select { |tbnr, _charge| current_user.favorite_tbnrs.include?(tbnr) }
   charge_options = [
-    {text: "Favoriten", children: favorites.map {|tbnr, description| {id: tbnr, text: signify(description, link: false)} }},
-    {text: "BKAT", children: charges.map { |tbnr, description| {id: tbnr, text: signify(description, link: false)} }},
+    {text: "Favoriten", children: favorites.map {|tbnr, description| {id: tbnr, text: signify(description, link: false) + " [#{tbnr}]"} }},
+    {text: "BKAT", children: charges.map { |tbnr, description| {id: tbnr, text: signify(description, link: false) + " [#{tbnr}]"} }},
   ]
 javascript:
   $('select#notice_tbnr').select2({
