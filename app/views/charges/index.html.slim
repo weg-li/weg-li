@@ -62,7 +62,7 @@
             tr
               td
               td= link_to(charge.tbnr, charge)
-              td= link_to(charge.description, charge)
+              td= link_to(signify(charge.description), charge)
               td= link_to(charge.classification_name, url_for(classification: charge.classification), class: 'label label-primary')
               td(nowrap)= number_to_currency(charge.fine)
               td(nowrap)= charge.points? ? charge.points : ''
