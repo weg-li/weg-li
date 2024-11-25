@@ -55,7 +55,9 @@
           <!-- Optional -->
           <Nationalitaet>D</Nationalitaet>
           <!-- Optional -->
-          <Verkehrsbeteiligung>Führer/Halter des PKW</Verkehrsbeteiligung>
+          <Verkehrsbeteiligung>Führer des PKW</Verkehrsbeteiligung>
+          <!-- Optional -->
+          <VerkehrsbeteiligungKurzform>1D</VerkehrsbeteiligungKurzform>
           <!-- Optional -->
           <Fabrikat>märzer</Fabrikat>
           <!-- Optional -->
@@ -64,7 +66,7 @@
           <Farbe>Schwarz</Farbe>
         </Fahrzeug>
         <!-- Optional -->
-        <Notiz>Gehweg war versperrt</Notiz>
+        <NotizAussendienst>Gehweg war versperrt</NotizAussendienst>
         <!-- Required -->
         <Tattag>
           <!-- Required -->
@@ -101,18 +103,9 @@
         <Beweis>Zeugen/Zeuge, Foto</Beweis>
       </Beweise>
       <!-- Optional -->
-      <Zeuge>
-        <!-- Optional -->
-        <Zeilen>
-          <!-- Optional (0-3) -->
-          <Zeile>Uschi Müller</Zeile>
-        </Zeilen>
-      </Zeuge>
-      <!-- Optional -->
       <Tatorte>
         <!-- Optional (0-3) -->
-        <Tatort>Am Weiher 123, 12345 Dorf</Tatort>
-        <Tatort>Beim Nazis-Raus Aufkleber</Tatort>
+        <Tatort>Am Weiher 123, Beim Nazis-Raus Aufkleber</Tatort>
       </Tatorte>
       <!-- Optional -->
       <Historie>

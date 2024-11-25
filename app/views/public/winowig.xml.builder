@@ -60,7 +60,9 @@ xml.OWIGMDEData Version: "1" do
           xml.comment! "Optional"
           xml.Nationalitaet "D"
           xml.comment! "Optional"
-          xml.Verkehrsbeteiligung "Führer/Halter des PKW"
+          xml.Verkehrsbeteiligung "Führer des PKW"
+          xml.comment! "Optional"
+          xml.VerkehrsbeteiligungKurzform "1D"
           xml.comment! "Optional"
           xml.Fabrikat notice.brand
           xml.comment! "Optional"
@@ -70,7 +72,7 @@ xml.OWIGMDEData Version: "1" do
         end
         if notice.note.present?
           xml.comment! "Optional"
-          xml.Notiz notice.note
+          xml.NotizAussendienst notice.note
         end
         xml.comment! "Required"
         xml.Tattag do
@@ -110,18 +112,9 @@ xml.OWIGMDEData Version: "1" do
         xml.Beweis "Zeugen/Zeuge, Foto"
       end
       xml.comment! "Optional"
-      xml.Zeuge do
-        xml.comment! "Optional"
-        xml.Zeilen do
-          xml.comment! "Optional (0-3)"
-          xml.Zeile user.name
-        end
-      end
-      xml.comment! "Optional"
       xml.Tatorte do
         xml.comment! "Optional (0-3)"
-        xml.Tatort notice.full_address
-        xml.Tatort notice.location if notice.location.present?
+        xml.Tatort notice.location_and_address
       end
       xml.comment! "Optional"
       xml.Historie do
