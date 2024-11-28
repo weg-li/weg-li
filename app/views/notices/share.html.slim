@@ -15,7 +15,7 @@
   .row
     .col-lg-12
       pre.charge
-        = render template: 'notice_mailer/charge', formats: :text
+        = CGI.escapeHTML(render template: 'notice_mailer/charge', formats: :text).html_safe
       = render 'components/photos', notice: @notice, publicly: true
 
   hr.spacer
