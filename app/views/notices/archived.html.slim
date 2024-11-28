@@ -1,0 +1,30 @@
+- set_title t('navigation.notices')
+
+.well
+  span Alle Meldungen, älter als 3 Jahre, werden ins Meldungsarchiv verschoben und nur noch in anonymisierter Form für Statistiken vorgehalten.
+
+
+.panel.panel-default
+  .table-responsive.table-padding
+    table.table.table-striped.table-hover
+      thead
+        tr
+          th = Notice.human_attribute_name(:registration)
+          th = Notice.human_attribute_name(:created_at)
+          th = Notice.human_attribute_name(:date)
+          th = Notice.human_attribute_name(:status)
+      tbody
+        - if @notices.present?
+          - @notices.each do |notice|
+            tr
+              td = notice.registration.truncate(6)
+              td(nowrap) = d(notice.created_at)
+              td(nowrap) = d(notice.start_date, default: '-')
+              td = render 'status', status: notice.status
+        - else
+          tr
+            td(colspan=6)
+              strong Keine archivierten Meldungen gefunden!
+
+.text-center
+  = paginate @notices

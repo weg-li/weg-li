@@ -78,6 +78,8 @@ class Notice < ApplicationRecord
   scope :for_public, -> { where.not(status: :disabled) }
   scope :search, ->(term) { where("registration ILIKE :term", term: "%#{term}%") }
   scope :preselect, -> { shared.limit(3) }
+  scope :active, -> { where(archived: false) }
+  scope :archived, -> { where(archived: true) }
 
   def self.for_reminder
     open

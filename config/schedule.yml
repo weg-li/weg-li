@@ -17,6 +17,9 @@ geocoding_cleanup:
 data_cleanup:
   cron: '0 5 * * * Europe/Berlin'
   class: 'Scheduled::DataCleanupJob'
+notice_archiver:
+  cron: '0 4 * * * Europe/Berlin'
+  class: 'Scheduled::NoticeArchiverJob'
 export:
   cron: '0 3 * * mon Europe/Berlin'
   class: 'Scheduled::ExportJob'

@@ -138,6 +138,7 @@ de:
         hinder: 'mit Behinderung (z.B. Anhalten, Ausweichen, Absteigen)'
         endanger: 'mit Gefährdung (z.B. Ausweichen in Fließverkehr)'
         incomplete: 'unvollständig'
+        archived: 'archiviert'
         status: 'Status'
         open: 'offen'
         disabled: 'deaktiviert'
