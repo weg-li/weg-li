@@ -19,6 +19,14 @@ describe "notices", type: :request do
     end
   end
 
+  context "archived" do
+    it "archived works" do
+      get archived_notices_path
+
+      expect(response).to be_ok
+    end
+  end
+
   context "GET :new" do
     it "renders the page" do
       get new_notice_path
