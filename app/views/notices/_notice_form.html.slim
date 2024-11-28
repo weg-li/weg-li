@@ -85,7 +85,7 @@
     .form-group
       = form.label :tbnr, class: "control-label control-label-required"
       = form.select :tbnr, [], { include_blank: 'Verstoß Auswählen' }, { class: "form-control", required: true, data: {'select2-disabled' => true} }
-      = render('charge_select')
+      = render('charge_select', notice: notice)
       .input-group#pick_charge
         - nearest_tbnrs = notice.data_sets.select(&:proximity?).flat_map(&:tbnrs).compact
         - if nearest_tbnrs.present?
