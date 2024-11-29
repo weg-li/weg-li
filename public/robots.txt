@@ -31,3 +31,5 @@ Disallow: /
 User-agent: DotBot
 Disallow: /
 
+User-agent: Amazonbot
+Disallow: /
