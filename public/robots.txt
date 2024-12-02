@@ -24,3 +24,6 @@ Disallow: /
 
 User-agent: barkrowler
 Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
