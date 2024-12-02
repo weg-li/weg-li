@@ -84,9 +84,9 @@ xml.OWIGMDEData Version: "1" do
         xml.comment! "Required"
         xml.Tatzeit do
           xml.comment! "Required"
-          xml.Von l(notice.start_date, format: :longtime)
+          xml.Von l(notice.start_date, format: :time)
           xml.comment! "Optional"
-          xml.Bis l(notice.end_date, format: :longtime)
+          xml.Bis l(notice.end_date, format: :time)
         end
       end
       xml.comment! "Required"
@@ -97,6 +97,11 @@ xml.OWIGMDEData Version: "1" do
           xml.Texttyp "9"
           xml.comment! "Required"
           xml.Tatbestandsnummer notice.tbnr
+          xml.comment! "Optional"
+          xml.Tatdaten do
+            xml.comment! "Optional"
+            xml.ErsteKontrollzeit l(notice.start_date, format: :time)
+          end
         end
       end
       xml.comment! "Optional"
@@ -119,7 +124,7 @@ xml.OWIGMDEData Version: "1" do
       xml.comment! "Optional"
       xml.Historie do
         xml.comment! "Multiple"
-        xml.Eintrag Typ: "Posteingang", Beschreibung: "Privatanzeige", Status: "ausgeführt", Datum: l(now, format: :date), Uhrzeit: l(now, format: :longtime) do
+        xml.Eintrag Typ: "Posteingang", Beschreibung: "Privatanzeige", Status: "ausgeführt", Datum: l(now, format: :date), Uhrzeit: l(now, format: :time) do
           xml.comment! "Optional"
           xml.Dokumente do
             xml.comment! "Multiple"

@@ -77,9 +77,9 @@
         <!-- Required -->
         <Tatzeit>
           <!-- Required -->
-          <Von>16:00:00</Von>
+          <Von>16:00</Von>
           <!-- Optional -->
-          <Bis>16:03:00</Bis>
+          <Bis>16:03</Bis>
         </Tatzeit>
       </Falldaten>
       <!-- Required -->
@@ -90,6 +90,11 @@
           <Texttyp>9</Texttyp>
           <!-- Required -->
           <Tatbestandsnummer>142170</Tatbestandsnummer>
+          <!-- Optional -->
+          <Tatdaten>
+            <!-- Optional -->
+            <ErsteKontrollzeit>16:00</ErsteKontrollzeit>
+          </Tatdaten>
         </Tatbestand>
       </Tatbestaende>
       <!-- Optional -->
@@ -110,7 +115,7 @@
       <!-- Optional -->
       <Historie>
         <!-- Multiple -->
-        <Eintrag Typ="Posteingang" Beschreibung="Privatanzeige" Status="ausgeführt" Datum="20.01.2020" Uhrzeit="16:00:00">
+        <Eintrag Typ="Posteingang" Beschreibung="Privatanzeige" Status="ausgeführt" Datum="20.01.2020" Uhrzeit="16:00">
           <!-- Optional -->
           <Dokumente>
             <!-- Multiple -->
