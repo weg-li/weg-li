@@ -4,7 +4,7 @@ class Scheduled::NoticeArchiverJob < ApplicationJob
   def perform
     Rails.logger.info "archiving notices"
 
-    notices = Notice.where("created_at < ?", 3.years.ago).where(archived: false)
+    notices = Notice.where("created_at < ?", 5.years.ago).where(archived: false)
     notify "archiving #{notices.count} notices"
     notices.update_all(archived: true)
   end
