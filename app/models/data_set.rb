@@ -40,7 +40,7 @@ class DataSet < ApplicationRecord
     when "google_vision"
       with_likelyhood =
         Annotator.grep_text(data.deep_symbolize_keys) do |it|
-          Vehicle.brand?(it)
+          Brand.brand?(it)
         end
       Vehicle.by_likelyhood(with_likelyhood)
     when "car_ml"

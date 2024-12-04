@@ -3,16 +3,6 @@
 require "spec_helper"
 
 describe Vehicle do
-  it "it gets all the brands" do
-    data = Vehicle.brands.first(3)
-    expect(%w[Abarth Adria Aixam]).to eql(data)
-  end
-
-  it "it gets all the models" do
-    data = Vehicle.models("BMW").first(3)
-    expect(%w[i3 i8 M3]).to eql(data)
-  end
-
   it "it gets all the plates" do
     data = Vehicle.plates.first(3)
     expect([%w[A Augsburg], ["AA", "Ostalbkreis (Aalen)"], %w[AB Aschaffenburg]]).to eql(data)
@@ -98,39 +88,5 @@ describe Vehicle do
 
     expect(Vehicle.most_often?([])).to be_falsy
     expect(Vehicle.most_often?(nil)).to be_falsy
-  end
-
-  it "it checks possible brand matches" do
-    sample = "SEAT"
-    result = Vehicle.brand?(sample)
-    expect(result).to be_truthy
-    expect(result).to eql(["Seat", 1.0])
-
-    sample = "Iveco"
-    result = Vehicle.brand?(sample)
-    expect(result).to be_truthy
-    expect(result).to eql(["IVECO", 1.0])
-
-    sample = "Volkswagen transporter t5"
-    result = Vehicle.brand?(sample)
-    expect(result).to be_truthy
-    expect(result).to eql(["Volkswagen", 0.8])
-
-    sample = "323 Combi"
-    result = Vehicle.brand?(sample)
-    expect(result).to be_truthy
-    expect(result).to eql(["Mazda", 0.5])
-
-    expect(Vehicle.brand?("")).to be_falsy
-    expect(Vehicle.brand?("RDD WN 200")).to be_falsy
-    expect(Vehicle.brand?("XX WN 200")).to be_falsy
-  end
-
-  it "alias brand matches" do
-    expect(Vehicle.brand?("vw")).to eql(["Volkswagen", 1.0])
-  end
-
-  it "falsepositives brand matches" do
-    expect(Vehicle.brand?("Minivan")).to be_falsy
   end
 end

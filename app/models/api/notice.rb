@@ -34,7 +34,7 @@ class Api::Notice < Notice
     end
     property :brand do
       key :type, :string
-      key :enum, Vehicle.brands
+      key :enum, Brand.all
     end
     property :color do
       key :type, :string
