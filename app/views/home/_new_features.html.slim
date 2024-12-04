@@ -4,6 +4,9 @@
 
     ul.list-group
       li.list-group-item
+        span.badge Meldung
+        | 🚨 Meldungen älter als 3 Jahre werden ins #{link_to 'Meldungsarchiv', archived_notices_path} verschoben und sind dort in anonymisierter Form weiterhin eingeschränkt verfügbar.
+      li.list-group-item
         span.badge Verkehrszeichen
         | 🛑 Alle #{link_to 'Verkehrszeichen und Symbole', signs_path} zum Einfügen, Verlinken und als Export aus dem aktuellen Katalog der Bundesanstalt für Straßenwesen.
       li.list-group-item

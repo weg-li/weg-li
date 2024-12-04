@@ -32,6 +32,7 @@ class NoticeDashboard < Administrate::BaseDashboard
     latitude: Field::Number.with_options(decimals: 2),
     longitude: Field::Number.with_options(decimals: 2),
     incomplete: Field::Boolean,
+    archived: Field::Boolean,
     note: Field::String,
     replies: Field::HasMany,
     data_sets: Field::HasMany,
@@ -48,6 +49,7 @@ class NoticeDashboard < Administrate::BaseDashboard
     :created_at,
     :status,
     :user,
+    :archived,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -60,6 +62,7 @@ class NoticeDashboard < Administrate::BaseDashboard
     :updated_at,
     :status,
     :incomplete,
+    :archived,
     :registration,
     :brand,
     :color,
@@ -102,6 +105,7 @@ class NoticeDashboard < Administrate::BaseDashboard
     :flags,
     :latitude,
     :longitude,
+    :archived,
   ].freeze
 
   # Overwrite this method to customize how notices are displayed

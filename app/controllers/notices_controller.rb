@@ -7,7 +7,7 @@ class NoticesController < ApplicationController
   before_action :validate!, except: [:index]
 
   def index
-    @notices = current_user.notices.with_attached_photos.page(params[:page])
+    @notices = current_user.notices.active.with_attached_photos.page(params[:page])
 
     search = handle_table_params(:search)
     @notices = @notices.search(search[:term]) if search[:term].present?
@@ -23,9 +23,13 @@ class NoticesController < ApplicationController
     end
   end
 
+  def archived
+    @notices = current_user.notices.archived.with_attached_photos.page(params[:page])
+  end
+
   def suggest
     term = (params[:term] || "").upcase
-    notices = current_user.notices.search(term).order(:registration).limit(25)
+    notices = current_user.notices.active.search(term).order(:registration).limit(25)
 
     results = notices
                 .pluck(:registration, :brand, :color)
@@ -42,7 +46,7 @@ class NoticesController < ApplicationController
 
     @default_district = current_user.district || District.active.first
     @district = params[:district] || @default_district.name
-    @notices = current_user.notices.since(@since.days.ago).joins(:district).where(districts: { name: @district })
+    @notices = current_user.notices.active.since(@since.days.ago).joins(:district).where(districts: { name: @district })
   end
 
   def geocode
@@ -87,7 +91,7 @@ class NoticesController < ApplicationController
   end
 
   def show
-    @notice = current_user.notices.from_param(params[:id])
+    @notice = current_user.notices.active.from_param(params[:id])
   end
 
   def new
@@ -102,11 +106,11 @@ class NoticesController < ApplicationController
   end
 
   def edit
-    @notice = current_user.notices.includes(:data_sets).from_param(params[:id])
+    @notice = current_user.notices.active.includes(:data_sets).from_param(params[:id])
   end
 
   def update
-    @notice = current_user.notices.from_param(params[:id])
+    @notice = current_user.notices.active.from_param(params[:id])
 
     if params[:button] == "incomplete"
       @notice.assign_attributes(notice_update_params)
@@ -126,7 +130,7 @@ class NoticesController < ApplicationController
   end
 
   def share
-    @notice = current_user.notices.complete.from_param(params[:id])
+    @notice = current_user.notices.active.complete.from_param(params[:id])
     @district = @notice.district
     @user = current_user
 
@@ -136,7 +140,7 @@ class NoticesController < ApplicationController
   end
 
   def forward
-    notice = current_user.notices.from_param(params[:id])
+    notice = current_user.notices.active.from_param(params[:id])
     token = Token.generate(current_user.token)
     NoticeMailer.forward(notice, token).deliver_later
 
@@ -149,7 +153,7 @@ class NoticesController < ApplicationController
   def retrieve
     token = Token.decode(params[:token])
     user = User.from_param(token["iss"])
-    notice = user.notices.open.from_param(params[:id])
+    notice = user.notices.active.open.from_param(params[:id])
     notice.user = current_user
     notice.save_incomplete!
 
@@ -159,7 +163,7 @@ class NoticesController < ApplicationController
   end
 
   def status
-    @notice = current_user.notices.from_param(params[:id])
+    @notice = current_user.notices.active.from_param(params[:id])
     @notice.mark_shared!
 
     redirect_to(
@@ -169,7 +173,7 @@ class NoticesController < ApplicationController
   end
 
   def mail
-    notice = current_user.notices.complete.from_param(params[:id])
+    notice = current_user.notices.active.complete.from_param(params[:id])
 
     to = notice.district.all_emails.find { |email| email == params[:send_to] }
     to ||= notice.district.email
@@ -189,14 +193,14 @@ class NoticesController < ApplicationController
   end
 
   def duplicate
-    notice = current_user.notices.from_param(params[:id])
+    notice = current_user.notices.active.from_param(params[:id])
     notice = notice.duplicate!
 
     redirect_to edit_notice_path(notice), notice: "Die Meldung wurde dupliziert"
   end
 
   def enable
-    notice = current_user.notices.from_param(params[:id])
+    notice = current_user.notices.active.from_param(params[:id])
     notice.status = :open
     notice.save_incomplete!
 
@@ -204,7 +208,7 @@ class NoticesController < ApplicationController
   end
 
   def disable
-    notice = current_user.notices.from_param(params[:id])
+    notice = current_user.notices.active.from_param(params[:id])
     notice.status = :disabled
     notice.save_incomplete!
 
@@ -235,7 +239,7 @@ class NoticesController < ApplicationController
   end
 
   def pdf
-    notice = current_user.notices.complete.from_param(params[:id])
+    notice = current_user.notices.active.complete.from_param(params[:id])
     data = PdfGenerator.new.generate(notice)
 
     send_data data, filename: notice.file_name
@@ -243,7 +247,7 @@ class NoticesController < ApplicationController
 
   # TODO: (PS) add links for owi21 and winowig to the detail page
   def winowig
-    notice = current_user.notices.complete.from_param(params[:id])
+    notice = current_user.notices.active.complete.from_param(params[:id])
     _404 and return if notice.blank?
 
     locals = { notice:, user: current_user }
@@ -254,7 +258,7 @@ class NoticesController < ApplicationController
 
   def bulk
     action = params[:bulk_action]
-    notices = current_user.notices.where(id: params[:selected])
+    notices = current_user.notices.active.where(id: params[:selected])
 
     case action
     when "share"
@@ -297,7 +301,7 @@ class NoticesController < ApplicationController
   end
 
   def analyze
-    notice = current_user.notices.from_param(params[:id])
+    notice = current_user.notices.active.from_param(params[:id])
 
     if notice.analyzing?
       redirect_back fallback_location: notice_path(notice), notice: "Analyse läuft bereits"
@@ -309,7 +313,7 @@ class NoticesController < ApplicationController
   end
 
   def purge
-    notice = current_user.notices.from_param(params[:id])
+    notice = current_user.notices.active.from_param(params[:id])
     photo = notice.photos.find(params[:photo_id])
     photo.purge_later
 

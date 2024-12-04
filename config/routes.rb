@@ -85,6 +85,7 @@ Rails.application.routes.draw do
     collection do
       get :stats
       get :map
+      get :archived
       post :geocode
       post :bulk
       post :import
