@@ -1,7 +1,7 @@
 ![Build Status](https://github.com/weg-li/weg-li/workflows/build/badge.svg)
 [![Financial Contributors on Open Collective](https://opencollective.com/weg-li/all/badge.svg?label=financial+contributors)](https://opencollective.com/weg-li)
 
-# 📸 📝 ✊ weg.li: 1, 2, 3 - Macht die Bahn frei!
+# 📸 📝 ✊ Für sichere Radwege und freie Bürgersteige: www.weg.li
 
 https://www.weg.li/
 
