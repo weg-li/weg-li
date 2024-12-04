@@ -18,15 +18,16 @@ Beweisfotos, aus denen Kennzeichen und Tatvorwurf erkennbar hervorgehen, befinde
 Bitte prüfen Sie den Sachverhalt auch auf etwaige andere Verstöße, die aus den Beweisfotos zu ersehen sind.
 <% end %>
 
-Bitte bestätigen Sie Ihre Zuständigkeit und den Erhalt dieser Anzeige mit der Zusendung des Aktenzeichens an <%= @user.email %>.
 Falls Sie nicht zuständig sein sollten, leiten Sie bitte meine Anzeige weiter und informieren Sie mich darüber.
-Sie dürfen meine persönlichen Daten auch weiterleiten und diese für die Dauer des Verfahrens speichern.
+Sie dürfen meine persönlichen Daten in diesem Zusammenhang auch weiterleiten und für die Dauer des Verfahrens speichern.
 <% unless @district.munich? %>
 Diese Anzeige können Sie online abrufen, dort finden sich auch die Beweisfotos im Original zum Herunterladen:
 <%= public_charge_url(@notice) %>
 <% end %>
-Die Daten können im Import-Format für WiNOWiG, pmOWI oder owi12 als Anhang bereitgestellt werden.
 
 Mit freundlichen Grüßen
 
 <%= @user.name %>
+
+Die Daten der Anzeige können im Import-Format für die Gängigen Fachverfahren wie WiNOWiG, EurOwiG, pmOWI oder owi12
+bereitgestellt werden. Wenden Sie sich hierzu an den weg.li Support per E-Mail: support@weg.li
