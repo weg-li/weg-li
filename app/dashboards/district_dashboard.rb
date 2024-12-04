@@ -36,6 +36,7 @@ class DistrictDashboard < Administrate::BaseDashboard
     :zip,
     :email,
     :status,
+    :config,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
