@@ -5,7 +5,7 @@
     "@hotwired/turbo-rails": "^8.0.0-beta.2",
     "@rails/activestorage": "^6.1.0",
     "@rails/ujs": "^6.1.0",
-    "@rails/webpacker": "5.4.3",
+    "@rails/webpacker": "5.4.4",
     "alpinejs": "^2.8.0",
     "billboard.js": "^3.0.1",
     "bootstrap": "^3.4.1",
@@ -16,7 +16,9 @@
     "leaflet.markercluster": "^1.4.1",
     "rails-erb-loader": "^5.5.2",
     "select2": "^4.0.12",
-    "select2-bootstrap-theme": "^0.1.0-beta.10"
+    "select2-bootstrap-theme": "^0.1.0-beta.10",
+    "webpack": "^4.46.0",
+    "webpack-cli": "^3.3.12"
   },
   "devDependencies": {
     "eslint": "^7.17.0",
@@ -25,7 +27,7 @@
     "eslint-import-resolver-webpack": "^0.13.0",
     "eslint-plugin-import": "^2.22.1",
     "prettier": "^2.8.1",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^3"
   },
   "scripts": {
     "lint": "eslint app/javascript/**"

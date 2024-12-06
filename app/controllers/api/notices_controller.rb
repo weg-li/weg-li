@@ -6,6 +6,8 @@ class Api::NoticesController < Api::ApplicationController
       key :summary, "Get all Notices"
       key :description, "Returns a list of notices for the authorized user"
       key :tags, ["notice"]
+      parameter name: :page, type: :integer, description: "page number", required: false
+      parameter name: :per_page, type: :integer, description: "number of elements per page", required: false
       response 200 do
         key :description, "notices response"
         schema do
@@ -21,7 +23,10 @@ class Api::NoticesController < Api::ApplicationController
   end
 
   def index
-    render json: current_user.notices.as_api_response(:public_beta)
+    notices = current_user.notices
+    notices = notices.page(params[:page]) if params[:page].present?
+    notices = notices.per(params[:per_page]) if params[:per_page].present?
+    render json: notices.as_api_response(:public_beta)
   end
 
   swagger_path "/notices" do

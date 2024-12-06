@@ -27,6 +27,7 @@ config/secrets
 wrangler.toml
 config/data/opengeodb.csv
 
+/public/assets
 /public/packs
 /public/packs-test
 /node_modules

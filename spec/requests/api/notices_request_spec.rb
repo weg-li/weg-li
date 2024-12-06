@@ -16,6 +16,14 @@ describe "api/notices", type: :request do
       expect(response).to be_ok
       expect(response.body).to eql([notice.as_api_response(:public_beta)].to_json)
     end
+
+    it "index works with pagination" do
+      notices = Fabricate.times(11, :notice, user: @user)
+      get api_notices_path(page: 0, per_page: 10), headers: @headers
+
+      expect(response).to be_ok
+      expect(response.body).to eql(notices.reverse[0..9].as_api_response(:public_beta).to_json)
+    end
   end
 
   context "GET: show" do
