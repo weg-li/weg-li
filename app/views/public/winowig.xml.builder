@@ -97,11 +97,6 @@ xml.OWIGMDEData Version: "1" do
           xml.Texttyp "9"
           xml.comment! "Required"
           xml.Tatbestandsnummer notice.tbnr
-          xml.comment! "Optional"
-          xml.Tatdaten do
-            xml.comment! "Optional"
-            xml.ErsteKontrollzeit l(notice.start_date, format: :time)
-          end
         end
       end
       xml.comment! "Optional"

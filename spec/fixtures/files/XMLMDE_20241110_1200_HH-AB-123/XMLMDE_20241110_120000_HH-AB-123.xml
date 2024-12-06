@@ -90,11 +90,6 @@
           <Texttyp>9</Texttyp>
           <!-- Required -->
           <Tatbestandsnummer>142170</Tatbestandsnummer>
-          <!-- Optional -->
-          <Tatdaten>
-            <!-- Optional -->
-            <ErsteKontrollzeit>12:00</ErsteKontrollzeit>
-          </Tatdaten>
         </Tatbestand>
       </Tatbestaende>
       <!-- Optional -->
