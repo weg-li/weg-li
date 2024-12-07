@@ -29,16 +29,34 @@ describe Annotator do
   it "handles text annotations" do
     result = with_fixture("annotate") { subject.annotate_file }
 
-    matches = Annotator.grep_text(result) { |key| key }
+    matches = Annotator.grep(result[:text_annotations]) { |key| key }
     expect(matches).to eql(
-      ["Seliten", "H MBURGER", "STHALLE", "FUNSALL", "ites", "RD WN.200", "www.aevneke.de 043", "94849 80", "H", "MBURGER", "RD", "WN.200", "www.aevneke.de", "043", "94849", "80"],
+      [
+        "Seliten",
+        "H MBURGER",
+        "STHALLE",
+        "FUNSALL",
+        "ites",
+        "RD WN.200",
+        "www.aevneke.de 043",
+        "94849 80",
+        "H",
+        "MBURGER",
+        "RD",
+        "WN.200",
+        "www.aevneke.de",
+        "043",
+        "94849",
+        "80",
+      ],
     )
   end
 
   it "handles label annotations" do
     result = with_fixture("annotate") { subject.annotate_file }
 
-    matches = Annotator.grep_label(result) { |key| key }
+    label_annotations = result[:label_annotations]
+    matches = Annotator.grep(label_annotations) { |key| key }
     expect(matches).to eql(
       ["Land vehicle", "Vehicle", "Car", "Luxury vehicle", "Automotive design", "Personal luxury car", "Mode of transport", "Transport", "Family car", "Automotive exterior"],
     )
@@ -47,7 +65,8 @@ describe Annotator do
   it "handles logo annotations" do
     result = with_fixture("annotate") { subject.annotate_file }
 
-    matches = Annotator.grep_logo(result) { |key| key }
+    logo_annotations = result[:logo_annotations]
+    matches = Annotator.grep(logo_annotations) { |key| key }
     expect(matches).to eql([])
   end
 

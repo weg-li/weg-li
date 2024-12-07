@@ -90,15 +90,11 @@ module ApplicationHelper
       suggested = Geo.suggest_email(point)
 
       if suggested.nil?
-        Rails.logger.warn(
-          "found no suggested email for #{district.zip} point #{point}",
-        )
+        Rails.logger.warn("found no suggested email for #{district.zip} point #{point}")
       elsif district.all_emails.include?(suggested)
         selected = suggested
       else
-        Rails.logger.warn(
-          "found suggested email #{suggested} for point #{point} but was not in aliases for #{district.zip}",
-        )
+        Rails.logger.warn("found suggested email #{suggested} for point #{point} but was not in aliases for #{district.zip}")
       end
     end
 

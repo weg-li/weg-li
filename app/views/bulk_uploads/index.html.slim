@@ -39,7 +39,7 @@
                   => params[:filter] ? BulkUpload.human_attribute_name(params[:filter][:status]) : BulkUpload.human_attribute_name(:status)
                   span.caret
                 ul.dropdown-menu aria-labelledby="dropdownMenu1"
-                  - BulkUpload.statuses.keys.each do |status|
+                  - BulkUpload.status.keys.each do |status|
                     li
                       = link_to url_for(@table_params.merge(filter: {status: status})) do
                         = render 'bulk_upload_status', status: status
@@ -89,6 +89,6 @@
 
 
 dl.dl-horizontal.well
-  - BulkUpload.statuses.keys.each do |status|
+  - BulkUpload.status.keys.each do |status|
     dt= render 'bulk_upload_status', status: status
     dd= t(status, scope: 'bulk_uploads.status-hints', default: '')

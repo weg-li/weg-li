@@ -8,7 +8,7 @@ Fabricator(:notice) do
   start_date { 2.days.ago }
   end_date { 2.days.ago + 3.minutes }
   registration { "#{Vehicle.plates.keys.sample} #{('A'..'Z').to_a.sample(2).join} #{rand(1000)}" }
-  brand { Vehicle.car_brands.sample }
+  brand { Brand.all.sample }
   color { Vehicle.colors.sample }
   vehicle_empty { true }
   severity { 0 }
