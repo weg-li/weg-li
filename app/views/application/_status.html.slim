@@ -1,7 +1,7 @@
 - legend ||= false
-- legend_text = t(status, scope: 'notices.status-hints', default: '')
+- legend_text = Notice.human_enum_name(:status, status, default: '')
 span.label.label-default(class="label-status-#{status}" title=legend_text)
   span.glyphicon(class="glyphicon-status-#{status}")
-  span<= t(status, scope: 'notices.status')
+  span<= Notice.human_enum_name(:status, status)
 - if legend && legend_text.present?
   small<= legend_text

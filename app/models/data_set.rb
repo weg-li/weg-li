@@ -38,10 +38,7 @@ class DataSet < ApplicationRecord
   def brands
     case kind
     when "google_vision"
-      with_likelyhood =
-        Annotator.grep_text(data.deep_symbolize_keys) do |it|
-          Brand.brand?(it)
-        end
+      with_likelyhood = Annotator.grep_text(data.deep_symbolize_keys) { |it| Brand.brand?(it) }
       Vehicle.by_likelyhood(with_likelyhood)
     when "car_ml"
       data["suggestions"]["make"]

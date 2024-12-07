@@ -5,11 +5,13 @@ class ApplicationRecord < ActiveRecord::Base
 
   strip_attributes
 
-  def self.human_enum_name(enum_name, enum_value)
-    I18n.t("activerecord.attributes.#{model_name.i18n_key}.#{enum_name.to_s.pluralize}.#{enum_value}")
+  def self.human_enum_name(enum_name, enum_value, default: nil)
+    return default if enum_value.blank?
+
+    I18n.t("#{model_name.i18n_key}.#{enum_name.to_s.pluralize}.#{enum_value}", scope: "activerecord.attributes")
   end
 
-  def translate_enum(enum_name)
-    I18n.t("activerecord.attributes.#{model_name.i18n_key}.#{enum_name.to_s.pluralize}.#{send(enum_name)}")
+  def translate_enum(enum_name, default: nil)
+    self.class.human_enum_name(enum_name, send(enum_name), default:)
   end
 end

@@ -3,13 +3,9 @@
 module BrandHelper
   def brand_options
     Memo::It.memo do
-      {
-        "PKW" => Brand.car,
-        "LKW" => Brand.truck,
-        "Camper" => Brand.car,
-        "Kraftrad" => Brand.bike,
-        "E-Scooter" => Brand.scooter,
-      }
+      Brand.kinds.keys.to_h do |kind|
+        [kind, Brand.send(kind).ordered.map { |brand| [brand.name, brand.name] }]
+      end
     end
   end
 end
