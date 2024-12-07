@@ -21,10 +21,7 @@ class Vehicle
     return [] if matches.blank?
 
     groups = matches.group_by { |key, _| key.gsub(/\W/, "") }
-    groups =
-      groups.sort_by do |_, group|
-        group.sum { |_, probability| probability }.fdiv(matches.size)
-      end
+    groups = groups.sort_by { |_, group| group.sum { |_, probability| probability }.fdiv(matches.size) }
     groups.map { |match| match[1].flatten[0] }.reverse
   end
 
@@ -69,9 +66,7 @@ class Vehicle
   end
 
   def self.quirky_mode_plate_regex(prefixes = Vehicle.plates.keys)
-    Regexp.new(
-      "^P?D?C?O?B?(#{prefixes.join('|')})O?:?-?0?([A-Z]{1,3})-?(\\d{1,4})(-?E)?$",
-    )
+    Regexp.new("^P?D?C?O?B?(#{prefixes.join('|')})O?:?-?0?([A-Z]{1,3})-?(\\d{1,4})(-?E)?$")
   end
 
   def self.district_for_plate_prefix(text)
@@ -100,9 +95,5 @@ class Vehicle
       orange
       gold
     ]
-  end
-
-  def self.kinds
-    @kinds ||= %w[PKW LKW Motorrad]
   end
 end
