@@ -113,4 +113,8 @@ class Brand < ApplicationRecord
   def defaults
     self.token ||= to_param
   end
+
+  def market_cap
+    self.class.percentage(name)
+  end
 end
