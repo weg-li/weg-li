@@ -57,7 +57,7 @@
       <!-- List is not updated -->
       <Farbe>Schwarz</Farbe>
       <!-- Required -->
-      <!-- Possible values: Dong Feng,SKYWELL,BYD,Maxus,Nio,Lincoln,CFMOTO,Alpine,Lynk & Co,Aixam,Polestar,MG,McLaren,Rolls Royce,Abarth,Buick,DS Automobiles,SsangYong,Trabant,Streetscooter,Lancia,Wiesmann,Venturi,Tata,Spyker,Saleen,Qoros,Pagani,Morgan,Maybach,Lotus,Lada,Isuzu,Genesis,Cupra,Cadillac,Brabus,Corvette,Bentley,Maserati,Seat,Renault,Ferrari,Lamborghini,Peugeot,Dacia,Citroën,Opel,Alfa Romeo,Škoda,Chevrolet,Porsche,Honda,Subaru,Mazda,Mitsubishi,Lexus,Toyota,BMW,Volkswagen,Suzuki,Mercedes-Benz,Saab,Smart,Audi,Kia,Land Rover,RAM Trucks,Dodge,Chrysler,Ford,Hummer,Hyundai,Tesla,Daihatsu,Infiniti,Jaguar,Jeep,Nissan,Volvo,Daewoo,Fiat,MINI,Rover,Aston Martin,Brixton -->
+      <!-- Possible values:  -->
       <!-- List is updated -->
       <Fabrikat>märzer</Fabrikat>
       <!-- Required -->

@@ -18,6 +18,10 @@ describe Brand do
     end
   end
 
+  after(:all) do
+    Brand.connection.truncate("brands")
+  end
+
   let(:model) { Fabricate.build(:brand) }
 
   context "validation" do

@@ -34,7 +34,7 @@ class Api::Notice < Notice
     end
     property :brand do
       key :type, :string
-      key :enum, Brand.all
+      key :enum, Brand.all.pluck(:name)
     end
     property :color do
       key :type, :string
