@@ -4,9 +4,6 @@ class Api::Export < Export
   include Swagger::Blocks
 
   swagger_schema :Export do
-    property :token do
-      key :type, :string
-    end
     property :export_type do
       key :type, :string
       key :enum, Export.export_types.keys
@@ -14,9 +11,6 @@ class Api::Export < Export
     property :file_extension do
       key :type, :string
       key :enum, Export.file_extensions.keys
-    end
-    property :interval do
-      key :type, :integer
     end
     property :created_at do
       key :type, :string
