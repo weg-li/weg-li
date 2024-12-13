@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 ruby "3.2.6"
 
-gem "rails", "7.1.3.4"
+gem "rails", "7.2.2.1"
 gem "turbo-rails"
 
 gem "bootsnap", require: false
