@@ -18,7 +18,7 @@ describe ZipGenerator do
       notice.save!
       notice.photos.first.update!(key: "test.jpg")
 
-      result = ZipGenerator.new.generate(notice, :owi21)
+      result = ZipGenerator.new(notice, :owi21).generate
 
       # file_fixture("owi21.zip").binwrite(result.read)
 
@@ -41,14 +41,17 @@ describe ZipGenerator do
       notice.save!
       notice.photos.first.update!(key: "test.jpg")
 
-      result = ZipGenerator.new.generate(notice, :winowig)
+      generator = ZipGenerator.new(notice, :winowig)
+      filename = generator.filename
+      pathname = filename.gsub(".zip", "")
+      result = generator.generate
 
-      # file_fixture("XMLMDE_20241110_1200_HH-AB-123.zip").binwrite(result.read)
+      file_fixture(filename).binwrite(result.read)
 
       Zip::File.open_buffer(result) do |zip_file|
         zip_file.each do |entry|
           actual = entry.get_input_stream.read.force_encoding("UTF-8")
-          expected = File.read(file_fixture("XMLMDE_20241110_1200_HH-AB-123/#{entry.name}"))
+          expected = File.read(file_fixture("#{pathname}/#{entry.name}"))
           expect(actual).to eql(expected)
         end
       end

@@ -10,11 +10,9 @@ class NoticeMailer < ApplicationMailer
     @send_via_pdf = send_via_pdf
 
     if @district.winowig?
-      data = ZipGenerator.new.generate(@notice, :winowig)
-      attachments["winowig-#{@notice.token}.zip"] = data
-    elsif @district.owi21?
-      data = ZipGenerator.new.generate(@notice, :owi21)
-      attachments["owi21-#{@notice.token}.zip"] = data
+      generator = ZipGenerator.new(@notice, @district.config)
+      data = generator.generate
+      attachments[generator.filename] = data.read
     elsif @district.dresden?
       data = PdfGenerator.new(include_photos: false).generate(@notice)
       attachments[notice.file_name(:pdf)] = data

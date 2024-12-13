@@ -14,6 +14,13 @@ class NoticeMailerPreview < ActionMailer::Preview
     NoticeMailer.charge(notice, to: "uschi@muschi.de", send_via_pdf: true)
   end
 
+  def charge_dresden
+    district = District.dresden.first!
+    notice = district.notices.first!
+
+    NoticeMailer.charge(notice)
+  end
+
   def charge_winowig
     district = District.winowig.first!
     notice = district.notices.first!

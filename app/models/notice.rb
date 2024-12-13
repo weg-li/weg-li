@@ -342,7 +342,7 @@ class Notice < ApplicationRecord
   end
 
   def file_name(extension = :pdf, prefix: nil)
-    "#{"#{prefix}_" if prefix}#{start_date.strftime('%Y%m%d_%H%M%S')}_#{registration.gsub(' ', '-')}.#{extension}"
+    "#{"#{prefix}_" if prefix}#{start_date.strftime('%Y%m%d_%H%M')}_#{registration.gsub(' ', '-')}.#{extension}"
   end
 
   def full_address

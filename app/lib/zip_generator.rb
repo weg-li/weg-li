@@ -3,14 +3,27 @@
 require "zip"
 
 class ZipGenerator
+  PREFIX_WINOWIG = "XMLMDE"
+
   include PhotoHelper
 
-  def generate(notice, template = :winowig)
+  attr_reader :notice, :template
+
+  def initialize(notice, template)
+    @notice = notice
+    @template = template
+  end
+
+  def generate
     archive = Zip::OutputStream.write_buffer do |stream|
       send("generate_#{template}", notice, stream)
     end
     archive.rewind
     archive
+  end
+
+  def filename
+    notice.file_name(:zip, prefix: PREFIX_WINOWIG)
   end
 
   private
@@ -32,7 +45,7 @@ class ZipGenerator
     pdf = PdfGenerator.new(include_photos: false).generate(notice)
     pdf_name = notice.file_name(:pdf)
 
-    xml_name = notice.file_name(:xml, prefix: XmlGenerator::PREFIX_WINOWIG)
+    xml_name = notice.file_name(:xml, prefix: PREFIX_WINOWIG)
     data = XmlGenerator.new.generate(notice, :winowig, files: [pdf_name])
 
     stream.put_next_entry(pdf_name)

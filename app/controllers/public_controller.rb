@@ -23,8 +23,9 @@ class PublicController < ApplicationController
     _404 and return if notice.blank?
 
     template = notice.district.config
-    file = ZipGenerator.new.generate(notice, template)
-    send_data file.read, filename: "#{template}-#{notice.token}.zip"
+    generator = ZipGenerator.new(notice, template)
+    file = generator.generate
+    send_data file.read, filename: generator.filename
   end
 
   private
