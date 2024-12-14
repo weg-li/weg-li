@@ -17,8 +17,8 @@ h3 #{@brand.name}
       .panel.panel-default
         .panel-heading Statistiken zu den Parkverstößen von Fahrzeugen der Marke #{@brand.name}
         ul.list-group
-          - if @brand.market_cap
-            li.list-group-item= "Marktanteil: #{number_to_percentage(@brand.market_cap)}"
+          - if @brand.share.present?
+            li.list-group-item= "Marktanteil: #{number_to_percentage(@brand.share)}"
           - grouped = @notices.group_by(&:tbnr).sort_by {|_, group| group.size }.reverse
           - if grouped.present?
             - grouped.first(10).each do |key, group|
