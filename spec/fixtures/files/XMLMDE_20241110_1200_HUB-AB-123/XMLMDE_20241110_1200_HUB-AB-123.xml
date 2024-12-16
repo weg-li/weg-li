@@ -61,7 +61,7 @@
           <!-- Optional -->
           <Fabrikat>märzer</Fabrikat>
           <!-- Optional -->
-          <Kennzeichen>HH AB 123</Kennzeichen>
+          <Kennzeichen>HÜB AB 123</Kennzeichen>
           <!-- Optional -->
           <Farbe>Schwarz</Farbe>
         </Fahrzeug>
@@ -114,7 +114,7 @@
           <!-- Optional -->
           <Dokumente>
             <!-- Multiple -->
-            <Dokument Dateiname="20241110_1200_HH-AB-123.pdf"/>
+            <Dokument Dateiname="20241110_1200_HUB-AB-123.pdf"/>
           </Dokumente>
         </Eintrag>
       </Historie>
