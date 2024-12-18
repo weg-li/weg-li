@@ -2,7 +2,7 @@
 - set_canonical brand_url(@brand)
 - set_meta_description t('meta_description.brand', name: @brand.name)
 
-h3 #{@brand.name}
+h3 #{@brand.translate_enum(:kind)}: #{@brand.name} #{@brand.aliases.join(', ')}
 
 .spacer
 
