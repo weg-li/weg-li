@@ -57,17 +57,13 @@ class PdfGenerator
           notice.photos.each do |photo|
             url = url_for_photo(photo, size: @quality)
             URI.open(url) do |file|
-              document.image(
-                file,
-                fit: [document.bounds.width, document.bounds.height / 2],
-              )
+              document.image(file, fit: [document.bounds.width, document.bounds.height / 2])
             end
           end
         end
 
         document.font_size(8)
-        document.number_pages "Seite <page> von <total>",
-                              at: [document.bounds.width - 50, -15]
+        document.number_pages "Seite <page> von <total>", at: [document.bounds.width - 50, -15]
       end
 
     pdf.render
@@ -80,12 +76,8 @@ class PdfGenerator
   end
 
   def render_template(name, locals)
-    result =
-      renderer.render(
-        template: "/notice_mailer/_#{name}",
-        formats: [:text],
-        locals:,
-      )
+    result = renderer.render(template: "/notice_mailer/_#{name}", formats: [:text], locals:)
+
     # Your document includes text that's not compatible with the Windows-1252 character set.
     # If you need full UTF-8 support, use external fonts instead of PDF's built-in fonts.
     # REM: Prawn workaround for bad font support
@@ -93,16 +85,11 @@ class PdfGenerator
   end
 
   def qr_code(notice)
-    url =
-      Rails.application.routes.url_helpers.public_charge_url(
-        notice,
-        default_url_options,
-      )
+    url = Rails.application.routes.url_helpers.public_charge_url(notice, default_url_options)
     RQRCode::QRCode.new(url)
   end
 
   def renderer
-    @renderer ||=
-      ApplicationController.renderer.new(http_host: "www.weg.li", https: true)
+    @renderer ||= ApplicationController.renderer.new(http_host: "www.weg.li", https: true)
   end
 end

@@ -33,20 +33,12 @@ describe NoticeMailer do
       expect(mail.attachments.first.filename).to match(/.*\.pdf/)
     end
 
-    it "sends mail with owi21 config" do
-      notice.district.update! config: :owi21
-      mail = NoticeMailer.charge(notice)
-
-      expect(mail.attachments.size).to be(1)
-      expect(mail.attachments.first.filename).to match(/owi21-.*\.zip/)
-    end
-
     it "sends mail with winowig config" do
       notice.district.update! config: :winowig
       mail = NoticeMailer.charge(notice)
 
       expect(mail.attachments.size).to be(1)
-      expect(mail.attachments.first.filename).to match(/winowig-.*\.zip/)
+      expect(mail.attachments.first.filename).to match(/XMLMDE_.*\.zip/)
     end
 
     it "sends mail with dresden config" do

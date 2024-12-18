@@ -18,7 +18,7 @@ describe ZipGenerator do
       notice.save!
       notice.photos.first.update!(key: "test.jpg")
 
-      result = ZipGenerator.new.generate(notice, :owi21)
+      result = ZipGenerator.new(notice, :owi21).generate
 
       # file_fixture("owi21.zip").binwrite(result.read)
 
@@ -37,18 +37,21 @@ describe ZipGenerator do
       district = Fabricate(:district, zip: "12345")
       user = Fabricate.build(:user, name: "Uschi Müller", email: "test@example.com", city: "Dorf", zip: "54321", street: "Am Weiher 123", appendix: "2. OG", phone: "0178123456", date_of_birth: "31.12.2000")
       charge = Fabricate.build(:charge, tbnr: "142170", description: "Parken auf einem unbeschilderten Radweg")
-      notice = Fabricate.build(:notice, user:, charge:, brand: "märzer", color: "black", registration: "HH AB 123", city: "Dorf", street: "Am Weiher 123", zip: "12345", district:, token: token)
+      notice = Fabricate.build(:notice, user:, charge:, brand: "märzer", color: "black", registration: "HÜB AB 123", city: "Dorf", street: "Am Weiher 123", zip: "12345", district:, token: token)
       notice.save!
       notice.photos.first.update!(key: "test.jpg")
 
-      result = ZipGenerator.new.generate(notice, :winowig)
+      generator = ZipGenerator.new(notice, :winowig)
+      filename = generator.filename
+      pathname = filename.gsub(".zip", "")
+      result = generator.generate
 
-      # file_fixture("XMLMDE_20241110_1200_HH-AB-123.zip").binwrite(result.read)
+      # file_fixture(filename).binwrite(result.read)
 
       Zip::File.open_buffer(result) do |zip_file|
         zip_file.each do |entry|
           actual = entry.get_input_stream.read.force_encoding("UTF-8")
-          expected = File.read(file_fixture("XMLMDE_20241110_1200_HH-AB-123/#{entry.name}"))
+          expected = File.read(file_fixture("#{pathname}/#{entry.name}"))
           expect(actual).to eql(expected)
         end
       end

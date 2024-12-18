@@ -9,7 +9,7 @@ class Export < ApplicationRecord
   has_one_attached :archive
   belongs_to :user, optional: true
 
-  scope :for_public, -> { where(user_id: nil) }
+  scope :for_public, -> { where(user_id: nil).order(created_at: :desc) }
 
   acts_as_api
 
