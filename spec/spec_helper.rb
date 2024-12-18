@@ -33,6 +33,7 @@ I18n.locale = :de
 Memo.disable
 
 ENV["WEGLI_API_KEY"] = "dingSbums"
+ENV["SECRET_KEY_BASE"] = "434fa2b96f7436e9a853d1e6053cba52f45e8dca29a7d960eff8d9471044135d85c7e8e58b22bf77c3f0aa4bb5e4c1c48fc662c191f37e5af9c60306d7f0c745"
 
 module ActiveJob
   module QueueAdapters
