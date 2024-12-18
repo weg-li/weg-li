@@ -18,7 +18,7 @@
   .col-lg-4
     .form-group
       = form.label :brand, class: "control-label"
-      = form.select :brand, Vehicle.brand_options, { include_blank: 'Marke Auswählen' }, { class: "form-control" }
+      = form.select :brand, brand_options, { include_blank: 'Marke Auswählen' }, { class: "form-control" }
       .input-group#pick_brand
         - brands = notice.data_sets.select(&:google_vision?).flat_map { |google_vision| google_vision.brands }
         - brands = notice.data_sets.select(&:car_ml?).map(&:brands).concat(brands).compact.flatten.uniq

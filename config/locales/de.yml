@@ -83,10 +83,12 @@ de:
         models: 'Modelle'
         aliases: 'Aliase'
         kinds:
+          one: 'Typ'
           car: 'PKW'
           truck: 'LKW'
           bike: 'Kraftrad'
           scooter: 'Scooter'
+          van: 'Camper'
       sign:
         number: 'Nummer'
         icon: 'Symbol'
@@ -139,7 +141,14 @@ de:
         endanger: 'mit Gefährdung (z.B. Ausweichen in Fließverkehr)'
         incomplete: 'unvollständig'
         archived: 'archiviert'
-        status: 'Status'
+        status:
+          one: 'Status'
+          open: 'offen'
+          disabled: 'deaktiviert'
+          analyzing: 'analysieren'
+          shared: 'gemeldet'
+          incomplete: 'unvollständig'
+          complete: 'vollständig'
         open: 'offen'
         disabled: 'deaktiviert'
         analyzing: 'analysieren'
@@ -323,13 +332,6 @@ de:
     create_button: 'Meldung erstellen'
     manage_your_history: 'Verwalte Deine Meldungen'
     nothing_found: 'Keine Meldungen gefunden'
-    status:
-      open: 'offen'
-      disabled: 'deaktiviert'
-      analyzing: 'analysieren'
-      shared: 'gemeldet'
-      incomplete: 'unvollständig'
-      complete: 'vollständig'
     status-hints:
       open: 'Die Beweisfotos wurden gespeichert, bitte die Meldung überprüfen, vervollständigen und eine Anzeige erstatten.'
       disabled: 'Die Meldung ist deaktiviert und im Internet nicht mehr zu erreichen.'

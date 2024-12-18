@@ -23,10 +23,8 @@ class DataSet < ApplicationRecord
     case kind
     when "google_vision"
       district = setable.district || setable.user.district
-      with_likelyhood =
-        Annotator.grep_text(data.deep_symbolize_keys) do |it|
-          Vehicle.plate?(it, prefixes: district&.prefixes)
-        end
+      text_annotations = data.deep_symbolize_keys[:text_annotations]
+      with_likelyhood = Annotator.grep(text_annotations) { |it| Vehicle.plate?(it, prefixes: district&.prefixes) }
       Vehicle.by_likelyhood(with_likelyhood)
     when "car_ml"
       data["suggestions"]["license_plate_number"]
@@ -38,10 +36,8 @@ class DataSet < ApplicationRecord
   def brands
     case kind
     when "google_vision"
-      with_likelyhood =
-        Annotator.grep_text(data.deep_symbolize_keys) do |it|
-          Vehicle.brand?(it)
-        end
+      text_annotations = data.deep_symbolize_keys[:text_annotations]
+      with_likelyhood = Annotator.grep(text_annotations) { |it| Brand.brand?(it) }
       Vehicle.by_likelyhood(with_likelyhood)
     when "car_ml"
       data["suggestions"]["make"]

@@ -9,7 +9,7 @@ class Api::Notice < Notice
     end
     property :status do
       key :type, :string
-      key :enum, Notice.statuses.keys
+      key :enum, Notice.status.keys
     end
     property :street do
       key :type, :string
@@ -34,7 +34,7 @@ class Api::Notice < Notice
     end
     property :brand do
       key :type, :string
-      key :enum, Vehicle.brands
+      key :enum, Brand.all.pluck(:name)
     end
     property :color do
       key :type, :string

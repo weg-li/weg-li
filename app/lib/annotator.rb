@@ -5,31 +5,11 @@ require "google/cloud/storage"
 
 class Annotator
   def self.unsafe?(result)
-    (result[:safe_search_annotation] || {}).any? do |key, value|
-      %i[adult medical violence racy].include?(key) &&
-        %i[LIKELY VERY_LIKELY].include?(value)
-    end
+    (result[:safe_search_annotation] || {}).any? { |key, value| %i[adult medical violence racy].include?(key) && %i[LIKELY VERY_LIKELY].include?(value) }
   end
 
-  def self.grep_text(result, &)
-    (result[:text_annotations] || [])
-      .flat_map { |entry| entry[:description].split("\n").map(&) }
-      .compact
-      .uniq
-  end
-
-  def self.grep_label(result, &)
-    (result[:label_annotations] || [])
-      .flat_map { |entry| entry[:description].split("\n").map(&) }
-      .compact
-      .uniq
-  end
-
-  def self.grep_logo(result, &)
-    (result[:logo_annotations] || [])
-      .flat_map { |entry| entry[:description].split("\n").map(&) }
-      .compact
-      .uniq
+  def self.grep(result, &)
+    (result || []).flat_map { |entry| entry[:description].split("\n").map(&) }.compact.uniq
   end
 
   def self.dominant_colors(result, threshold: 0.1)
@@ -39,6 +19,7 @@ class Annotator
     colors = colors.select { |color| color[:score] >= threshold }
     colors.map do |color|
       name = Colorizor.closest_match(color[:color])
+
       [name, (color[:score].to_f + color[:pixel_fraction].to_f).fdiv(2)]
     end
   end
@@ -51,9 +32,7 @@ class Annotator
     "weg-li-#{Rails.env}"
   end
 
-  def annotate_file(
-    file_name = Rails.root.join("spec/fixtures/files/mercedes.jpg").to_s
-  )
+  def annotate_file(file_name = Rails.root.join("spec/fixtures/files/mercedes.jpg").to_s)
     image = { content: File.binread(file_name) }
 
     annotate(image)
@@ -68,8 +47,7 @@ class Annotator
     if response.status.success?
       JSON.parse(response.body)
     else
-      raise HTTP::ResponseError.new,
-            "Request failed with status #{response.status}: #{response.body}"
+      raise HTTP::ResponseError.new, "Request failed with status #{response.status}: #{response.body}"
     end
   end
 

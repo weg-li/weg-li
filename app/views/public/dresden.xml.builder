@@ -64,7 +64,7 @@ xml.Fall do
       xml.comment! "List is not updated"
       xml.Farbe color_name(notice.color.presence)
       xml.comment! "Required"
-      xml.comment! "Possible values: #{Vehicle.brands.join(',')}"
+      xml.comment! "Possible values: #{Brand.pluck(:name).join(',')}"
       xml.comment! "List is updated"
       xml.Fabrikat notice.brand
       xml.comment! "Required"
