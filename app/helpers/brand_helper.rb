@@ -2,10 +2,18 @@
 
 module BrandHelper
   def brand_options
+    Brand.kinds.keys.to_h do |kind|
+      [Brand.human_enum_name(:kind, kind), brands.select { |brand| brand.kind == kind }.map { |brand| [brand.name, brand.name] }]
+    end
+  end
+
+  def share(brand)
+    brands.find { |entry| entry.name == brand }.share
+  end
+
+  def brands
     Memo::It.memo do
-      Brand.kinds.keys.to_h do |kind|
-        [Brand.human_enum_name(:kind, kind), Brand.send(kind).ordered.map { |brand| [brand.name, brand.name] }]
-      end
+      Brand.ordered
     end
   end
 end

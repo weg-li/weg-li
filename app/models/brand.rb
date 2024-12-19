@@ -52,11 +52,6 @@ class Brand < ApplicationRecord
       nil # rubocop:disable Style/ReturnNilInPredicateMethodDefinition
     end
 
-    # TODO: (PS) refactor the brands to use the model
-    def percentage(brand)
-      from_param(brand).share
-    end
-
     def from_param(param)
       find_by!(token: param)
     end
