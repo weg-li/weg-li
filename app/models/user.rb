@@ -15,7 +15,7 @@ class User < ApplicationRecord
            4 => :from_recognition,
            8 => :from_history
 
-  enum access: { to_delete: -100, disabled: -99, user: 0, community: 1, studi: 2, admin: 42 }
+  enum :access, { to_delete: -100, disabled: -99, user: 0, community: 1, studi: 2, admin: 42 }
 
   geocoded_by :geocode_address, language: proc { |_model| I18n.locale }, no_annotations: true
   after_validation :geocode, if: :geocode_address_changed?

@@ -8,7 +8,7 @@ class DataSet < ApplicationRecord
   belongs_to :setable, polymorphic: true
   belongs_to :keyable, polymorphic: true
 
-  enum kind: { google_vision: 0, exif: 1, car_ml: 2, geocoder: 3, proximity: 4 }
+  enum :kind, { google_vision: 0, exif: 1, car_ml: 2, geocoder: 3, proximity: 4 }
 
   def tbnrs
     case kind

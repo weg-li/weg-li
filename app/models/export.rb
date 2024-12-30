@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Export < ApplicationRecord
-  enum export_type: { notices: 0 }
-  enum file_extension: { csv: 0 }
+  enum :export_type, { notices: 0 }
+  enum :file_extension, { csv: 0 }
 
   validates :export_type, presence: true
 

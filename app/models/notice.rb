@@ -56,7 +56,7 @@ class Notice < ApplicationRecord
   after_validation :geocode, if: :do_geocoding?
   after_validation :postgisify
 
-  enum status: { open: 0, disabled: 1, analyzing: 2, shared: 3 }
+  enum :status, { open: 0, disabled: 1, analyzing: 2, shared: 3 }
 
   belongs_to :user
   belongs_to :charge, -> { order(valid_from: :desc) }, optional: true, foreign_key: :tbnr, primary_key: :tbnr

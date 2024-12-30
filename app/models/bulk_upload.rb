@@ -5,7 +5,7 @@ class BulkUpload < ApplicationRecord
   has_many :notices, dependent: :nullify
   has_many_attached :photos
 
-  enum status: {
+  enum :status, {
     initial: 0,
     processing: 1,
     open: 2,
