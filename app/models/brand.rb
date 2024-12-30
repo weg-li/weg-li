@@ -58,10 +58,10 @@ class Brand < ApplicationRecord
   end
 
   def to_param
-    name.parameterize
+    token
   end
 
   def defaults
-    self.token ||= to_param
+    self.token ||= name.parameterize
   end
 end
