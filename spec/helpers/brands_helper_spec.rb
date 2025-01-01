@@ -15,8 +15,8 @@ describe BrandsHelper do
         "LKW" => [],
         "PKW" => [
           ["Cesto", "Cesto"],
-          ["Pesto", "Pesto (some alias)"],
-          ["Testo", "Testo (bla, blub)"],
+          ["Pesto (some alias)", "Pesto"],
+          ["Testo (bla, blub)", "Testo"],
         ],
         "Scooter" => [],
       })
