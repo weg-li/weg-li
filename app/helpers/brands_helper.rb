@@ -7,7 +7,7 @@ module BrandsHelper
         Brand.human_enum_name(:kind, kind),
         brands.select { |brand| brand.kind == kind }.map do |brand|
           display = "#{brand.name}#{" (#{brand.aliases.join(', ')})" if brand.aliases.present?}"
-          [brand.name, display]
+          [display, brand.name]
         end,
       ]
     end
