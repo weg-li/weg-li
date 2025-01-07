@@ -49,7 +49,7 @@ class NoticeMailer < ApplicationMailer
 
   def attach_photos(photos)
     photos.each do |photo|
-      url = url_for_photo(photo)
+      url = url_for_photo(photo, metadata: true)
       URI.open(url) { |file| attachments[photo.key] = file.read }
     end
   end

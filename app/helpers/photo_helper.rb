@@ -15,18 +15,20 @@ module PhotoHelper
     },
   }
 
-  def url_for_photo(photo, size: :default)
+  def url_for_photo(photo, size: :default, metadata: false)
     if size == :original
       rails_storage_redirect_url(photo)
     else
-      cloudflare_image_resize_url(photo, size)
+      cloudflare_image_resize_url(photo, size, metadata)
     end
   end
 
-  def cloudflare_image_resize_url(photo, size)
+  def cloudflare_image_resize_url(photo, size, metadata)
+    metadata = metadata ? "keep" : "none"
     width, height = CONFIG[size][:resize].split("x")
     quality = CONFIG[size][:quality]
     host = ENV.fetch("CDN_HOST", "https://images.weg.li")
-    "#{host}/cdn-cgi/image/width=#{width},height=#{height},fit=scale-down,metadata=none,quality=#{quality}/storage/#{photo.key}"
+    # https://developers.cloudflare.com/images/transform-images/transform-via-workers/
+    "#{host}/cdn-cgi/image/width=#{width},height=#{height},fit=scale-down,metadata=#{metadata},quality=#{quality}/storage/#{photo.key}"
   end
 end
