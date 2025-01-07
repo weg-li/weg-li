@@ -17,6 +17,13 @@ module Admin
       redirect_to admin_notice_path(notice), notice: "Analyse wurde gestartet"
     end
 
+    def find_resource(param)
+      if param =~ /^\d+$/
+        Notice.find(param)
+      else
+        super(param)
+      end
+    end
     # Define a custom finder by overriding the `find_resource` method:
     # def find_resource(param)
     #   Notice.find_by!(slug: param)
