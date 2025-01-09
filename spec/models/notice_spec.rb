@@ -4,11 +4,20 @@ require "spec_helper"
 
 describe Notice do
   let(:notice) { Fabricate.build(:notice, registration: "BÜR-CO 443") }
+  let(:charge) { Fabricate.create(:charge) }
 
   context "validation" do
     it "is valid" do
       expect(notice).to be_valid
       expect(notice.photos.first.filename.to_s).to eql("mercedes.jpg")
+      notice.tbnr = nil
+      expect(notice).to_not be_valid
+      notice.tbnr = ""
+      expect(notice).to_not be_valid
+      notice.tbnr = "123456"
+      expect(notice).to_not be_valid
+      notice.tbnr = charge.tbnr
+      expect(notice).to be_valid
     end
 
     it "validates the date" do

@@ -66,7 +66,7 @@ class Notice < ApplicationRecord
   has_many :replies, -> { order(created_at: :desc) }, dependent: :destroy
   has_many :data_sets, -> { order(created_at: :desc) }, dependent: :destroy, as: :setable
 
-  validates :photos, :registration, :street, :zip, :city, :start_date, :end_date, presence: true
+  validates :photos, :registration, :street, :zip, :city, :start_date, :end_date, :charge, presence: true
   validates :zip, format: { with: /\d{5}/, message: "PLZ ist nicht korrekt" }
   validates :tbnr, length: { is: 6 }
   validates :token, uniqueness: true

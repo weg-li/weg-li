@@ -57,6 +57,7 @@ describe "api/notices", type: :request do
   context "PATCH :update" do
     before do
       @notice = Fabricate(:notice, user: @user)
+      @charge = Fabricate(:charge, tbnr: "112454")
     end
 
     it "updates a notice with given params" do
