@@ -60,6 +60,8 @@ class Notice < ApplicationRecord
 
   belongs_to :user
   belongs_to :charge, -> { order(valid_from: :desc) }, optional: true, foreign_key: :tbnr, primary_key: :tbnr
+  # TODO: (PS) merge with brand ID
+  belongs_to :branddd, class_name: "Brand", optional: true, foreign_key: :brand, primary_key: :name
   belongs_to :district, optional: true, foreign_key: :zip, primary_key: :zip
   belongs_to :bulk_upload, optional: true
   has_many_attached :photos

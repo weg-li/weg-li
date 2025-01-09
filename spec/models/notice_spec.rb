@@ -37,6 +37,14 @@ describe Notice do
     end
   end
 
+  context "associations" do
+    it "belongs to a brand" do
+      notice.brand = Fabricate.create(:brand, name: "Mercedes-Benz").name
+      notice.save!
+      expect(notice.reload.branddd.name).to eql("Mercedes-Benz")
+    end
+  end
+
   context "wegli_email" do
     it "creates and reads the proper notice" do
       notice = Fabricate.create(:notice)
