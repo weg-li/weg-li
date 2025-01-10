@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   mount Rswag::Ui::Engine => "/api-docs"
   mount Sidekiq::Web => "/sidekiq", :constraints => AdminConstraint.new
-  mount Debugbar::Engine => Debugbar.config.prefix if defined? Debugbar
 
   resources :apidocs, only: [:index]
 

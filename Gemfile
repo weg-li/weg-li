@@ -67,6 +67,7 @@ gem "net-imap", require: false
 gem "net-pop", require: false
 
 group :development do
+  gem "debugbar"
   gem "listen"
   gem "letter_opener"
   gem "web-console"
@@ -86,5 +87,4 @@ group :development, :test do
   gem "rspec-rails"
   gem "rspec-retry"
   gem "webmock"
-  gem "debugbar"
 end
