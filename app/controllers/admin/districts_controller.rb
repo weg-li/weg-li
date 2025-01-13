@@ -14,7 +14,8 @@ module Admin
       District.where(email: params[:email]).update_all(
         email: params[:to_email],
         flags: params[:to_flags],
-        config: params[:to_config]
+        config: params[:to_config],
+        updated_at: Time.now.utc
       )
 
       redirect_to admin_districts_path(search: params[:to]),
