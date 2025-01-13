@@ -6,9 +6,9 @@
   .col-lg-4
     .form-group
       = form.label :priority, class: "control-label control-label-required"
-      = form.number_field :priority, class: "form-control", required: true, placeholder: 'Prio', min: 0, max: 10
+      = form.number_field :priority, class: "form-control", required: true, placeholder: 'Prio', min: -10, max: 10
       = hint do
-        | Sortierung für die Nurzung im Meldungs-Formular
+        | Sortierung für die Nurzung im Meldungs-Formular, je höher desto eher.
 
 .row
   .col-lg-12
