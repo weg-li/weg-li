@@ -12,6 +12,8 @@ describe "snippets", type: :request do
 
   context "GET :index" do
     it "index works" do
+      Fabricate(:snippet, user:)
+
       get snippets_path
 
       expect(response).to be_ok

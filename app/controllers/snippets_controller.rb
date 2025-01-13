@@ -6,7 +6,7 @@ class SnippetsController < ApplicationController
   def index
     @table_params = { search: {}, order: {} }
 
-    @snippets = current_user.snippets.page(params[:page])
+    @snippets = current_user.snippets.ordered.page(params[:page])
 
     search = params[:search]
     if search.present?
