@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   resources :apidocs, only: [:index]
 
   namespace :admin do
-    resources :system, only: [:index]
     resources :users do
       get :login
       patch :merge
@@ -29,9 +28,13 @@ Rails.application.routes.draw do
     resources :authorizations
     resources :brands
 
+    root to: "users#index"
+  end
+
+  # this is not administrate but our own
+  scope "/admin" do
     get :system, to: "system#index", as: :system_status
     post :blocklist_ip, to: "system#blocklist_ip", as: :blocklist_ip
-    root to: "users#index"
   end
 
   namespace :api, constraints: { format: :json } do

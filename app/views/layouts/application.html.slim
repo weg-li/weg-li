@@ -14,8 +14,6 @@ html lang=I18n.locale
     = render('og_card')
     = render('twitter_card')
     = render('i18njs')
-    - if defined? Debugbar
-      = debugbar_body
   body
     = render('navigation')
     .container
@@ -26,5 +24,4 @@ html lang=I18n.locale
 
     - if defined? Puma
       | <!-- served Revision #{ENV['RENDER_GIT_COMMIT']} by Puma-#{Puma::Const::PUMA_VERSION} #{Puma::Const::CODE_NAME} Ruby: #{RUBY_VERSION} on Rails #{Rails.version} -->
-    - if defined? Debugbar
-      = debugbar_body
+

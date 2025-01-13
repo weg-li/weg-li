@@ -45,7 +45,7 @@ gem "prawn"
 gem "prawn-markup"
 gem "prawn-qrcode"
 gem "prawn-emoji"
-gem "administrate", "0.17.0" # https://github.com/thoughtbot/administrate/issues/507
+gem "administrate"
 gem "administrate-field-active_storage"
 gem "appsignal"
 gem "http"
@@ -67,7 +67,6 @@ gem "net-imap", require: false
 gem "net-pop", require: false
 
 group :development do
-  gem "debugbar"
   gem "listen"
   gem "letter_opener"
   gem "web-console"
