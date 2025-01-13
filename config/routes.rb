@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     resources :bulk_uploads
     resources :replies
     resources :snippets
+    resources :signs
     resources :charges
     resources :charge_variants
     resources :authorizations
