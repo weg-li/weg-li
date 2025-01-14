@@ -13,14 +13,6 @@ class NoticeMailer < ApplicationMailer
       generator = ZipGenerator.new(@notice, @district.config)
       data = generator.generate
       attachments[generator.filename] = data.read
-    elsif @district.dresden?
-      data = PdfGenerator.new(include_photos: false).generate(@notice)
-      attachments[notice.file_name(:pdf)] = data
-
-      data = XmlGenerator.new.generate(@notice, :dresden)
-      attachments[notice.file_name(:xml)] = data
-
-      attach_photos(notice.photos)
     elsif send_via_pdf
       data = PdfGenerator.new.generate(@notice)
       attachments[notice.file_name] = data

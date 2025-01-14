@@ -40,16 +40,6 @@ describe NoticeMailer do
       expect(mail.attachments.size).to be(1)
       expect(mail.attachments.first.filename).to match(/XMLMDE_.*\.zip/)
     end
-
-    it "sends mail with dresden config" do
-      notice.district.update! config: :dresden
-      mail = NoticeMailer.charge(notice)
-
-      expect(mail.attachments.size).to be(3)
-      expect(mail.attachments.first.filename).to match(/.*\.pdf/)
-      expect(mail.attachments.second.filename).to match(/.*\.xml/)
-      expect(mail.attachments.last.filename).to match(/.*\.jpg/)
-    end
   end
 
   describe "forward" do
