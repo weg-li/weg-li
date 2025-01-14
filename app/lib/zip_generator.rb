@@ -23,10 +23,14 @@ class ZipGenerator
   end
 
   def filename
-    notice.file_name(:zip, prefix: PREFIX_WINOWIG)
+    notice.file_name(:zip, prefix: prefix)
   end
 
   private
+
+  def prefix
+    template == :winowig ? PREFIX_WINOWIG : template.upcase
+  end
 
   def generate_owi21(notice, stream)
     data = XmlGenerator.new.generate(notice, :owi21)
