@@ -26,7 +26,7 @@ xml.Datenstrom "xmlns" => "http://www.owi21.de", "xmlns:xsi" => "http://www.w3.o
         xml.Tatbestan TBNr: notice.tbnr
         xml.Person(
           PersonenTypId: "10", # Zeuge
-          Anrede_Schluessel: "3",
+          Anrede_Schluessel: "9", # unbestimmt
           Vorname: user.first_name,
           Nachname: user.last_name,
           Strasse: user.street,
@@ -34,10 +34,17 @@ xml.Datenstrom "xmlns" => "http://www.owi21.de", "xmlns:xsi" => "http://www.w3.o
           PLZ: user.zip,
           Ort: user.city,
         )
-        # xml.Entscheidung(Schluessel="111" Typ="0")
-        xml.Dokumente Typ: "700", Schluessel: "7" do
+        xml.Dokumente(
+          Typ: "700",
+          Datum: now.strftime("%Y-%m-%d"),
+          Schluessel: "7", # externe Dokumente
+        ) do
           notice.photos.each do |photo|
-            xml.Dokument Titel: "Uebersicht", Format: "image/jpeg", Datei: photo.key
+            xml.Dokument(
+              Format: "image/jpeg",
+              Datei: photo.key,
+              SpeicherTyp: "0", # Speicherung auf dem OWI Server
+            )
           end
         end
       end

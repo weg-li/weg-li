@@ -4,9 +4,9 @@
     <Hinzufuegen>
       <Bestand Gemarkung="Dorf" Tatort="Am Weiher 123, Beim Nazis-Raus Aufkleber, 12345 Dorf" Tattag="2024-11-10" Tatzeit="12:00" Beweis_Schluessel_1="1" Beweis_Schluessel_2="4" Beteiligung_Schluessel="2" Fahrzeugtyp_Schluessel="D" KFZ_Kennzeichen="HH-AB 123" KFZ_Kennzeichen_Merkmal="1">
         <Tatbestan TBNr="142170"/>
-        <Person PersonenTypId="10" Anrede_Schluessel="3" Vorname="Uschi" Nachname="Müller" Strasse="Am Weiher 123" Hausnummer="123" PLZ="54321" Ort="Dorf"/>
-        <Dokumente Typ="700" Schluessel="7">
-          <Dokument Titel="Uebersicht" Format="image/jpeg" Datei="test.jpg"/>
+        <Person PersonenTypId="10" Anrede_Schluessel="9" Vorname="Uschi" Nachname="Müller" Strasse="Am Weiher 123" Hausnummer="123" PLZ="54321" Ort="Dorf"/>
+        <Dokumente Typ="700" Datum="2024-11-12" Schluessel="7">
+          <Dokument Format="image/jpeg" Datei="test.jpg" SpeicherTyp="0"/>
         </Dokumente>
       </Bestand>
     </Hinzufuegen>
