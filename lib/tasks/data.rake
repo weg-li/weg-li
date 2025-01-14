@@ -25,7 +25,7 @@ namespace :data do
       puts zip
       next if zip.blank?
 
-      district = District.from_param(zip)
+      district = District.find_by(zip: zip)
       if district.present?
         Rails.logger.info("found #{zip}: #{district.id}")
       else
@@ -36,29 +36,6 @@ namespace :data do
           district = source.dup
           district.zip = zip
           district.prefixes ||= [zip_to_prefix[zip]]
-          district.save!
-        else
-          Rails.logger.info("could not find anything for #{zip}")
-        end
-      end
-    end
-  end
-
-  task extend_district_data: :environment do
-    zips_and_osm.each do |row|
-      zip = row["plz"]
-      district = from_param(zip)
-      if district.present?
-        Rails.logger.info("found #{zip}: #{district.id}")
-      else
-        source = District.active.where("name = :name AND zip LIKE :zip", name: row["ort"], zip: "#{zip.first}%").first
-        if source.present?
-          Rails.logger.info("found source for #{zip}: #{source.id}")
-          district = source.dup
-          district.zip = zip
-          district.osm_id = row["osm_id"]
-          district.state = row["bundesland"]
-          district.prefix = [zip_to_prefix[zip]]
           district.save!
         else
           Rails.logger.info("could not find anything for #{zip}")
