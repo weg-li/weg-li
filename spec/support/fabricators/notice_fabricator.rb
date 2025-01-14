@@ -7,7 +7,7 @@ Fabricator(:notice) do
   city { Faker::Address.city }
   start_date { 2.days.ago }
   end_date { 2.days.ago + 3.minutes }
-  registration { "#{Vehicle.plates.keys.sample} #{('A'..'Z').to_a.sample(2).join} #{rand(1000)}" }
+  registration { "#{Vehicle.plates.keys.sample}-#{('A'..'Z').to_a.sample(2).join} #{rand(1000)}" }
   brand { Brand.all.sample }
   color { Vehicle.colors.sample }
   vehicle_empty { true }

@@ -11,7 +11,7 @@ describe UserExportJob do
         Time.use_zone("UTC") do
           district = Fabricate.create(:district, zip: "22525")
           charge = Fabricate.build(:charge, tbnr: "142170", description: "Scheiße geparkt")
-          notice = Fabricate.create(:notice, token: "1234", registration: "HH PS 123", color: "black", brand: "BMW", status: :shared, charge:, street: "Nazis boxen 42", city: "Hamburg", zip: "22525", district:)
+          notice = Fabricate.create(:notice, token: "1234", registration: "HH-PS 123", color: "black", brand: "BMW", status: :shared, charge:, street: "Nazis boxen 42", city: "Hamburg", zip: "22525", district:)
 
           expect do
             expect do

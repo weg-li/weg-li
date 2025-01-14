@@ -98,14 +98,14 @@ describe Notice do
         Fabricate.create(
           :notice,
           status: :shared,
-          registration: "HH PS 123",
+          registration: "HH-PS 123",
           user: notice.user,
         )
 
       empty_notice = Notice.new(user: notice.user)
-      empty_notice.apply_favorites(["HH PS 123"])
+      empty_notice.apply_favorites(["HH-PS 123"])
 
-      expect(empty_notice.registration).to eql("HH PS 123")
+      expect(empty_notice.registration).to eql("HH-PS 123")
       expect(empty_notice.brand).to eql(existing_notice.brand)
       expect(empty_notice.color).to eql(existing_notice.color)
       expect(empty_notice.location).to eql(existing_notice.location)
