@@ -2,7 +2,6 @@
 
 class UsersController < ApplicationController
   before_action :authenticate!
-  before_action :authenticate_studi_user!, only: %i[studi generate_export]
 
   def show
     @since = (params[:since] || 4).to_i

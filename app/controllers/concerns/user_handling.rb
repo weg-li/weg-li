@@ -15,12 +15,6 @@ module UserHandling
     end
   end
 
-  def authenticate_studi_user!
-    if !signed_in? || !access?(:studi)
-      redirect_to(root_path, notice: "You are not supposed to see that!")
-    end
-  end
-
   def authenticate_admin_user!
     if !signed_in? || !session_user.admin?
       redirect_to(root_path, notice: "You are not supposed to see that!")
