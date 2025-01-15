@@ -7,7 +7,7 @@ Fabricator(:user) do
   api_token       { SecureRandom.hex(32) }
   name            { Faker::Name.name }
   street          { Faker::Address.street_address }
-  zip             { Faker::Address.zip }
+  zip             { ZipValidator.zips.sample }
   city            { Faker::Address.city }
   validation_date { 2.days.ago }
   last_login      { 1.minute.ago }

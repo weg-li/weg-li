@@ -29,15 +29,13 @@ class District < ApplicationRecord
   has_many :notices, foreign_key: :zip, primary_key: :zip
   has_many :users, foreign_key: :zip, primary_key: :zip
 
-  validates :name, :zip, :email, :state, presence: true
-  validates :zip, uniqueness: true
-  validates :zip, format: { with: /\d{5}/ }
-  validates :state, inclusion: { in: STATES }
-  validates :email, "valid_email_2/email": {
-    mx: true,
-    disposable: true,
-  }
   normalizes :email, with: ->(email) { email.strip.downcase }
+  normalizes :zip, with: lambda(&:strip)
+
+  validates :name, :email, :state, presence: true
+  validates :zip, uniqueness: true, presence: true, zip: true
+  validates :state, inclusion: { in: STATES }
+  validates :email, "valid_email_2/email": { mx: true, disposable: true }
 
   geocoded_by :geocode_address, language: proc { |_model| I18n.locale }, no_annotations: true
   after_validation :geocode, if: :geocode_address_changed?

@@ -3,6 +3,7 @@ de:
   activerecord:
     errors:
       messages:
+        on_zip: 'ist keine gültige Postleitzahl'
         record_invalid: 'Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'
         restrict_dependent_destroy:
           has_one: Datensatz kann nicht gelöscht werden, da ein abhängiger %{record}-Datensatz

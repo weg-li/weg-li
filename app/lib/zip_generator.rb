@@ -29,7 +29,7 @@ class ZipGenerator
   private
 
   def prefix
-    template == :winowig ? PREFIX_WINOWIG : template.upcase
+    template.to_sym == :winowig ? PREFIX_WINOWIG : template.upcase
   end
 
   def generate_owi21(notice, stream)

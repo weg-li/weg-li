@@ -2,7 +2,7 @@
 
 Fabricator(:district) do
   name      { Faker::Address.city }
-  zip       { Faker::Address.zip }
+  zip       { ZipValidator.zips.sample }
   email     { Faker::Internet.email(domain: "mail.aachen.de") }
   prefixes  { Vehicle.plates.keys.sample }
   latitude  { 53.57532 }

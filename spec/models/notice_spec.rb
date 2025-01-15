@@ -35,6 +35,12 @@ describe Notice do
       notice.start_date = Time.zone.now
       expect(notice).to_not be_valid
     end
+
+    it "validates the zip" do
+      expect(notice).to be_valid
+      notice.zip = "12345"
+      expect(notice).to_not be_valid
+    end
   end
 
   context "associations" do

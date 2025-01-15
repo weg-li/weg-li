@@ -34,23 +34,14 @@ class User < ApplicationRecord
 
   accepts_nested_attributes_for :authorizations
 
-  validates :nickname,
-            :email,
-            :token,
-            :name,
-            :street,
-            :zip,
-            :city,
-            presence: true
-  validates :email, :token, uniqueness: true
-  validates :email, "valid_email_2/email": {
-    mx: true,
-    disposable_with_allow_list: true,
-    deny_list: true,
-  }
-  validates :name, format: { with: /\D+\s+\D/ }
-
   normalizes :email, with: ->(email) { email.strip.downcase }
+  normalizes :zip, with: lambda(&:strip)
+
+  validates :nickname, :email, :token, :name, :street, :city, presence: true
+  validates :email, :token, uniqueness: true
+  validates :email, "valid_email_2/email": { mx: true, disposable_with_allow_list: true, deny_list: true }
+  validates :zip, presence: true, zip: true
+  validates :name, format: { with: /\D+\s+\D/ }
 
   scope :last_login_since, ->(date) { where("last_login > ?", date) }
   scope :since, ->(date) { where("created_at > ?", date) }
