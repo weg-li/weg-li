@@ -2,7 +2,7 @@
 - set_canonical charge_url(@charge)
 - set_meta_description t('meta_description.charge', tbnr: @charge.tbnr, description: @charge.description, bkat: @charge.bkat)
 
-h3 #{signify(@charge.description)} (#{Charge.human_attribute_name(:tbnr)} #{@charge.tbnr})
+h3 #{Charge.human_attribute_name(:tbnr)} #{@charge.tbnr}: #{signify(@charge.description)}
 
 .spacer
 
@@ -22,7 +22,7 @@ ul.nav.nav-tabs
         .panel.panel-default.panel-nav
           .panel-heading Details zum Tatbestand
           ul.list-group
-            li.list-group-item #{tag.span(charge.classification_name, class: 'label label-primary')} #{Charge.human_attribute_name(:tbnr)} #{charge.tbnr}
+            li.list-group-item #{tag.span(charge.classification_name, class: 'label label-primary')}
             li.list-group-item #{charge.bkat}
             li.list-group-item
               |> #{number_to_currency(charge.fine)} #{Charge.human_attribute_name(:fine)} /
@@ -41,6 +41,6 @@ ul.nav.nav-tabs
 .spacer-lage
 
 .well
-  | Für den Verstoß "#{@charge.description}" (#{Charge.human_attribute_name(:tbnr)} #{@charge.tbnr}) wurden in den letzten #{@since} Wochen deutschlandweit #{@notices.blank? ? 'noch keine' : @notices.size } Anzeigen gegen Falschparker erstattet.
+  | Für den Verstoß #{@charge.tbnr} "#{@charge.description}" wurden in den letzten #{@since} Wochen deutschlandweit #{@notices.blank? ? 'noch keine' : @notices.size } Anzeigen gegen Falschparker erstattet.
 
 = render('components/map/login', notices: @notices, display: @display, since: @since)
