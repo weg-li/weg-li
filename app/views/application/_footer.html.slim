@@ -13,6 +13,9 @@ footer
           = link_to stats_path, title: 'weg.li Statistik' do
             <span class="glyphicon glyphicon-stats"></span> Statistik
         li
+          = link_to year_path, title: 'weg.li Faschparker Historie' do
+            <span class="glyphicon glyphicon-calendar"></span> Historie
+        li
           = link_to exports_path, title: 'weg.li Exporte' do
             <span class="glyphicon glyphicon-compressed"></span> Exporte
 
@@ -32,8 +35,8 @@ footer
 
       ul.list-unstyled.clearfix
         li
-          = link_to year_path, title: 'weg.li Faschparker Historie' do
-            <span class="glyphicon glyphicon-calendar"></span> Historie
+          = link_to wegeheld_path, title: 'weg.li + Wegeheld' do
+            <span class="glyphicon glyphicon-phone"></span> weg.li + Wegeheld
         li
           = link_to features_path, title: 'weg.li Funktionen' do
             <span class="glyphicon glyphicon-ok-sign"></span> Funktionen
@@ -68,9 +71,6 @@ footer
         li
           = link_to 'https://github.com/weg-li', title: 'weg.li on GitHub - We <3 Open-Source!', target: '_blank' do
             <span class="glyphicon glyphicon-heart"></span> GitHub
-        li
-          = link_to wegeheld_path, title: 'Wegeheld + weg.li' do
-            <span class="glyphicon glyphicon-phone"></span> Wegeheld + weg.li
 
     .col-lg-4.col-xs-12
       = render('short_imprint')
