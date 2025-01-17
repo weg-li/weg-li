@@ -42,7 +42,7 @@ require_relative '../../app/lib/slack'
 slack_client = Slack::Client.new
 redis_client = Redis.new
 
-ActiveSupport::Notifications.subscribe(/rack_attack/) do |name, start, finish, instrumenter_id, payload|
+ActiveSupport::Notifications.subscribe(/rack_attack/) do |name, start, finish, request_id, payload|
   unless name.match?(/safelist/)
     req = payload[:request]
     slug = "#{req.env['HTTP_HOST']}#{req.env['PATH_INFO']}"
