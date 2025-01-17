@@ -34,5 +34,8 @@ class SitemapsController < ApplicationController
     Brand.active.in_batches do |items|
       @urls += items.map { |item| brand_url(item) }
     end
+    Sign.in_batches do |items|
+      @urls += items.map { |item| sign_url(item) }
+    end
   end
 end
