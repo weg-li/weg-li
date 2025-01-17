@@ -32,6 +32,20 @@ footer
 
       ul.list-unstyled.clearfix
         li
+          = link_to year_path, title: 'weg.li Faschparker Historie' do
+            <span class="glyphicon glyphicon-calendar"></span> Historie
+        li
+          = link_to features_path, title: 'weg.li Funktionen' do
+            <span class="glyphicon glyphicon-ok-sign"></span> Funktionen
+        li
+          = link_to integrations_path, title: 'weg.li Integrationen in Fachverfahren für Ordnungsämter' do
+            <span class="glyphicon glyphicon-paperclip"></span> Fachverfahren
+        li
+          = link_to api_path, title: 'weg.li API' do
+            <span class="glyphicon glyphicon-transfer"></span> API
+
+      ul.list-unstyled.clearfix
+        li
           = link_to imprint_path, title: 'weg.li Impressum' do
             <span class="glyphicon glyphicon-asterisk"></span> Impressum
         li
@@ -40,15 +54,6 @@ footer
         li
           = link_to faq_path, title: 'weg.li FAQ' do
             <span class="glyphicon glyphicon-info-sign"></span> FAQ
-        li
-          = link_to year_path, title: 'weg.li Faschparker Historie' do
-            <span class="glyphicon glyphicon-calendar"></span> Historie
-        li
-          = link_to features_path, title: 'weg.li Funktionen' do
-            <span class="glyphicon glyphicon-ok-sign"></span> Funktionen
-        li
-          = link_to api_path, title: 'weg.li API' do
-            <span class="glyphicon glyphicon-transfer"></span> API
         li
           = link_to donate_path, title: 'weg.li Sponsor werden' do
             <span class="glyphicon glyphicon-piggy-bank"></span> Spenden

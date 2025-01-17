@@ -12,6 +12,15 @@ describe "home", type: :request do
     end
   end
 
+  context "GET :integrations" do
+    it "shows the page" do
+      get integrations_path
+
+      expect(response).to be_successful
+      assert_select("h2", "weg.li Integrationen")
+    end
+  end
+
   context "GET :faq" do
     it "shows the page" do
       get faq_path

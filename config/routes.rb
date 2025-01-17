@@ -159,6 +159,7 @@ Rails.application.routes.draw do
   get "/leaderboard", to: "home#leaderboard", as: :leaderboard
   get "/stats", to: "home#stats", as: :stats
   get "/features", to: "home#features", as: :features
+  get "/integrations", to: "home#integrations", as: :integrations
   get "/faq", to: "home#faq", as: :faq
   get "/api", to: "home#api", as: :api
   get "/violation", to: "home#violation", as: :violation
