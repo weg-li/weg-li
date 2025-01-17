@@ -14,6 +14,7 @@ class SitemapsController < ApplicationController
       features_url,
       privacy_url,
       imprint_url,
+      integrations_url,
       faq_url,
       year_url,
       donate_url,
