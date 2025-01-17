@@ -1,30 +1,5 @@
 # frozen_string_literal: true
 
-# ActiveStorage::Representations::RedirectController.instance_eval do
-#   rescue_from(
-#     MiniMagick::Error,
-#     with: lambda {
-#       response.set_header('Retry-After', 2)
-#       redirect_to(request.url, status: 302)
-#     }
-#   )
-#   rescue_from(
-#     ActiveStorage::FileNotFoundError,
-#     with: lambda {
-#       response.set_header('Retry-After', 2)
-#       redirect_to(request.url, status: 302)
-#     }
-#   )
-#   rescue_from(
-#     ActiveRecord::InvalidForeignKey,
-#     with: lambda {
-#       response.set_header('Retry-After', 2)
-#       redirect_to(request.url, status: 302)
-#     }
-#   )
-#   rescue_from(ActiveRecord::RecordNotFound, with: lambda { head(404) })
-# end
-
 require 'active_storage/service/gcs_service'
 require 'active_storage/service/disk_service'
 
