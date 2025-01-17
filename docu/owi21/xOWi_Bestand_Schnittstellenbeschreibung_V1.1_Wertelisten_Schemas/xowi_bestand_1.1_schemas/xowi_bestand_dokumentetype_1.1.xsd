@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.owi21.de" xmlns:xowi="urn:schemas-softplan-com:xowi-sql" xmlns:sql="urn:schemas-microsoft-com:xml-sql" xmlns:dt="urn:schemas-microsoft-com:datatypes" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.owi21.de" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:complexType name="DokumenteType">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="Dokument" type="DokumentType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="DruckDatei" type="DruckDateiType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="DokumentRef" type="DokumentRefType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="nicht_OWI21_Daten" type="ExternType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:choice>
+		<xsd:attribute name="GUID" sql:field="GUID">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="36"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Schluessel" sql:field="Schl">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value="[57]{1}"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Typ">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="8"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Datum" type="xsd:string"/>
+		<xsd:attribute name="Name">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="255"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Kommentar">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="1000"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="OnlineFlag" type="xsd:string"/>
+		<xsd:attribute name="Zeitstempel" type="xsd:string" sql:field="sys_stamp_in"/>
+	</xsd:complexType>
+	<xsd:complexType name="DokumentType">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:any processContents="lax"/>
+		</xsd:choice>
+		<xsd:attribute name="Typ" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>Rueckkompatibel</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="Titel" type="xsd:string"/>
+		<xsd:attribute name="Format" type="xsd:string" use="required">
+			<xsd:annotation>
+				<xsd:documentation>Mimetype</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="SpeicherTyp" type="xsd:string"/>
+		<xsd:attribute name="Datei" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>Beinhaltet Dateiname. Falls Speichermethode „Netzwerkpfad“ Typ=1 eingestellt ist, Das Attribut„Datei“ kann auch Verzeichnisstruktur abbilden.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="DokumentRef">
+			<xsd:annotation>
+				<xsd:documentation>Dokumentreferenz bei Speichermethode = 2.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="300"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Drucken">
+			<xsd:annotation>
+				<xsd:documentation>Schalter, ob das Dokument auch in Bescheiden gedruckt werden soll. Wert "1" ist ausdrucken.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="1"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Signatur" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>Digitale Signatur.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="Hashcode" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>Hashcode.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="Blob" type="xsd:string"/>
+		<xsd:attribute name="Sachbearbeiter">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="60"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Zeitstempel" type="xsd:string"/>
+	</xsd:complexType>
+	<xsd:complexType name="DruckDateiType">
+		<xsd:attribute name="Name"/>
+	</xsd:complexType>
+	<xsd:complexType name="DokumentRefType">
+		<xsd:attribute name="Name"/>
+	</xsd:complexType>
+</xsd:schema>

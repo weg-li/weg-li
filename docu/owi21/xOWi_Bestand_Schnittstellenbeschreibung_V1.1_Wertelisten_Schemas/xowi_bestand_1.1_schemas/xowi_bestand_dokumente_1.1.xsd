@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.owi21.de" xmlns:xowi="urn:schemas-softplan-com:xowi-sql" xmlns:sql="urn:schemas-microsoft-com:xml-sql" xmlns:dt="urn:schemas-microsoft-com:datatypes" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.owi21.de" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:include schemaLocation="xowi_bestand_dokumentetype_1.1.xsd"/>
+	<xsd:element name="Root" type="RootType"/>
+	<xsd:complexType name="RootType">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="Dokumente" type="DokumenteType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:choice>
+	</xsd:complexType>
+	<xsd:complexType name="ExternType">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:any processContents="lax"/>
+		</xsd:choice>
+		<xsd:anyAttribute namespace="##any" processContents="skip"/>
+	</xsd:complexType>
+</xsd:schema>
