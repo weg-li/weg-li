@@ -5,10 +5,11 @@
   h2.text-primary weg.li Integrationen
 
 
-.well.well-sm
+.well.well-sm.callout-info
   |
     Für die Ordnungsbehörden der Gemeinden stellen wir <strong>kostenfrei</strong> Import-Schnittstellen zu gängigen OWI-Fachverfahren zur Verfügung.
     Die Sachbearbeiter können damit die Daten der Anzeigen ohne manuelle Eingabe direkt in die Fachverfahren übernehmen.
+    Dieses Vorgehen spart Zeit und reduziert Fehler bei der Übernahme der Daten.
 
 .row
   .col-lg-12
@@ -23,9 +24,9 @@
         | Die Ordnungsbehörde erhält die Anzeige per E-Mail mit Import-Datei als Anhang
       li.list-group-item
         span.badge 3
-        | Der Sachbearbeiter importiert die Anzeige in das genutzte Fachverfahren
+        | Der Sachbearbeiter importiert das Archiv mit den Daten der Anzeige sowie den Beweisfotos direkt in das genutzte Fachverfahren
 
-.well.well-sm.callout-primary
+.well.well-sm.callout-info
   |
     Die Integrationen sind für die Ordnungsbehörden kostenfrei. Bei Interesse an einer Integration in Ihr Fachverfahren wenden Sie sich bitte an #{mail_to 'support@weg.li', 'support@weg.li'}
 
@@ -36,6 +37,7 @@
   .col-lg-12
     h3 Kompatibilität
 
+  .col-lg-7
     ul.list-group
       li.list-group-item
         | ✅ WiNOWiG, per XMLMDE-Archiv (#{link_to 'Beispiel-Datei', '/examples/XMLMDE_20241110_1200_HUB-AB-123.zip', target: '_blank'} ~3 MB)
@@ -49,8 +51,11 @@
       li.list-group-item
         | Für folgende Fachverfahren suchen wir noch Ansprechpartner für eine Integration: OWIGWARE
 
-.well.well-sm.callout-primary
-  |
-    Stellen Sie für einen reibungslosen, technischen Ablauf sicher, dass ihr E-Mail Postfach entsprechend dimensioniert ist (ca. 3MB pro E-Mail)
-    und der Empfang von Anhängen im ZIP-Dateiformat möglich ist. ZIP-Archive werden oft von Filtern und Viren-Scannern automatisch blockiert.
-    Wir Empfehlen zusätzlich die Verwendung eines separaten Postfachs für den Empfang unserer Anzeigen.
+  .col-lg-5
+    .well.well-sm.callout-info
+      p
+        | Stellen Sie für einen reibungslosen, technischen Ablauf sicher, dass ihr E-Mail Postfach entsprechend dimensioniert ist (ca. 3MB pro E-Mail).
+      p
+        | Der Empfang von Anhängen im ZIP-Dateiformat möglich ist. ZIP-Archive werden oft von Filtern und Viren-Scannern automatisch blockiert.
+      p
+        | Wir Empfehlen zusätzlich die Verwendung eines separaten Postfachs für den Empfang unserer Anzeigen.
