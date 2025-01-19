@@ -1,11 +1,11 @@
 
-# Throttle all requests by IP (150rpm)
-Rack::Attack.throttle("requests by ip", limit: 300, period: 60) do |request|
+# Throttle all requests by IP (rpm)
+Rack::Attack.throttle("requests by ip per minute", limit: 300, period: 60) do |request|
   request.ip
 end
 
-# Throttle all requests by IP (10rps)
-Rack::Attack.throttle("requests by ip", limit: 20, period: 2) do |request|
+# Throttle all requests by IP (rps)
+Rack::Attack.throttle("requests by ip per second", limit: 30, period: 2) do |request|
   request.ip
 end
 
