@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_14_093628) do
+ActiveRecord::Schema[7.2].define(version: 2025_01_19_103050) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -157,6 +157,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_14_093628) do
     t.string "state"
     t.integer "status", default: 0
     t.integer "config", default: 0
+    t.string "parts", default: [], null: false, array: true
     t.index ["name"], name: "index_districts_on_name"
     t.index ["status"], name: "index_districts_on_status"
     t.index ["zip"], name: "index_districts_on_zip", unique: true

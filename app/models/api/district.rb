@@ -46,5 +46,11 @@ class Api::District < District
         key :type, :string
       end
     end
+    property :parts do
+      key :type, :array
+      items do
+        key :type, :string
+      end
+    end
   end
 end

@@ -123,6 +123,24 @@ namespace :data do
     end
   end
 
+  task add_parts: :environment do
+    zips_and_city.group_by { |row| row["PLZ"] }.each do |zip, rows|
+      parts = rows.map { |row| row["Ortstteil"] }.compact.uniq
+      puts "#{zip} parts #{parts}"
+      name = rows.first["Ort"].strip
+      district = District.find_by(zip: zip)
+      if district
+        puts " # {zip} old name #{district.name} new name #{name}" if name != district.name
+        district.update_column(:parts, parts)
+      else
+        state = zip_to_state.dig(zip, "Bundesland") || "Bayern"
+        district = District.new(zip: zip, parts: parts, name: name, state: state, prefixes: [zip_to_prefix[zip]], email: "info@#{name.downcase.parameterize}.de")
+        puts "creating district #{zip} #{name}"
+        district.save(validate: false)
+      end
+    end
+  end
+
   private
 
   def zips_and_osm
@@ -134,6 +152,12 @@ namespace :data do
     # PLZ,Ort,Ortstteil,
     # 01067,Dresden,,
     @zips_and_city ||= CSV.parse(File.read("config/data/zips_and_city.csv"), headers: true)
+  end
+
+  def zip_to_state
+    # PLZ;PLZ1;PLZ2;PLZ3;Ort;Landkreis;Bundesland
+    # 10115;1;10;101;Berlin;Berlin;Berlin
+    @zip_to_state ||= CSV.parse(File.read("config/data/zip_to_state.csv"), col_sep: ";", headers: true).to_h { |row| [row["PLZ"], row] }
   end
 
   def opengeodb

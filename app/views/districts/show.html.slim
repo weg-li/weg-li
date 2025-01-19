@@ -41,6 +41,13 @@ h3= "Bezirk #{@district.zip} #{@district.name} im Bundesland #{@district.state}"
         - if @district.personal_email?
           li.list-group-item.small.text-muted Individualisierte E-Mail-Adressen sind zum Schutz der Personendaten maskiert.
 
+    - if @district.parts.present?
+      .panel.panel-default
+        .panel-heading Ortsteile
+        ul.list-group
+          - @district.parts.each do |part|
+            li.list-group-item= part
+
 .spacer-lage
 
 .well

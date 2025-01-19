@@ -37,6 +37,7 @@ de:
         name: 'Name'
         email: 'E-Mail'
         prefixes: 'Ortskennzeichen'
+        parts: 'Ortstteile'
         state: 'Bundesland'
         aliases: 'Alternative Adressen'
         osm_id: 'OpenStreetmap-ID'
