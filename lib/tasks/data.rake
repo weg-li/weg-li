@@ -130,7 +130,7 @@ namespace :data do
       name = rows.first["Ort"].strip
       district = District.find_by(zip: zip)
       if district
-        puts " # {zip} old name #{district.name} new name #{name}" if name != district.name
+        puts "#{zip} old name #{district.name} new name #{name}" if name != district.name
         district.update_column(:parts, parts)
       else
         state = zip_to_state.dig(zip, "Bundesland") || "Bayern"
