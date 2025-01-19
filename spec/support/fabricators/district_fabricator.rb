@@ -8,6 +8,7 @@ Fabricator(:district) do
   latitude  { 53.57532 }
   longitude { 10.01534 }
   aliases   { [Faker::Internet.email] }
+  parts     { [Faker::Address.city] }
   state     { District::STATES.sample }
   status    { 0 }
 end

@@ -31,8 +31,15 @@
           = form.text_field :prefixes, class: "form-control", placeholder: 'z.B. HH', required: true
           = hint do
             | örtliche Kennzeichen (mit Leerzeichen oder Komma getrennt)
-      - if district.persisted?
-        .col-lg-6
+      .col-lg-6
+        .form-group
+          = form.label :parts, class: "control-label control-label-required"
+          = form.text_field :parts, class: "form-control", placeholder: 'z.B. Harburg', required: true
+          = hint do
+            | Ortsteile (mit Leerzeichen oder Komma getrennt)
+    - if district.persisted?
+      .row
+        .col-lg-12
           .form-group
             = form.label :reason, class: "control-label control-label-required"
             = form.text_field :reason, class: "form-control", required: true

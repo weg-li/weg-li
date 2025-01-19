@@ -15,10 +15,7 @@ class DistrictsController < ApplicationController
               end
             end
           end
-        send_data csv_data,
-                  type: "text/csv; charset=UTF-8; header=present",
-                  disposition:
-                    "attachment; filename=districts-#{Time.now.to_i}.csv"
+        send_data csv_data, type: "text/csv; charset=UTF-8; header=present", disposition: "attachment; filename=districts-#{Time.now.to_i}.csv"
       end
     end
   end
@@ -62,14 +59,9 @@ class DistrictsController < ApplicationController
   def create
     @district = District.new(district_params.merge(status: :proposed))
     if @district.save
-      notify(
-        "new district proposed: #{edit_admin_district_url(@district)}#{" by #{current_user.email}" if signed_in?}",
-      )
+      notify("new district proposed: #{edit_admin_district_url(@district)}#{" by #{current_user.email}" if signed_in?}")
 
-      redirect_to(
-        districts_path,
-        notice: "Bezirk wurde erfasst und wartet nun auf Freischaltung",
-      )
+      redirect_to(districts_path, notice: "Bezirk wurde erfasst und wartet nun auf Freischaltung")
     else
       render(:new)
     end
@@ -89,6 +81,7 @@ class DistrictsController < ApplicationController
       :osm_id,
       :reason,
       prefixes: [],
+      parts: [],
     )
   end
 
