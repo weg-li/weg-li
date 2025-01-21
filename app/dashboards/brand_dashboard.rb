@@ -14,6 +14,7 @@ class BrandDashboard < Administrate::BaseDashboard
     token: Field::String,
     aliases: Field::String,
     models: Field::String,
+    share: Field::Number,
     status:  Field::String.with_options(searchable: false),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -42,6 +43,7 @@ class BrandDashboard < Administrate::BaseDashboard
     :status,
     :aliases,
     :models,
+    :share,
     :created_at,
     :updated_at,
   ].freeze
@@ -56,6 +58,7 @@ class BrandDashboard < Administrate::BaseDashboard
     :status,
     :aliases,
     :models,
+    :share,
     :created_at,
     :updated_at,
   ].freeze
