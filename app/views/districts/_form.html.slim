@@ -34,7 +34,7 @@
       .col-lg-6
         .form-group
           = form.label :parts, class: "control-label control-label-required"
-          = form.text_field :parts, class: "form-control", placeholder: 'z.B. Harburg', required: true
+          = form.text_field :parts, class: "form-control", placeholder: 'z.B. Harburg'
           = hint do
             | Ortsteile (mit Leerzeichen oder Komma getrennt)
     - if district.persisted?
