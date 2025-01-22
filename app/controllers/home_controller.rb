@@ -6,7 +6,7 @@ class HomeController < ApplicationController
   def index; end
 
   def robots
-    @disallow = request.host == "images.weg.li"
+    @disallow = request.subdomain == "images"
   end
 
   def map
