@@ -73,6 +73,9 @@ class DistrictsController < ApplicationController
     params[:district][:prefixes] = params[:district][:prefixes].split(
       /;|,|\s/,
     ).reject(&:blank?)
+    params[:district][:parts] = params[:district][:parts].split(
+      /;|,|\s/,
+    ).reject(&:blank?)
     params.require(:district).permit(
       :name,
       :email,
