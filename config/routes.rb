@@ -166,6 +166,7 @@ Rails.application.routes.draw do
   get "/privacy", to: "home#privacy", as: :privacy
   get "/donate", to: "home#donate", as: :donate
   get "/year", to: "home#year", as: :year
+  get "/robots", to: "home#robots", defaults: { format: :txt }, as: :robots
   get "/year2022" => redirect("/year?year=2022")
   get "/year2021" => redirect("/year?year=2021")
   get "/year2020" => redirect("/year?year=2020")

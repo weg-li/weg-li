@@ -21,6 +21,18 @@ describe "home", type: :request do
     end
   end
 
+  context "GET :robots" do
+    it "shows the page" do
+      host! "images.weg.li"
+
+      get robots_path(format: :txt)
+
+      expect(response).to be_successful
+      expect(response.body).to include("User-agent: *")
+      expect(response.body).to include("Disallow: /")
+    end
+  end
+
   context "GET :faq" do
     it "shows the page" do
       get faq_path

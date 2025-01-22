@@ -5,6 +5,10 @@ class HomeController < ApplicationController
 
   def index; end
 
+  def robots
+    @disallow = request.host == "images.weg.li"
+  end
+
   def map
     @limit = (params[:limit] || 5).to_i
     @since = (params[:since] || "7").to_i

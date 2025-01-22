@@ -1,5 +1,9 @@
 # See http://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
 #
+<% if @disallow %>
+User-agent: *
+Disallow: /
+<% else %>
 User-agent: *
 Disallow: /p/
 Disallow: /rails/active_storage/blobs/redirect/
@@ -36,3 +40,4 @@ Disallow: /
 
 User-agent: AhrefsBot
 Disallow: /
+<% end %>
