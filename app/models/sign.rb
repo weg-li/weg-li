@@ -52,11 +52,16 @@ class Sign < ApplicationRecord
     Rails.root.join("app/assets/images", image)
   end
 
+  ID_REGEX = %r{([\d-]+\.?[\d-]*\d)-?([^.^/]*)}
+
   def self.from_param(param)
+    if param =~ ID_REGEX
+      param = $1
+    end
     find_by!(number: param)
   end
 
   def to_param
-    number
+    "#{number}-#{description.parameterize}"
   end
 end

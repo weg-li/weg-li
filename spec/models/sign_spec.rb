@@ -12,14 +12,14 @@ describe Sign do
   end
 
   context "referencing the image" do
-    let(:sign) { Fabricate.build(:sign, number: "999-1") }
+    let(:sign) { Fabricate.build(:sign, number: "270.1-40", description: "nice brudi") }
 
     it "has an image" do
-      expect(sign.image).to eql("signs/999-1.jpg.png")
+      expect(sign.image).to eql("signs/270.1-40.jpg.png")
     end
 
     it "has an url" do
-      expect(sign.url).to eql("https://example.com/signs/999-1.png")
+      expect(sign.url).to eql("https://example.com/signs/270.1-40-nice-brudi.png")
     end
   end
 
@@ -47,7 +47,7 @@ describe Sign do
         {
           description: "bla",
           number: "999-1",
-          url: "https://example.com/signs/999-1.png",
+          url: "https://example.com/signs/999-1-bla.png",
           updated_at: nil,
           created_at: nil,
         },

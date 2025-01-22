@@ -112,7 +112,7 @@ Rails.application.routes.draw do
 
   resources :districts
   resources :signs, only: %i[index] do
-    member { get :show, constraints: { id: /[\d-]+\.?[\d-]*/ } }
+    member { get :show, constraints: { id: Sign::ID_REGEX } }
   end
   resources :charges, only: %i[index show] do
     collection { get :list }
