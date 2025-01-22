@@ -31,6 +31,14 @@ describe "signs", type: :request do
       assert_select "h2", "weg.li Verkehrszeichen und Symbole"
     end
 
+    it "handles sign-names with dots" do
+      @sign.update!(number: "301.1")
+      get sign_path(@sign)
+
+      expect(response).to be_successful
+      assert_select "h2", "weg.li Verkehrszeichen und Symbole"
+    end
+
     it "gets a sign as json" do
       get sign_path(@sign, format: :json)
 

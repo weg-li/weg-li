@@ -111,7 +111,9 @@ Rails.application.routes.draw do
   end
 
   resources :districts
-  resources :signs, only: %i[index show]
+  resources :signs, only: %i[index] do
+    member { get :show, constraints: { id: /[^\/]+/ } }
+  end
   resources :charges, only: %i[index show] do
     collection { get :list }
   end
