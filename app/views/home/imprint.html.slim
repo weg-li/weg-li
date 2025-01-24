@@ -19,14 +19,22 @@
             dt Umsatzsteuer-Identifikationsnummer
             dd DE 329439194
 
-  .col-lg-4
     .well
-      dl
-        dt Inhaltlich verantwortlich
-        dd Peter Schröder
-        dt Kontakt
-        dd= mail_to 'peter@weg.li'
+      .row
+        .col-lg-3.text-center
+          = link_to 'https://bsky.app/profile/weg.li', target: '_blank' do
+            = image_tag 'phoet.jpg', class: "img-circle me-thumb"
+        .col-lg-9
+          strong Inhaltlich verantwortlich
+          address
+            |
+              #{mail_to 'peter@weg.li', 'Peter Schröder'}<br>
+              Bergstraße 4<br>
+              17098 Friedland OT Cosa<br>
+              weg-li UG (haftungsbeschränkt)
 
+
+  .col-lg-4
     .well
       dl
         dt Spendenkonto
@@ -35,3 +43,4 @@
         dd weg-li UG
         dt Verwendungszweck
         dd SPENDE weg.li
+      = link_to "Spenden", donate_path, class: "btn btn-success btn-block"

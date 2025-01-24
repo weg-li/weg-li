@@ -1,7 +1,7 @@
 footer
   hr.spacer-large
   .row
-    .col-lg-8.col-xs-12
+    .col-lg-6.col-xs-12
       ul.list-unstyled.clearfix
         li
           = link_to leaderboard_path, title: 'weg.li Leaderboard' do
@@ -47,6 +47,8 @@ footer
           = link_to api_path, title: 'weg.li API' do
             <span class="glyphicon glyphicon-transfer"></span> API
 
+    .col-lg-6.col-xs-12
+
       ul.list-unstyled.clearfix
         li
           = link_to imprint_path, title: 'weg.li Impressum' do
@@ -72,8 +74,6 @@ footer
           = link_to 'https://github.com/weg-li', title: 'weg.li on GitHub - We <3 Open-Source!', target: '_blank' do
             <span class="glyphicon glyphicon-heart"></span> GitHub
 
-    .col-lg-4.col-xs-12
-      = render('short_imprint')
   hr
   .row
     .col-lg-12.text-center
