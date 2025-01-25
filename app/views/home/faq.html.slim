@@ -32,15 +32,6 @@ a name="faq-#{i}"
 a name="faq-#{i}"
 .panel.panel-default
   .panel-heading
-    h4 Was ist der Unterschied zur Wegeheld-App?
-  .panel-body
-      p Mit weg.li kommt man schneller ans Ziel und hoffentlich zu sicheren Radwegen und freien Bürgersteigen.
-      p Anfang 2020 haben wir #{link_to 'Wegeheld und weg.li verschmolzen', wegeheld_path} und werden die zukünftige Entwicklung bei www.weg.li weiterführen.
-
-- i += 1
-a name="faq-#{i}"
-.panel.panel-default
-  .panel-heading
     h4 Wie funktioniert weg.li im Einzelnen?
   .panel-body
       p Zum Glück hat #{link_to('Natenom (RIP)', 'https://twitter.com/natenom', target: '_blank')} in seinem Wiki eine #{link_to('detailierte Anleitung geschrieben', 'https://wiki.natenom.de/verkehr/projekte/weg-li', target: '_blank')}, auch wenn wir versuchen eine selbsterklärende Software zur Verfügung zu stellen.
@@ -96,8 +87,13 @@ a name="faq-#{i}"
           Einige Ordnungsämter verweigern die Bearbeitung von Anzeigen per E-Mail, sie fordern diese per Post und mit Unterschrift einzureichen.
           Falls das zuständige Amt die Anzeigen bearbeitet, so muss dies binnen 3 Monaten geschehen, da sonst das Vergehen verjährt.
           Als Anzeigender wird man nicht über den weiteren Verlauf der Anzeige informiert, es sei denn das Amt hat Rückfragen, oder man wird als Zeuge in einem Prozess geladen.
-      p In Hamburg bekommt man zum Beispiel initial eine Art "Eingangsbestätigung" mit der folgenden Passage:
-      blockquote.small Auskünfte zur weiteren Bearbeitung Ihrer Anzeige werden aus datenschutzrechtlichen Gründen nicht erteilt.
+      p
+        |
+          Wir empfehlen daher unseren Nutzern den Stand der Bearbeitung ihrer Anzeigen telefonisch bei der zuständigen Ordnungsbehörde zu erfragen.
+          Wenn Anzeigen nachweislich nicht bearbeitet werden, dann kommt die Behörde ihren hoheitlichen Aufgaben nicht nach und es sollte eine Dienstaufsichtsbeschwerde bei der nächt höhren Stelle eingereicht werden.
+          Sie können Ordnungswidrikeiten nach dem Opportunitätsprinzip bearbeiten, können also im eigenen Ermessen festlegen, ob eine Ordnungswidrikeit verfolgt wird,
+          müssen aber alle Anzeigen entgegennehmen und prüfen.
+
 
 - i += 1
 a name="faq-#{i}"
@@ -161,9 +157,9 @@ a name="faq-#{i}"
       |
         Bei der Entwicklung von weg.li haben wir ein starkes Interesse daran auch die Anforderungen
         der zuständigen Stellen wie Ordnungsämter oder Polizeidienststellen mit einzubeziehen.
-        Mit der Stadt Dresden entwickeln wir derzeit eine XML basierte Schnittstelle zur
-        dort genutzten Software #{link_to 'WiNOWiG', 'https://www.owig.de/', target: '_blank'}, um eine möglichst effizente
-        Verarbeitung der Anzeigen zu gewährleisten. Bei Fragen oder Interesse einfach eine #{mail_to 'peter@weg.li', 'E-Mail'} an uns schreiben.
+        Wie die Ordnungsbehörden weg.li in ihre Arbeitsabläufe integrieren können,
+        ist auf der #{link_to 'Seite für Fachverfahren', api_path} beschrieben.
+        Bei Fragen oder Interesse einfach eine #{mail_to 'support@weg.li', 'E-Mail an den Support'} schreiben.
 
 - i += 1
 a name="faq-#{i}"
