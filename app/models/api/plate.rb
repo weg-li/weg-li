@@ -9,7 +9,7 @@ class Api::Plate < Plate
     end
     property :prefix do
       key :type, :string
-    enabled
+    end
     property :zips do
       key :type, :array
       items do
