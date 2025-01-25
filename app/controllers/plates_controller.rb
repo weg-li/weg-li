@@ -18,7 +18,7 @@ class PlatesController < ApplicationController
     @plate = Plate.from_param(params[:id])
     respond_to do |format|
       format.html do
-        @districts = District.where(zip: @plate.zips).pluck(:name, :zip).group_by { |name, zip| name }
+        @districts = District.where(zip: @plate.zips).pluck(:name, :zip).group_by { |name, _zip| name }
         render :show
       end
       format.json { render json: @plate.as_api_response(:public_beta) }

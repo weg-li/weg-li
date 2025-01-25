@@ -37,5 +37,8 @@ class SitemapsController < ApplicationController
     Sign.in_batches do |items|
       @urls += items.map { |item| sign_url(item) }
     end
+    Plate.in_batches do |items|
+      @urls += items.map { |item| sign_url(item) }
+    end
   end
 end
