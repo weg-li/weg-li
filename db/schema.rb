@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_01_19_103050) do
+ActiveRecord::Schema[7.2].define(version: 2025_01_25_170341) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -223,6 +223,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_19_103050) do
     t.index ["token"], name: "index_notices_on_token", unique: true
     t.index ["user_id"], name: "index_notices_on_user_id"
     t.index ["zip"], name: "index_notices_on_zip"
+  end
+
+  create_table "plates", force: :cascade do |t|
+    t.string "name"
+    t.string "prefix"
+    t.string "zips", default: [], null: false, array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["prefix"], name: "index_plates_on_prefix", unique: true
   end
 
   create_table "replies", force: :cascade do |t|

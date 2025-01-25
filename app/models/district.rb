@@ -53,6 +53,7 @@ class District < ApplicationRecord
       zip
       email
       prefixes
+      parts
       latitude
       longitude
       aliases

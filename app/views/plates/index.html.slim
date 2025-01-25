@@ -1,9 +1,9 @@
-- set_title t('navigation.signs')
-- set_meta_description t('meta_description.signs')
+- set_title t('navigation.plates')
+- set_meta_description t('meta_description.plates')
 
 .well
   |
-    Bei weg.li sind #{number_with_delimiter(Sign.count)} Verkehrszeichen und Symbole aus dem aktuellen Katalog der #{link_to 'Bundesanstalt für Straßenwesen', 'https://www.bast.de/DE/Verkehrstechnik/Fachthemen/v1-verkehrszeichen/vz-download.html', target: '_blank'} hinterlegt.
+    Bei weg.li sind derzeit #{number_with_delimiter(Plate.count)} Ortskennzeichen hinterlegt.
 
 .panel.panel-default
   .panel-heading
@@ -16,7 +16,7 @@
           li
             = form_tag({url: url_for}, method: :get, class: 'form-dropdown', autocomplete: :off) do
               .input-group.input-group-sm
-                = text_field_tag(:term, params[:term], placeholder: 'z.B. Haltverbot', class: 'form-control input-sm', autofocus: true)
+                = text_field_tag(:term, params[:term], placeholder: 'z.B. HH', class: 'form-control input-sm', autofocus: true)
                 span.input-group-btn
                   = button_tag(class: "btn btn-default btn-sm")
                     span.glyphicon.glyphicon-search
@@ -33,20 +33,20 @@
       thead
         tr
           th
-          th = Sign.human_attribute_name(:icon)
-          th = Sign.human_attribute_name(:number)
-          th = Sign.human_attribute_name(:description)
+          th = Plate.human_attribute_name(:name)
+          th = Plate.human_attribute_name(:prefix)
+          th = Plate.human_attribute_name(:zips)
       tbody
-        - if @signs.present?
-          - @signs.each do |sign|
+        - if @plates.present?
+          - @plates.each do |plate|
             tr
               td
-              td = image_tag asset_url(sign.image), class: 'img-thumbnail', style: "width: 5em;", title: sign.description if sign.file.exist?
-              td = link_to(sign.number, sign, class: sign.category? ? 'text-muted' : '')
-              td = link_to(sign.description, sign, class: sign.category? ? 'text-muted' : '')
+              td = link_to(plate.name, plate)
+              td = link_to(plate.prefix, plate)
+              td = link_to(plate.zips.first(3).join(', '), plate)
         - else
           tr
             td(colspan=8) Es wurden keine Einträge gefunden.
 
 .text-center
-  = paginate @signs
+  = paginate @plates

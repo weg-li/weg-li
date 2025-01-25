@@ -30,7 +30,7 @@ class SignsController < ApplicationController
   def search_scope
     signs = Sign.order(params[:order] || "number ASC").page(params[:page])
     if params[:term].present?
-      signs = signs.where("number ILIKE :term OR description ILIKE :term", term: "%#{params[:term]}%")
+      signs = signs.search(params[:term])
     end
     signs
   end

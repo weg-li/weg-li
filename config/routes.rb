@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     resources :replies
     resources :snippets
     resources :signs
+    resources :plates
     resources :charges
     resources :charge_variants
     resources :authorizations
@@ -48,6 +49,7 @@ Rails.application.routes.draw do
     end
     resources :districts, only: [:index, :show]
     resources :signs, only: [:index, :show]
+    resources :plates, only: [:index, :show]
     resources :charges, only: [:index, :show]
     resources :brands, only: [:index, :show]
   end
@@ -111,6 +113,7 @@ Rails.application.routes.draw do
   end
 
   resources :districts
+  resources :plates, only: %i[index show]
   resources :signs, only: %i[index] do
     member { get :show, constraints: { id: Sign::ID_REGEX } }
   end

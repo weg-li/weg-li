@@ -141,6 +141,14 @@ namespace :data do
     end
   end
 
+  task add_plates: :environment do
+    Plate.connection.truncate("plates")
+    plates.each do |prefix, name|
+      zips = zip_to_prefix.select { |_zip, p| p == prefix }.keys
+      Plate.create!(prefix: prefix, name: name, zips: zips)
+    end
+  end
+
   private
 
   def zips_and_osm
@@ -175,5 +183,9 @@ namespace :data do
 
   def zip_to_prefix
     @zip_to_prefix ||= JSON.load(Rails.root.join("config/data/zip_to_prefix.json"))
+  end
+
+  def plates
+    @plates ||= JSON.load(Rails.root.join("config/data/plates.json"))
   end
 end

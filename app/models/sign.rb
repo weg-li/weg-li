@@ -17,6 +17,7 @@ class Sign < ApplicationRecord
   end
 
   scope(:ordered, -> { order(number: :asc) })
+  scope(:search, ->(term) { where("number ILIKE :term OR description ILIKE :term", term: "%#{term}%") })
 
   def grouped?
     number =~ /-/
