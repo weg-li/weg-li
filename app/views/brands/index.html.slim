@@ -3,7 +3,7 @@
 
 .well
   |
-    Bei weg.li sind #{number_with_delimiter(Brand.count)} Fahrzeugmarken für die Kategorien #{Brand.kinds.keys.map{|key| t(key, scope: 'activerecord.attributes.brand.kinds')}.join(', ')} hinterlegt.
+    Bei weg.li sind #{number_with_delimiter(Brand.count)} Fahrzeugmarken für die Kategorien #{Brand.kinds.keys.map{|key| link_to(t(key, scope: 'activerecord.attributes.brand.kinds'), url_for(kind: key)) }.join(', ').html_safe} hinterlegt.
 
 .panel.panel-default
   .panel-heading

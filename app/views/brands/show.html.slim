@@ -9,10 +9,10 @@ h3 #{@brand.translate_enum(:kind)}: #{@brand.name} #{@brand.aliases.join(', ')}
 .well
   | Für die Marke "#{@brand.name}" wurden in den letzten #{@since} Wochen deutschlandweit #{@notices.blank? ? 'noch keine' : @notices.size } Anzeigen gegen Falschparker erstattet.
 
-- if @notices
-  .spacer
+.spacer
 
-  .row
+.row
+  - if @notices
     .col-lg-6
       .panel.panel-default
         .panel-heading Statistiken zu den Parkverstößen von Fahrzeugen der Marke #{@brand.name}
@@ -33,9 +33,13 @@ h3 #{@brand.translate_enum(:kind)}: #{@brand.name} #{@brand.aliases.join(', ')}
       .panel.panel-default
         .panel-heading Modelle der Marke #{@brand.name}
         ul.list-group
+          - if @brand.file.exist?
+            li.list-group-item= image_tag asset_url(@brand.image), class: 'img-thumbnail', title: @brand.name
+
           - if @brand.models.present?
             - @brand.models.each do |model|
               li.list-group-item= model
+
           - else
             li.list-group-item Keine Modelle hinterlegt
 
