@@ -89,6 +89,16 @@ describe Notice do
     end
   end
 
+  context "search" do
+    it "finds notices by registration" do
+      notice = Fabricate.create(:notice, registration: "BÜR-CO 443")
+      expect(Notice.search("BÜR-CO 443")).to include(notice)
+      expect(Notice.search("BÜR CO 443")).to include(notice)
+      expect(Notice.search(" BÜR CO 443 ")).to include(notice)
+      expect(Notice.search("BÜRCO443")).to include(notice)
+    end
+  end
+
   context "defaults" do
     it "is valid" do
       notice = Fabricate(:notice)
