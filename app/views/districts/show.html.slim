@@ -13,7 +13,10 @@ h3= "Bezirk #{@district.zip} #{@district.name} im Bundesland #{@district.state}"
       ul.list-group
         li.list-group-item #{District.human_attribute_name(:zip)}: #{@district.zip}
         li.list-group-item #{District.human_attribute_name(:state)}: #{@district.state}
-        li.list-group-item #{District.human_attribute_name(:prefixes)}: #{s(@district.prefixes, default: 'nicht hinterlegt')}
+        li.list-group-item
+          = "#{District.human_attribute_name(:prefixes)}: "
+          - @district.prefixes.each do |prefix|
+            = link_to(registration_label("#{prefix}-XYZ 123"), plate_path("#{prefix}-#{@district.name}"))
         li.list-group-item #{District.human_attribute_name(:parts)}: #{s(@district.parts, default: 'keine Ortsteile')}
 
         - if @district.osm_id

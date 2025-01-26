@@ -35,15 +35,15 @@
           th
           th = Plate.human_attribute_name(:name)
           th = Plate.human_attribute_name(:prefix)
-          th = Plate.human_attribute_name(:zips)
+          th Postleitzahlen
       tbody
         - if @plates.present?
           - @plates.each do |plate|
             tr
               td
               td = link_to(plate.name, plate)
-              td = link_to(plate.prefix, plate)
-              td = link_to(plate.zips.first(3).join(', '), plate)
+              td = link_to(registration_label("#{plate.prefix}-XYZ 123"), plate)
+              td = link_to(plate.zips.join(', ').truncate(22), plate)
         - else
           tr
             td(colspan=8) Es wurden keine Einträge gefunden.

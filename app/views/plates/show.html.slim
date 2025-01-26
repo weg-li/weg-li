@@ -6,11 +6,20 @@ h3 #{@plate.name} #{@plate.prefix}
 
 .spacer
 
-- @districts.each do |name, group|
+.row
+  .col-lg-6
+    - @districts.each do |name, group|
+      .panel.panel-default
+        .panel-heading= name
+        ul.list-group
+          - group.each do |name, zip|
+            li.list-group-item
+              => registration_label("#{@plate.prefix}-XYZ 123")
+              = link_to "#{zip} #{name}", district_path(zip), title: name
 
-  .panel.panel-default
-    .panel-heading= name
-    ul.list-group
-      - group.each do |name, zip|
+  .col-lg-6
+    .panel.panel-default
+      .panel-heading Postleitzahlen
+      ul.list-group
         li.list-group-item
-          = link_to "#{zip} #{name}", district_path(zip), title: name
+          = @plate.zips.join(', ')
