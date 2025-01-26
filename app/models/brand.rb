@@ -57,6 +57,18 @@ class Brand < ApplicationRecord
     end
   end
 
+  def image
+    "logos/#{token}.jpg"
+  end
+
+  def url
+    Rails.application.routes.url_helpers.brand_url(self, Rails.configuration.action_mailer.default_url_options.merge(format: :jpg))
+  end
+
+  def file
+    Rails.root.join("app/assets/images", image)
+  end
+
   def to_param
     token
   end

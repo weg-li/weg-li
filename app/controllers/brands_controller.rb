@@ -8,11 +8,19 @@ class BrandsController < ApplicationController
   end
 
   def show
-    @since = (params[:since] || 4).to_i
-    @display = %w[cluster heat multi].delete(params[:display]) || "cluster"
-
     @brand = Brand.from_param(params[:id])
-    @notices = @brand.notices.shared.since(@since.weeks.ago)
+    respond_to do |format|
+      format.html do
+        @since = (params[:since] || 4).to_i
+        @display = %w[cluster heat multi].delete(params[:display]) || "cluster"
+        @notices = @brand.notices.shared.since(@since.weeks.ago)
+      end
+      format.json { render json: @brand.as_api_response(:public_beta) }
+      format.png do
+        # TODO: serve from assets directly?
+        send_data @brand.file.read, type: "image/jpeg", disposition: "inline"
+      end
+    end
   end
 
   def new

@@ -37,6 +37,7 @@
       thead
         tr
           th
+          th
           th= Brand.human_attribute_name(:name)
           th= Brand.human_attribute_name(:aliases)
           th= Brand.human_attribute_name(:models)
@@ -61,6 +62,7 @@
           - @brands.each do |brand|
             tr
               td
+              td = image_tag asset_url(brand.image), class: 'img-thumbnail', style: "width: 5em;", title: brand.name if brand.file.exist?
               td= link_to(brand.name, brand)
               td= link_to((brand.aliases || []).take(3).join(', ').presence || "-", brand)
               td= link_to(brand.models.take(3).join(', ').presence || "-", brand)
