@@ -17,9 +17,10 @@ h3 #{@plate.name} #{@plate.prefix}
               => registration_label("#{@plate.prefix}-XYZ 123")
               = link_to "#{zip} #{name}", district_path(zip), title: name
 
-  .col-lg-6
-    .panel.panel-default
-      .panel-heading Postleitzahlen
-      ul.list-group
-        li.list-group-item
-          = @plate.zips.join(', ')
+  - if @plate.zips.present?
+    .col-lg-6
+      .panel.panel-default
+        .panel-heading Postleitzahlen
+        ul.list-group
+          li.list-group-item
+            = @plate.zips.join(', ')
