@@ -17,7 +17,9 @@ h3= "Bezirk #{@district.zip} #{@district.name} im Bundesland #{@district.state}"
           = "#{District.human_attribute_name(:prefixes)}: "
           - @district.prefixes.each do |prefix|
             = link_to(registration_label("#{prefix}-XYZ 123"), plate_path("#{prefix}-#{@district.name}"))
-        li.list-group-item #{District.human_attribute_name(:parts)}: #{s(@district.parts, default: 'keine Ortsteile')}
+          - if @district.prefixes.blank?
+            | -
+        li.list-group-item #{District.human_attribute_name(:parts)}: #{s(@district.parts)}
 
         - if @district.osm_id
           li.list-group-item #{District.human_attribute_name(:osm_id)}: #{link_to(@district.osm_id, "https://www.openstreetmap.org/relation/#{@district.osm_id}", target: '_blank', class: 'external')}
