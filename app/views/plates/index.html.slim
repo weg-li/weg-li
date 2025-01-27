@@ -41,12 +41,12 @@
           - @plates.each do |plate|
             tr
               td
-              td = link_to(plate.name, plate)
               td = link_to(registration_label("#{plate.prefix}-XYZ 123"), plate)
+              td = link_to(plate.name, plate)
               td = link_to(plate.zips.join(', ').truncate(22), plate)
         - else
           tr
-            td(colspan=8) Es wurden keine Einträge gefunden.
+            td(colspan=4) Es wurden keine Einträge gefunden.
 
 .text-center
   = paginate @plates
