@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_01_25_170341) do
+ActiveRecord::Schema[7.2].define(version: 2025_01_27_081651) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -66,8 +66,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_25_170341) do
     t.string "name"
     t.string "token"
     t.integer "kind", default: 0, null: false
-    t.string "aliases", default: [], array: true
-    t.string "models", default: [], array: true
+    t.string "aliases", default: [], null: false, array: true
+    t.string "models", default: [], null: false, array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 0, null: false
@@ -146,7 +146,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_25_170341) do
     t.string "name", null: false
     t.string "zip", null: false
     t.string "email", null: false
-    t.string "prefixes", default: [], array: true
+    t.string "prefixes", default: [], null: false, array: true
     t.float "latitude"
     t.float "longitude"
     t.datetime "created_at", null: false
