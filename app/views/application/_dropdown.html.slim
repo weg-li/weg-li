@@ -55,13 +55,31 @@ javascript:
     };
   }
 
-<div class="form-group has-feedback" x-data="#{name}_context(#{value.to_json}, #{items.to_json})" :class="{ open: visible() }" @click.away="hide()">
-  <input name="#{name}" value="#{value}" hidden x-ref="input">
-  <input name="#{name}_field" value="#{items[value]}" class="form-control" x-model="value" autocomplete="off" @click="show()" @keydown="show()" @keydown.tab="reset()" @keydown.enter.prevent.stop="reset()" @keydown.escape="hide()" @keydown.arrow-up.prevent.stop="next(-1)" @keydown.arrow-down.prevent.stop="next(1)">
-  <span class="glyphicon glyphicon-chevron-down form-control-feedback"></span>
-  <ul class="dropdown-menu" x-ref="list">
-    <template x-for="item in list()" :key="item">
-      <li :class="{ active: item[0] == selected }" @click.prevent.stop="select(item[0])"><a x-text="item[1]"></a></li>
-    </template>
-  </ul>
-</div>
+
+/ <div class="form-group has-feedback" x-data="#{name}_context(#{value.to_json}, #{items.to_json})" :class="{ open: visible() }" @click.away="hide()">
+/   <input name="#{name}" value="#{value}" hidden x-ref="input">
+/   <input name="#{name}_field" value="#{items[value]}" class="form-control" x-model="value" autocomplete="off" @click="show()" @keydown="show()" @keydown.tab="reset()" @keydown.enter.prevent.stop="reset()" @keydown.escape="hide()" @keydown.arrow-up.prevent.stop="next(-1)" @keydown.arrow-down.prevent.stop="next(1)">
+/   <span class="glyphicon glyphicon-chevron-down form-control-feedback"></span>
+/   <ul class="dropdown-menu" x-ref="list">
+/     <template x-for="item in list()" :key="item">
+/       <li :class="{ active: item[0] == selected }" @click.prevent.stop="select(item[0])"><a x-text="item[1]"></a></li>
+/     </template>
+/   </ul>
+/ </div>
+
+
+= select_tag(name, options_for_select(items, value), class: "selectize_#{name} form-control", data: {'select2-disabled' => true})
+
+css:
+  .form-inline .selectize-input .item {
+    margin-right: 20px;
+  }
+  .selectize-dropdown .selected {
+    background-color: #0C478B;
+  }
+  .selectize-dropdown .active:not(.selected) {
+    background-color: #7a8288;
+  }
+
+javascript:
+  $(".selectize_#{name}").selectize({});

@@ -6,6 +6,7 @@
     "@rails/activestorage": "^6.1.0",
     "@rails/ujs": "^6.1.0",
     "@rails/webpacker": "5.4.4",
+    "@selectize/selectize": "^0.15.2",
     "alpinejs": "^2.8.0",
     "billboard.js": "^3.0.1",
     "bootstrap": "^3.4.1",

@@ -17,4 +17,5 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 export NODE_OPTIONS=--openssl-legacy-provider
 export SECRET_KEY_BASE=6254271520a1865fabd321490051fb35e5ab0591ee99dd1f8e0f5dc1719e45cbf328d43bfd47e5829e0172556fa5868f7ce7dbe08bb008772ef07bf11a6c762b
 
+bundle exec rails assets:precompile
 bundle exec rails server -b 0.0.0.0

@@ -1,5 +1,6 @@
 require("select2");
 require("jquery-zoom");
+require("@selectize/selectize");
 
 $(document).ready(() => {
   $('[data-toggle="popover"]').popover();
