@@ -1,7 +1,10 @@
 - set_title "#{@district.zip} #{@district.name} Änderung vorschlagen"
 - set_canonical edit_district_url(@district)
 
-.well.well-sm.callout-primary Die Änderungen für den Bezirk werden vom Support geprüft und dann aktiviert.
+.well.well-sm.callout-primary
+  |
+    Die Änderungen für den Bezirk werden vom Support geprüft und dann aktiviert.
+    Änderungswünsche vom Amt am besten #{mail_to('direkt per E-Mail', 'support@weg.li')} an uns weiterleiten.
 
 = render('form', district: @district, button_title: 'Änderung vorschlagen')
 
@@ -11,7 +14,7 @@ hr.spacer-large
   .col-lg-3
     - subject = "Bezirk aktualisieren: #{@district.zip} #{@district.name} (#{@district.id})"
     - body = "Bitte folgende Änderungen für den Bezirk einspielen:\n\n\nLink für den Support: #{edit_admin_district_url(@district)}"
-    = mail_to "peter@weg.li", subject: subject, body: body, class: 'btn btn-block btn-default', title: 'Bezirk ändern'
+    = mail_to "support@weg.li", subject: subject, body: body, class: 'btn btn-block btn-default', title: 'Bezirk ändern'
       | E-Mail schreiben
 
   .col-lg-9
