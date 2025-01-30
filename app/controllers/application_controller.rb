@@ -22,6 +22,6 @@ class ApplicationController < ActionController::Base
     Rails.logger.warn exception if exception.present?
     Rails.logger.warn "head 404 with params #{params}"
 
-    raise ActionController::RoutingError, "Not Found"
+    render template: "errors/not_found", status: 404, layout: "application", content_type: "text/html"
   end
 end
