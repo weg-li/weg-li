@@ -97,6 +97,13 @@ describe Notice do
       expect(Notice.search(" HH CO 443 ")).to include(notice)
       expect(Notice.search("HHCO443")).to include(notice)
     end
+
+    it "finds notices by partial registration" do
+      notice = Fabricate.create(:notice, registration: "HH-CO 443")
+      expect(Notice.search("HH-CO")).to include(notice)
+      expect(Notice.search("CO 443")).to include(notice)
+      expect(Notice.search("HH")).to include(notice)
+    end
   end
 
   context "defaults" do
