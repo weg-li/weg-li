@@ -24,6 +24,15 @@ describe Brand do
 
   let(:model) { Fabricate.build(:brand) }
 
+  context "file" do
+    it "checks if the file exists" do
+      brand = Fabricate.build(:brand, token: "scania")
+
+      expect(brand.file).to be_exist
+      expect(brand.file.basename.to_s).to eql("scania.png")
+    end
+  end
+
   context "validation" do
     it "is valid" do
       expect(model).to be_valid
