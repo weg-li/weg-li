@@ -14,6 +14,10 @@ $(document).ready(() => {
   $('select[data-select2-disabled!="true"]').select2({ theme: "bootstrap" });
 });
 
+$(document).ready(() => {
+  $(".carousel").carousel();
+});
+
 $(document).on("shown.bs.dropdown", (event) => {
   $(event.relatedTarget)
     .siblings()
