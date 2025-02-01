@@ -59,7 +59,7 @@
         - if @brands.present?
           - @brands.each do |brand|
             tr
-              td = image_tag asset_url(brand.image), class: 'img-thumbnail', style: "max-width: 5em;", title: brand.name if brand.file.exist?
+              td = image_tag asset_url(brand.image(brand.file.extname)), class: 'img-thumbnail', style: "max-width: 5em;", title: brand.name if brand.file.exist?
               td= link_to(brand.name, brand)
               td= link_to(brand.models.take(3).join(', ').presence || "-", brand)
               td= t(brand.kind, scope: 'activerecord.attributes.brand.kinds')

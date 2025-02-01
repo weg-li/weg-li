@@ -57,8 +57,8 @@ class Brand < ApplicationRecord
     end
   end
 
-  def image(type = :jpg)
-    "logos/#{token}.#{type}"
+  def image(extname)
+    "logos/#{token}#{extname}"
   end
 
   def url
@@ -66,10 +66,10 @@ class Brand < ApplicationRecord
   end
 
   def file
-    file = Rails.root.join("app/assets/images", image(:jpg))
+    file = Rails.root.join("app/assets/images", image(".jpg"))
     return file if file.exist?
 
-    Rails.root.join("app/assets/images", image(:png))
+    Rails.root.join("app/assets/images", image(".png"))
   end
 
   def to_param

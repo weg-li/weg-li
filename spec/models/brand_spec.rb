@@ -30,6 +30,7 @@ describe Brand do
 
       expect(brand.file).to be_exist
       expect(brand.file.basename.to_s).to eql("scania.png")
+      expect(brand.file.basename.extname).to eql(".png")
     end
   end
 

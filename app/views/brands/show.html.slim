@@ -34,7 +34,7 @@ h3 #{@brand.translate_enum(:kind)}: #{@brand.name} #{@brand.aliases.join(', ')}
         .panel-heading Modelle der Marke #{@brand.name}
         ul.list-group
           - if @brand.file.exist?
-            li.list-group-item= image_tag asset_url(@brand.image), class: 'img-thumbnail', title: @brand.name
+            li.list-group-item= image_tag asset_url(@brand.image(@brand.file.extname)), class: 'img-thumbnail', title: @brand.name
 
           - if @brand.models.present?
             - @brand.models.each do |model|
