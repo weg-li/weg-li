@@ -102,14 +102,9 @@ class Notice < ApplicationRecord
     find_by!(token:)
   end
 
+  # TODO: (PS) remove
   def self.statistics
-    {
-      districts: District.active.count,
-      users: User.active.count,
-      active: Notice.select("DISTINCT user_id").count,
-      shared: Notice.shared.count,
-      photos: ActiveStorage::Attachment.where(record_type: Notice.to_s).count,
-    }
+    Homepage.statistics
   end
 
   def self.yearly_statistics(year, limit, base_scope: Notice.shared)

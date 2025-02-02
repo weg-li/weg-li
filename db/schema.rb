@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_01_27_081651) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_02_141959) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -305,4 +305,21 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_27_081651) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "exports", "users"
+
+  create_view "homepages", materialized: true, sql_definition: <<-SQL
+      SELECT ( SELECT count(*) AS count
+             FROM districts
+            WHERE (districts.status = 0)) AS districts,
+      ( SELECT count(*) AS count
+             FROM users
+            WHERE (users.access >= 0)) AS users,
+      ( SELECT count(DISTINCT notices.user_id) AS count
+             FROM notices) AS active,
+      ( SELECT count(*) AS count
+             FROM notices
+            WHERE (notices.status = 3)) AS shared,
+      ( SELECT count(*) AS count
+             FROM active_storage_attachments
+            WHERE ((active_storage_attachments.record_type)::text = 'Notice'::text)) AS photos;
+  SQL
 end

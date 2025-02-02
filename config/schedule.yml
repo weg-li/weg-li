@@ -1,4 +1,7 @@
 # check via Rufus::Scheduler.parse
+materialized_view_updater:
+   every: '5m'
+   class: 'Scheduled::MaterializedViewUpdaterJob'
 analytics:
    cron: '0 6 * * * Europe/Berlin'
    class: 'Scheduled::AnalyticsJob'

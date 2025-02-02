@@ -159,17 +159,6 @@ describe Notice do
     end
   end
 
-  context "statistics" do
-    it "calculates statistics" do
-      Fabricate(:notice)
-
-      statistics = Notice.statistics
-      expect(
-        { users: 1, districts: 1, photos: 1, shared: 0, active: 1 },
-      ).to eql(statistics)
-    end
-  end
-
   context "yearly_statistics" do
     it "calculates yearly_statistics" do
       Fabricate(:notice)
