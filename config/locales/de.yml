@@ -19,7 +19,7 @@ de:
       export: 'Export'
       brand: 'Marke'
       charge: 'Tatbestand'
-      signs: 'Verkehrszeichen'
+      sign: 'Verkehrszeichen'
       plate: 'Ortskennzeichen'
       charge_variant: 'Variante'
     attributes:
