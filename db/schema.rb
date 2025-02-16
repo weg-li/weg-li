@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_02_141959) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_02_183249) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -321,5 +321,14 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_02_141959) do
       ( SELECT count(*) AS count
              FROM active_storage_attachments
             WHERE ((active_storage_attachments.record_type)::text = 'Notice'::text)) AS photos;
+  SQL
+  create_view "leaders", materialized: true, sql_definition: <<-SQL
+      SELECT count(*) AS count,
+      notices.user_id,
+      EXTRACT(week FROM notices.created_at) AS week,
+      EXTRACT(year FROM notices.created_at) AS year
+     FROM notices
+    WHERE (notices.status = 3)
+    GROUP BY notices.user_id, (EXTRACT(week FROM notices.created_at)), (EXTRACT(year FROM notices.created_at));
   SQL
 end

@@ -1,5 +1,5 @@
 - set_title [t('navigation.signs'), @sign.number, @sign.description].join(' ')
-- set_canonical sign_url(@sign)
+- set_canonical sign_url(@sign, host: Rails.application.config.default_host)
 - set_meta_description t('meta_description.sign', number: @sign.number, description: @sign.description)
 
 h3 #{@sign.description} (#{@sign.number})

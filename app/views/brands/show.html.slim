@@ -1,5 +1,5 @@
 - set_title [t('navigation.brands'), @brand.name].join(' ')
-- set_canonical brand_url(@brand)
+- set_canonical brand_url(@brand, host: Rails.application.config.default_host)
 - set_meta_description t('meta_description.brand', name: @brand.name)
 
 h3 #{@brand.translate_enum(:kind)}: #{@brand.name} #{@brand.aliases.join(', ')}

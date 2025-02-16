@@ -1,5 +1,5 @@
 - set_title [t('navigation.plates'), @plate.name, @plate.prefix].join(' ')
-- set_canonical plate_url(@plate)
+- set_canonical plate_url(@plate, host: Rails.application.config.default_host)
 - set_meta_description t('meta_description.plate', name: @plate.name, prefix: @plate.prefix)
 
 h3 #{@plate.name} #{@plate.prefix}

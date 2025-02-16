@@ -1,5 +1,5 @@
 - set_title "#{@brand.name} Änderung vorschlagen"
-- set_canonical edit_brand_url(@brand)
+- set_canonical edit_brand_url(@brand, host: Rails.application.config.default_host)
 
 .well.well-sm.callout-primary Die Änderungen für die Marke werden vom Support geprüft und dann aktiviert.
 
