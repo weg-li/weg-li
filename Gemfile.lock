@@ -99,7 +99,7 @@ GEM
       kaminari (~> 1.2.2)
       sassc-rails (~> 2.1)
       selectize-rails (~> 0.6)
-    administrate-field-active_storage (1.0.3)
+    administrate-field-active_storage (1.0.5)
       administrate (>= 0.2.2)
       rails (>= 7.0)
     aes_key_wrap (1.1.0)
@@ -296,6 +296,7 @@ GEM
       logger (~> 1.6)
     letter_opener (1.10.0)
       launchy (>= 2.2, < 4)
+    lint_roller (1.1.0)
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -399,7 +400,7 @@ GEM
     prawn-emoji (5.3.0)
       prawn (~> 2.3)
       unicode-emoji (~> 3.1)
-    prawn-markup (1.0.1)
+    prawn-markup (1.1.0)
       nokogiri
       prawn
       prawn-table
@@ -473,7 +474,7 @@ GEM
       logger
     rdoc (6.12.0)
       psych (>= 4.0.0)
-    redis (5.3.0)
+    redis (5.4.0)
       redis-client (>= 0.22.0)
     redis-client (0.23.2)
       connection_pool
@@ -485,7 +486,7 @@ GEM
       trailblazer-option (>= 0.1.1, < 0.2.0)
       uber (< 0.2.0)
     retriable (3.1.2)
-    rexml (3.4.0)
+    rexml (3.4.1)
     rgeo (3.0.1)
     rgeo-activerecord (8.0.0)
       activerecord (>= 7.0)
@@ -516,9 +517,10 @@ GEM
     rswag-ui (2.16.0)
       actionpack (>= 5.2, < 8.1)
       railties (>= 5.2, < 8.1)
-    rubocop (1.71.2)
+    rubocop (1.72.2)
       json (~> 2.3)
-      language_server-protocol (>= 3.17.0)
+      language_server-protocol (~> 3.17.0.2)
+      lint_roller (~> 1.1.0)
       parallel (~> 1.10)
       parser (>= 3.3.0.2)
       rainbow (>= 2.2.2, < 4.0)
@@ -587,7 +589,7 @@ GEM
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
-    stringio (3.1.3)
+    stringio (3.1.5)
     strip_attributes (1.14.1)
       activemodel (>= 3.0, < 9.0)
     swagger-blocks (3.0.0)
@@ -624,7 +626,7 @@ GEM
     useragent (0.16.11)
     utf8-cleaner (1.0.0)
       activesupport
-    valid_email2 (7.0.0)
+    valid_email2 (7.0.9)
       activemodel (>= 6.0)
       mail (~> 2.5)
     version_gem (1.1.4)
@@ -647,7 +649,7 @@ GEM
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    zeitwerk (2.7.1)
+    zeitwerk (2.7.2)
 
 PLATFORMS
   ruby
