@@ -3,7 +3,7 @@
 require "spec_helper"
 
 CAR_ML_RESULT = {
-  "suggestions" => { "license_plate_number" => ["HH-RG 365"], "make" => ["Audi"], "color" => ["gray_silver"] },
+  "suggestions" => { "license_plate_number" => ["HH RG 365"], "make" => ["Audi"], "color" => ["gray_silver"] },
 }
 
 describe DataSet do
@@ -17,12 +17,12 @@ describe DataSet do
 
   context "registrations" do
     it "reads registrations from google vision" do
-      expect(data_set.registrations).to eql(["RD-WN 200", "W-N 200"])
+      expect(data_set.registrations).to eql(["RD WN 200", "W N 200"])
     end
 
     it "reads registrations from car_ml" do
       data_set = Fabricate.build(:data_set, kind: :car_ml, data: CAR_ML_RESULT)
-      expect(data_set.registrations).to eql(["HH-RG 365"])
+      expect(data_set.registrations).to eql(["HH RG 365"])
     end
   end
 
