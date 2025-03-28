@@ -43,6 +43,8 @@ Layout/FirstHashElementIndentation:
 
 Style/Next:
   Enabled: false
+Naming/VariableNumber:
+  Enabled: false
 Style/FetchEnvVar:
   Enabled: false
 Style/GuardClause:
