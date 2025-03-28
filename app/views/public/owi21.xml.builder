@@ -16,8 +16,8 @@ xml.Datenstrom "xmlns" => "http://www.owi21.de", "xmlns:xsi" => "http://www.w3.o
         Tatort: notice.full_location,
         Tattag: notice.start_date.strftime("%Y-%m-%d"),
         Tatzeit: notice.start_date.strftime("%H:%M"),
-        Beweis_Schluessel_1: "1", # rubocop:disable RuboCopNaming/VariableNumber Zeugen mit Ausdruck
-        Beweis_Schluessel_2: "4", # rubocop:disable RuboCopNaming/VariableNumber Foto
+        Beweis_Schluessel_1: "1",
+        Beweis_Schluessel_2: "4",
         Beteiligung_Schluessel: "2", # Halterin/Halter
         Fahrzeugtyp_Schluessel: "D", # PKW
         KFZ_Kennzeichen: notice.registration,

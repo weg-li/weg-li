@@ -33,6 +33,8 @@ Security/MarshalLoad:
 
 Naming/AccessorMethodName:
   Enabled: false
+Naming/VariableNumber:
+  Enabled: false
 
 Layout/LineLength:
   Enabled: false
@@ -42,8 +44,6 @@ Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
 
 Style/Next:
-  Enabled: false
-Naming/VariableNumber:
   Enabled: false
 Style/FetchEnvVar:
   Enabled: false
