@@ -6,12 +6,8 @@ xml.Datenstrom "xmlns" => "http://www.owi21.de", "xmlns:xsi" => "http://www.w3.o
   xml.Bestaende do
     xml.Hinzufuegen do
       xml.Bestand(
-        # dunno
-        # GMK="",
-        # AZ="",
-        # AnwenderNr="",
-        # Sachgebiet_Schluessel="",
-        # rest
+        GMK: "06999001",
+        Guid: notice.token,
         Gemarkung: notice.city,
         Tatort: notice.full_location,
         Tattag: notice.start_date.strftime("%Y-%m-%d"),
@@ -23,7 +19,12 @@ xml.Datenstrom "xmlns" => "http://www.owi21.de", "xmlns:xsi" => "http://www.w3.o
         KFZ_Kennzeichen: notice.registration,
         KFZ_Kennzeichen_Merkmal: "1", # FZV
       ) do
-        xml.Tatbestan TBNr: notice.tbnr
+        xml.Tatbestand TBNr: notice.tbnr
+        xml.Entscheidung(
+          Schluessel: "111",
+          Typ: "2",
+          Datum: now.strftime("%Y-%m-%d"),
+        )
         xml.Person(
           PersonenTypId: "10", # Zeuge
           Anrede_Schluessel: "9", # unbestimmt

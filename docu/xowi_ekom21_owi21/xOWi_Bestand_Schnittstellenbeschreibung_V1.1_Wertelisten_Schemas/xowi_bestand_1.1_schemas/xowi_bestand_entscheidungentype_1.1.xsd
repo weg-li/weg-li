@@ -126,14 +126,7 @@
 				</xsd:restriction>
 			</xsd:simpleType>
 		</xsd:attribute>
-		<xsd:attribute name="Empfaenger_Schl">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="10"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-    <xsd:attribute name="Doc_Blob" type="xsd:string" sql:field="Doc_Blob" sql:use_only_for="Schl=270,271"/>
+		<xsd:attribute name="Doc_Blob" type="xsd:string" sql:field="Doc_Blob" sql:use_only_for="Schl=270,271"/>
 		<xsd:attribute name="bestand_id" type="xsd:string" sql:field="bestand_id"/>
 		<xsd:attribute name="bestand_guid" type="xsd:string" sql:field="bestand_guid"/>
 		<xsd:attribute name="AZ" sql:field="AZ">
@@ -611,12 +604,5 @@
 				</xsd:restriction>
 			</xsd:simpleType>
 		</xsd:attribute>
-			<xsd:attribute name="OA_Schluessel" sql:field="OA_Schluessel">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="40"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>	
 	</xsd:complexType>
 </xsd:schema>

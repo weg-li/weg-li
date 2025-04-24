@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v2004 rel. 4 U (http://www.xmlspy.com) by pj (ORiON) -->
+<xsd:schema xmlns:xowi="urn:schemas-softplan-com:xowi-sql" xmlns:sql="urn:schemas-microsoft-com:xml-sql" xmlns:dt="urn:schemas-microsoft-com:datatypes" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:include schemaLocation="xowi_bestand_dokumentetype.xsd"/>
+	<xsd:element name="Root" type="RootType"/>
+	<xsd:complexType name="RootType">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="Dokumente" type="DokumenteType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:choice>
+	</xsd:complexType>
+	<xsd:complexType name="ExternType">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:any processContents="lax"/>
+		</xsd:choice>
+		<xsd:anyAttribute namespace="##any" processContents="skip"/>
+	</xsd:complexType>
+</xsd:schema>

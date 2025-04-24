@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns="http://www.owi21.de" xmlns:xowi="urn:schemas-softplan-com:xowi-sql" xmlns:sql="urn:schemas-microsoft-com:xml-sql" xmlns:dt="urn:schemas-microsoft-com:datatypes" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.owi21.de" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xsd:include schemaLocation="xowi_bestand_entscheidungentype_1.1.xsd"/>
-	<xsd:include schemaLocation="xowi_bestand_dokumentetype_1.1.xsd"/>
-	<xsd:element name="Datenstrom" type="DatenstromType" />
+<xsd:schema xmlns:xowi="urn:schemas-softplan-com:xowi-sql" xmlns:sql="urn:schemas-microsoft-com:xml-sql" xmlns:dt="urn:schemas-microsoft-com:datatypes" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:include schemaLocation="xowi_bestand_entscheidungentype.xsd"/>
+	<xsd:include schemaLocation="xowi_bestand_dokumentetype.xsd"/>
+	<xsd:element name="Datenstrom" type="DatenstromType"/>
 	<xsd:complexType name="DatenstromType">
 		<xsd:choice minOccurs="0" maxOccurs="unbounded">
 			<xsd:element name="Bestaende" type="BestaendeType" minOccurs="0" maxOccurs="unbounded"/>
@@ -114,10 +114,10 @@
 			<xsd:choice minOccurs="0" maxOccurs="unbounded">
 				<xsd:element name="BeweisBild" type="BeweisBildType" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element name="Tatbestand" type="TatbestandType" minOccurs="0" maxOccurs="unbounded" sql:relation="tbl_Bestand_Tatbestaende"/>
-				<xsd:element name="Person" type="PersonType" minOccurs="0" maxOccurs="unbounded" sql:relation="tbl_Bestand_Personen"/>
-				<xsd:element name="Referenzzeichen" type="ReferenzzeichenType" minOccurs="0" maxOccurs="unbounded" sql:relation="tbl_Bestand_Refzeichen"/>
+				<xsd:element name="Zeuge" type="ZeugeType" minOccurs="0" maxOccurs="unbounded" sql:relation="tbl_Bestand_Zeugen"/>
 				<xsd:element name="Ereignis" type="EreignisType" minOccurs="0" maxOccurs="unbounded" sql:relation="tbl_Bestand_Ereignisse"/>
 				<xsd:element name="Zuweisung" type="ZuweisungType" minOccurs="0" maxOccurs="unbounded" sql:relation="tbl_Bestand_Zuweisungen"/>
+				<xsd:element name="Adresse" type="AdresseType" minOccurs="0" maxOccurs="unbounded" sql:relation="tbl_Bestand_Adresse"/>
 				<xsd:element name="Dokumente" type="DokumenteType" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element name="nicht_OWI21_Daten" type="ExternType" minOccurs="0" maxOccurs="unbounded"/>
 			</xsd:choice>
@@ -125,10 +125,10 @@
 			<xsd:choice minOccurs="0" maxOccurs="unbounded">
 				<xsd:element name="BeweisBild" type="BeweisBildType" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element name="Tatbestand" type="TatbestandType" minOccurs="0" maxOccurs="unbounded" sql:relation="tbl_Bestand_Tatbestaende"/>
-				<xsd:element name="Person" type="PersonType" minOccurs="0" maxOccurs="unbounded" sql:relation="tbl_Bestand_Personen"/>
-				<xsd:element name="Referenzzeichen" type="ReferenzzeichenType" minOccurs="0" maxOccurs="unbounded" sql:relation="tbl_Bestand_Refzeichen"/>
+				<xsd:element name="Zeuge" type="ZeugeType" minOccurs="0" maxOccurs="unbounded" sql:relation="tbl_Bestand_Zeugen"/>
 				<xsd:element name="Ereignis" type="EreignisType" minOccurs="0" maxOccurs="unbounded" sql:relation="tbl_Bestand_Ereignisse"/>
 				<xsd:element name="Zuweisung" type="ZuweisungType" minOccurs="0" maxOccurs="unbounded" sql:relation="tbl_Bestand_Zuweisungen"/>
+				<xsd:element name="Adresse" type="AdresseType" minOccurs="0" maxOccurs="unbounded" sql:relation="tbl_Bestand_Adresse"/>
 				<xsd:element name="Dokumente" type="DokumenteType" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element name="nicht_OWI21_Daten" type="ExternType" minOccurs="0" maxOccurs="unbounded"/>
 			</xsd:choice>
@@ -363,6 +363,237 @@
 				<xsd:restriction base="xsd:decimal"/>
 			</xsd:simpleType>
 		</xsd:attribute>
+		<xsd:attribute name="Betr_Anrede_Schluessel" sql:field="tbl_Bestand_Personen.AnrSchl_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="10"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_AkadTitel" sql:field="tbl_Bestand_Personen.AkadTitel_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="24"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Vorname" sql:field="tbl_Bestand_Personen.Vorname_BE" xowi:normalize="true" >
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="50"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Nachname" sql:field="tbl_Bestand_Personen.Nachname_BE" xowi:normalize="true">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="100"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_KunstName" sql:field="tbl_Bestand_Personen.KunstName_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="50"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_LandID" sql:field="tbl_Bestand_Personen.Land_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_PLZ" sql:field="tbl_Bestand_Personen.PLZ_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="10"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Ort" sql:field="tbl_Bestand_Personen.Ort_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="60"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_ZusatzOrt" sql:field="tbl_Bestand_Personen.ZusatzOrt_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="50"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Strasse" sql:field="tbl_Bestand_Personen.Strasse_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="60"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_ZusatzStrasse" sql:field="tbl_Bestand_Personen.ZusatzStr_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="50"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_LandPostfach" sql:field="tbl_Bestand_Personen.LandPF_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_PLZPostfach" sql:field="tbl_Bestand_Personen.PlzPF_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="5"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Postfach" sql:field="tbl_Bestand_Personen.Postfach_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="24"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Geburtsdatum" sql:field="tbl_Bestand_Personen.GebDatum_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="12"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Geburtsort" sql:field="tbl_Bestand_Personen.GebOrt_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="60"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Geburtsname" sql:field="tbl_Bestand_Personen.GebName_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="50"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Geburtsland" sql:field="tbl_Bestand_Personen.GebLand_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="50"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Nationalitaet" sql:field="tbl_Bestand_Personen.Nationalitaet_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="60"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Telefon" sql:field="tbl_Bestand_Personen.Telefon_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="20"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Fax" sql:field="tbl_Bestand_Personen.Fax_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="20"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_EMail" sql:field="tbl_Bestand_Personen.EMail_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="255"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Bemerkung" sql:field="tbl_Bestand_Personen.Bemerkung_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="255"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="ZBV_Anrede" sql:field="tbl_Bestand_Personen_ZB.Anrede_ZB">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="80"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="ZBV_Anschrift" sql:field="tbl_Bestand_Personen_ZB.Anschrift_ZB">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="255"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="ZBV_Telefon" sql:field="tbl_Bestand_Personen_ZB.Telefon_ZB">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="20"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="ZBV_Fax" sql:field="tbl_Bestand_Personen_ZB.Fax_ZB">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="20"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="ZBV_EMail" sql:field="tbl_Bestand_Personen_ZB.EMail_ZB">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="255"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="ZBV_Zustellung" sql:field="tbl_Bestand_Personen_ZB.Zustellungsflag_ZB">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="1"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+    <xsd:attribute name="ZBV_Bemerkung" sql:field="tbl_Bestand_Personen_ZB.Bemerkung_ZB">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="255"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="ABU_Anschrift" sql:field="tbl_Bestand_Personen_AB.Anschrift_AB">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="255"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="ABU_KZ" sql:field="tbl_Bestand_Personen_AB.KZ_AB">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="36"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="ABU_Standort" sql:field="tbl_Bestand_Personen_AB.Standort_AB">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="255"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
 		<xsd:attribute name="Sicherheitsleistung" sql:field="Sicherheitsleistung">
 			<xsd:simpleType>
 				<xsd:restriction base="xsd:string">
@@ -419,24 +650,31 @@
 				</xsd:restriction>
 			</xsd:simpleType>
 		</xsd:attribute>
-		<xsd:attribute name="Bemerkung" sql:field="tbl_Bestand_Notizen.Text">
+		<xsd:attribute name="Bemerkung" sql:field="tbl_Bestand_Notizen.Bemerkung">
 			<xsd:simpleType>
 				<xsd:restriction base="xsd:string">
 					<xsd:maxLength value="2000"/>
 				</xsd:restriction>
 			</xsd:simpleType>
 		</xsd:attribute>
-		<xsd:attribute name="Bemerkung_Zur_Tat" sql:field="BemerkungZurTat">
+    <xsd:attribute name="Bemerkung_Zur_Tat" sql:field="BemerkungZurTat">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="2000"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+		<xsd:attribute name="Absender_AZ" sql:field="tbl_Bestand_Refzeichen.KorrespAZ">
 			<xsd:simpleType>
 				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="2000"/>
+					<xsd:maxLength value="36"/>
 				</xsd:restriction>
 			</xsd:simpleType>
 		</xsd:attribute>
-		<xsd:attribute name="Datenquelle" sql:field="Source_ID">
+		<xsd:attribute name="Absender_GMK" sql:field="tbl_Bestand_Refzeichen.KorrespGMK">
 			<xsd:simpleType>
 				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="255"/>
+					<xsd:maxLength value="8"/>
 				</xsd:restriction>
 			</xsd:simpleType>
 		</xsd:attribute>
@@ -461,11 +699,11 @@
 		<xsd:choice minOccurs="0" maxOccurs="unbounded">
 			<xsd:element name="BeweisBild" type="BeweisBildType" minOccurs="0" maxOccurs="unbounded"/>
 			<xsd:element name="Tatbestand" type="TatbestandType" minOccurs="0" maxOccurs="unbounded" sql:relation="tbl_Bestand_Tatbestaende"/>
-			<xsd:element name="Person" type="PersonType" minOccurs="0" maxOccurs="unbounded" sql:relation="tbl_Bestand_Personen"/>
-			<xsd:element name="Referenzzeichen" type="ReferenzzeichenType" minOccurs="0" maxOccurs="unbounded" sql:relation="tbl_Bestand_Refzeichen"/>
+			<xsd:element name="Zeuge" type="ZeugeType" minOccurs="0" maxOccurs="unbounded" sql:relation="tbl_Bestand_Zeugen"/>
 			<xsd:element name="Entscheidung" type="EntscheidungType" minOccurs="0" maxOccurs="unbounded" sql:relation="tbl_Bestand_Entscheidungen"/>
 			<xsd:element name="Ereignis" type="EreignisType" minOccurs="0" maxOccurs="unbounded" sql:relation="tbl_Bestand_Ereignisse"/>
 			<xsd:element name="Zuweisung" type="ZuweisungType" minOccurs="0" maxOccurs="unbounded" sql:relation="tbl_Bestand_Zuweisungen"/>
+			<xsd:element name="Adresse" type="AdresseType" minOccurs="0" maxOccurs="unbounded" sql:relation="tbl_Bestand_Adresse"/>
 			<xsd:element name="Dokumente" type="DokumenteType" minOccurs="0" maxOccurs="unbounded"/>
 			<xsd:element name="nicht_OWI21_Daten" type="ExternType" minOccurs="0" maxOccurs="unbounded"/>
 		</xsd:choice>
@@ -491,10 +729,46 @@
 				</xsd:restriction>
 			</xsd:simpleType>
 		</xsd:attribute>
+		<xsd:attribute name="Absender_GMK" use="required" sql:field="tbl_Bestand_Refzeichen.KorrespGMK">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:minLength value="8"/>
+					<xsd:maxLength value="8"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
 		<xsd:attribute name="AZ" sql:field="AZ">
 			<xsd:simpleType>
 				<xsd:restriction base="xsd:string">
 					<xsd:pattern value=".{0}|[0123456789.]{8,12}"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+    <xsd:attribute name="Polizei_AZ" sql:field="tbl_Bestand_Refzeichen.polizeiAZ" use="optional">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="36"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+		<xsd:attribute name="Absender_AZ"  use="required" sql:field="tbl_Bestand_Refzeichen.KorrespAZ">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="12"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Justiz_AZ" sql:field="tbl_Bestand_Refzeichen.justizAZ">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="36"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Justiz_AZ_Unfall" sql:field="tbl_Bestand_Refzeichen.justizAZUnfall">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="36"/>
 				</xsd:restriction>
 			</xsd:simpleType>
 		</xsd:attribute>
@@ -799,7 +1073,287 @@
 				</xsd:restriction>
 			</xsd:simpleType>
 		</xsd:attribute>
-		<xsd:attribute name="ZBV_Bemerkung">
+		<xsd:attribute name="Betr_Anrede_Schluessel" sql:field="tbl_Bestand_Personen.AnrSchl_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="10"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Anrede" sql:field="tbl_Bestand_Personen.Anrede_BE" xowi:normalize="true">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="100"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_AkadTitel" sql:field="tbl_Bestand_Personen.AkadTitel_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="24"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Vorname" sql:field="tbl_Bestand_Personen.Vorname_BE" xowi:normalize="true">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="50"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Nachname" sql:field="tbl_Bestand_Personen.Nachname_BE" xowi:normalize="true">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="100"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_KunstName" sql:field="tbl_Bestand_Personen.KunstName_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="50"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_LandID" sql:field="tbl_Bestand_Personen.Land_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_PLZ" sql:field="tbl_Bestand_Personen.PLZ_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="5"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Ort" sql:field="tbl_Bestand_Personen.Ort_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="60"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_ZusatzOrt" sql:field="tbl_Bestand_Personen.ZusatzOrt_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="50"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Strasse" sql:field="tbl_Bestand_Personen.Strasse_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="60"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_ZusatzStrasse" sql:field="tbl_Bestand_Personen.ZusatzStr_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="50"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_LandPostfach" sql:field="tbl_Bestand_Personen.LandPF_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_PLZPostfach" sql:field="tbl_Bestand_Personen.PlzPF_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="5"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Postfach" sql:field="tbl_Bestand_Personen.Postfach_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="24"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Geburtsdatum" sql:field="tbl_Bestand_Personen.GebDatum_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="12"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Geburtsort" sql:field="tbl_Bestand_Personen.GebOrt_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="60"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Geburtsname" sql:field="tbl_Bestand_Personen.GebName_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="50"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Geburtsland" sql:field="tbl_Bestand_Personen.GebLand_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="50"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Nationalitaet" sql:field="tbl_Bestand_Personen.Nationalitaet_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="60"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Telefon" sql:field="tbl_Bestand_Personen.Telefon_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="20"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Fax" sql:field="tbl_Bestand_Personen.Fax_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="20"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_EMail" sql:field="tbl_Bestand_Personen.EMail_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="255"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Betr_Bemerkung" sql:field="tbl_Bestand_Personen.Bemerkung_BE">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="255"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="RA_Anrede_Schluessel" sql:field="tbl_Bestand_Personen_RA.Anrede_RA">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="10"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="RA_Telefon" sql:field="tbl_Bestand_Personen_RA.Telefon_RA">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="20"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="RA_Fax" sql:field="tbl_Bestand_Personen_RA.Fax_RA">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="20"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="RA_EMail" sql:field="tbl_Bestand_Personen_RA.EMail_RA">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="20"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="RA_Zustellung" sql:field="tbl_Bestand_Personen_RA.Zustellungsflag_RA">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="1"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="RA_Anschrift" sql:field="tbl_Bestand_Personen_RA.Anschrift_RA">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="250"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="RA_Aktenzeichen" sql:field="tbl_Bestand_Personen_RA.AZ_RA">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="36"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="ABU_Anschrift" sql:field="tbl_Bestand_Personen_AB.Anschrift_AB">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="255"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="ABU_KZ" sql:field="tbl_Bestand_Personen_AB.KZ_AB">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="36"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="ABU_Standort" sql:field="tbl_Bestand_Personen_AB.Standort_AB">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="255"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="ZBV_Anrede_Schluessel" sql:field="tbl_Bestand_Personen_ZB.Anrede_ZB">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="80"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="ZBV_Telefon" sql:field="tbl_Bestand_Personen_ZB.Telefon_ZB">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="20"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="ZBV_Fax" sql:field="tbl_Bestand_Personen_ZB.Fax_ZB">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="20"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="ZBV_EMail" sql:field="tbl_Bestand_Personen_ZB.EMail_ZB">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="255"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="ZBV_Bemerkung" sql:field="tbl_Bestand_Personen_ZB.Bemerkung_ZB">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="255"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="ZBV_Zustellung" sql:field="tbl_Bestand_Personen_ZB.Zustellungsflag_ZB">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="1"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="ZBV_Anschrift" sql:field="tbl_Bestand_Personen_ZB.Anschrift_ZB">
 			<xsd:simpleType>
 				<xsd:restriction base="xsd:string">
 					<xsd:maxLength value="255"/>
@@ -862,27 +1416,20 @@
 				</xsd:restriction>
 			</xsd:simpleType>
 		</xsd:attribute>
-		<xsd:attribute name="Bemerkung" sql:field="tbl_Bestand_Notizen.Text">
+		<xsd:attribute name="Bemerkung" sql:field="tbl_Bestand_Notizen.Bemerkung">
 			<xsd:simpleType>
 				<xsd:restriction base="xsd:string">
 					<xsd:maxLength value="2000"/>
 				</xsd:restriction>
 			</xsd:simpleType>
 		</xsd:attribute>
-		<xsd:attribute name="Bemerkung_Zur_Tat" sql:field="BemerkungZurTat">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="2000"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="Datenquelle" sql:field="Source_ID">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="255"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
+    <xsd:attribute name="Bemerkung_Zur_Tat" sql:field="BemerkungZurTat">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="2000"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
 		<xsd:attribute name="FV_Nr" sql:field="FV_Nr">
 			<xsd:simpleType>
 				<xsd:restriction base="xsd:string">
@@ -1167,7 +1714,7 @@
 			</xsd:simpleType>
 		</xsd:attribute>
 		<xsd:attribute name="Datum" type="xsd:date" sql:field="Datum"/>
-		<xsd:attribute name="Kommentar" sql:field="Kommentar">
+		<xsd:attribute name="Kommentar" sql:field="Kommentar" xowi:normalize="true">
 			<xsd:simpleType>
 				<xsd:restriction base="xsd:string">
 					<xsd:maxLength value="1000"/>
@@ -1372,7 +1919,7 @@
 			</xsd:simpleType>
 		</xsd:attribute>
 	</xsd:complexType>
-	<xsd:complexType name="PersonType">
+	<xsd:complexType name="ZeugeType">
 		<xsd:attribute name="GUID" sql:field="guid">
 			<xsd:simpleType>
 				<xsd:restriction base="xsd:string">
@@ -1380,15 +1927,35 @@
 				</xsd:restriction>
 			</xsd:simpleType>
 		</xsd:attribute>
-		<xsd:attribute name="PersonenTypId" type="xsd:integer" use="required" sql:field="PersonenTypId"/>
-		<xsd:attribute name="PersonId" sql:field="PersonId">
+		<xsd:attribute name="Name" sql:field="Name">
 			<xsd:simpleType>
 				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="36"/>
+					<xsd:maxLength value="255"/>
 				</xsd:restriction>
 			</xsd:simpleType>
 		</xsd:attribute>
-		<xsd:attribute name="Anrede_Schluessel" sql:field="AnrSchl">
+		<xsd:attribute name="Ort" sql:field="Ort">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="255"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Strasse_Hausnr" sql:field="Str_HausNr">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="255"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="Vorname" sql:field="Vorname">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="255"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="PLZ" sql:field="PLZ">
 			<xsd:simpleType>
 				<xsd:restriction base="xsd:string">
 					<xsd:maxLength value="10"/>
@@ -1398,271 +1965,10 @@
 		<xsd:attribute name="Anrede" sql:field="Anrede">
 			<xsd:simpleType>
 				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="80"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="AkadTitel" sql:field="AkadTitel">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="24"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="AdelsTitel" sql:field="AdelsTitel">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="24"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="Vorname" sql:field="Vorname">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
 					<xsd:maxLength value="50"/>
 				</xsd:restriction>
 			</xsd:simpleType>
 		</xsd:attribute>
-		<xsd:attribute name="Nachname" sql:field="Nachname">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="100"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="KunstName" sql:field="KunstName">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="50"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="Namensvorsatz" sql:field="Namensvorsatz">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="50"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="Namenszusatz" sql:field="Namenszusatz">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="45"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="PLZ" sql:field="PLZ">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="12"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="Ort" sql:field="Ort">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="60"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="ZusatzOrt" sql:field="ZusatzOrt">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="50"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="Strasse" sql:field="Strasse">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="60"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="Hausnummer" sql:field="Hausnummer">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="10"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="ZusatzStrasse" sql:field="ZusatzStr">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="50"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="PLZPostfach" sql:field="PlzPF">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="12"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="PLZGrosskunde" sql:field="PostleitzahlGrosskunde">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="12"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="LandPostfach" sql:field="LandPF">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="3"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="Postfach" sql:field="Postfach">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="24"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="BundeslandId" type="xsd:integer" sql:field="BundeslandId"/>
-		<xsd:attribute name="Land" sql:field="Land">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="3"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="Geburtsdatum" sql:field="GebDatum">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="12"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="Geburtsort" sql:field="GebOrt">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="60"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="Geburtsname" sql:field="GebName">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="50"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="Geburtsland" sql:field="GebLand">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="50"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="Telefon" sql:field="Telefon">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="20"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="Fax" sql:field="Fax">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="20"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="EMail" sql:field="EMail">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="255"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="ePostfachId" sql:field="ePostfachId">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="64"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="Bemerkung" sql:field="Bemerkung">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="255"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="Staatsangehoerigkeit1" sql:field="Staatsangehoerigkeit1">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="3"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="Staatsangehoerigkeit2" sql:field="Staatsangehoerigkeit2">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="3"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="Staatsangehoerigkeit3" sql:field="Staatsangehoerigkeit3">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="3"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="Anschrift" sql:field="Anschrift">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="255"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="Standort" sql:field="Standort">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="255"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="GueltigVon" type="xsd:date" sql:field="GueltigVon" xowi:ignore="true"/>
-		<xsd:attribute name="GueltigBis" type="xsd:date" sql:field="GueltigBis" xowi:ignore="true"/>
-		<xsd:attribute name="Personennummer" type="xsd:integer" sql:field="Personennummer" xowi:ignore="true"/>
-		<xsd:attribute name="PersonennummerRef" type="xsd:integer" sql:field="PersonennummerRef" xowi:ignore="true"/>
-    <xsd:attribute name="Zustellungsflag" sql:field="Zustellungsflag">
-      <xsd:simpleType>
-        <xsd:restriction base="xsd:string">
-          <xsd:maxLength value="1"/>
-        </xsd:restriction>
-      </xsd:simpleType>
-    </xsd:attribute>
 	</xsd:complexType>
-	<xsd:complexType name="ReferenzzeichenType">
-		<xsd:attribute name="GUID" sql:field="guid">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="36"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="Ident" sql:field="Ident">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="8"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="Value" sql:field="Value">
-			<xsd:simpleType>
-				<xsd:restriction base="xsd:string">
-					<xsd:maxLength value="36"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-		</xsd:attribute>
-		<xsd:attribute name="GueltigVon" type="xsd:date" sql:field="GueltigVon" xowi:ignore="true"/>
-		<xsd:attribute name="GueltigBis" type="xsd:date" sql:field="GueltigBis" xowi:ignore="true"/>
-		<xsd:attribute name="Zeitstempel" type="xsd:string" sql:field="sys_stamp_in"/>
-	</xsd:complexType>
+	<xsd:complexType name="AdresseType"/>
 </xsd:schema>
