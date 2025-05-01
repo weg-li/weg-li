@@ -29,23 +29,23 @@ class Vehicle
     by_likelyhood(matches).first
   end
 
-  def self.plate?(text, prefixes: nil)
+  def self.plate?(text, prefixes: nil, text_divider: ' ')
     text = normalize(text)
 
     if prefixes.present? && text =~ plate_regex(prefixes)
-      ["#{$1} #{$2} #{$3}#{$4.to_s.gsub(/[^E]+/, '')}", 1.2]
+      ["#{$1}#{text_divider}#{$2} #{$3}#{$4.to_s.gsub(/[^E]+/, '')}", 1.2]
     elsif prefixes.present? && text =~ relaxed_plate_regex(prefixes)
-      ["#{$1} #{$2} #{$3}#{$4.to_s.gsub(/[^E]+/, '')}", 1.1]
+      ["#{$1}#{text_divider}#{$2} #{$3}#{$4.to_s.gsub(/[^E]+/, '')}", 1.1]
     elsif text =~ plate_regex
-      ["#{$1} #{$2} #{$3}#{$4.to_s.gsub(/[^E]+/, '')}", 1.0]
+      ["#{$1}#{text_divider}#{$2} #{$3}#{$4.to_s.gsub(/[^E]+/, '')}", 1.0]
     elsif text =~ relaxed_plate_regex
-      ["#{$1} #{$2} #{$3}#{$4.to_s.gsub(/[^E]+/, '')}", 0.8]
+      ["#{$1}#{text_divider}#{$2} #{$3}#{$4.to_s.gsub(/[^E]+/, '')}", 0.8]
     elsif text =~ quirky_mode_plate_regex
-      ["#{$1} #{$2} #{$3}#{$4.to_s.gsub(/[^E]+/, '')}", 0.5]
+      ["#{$1}#{text_divider}#{$2} #{$3}#{$4.to_s.gsub(/[^E]+/, '')}", 0.5]
     end
   end
 
-  def self.normalize(text)
+  def self.normalize(text, text_divider: ' ')
     return "" if text.blank?
 
     text
@@ -55,7 +55,7 @@ class Vehicle
       .gsub(/^([^A-Z,ÖÄÜ])+/, "")
       .gsub(/([^E,0-9])+$/, "")
       .gsub(/([^A-Z,ÖÄÜ0-9])+/, " ")
-      .gsub(/([A-Z,ÖÄÜ]+) ([A-Z,ÖÄÜ]+)\s?(\d+)(\s?E)?/, "\\1 \\2 \\3\\4")
+      .gsub(/([A-Z,ÖÄÜ]+) ([A-Z,ÖÄÜ]+)\s?(\d+)(\s?E)?/, "\\1#{text_divider}\\2 \\3\\4")
   end
 
   def self.plate_regex(prefixes = Vehicle.plates.keys)

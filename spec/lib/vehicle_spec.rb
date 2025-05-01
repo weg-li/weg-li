@@ -63,6 +63,12 @@ describe Vehicle do
     expect(Vehicle.plate?("DHH TY 814")).to eql(["HH TY 814", 0.5])
   end
 
+  it "reformats plates" do
+    expect(Vehicle.plate?("GÖ TY 814", text_divider: '-')).to eql(["GÖ-TY 814", 1.0])
+    expect(Vehicle.normalize("GÖ TY 814", text_divider: '-')).to eql("GÖ-TY 814")
+    expect(Vehicle.normalize("HÜB AB 123", text_divider: '-')).to eql("HÜB-AB 123")
+  end
+
   it "most likely" do
     plates = [
       ["RD WN 200", 1.0],

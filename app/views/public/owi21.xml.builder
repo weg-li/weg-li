@@ -16,7 +16,7 @@ xml.Datenstrom "xmlns" => "http://www.owi21.de", "xmlns:xsi" => "http://www.w3.o
         Beweis_Schluessel_2: "4",
         Beteiligung_Schluessel: "2", # Halterin/Halter
         Fahrzeugtyp_Schluessel: "D", # PKW
-        KFZ_Kennzeichen: notice.registration,
+        KFZ_Kennzeichen: Vehicle.normalize(notice.registration, text_divider: "-"),
         KFZ_Kennzeichen_Merkmal: "1", # FZV
       ) do
         xml.Tatbestand TBNr: notice.tbnr
