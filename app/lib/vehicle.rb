@@ -29,7 +29,7 @@ class Vehicle
     by_likelyhood(matches).first
   end
 
-  def self.plate?(text, prefixes: nil, text_divider: ' ')
+  def self.plate?(text, prefixes: nil, text_divider: " ")
     text = normalize(text)
 
     if prefixes.present? && text =~ plate_regex(prefixes)
@@ -45,7 +45,7 @@ class Vehicle
     end
   end
 
-  def self.normalize(text, text_divider: ' ')
+  def self.normalize(text, text_divider: " ")
     return "" if text.blank?
 
     text
