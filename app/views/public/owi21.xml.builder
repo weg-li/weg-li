@@ -6,7 +6,7 @@ xml.Datenstrom "xmlns" => "http://www.owi21.de", "xmlns:xsi" => "http://www.w3.o
   xml.Bestaende do
     xml.Hinzufuegen do
       xml.Bestand(
-        GMK: "06999001",
+        GMK: notice.district.ags,
         Guid: notice.token,
         Gemarkung: notice.city,
         Tatort: notice.full_location,

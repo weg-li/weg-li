@@ -22,6 +22,7 @@ class DistrictDashboard < Administrate::BaseDashboard
     flags: Field::Number,
     config:  Field::String.with_options(searchable: false),
     status:  Field::String.with_options(searchable: false),
+    ags: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -57,6 +58,7 @@ class DistrictDashboard < Administrate::BaseDashboard
     :flags,
     :config,
     :status,
+    :ags,
     :created_at,
     :updated_at,
   ].freeze
@@ -76,6 +78,7 @@ class DistrictDashboard < Administrate::BaseDashboard
     :flags,
     :config,
     :status,
+    :ags,
   ].freeze
 
   # Overwrite this method to customize how users are displayed

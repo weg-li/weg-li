@@ -45,6 +45,7 @@ de:
         osm_id: 'OpenStreetmap-ID'
         updated_at: 'Aktualisiert'
         status: 'Status'
+        ags: 'Gemeindeschlüssel'
         reason: 'Begründung'
       user:
         time_zone: 'Zeitzone'
