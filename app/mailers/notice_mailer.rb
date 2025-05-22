@@ -9,7 +9,7 @@ class NoticeMailer < ApplicationMailer
     @district = notice.district
     @send_via_pdf = send_via_pdf
 
-    if @district.winowig?
+    if @district.winowig? || @district.owi21?
       generator = ZipGenerator.new(@notice, @district.config)
       data = generator.generate
       attachments[generator.filename] = data.read

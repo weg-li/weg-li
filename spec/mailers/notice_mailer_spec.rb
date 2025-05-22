@@ -40,6 +40,14 @@ describe NoticeMailer do
       expect(mail.attachments.size).to be(1)
       expect(mail.attachments.first.filename).to match(/XMLMDE_.*\.zip/)
     end
+
+    it "sends mail with owi21 config" do
+      notice.district.update! config: :owi21
+      mail = NoticeMailer.charge(notice)
+
+      expect(mail.attachments.size).to be(1)
+      expect(mail.attachments.first.filename).to match(/OWI21_.*\.zip/)
+    end
   end
 
   describe "forward" do
