@@ -65,8 +65,8 @@
             = hint do
               | Die E-Mail-Adresse der zuständigen Stelle wurde anhand der Postleitzahl ermittelt. #{link_to 'Adresse stimmt nicht', edit_district_path(@notice.district)}?
 
-          - if @notice.district.winowig?
-            .well.well-sm.callout-primary Mit der Stadt Dresden nutzen wir eine XML basierte Schnittstelle zur dort genutzten Software #{link_to 'WiNOWiG', 'https://www.owig.de/'}.
+          - if @notice.district.winowig? || @notice.district.owi21?
+            .well.well-sm.callout-primary Mit dieser Gemeinde nutzen wir eine Import-Datei für die Übermittlung der Anzeige in die Software #{@notice.district}.
           - elsif @notice.district.hamburg?
               / no PDF in hamburg /
           - else
