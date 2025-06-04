@@ -40,16 +40,29 @@
   .col-lg-5
     ul.list-group
       li.list-group-item
+        span.badge
+          = District.where(config: :winowig).count
+          |< Bezirke
         | ✅ WiNOWiG, per XMLMDE-Archiv
       li.list-group-item
+        span.badge
+          = District.where(config: :winowig).count
+          |< Bezirke
         | ✅ pmOWI, per XMLMDE-Archiv
       li.list-group-item
-        span.badge neu
+        span.badge
+          = District.where(config: :winowig).count
+          |< Bezirke
         | ✅ EurOwiG, per XMLMDE-Archiv
       li.list-group-item
-        span.badge neu
+        span.badge
+          = District.where(config: :winowig).count
+          |< Bezirke
         | ✅ SC-OWI / OWIPro, per XMLMDE-Archiv
       li.list-group-item
+        span.badge
+          = District.where(config: :owi21).count
+          |< Bezirke
         | ✅ owi21, per XOWI-Archiv
       li.list-group-item
         | Für folgende Fachverfahren suchen wir noch Ansprechpartner für eine Integration: OWIGWARE

@@ -47,6 +47,14 @@ de:
         status: 'Status'
         ags: 'Gemeindeschlüssel'
         reason: 'Begründung'
+        config: 'Übermittlung'
+        configs:
+          standard: 'Standard'
+          signature: 'mit Unterschrift'
+          munich: 'München'
+          owi21: 'OWI21 Import'
+          hamburg: 'ohne PDF'
+          winowig: 'WiNOWiG Import'
       user:
         time_zone: 'Zeitzone'
         nickname: 'Spitzname'

@@ -38,6 +38,7 @@
           th
           th= District.human_attribute_name(:zip)
           th= District.human_attribute_name(:name)
+          th= District.human_attribute_name(:config)
           th= District.human_attribute_name(:state)
           th= District.human_attribute_name(:email)
           th= District.human_attribute_name(:updated_at)
@@ -48,6 +49,7 @@
               td= render 'actions', district: district
               td= link_to district.zip, district
               td= link_to district.name, district
+              td= link_to District.human_enum_name(:config, district.config), district
               td= link_to district.state, district
               td= link_to district.display_email, district
               td= link_to l(district.updated_at, format: :short), district
