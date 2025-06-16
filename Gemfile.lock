@@ -661,7 +661,7 @@ DEPENDENCIES
   bitfields
   bootsnap
   byebug
-  color
+  color (~> 1.8)
   dotenv-rails
   exifr
   fabrication
