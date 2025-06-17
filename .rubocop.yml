@@ -35,6 +35,8 @@ Naming/AccessorMethodName:
   Enabled: false
 Naming/VariableNumber:
   Enabled: false
+Naming/PredicateMethod:
+  Enabled: false
 
 Layout/LineLength:
   Enabled: false
