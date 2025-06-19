@@ -14,8 +14,6 @@ h3= "Bezirk #{@district.zip} #{@district.name} im Bundesland #{@district.state}"
         li.list-group-item #{District.human_attribute_name(:zip)}: #{@district.zip}
         li.list-group-item #{District.human_attribute_name(:state)}: #{@district.state}
         li.list-group-item #{District.human_attribute_name(:config)}: #{District.human_enum_name(:config, @district.config)}
-        - if @district.osm_id
-          li.list-group-item #{District.human_attribute_name(:ags)}: #{@district.ags}
         li.list-group-item
           = "#{District.human_attribute_name(:prefixes)}: "
           - @district.prefixes.each do |prefix|
@@ -23,8 +21,6 @@ h3= "Bezirk #{@district.zip} #{@district.name} im Bundesland #{@district.state}"
           - if @district.prefixes.blank?
             | -
         li.list-group-item #{District.human_attribute_name(:parts)}: #{s(@district.parts)}
-        - if @district.osm_id
-          li.list-group-item #{District.human_attribute_name(:osm_id)}: #{link_to(@district.osm_id, "https://www.openstreetmap.org/relation/#{@district.osm_id}", target: '_blank', class: 'external')}
         li.list-group-item.small.text-muted #{District.human_attribute_name(:updated_at)} am #{l(@district.updated_at, format: :date)}
 
       .panel-footer
