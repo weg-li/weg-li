@@ -104,6 +104,11 @@ describe Notice do
       expect(Notice.search("CO 443")).to include(notice)
       expect(Notice.search("HH")).to include(notice)
     end
+
+    it "finds notices with umlaut registration" do
+      notice = Fabricate.create(:notice, registration: "FÜS-CO 443")
+      expect(Notice.search("FÜS-CO 443")).to include(notice)
+    end
   end
 
   context "defaults" do

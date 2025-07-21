@@ -80,7 +80,8 @@ class Notice < ApplicationRecord
 
   scope :since, ->(date) { where("notices.created_at > ?", date) }
   scope :for_public, -> { where.not(status: :disabled) }
-  scope :search, ->(term) { where("regexp_replace(notices.registration, '\\W', '', 'g') ILIKE :term", term: "%#{term.gsub(/\W/, '')}%") }
+  # REM: (PS) \W in live postgres is matching umlauts for whatever reason.
+  scope :search, ->(term) { where("regexp_replace(notices.registration, '(\s|-)', '', 'g') ILIKE :term", term: "%#{term.gsub(/(\s|-)/, '')}%") }
   scope :preselect, -> { shared.limit(3) }
   scope :active, -> { where(archived: false) }
   scope :archived, -> { where(archived: true) }
