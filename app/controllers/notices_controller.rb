@@ -116,7 +116,7 @@ class NoticesController < ApplicationController
       @notice.assign_attributes(notice_update_params)
       @notice.save_incomplete!
 
-      redirect_to notices_path, notice: "Meldunge wurde gespeichert"
+      redirect_to notices_path, notice: "Meldung wurde gespeichert"
     elsif params[:button] == "upload"
       @notice.assign_attributes(notice_update_params)
       @notice.save_incomplete!
