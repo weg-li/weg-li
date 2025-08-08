@@ -66,7 +66,7 @@
               | Die E-Mail-Adresse der zuständigen Stelle wurde anhand der Postleitzahl ermittelt. #{link_to 'Adresse stimmt nicht', edit_district_path(@notice.district)}?
 
           - if @notice.district.winowig? || @notice.district.owi21?
-            .well.well-sm.callout-primary Mit dieser Gemeinde nutzen wir eine Import-Datei für die Übermittlung der Anzeige in die Software #{@notice.district}.
+            .well.well-sm.callout-primary Mit dieser Gemeinde nutzen wir eine Import-Datei für die Übermittlung der Anzeige in die Software #{@notice.district.config}.
           - elsif @notice.district.hamburg?
               / no PDF in hamburg /
           - else
