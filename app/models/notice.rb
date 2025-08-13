@@ -268,6 +268,15 @@ class Notice < ApplicationRecord
     Notice.connection.exec_query(sql, "distance-quert", binds).to_a
   end
 
+  def guid(format: :owi21)
+    case format
+    when :owi21
+      token.gsub(/(\w{8})(\w{4})(\w{4})(\w{4})(\w{12})(.*)/, "\\1-\\2-\\3-\\4-\\5").upcase
+    else
+      token
+    end
+  end
+
   def meta
     photos.map(&:metadata).to_json
   end

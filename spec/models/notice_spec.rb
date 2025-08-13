@@ -111,6 +111,15 @@ describe Notice do
     end
   end
 
+  context "guid" do
+    it "generates a guid" do
+      notice = Fabricate.build(:notice, token: "1234567890abcdef1234567890abcdef12345678")
+      expect(notice.guid).to eql("12345678-90AB-CDEF-1234-567890ABCDEF")
+      notice.token = "4DA6E7A3-83D4-4228-BDD4-FCF5E2126ADC"
+      expect(notice.guid).to eql("4DA6E7A3-83D4-4228-BDD4-FCF5E2126ADC")
+    end
+  end
+
   context "defaults" do
     it "is valid" do
       notice = Fabricate(:notice)

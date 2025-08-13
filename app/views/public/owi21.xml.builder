@@ -7,7 +7,7 @@ xml.Datenstrom "xmlns" => "http://www.owi21.de", "xmlns:xsi" => "http://www.w3.o
     xml.Hinzufuegen do
       xml.Bestand(
         GMK: notice.district.ags,
-        Guid: notice.token,
+        Guid: notice.guid,
         Gemarkung: notice.city,
         Tatort: notice.full_location,
         Tattag: notice.start_date.strftime("%Y-%m-%d"),
