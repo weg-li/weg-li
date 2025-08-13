@@ -2,7 +2,7 @@
 <Datenstrom xmlns="http://www.owi21.de" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.owi21.de/schemas/xowi_bestand_1.1.xsd">
   <Bestaende>
     <Hinzufuegen>
-      <Bestand GMK="06999001" Guid="12345678-90AB-CDEF-1234-567890ABCDEF" Gemarkung="Dorf" Tatort="Am Weiher 123, Beim Nazis-Raus Aufkleber, 17098 Dorf" Tattag="2020-01-18" Tatzeit="16:00" Beweis_Schluessel_1="1" Beweis_Schluessel_2="4" Beteiligung_Schluessel="2" Fahrzeugtyp_Schluessel="D" KFZ_Kennzeichen="HH-AB 123" KFZ_Kennzeichen_Merkmal="1">
+      <Bestand GMK="06999001" GUID="12345678-90AB-CDEF-1234-567890ABCDEF" Gemarkung="Dorf" Tatort="Am Weiher 123, Beim Nazis-Raus Aufkleber, 17098 Dorf" Tattag="2020-01-18" Tatzeit="16:00" Beweis_Schluessel_1="1" Beweis_Schluessel_2="4" Beteiligung_Schluessel="2" Fahrzeugtyp_Schluessel="D" KFZ_Kennzeichen="HH-AB 123" KFZ_Kennzeichen_Merkmal="1">
         <Tatbestand TBNr="142170"/>
         <Entscheidung Schluessel="111" Typ="2" Datum="2020-01-20"/>
         <Person PersonenTypId="10" Anrede_Schluessel="9" Vorname="Uschi" Nachname="Müller" Strasse="Am Weiher 123" Hausnummer="123" PLZ="54321" Ort="Dorf"/>
