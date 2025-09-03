@@ -17,7 +17,7 @@ class ZipValidator < ActiveModel::EachValidator
 
     def read_zips
       zips_and_city = CSV.parse(File.read("config/data/PLZ_Ort_Landkreis_Bundesland_Mapping_DE.csv"), headers: true, col_sep: ";")
-      zips_and_city.pluck("PLZ").uniq.compact
+      zips_and_city["PLZ"].uniq.compact
     end
   end
 
