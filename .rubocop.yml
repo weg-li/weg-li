@@ -47,6 +47,10 @@ Layout/FirstHashElementIndentation:
 
 Style/Next:
   Enabled: false
+Style/ItAssignment:
+  Enabled: false
+Layout/EmptyLinesAfterModuleInclusion:
+  Enabled: false
 Style/FetchEnvVar:
   Enabled: false
 Style/GuardClause:
