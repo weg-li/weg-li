@@ -89,7 +89,8 @@
       .input-group#pick_charge
         - nearest_tbnrs = notice.data_sets.select(&:proximity?).flat_map(&:tbnrs).compact
         - if nearest_tbnrs.present?
-          - nearest_charges = Charge.tbnrs_with_description.select { |tbnr, _charge| nearest_tbnrs.first(3).include?(tbnr) }
+          - nearest_tbnrs =  nearest_tbnrs.uniq.sort_by { |n| nearest_tbnrs.count(n) }.last(3)
+          - nearest_charges = Charge.tbnrs_with_description.select { |tbnr, _charge| nearest_tbnrs.include?(tbnr) }
           - nearest_charges.each do |nearest_tbnr, nearest_charge|
             a(href="javascript:;" onclick="$('#notice_tbnr').val('#{nearest_tbnr}').trigger('change'); $('#pick_charge').fadeOut(); return false;")
               span.label.label-default.label-picker(title=nearest_charge)
