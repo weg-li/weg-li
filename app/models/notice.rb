@@ -247,7 +247,7 @@ class Notice < ApplicationRecord
     end
   end
 
-  def self.nearest_tbnrs(latitude, longitude, distance = 50)
+  def self.nearest_tbnrs(latitude, longitude, distance = 50, count = 10)
     sql =
       "
     SELECT
@@ -262,9 +262,9 @@ class Notice < ApplicationRecord
       AND ST_DWithin(lonlat::geography, ST_MakePoint($1, $2), $3)
     GROUP BY tbnr
     ORDER BY diff
-    LIMIT 3
+    LIMIT $4
     "
-    binds = [longitude, latitude, distance]
+    binds = [longitude, latitude, distance, count]
     Notice.connection.exec_query(sql, "distance-quert", binds).to_a
   end
 
