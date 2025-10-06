@@ -58,6 +58,7 @@ class District < ApplicationRecord
       longitude
       aliases
       personal_email
+      state
       created_at
       updated_at
     ].each { |key| template.add(key) }
