@@ -4,6 +4,7 @@ class BrandsController < ApplicationController
   def index
     respond_to do |format|
       format.html { @brands = search_scope }
+      format.json { render json: Brand.active.as_api_response(:public_beta) }
     end
   end
 

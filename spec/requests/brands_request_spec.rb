@@ -35,6 +35,13 @@ describe "brands", type: :request do
       expect(response).to be_successful
       assert_select "h2", "weg.li Marken"
     end
+
+    it "renders brands as json" do
+      get brands_path(format: :json)
+
+      expect(response).to be_successful
+      assert JSON.parse(response.body)
+    end
   end
 
   context "brands#show" do
