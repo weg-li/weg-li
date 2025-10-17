@@ -5,20 +5,7 @@ xml.instruct!
 xml.Datenstrom "xmlns" => "http://www.owi21.de", "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance", "xsi:schemaLocation" => "http://www.owi21.de/schemas/xowi_bestand_1.1.xsd" do
   xml.Bestaende do
     xml.Hinzufuegen do
-      xml.Bestand(
-        GMK: notice.district.ags,
-        GUID: notice.guid,
-        Gemarkung: notice.city,
-        Tatort: notice.full_location,
-        Tattag: notice.start_date.strftime("%Y-%m-%d"),
-        Tatzeit: notice.start_date.strftime("%H:%M"),
-        Beweis_Schluessel_1: "1",
-        Beweis_Schluessel_2: "4",
-        Beteiligung_Schluessel: "2", # Halterin/Halter
-        Fahrzeugtyp_Schluessel: "D", # PKW
-        KFZ_Kennzeichen: Vehicle.normalize(notice.registration, text_divider: "-"),
-        KFZ_Kennzeichen_Merkmal: "1", # FZV
-      ) do
+      xml.Bestand(notice.owi21_args) do
         xml.Tatbestand TBNr: notice.tbnr
         xml.Entscheidung(
           Schluessel: "111",

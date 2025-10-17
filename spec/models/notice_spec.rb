@@ -89,6 +89,55 @@ describe Notice do
     end
   end
 
+  context "owi21_args" do
+    it "generates owi21 args" do
+      travel_to("12.11.2024 11:00:00 UTC".to_time.utc) do
+        district = Fabricate(:district, zip: "17098", ags: "08311000")
+        user = Fabricate.build(:user, name: "Uschi Müller", email: "test@example.com", city: "Dorf", zip: "17098", street: "Am Weiher 123", appendix: "2. OG", phone: "0178123456", date_of_birth: "31.12.2000")
+        charge = Fabricate.build(:charge, tbnr: "142170", description: "Parken auf einem unbeschilderten Radweg")
+        notice = Fabricate.build(:notice, user:, charge:, brand: "märzer", color: "black", registration: "HÜB AB 123", city: "Dorf", street: "Am Weiher 123", zip: "17098", district:, token: "1234567890abcdef1234567890abcdef12345678")
+        notice.save!
+        expect(notice.owi21_args).to eql(
+          {
+            Beteiligung_Schluessel: "2",
+            Beweis_Schluessel_1: "1",
+            Beweis_Schluessel_2: "4",
+            Fahrzeugtyp_Schluessel: "D",
+            GMK: "08311000",
+            GUID: "12345678-90AB-CDEF-1234-567890ABCDEF",
+            Gemarkung: "Dorf",
+            KFZ_Kennzeichen: "HÜB-AB 123",
+            KFZ_Kennzeichen_Merkmal: "1",
+            Tatort: "Am Weiher 123, Beim Nazis-Raus Aufkleber, 17098 Dorf",
+            Tattag: "2024-11-10",
+            Tatzeit: "12:00",
+          },
+        )
+
+        notice.district.update! ags: "06440008"
+
+        expect(notice.owi21_args).to eql(
+          {
+            AnwenderNr: "997",
+            Beteiligung_Schluessel: "2",
+            Beweis_Schluessel_1: "1",
+            Beweis_Schluessel_2: "4",
+            Fahrzeugtyp_Schluessel: "D",
+            GMK: "06440008",
+            GUID: "12345678-90AB-CDEF-1234-567890ABCDEF",
+            Gemarkung: "Dorf",
+            KFZ_Kennzeichen: "HÜB-AB 123",
+            KFZ_Kennzeichen_Merkmal: "1",
+            Sachgebiet_Schluessel: "2",
+            Tatort: "Am Weiher 123, Beim Nazis-Raus Aufkleber, 17098 Dorf",
+            Tattag: "2024-11-10",
+            Tatzeit: "12:00",
+          },
+        )
+      end
+    end
+  end
+
   context "search" do
     it "finds notices by registration" do
       notice = Fabricate.create(:notice, registration: "HH-CO 443")

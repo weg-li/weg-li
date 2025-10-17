@@ -203,6 +203,28 @@ class Notice < ApplicationRecord
     # AnalyzerJob.set(wait: 1.second).perform_later(self)
   end
 
+  def owi21_args
+    args = {
+      GMK: district.ags,
+      GUID: guid,
+      Gemarkung: city,
+      Tatort: full_location,
+      Tattag: start_date.strftime("%Y-%m-%d"),
+      Tatzeit: start_date.strftime("%H:%M"),
+      Beweis_Schluessel_1: "1",
+      Beweis_Schluessel_2: "4",
+      Beteiligung_Schluessel: "2", # Halterin/Halter
+      Fahrzeugtyp_Schluessel: "D", # PKW
+      KFZ_Kennzeichen: Vehicle.normalize(registration, text_divider: "-"),
+      KFZ_Kennzeichen_Merkmal: "1", # FZV
+    }
+    if district.ags == "06440008" # Friedberg (Hessen)
+      args[:AnwenderNr] = "997"
+      args[:Sachgebiet_Schluessel] = "2"
+    end
+    args
+  end
+
   def date_doubles
     return false if registration.blank?
 
