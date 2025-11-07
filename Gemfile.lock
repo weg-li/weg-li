@@ -668,7 +668,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord-postgis-adapter
   acts_as_api
-  administrate
+  administrate (= 0.20.1)
   administrate-field-active_storage
   appsignal
   bitfields
