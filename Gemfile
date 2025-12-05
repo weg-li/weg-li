@@ -6,6 +6,7 @@ ruby "3.2.9"
 
 gem "rails", "7.2.2.2"
 gem "turbo-rails"
+gem "connection_pool", "~> 2.3.0"
 
 gem "bootsnap", require: false
 gem "rack"
