@@ -40,7 +40,7 @@ Please follow [this guide](https://guides.railsgirls.com/install) if you have no
 # global setup
 brew install rbenv # ruby environemnt
 
-brew install yarn # yarn
+brew install nodejs yarn # yarn
 
 brew install postgresql # database
 brew install postgis # GIS extension for Postgresql
