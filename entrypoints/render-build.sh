@@ -4,4 +4,4 @@ set -o errexit
 
 bundle install
 yarn install
-bundle exec rake assets:precompile
+NODE_OPTIONS=--openssl-legacy-provider bundle exec rake assets:precompile
