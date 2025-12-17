@@ -19,7 +19,7 @@ geocoding_cleanup:
   class: 'Scheduled::GeocodingCleanupJob'
 data_dropper:
   cron: '0 6 * * * Europe/Berlin'
-  class: 'Sched uled::DataDropperJob'
+  class: 'Scheduled::DataDropperJob'
 data_cleanup:
   cron: '0 5 * * * Europe/Berlin'
   class: 'Scheduled::DataCleanupJob'
