@@ -7,10 +7,8 @@ class Scheduled::DataDropperJob < ApplicationJob
     max = 1_000
     notices = Notice.archived.where("created_at < ?", 6.years.ago).with_attached_photos.limit(max)
     notify "dropping data #{notices.count} notices"
-    notices.each do |notice| 
-      notice.photos.each do |photo|
-        photo.purge_later
-      end
+    notices.each do |notice|
+      notice.photos.each(&:purge_later)
     end
   end
 end
