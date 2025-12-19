@@ -11,7 +11,7 @@ describe Scheduled::DataDropperJob do
 
       expect do
         Scheduled::DataDropperJob.perform_now
-      end.to have_enqueued_job(ActiveStorage::PurgeJob).exactly(1).times
+      end.to have_enqueued_job(ActiveStorage::PurgeJob).exactly(2).times
     end
   end
 end
