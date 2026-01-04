@@ -13,7 +13,7 @@ class AutoreplyMailbox < ApplicationMailbox
       action_mailbox_inbound_email: inbound_email,
       sender: mail.from.first,
       subject: mail.subject || "-",
-      content: content_from_mail(mail) || "-",
+      content: content_from_mail(mail).presence || "-",
     }
     reply = notice.replies.create!(params)
 
