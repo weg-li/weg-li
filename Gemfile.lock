@@ -396,6 +396,7 @@ GEM
     omniauth-twitter (1.4.0)
       omniauth-oauth (~> 1.1)
       rack
+    openssl (4.0.0)
     os (1.1.4)
     parallel (1.27.0)
     parser (3.3.10.0)
@@ -708,6 +709,7 @@ DEPENDENCIES
   omniauth-rails_csrf_protection (>= 1.0)
   omniauth-telegram
   omniauth-twitter
+  openssl
   pg
   prawn
   prawn-emoji

@@ -10,6 +10,7 @@ gem "connection_pool", "~> 2.3.0"
 
 gem "bootsnap", require: false
 gem "rack"
+gem "openssl"
 gem "sprockets", "~> 3.7.2"
 gem "puma"
 gem "sass-rails"
