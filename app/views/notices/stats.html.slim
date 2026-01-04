@@ -44,9 +44,10 @@ ul.nav.nav-tabs.nav-panel
         h4 📈 Top-#{@limit} Kennzeichen
         ul.list-group
           - @statistics[:grouped_registrations].each do |entry|
-            li.list-group-item
-              .badge.pull-right= number_with_delimiter(entry.registration_count)
-              = registration_label(entry.registration)
+            = link_to notices_path(search: {term: entry.registration}) do
+              li.list-group-item
+                .badge.pull-right= number_with_delimiter(entry.registration_count)
+                = registration_label(entry.registration)
 
       .col-lg-4
         h4 📈 Top-#{@limit} Automarken
