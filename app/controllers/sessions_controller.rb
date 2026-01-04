@@ -61,16 +61,22 @@ class SessionsController < ApplicationController
   def email_signup
     email = normalize_email(params[:email])
     if email.present?
-      token = Token.generate(email)
-      user = User.find_by_email(email)
-      if user.present?
-        UserMailer.login_link(user, token).deliver_later
+      if ValidEmail2::Address.new(email).valid?
+        token = Token.generate(email)
+        user = User.find_by_email(email)
+        if user.present?
+          UserMailer.login_link(user, token).deliver_later
 
-        redirect_to root_path, notice: t("users.login_link", email:)
+          redirect_to root_path, notice: t("users.login_link", email:)
+        else
+          UserMailer.signup_link(email, token).deliver_later
+
+          redirect_to root_path, notice: t("users.signup_link", email:)
+        end
       else
-        UserMailer.signup_link(email, token).deliver_later
+        flash.now[:alert] = "Bitte gebe eine gültige E-Mail-Adresse ein!"
 
-        redirect_to root_path, notice: t("users.signup_link", email:)
+        render :email
       end
     else
       flash.now[:alert] = "Bitte gebe eine E-Mail-Adresse ein!"

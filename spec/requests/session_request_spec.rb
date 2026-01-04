@@ -16,6 +16,22 @@ describe "session", type: :request do
           expect(response).to be_a_redirect
         end.to have_enqueued_mail(UserMailer, :login_link)
       end
+
+      it "renders an error when the email is blank" do
+        expect do
+          post email_signup_path, params: { email: " " }
+
+          assert_select("strong", "Bitte gebe eine E-Mail-Adresse ein!")
+        end.not_to have_enqueued_mail(UserMailer, :login_link)
+      end
+
+      it "renders an error when the email is invalid" do
+        expect do
+          post email_signup_path, params: { email: "invalid-email" }
+
+          assert_select("strong", "Bitte gebe eine gültige E-Mail-Adresse ein!")
+        end.not_to have_enqueued_mail(UserMailer, :login_link)
+      end
     end
   end
 

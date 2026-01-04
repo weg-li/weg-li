@@ -7,7 +7,8 @@
     = label_tag :email, 'E-Mail', class: "col-lg-2 control-label"
     .col-lg-4
       - email = signed_in? ? current_user.email : params[:email]
-      = email_field_tag :email, email, placeholder: 'me@example.com', required: true, class: "form-control"
+      = email_field_tag :email, email, placeholder: 'me@example.com', required: true, class: "form-control", autofocus: true, autocomplete: "email"
+  
     .col-lg-6
       = render 'callout', section: 'sessions', key: 'email'
   .row
