@@ -11,11 +11,11 @@ describe Charge do
     end
   end
 
-  # context "finders" do
-  #   it "fetches tbnrs with description for caching" do
-  #     charge = Fabricate.create(:charge)
+  context "finders" do
+    it "fetches tbnrs with description for caching" do
+      charge = Fabricate.create(:charge)
 
-  #     expect(Charge.tbnrs_with_description).to eq([[charge.tbnr, charge.description]])
-  #   end
-  # end
+      expect(Charge.tbnrs_with_description).to eq([[charge.tbnr, charge.description]])
+    end
+  end
 end
