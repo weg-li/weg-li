@@ -369,7 +369,6 @@ class Notice < ApplicationRecord
           .compact
           .uniq
     end
-    date_times << (date_times.first + 5.seconds)
     date_times.map { |dt| DateTime.new(dt.year, dt.month, dt.day, dt.hour, dt.min, 0, dt.zone) }.uniq.sort
   end
 
