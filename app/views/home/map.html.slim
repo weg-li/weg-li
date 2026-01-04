@@ -23,7 +23,7 @@
           - grouped.first(@limit).each do |key, group|
             li.list-group-item
               .badge.pull-right= number_with_delimiter(group.size)
-              - charge = Charge.find_by(tbnr: key)
+              - charge = Charge.active.find_by(tbnr: key)
               = link_to charge.description, charge_path(key)
 
       .col-lg-4
