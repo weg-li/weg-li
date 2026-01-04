@@ -13,9 +13,13 @@ class UsersController < ApplicationController
   def edit; end
 
   def signature
-    current_user.update!(signature_params)
+    if current_user.valid?
+      current_user.update!(signature_params)
 
-    redirect_to edit_user_path, notice: "Unterschrift wurde gespeichert"
+      redirect_to edit_user_path, notice: "Unterschrift wurde gespeichert"
+    else
+      redirect_to edit_user_path, alert: "Unterschrift konnte nicht gespeichert werden, Nutzer-Daten sind nicht vollständig"
+    end
   end
 
   def destroy_signature
@@ -31,6 +35,7 @@ class UsersController < ApplicationController
       current_user.validation_date = nil
       if current_user.save
         UserMailer.validate(current_user).deliver_later
+
         redirect_to edit_user_path, notice: t("users.profile_updated_and_confirmation_email")
       else
         redirect_to edit_user_path, alert: current_user.errors.full_messages.to_sentence
@@ -45,8 +50,7 @@ class UsersController < ApplicationController
   def confirmation_mail
     UserMailer.validate(current_user).deliver_later
 
-    redirect_to edit_user_path,
-                notice: t("users.confirmation_mail", email: current_user.email)
+    redirect_to edit_user_path, notice: t("users.confirmation_mail", email: current_user.email)
   end
 
   def destroy
@@ -63,9 +67,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(
-      %i[email nickname name street zip city appendix date_of_birth phone] +
-        User.bitfields[:flags].keys + User.bitfields[:autosuggest].keys,
-    )
+    attributes = %i[email nickname name street zip city appendix date_of_birth phone] + User.bitfields[:flags].keys + User.bitfields[:autosuggest].keys
+    params.require(:user).permit(attributes)
   end
 end
