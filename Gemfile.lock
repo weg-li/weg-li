@@ -122,10 +122,11 @@ GEM
     bindex (0.8.1)
     bitfields (0.14.0)
       activerecord (>= 5.1)
-    bootsnap (1.20.1)
+    bootsnap (1.21.1)
       msgpack (~> 1.2)
     builder (3.3.0)
-    byebug (12.0.0)
+    byebug (13.0.0)
+      reline (>= 0.6.0)
     childprocess (5.1.0)
       logger (~> 1.5)
     chunky_png (1.4.0)
@@ -223,7 +224,7 @@ GEM
       gapic-common (~> 1.2)
       google-cloud-errors (~> 1.0)
     google-logging-utils (0.2.0)
-    google-protobuf (4.33.2)
+    google-protobuf (4.33.4)
       bigdecimal
       rake (>= 13)
     googleapis-common-protos (1.9.0)
@@ -232,7 +233,7 @@ GEM
       grpc (~> 1.41)
     googleapis-common-protos-types (1.22.0)
       google-protobuf (~> 4.26)
-    googleauth (1.16.0)
+    googleauth (1.16.1)
       faraday (>= 1.0, < 3.a)
       google-cloud-env (~> 2.2)
       google-logging-utils (~> 0.1)
@@ -243,7 +244,7 @@ GEM
     grpc (1.76.0)
       google-protobuf (>= 3.25, < 5.0)
       googleapis-common-protos-types (~> 1.0)
-    haml (7.1.0)
+    haml (7.2.0)
       temple (>= 0.8.2)
       thor
       tilt
@@ -399,7 +400,7 @@ GEM
     openssl (4.0.0)
     os (1.1.4)
     parallel (1.27.0)
-    parser (3.3.10.0)
+    parser (3.3.10.1)
       ast (~> 2.4.1)
       racc
     pdf-core (0.10.0)
@@ -425,7 +426,7 @@ GEM
       prawn (>= 1.3.0, < 3.0.0)
     prettier_print (1.2.1)
     prettyprint (0.2.0)
-    prism (1.7.0)
+    prism (1.8.0)
     psych (5.3.1)
       date
       stringio
@@ -487,7 +488,7 @@ GEM
       ffi (~> 1.0)
     rbs (3.10.2)
       logger
-    rdoc (7.0.3)
+    rdoc (7.1.0)
       erb
       psych (>= 4.0.0)
       tsort
@@ -624,7 +625,7 @@ GEM
     temple (0.10.4)
     thor (1.5.0)
     thruster (0.1.17)
-    tilt (2.6.1)
+    tilt (2.7.0)
     time_splitter (1.1.0)
     timeout (0.6.0)
     trailblazer-option (0.1.2)
