@@ -116,7 +116,6 @@ xml.OWIGMDEData Version: "1" do
         xml.comment! "Optional (0-3)"
         xml.Tatort notice.location if notice.location.present?
         xml.Tatort notice.street
-        xml.Tatort "#{notice.zip} #{notice.city}"
       end
       xml.comment! "Optional"
       xml.Historie do
