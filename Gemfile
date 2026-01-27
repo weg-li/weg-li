@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-ruby "3.2.9"
+ruby "3.2.10"
 
 gem "rails", "7.2.2.2"
 gem "turbo-rails"
