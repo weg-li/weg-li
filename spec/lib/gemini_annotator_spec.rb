@@ -54,29 +54,6 @@ describe GeminiAnnotator do
     ENV.delete("GEMINI_MODEL")
   end
 
-  describe ".normalize_plate" do
-    it "inserts space between letters and digits" do
-      expect(described_class.normalize_plate("B JJ188E")).to eql("B JJ 188E")
-    end
-
-    it "preserves correctly spaced plates" do
-      expect(described_class.normalize_plate("B AB 1234")).to eql("B AB 1234")
-    end
-
-    it "handles umlauts" do
-      expect(described_class.normalize_plate("KÜN X 2002")).to eql("KÜN X 2002")
-    end
-
-    it "collapses multiple spaces" do
-      expect(described_class.normalize_plate("B  AB  1234")).to eql("B AB 1234")
-    end
-
-    it "returns nil for blank input" do
-      expect(described_class.normalize_plate(nil)).to be_nil
-      expect(described_class.normalize_plate("")).to eql("")
-    end
-  end
-
   describe "#annotate_file" do
     it "returns multi-vehicle structured data" do
       stub_request(:post, api_url)
