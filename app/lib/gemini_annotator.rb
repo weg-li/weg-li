@@ -24,19 +24,6 @@ class GeminiAnnotator
     call_api(request_body_with_inline_data(encoded))
   end
 
-  def self.normalize_plate(plate)
-    return plate if plate.blank?
-
-    plate = plate.strip.upcase
-
-    # Insert space between letters and digits where missing
-    # "B JJ188E" → "B JJ 188E", "BJJ188" → "BJJ 188"
-    plate = plate.gsub(/([A-ZÄÖÜ])(\d)/, '\1 \2')
-
-    # Collapse multiple spaces
-    plate.gsub(/\s+/, " ")
-  end
-
   private
 
   def call_api(body)
@@ -156,9 +143,12 @@ class GeminiAnnotator
     result = JSON.parse(text)
     result["model_version"] = model
 
-    # Normalize plate formatting
+    # Normalize plates via Vehicle.plate? (handles OCR errors, district disambiguation)
     Array(result["vehicles"]).each do |vehicle|
-      vehicle["registration"] = self.class.normalize_plate(vehicle["registration"])
+      next if vehicle["registration"].blank?
+
+      matched = Vehicle.plate?(vehicle["registration"])
+      vehicle["registration"] = matched.first if matched
     end
 
     result
