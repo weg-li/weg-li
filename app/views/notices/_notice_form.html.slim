@@ -3,8 +3,7 @@
 .row
   .col-lg-4
     .form-group
-      - registrations = notice.data_sets.select(&:google_vision?).flat_map { |google_vision| google_vision.registrations }
-      - registrations = notice.data_sets.select(&:car_ml?).map(&:registrations).concat(registrations).concat([notice.registration]).compact.flatten.uniq
+      - registrations = notice.suggested_registrations
       = form.label :registration, class: "control-label control-label-required"
       = form.select :registration, registrations, { include_blank: 'z.B. HH-SV 1887' }, { class: "form-control", required: true, data: {'select2-disabled' => true} }
       = render('auto_suggest', notice: notice)
@@ -20,8 +19,7 @@
       = form.label :brand, class: "control-label"
       = form.select :brand, brand_options, { include_blank: 'Marke Auswählen' }, { class: "form-control" }
       .input-group#pick_brand
-        - brands = notice.data_sets.select(&:google_vision?).flat_map { |google_vision| google_vision.brands }
-        - brands = notice.data_sets.select(&:car_ml?).map(&:brands).concat(brands).compact.flatten.uniq
+        - brands = notice.suggested_brands
         - brands.each do |brand|
             a(href="javascript:;" onclick="$('#notice_brand').val('#{brand}').trigger('change'); $('#pick_brand').fadeOut(); return false;")
               span.label.label-default.label-picker(title=brand)
@@ -33,8 +31,7 @@
       = form.label :color, class: "control-label"
       = form.select :color, Vehicle.colors.map { |color| [color_name(color), color] }, { include_blank: 'Farbe Auswählen' }, { class: "form-control" }
       .input-group#pick_color
-        - colors = notice.data_sets.select(&:google_vision?).flat_map { |google_vision| google_vision.colors }
-        - colors = notice.data_sets.select(&:car_ml?).map(&:colors).concat(colors).compact.flatten.uniq
+        - colors = notice.suggested_colors
         - colors.each do |color|
             a(href="javascript:;" onclick="$('#notice_color').val('#{color}').trigger('change'); $('#pick_color').fadeOut(); return false;")
               span.label.label-default.label-picker(title=color)
@@ -47,7 +44,7 @@
   .col-lg-4
     .form-group
       = form.label :address, class: "control-label control-label-required"
-      - address = notice.data_sets.select(&:geocoder?).map(&:address).compact.first
+      - address = notice.suggested_address
       .input-group
         = form.select :street, [], { include_blank: 'z.B. Sylvesterallee 7' }, { class: "form-control", required: true, data: {'select2-disabled' => true} }
         = render('address_suggest', notice: notice)
@@ -87,9 +84,8 @@
       = form.select :tbnr, [], { include_blank: 'Verstoß Auswählen' }, { class: "form-control", required: true, data: {'select2-disabled' => true} }
       = render('charge_select', notice: notice)
       .input-group#pick_charge
-        - nearest_tbnrs = notice.data_sets.select(&:proximity?).flat_map(&:tbnrs).compact
+        - nearest_tbnrs = notice.suggested_tbnrs
         - if nearest_tbnrs.present?
-          - nearest_tbnrs =  nearest_tbnrs.uniq.sort_by { |n| nearest_tbnrs.count(n) }.last(3)
           - nearest_charges = Charge.tbnrs_with_description.select { |tbnr, _charge| nearest_tbnrs.include?(tbnr) }
           - nearest_charges.each do |nearest_tbnr, nearest_charge|
             a(href="javascript:;" onclick="$('#notice_tbnr').val('#{nearest_tbnr}').trigger('change'); $('#pick_charge').fadeOut(); return false;")
