@@ -1,4 +1,4 @@
-FROM ruby:3.2.9-alpine
+FROM ruby:3.2.10-alpine
 
 RUN apk add --update --no-cache \
   gcompat \
