@@ -48,7 +48,7 @@
       = form.label :address, class: "control-label control-label-required"
       - address = notice.suggested_address
       .input-group
-        = form.select :street, [], { include_blank: 'z.B. Sylvesterallee 7' }, { class: "form-control", required: true, data: {'select2-disabled' => true} }
+        = form.select :street, [notice.street].compact, { include_blank: 'z.B. Sylvesterallee 7' }, { class: "form-control", required: true, data: {'select2-disabled' => true} }
         = render('address_suggest', notice: notice)
       - if address.present?
         .input-group#pick_address
