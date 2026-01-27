@@ -50,4 +50,14 @@ class Api::ChargesController < Api::ApplicationController
   def show
     render json: Charge.active.from_param(params[:tbnr] || params[:id]).as_api_response(:public_beta)
   end
+
+  def compact
+    tsv_path = Rails.root.join("bkat/data/charges_compact.tsv")
+    legend_path = Rails.root.join("bkat/data/charges_compact_legend.txt")
+
+    legend = File.read(legend_path)
+    tsv = File.read(tsv_path)
+
+    render plain: "#{legend}\n#{tsv}", content_type: "text/tab-separated-values"
+  end
 end

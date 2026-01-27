@@ -1,0 +1,33 @@
+# Compact Parking Charges Matrix — Column Legend
+#
+# Each row = one parking location/situation
+# Each column = a severity/duration variant
+# Cell values = 6-digit TBNR codes (empty = no matching charge)
+#
+# Column naming: {action}_{severity}_{duration}
+#
+# Actions:
+#   p  = parked (parkten/stellten/benutzten/nahmen/ließen)
+#   h  = stopped (hielten)
+#   u  = exceeded time (überschritten)
+#
+# Severity suffixes:
+#   (none) = base offense
+#   _beh   = with obstruction (Behinderung)
+#   _gef   = with endangerment (Gefährdung)
+#   _unf   = with accident (Unfall)
+#
+# Duration suffixes:
+#   (none) = base / no duration qualifier
+#   _30m   = longer than 30 minutes
+#   _1h    = longer than 1 hour
+#   _2h    = longer than 2 hours
+#   _3h    = longer than 3 hours
+#
+# Examples:
+#   p       = parked (base)
+#   p_beh   = parked with obstruction
+#   p_1h    = parked longer than 1 hour
+#   p_beh_3h = parked longer than 3 hours with obstruction
+#   h_gef   = stopped with endangerment
+#   u_30m   = exceeded time by more than 30 minutes
