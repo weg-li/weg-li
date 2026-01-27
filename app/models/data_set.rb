@@ -8,7 +8,7 @@ class DataSet < ApplicationRecord
   belongs_to :setable, polymorphic: true
   belongs_to :keyable, polymorphic: true
 
-  enum :kind, { google_vision: 0, exif: 1, car_ml: 2, geocoder: 3, proximity: 4 }
+  enum :kind, { google_vision: 0, exif: 1, car_ml: 2, geocoder: 3, proximity: 4, gemini: 5 }
 
   def tbnrs
     case kind
@@ -28,6 +28,11 @@ class DataSet < ApplicationRecord
       Vehicle.by_likelyhood(with_likelyhood)
     when "car_ml"
       data["suggestions"]["license_plate_number"]
+    when "gemini"
+      vehicle = gemini_primary_vehicle
+      return [] if vehicle.nil? || vehicle["registration"].blank?
+
+      [vehicle["registration"]]
     else
       raise "not supported by #{kind}"
     end
@@ -41,6 +46,11 @@ class DataSet < ApplicationRecord
       Vehicle.by_likelyhood(with_likelyhood)
     when "car_ml"
       data["suggestions"]["make"]
+    when "gemini"
+      vehicle = gemini_primary_vehicle
+      return [] if vehicle.nil? || vehicle["brand"].blank?
+
+      [vehicle["brand"]]
     else
       raise "not supported by #{kind}"
     end
@@ -53,9 +63,26 @@ class DataSet < ApplicationRecord
       Vehicle.by_likelyhood(with_likelyhood)
     when "car_ml"
       data["suggestions"]["color"]
+    when "gemini"
+      vehicle = gemini_primary_vehicle
+      return [] if vehicle.nil? || vehicle["color"].blank?
+
+      [vehicle["color"]]
     else
       raise "not supported by #{kind}"
     end
+  end
+
+  def gemini_vehicles
+    return [] unless gemini?
+
+    data["vehicles"] || []
+  end
+
+  def gemini_multiple_violations?
+    return false unless gemini?
+
+    data["multiple_violations"] == true
   end
 
   def address
@@ -99,6 +126,18 @@ class DataSet < ApplicationRecord
       end
     else
       raise "not supported by #{kind}"
+    end
+  end
+
+  private
+
+  def gemini_primary_vehicle
+    vehicles = data["vehicles"]
+    if vehicles.present?
+      vehicles.find { |v| v["is_likely_subject"] } || vehicles.first
+    else
+      # Legacy simple format (no vehicles array)
+      data
     end
   end
 end

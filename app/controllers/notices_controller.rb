@@ -220,6 +220,7 @@ class NoticesController < ApplicationController
     @photo = @notice.photos.find(params[:photo_id])
     @exif = @notice.data_sets.exif.find_by(keyable: @photo)
     @recognition =
+      @notice.data_sets.gemini.find_by(keyable: @photo) ||
       @notice.data_sets.google_vision.find_by(keyable: @photo) ||
       @notice.data_sets.car_ml.find_by(keyable: @photo)
     @geolocation = @notice.data_sets.geocoder.find_by(keyable: @photo)
