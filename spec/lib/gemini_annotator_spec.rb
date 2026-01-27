@@ -12,6 +12,43 @@ describe GeminiAnnotator do
     ENV["GEMINI_MODEL"] = "2.0"
   end
 
+  let(:gemini_response) do
+    {
+      candidates: [{
+        content: {
+          parts: [{
+            text: {
+              vehicles: [
+                {
+                  registration: "HH AB 1234",
+                  brand: "Mercedes-Benz",
+                  color: "silver",
+                  vehicle_type: "car",
+                  location_in_image: "center",
+                  is_likely_subject: true,
+                  violation_visible: true,
+                  violation_hint: "parked on sidewalk",
+                },
+                {
+                  registration: "B XY 567",
+                  brand: "BMW",
+                  color: "black",
+                  vehicle_type: "car",
+                  location_in_image: "left background",
+                  is_likely_subject: false,
+                  violation_visible: false,
+                  violation_hint: nil,
+                },
+              ],
+              scene_description: "Two cars parked on a residential street.",
+              multiple_violations: false,
+            }.to_json,
+          }],
+        },
+      }],
+    }
+  end
+
   after do
     ENV.delete("GEMINI_API_KEY")
     ENV.delete("GEMINI_MODEL")
@@ -41,43 +78,6 @@ describe GeminiAnnotator do
   end
 
   describe "#annotate_file" do
-    let(:gemini_response) do
-      {
-        candidates: [{
-          content: {
-            parts: [{
-              text: {
-                vehicles: [
-                  {
-                    registration: "HH AB 1234",
-                    brand: "Mercedes-Benz",
-                    color: "silver",
-                    vehicle_type: "car",
-                    location_in_image: "center",
-                    is_likely_subject: true,
-                    violation_visible: true,
-                    violation_hint: "parked on sidewalk",
-                  },
-                  {
-                    registration: "B XY 567",
-                    brand: "BMW",
-                    color: "black",
-                    vehicle_type: "car",
-                    location_in_image: "left background",
-                    is_likely_subject: false,
-                    violation_visible: false,
-                    violation_hint: nil,
-                  },
-                ],
-                scene_description: "Two cars parked on a residential street.",
-                multiple_violations: false,
-              }.to_json,
-            }],
-          },
-        }],
-      }
-    end
-
     it "returns multi-vehicle structured data" do
       stub_request(:post, api_url)
         .to_return(
@@ -177,6 +177,52 @@ describe GeminiAnnotator do
         parts = body.dig("contents", 0, "parts")
         parts.any? { |p| p.dig("inline_data", "mime_type") == "image/jpeg" } &&
           parts.any? { |p| p.dig("inline_data", "data").present? }
+      end)
+    end
+  end
+
+  describe "#annotate_object" do
+    let(:bucket_name) { "test-bucket" }
+    let(:key) { "uploads/photo.jpg" }
+
+    before do
+      allow(Annotator).to receive(:bucket_name).and_return(bucket_name)
+    end
+
+    it "sends GCS URI via file_data instead of downloading bytes" do
+      stub_request(:post, api_url)
+        .to_return(
+          status: 200,
+          body: gemini_response.to_json,
+          headers: { "Content-Type" => "application/json" },
+        )
+
+      subject.annotate_object(key)
+
+      expect(WebMock).to(have_requested(:post, api_url).with do |req|
+        body = JSON.parse(req.body)
+        parts = body.dig("contents", 0, "parts")
+        file_part = parts.find { |p| p.key?("file_data") }
+        file_part.present? &&
+          file_part.dig("file_data", "file_uri") == "gs://#{bucket_name}/#{key}" &&
+          file_part.dig("file_data", "mime_type") == "image/jpeg"
+      end)
+    end
+
+    it "does not send inline_data" do
+      stub_request(:post, api_url)
+        .to_return(
+          status: 200,
+          body: gemini_response.to_json,
+          headers: { "Content-Type" => "application/json" },
+        )
+
+      subject.annotate_object(key)
+
+      expect(WebMock).to(have_requested(:post, api_url).with do |req|
+        body = JSON.parse(req.body)
+        parts = body.dig("contents", 0, "parts")
+        parts.none? { |p| p.key?("inline_data") }
       end)
     end
   end

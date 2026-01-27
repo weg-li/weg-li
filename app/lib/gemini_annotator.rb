@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "google/cloud/storage"
-
 class GeminiAnnotator
   VEHICLE_COLORS = %w[black white silver gray beige blue brown yellow green red violet purple pink orange gold].freeze
   VEHICLE_TYPES = %w[car truck bike scooter van].freeze
@@ -13,10 +11,8 @@ class GeminiAnnotator
   }.freeze
 
   def annotate_object(key)
-    image_bytes = download_bytes(key)
-    return nil if image_bytes.blank?
-
-    analyze_image(image_bytes)
+    gcs_uri = "gs://#{Annotator.bucket_name}/#{key}"
+    call_api(request_body_with_uri(gcs_uri))
   rescue StandardError => e
     Rails.logger.error("GeminiAnnotator error for key #{key}: #{e.message}")
     nil
@@ -24,7 +20,8 @@ class GeminiAnnotator
 
   def annotate_file(file_name = Rails.root.join("spec/fixtures/files/mercedes.jpg").to_s)
     image_bytes = File.binread(file_name)
-    analyze_image(image_bytes)
+    encoded = Base64.strict_encode64(image_bytes)
+    call_api(request_body_with_inline_data(encoded))
   end
 
   def self.normalize_plate(plate)
@@ -42,13 +39,8 @@ class GeminiAnnotator
 
   private
 
-  def analyze_image(image_bytes, mime_type: "image/jpeg")
-    encoded = Base64.strict_encode64(image_bytes)
-
-    response = client.post(
-      api_url,
-      json: request_body(encoded, mime_type),
-    )
+  def call_api(body)
+    response = client.post(api_url, json: body)
 
     if response.status.success?
       parse_response(response)
@@ -58,7 +50,19 @@ class GeminiAnnotator
     end
   end
 
-  def request_body(encoded_image, mime_type)
+  def request_body_with_uri(gcs_uri, mime_type: "image/jpeg")
+    {
+      contents: [{
+        parts: [
+          { text: prompt },
+          { file_data: { mime_type:, file_uri: gcs_uri } },
+        ],
+      }],
+      generationConfig: generation_config,
+    }
+  end
+
+  def request_body_with_inline_data(encoded_image, mime_type: "image/jpeg")
     {
       contents: [{
         parts: [
@@ -66,10 +70,14 @@ class GeminiAnnotator
           { inline_data: { mime_type:, data: encoded_image } },
         ],
       }],
-      generationConfig: {
-        responseMimeType: "application/json",
-        responseSchema: response_schema,
-      },
+      generationConfig: generation_config,
+    }
+  end
+
+  def generation_config
+    {
+      responseMimeType: "application/json",
+      responseSchema: response_schema,
     }
   end
 
@@ -157,19 +165,6 @@ class GeminiAnnotator
   rescue JSON::ParserError => e
     Rails.logger.error("Gemini response parse error: #{e.message}")
     nil
-  end
-
-  def download_bytes(key)
-    storage = Google::Cloud::Storage.new
-    bucket = storage.bucket(Annotator.bucket_name)
-    file = bucket.file(key)
-    return nil if file.nil?
-
-    io = StringIO.new
-    io.set_encoding("BINARY")
-    file.download(io)
-    io.rewind
-    io.read
   end
 
   def client
