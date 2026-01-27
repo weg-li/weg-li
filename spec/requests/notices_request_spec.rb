@@ -199,6 +199,22 @@ describe "notices", type: :request do
     end
   end
 
+  context "GET :suggest_address" do
+    it "suggests data from a notice" do
+      get suggest_address_notice_path(notice)
+
+      expect(JSON.parse(response.body)["results"]).not_to be_empty
+    end
+  end
+
+  context "GET :suggest" do
+    it "suggests data from a notice" do
+      get suggest_notice_path(notice, photo_id: notice.photos.first.id)
+
+      expect(JSON.parse(response.body)["results"]).not_to be_empty
+    end
+  end
+
   context "PATCH :purge" do
     it "removes an image from a notice" do
       expect do

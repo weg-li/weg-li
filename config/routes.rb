@@ -73,6 +73,7 @@ Rails.application.routes.draw do
       get :colors
       get :share
       get :suggest
+      get :suggest_address
       get :pdf
       get :winowig
       get :retrieve

@@ -82,6 +82,7 @@ class Notice < ApplicationRecord
   scope :for_public, -> { where.not(status: :disabled) }
   # REM: (PS) \W in live postgres is matching umlauts for whatever reason.
   scope :search, ->(term) { where("regexp_replace(notices.registration, '(\s|-)', '', 'g') ILIKE :term", term: "%#{term.gsub(/(\s|-)/, '')}%") }
+  scope :search_address, ->(term) { where("notices.street ILIKE :term", term: "%#{term}%") }
   scope :preselect, -> { shared.limit(3) }
   scope :active, -> { where(archived: false) }
   scope :archived, -> { where(archived: true) }

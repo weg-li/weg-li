@@ -31,10 +31,19 @@ class NoticesController < ApplicationController
     term = (params[:term] || "").upcase
     notices = current_user.notices.active.search(term).order(:registration).limit(25)
 
-    results = notices
-                .pluck(:registration, :brand, :color)
-                .uniq
-                .map { |registration, brand, color| { id: registration, text: registration.upcase, brand:, color: } }
+    results = notices.pluck(:registration, :brand, :color)
+    results = results.uniq.map { |registration, brand, color| { id: registration, text: registration.upcase, brand:, color: } }
+    results += [{ id: term, text: term }]
+
+    render json: { results: }
+  end
+
+  def suggest_address
+    term = (params[:term] || "").strip
+    notices = current_user.notices.active.search_address(term).order(:street).limit(25)
+
+    results = notices.pluck(:street, :zip, :city)
+    results = results.uniq.map { |street, zip, city| { id: street, text: street, zip:, city: } }
     results += [{ id: term, text: term }]
 
     render json: { results: }

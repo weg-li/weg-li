@@ -49,12 +49,8 @@
       = form.label :address, class: "control-label control-label-required"
       - address = notice.data_sets.select(&:geocoder?).map(&:address).compact.first
       .input-group
-        = form.text_field :street, placeholder: 'z.B. Sylvesterallee 7', class: "form-control", required: true
-        a.input-group-addon(href="#" data-toggle="modal" data-target="#modal_map")
-          span.glyphicon.glyphicon-map-marker
-        - coordinates = notice.coordinates? ? notice.map_data : address.present? ? { latitude: address[:latitude], longitude: address[:longitude] } : current_user.map_data
-        = render('picker_modal', coordinates:)
-
+        = form.select :street, [], { include_blank: 'z.B. Sylvesterallee 7' }, { class: "form-control", required: true, data: {'select2-disabled' => true} }
+        = render('address_suggest', notice: notice)
       - if address.present?
         .input-group#pick_address
           a(href="javascript:;" onclick="$('#notice_street').val('#{address[:street]}'); $('#notice_city').val('#{address[:city]}'); $('#notice_zip').val('#{address[:zip]}'); $('#notice_latitude').val('#{address[:latitude]}'); $('#notice_longitude').val('#{address[:longitude]}'); $('#pick_address').fadeOut(); return false;")
@@ -64,14 +60,18 @@
 
   .col-lg-4
     .form-group
-      = form.label :city, class: "control-label control-label-required"
-      = form.text_field :city, placeholder: 'z.B. Hamburg', class: "form-control", required: true
-
-  .col-lg-4
-    .form-group
       = form.label :zip, class: "control-label control-label-required"
       = form.text_field :zip, placeholder: 'z.B. 22525', class: "form-control", required: true, maxlength: 5, pattern: '\d{5}'
 
+  .col-lg-4
+    .form-group
+      = form.label :city, class: "control-label control-label-required"
+      .input-group
+        = form.text_field :city, placeholder: 'z.B. Hamburg', class: "form-control", required: true
+        a.input-group-addon(href="#" data-toggle="modal" data-target="#modal_map")
+          span.glyphicon.glyphicon-map-marker
+        - coordinates = notice.coordinates? ? notice.map_data : address.present? ? { latitude: address[:latitude], longitude: address[:longitude] } : current_user.map_data
+        = render('picker_modal', coordinates:)
 .row
   .col-lg-12
     .form-group
