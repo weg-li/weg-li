@@ -237,6 +237,56 @@ describe Notice do
     end
   end
 
+  context "suggested_registrations" do
+    it "collects registrations from data_sets and the notice itself" do
+      notice = Fabricate.create(:notice, registration: "HH PS 123")
+      Fabricate.create(:data_set, setable: notice, keyable: notice.photos.first, kind: :car_ml,
+                                  data: { "suggestions" => { "license_plate_number" => ["HH AB 456"], "make" => [], "color" => [] } })
+
+      expect(notice.suggested_registrations).to contain_exactly("HH AB 456", "HH PS 123")
+    end
+
+    it "deduplicates registrations" do
+      notice = Fabricate.create(:notice, registration: "HH AB 456")
+      Fabricate.create(:data_set, setable: notice, keyable: notice.photos.first, kind: :car_ml,
+                                  data: { "suggestions" => { "license_plate_number" => ["HH AB 456"], "make" => [], "color" => [] } })
+
+      expect(notice.suggested_registrations).to eq(["HH AB 456"])
+    end
+  end
+
+  context "suggested_brands" do
+    it "collects brands from data_sets" do
+      notice = Fabricate.create(:notice)
+      Fabricate.create(:data_set, setable: notice, keyable: notice.photos.first, kind: :car_ml,
+                                  data: { "suggestions" => { "license_plate_number" => [], "make" => ["BMW"], "color" => [] } })
+
+      expect(notice.suggested_brands).to eq(["BMW"])
+    end
+  end
+
+  context "suggested_colors" do
+    it "collects colors from data_sets" do
+      notice = Fabricate.create(:notice)
+      Fabricate.create(:data_set, setable: notice, keyable: notice.photos.first, kind: :car_ml,
+                                  data: { "suggestions" => { "license_plate_number" => [], "make" => [], "color" => ["black"] } })
+
+      expect(notice.suggested_colors).to eq(["black"])
+    end
+  end
+
+  context "suggested_tbnrs" do
+    it "returns top tbnrs by frequency" do
+      notice = Fabricate.create(:notice)
+      Fabricate.create(:data_set, setable: notice, keyable: notice.photos.first, kind: :proximity,
+                                  data: [{ "tbnr" => "141312" }, { "tbnr" => "141312" }, { "tbnr" => "142170" }, { "tbnr" => "141312" }, { "tbnr" => "142170" }])
+
+      result = notice.suggested_tbnrs
+      expect(result).to contain_exactly("142170", "141312")
+      expect(result.last).to eq("141312") # most frequent last
+    end
+  end
+
   context "yearly_statistics" do
     it "calculates yearly_statistics" do
       Fabricate(:notice)

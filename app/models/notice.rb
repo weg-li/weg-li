@@ -397,6 +397,29 @@ class Notice < ApplicationRecord
     date_times.map { |dt| DateTime.new(dt.year, dt.month, dt.day, dt.hour, dt.min, 0, dt.zone) }.uniq.sort
   end
 
+  def suggested_registrations
+    suggestions_from_data_sets(:registrations).push(registration).compact.uniq
+  end
+
+  def suggested_brands
+    suggestions_from_data_sets(:brands)
+  end
+
+  def suggested_colors
+    suggestions_from_data_sets(:colors)
+  end
+
+  def suggested_address
+    @suggested_address ||= data_sets.select(&:geocoder?).map(&:address).compact.first
+  end
+
+  def suggested_tbnrs(limit = 3)
+    @suggested_tbnrs ||= begin
+      tbnrs = data_sets.select(&:proximity?).flat_map(&:tbnrs).compact
+      tbnrs.uniq.sort_by { |n| tbnrs.count(n) }.last(limit)
+    end
+  end
+
   def file_name(extension = :pdf, prefix: nil)
     "#{"#{prefix}_" if prefix}#{start_date.strftime('%Y%m%d_%H%M')}_#{registration.parameterize.upcase}.#{extension}"
   end
@@ -436,6 +459,15 @@ class Notice < ApplicationRecord
   end
 
   private
+
+  def suggestions_from_data_sets(attribute)
+    @suggestions_from_data_sets ||= {}
+    @suggestions_from_data_sets[attribute] ||= begin
+      google_vision = data_sets.select(&:google_vision?).flat_map(&attribute)
+      car_ml = data_sets.select(&:car_ml?).flat_map(&attribute)
+      car_ml.concat(google_vision).compact.uniq
+    end
+  end
 
   def attachments
     photos.map do |photo|
