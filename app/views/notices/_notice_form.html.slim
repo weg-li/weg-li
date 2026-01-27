@@ -125,6 +125,27 @@ javascript:
     }
   }
 
+  function setEndDateRelative(offsetMinutes) {
+    var startDate = $('#notice_start_date_date').val();
+    var startTime = $('#notice_start_date_time').val();
+    var dt;
+    if (startDate && startTime) {
+      dt = new Date(startDate + 'T' + startTime);
+    } else {
+      dt = new Date();
+    }
+    dt.setMinutes(dt.getMinutes() + offsetMinutes);
+    var now = new Date();
+    if (dt > now) { dt = now; }
+    var month = String(dt.getMonth() + 1).padStart(2, '0');
+    var day = String(dt.getDate()).padStart(2, '0');
+    var hours = String(dt.getHours()).padStart(2, '0');
+    var minutes = String(dt.getMinutes()).padStart(2, '0');
+    $('#notice_end_date_date').val(dt.getFullYear() + '-' + month + '-' + day);
+    $('#notice_end_date_time').val(hours + ':' + minutes);
+    $('#pick_end_date').fadeOut();
+  }
+
 .row
   .col-lg-6
     .form-group
@@ -171,10 +192,9 @@ javascript:
                   span(style="text-decoration:none") => l(date_time, format: :short)
                   span.glyphicon.glyphicon-circle-arrow-left
         - else
-          - start_date = date_times.first || Time.now
-          - date_suggestions = { '1 Min.' => start_date + 1.minutes, '3 Min.' => start_date + 4.minutes, '15 Min.' => start_date + 16.minutes, '1 Std.' => start_date + 61.minutes }
-          - date_suggestions.each do |desc, date_time|
-            a(href="javascript:;" onclick="$('#notice_end_date_date').val('#{date_time.strftime('%Y-%m-%d')}'); $('#notice_end_date_time').val('#{date_time.strftime('%H:%M')}'); $('#pick_end_date').fadeOut(); return false;")
+          - date_suggestions = { '1 Min.' => 1, '3 Min.' => 4, '15 Min.' => 16, '1 Std.' => 61 }
+          - date_suggestions.each do |desc, offset_minutes|
+            a(href="javascript:;" onclick="setEndDateRelative(#{offset_minutes}); return false;")
                 span.label.label-default.label-picker(title=desc)
                   span(style="text-decoration:none") => desc
                   span.glyphicon.glyphicon-circle-arrow-left
