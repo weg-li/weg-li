@@ -73,6 +73,14 @@ class User < ApplicationRecord
     (@favorite_tbnrs + Charge::FAVS).first(max)
   end
 
+  def registration_suggestions(registrations)
+    notices.active
+      .where(registration: registrations)
+      .order(updated_at: :desc)
+      .pluck(:registration, :brand, :color)
+      .each_with_object({}) { |(reg, brand, color), h| h[reg] ||= { brand: brand.presence, color: color.presence } }
+  end
+
   def validate!
     auth = authorizations.find_or_initialize_by(provider: "email")
     auth.update!(uid: email_uid)

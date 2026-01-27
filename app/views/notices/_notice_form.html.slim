@@ -9,10 +9,10 @@
       = form.select :registration, registrations, { include_blank: 'z.B. HH-SV 1887' }, { class: "form-control", required: true, data: {'select2-disabled' => true} }
       = render('auto_suggest', notice: notice)
       .input-group#pick_registration
-        - brand_suggestion = notice.data_sets.select(&:car_ml?).flat_map(&:brands).concat(notice.data_sets.select(&:google_vision?).flat_map(&:brands)).compact.first
-        - color_suggestion = notice.data_sets.select(&:car_ml?).flat_map(&:colors).concat(notice.data_sets.select(&:google_vision?).flat_map(&:colors)).compact.first
+        - suggestions = current_user.registration_suggestions(registrations)
         - registrations.each do |registration|
-          a(href="javascript:;" onclick="$('#notice_registration').val('#{registration}').trigger('change'); #{"$('#notice_brand').val('#{brand_suggestion}').trigger('change'); $('#pick_brand').fadeOut();" if brand_suggestion} #{"$('#notice_color').val('#{color_suggestion}').trigger('change'); $('#pick_color').fadeOut();" if color_suggestion} $('#pick_registration').fadeOut(); return false;")
+          - match = suggestions[registration]
+          a(href="javascript:;" onclick="$('#notice_registration').val('#{registration}').trigger('change'); #{"$('#notice_brand').val('#{match[:brand]}').trigger('change'); $('#pick_brand').fadeOut();" if match&.dig(:brand)} #{"$('#notice_color').val('#{match[:color]}').trigger('change'); $('#pick_color').fadeOut();" if match&.dig(:color)} $('#pick_registration').fadeOut(); return false;")
               span.label.label-default.label-picker(title=registration)
                 span(style="text-decoration:none")=> registration
                 span.glyphicon.glyphicon-circle-arrow-left

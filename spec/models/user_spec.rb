@@ -64,6 +64,44 @@ describe User do
     expect(user.wegli_email).to eql("dd-33@anzeige.weg.li")
   end
 
+  context "registration_suggestions" do
+    it "returns brand and color from the most recent matching notice" do
+      user = Fabricate.create(:user)
+      Fabricate.create(:notice, user:, registration: "HH AB 123", brand: "BMW", color: "black")
+
+      result = user.registration_suggestions(["HH AB 123"])
+
+      expect(result).to eq("HH AB 123" => { brand: "BMW", color: "black" })
+    end
+
+    it "returns empty hash when no history exists" do
+      user = Fabricate.create(:user)
+
+      result = user.registration_suggestions(["HH ZZ 999"])
+
+      expect(result).to eq({})
+    end
+
+    it "ignores nil brand and color" do
+      user = Fabricate.create(:user)
+      Fabricate.create(:notice, user:, registration: "HH AB 123", brand: nil, color: nil)
+
+      result = user.registration_suggestions(["HH AB 123"])
+
+      expect(result).to eq("HH AB 123" => { brand: nil, color: nil })
+    end
+
+    it "uses the most recent notice per registration" do
+      user = Fabricate.create(:user)
+      Fabricate.create(:notice, user:, registration: "HH AB 123", brand: "Audi", color: "silver", updated_at: 2.days.ago)
+      Fabricate.create(:notice, user:, registration: "HH AB 123", brand: "BMW", color: "black", updated_at: 1.day.ago)
+
+      result = user.registration_suggestions(["HH AB 123"])
+
+      expect(result).to eq("HH AB 123" => { brand: "BMW", color: "black" })
+    end
+  end
+
   context "admin" do
     it "has the proper role" do
       expect(admin).to be_admin
