@@ -114,12 +114,14 @@ class GPickerMap {
         marker.setLatLng(latlng);
 
         const data = await geocode(latlng.lat, latlng.lng);
+        console.log("geocode data", data);
         if (data.result) {
           $(this.street).val(data.result.street);
           $(this.zip).val(data.result.zip);
           $(this.city).val(data.result.city);
           $(this.latitude).val(latlng.lat);
           $(this.longitude).val(latlng.lng);
+          marker.bindTooltip(data.result.street).openTooltip();
         } else {
           window.alert("Es konnten keine Ergebnisse gefunden werden.");
         }
