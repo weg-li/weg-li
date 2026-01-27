@@ -72,6 +72,23 @@ describe "notices", type: :request do
     end
   end
 
+  context "GET :mergers" do
+    it "renders the page" do
+      get mergers_notice_path(notice)
+
+      expect(response).to be_successful
+    end
+  end
+
+  context "PATCH :merge" do
+    it "renders the page" do
+      others = Fabricate.times(2, :notice, registration: notice.registration, user: notice.user, start_date: notice.start_date, brand: "Mercedes-Benz", color: "black", location: "Am Weiher 123", flags: 1, note: "Test")
+      patch merge_notice_path(notice), params: { selected: others.map(&:id) }
+
+      expect(response).to be_redirect
+    end
+  end
+
   context "POST :bulk" do
     it "destroys notices en bulk" do
       notice = Fabricate(:notice, user:)

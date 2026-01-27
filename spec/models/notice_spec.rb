@@ -51,6 +51,21 @@ describe Notice do
     end
   end
 
+  context "merge!" do
+    it "merges notices" do
+      notice = Fabricate(:notice, color: nil, location: nil, tbnr: nil, flags: nil, note: nil)
+      others = Fabricate.times(2, :notice, registration: notice.registration, user: notice.user, start_date: notice.start_date, brand: "Mercedes-Benz", color: "black", location: "Am Weiher 123", flags: 1, note: "Test")
+
+      notice.merge!(others)
+
+      expect(notice.reload.brand).to eql("Mercedes-Benz")
+      expect(notice.reload.color).to eql("black")
+      expect(notice.reload.location).to eql("Am Weiher 123")
+      expect(notice.reload.flags).to eql(1)
+      expect(notice.reload.note).to eql("Test")
+    end
+  end
+
   context "wegli_email" do
     it "creates and reads the proper notice" do
       notice = Fabricate.create(:notice)

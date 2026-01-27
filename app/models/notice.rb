@@ -225,6 +225,30 @@ class Notice < ApplicationRecord
     args
   end
 
+  def merge!(others)
+    Notice.transaction do
+      others.each do |other|
+        other.photos.each do |photo|
+          photos.attach(photo.blob)
+        end
+
+        other.data_sets.each do |data_set|
+          data_set.update!(setable: self)
+        end
+
+        self.brand ||= other.brand
+        self.color ||= other.color
+        self.location ||= other.location
+        self.tbnr ||= other.tbnr
+        self.flags ||= other.flags
+        self.note ||= other.note
+        save_incomplete!
+
+        other.destroy!
+      end
+    end
+  end
+
   def date_doubles
     return false if registration.blank?
 

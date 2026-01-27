@@ -1,0 +1,53 @@
+- set_title t('navigation.notices')
+
+.well
+  span
+    |
+      In dieser Ansicht kannst du offene Meldungen für ein Fahrzeug zusammenführen. 
+      Wähle dazu die gewünschten Meldungen aus und klicke auf "Auswahl zusammenführen".
+      Die Beweisfotos und Daten der ausgewählten Meldungen werden in die aktuelle Meldung übernommen und anschließend gelöscht.
+
+= form_tag merge_notice_path(@notice), method: :patch
+  .panel.panel-default
+    .table-responsive.table-padding
+      table.table.table-striped.table-hover
+        thead
+          tr
+            th
+            th= Notice.human_attribute_name(:photos)
+            th= Notice.human_attribute_name(:registration)
+            th= Notice.human_attribute_name(:created_at)
+            th= Notice.human_attribute_name(:date)
+            th
+        tbody
+          - if @notices.present?
+            - @notices.each do |notice|
+              tr
+                td
+                  label.btn-sm
+                    = check_box_tag 'selected[]', notice.id, false, class: 'select-all'
+                td
+                  = link_to_notice(notice) do
+                    - notice.photos.first(1).each do |photo|
+                      = image_tag(url_for_photo(photo, size: :preview), class: 'index-photo')
+                td
+                  = link_to_notice(notice) do
+                    = registration_label(notice.registration)
+                td(nowrap)
+                  = link_to_notice(notice) do
+                    = d(notice.created_at)
+                td(nowrap)
+                  = link_to_notice(notice) do
+                    = d(notice.start_date, default: '-')
+                td
+                  = link_to_notice(notice) do
+                    = render 'status', status: notice.status
+          - else
+            tr
+              td(colspan=6)
+                strong Keine Meldungen zum zusammenführen gefunden!
+
+  .panel-footer.text-right
+    = button_tag type: :submit, class: 'btn btn-success', data: { confirm: 'Die ausgewählten Meldungen mit dieser zusammenführen?' }
+      span.glyphicon.glyphicon-save-file>
+      span Auswahl zusammenführen

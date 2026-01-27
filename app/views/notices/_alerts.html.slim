@@ -3,7 +3,7 @@
   .alert.alert-warning.alert-dismissable
     button type="button" class="close" data-dismiss="alert" ×
     .pull-right
-      = button_to @notice, method: :delete, class: 'btn btn-xs btn-default', data: {confirm: 'Die Meldung wird endgültig gelöscht'}
+      = button_to @notice, method: :delete, class: 'btn btn-xs btn-danger', data: {confirm: 'Die Meldung wird endgültig gelöscht'}
         | Meldung löschen
 
     strong
@@ -16,11 +16,14 @@
   .alert.alert-warning.alert-dismissable
     button type="button" class="close" data-dismiss="alert" ×
     .pull-right
-      = button_to @notice, method: :delete, class: 'btn btn-xs btn-default', data: {confirm: 'Die Meldung wird endgültig gelöscht'}
+      = button_to @notice, method: :delete, class: 'btn btn-xs btn-danger', data: {confirm: 'Die akteulle Meldung wird endgültig gelöscht'}
         | Meldung löschen
+    .pull-right
+      = button_to mergers_notice_path(@notice), method: :get, class: 'btn btn-xs btn-default'
+        | Meldung zusammenführen
 
     strong
-      | Achtung, du hast schon eine Meldung für dieses Datum mit identischem Nummernschild, falls es OK ist einfach fortfahren:
+      | Achtung, du hast schon eine Meldung für dieses Datum mit diesem Nummernschild, falls es OK ist einfach fortfahren:
       - date_doubles.each do |notice|
         =< link_to "Meldung ##{notice.id}", notice
 
@@ -28,7 +31,7 @@
   .alert.alert-warning.alert-dismissable
     button type="button" class="close" data-dismiss="alert" ×
     .pull-right
-      = button_to @notice, method: :delete, class: 'btn btn-xs btn-default', data: {confirm: 'Die Meldung wird endgültig gelöscht'}
+      = button_to @notice, method: :delete, class: 'btn btn-xs btn-danger', data: {confirm: 'Die aktuelle Meldung wird endgültig gelöscht'}
         | Meldung löschen
 
     strong Achtung, die Verjährungsfrist von Parkvergehen beträgt nur 3 Monate. Es ist fraglich, ob diese Anzeige noch rechtzeitig bearbeitet wird.

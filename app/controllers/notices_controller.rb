@@ -245,6 +245,21 @@ class NoticesController < ApplicationController
     send_data data, filename: notice.file_name
   end
 
+  def mergers
+    @notice = current_user.notices.from_param(params[:id])
+
+    @notices = @notice.date_doubles.open
+  end
+
+  def merge
+    notice = current_user.notices.from_param(params[:id])
+    mergers = current_user.notices.where(id: params[:selected])
+
+    notice.merge!(mergers)
+
+    redirect_to edit_notice_path(notice), notice: "Die Meldungen wurden zusammengeführt"
+  end
+
   # TODO: (PS) add links for owi21 and winowig to the detail page
   def winowig
     notice = current_user.notices.active.complete.from_param(params[:id])

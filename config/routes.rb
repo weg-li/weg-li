@@ -76,6 +76,7 @@ Rails.application.routes.draw do
       get :pdf
       get :winowig
       get :retrieve
+      get :mergers
       patch :forward
       patch :status
       patch :duplicate
@@ -85,6 +86,7 @@ Rails.application.routes.draw do
       patch :analyze
       patch :purge
       patch :upload
+      patch :merge
     end
 
     collection do
