@@ -29,7 +29,16 @@ class AnalyzerJob < ApplicationJob
 
   def analyze(notice)
     handle_exif(notice)
-    handle_vision(notice)
+
+    case annotator_backend
+    when "gemini"
+      handle_gemini(notice)
+    when "vision"
+      handle_vision(notice)
+    else # "auto"
+      gemini_success = handle_gemini(notice) if gemini_available?
+      handle_vision(notice) unless gemini_success
+    end
 
     notice.status = :open
     notice.save_incomplete!
@@ -67,6 +76,40 @@ class AnalyzerJob < ApplicationJob
       notice.brand ||= data_set.brands.first
       notice.color ||= data_set.colors.first
     end
+  end
+
+  def handle_gemini(notice)
+    notice.photos.each do |photo|
+      result = gemini_annotator.annotate_object(photo.key)
+      next if result.blank?
+
+      data_set =
+        notice.data_sets.create!(
+          data: result,
+          kind: :gemini,
+          keyable: photo,
+        )
+
+      registrations = data_set.registrations
+      if registrations.present?
+        apply_registrations(notice, registrations, data_set)
+        return true
+      end
+    end
+
+    false
+  end
+
+  def annotator_backend
+    ENV.fetch("ANNOTATOR_BACKEND", "auto")
+  end
+
+  def gemini_available?
+    ENV["GEMINI_API_KEY"].present?
+  end
+
+  def gemini_annotator
+    @gemini_annotator ||= GeminiAnnotator.new
   end
 
   def annotator
