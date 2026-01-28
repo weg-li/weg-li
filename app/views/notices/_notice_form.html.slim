@@ -48,11 +48,11 @@
       = form.label :address, class: "control-label control-label-required"
       - address = notice.suggested_address
       .input-group
-        = form.select :street, [notice.street].compact, { include_blank: 'z.B. Sylvesterallee 7' }, { class: "form-control", required: true, data: {'select2-disabled' => true} }
+        = form.select :street, [notice.street, (address || {})[:street]].compact, { include_blank: 'z.B. Sylvesterallee 7' }, { class: "form-control", required: true, data: {'select2-disabled' => true} }
         = render('address_suggest', notice: notice)
       - if address.present?
         .input-group#pick_address
-          a(href="javascript:;" onclick="$('#notice_street').val('#{address[:street]}'); $('#notice_city').val('#{address[:city]}'); $('#notice_zip').val('#{address[:zip]}'); $('#notice_latitude').val('#{address[:latitude]}'); $('#notice_longitude').val('#{address[:longitude]}'); $('#pick_address').fadeOut(); return false;")
+          a(href="javascript:;" onclick="$('#notice_street').val('#{address[:street]}').trigger('change'); $('#notice_city').val('#{address[:city]}'); $('#notice_zip').val('#{address[:zip]}'); $('#notice_latitude').val('#{address[:latitude]}'); $('#notice_longitude').val('#{address[:longitude]}'); $('#pick_address').fadeOut(); return false;")
               span.label.label-default.label-picker(title=address[:street])
                 span(style="text-decoration:none") => address[:street]
                 span.glyphicon.glyphicon-circle-arrow-left

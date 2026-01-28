@@ -114,9 +114,10 @@ class GPickerMap {
         marker.setLatLng(latlng);
 
         const data = await geocode(latlng.lat, latlng.lng);
-        console.log("geocode data", data);
+        // console.log("geocode data", data);
         if (data.result) {
-          $(this.street).val(data.result.street);
+          const option = new Option(data.result.street, data.result.street, false, true);
+          $(this.street).append(option).trigger("change");
           $(this.zip).val(data.result.zip);
           $(this.city).val(data.result.city);
           $(this.latitude).val(latlng.lat);
