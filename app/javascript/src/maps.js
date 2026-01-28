@@ -116,7 +116,12 @@ class GPickerMap {
         const data = await geocode(latlng.lat, latlng.lng);
         // console.log("geocode data", data);
         if (data.result) {
-          const option = new Option(data.result.street, data.result.street, false, true);
+          const option = new Option(
+            data.result.street,
+            data.result.street,
+            false,
+            true,
+          );
           $(this.street).append(option).trigger("change");
           $(this.zip).val(data.result.zip);
           $(this.city).val(data.result.city);
