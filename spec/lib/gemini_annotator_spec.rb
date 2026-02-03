@@ -25,9 +25,9 @@ describe GeminiAnnotator do
                   color: "silver",
                   vehicle_type: "car",
                   location_in_image: "center",
+                  bounding_box: [350, 300, 700, 650],
+                  plate_bounding_box: [620, 400, 660, 550],
                   is_likely_subject: true,
-                  violation_visible: true,
-                  violation_hint: "parked on sidewalk",
                 },
                 {
                   registration: "B XY 567",
@@ -35,13 +35,12 @@ describe GeminiAnnotator do
                   color: "black",
                   vehicle_type: "car",
                   location_in_image: "left background",
+                  bounding_box: [200, 50, 400, 250],
+                  plate_bounding_box: [350, 100, 380, 200],
                   is_likely_subject: false,
-                  violation_visible: false,
-                  violation_hint: nil,
                 },
               ],
               scene_description: "Two cars parked on a residential street.",
-              multiple_violations: false,
             }.to_json,
           }],
         },
@@ -71,9 +70,10 @@ describe GeminiAnnotator do
         "brand" => "Mercedes-Benz",
         "color" => "silver",
         "is_likely_subject" => true,
+        "bounding_box" => [350, 300, 700, 650],
+        "plate_bounding_box" => [620, 400, 660, 550],
       )
       expect(result["scene_description"]).to be_present
-      expect(result["multiple_violations"]).to eql(false)
       expect(result["model_version"]).to eql(model)
     end
 
@@ -89,12 +89,11 @@ describe GeminiAnnotator do
                   color: "gray",
                   vehicle_type: "car",
                   location_in_image: "center",
+                  bounding_box: [300, 250, 700, 750],
+                  plate_bounding_box: [600, 350, 650, 550],
                   is_likely_subject: true,
-                  violation_visible: false,
-                  violation_hint: nil,
                 }],
                 scene_description: "A car parked on a street.",
-                multiple_violations: false,
               }.to_json,
             }],
           },
@@ -230,14 +229,14 @@ describe GeminiAnnotator do
       expect(WebMock).to have_requested(:post, /gemini-3-flash-preview/)
     end
 
-    it "defaults to 3.0" do
+    it "defaults to 2.5" do
       ENV.delete("GEMINI_MODEL")
 
-      stub_request(:post, /gemini-3-flash-preview/)
-        .to_return(status: 200, body: { candidates: [{ content: { parts: [{ text: { vehicles: [], scene_description: "", multiple_violations: false }.to_json }] } }] }.to_json)
+      stub_request(:post, /gemini-2.5-flash/)
+        .to_return(status: 200, body: { candidates: [{ content: { parts: [{ text: { vehicles: [], scene_description: "" }.to_json }] } }] }.to_json)
 
       subject.annotate_file
-      expect(WebMock).to have_requested(:post, /gemini-3-flash-preview/)
+      expect(WebMock).to have_requested(:post, /gemini-2.5-flash/)
     end
   end
 end

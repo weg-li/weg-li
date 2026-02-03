@@ -70,40 +70,23 @@ class GeminiAnnotator
 
   def prompt
     <<~PROMPT
-      You are analyzing a photo taken by a citizen reporter documenting illegal parking in Germany.
-      Your task is to identify all vehicles and determine which ones are committing parking violations.
-
-      ## German Parking Law Context
-
-      Common violations include:
-      - Parking on sidewalks (Gehweg) without explicit permission signs
-      - Parking on or blocking bike lanes (Radweg / Radschutzstreifen)
-      - Parking on zigzag lines (Zickzacklinien / Grenzmarkierung) — painted zig-zag patterns on the road, often near pedestrian crossings or bus stops, where stopping and parking is strictly prohibited
-      - Parking in no-parking zones (absolutes/eingeschränktes Haltverbot)
-      - Parking on crosswalks (Zebrastreifen) or within 5m of them
-      - Double parking (Zweite-Reihe-Parken)
-      - Parking in fire lanes (Feuerwehrzufahrt)
-      - Blocking lowered curbs (abgesenkter Bordstein)
-      - Parking against the direction of traffic
-
-      Look carefully at road markings, signs, curb paint, and the position of each vehicle relative to these features.
+      You are analyzing a photo of parked vehicles taken by a citizen reporter in Germany.
 
       ## Instructions
 
       For EACH vehicle visible in the image, extract:
-      - registration: License plate in German format (e.g. "B AB 1234", "HH XY 567", "M AB 123E" for electric). Use SPACE between city prefix, letters, and numbers. Set to null if not readable.
+      - registration: License plate in German format. Use SPACE between city prefix, letters, and numbers. Set to null if not readable.
       - brand: Manufacturer name (e.g. "Mercedes-Benz", "BMW", "Volkswagen"). Set to null if not identifiable.
       - color: Body color. Must be one of: #{VEHICLE_COLORS.join(', ')}. Set to null if not determinable.
       - vehicle_type: Must be one of: #{VEHICLE_TYPES.join(', ')}.
       - location_in_image: Where the vehicle appears (e.g. "center", "left foreground").
-      - is_likely_subject: true if the photographer likely intended to document this vehicle as violating parking rules. Consider camera focus, centering, proximity, and angle.
-      - violation_visible: true if this vehicle appears to be parked illegally based on visual evidence.
-      - violation_hint: Brief description of the violation if visible (e.g. "parked on zigzag line", "blocking bike lane"). Null if no violation apparent.
+      - bounding_box: [ymin, xmin, ymax, xmax] normalized to a 0–1000 scale, tightly enclosing the entire vehicle.
+      - plate_bounding_box: [ymin, xmin, ymax, xmax] normalized to a 0–1000 scale, tightly enclosing the license plate. Null if not visible.
+      - is_likely_subject: true if this vehicle is likely the main subject of the photo (consider focus, centering).
 
       Return a JSON object with:
-      - vehicles: Array of all vehicles, ordered by likelihood of being the violation subject (most likely first).
-      - scene_description: One sentence describing the scene and visible road markings.
-      - multiple_violations: true if more than one vehicle appears to be violating parking rules.
+      - vehicles: Array of all vehicles, ordered by likelihood of being the main subject (most likely first).
+      - scene_description: One sentence describing the scene.
     PROMPT
   end
 
@@ -121,17 +104,25 @@ class GeminiAnnotator
               color: { type: "STRING", nullable: true, enum: VEHICLE_COLORS },
               vehicle_type: { type: "STRING", nullable: true, enum: VEHICLE_TYPES },
               location_in_image: { type: "STRING" },
+              bounding_box: {
+                type: "ARRAY",
+                items: { type: "INTEGER" },
+                description: "Vehicle bounding box as [ymin, xmin, ymax, xmax] normalized to 0-1000",
+              },
+              plate_bounding_box: {
+                type: "ARRAY",
+                nullable: true,
+                items: { type: "INTEGER" },
+                description: "License plate bounding box as [ymin, xmin, ymax, xmax] normalized to 0-1000",
+              },
               is_likely_subject: { type: "BOOLEAN" },
-              violation_visible: { type: "BOOLEAN" },
-              violation_hint: { type: "STRING", nullable: true },
             },
-            required: %w[registration brand color vehicle_type location_in_image is_likely_subject violation_visible],
+            required: %w[registration brand color vehicle_type location_in_image bounding_box is_likely_subject],
           },
         },
         scene_description: { type: "STRING" },
-        multiple_violations: { type: "BOOLEAN" },
       },
-      required: %w[vehicles scene_description multiple_violations],
+      required: %w[vehicles scene_description],
     }
   end
 
@@ -170,7 +161,7 @@ class GeminiAnnotator
   end
 
   def model
-    raw = ENV.fetch("GEMINI_MODEL", "3.0")
+    raw = ENV.fetch("GEMINI_MODEL", "2.5")
     MODELS.fetch(raw, raw)
   end
 
