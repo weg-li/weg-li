@@ -24,9 +24,6 @@ describe GeminiAnnotator do
                   brand: "Mercedes-Benz",
                   color: "silver",
                   vehicle_type: "car",
-                  location_in_image: "center",
-                  bounding_box: [350, 300, 700, 650],
-                  plate_bounding_box: [620, 400, 660, 550],
                   is_likely_subject: true,
                 },
                 {
@@ -34,9 +31,6 @@ describe GeminiAnnotator do
                   brand: "BMW",
                   color: "black",
                   vehicle_type: "car",
-                  location_in_image: "left background",
-                  bounding_box: [200, 50, 400, 250],
-                  plate_bounding_box: [350, 100, 380, 200],
                   is_likely_subject: false,
                 },
               ],
@@ -70,8 +64,6 @@ describe GeminiAnnotator do
         "brand" => "Mercedes-Benz",
         "color" => "silver",
         "is_likely_subject" => true,
-        "bounding_box" => [350, 300, 700, 650],
-        "plate_bounding_box" => [620, 400, 660, 550],
       )
       expect(result["scene_description"]).to be_present
       expect(result["model_version"]).to eql(model)
@@ -88,9 +80,6 @@ describe GeminiAnnotator do
                   brand: "Porsche",
                   color: "gray",
                   vehicle_type: "car",
-                  location_in_image: "center",
-                  bounding_box: [300, 250, 700, 750],
-                  plate_bounding_box: [600, 350, 650, 550],
                   is_likely_subject: true,
                 }],
                 scene_description: "A car parked on a street.",

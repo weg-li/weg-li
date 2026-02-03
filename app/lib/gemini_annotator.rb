@@ -41,8 +41,8 @@ class GeminiAnnotator
     {
       contents: [{
         parts: [
-          { text: prompt },
           { file_data: { mime_type:, file_uri: gcs_uri } },
+          { text: prompt },
         ],
       }],
       generationConfig: generation_config,
@@ -53,8 +53,8 @@ class GeminiAnnotator
     {
       contents: [{
         parts: [
-          { text: prompt },
           { inline_data: { mime_type:, data: encoded_image } },
+          { text: prompt },
         ],
       }],
       generationConfig: generation_config,
@@ -70,19 +70,32 @@ class GeminiAnnotator
 
   def prompt
     <<~PROMPT
-      You are analyzing a photo of parked vehicles taken by a citizen reporter in Germany.
+      You are a license plate OCR specialist analyzing a photo from Germany.
 
-      ## Instructions
+      ## German License Plate Format
 
-      For EACH vehicle visible in the image, extract:
-      - registration: License plate in German format. Use SPACE between city prefix, letters, and numbers. Set to null if not readable.
+      Format: [DISTRICT] [LETTERS] [NUMBERS]
+      - DISTRICT: 1-3 letters (city code like B, M, HH, KÜN)
+      - LETTERS: 1-2 letters
+      - NUMBERS: 1-4 digits
+      - Optional E/H suffix for electric/historic
+
+      Examples: "B AB 1234", "M XY 567", "HH A 1", "KÜN AB 12"
+
+      IMPORTANT:
+      - Only transcribe characters you can clearly read
+      - Ignore TÜV/HU stickers (colored round seals) - they are NOT letters
+      - If uncertain about any character, return null for the whole plate
+      - Do NOT guess or hallucinate characters
+
+      ## Task
+
+      For each vehicle, extract:
+      - registration: License plate text. Use SPACE between district, letters, and numbers. Set to null if not clearly readable.
       - brand: Manufacturer name (e.g. "Mercedes-Benz", "BMW", "Volkswagen"). Set to null if not identifiable.
       - color: Body color. Must be one of: #{VEHICLE_COLORS.join(', ')}. Set to null if not determinable.
       - vehicle_type: Must be one of: #{VEHICLE_TYPES.join(', ')}.
-      - location_in_image: Where the vehicle appears (e.g. "center", "left foreground").
-      - bounding_box: [ymin, xmin, ymax, xmax] normalized to a 0–1000 scale, tightly enclosing the entire vehicle.
-      - plate_bounding_box: [ymin, xmin, ymax, xmax] normalized to a 0–1000 scale, tightly enclosing the license plate. Null if not visible.
-      - is_likely_subject: true if this vehicle is likely the main subject of the photo (consider focus, centering).
+      - is_likely_subject: true if this vehicle is likely the main subject of the photo.
 
       Return a JSON object with:
       - vehicles: Array of all vehicles, ordered by likelihood of being the main subject (most likely first).
@@ -103,21 +116,9 @@ class GeminiAnnotator
               brand: { type: "STRING", nullable: true },
               color: { type: "STRING", nullable: true, enum: VEHICLE_COLORS },
               vehicle_type: { type: "STRING", nullable: true, enum: VEHICLE_TYPES },
-              location_in_image: { type: "STRING" },
-              bounding_box: {
-                type: "ARRAY",
-                items: { type: "INTEGER" },
-                description: "Vehicle bounding box as [ymin, xmin, ymax, xmax] normalized to 0-1000",
-              },
-              plate_bounding_box: {
-                type: "ARRAY",
-                nullable: true,
-                items: { type: "INTEGER" },
-                description: "License plate bounding box as [ymin, xmin, ymax, xmax] normalized to 0-1000",
-              },
               is_likely_subject: { type: "BOOLEAN" },
             },
-            required: %w[registration brand color vehicle_type location_in_image bounding_box is_likely_subject],
+            required: %w[registration brand color vehicle_type is_likely_subject],
           },
         },
         scene_description: { type: "STRING" },
