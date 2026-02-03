@@ -11,4 +11,14 @@
   = hint do
     | Es werden nur Fotos im JPEG-Format bis #{number_to_human_size(upload_limit)} unterstützt. Dateien können auch per Drag&Drop hinzugefügt werden.
 
+- if access?(:community)
+  .well.well-sm.callout-warning
+    .row
+      .col-lg-12
+        h4 Analyse mit Gemini Flash 🤖
+        p 
+          |
+            Derzeit arbeiten wir an der Integration von Gemini Falsh zur automatischen Analyse und Kennzeichenerkennung!
+            Du bist Beta-Tester und hast die Möglichkeit dies in deinen #{link_to 'Einstellungen', edit_user_path} unter <em>Auto-Suggest / Backend</em> zu aktivieren.
+
 .well.well-sm.callout-primary= render('components/geocoding_hint')

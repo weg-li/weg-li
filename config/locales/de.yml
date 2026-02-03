@@ -67,6 +67,7 @@ de:
         zip: 'PLZ'
         city: 'Stadt'
         date_of_birth: 'Geburtsdatum'
+        analyzer: 'Analyse-Backend'
       reply:
         created_at: Eingang
         sender: Absender
@@ -286,6 +287,9 @@ de:
       active_users: 'Aktive Melder'
       total_users: 'Registrierte Bürger'
   users:
+    analyzers:
+      vision: 'Vision AI'
+      gemini_flash: 'Gemini Flash'
     access:
       admin: 'Admin'
       community: 'Community'

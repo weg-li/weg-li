@@ -67,7 +67,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    attributes = %i[email nickname name street zip city appendix date_of_birth phone] + User.bitfields[:flags].keys + User.bitfields[:autosuggest].keys
+    attributes = %i[email nickname name street zip city appendix date_of_birth phone analyzer] + User.bitfields[:flags].keys + User.bitfields[:autosuggest].keys
     params.require(:user).permit(attributes)
   end
 end

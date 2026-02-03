@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_07_193102) do
+ActiveRecord::Schema[7.2].define(version: 2026_02_03_150950) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -297,6 +297,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_07_193102) do
     t.datetime "last_login", precision: nil
     t.date "date_of_birth"
     t.integer "autosuggest", default: 0, null: false
+    t.integer "analyzer", default: 0, null: false
     t.index ["access"], name: "index_users_on_access"
     t.index ["api_token"], name: "index_users_on_api_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -325,11 +326,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_07_193102) do
   SQL
   create_view "leaders", materialized: true, sql_definition: <<-SQL
       SELECT count(*) AS count,
-      notices.user_id,
-      EXTRACT(week FROM notices.created_at) AS week,
-      EXTRACT(year FROM notices.created_at) AS year
+      user_id,
+      EXTRACT(week FROM created_at) AS week,
+      EXTRACT(year FROM created_at) AS year
      FROM notices
-    WHERE (notices.status = 3)
-    GROUP BY notices.user_id, (EXTRACT(week FROM notices.created_at)), (EXTRACT(year FROM notices.created_at));
+    WHERE (status = 3)
+    GROUP BY user_id, (EXTRACT(week FROM created_at)), (EXTRACT(year FROM created_at));
   SQL
 end

@@ -113,6 +113,17 @@
                   = form.check_box key
                   = t("users.autosuggest.#{key}")
 
+          
+        
+          - if access?(:community)
+            = form.label :analyzer, class: "control-label control-label-required"
+            = form.select :analyzer, User.analyzers.keys.map {|a| [t("users.analyzers.#{a}"), a]}, {}, class: "form-control", disabled: true, data: {'select2-disabled' => true}
+            / Wähle den Analyse-Dienst für die automatische Erkennung von Kennzeichen und weiteren Inhalten auf den Beweisfotos aus.
+            = hint do
+              | 
+                Wird in kürze für Beta-Tester verfügbar sein!
+                
+
         .panel-footer.clearfix
           .pull-right
             = form.submit "speichern", class: "btn btn-success"
