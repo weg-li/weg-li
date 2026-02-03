@@ -18,7 +18,7 @@ describe XmlGenerator do
 
         result = XmlGenerator.new.generate(notice, template, files: ["test.jpg"])
 
-        # file_fixture("#{template}.xml").write(result)
+        file_fixture("#{template}.xml").write(result) if ENV["UPDATE_FIXTURES"].present?
         expect(send(template)).to eql(result)
       end
     end

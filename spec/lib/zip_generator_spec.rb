@@ -24,7 +24,7 @@ describe ZipGenerator do
         pathname = filename.gsub(".zip", "")
         result = generator.generate
 
-        # file_fixture(filename).binwrite(result.read)
+        file_fixture(filename).binwrite(result.read) if ENV["UPDATE_FIXTURES"].present?
 
         Zip::File.open_buffer(result) do |zip_file|
           zip_file.each do |entry|
