@@ -24,7 +24,7 @@ class District < ApplicationRecord
   bitfield :flags, 1 => :personal_email
 
   enum :status, { active: 0, proposed: 1 }
-  enum :config, { standard: 0, signature: 1, munich: 2, owi21: 3, hamburg: 4, winowig: 5 }
+  enum :config, { standard: 0, signature: 1, munich: 2, owi21: 3, hamburg: 4, winowig: 5, ploen: 6 }
 
   has_many :notices, foreign_key: :zip, primary_key: :zip
   has_many :users, foreign_key: :zip, primary_key: :zip
@@ -86,6 +86,15 @@ class District < ApplicationRecord
 
   def all_emails
     aliases.present? ? [email] + aliases : [email]
+  end
+
+  def self.streets
+    @streets ||= File.readlines("config/data/ploenstreets.csv").map(&:chomp).map(&:downcase)
+  end
+
+  def suggest_email_by_street(street)
+    street_downcased = street.downcase
+    streets.any? { |s| street_downcased.include?(s) }
   end
 
   def display_name
