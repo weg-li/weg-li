@@ -51,7 +51,7 @@ namespace :data do
         name: item["brand"],
         token: item["brand"].parameterize,
         kind: :car,
-        aliases: item["aliases"],
+        aliases: item["aliases"] || [],
         models: item["models"],
       }
       puts params
