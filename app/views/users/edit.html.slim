@@ -117,11 +117,10 @@
         
           - if access?(:community)
             = form.label :analyzer, class: "control-label control-label-required"
-            = form.select :analyzer, User.analyzers.keys.map {|a| [t("users.analyzers.#{a}"), a]}, {}, class: "form-control", disabled: true, data: {'select2-disabled' => true}
-            / Wähle den Analyse-Dienst für die automatische Erkennung von Kennzeichen und weiteren Inhalten auf den Beweisfotos aus.
+            = form.select :analyzer, User.analyzers.keys.map {|a| [t("users.analyzers.#{a}"), a]}, {}, class: "form-control", data: {'select2-disabled' => true}
             = hint do
               | 
-                Wird in kürze für Beta-Tester verfügbar sein!
+                Wähle den Analyse-Dienst für die automatische Erkennung von Kennzeichen und weiteren Inhalten auf den Beweisfotos aus.
                 
 
         .panel-footer.clearfix
