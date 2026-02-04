@@ -5,7 +5,8 @@
 
 [www.weg.li](https://www.weg.li/)
 
-[folge der Diskussion bei Slack](https://join.slack.com/t/weg-li/shared_invite/zt-2y3zkjmtg-y~ReysaEMGgmy0fNq5uPKA)
+[folge der Diskussion bei Slack](https://join.slack.com/t/weg-li/shared_invite/zt-3p1681udz-J796EjJWPb81TJp4QQHYjw)
+
 
 ![weg.li: 1, 2, 3 - Macht die Bahn frei!](https://user-images.githubusercontent.com/48745/62852900-12304300-bceb-11e9-8ba4-3303c83c7dfc.png)
 
