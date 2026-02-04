@@ -30,14 +30,11 @@ class AnalyzerJob < ApplicationJob
   def analyze(notice)
     handle_exif(notice)
 
-    case annotator_backend
-    when "gemini"
+    case notice.user.analyzer
+    when "gemini_flash"
       handle_gemini(notice)
-    when "vision"
+    else
       handle_vision(notice)
-    else # "auto"
-      gemini_success = handle_gemini(notice) if gemini_available?
-      handle_vision(notice) unless gemini_success
     end
 
     notice.status = :open
@@ -98,14 +95,6 @@ class AnalyzerJob < ApplicationJob
     end
 
     false
-  end
-
-  def annotator_backend
-    ENV.fetch("ANNOTATOR_BACKEND", "auto")
-  end
-
-  def gemini_available?
-    ENV["GEMINI_API_KEY"].present?
   end
 
   def gemini_annotator
