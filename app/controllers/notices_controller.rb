@@ -3,7 +3,7 @@
 class NoticesController < ApplicationController
   before_action :authenticate!
   before_action :authenticate_community_user!, only: [:colors]
-  before_action :authenticate_admin_user!, only: [:inspect]
+  before_action :authenticate_admin_user!, only: %i[inspect reanalyze]
   before_action :validate!, except: [:index]
 
   def index
@@ -335,6 +335,14 @@ class NoticesController < ApplicationController
 
       redirect_back fallback_location: notice_path(notice), notice: "Analyse gestartet, es kann einen Augenblick dauern"
     end
+  end
+
+  def reanalyze
+    notice = current_user.notices.active.from_param(params[:id])
+    notice.data_sets.destroy_all
+    notice.analyze!
+
+    redirect_to edit_notice_path(notice), notice: "Analyse neu gestartet, es kann einen Augenblick dauern"
   end
 
   def purge

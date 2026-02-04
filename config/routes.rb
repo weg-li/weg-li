@@ -85,6 +85,7 @@ Rails.application.routes.draw do
       patch :enable
       patch :disable
       patch :analyze
+      patch :reanalyze
       patch :purge
       patch :upload
       patch :merge

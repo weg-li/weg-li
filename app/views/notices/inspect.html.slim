@@ -64,3 +64,5 @@ p
 
 - else
   p No Proximity attached
+
+= button_to "Nochmals analysieren", reanalyze_notice_path(@notice), method: :patch, data: { confirm: "Die bisherige Analyse wird gelöscht und eine neue Analyse gestartet. Dies kann einige Zeit in Anspruch nehmen. Fortfahren?" } 
