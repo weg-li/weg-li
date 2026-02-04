@@ -11,11 +11,19 @@ class GeminiAnnotator
   }.freeze
 
   def annotate_object(key)
-    gcs_uri = "gs://#{Annotator.bucket_name}/#{key}"
-    call_api(request_body_with_uri(gcs_uri))
+    uri = signed_url(key)
+    call_api(request_body_with_uri(uri))
   rescue StandardError => e
     Rails.logger.error("GeminiAnnotator error for key #{key}: #{e.message}")
     nil
+  end
+
+  def signed_url(key)
+    gcloud = Google::Cloud.new
+    storage = gcloud.storage
+    bucket = storage.bucket(Annotator.bucket_name)
+    file = bucket.file key
+    file.signed_url
   end
 
   def annotate_file(file_name = Rails.root.join("spec/fixtures/files/mercedes.jpg").to_s)
@@ -26,8 +34,8 @@ class GeminiAnnotator
 
   private
 
-  def call_api(body)
-    response = client.post(api_url, json: body)
+  def call_api(json)
+    response = client.post(api_url, json: json)
 
     if response.status.success?
       parse_response(response)
@@ -128,8 +136,9 @@ class GeminiAnnotator
   end
 
   def parse_response(response)
-    body = JSON.parse(response.body.to_s)
-    text = body.dig("candidates", 0, "content", "parts", 0, "text")
+    body = response.body.to_s
+    data = JSON.parse(body)
+    text = data.dig("candidates", 0, "content", "parts", 0, "text")
     return nil if text.blank?
 
     result = JSON.parse(text)
@@ -145,7 +154,7 @@ class GeminiAnnotator
 
     result
   rescue JSON::ParserError => e
-    Rails.logger.error("Gemini response parse error: #{e.message}")
+    Rails.logger.error("Gemini response parse error: #{e.message} #{body}")
     nil
   end
 

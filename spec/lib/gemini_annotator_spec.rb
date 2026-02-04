@@ -155,12 +155,13 @@ describe GeminiAnnotator do
     end
 
     it "sends GCS URI via file_data instead of downloading bytes" do
-      stub_request(:post, api_url)
-        .to_return(
-          status: 200,
-          body: gemini_response.to_json,
-          headers: { "Content-Type" => "application/json" },
-        )
+      stub_request(:post, api_url).to_return(
+        status: 200,
+        body: gemini_response.to_json,
+        headers: { "Content-Type" => "application/json" },
+      )
+
+      allow(subject).to receive(:signed_url).and_return("https://signed-url.example.com")
 
       subject.annotate_object(key)
 
@@ -169,18 +170,18 @@ describe GeminiAnnotator do
         parts = body.dig("contents", 0, "parts")
         file_part = parts.find { |p| p.key?("file_data") }
         file_part.present? &&
-          file_part.dig("file_data", "file_uri") == "gs://#{bucket_name}/#{key}" &&
+          file_part.dig("file_data", "file_uri") == "https://signed-url.example.com" &&
           file_part.dig("file_data", "mime_type") == "image/jpeg"
       end)
     end
 
     it "does not send inline_data" do
-      stub_request(:post, api_url)
-        .to_return(
-          status: 200,
-          body: gemini_response.to_json,
-          headers: { "Content-Type" => "application/json" },
-        )
+      stub_request(:post, api_url).to_return(
+        status: 200,
+        body: gemini_response.to_json,
+        headers: { "Content-Type" => "application/json" },
+      )
+      allow(subject).to receive(:signed_url).and_return("https://signed-url.example.com")
 
       subject.annotate_object(key)
 
