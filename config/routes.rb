@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   mount Rswag::Ui::Engine => "/api-docs"
   mount Sidekiq::Web => "/sidekiq", :constraints => AdminConstraint.new
@@ -47,11 +49,13 @@ Rails.application.routes.draw do
     resources :exports, only: [:index] do
       collection { get :public }
     end
-    resources :districts, only: [:index, :show]
-    resources :signs, only: [:index, :show]
-    resources :plates, only: [:index, :show]
-    resources :charges, only: [:index, :show]
-    resources :brands, only: [:index, :show]
+    resources :districts, only: %i[index show]
+    resources :signs, only: %i[index show]
+    resources :plates, only: %i[index show]
+    resources :charges, only: %i[index show] do
+      collection { get :compact }
+    end
+    resources :brands, only: %i[index show]
   end
 
   resources :replies
@@ -191,6 +195,6 @@ Rails.application.routes.draw do
   get "/422", to: "errors#unacceptable"
   get "/500", to: "errors#internal_error"
 
-  get "/ping", to: ->(env) { [200, { "Content-Type" => "text/html" }, ["pong"]] }
-  match '*path.php', via: :all, to: ->(_env) { [302, { 'Location' => 'https://www.weg.li/violation/' }, ['Scheiße geparkt? Parkt nicht auf unseren Wegen!']] }
+  get "/ping", to: ->(_env) { [200, { "Content-Type" => "text/html" }, ["pong"]] }
+  match "*path.php", via: :all, to: ->(_env) { [302, { "Location" => "https://www.weg.li/violation/" }, ["Scheiße geparkt? Parkt nicht auf unseren Wegen!"]] }
 end
