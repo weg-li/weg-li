@@ -32,6 +32,11 @@
             In München sind oft die örtlichen #{link_to 'Polizei-Inspektionen', 'https://www.polizei.bayern.de/?uigmd=münchen&gdts=162000001&gmds=162000&gmdklartext=80331%20München', target: '_blank'}
             anstelle des #{link_to 'KVR', 'http://www.muenchen.de/dienstleistungsfinder/muenchen/1073669/', target: '_blank'} zuständig,
             wie auf #{link_to 'dieser Karte', 'https://umap.openstreetmap.fr/de/map/unbenannte-karte_422905#14/48.1444/11.5718', target: '_blank'} ersichtlich ist.
+    - elsif @notice.district.ploen?
+      .alert.alert-info
+        strong
+          |
+            In Plön gibt es eine geteilte Zuständigkeit zwischen der Kreisverwaltung und der Stadt Plön. Je nach Straße kann die zuständige Behörde variieren.
     - elsif @notice.district.signature?
       - if current_user.signature.present?
         .alert.alert-info
@@ -53,10 +58,13 @@
         .form-group
           = form.label :district, class: "control-label control-label-required"
           - if @notice.district.aliases.present?
-            = select_tag :send_to, options_for_email(@notice.district, @notice.point), {include_blank: 'E-Mail Auswählen', class: "form-control", required: true }
+            = select_tag :send_to, options_for_email(@notice.district, @notice), {include_blank: 'E-Mail Auswählen', class: "form-control", required: true }
             - if @notice.district.munich?
               = hint do
                 | Die E-Mail-Adresse der zuständigen PI wurde anhand des Standortes vorausgewählt.
+            - elsif @notice.district.ploen?
+              = hint do
+                | Die E-Mail-Adresse der zuständigen Behörde wurde anhand der Straße vorausgewählt.
             - else
               = hint do
                 | Für diesen Bezirk sind mehrere E-Mail-Adressen hinterlegt.
@@ -65,7 +73,7 @@
             = hint do
               | Die E-Mail-Adresse der zuständigen Stelle wurde anhand der Postleitzahl ermittelt. #{link_to 'Adresse stimmt nicht', edit_district_path(@notice.district)}?
 
-          - if @notice.district.winowig? || @notice.district.owi21?
+          - if @notice.district.winowig? || @notice.district.owi21? || @notice.district.ploen?
             .well.well-sm.callout-primary Mit dieser Gemeinde nutzen wir eine Import-Datei für die Übermittlung der Anzeige in die Software #{@notice.district.config}.
           - elsif @notice.district.hamburg?
               / no PDF in hamburg /

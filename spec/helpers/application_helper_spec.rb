@@ -19,11 +19,11 @@ describe ApplicationHelper do
       expect(options).to include('<option selected="selected" value="pp-mue.muenchen.pi11@polizei.bayern.de">')
     end
     it "selects the correct email for Ploen district based on street" do
-      district = Fabricate.create(:district, config: :ploen, email: "info@ploen.de", aliases: ["bussgeldstelle@kreis-ploen.de"])
+      district = Fabricate.create(:district, config: :ploen, email: "ordnungsamt@ploen.de", aliases: ["bussgeldstelle@kreis-ploen.de"])
       notice = Fabricate.build(:notice, street: "Appelwarder 1", zip: "24306", city: "Plön")
 
       options = helper.options_for_email(district, notice)
-      expect(options).to include('<option selected="selected" value="info@ploen.de">')
+      expect(options).to include('<option selected="selected" value="ordnungsamt@ploen.de">')
 
       notice.street = "Andere Straße 5"
       options = helper.options_for_email(district, notice)
