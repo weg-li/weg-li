@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class GeminiAnnotator
+  include PhotoHelper
+  include Rails.application.routes.url_helpers
+
   VEHICLE_COLORS = %w[black white silver gray beige blue brown yellow green red violet purple pink orange gold].freeze
   VEHICLE_TYPES = %w[car truck bike scooter van].freeze
 
@@ -11,19 +14,23 @@ class GeminiAnnotator
   }.freeze
 
   def annotate_object(key)
-    uri = signed_url(key)
+    uri = image_url(key)
     call_api(request_body_with_uri(uri))
   rescue StandardError => e
     Rails.logger.error("GeminiAnnotator error for key #{key}: #{e.message}")
     nil
   end
 
-  def signed_url(key)
-    gcloud = Google::Cloud.new
-    storage = gcloud.storage
-    bucket = storage.bucket(Annotator.bucket_name)
-    file = bucket.file key
-    file.signed_url
+  def image_url(key)
+    if Rails.env.development?
+      gcloud = Google::Cloud.new
+      storage = gcloud.storage
+      bucket = storage.bucket(Annotator.bucket_name)
+      file = bucket.file key
+      file.signed_url
+    else
+      cloudflare_image_resize_url(key, :default, true)
+    end
   end
 
   def annotate_file(file_name = Rails.root.join("spec/fixtures/files/mercedes.jpg").to_s)
@@ -104,6 +111,7 @@ class GeminiAnnotator
       - color: Body color. Must be one of: #{VEHICLE_COLORS.join(', ')}. Set to null if not determinable.
       - vehicle_type: Must be one of: #{VEHICLE_TYPES.join(', ')}.
       - is_likely_subject: true if this vehicle is likely the main subject of the photo.
+      - gps: the EXIF metadata.
 
       Return a JSON object with:
       - vehicles: Array of all vehicles, ordered by likelihood of being the main subject (most likely first).
@@ -125,6 +133,7 @@ class GeminiAnnotator
               color: { type: "STRING", nullable: true, enum: VEHICLE_COLORS },
               vehicle_type: { type: "STRING", nullable: true, enum: VEHICLE_TYPES },
               is_likely_subject: { type: "BOOLEAN" },
+              gps: { type: "STRING", nullable: true },
             },
             required: %w[registration brand color vehicle_type is_likely_subject],
           },
