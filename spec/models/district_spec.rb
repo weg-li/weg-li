@@ -56,4 +56,27 @@ describe District do
       expect(district.as_api_response(:public_beta).keys).to eql(%i[name zip email prefixes parts latitude longitude aliases personal_email state created_at updated_at])
     end
   end
+
+  context "selected_email" do
+    it "selects the correct email for Munich district based on point" do
+      district = Fabricate.create(:district, config: :munich, aliases: ["pp-mue.muenchen.pi11@polizei.bayern.de"])
+      notice = Fabricate.build(:notice, street: "Marienplatz 1", zip: "80331", city: "München", latitude: 48.137154, longitude: 11.576124)
+
+      selected = district.selected_email(notice)
+      expect(selected).to eql("pp-mue.muenchen.pi11@polizei.bayern.de")
+    end
+    it "selects the correct email for Ploen district based on street" do
+      district = Fabricate.create(:district, config: :ploen, email: "ordnungsamt@ploen.de", aliases: ["bussgeldstelle@kreis-ploen.de"])
+      notice = Fabricate.build(:notice, street: "Appelwarder 1", zip: "24306", city: "Plön")
+
+      selected = district.selected_email(notice)
+      expect(selected).to eql("ordnungsamt@ploen.de")
+      expect(district.forced_config(notice)).to be_nil
+
+      notice.street = "Andere Straße 5"
+      selected = district.selected_email(notice)
+      expect(selected).to eql("bussgeldstelle@kreis-ploen.de")
+      expect(district.forced_config(notice)).to eql(:winowig)
+    end
+  end
 end

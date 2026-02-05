@@ -24,7 +24,7 @@ class District < ApplicationRecord
   bitfield :flags, 1 => :personal_email
 
   enum :status, { active: 0, proposed: 1 }
-  enum :config, { standard: 0, signature: 1, munich: 2, owi21: 3, hamburg: 4, winowig: 5 }
+  enum :config, { standard: 0, signature: 1, munich: 2, owi21: 3, hamburg: 4, winowig: 5, ploen: 6 }
 
   has_many :notices, foreign_key: :zip, primary_key: :zip
   has_many :users, foreign_key: :zip, primary_key: :zip
@@ -86,6 +86,39 @@ class District < ApplicationRecord
 
   def all_emails
     aliases.present? ? [email] + aliases : [email]
+  end
+
+  def selected_email(notice)
+    selected = email
+
+    if munich? || ploen?
+      suggested = Geo.suggest_email(notice.point) if munich?
+      suggested = suggest_email_by_street(notice.street) if ploen?
+
+      if suggested.nil?
+        Rails.logger.warn("found no suggested email for #{zip} and notice #{notice.id}")
+      elsif all_emails.include?(suggested)
+        selected = suggested
+      else
+        Rails.logger.warn("found suggested email #{suggested} for notice #{notice.id} but was not in aliases for #{zip}")
+      end
+    end
+
+    selected
+  end
+
+  def self.streets
+    @streets ||= File.readlines("config/data/ploenstreets.csv").map(&:chomp)
+  end
+
+  def suggest_email_by_street(street)
+    self.class.streets.any? { |s| street.match(/#{Regexp.escape(s)}/i) } ? email : aliases.first
+  end
+
+  def forced_config(notice)
+    return nil unless ploen?
+
+    self.class.streets.any? { |s| notice.street.match(/#{Regexp.escape(s)}/i) } ? nil : :winowig
   end
 
   def display_name

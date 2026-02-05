@@ -48,6 +48,22 @@ describe NoticeMailer do
       expect(mail.attachments.size).to be(1)
       expect(mail.attachments.first.filename).to match(/OWI21_.*\.zip/)
     end
+
+    it "sends mail for ploen" do
+      Fabricate.create(:district, zip: "24306", config: :ploen)
+      notice.update!(street: "Appelwarder 1", zip: "24306", city: "Plön")
+
+      mail = NoticeMailer.charge(notice)
+
+      expect(mail.attachments.size).to be(1)
+      expect(mail.attachments.first.filename).to match(/.*\.jpg/)
+
+      notice.update!(street: "Andere Straße 5")
+      mail = NoticeMailer.charge(notice)
+
+      expect(mail.attachments.size).to be(1)
+      expect(mail.attachments.first.filename).to match(/XMLMDE_.*\.zip/)
+    end
   end
 
   describe "forward" do
