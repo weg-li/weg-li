@@ -53,7 +53,12 @@ class BulkUploadsController < ApplicationController
   def update
     bulk_upload = current_user.bulk_uploads.with_attached_photos.find(params[:id])
 
-    if params[:one_per_photo]
+    if params[:button] == "upload" && bulk_upload_params.present?
+      bulk_upload.assign_attributes(bulk_upload_params)
+      bulk_upload.save!
+
+      redirect_to edit_bulk_upload_path(bulk_upload), notice: "Beweisfotos wurden hinzugefügt"
+    elsif params[:one_per_photo]
       photos = bulk_upload.photos
       photos.each do |photo|
         notice = current_user.notices.build(bulk_upload:)

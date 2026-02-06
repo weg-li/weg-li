@@ -1,4 +1,10 @@
+- upload_button ||= false
 .well.well-sm.clearfix(ondragover="ablegenErlauben(event, this)" ondragleave="ablegenLeave(event, this)" ondragenter="ablegenEnter(event, this)" ondrop="ablegen(event, this)")
+  - if upload_button
+    .photos-add-button
+      p
+        button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#modal_photo_upload"
+          span.glyphicon.glyphicon-plus
   ul.photo-list.droppable-list
     - photos.each_with_index do |photo, index|
       li.list-item(draggable="true" id="photo_item_#{photo.id}" ondragstart="ziehen(event)")

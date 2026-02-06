@@ -44,4 +44,4 @@
                         = button_to notice_path(@notice), class: 'btn btn-link', method: :delete, data: {confirm: 'Die Meldung wird endgültig gelöscht'}, title: 'löschen'
                           span.glyphicon.glyphicon-trash>
                           | Meldung löschen
-                = render('components/photo_upload_modal', notice: @notice, form: form)
+                = render('components/photo_upload_modal', form: form)

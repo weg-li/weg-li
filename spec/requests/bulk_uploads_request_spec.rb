@@ -5,6 +5,7 @@ require "spec_helper"
 describe "bulk_uploads", type: :request do
   let(:user) { Fabricate(:user) }
   let(:bulk_upload) { Fabricate(:bulk_upload, user:) }
+  let(:file) { Rack::Test::UploadedFile.new(Rails.root.join("spec/fixtures/files/mercedes.jpg"), "image/jpeg") }
 
   before do
     login(user)
@@ -42,11 +43,7 @@ describe "bulk_uploads", type: :request do
 
   context "POST :create" do
     let(:params) do
-      {
-        bulk_upload: {
-          photos: [Rack::Test::UploadedFile.new(Rails.root.join("spec/fixtures/files/mercedes.jpg"), "image/jpeg")],
-        },
-      }
+      { bulk_upload: { photos: [file] } }
     end
 
     it "creates a bulk_upload with given params" do
@@ -78,6 +75,16 @@ describe "bulk_uploads", type: :request do
       end.to have_enqueued_job(AnalyzerJob)
 
       expect(response).to be_a_redirect
+    end
+
+    it "updates the notice with photos" do
+      params = {
+        button: "upload",
+        bulk_upload: { photos: [file] },
+      }
+      expect do
+        patch bulk_upload_path(bulk_upload), params:
+      end.to change { bulk_upload.reload.photos.size }.by(1)
     end
 
     it "assigns images a notice for each image on demand" do

@@ -14,19 +14,20 @@ class BulkUpload < ApplicationRecord
     error: -99,
   }
 
-  validates :photos,
-            presence: true,
-            unless: -> { done? || importing? || error? }
+  validates :photos, presence: true, unless: -> { done? || importing? || error? }
   validates :shared_album_url, presence: true, if: -> { importing? }
 
+  def photos=(attachables)
+    attachables = Array(attachables).compact_blank
+    # BC config.active_storage.replace_on_assign_to_many set to true before upgrading
+    if attachables.any?
+      attachment_changes["photos"] = ActiveStorage::Attached::Changes::CreateMany.new("photos", self, photos.blobs + attachables)
+    end
+  end
+
   def self.for_reminder
-    open
-      .joins(:user)
-      .where(
-        created_at: [(21.days.ago.beginning_of_day)..(14.days.ago.end_of_day)],
-      )
-      .merge(User.not_disable_reminders)
-      .merge(User.active)
+    range = [(21.days.ago.beginning_of_day)..(14.days.ago.end_of_day)]
+    open.joins(:user).where(created_at: range).merge(User.not_disable_reminders).merge(User.active)
   end
 
   def purge_photo!(photo_id)
