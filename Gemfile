@@ -80,6 +80,7 @@ group :development do
   gem "syntax_tree"
   gem "syntax_tree-haml"
   gem "syntax_tree-rbs"
+  gem "ruby-lsp-rspec", require: false
 end
 
 group :development, :test do
