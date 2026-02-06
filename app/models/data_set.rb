@@ -79,12 +79,6 @@ class DataSet < ApplicationRecord
     data["vehicles"] || []
   end
 
-  def gemini_multiple_violations?
-    return false unless gemini?
-
-    data["multiple_violations"] == true
-  end
-
   def address
     case kind
     when "geocoder"

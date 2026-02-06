@@ -34,7 +34,6 @@ describe GeminiAnnotator do
                   is_likely_subject: false,
                 },
               ],
-              scene_description: "Two cars parked on a residential street.",
             }.to_json,
           }],
         },
@@ -65,7 +64,6 @@ describe GeminiAnnotator do
         "color" => "silver",
         "is_likely_subject" => true,
       )
-      expect(result["scene_description"]).to be_present
       expect(result["model_version"]).to eql(model)
     end
 
@@ -82,7 +80,6 @@ describe GeminiAnnotator do
                   vehicle_type: "car",
                   is_likely_subject: true,
                 }],
-                scene_description: "A car parked on a street.",
               }.to_json,
             }],
           },
@@ -223,7 +220,7 @@ describe GeminiAnnotator do
         annotator = described_class.new
 
         stub_request(:post, "https://generativelanguage.googleapis.com/v1beta/models/#{full}:generateContent?key=#{api_key}")
-          .to_return(status: 200, body: { candidates: [{ content: { parts: [{ text: { vehicles: [], scene_description: "", multiple_violations: false }.to_json }] } }] }.to_json)
+          .to_return(status: 200, body: { candidates: [{ content: { parts: [{ text: { vehicles: [] }.to_json }] } }] }.to_json)
 
         annotator.annotate_file
         expect(WebMock).to have_requested(:post, /#{full}/)
@@ -234,7 +231,7 @@ describe GeminiAnnotator do
       ENV["GEMINI_MODEL"] = "gemini-3-flash-preview"
 
       stub_request(:post, /gemini-3-flash-preview/)
-        .to_return(status: 200, body: { candidates: [{ content: { parts: [{ text: { vehicles: [], scene_description: "", multiple_violations: false }.to_json }] } }] }.to_json)
+        .to_return(status: 200, body: { candidates: [{ content: { parts: [{ text: { vehicles: [] }.to_json }] } }] }.to_json)
 
       subject.annotate_file
       expect(WebMock).to have_requested(:post, /gemini-3-flash-preview/)
@@ -244,7 +241,7 @@ describe GeminiAnnotator do
       ENV.delete("GEMINI_MODEL")
 
       stub_request(:post, /gemini-2.5-flash/)
-        .to_return(status: 200, body: { candidates: [{ content: { parts: [{ text: { vehicles: [], scene_description: "" }.to_json }] } }] }.to_json)
+        .to_return(status: 200, body: { candidates: [{ content: { parts: [{ text: { vehicles: [] }.to_json }] } }] }.to_json)
 
       subject.annotate_file
       expect(WebMock).to have_requested(:post, /gemini-2.5-flash/)

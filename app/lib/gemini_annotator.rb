@@ -111,11 +111,9 @@ class GeminiAnnotator
       - color: Body color. Must be one of: #{VEHICLE_COLORS.join(', ')}. Set to null if not determinable.
       - vehicle_type: Must be one of: #{VEHICLE_TYPES.join(', ')}.
       - is_likely_subject: true if this vehicle is likely the main subject of the photo.
-      - gps: the EXIF metadata.
 
       Return a JSON object with:
       - vehicles: Array of all vehicles, ordered by likelihood of being the main subject (most likely first).
-      - scene_description: One sentence describing the scene.
     PROMPT
   end
 
@@ -133,14 +131,12 @@ class GeminiAnnotator
               color: { type: "STRING", nullable: true, enum: VEHICLE_COLORS },
               vehicle_type: { type: "STRING", nullable: true, enum: VEHICLE_TYPES },
               is_likely_subject: { type: "BOOLEAN" },
-              gps: { type: "STRING", nullable: true },
             },
             required: %w[registration brand color vehicle_type is_likely_subject],
           },
         },
-        scene_description: { type: "STRING" },
       },
-      required: %w[vehicles scene_description],
+      required: %w[vehicles],
     }
   end
 

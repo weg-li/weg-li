@@ -29,8 +29,6 @@ GEMINI_RESULT = {
       "violation_hint" => nil,
     },
   ],
-  "scene_description" => "Two cars parked on a residential street.",
-  "multiple_violations" => false,
   "model_version" => "gemini-2.0-flash",
 }
 
@@ -47,37 +45,7 @@ GEMINI_EMPTY_RESULT = {
       "violation_hint" => nil,
     },
   ],
-  "scene_description" => "A vehicle parked on a street.",
-  "multiple_violations" => false,
   "model_version" => "gemini-2.0-flash",
-}
-
-GEMINI_MULTI_VIOLATION_RESULT = {
-  "vehicles" => [
-    {
-      "registration" => "B AB 1234",
-      "brand" => "MAN",
-      "color" => "white",
-      "vehicle_type" => "truck",
-      "location_in_image" => "center",
-      "is_likely_subject" => true,
-      "violation_visible" => true,
-      "violation_hint" => "parked on zigzag line",
-    },
-    {
-      "registration" => "B CD 5678",
-      "brand" => "Mercedes-Benz",
-      "color" => "white",
-      "vehicle_type" => "truck",
-      "location_in_image" => "right",
-      "is_likely_subject" => true,
-      "violation_visible" => true,
-      "violation_hint" => "parked on zigzag line",
-    },
-  ],
-  "scene_description" => "Two trucks parked on zigzag lines near a pedestrian crossing.",
-  "multiple_violations" => true,
-  "model_version" => "gemini-3-flash-preview",
 }
 
 describe DataSet do
@@ -161,22 +129,6 @@ describe DataSet do
 
     it "returns empty array for non-gemini data sets" do
       expect(data_set.gemini_vehicles).to eql([])
-    end
-  end
-
-  context "gemini_multiple_violations?" do
-    it "returns false when no multiple violations" do
-      data_set = Fabricate.build(:data_set, kind: :gemini, data: GEMINI_RESULT)
-      expect(data_set.gemini_multiple_violations?).to be false
-    end
-
-    it "returns true when multiple violations detected" do
-      data_set = Fabricate.build(:data_set, kind: :gemini, data: GEMINI_MULTI_VIOLATION_RESULT)
-      expect(data_set.gemini_multiple_violations?).to be true
-    end
-
-    it "returns false for non-gemini data sets" do
-      expect(data_set.gemini_multiple_violations?).to be false
     end
   end
 end
