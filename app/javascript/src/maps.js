@@ -6,9 +6,7 @@ require("leaflet.markercluster");
 L.Icon.Default.imagePath = "/img/map/";
 
 function mapHTML(notice) {
-  const date = notice.start_date
-    ? new Date(Date.parse(notice.start_date)).toLocaleDateString()
-    : "-";
+  const date = notice.start_date ? new Date(Date.parse(notice.start_date)).toLocaleDateString() : "-";
   if (notice.token) {
     return `
       <dl>
@@ -40,8 +38,7 @@ function initMap(canvas, coords, zoom = 13) {
   }).setView(coords, zoom);
 
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
   return map;
 }
@@ -53,14 +50,9 @@ class GMap {
   }
 
   show() {
-    const map = initMap(this.canvas, [
-      this.notice.latitude,
-      this.notice.longitude,
-    ]);
+    const map = initMap(this.canvas, [this.notice.latitude, this.notice.longitude]);
 
-    L.marker([this.notice.latitude, this.notice.longitude])
-      .addTo(map)
-      .bindPopup(mapHTML(this.notice));
+    L.marker([this.notice.latitude, this.notice.longitude]).addTo(map).bindPopup(mapHTML(this.notice));
   }
 }
 
@@ -116,12 +108,7 @@ class GPickerMap {
         const data = await geocode(latlng.lat, latlng.lng);
         // console.log("geocode data", data);
         if (data.result) {
-          const option = new Option(
-            data.result.street,
-            data.result.street,
-            false,
-            true,
-          );
+          const option = new Option(data.result.street, data.result.street, false, true);
           $(this.street).append(option).trigger("change");
           $(this.zip).val(data.result.zip);
           $(this.city).val(data.result.city);
@@ -168,11 +155,7 @@ class GMultiMap {
   }
 
   show() {
-    const map = initMap(
-      this.canvas,
-      [this.init.latitude, this.init.longitude],
-      this.init.zoom,
-    );
+    const map = initMap(this.canvas, [this.init.latitude, this.init.longitude], this.init.zoom);
 
     if (this.notices.length > 0) {
       const bounds = [];
@@ -195,18 +178,12 @@ class GClusterMap {
   }
 
   show() {
-    const map = initMap(
-      this.canvas,
-      [this.init.latitude, this.init.longitude],
-      this.init.zoom,
-    );
+    const map = initMap(this.canvas, [this.init.latitude, this.init.longitude], this.init.zoom);
 
     if (this.notices.length > 0) {
       const markers = L.markerClusterGroup();
       this.notices.forEach((notice) => {
-        const marker = L.marker([notice.latitude, notice.longitude])
-          .bindPopup(mapHTML(notice))
-          .openPopup();
+        const marker = L.marker([notice.latitude, notice.longitude]).bindPopup(mapHTML(notice)).openPopup();
         markers.addLayer(marker);
       });
       map.addLayer(markers);
@@ -223,11 +200,7 @@ class GHeatMap {
   }
 
   show() {
-    const map = initMap(
-      this.canvas,
-      [this.init.latitude, this.init.longitude],
-      this.init.zoom,
-    );
+    const map = initMap(this.canvas, [this.init.latitude, this.init.longitude], this.init.zoom);
 
     if (this.notices.length > 0) {
       const bounds = [];

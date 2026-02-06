@@ -19,9 +19,5 @@ $(document).ready(() => {
 });
 
 $(document).on("shown.bs.dropdown", (event) => {
-  $(event.relatedTarget)
-    .siblings()
-    .find("form")
-    .find("input[autofocus]")
-    .focus();
+  $(event.relatedTarget).siblings().find("form").find("input[autofocus]").focus();
 });
