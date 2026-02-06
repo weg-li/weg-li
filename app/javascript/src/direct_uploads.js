@@ -18,24 +18,22 @@ $(document).ready(() => {
     } else if (files.some((file) => file.size > uploadLimit)) {
       target.insertAdjacentHTML(
         "beforebegin",
-        `<div id="direct-upload-error-size" class="alert alert-warning">Es können nur Fotos bis ${
-          uploadLimit / 1048576
-        } MB hochgeladen werden!</div>`,
+        `<div id="direct-upload-error-size" class="alert alert-warning">Es können nur Fotos bis ${uploadLimit / 1048576} MB hochgeladen werden!</div>`,
       );
       target.value = "";
     } else {
       document.getElementById("photos-preview")?.remove();
       const items = files.map(
         (file) =>
-          `<li class="list-item"><img src="${window.URL.createObjectURL(
-            file,
-          )}" class="index-photo"></li>`,
+          `
+            <li class="list-item">
+              <img src="${window.URL.createObjectURL(file)}" title="${file.name}" class="index-photo">
+            </li>
+          `,
       );
       target.insertAdjacentHTML(
         "beforebegin",
-        `<div id="photos-preview"><ul class="photo-list">${items.join(
-          " ",
-        )}</ul></div>`,
+        `<div id="photos-preview"><ul class="photo-list">${items.join(" ")}</ul></div>`,
       );
     }
   });
