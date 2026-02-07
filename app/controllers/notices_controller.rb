@@ -236,11 +236,6 @@ class NoticesController < ApplicationController
     @proximity = @notice.data_sets.proximity.find_by(keyable: @photo)
   end
 
-  def colors
-    @notice = current_user.notices.from_param(params[:id])
-    @photo = @notice.photos.find(params[:photo_id])
-  end
-
   def destroy
     notice = current_user.notices.from_param(params[:id])
     notice.destroy!

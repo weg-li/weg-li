@@ -28,11 +28,6 @@
                     span.glyphicon.glyphicon-flash>
                     | Analyse
 
-                - if access?(:community)
-                  = link_to(colors_notice_path(notice, photo_id: photo.id), class: 'btn btn-sm btn-default', title: 'colors', target: '_blank') do
-                    span.glyphicon.glyphicon-tint>
-                    | Palette
-
                 - unless publicly
                   = link_to(purge_notice_path(notice, photo_id: photo.id), method: :patch, data: {confirm: t('notices.confirm')}, class: 'btn btn-sm btn-default', title: 'löschen', remote: true) do
                     span.glyphicon.glyphicon-trash>
