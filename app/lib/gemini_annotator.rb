@@ -111,6 +111,8 @@ class GeminiAnnotator
       - color: Body color. Must be one of: #{VEHICLE_COLORS.join(', ')}. Set to null if not determinable.
       - vehicle_type: Must be one of: #{VEHICLE_TYPES.join(', ')}.
       - is_likely_subject: true if this vehicle is likely the main subject of the photo.
+      - box_2d_plate: the segmentation masks for license plate (in format "y0,x0,y1,x1")
+      - box_2d_vehicle: the segmentation masks for vehicle (in format "y0,x0,y1,x1")
 
       Return a JSON object with:
       - vehicles: Array of all vehicles, ordered by likelihood of being the main subject (most likely first).
@@ -131,6 +133,8 @@ class GeminiAnnotator
               color: { type: "STRING", nullable: true, enum: VEHICLE_COLORS },
               vehicle_type: { type: "STRING", nullable: true, enum: VEHICLE_TYPES },
               is_likely_subject: { type: "BOOLEAN" },
+              box_2d_plate: { type: "STRING", nullable: true },
+              box_2d_vehicle: { type: "STRING", nullable: true },
             },
             required: %w[registration brand color vehicle_type is_likely_subject],
           },
