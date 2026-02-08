@@ -2,7 +2,6 @@
 
 class NoticesController < ApplicationController
   before_action :authenticate!
-  before_action :authenticate_community_user!, only: [:colors]
   before_action :authenticate_admin_user!, only: %i[inspect reanalyze]
   before_action :validate!, except: [:index]
 
