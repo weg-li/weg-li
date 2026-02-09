@@ -8,6 +8,16 @@
       - info = "Die Beweisfotos werden nun analysiert um mögliche Daten für die Anzeige vorzuschlagen. Sollen Vorschläge automatisch übernommen werden, können die Auto-Suggest Einstellungen #{link_to('im Profil', edit_user_path)} geändert werden."
       - note = "Analyse läuft"
       = render('components/reload', note: note, info: info)
+
+      .well.well-sm.callout-warning
+        .row
+          .col-lg-12
+            h4 Analyse mit Gemini Flash 🤖
+            p 
+              |
+                Derzeit arbeiten wir an der Integration von Gemini Falsh zur automatischen Analyse und Kennzeichenerkennung.
+                Du hast die Möglichkeit dies in deinen #{link_to 'Einstellungen', edit_user_path} unter <em>Auto-Suggest / Backend</em> zu aktivieren!
+
     - else
       = render('alerts', notice: @notice)
 
