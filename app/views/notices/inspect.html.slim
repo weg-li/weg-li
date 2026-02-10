@@ -1,8 +1,13 @@
 = turbo_stream_from @notice
 
+.bbox(style="position: relative; display: inline-block;")
+  = image_tag(url_for_photo(@photo, size: :preview), class: 'item-photo')
+  = bbox(@photo, :preview, @recognition.data["vehicles"][0]["box_2d_plate"]) if @recognition&.data&.dig("vehicles", 0, "box_2d_plate")
+  = bbox(@photo, :preview, @recognition.data["vehicles"][0]["box_2d_vehicle"]) if @recognition&.data&.dig("vehicles", 0, "box_2d_vehicle")
+
+
 p
   =debug @notice.attributes
-
 p
   = image_tag(url_for_photo(@photo, size: :default), class: 'item-photo')
   = image_tag(cloudflare_image_resize_url(@photo.key, :default, true), class: 'item-photo')
@@ -44,7 +49,7 @@ p
     = debug @recognition.colors
 
   p
-    strong Google Vision
+    strong Analyzer
     = debug @recognition.data
 - else
   p No Recognition attached
