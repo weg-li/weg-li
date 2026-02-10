@@ -10,7 +10,7 @@
       li.list-item id="photo_item_#{photo.id}"
         a(href="#" data-toggle="modal" data-target="#photo_modal_#{photo.id}")
           .bbox(style="position: relative; display: inline-block;")
-            = image_tag(url_for_photo(photo, size: :preview), class: 'item-photo')
+            = image_tag(url_for_photo(photo, size: :preview), class: 'item-photo', title: photo.filename.to_s)
             - box_2d_plate = notice.data_sets.find {|ds| ds.gemini? && ds.keyable == photo }&.box_2d_plate
             - box_2d_vehicle = notice.data_sets.find {|ds| ds.gemini? && ds.keyable == photo  }&.box_2d_vehicle
             = bbox(photo, :preview, box_2d_plate) if box_2d_plate
