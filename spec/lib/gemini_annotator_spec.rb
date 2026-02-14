@@ -9,7 +9,7 @@ describe GeminiAnnotator do
 
   before do
     ENV["GEMINI_API_KEY"] = api_key
-    ENV["GEMINI_MODEL"] = "2.0"
+    ENV["GEMINI_MODEL"] = model
   end
 
   let(:gemini_response) do
@@ -215,15 +215,15 @@ describe GeminiAnnotator do
     after { ENV.delete("GEMINI_MODEL") }
 
     it "resolves short names to full model IDs" do
-      { "2.0" => "gemini-2.0-flash", "2.5" => "gemini-2.5-flash", "3.0" => "gemini-3-flash-preview" }.each do |short, full|
-        ENV["GEMINI_MODEL"] = short
+      ["gemini-2.0-flash",  "gemini-2.5-flash", "gemini-3-flash-preview"].each do |model|
+        ENV["GEMINI_MODEL"] = model
         annotator = described_class.new
 
-        stub_request(:post, "https://generativelanguage.googleapis.com/v1beta/models/#{full}:generateContent?key=#{api_key}")
+        stub_request(:post, "https://generativelanguage.googleapis.com/v1beta/models/#{model}:generateContent?key=#{api_key}")
           .to_return(status: 200, body: { candidates: [{ content: { parts: [{ text: { vehicles: [] }.to_json }] } }] }.to_json)
 
         annotator.annotate_file
-        expect(WebMock).to have_requested(:post, /#{full}/)
+        expect(WebMock).to have_requested(:post, /#{model}/)
       end
     end
 

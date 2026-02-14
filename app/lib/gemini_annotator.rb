@@ -7,12 +7,6 @@ class GeminiAnnotator
   VEHICLE_COLORS = %w[black white silver gray beige blue brown yellow green red violet purple pink orange gold].freeze
   VEHICLE_TYPES = %w[car truck bike scooter van].freeze
 
-  MODELS = {
-    "2.0" => "gemini-2.0-flash",
-    "2.5" => "gemini-2.5-flash",
-    "3.0" => "gemini-3-flash-preview",
-  }.freeze
-
   def annotate_object(key)
     uri = image_url(key)
     call_api(request_body_with_uri(uri))
@@ -180,8 +174,8 @@ class GeminiAnnotator
   end
 
   def model
-    raw = ENV.fetch("GEMINI_MODEL", "2.5")
-    MODELS.fetch(raw, raw)
+    # ENV.fetch("GEMINI_MODEL", "gemini-2.5-flash")
+    ENV.fetch("GEMINI_MODEL", "gemini-2.5-flash-lite")
   end
 
   def api_key
