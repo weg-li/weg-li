@@ -4,6 +4,9 @@
 
     ul.list-group
       li.list-group-item
+        span.badge Massen-Uploads
+        | 🏞 Beweisfotos im Massen-Upload können per #{link_to 'ZIP-Archiv importiert werden', new_bulk_upload_path}.
+      li.list-group-item
         span.badge Meldung
         | 🚨 Meldungen älter als 3 Jahre werden ins #{link_to 'Meldungsarchiv', archived_notices_path} verschoben und sind dort in anonymisierter Form weiterhin eingeschränkt verfügbar.
       li.list-group-item
@@ -24,9 +27,6 @@
       li.list-group-item
         span.badge Meldung
         | 💯 Alle Tatbestände können bei der #{link_to 'Erstellung einer Meldung', new_notice_path} verwendet werden.
-      li.list-group-item
-        span.badge Massen-Uploads
-        | 🏞 Beweisfotos im Massen-Upload können per #{link_to 'Google-Album importiert werden', new_bulk_upload_path}.
       li.list-group-item
         span.badge Meldung
         | 🤖 In deinen #{link_to 'Einstellungen', edit_user_path} kannst Du festlegen welche Daten automatisch ausgefüllt werden sollen.

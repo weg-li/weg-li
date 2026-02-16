@@ -89,6 +89,7 @@ de:
         importing: importieren
         error_message: Fehler
         shared_album_url: Album
+        zip: Archiv
       brand:
         name: 'Name'
         token: 'Token'

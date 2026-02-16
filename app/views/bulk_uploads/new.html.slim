@@ -5,7 +5,7 @@
 .bs-component
   ul.nav.nav-tabs.nav-panel
     li.active = link_to 'Fotos hochladen', "#upload", data: { toggle: "tab" }
-    li = link_to 'Google Album importieren', "#import", data: { toggle: "tab" }
+    li = link_to 'Album importieren', "#import", data: { toggle: "tab" }
 
   .tab-content
     .tab-pane.fade.active.in#upload
@@ -23,20 +23,23 @@
     .tab-pane.fade.in#import
       .panel.panel-default.panel-nav
         .panel-body
-          .well.well-sm.callout-info Massen-Uploads via Google-Photos-Album derzeit nicht verfügbar!
-          p Leider gab es Änderungen in Google-Photos, die es uns derzeit unmöglich machen aus Alben Fotos mit hoher Qualität zu importieren.
-          p Als Übergangslösung das Album selbst über den Download-Button als ZIP herunterladen und bis zu 200MB hier wieder hochladen.
+          .well.well-sm.callout-primary 
+            | 
+              Der Upload via Google-Photos-Album derzeit nicht verfügbar!
+              Leider gab es Änderungen in Google-Photos, die es uns derzeit unmöglich machen aus Alben Fotos mit hoher Qualität zu importieren.
+              Das Album selbst kann über den Button "Alle Herunterladen" als ZIP gespeichert und hier wieder hochgeladen werden.
+              Natürlich können auch selbst erstellte ZIP-Archive mit Fotos hochgeladen werden.
 
           = form_for @bulk_upload, url: zip_bulk_uploads_path, method: :post do |form|
             .row
               .col-lg-12
-                = form.label :zip, class: "control-label control-label-required"
-                = form.file_field :zip, required: true, accept: ".zip", direct_upload: true, class: "form-control-file input-droppable", upload_limit: 200.megabyte
-
-            hr
-
+                .well
+                  = form.label :zip, class: "control-label control-label-required"
+                  = form.file_field :zip, required: true, accept: ".zip", direct_upload: true, class: "form-control-file input-droppable", upload_limit: 200.megabyte
+                  = hint do
+                    | Es werden nur Archive im ZIP-Format bis 200MB unterstützt. Dateien können auch per Drag&Drop hinzugefügt werden.
             .row
               .col-lg-12
                 .pull-right
                   .btn-group
-                    = form.submit "Importieren & Zuordnen", class: "btn btn-success"
+                    = form.submit "Hochladen & Zuordnen", class: "btn btn-success"
