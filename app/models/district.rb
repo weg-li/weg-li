@@ -43,7 +43,7 @@ class District < ApplicationRecord
   attribute :reason, :string
 
   include Blockable
-  self.blockables = %w[gmail.com web.de t-online.de gmx.de hotmail.de vodafone.de 1und1.de freenet.de aol.com yahoo.de yahoo.com outlook.de]
+  self.blockables = %w[gmail.com web.de gmx.de hotmail.de vodafone.de 1und1.de freenet.de aol.com yahoo.de yahoo.com outlook.de]
 
   acts_as_api
 
