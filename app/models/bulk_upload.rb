@@ -4,6 +4,7 @@ class BulkUpload < ApplicationRecord
   belongs_to :user
   has_many :notices, dependent: :nullify
   has_many_attached :photos
+  has_one_attached :zip
 
   enum :status, {
     initial: 0,
@@ -15,7 +16,8 @@ class BulkUpload < ApplicationRecord
   }
 
   validates :photos, presence: true, unless: -> { done? || importing? || error? }
-  validates :shared_album_url, presence: true, if: -> { importing? }
+  validates :shared_album_url, presence: true, if: -> { importing? && !zip.attached? }
+  validates :zip, presence: true, if: -> { importing? && !shared_album_url.present? }
 
   def photos=(attachables)
     attachables = Array(attachables).compact_blank

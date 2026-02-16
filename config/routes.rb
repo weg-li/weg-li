@@ -64,6 +64,7 @@ Rails.application.routes.draw do
     collection do
       post :bulk
       post :import
+      post :zip
     end
   end
 

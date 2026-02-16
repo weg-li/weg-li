@@ -107,8 +107,7 @@ class AnalyzerJob < ApplicationJob
 
   def handle_exif(notice)
     notice.photos.each do |photo|
-      exif =
-        photo.service.download_file(photo.key) { |file| exifer.metadata(file) }
+      exif = photo.service.download_file(photo.key) { |file| exifer.metadata(file) }
       next if exif.blank?
 
       exif_data_set =

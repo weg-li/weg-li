@@ -40,10 +40,12 @@ addEventListener("direct-uploads:start", () => {
 addEventListener("direct-upload:initialize", (event) => {
   const { target, detail } = event;
   const { id, file } = detail;
+  const isZip = file.name.endsWith(".zip") || file.type === "application/zip";
+  const previewImage = isZip ? "" : `<img src="${window.URL.createObjectURL(file)}" class="index-photo" style="v-align:middle" /> `;
   target.insertAdjacentHTML(
     "beforebegin",
     `
-    <p><img src="${window.URL.createObjectURL(file)}" class="index-photo" style="v-align:middle" /> ${file.name} (${(file.size / 1048576).toFixed(2)} MB)</p>
+    <p>${previewImage}${file.name} (${(file.size / 1048576).toFixed(2)} MB)</p>
     <div id="direct-upload-${id}" class="progress progress-striped active">
       <div id="direct-upload-progress-${id}" class="progress-bar progress-bar-success" style="width: 0%"></div>
     </div>

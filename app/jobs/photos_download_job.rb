@@ -4,19 +4,24 @@ require "zip"
 
 class PhotosDownloadJob < ApplicationJob
   def perform(bulk_upload)
-    Rails.logger.info("importing photos for #{bulk_upload.id} from #{bulk_upload.shared_album_url}")
-    album = URI.open(bulk_upload.shared_album_url)
-    content = album.read
-    content.match(%r{"(https://video-downloads\.googleusercontent\.com/[^"]*)"})
-    download_url = $1
+    if bulk_upload.shared_album_url
+      Rails.logger.info("importing photos for #{bulk_upload.id} from #{bulk_upload.shared_album_url}")
+      album = URI.open(bulk_upload.shared_album_url)
+      content = album.read
+      content.match(%r{"(https://video-downloads\.googleusercontent\.com/[^"]*)"})
+      download_url = $1
 
-    if download_url.blank?
-      error_message = "Es konnte kein Bilder-Archiv zum herunterladen gefunden werden!"
-      bulk_upload.update!(status: :error, error_message:)
-      return
+      if download_url.blank?
+        error_message = "Es konnte kein Bilder-Archiv zum herunterladen gefunden werden!"
+        bulk_upload.update!(status: :error, error_message:)
+        return
+      end
+
+      Rails.logger.info("downloading photos for #{bulk_upload.id} from #{download_url}")
+    else
+      Rails.logger.info("importing photos for #{bulk_upload.id} from zip")
+      download_url = bulk_upload.zip.url
     end
-
-    Rails.logger.info("downloading photos for #{bulk_upload.id} from #{download_url}")
     album = URI.open(download_url)
 
     if album.metas["content-type"].include?("application/zip")

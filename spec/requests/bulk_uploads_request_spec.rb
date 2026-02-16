@@ -6,6 +6,7 @@ describe "bulk_uploads", type: :request do
   let(:user) { Fabricate(:user) }
   let(:bulk_upload) { Fabricate(:bulk_upload, user:) }
   let(:file) { Rack::Test::UploadedFile.new(Rails.root.join("spec/fixtures/files/mercedes.jpg"), "image/jpeg") }
+  let(:zip) { Rack::Test::UploadedFile.new(Rails.root.join("spec/fixtures/files/import.zip"), "application/zip") }
 
   before do
     login(user)
@@ -112,6 +113,23 @@ describe "bulk_uploads", type: :request do
       expect do
         expect do
           post import_bulk_uploads_path, params:
+        end.to change { user.bulk_uploads.count }.by(1)
+      end.to have_enqueued_job(PhotosDownloadJob)
+
+      expect(response).to be_a_redirect
+    end
+  end
+
+  context "POST :zip" do
+    it "imports images from zip" do
+      params = {
+        bulk_upload: {
+          zip:,
+        },
+      }
+      expect do
+        expect do
+          post zip_bulk_uploads_path, params:
         end.to change { user.bulk_uploads.count }.by(1)
       end.to have_enqueued_job(PhotosDownloadJob)
 
