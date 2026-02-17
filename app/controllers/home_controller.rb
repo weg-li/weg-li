@@ -44,6 +44,14 @@ class HomeController < ApplicationController
 
   def leaderboard
     @limit = (params[:limit] || 5).to_i
+
+    @interval = 30
+    @user_count = Notice
+                    .connection
+                    .execute("select count(n.user_id) as cnt, n.user_id from notices n where n.created_at  > current_date - interval '#{@interval}' day group by user_id order by cnt desc limit 10")
+                    .map { |c| c["cnt"] }
+                    .sum
+    @notice_count = Notice.connection.execute("select count(*) as cnt from notices n where n.created_at  > current_date - interval '#{@interval}' day").first["cnt"]
   end
 
   helper_method :weekly_leaders, :monthly_leaders, :yearly_leaders, :total_leaders, :year_leaders, :leaderboard_users
