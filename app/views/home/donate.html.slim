@@ -15,7 +15,7 @@
 
 .well.well-sm.callout-success
   .row
-    .col-lg-6.text-center
+    .col-lg-4.text-center
       h4
         <span class="glyphicon glyphicon-piggy-bank"></span> Spenden per Überweisung
 
@@ -24,7 +24,7 @@
           |
             Da weg.li nicht als gemeinnützig anerkannt ist, können keine steuerlich absetzbaren Spendenquittungen ausgestellt werden!
 
-    .col-lg-6.text-center
+    .col-lg-4.text-center
       dl
         dt Begünstigter
         dd weg-li UG
@@ -33,6 +33,8 @@
         dt Verwendungszweck
         dd SPENDE weg.li
 
+    .col-lg-4.text-center
+      = image_tag 'epc-code.png', style: 'height: 150px;', alt: 'QR Code für Spenden per Überweisung'
 .row
   .col-lg-6.text-center
     = link_to('https://github.com/sponsors/phoet/', target: '_blank', class: 'btn btn-success btn-lg btn-block')
