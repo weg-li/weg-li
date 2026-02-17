@@ -49,7 +49,7 @@ class Brand < ApplicationRecord
         res = in_brands?(text, send(kind))
         return res if res
       end
-      nil # rubocop:disable Style/ReturnNilInPredicateMethodDefinition
+      nil
     end
 
     def from_param(param)

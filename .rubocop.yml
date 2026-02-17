@@ -11,6 +11,7 @@
 # https://github.com/rubocop/rubocop/blob/master/config/default.yml
 AllCops:
   NewCops: disable
+  SuggestExtensions: false
   Exclude:
     - "config.ru"
     - "db/**/*"
