@@ -9,7 +9,7 @@ describe AnalyzerJob do
     it "should analyze the image" do
       job = AnalyzerJob.new
       this = self
-      job.define_singleton_method(:annotator) { this }
+      job.define_singleton_method(:gemini_annotator) { this }
 
       expect do
         job.analyze(notice)
