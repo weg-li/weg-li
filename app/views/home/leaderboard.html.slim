@@ -6,7 +6,7 @@
 
 .well
   | 
-    In den letzten #{@interval} Tagen wurden #{@user_count.fdiv(@notice_count * 100).round(2)}% der Anzeigen gegen Falschparker 
+    In den letzten #{@interval} Tagen wurden #{@user_count.fdiv(@notice_count / 100).round(2)}% der Anzeigen gegen Falschparker 
     von den 10 aktivsten Nutzern erstattet.
 
 - if signed_in?
