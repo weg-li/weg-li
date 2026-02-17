@@ -9,12 +9,13 @@ class BulkUploadDashboard < Administrate::BaseDashboard
     id: Field::Number,
     notices: Field::HasMany,
     user: Field::BelongsTo,
-    photos: Field::ActiveStorage.with_options(destroy_url: nil),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     status: Field::String.with_options(searchable: false),
     error_message: Field::String,
     shared_album_url: Field::String,
+    zip: Field::ActiveStorage.with_options(destroy_url: nil),
+    photos: Field::ActiveStorage.with_options(destroy_url: nil),
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -35,12 +36,13 @@ class BulkUploadDashboard < Administrate::BaseDashboard
     :id,
     :notices,
     :user,
-    :photos,
     :created_at,
     :updated_at,
     :status,
     :error_message,
+    :zip,
     :shared_album_url,
+    :photos,
   ].freeze
 
   # FORM_ATTRIBUTES
