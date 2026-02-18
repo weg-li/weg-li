@@ -81,7 +81,13 @@ class GeminiAnnotator
     <<~PROMPT
       You are a license plate OCR specialist analyzing a photo from Germany.
 
-      ## German License Plate Format
+      IMPORTANT:
+      - Only transcribe characters you can clearly read
+      - Ignore TÜV/HU stickers (colored round seals) - they are NOT letters
+      - If uncertain about any character, return null for the whole plate
+      - Do NOT guess or hallucinate characters
+
+      ## German License Plate Format for KFZ (cars, trucks, bikes)
 
       Format: [DISTRICT] [LETTERS] [NUMBERS]
       - DISTRICT: 1-3 letters (city code like B, M, HH, KÜN)
@@ -89,13 +95,13 @@ class GeminiAnnotator
       - NUMBERS: 1-4 digits
       - Optional E/H suffix for electric/historic
 
-      Examples: "B AB 1234", "M XY 567", "HH A 1", "KÜN AB 12"
+      Examples for Cars, Trucks, Bikes etc: "B AB 1234", "M XY 567", "HH A 1", "KÜN AB 12"
 
-      IMPORTANT:
-      - Only transcribe characters you can clearly read
-      - Ignore TÜV/HU stickers (colored round seals) - they are NOT letters
-      - If uncertain about any character, return null for the whole plate
-      - Do NOT guess or hallucinate characters
+      ## German License Plate Format for Elektrokleinstfahrzeuge (e-scooters, e-bikes)
+
+      Format: 3[LETTERS] 3[NUMBERS]
+
+      Examples for E-Scooters and other Elektrokleinstfahrzeuge: "780 HGA", "498 ABC"
 
       ## Task
 
@@ -107,6 +113,7 @@ class GeminiAnnotator
       - is_likely_subject: true if this vehicle is likely the main subject of the photo.
       - box_2d_plate: the segmentation masks for license plate (in format "y0,x0,y1,x1")
       - box_2d_vehicle: the segmentation masks for vehicle (in format "y0,x0,y1,x1")
+      - country_code: the country code if it's a foreign plate (e.g. "D" for Germany, "F" for France), null if it's a German plate or not identifiable.
 
       Return a JSON object with:
       - vehicles: Array of all vehicles, ordered by likelihood of being the main subject (most likely first).
@@ -129,8 +136,9 @@ class GeminiAnnotator
               is_likely_subject: { type: "BOOLEAN" },
               box_2d_plate: { type: "STRING", nullable: true },
               box_2d_vehicle: { type: "STRING", nullable: true },
+              country_code: { type: "STRING", nullable: true },
             },
-            required: %w[registration brand color vehicle_type is_likely_subject],
+            required: %w[registration brand color vehicle_type is_likely_subject box_2d_plate box_2d_vehicle country_code],
           },
         },
       },
