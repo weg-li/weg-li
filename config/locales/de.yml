@@ -51,9 +51,10 @@ de:
         configs:
           standard: 'Standard'
           signature: 'mit Unterschrift'
-          munich: 'München'
+          munich: 'Münchener PIs & KVR'
           owi21: 'OWI21 Import'
           hamburg: 'ohne PDF'
+          ploen: 'Kreis & Stadt Plön'
           winowig: 'WiNOWiG Import'
       user:
         time_zone: 'Zeitzone'
