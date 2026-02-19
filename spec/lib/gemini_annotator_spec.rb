@@ -99,10 +99,9 @@ describe GeminiAnnotator do
     end
 
     it "returns nil on API error" do
-      stub_request(:post, api_url)
-        .to_return(status: 500, body: "Internal Server Error")
+      stub_request(:post, api_url).to_return(status: 400, body: "Bad request")
 
-      expect(subject.annotate_file).to be_nil
+      expect { subject.annotate_file }.to raise_error(HTTP::ResponseError, /Request failed with status 400/)
     end
 
     it "returns nil on malformed JSON response" do
@@ -114,14 +113,13 @@ describe GeminiAnnotator do
         }],
       }
 
-      stub_request(:post, api_url)
-        .to_return(
-          status: 200,
-          body: bad_response.to_json,
-          headers: { "Content-Type" => "application/json" },
-        )
+      stub_request(:post, api_url).to_return(
+        status: 200,
+        body: bad_response.to_json,
+        headers: { "Content-Type" => "application/json" },
+      )
 
-      expect(subject.annotate_file).to be_nil
+      expect { subject.annotate_file }.to raise_error(JSON::ParserError)
     end
 
     it "sends image as base64 inline data" do

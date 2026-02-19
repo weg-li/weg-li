@@ -41,8 +41,7 @@ class GeminiAnnotator
     if response.status.success?
       parse_response(response)
     else
-      Rails.logger.error("Gemini API error: #{response.status} #{response.body}")
-      nil
+      raise HTTP::ResponseError.new, "Request failed with status #{response.status}: #{response.body}"
     end
   end
 
@@ -164,9 +163,6 @@ class GeminiAnnotator
     end
 
     result
-  rescue JSON::ParserError => e
-    Rails.logger.error("Gemini response parse error: #{e.message} #{body}")
-    nil
   end
 
   def client
