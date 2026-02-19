@@ -326,9 +326,9 @@ de:
       from_recognition: 'Fahrzeugdaten aus Beweisfotos'
       from_proximity: 'Verstoß aus Umgebungsdaten'
     flags:
-      hide_public_profile: 'öffentliches Profil deaktivieren'
-      disable_reminders: 'Erinnerungen deaktivieren'
-      disable_autoreply_notifications: 'Eingangsbenachrichtigung deaktivieren'
+      hide_public_profile: 'öffentliches Profil & Leaderboard deaktivieren'
+      disable_reminders: 'Erinnerungen für offene Meldungen deaktivieren'
+      disable_autoreply_notifications: 'Eingangsbenachrichtigung für Antworten deaktivieren'
   bulk_uploads:
     status:
       initial: 'neu'

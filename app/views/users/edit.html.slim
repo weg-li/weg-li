@@ -87,7 +87,7 @@
           = form.label :nickname, class: "control-label control-label-required"
           = form.text_field :nickname, class: "form-control", required: true
           = hint do
-            | Der Spitzname wird im öffentlichen Profil verwendet.
+            | Der Spitzname wird #{link_to "im öffentlichen Profil & Leaderboard", public_profile_path(current_user)} verwendet.
 
           - User.bitfields[:flags].keys.each do |key|
               .checkbox
