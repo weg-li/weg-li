@@ -95,6 +95,20 @@ class Notice < ApplicationRecord
       .merge(User.active)
   end
 
+  def self.time_from_filename(filename)
+    token = filename[/.*(20\d{6}_\d{6})/, 1]
+    token ||= filename[/.*(20\d{2}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2})/, 1]
+    token ||= filename[/.*(20\d{2}-\d{2}-\d{2}-\d{2}-\d{2}-\d{2})-.*/, 1]
+
+    return nil unless token
+
+    begin
+      Time.zone.parse(token.gsub("-", ""))
+    rescue StandardError
+      nil
+    end
+  end
+
   def self.from_param(token)
     find_by!(token:)
   end
@@ -385,7 +399,7 @@ class Notice < ApplicationRecord
     if date_times.blank?
       date_times =
         photos
-          .map { |photo| AnalyzerJob.time_from_filename(photo.filename.to_s) }
+          .map { |photo| self.class.time_from_filename(photo.filename.to_s) }
           .compact
           .uniq
     end

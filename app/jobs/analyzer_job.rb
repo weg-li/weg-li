@@ -8,21 +8,6 @@ class AnalyzerJob < ApplicationJob
   discard_on Encoding::UndefinedConversionError
   discard_on ActiveRecord::RecordInvalid
 
-  # TODO: move me to notice
-  def self.time_from_filename(filename)
-    token = filename[/.*(20\d{6}_\d{6})/, 1]
-    token ||= filename[/.*(20\d{2}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2})/, 1]
-    token ||= filename[/.*(20\d{2}-\d{2}-\d{2}-\d{2}-\d{2}-\d{2})-.*/, 1]
-
-    return nil unless token
-
-    begin
-      Time.zone.parse(token.gsub("-", ""))
-    rescue StandardError
-      nil
-    end
-  end
-
   def perform(notice)
     analyze(notice)
   end
