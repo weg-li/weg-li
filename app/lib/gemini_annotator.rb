@@ -4,9 +4,6 @@ class GeminiAnnotator
   include PhotoHelper
   include Rails.application.routes.url_helpers
 
-  VEHICLE_COLORS = %w[black white silver gray beige blue brown yellow green red violet purple pink orange gold].freeze
-  VEHICLE_TYPES = %w[car truck bike scooter van].freeze
-
   def annotate_object(key)
     uri = image_url(key)
     call_api(request_body_with_uri(uri))
@@ -104,8 +101,8 @@ class GeminiAnnotator
       For each vehicle, extract:
       - registration: License plate text. Use SPACE between district, letters, and numbers. Set to null if not clearly readable.
       - brand: Manufacturer name (e.g. "Mercedes-Benz", "BMW", "Volkswagen"). Set to null if not identifiable.
-      - color: Body color. Must be one of: #{VEHICLE_COLORS.join(', ')}. Set to null if not determinable.
-      - vehicle_type: Must be one of: #{VEHICLE_TYPES.join(', ')}.
+      - color: Body color. Must be one of: #{Vehicle.colors.join(', ')}. Set to null if not determinable.
+      - vehicle_type: Must be one of: #{Brand.kinds.keys.join(', ')}.
       - is_likely_subject: true if this vehicle is likely the main subject of the photo.
       - box_2d_plate: the segmentation masks for license plate (in format "y0,x0,y1,x1")
       - box_2d_vehicle: the segmentation masks for vehicle (in format "y0,x0,y1,x1")
@@ -127,8 +124,8 @@ class GeminiAnnotator
             properties: {
               registration: { type: "STRING", nullable: true },
               brand: { type: "STRING", nullable: true },
-              color: { type: "STRING", nullable: true, enum: VEHICLE_COLORS },
-              vehicle_type: { type: "STRING", nullable: true, enum: VEHICLE_TYPES },
+              color: { type: "STRING", nullable: true, enum: Vehicle.colors },
+              vehicle_type: { type: "STRING", nullable: true, enum: Brand.kinds.keys },
               is_likely_subject: { type: "BOOLEAN" },
               box_2d_plate: { type: "STRING", nullable: true },
               box_2d_vehicle: { type: "STRING", nullable: true },
@@ -175,7 +172,6 @@ class GeminiAnnotator
   end
 
   def model
-    # ENV.fetch("GEMINI_MODEL", "gemini-2.5-flash")
     ENV.fetch("GEMINI_MODEL", "gemini-2.5-flash-lite")
   end
 

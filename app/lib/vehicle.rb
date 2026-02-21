@@ -76,25 +76,6 @@ class Vehicle
   end
 
   def self.colors
-    @colors ||= %w[
-      gold_yellow
-      gray_silver
-      pink_purple_violet
-      black
-      silver
-      gray
-      white
-      beige
-      blue
-      brown
-      yellow
-      green
-      red
-      violet
-      purple
-      pink
-      orange
-      gold
-    ]
+    @colors ||= %w[black white silver gray beige blue brown yellow green red violet purple pink orange gold]
   end
 end
