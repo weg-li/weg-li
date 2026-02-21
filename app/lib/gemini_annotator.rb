@@ -160,7 +160,7 @@ class GeminiAnnotator
   end
 
   def client
-    @client ||= HTTP.use(logging: { logger: Rails.logger }).timeout(30)
+    @client ||= HTTP.use(logging: { logger: Rails.logger }).timeout(timeout)
   end
 
   def api_url
@@ -177,5 +177,9 @@ class GeminiAnnotator
 
   def api_key
     ENV.fetch("GEMINI_API_KEY")
+  end
+
+  def timeout
+    ENV.fetch("GEMINI_TIMEOUT_SECONDS", "40").to_i
   end
 end
