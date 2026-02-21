@@ -10,9 +10,6 @@ class GeminiAnnotator
   def annotate_object(key)
     uri = image_url(key)
     call_api(request_body_with_uri(uri))
-  rescue StandardError => e
-    Rails.logger.error("GeminiAnnotator error for key #{key}: #{e.message}")
-    nil
   end
 
   def image_url(key)
