@@ -209,8 +209,7 @@ class Notice < ApplicationRecord
     self.status = :analyzing
     save_incomplete!
 
-    AnalyzerJob.perform_later(self)
-    # AnalyzerJob.set(wait: 1.second).perform_later(self)
+    AnalyzerJob.set(wait: 1.second).perform_later(self)
   end
 
   def owi21_args
