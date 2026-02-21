@@ -2,9 +2,7 @@
 
 class AnalyzerJob < ApplicationJob
   retry_on EXIFR::MalformedJPEG, attempts: 5, wait: :polynomially_longer
-  retry_on ActiveStorage::FileNotFoundError,
-           attempts: 5,
-           wait: :polynomially_longer
+  retry_on ActiveStorage::FileNotFoundError, attempts: 5, wait: :polynomially_longer
   discard_on Encoding::UndefinedConversionError
   discard_on ActiveRecord::RecordInvalid
 
