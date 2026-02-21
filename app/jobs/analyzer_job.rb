@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class AnalyzerJob < ApplicationJob
+  include PhotoHelper
+  include Rails.application.routes.url_helpers
+
   retry_on EXIFR::MalformedJPEG, attempts: 5, wait: :polynomially_longer
   retry_on ActiveStorage::FileNotFoundError, attempts: 5, wait: :polynomially_longer
   discard_on Encoding::UndefinedConversionError
@@ -60,7 +63,8 @@ class AnalyzerJob < ApplicationJob
 
   def handle_gemini(notice)
     notice.photos.each do |photo|
-      result = gemini_annotator.annotate_object(photo.key)
+      uri = image_url(photo)
+      result = gemini_annotator.annotate_object(uri)
       next if result.blank?
 
       data_set =
@@ -80,6 +84,14 @@ class AnalyzerJob < ApplicationJob
     false
   end
 
+  def image_url(photo)
+    if Rails.env.development?
+      photo.url
+    else
+      cloudflare_image_resize_url(photo.key, :default, true)
+    end
+  end
+
   def gemini_annotator
     @gemini_annotator ||= GeminiAnnotator.new
   end
@@ -90,11 +102,11 @@ class AnalyzerJob < ApplicationJob
 
   def handle_exif(notice)
     notice.photos.each do |photo|
-      exif = photo.service.download_file(photo.key) { |file| exifer.metadata(file) }
+      uri = image_url(photo)
+      exif = URI.open(uri) { |data| exifer.metadata(data) }
       next if exif.blank?
 
-      exif_data_set =
-        notice.data_sets.create!(data: exif, kind: :exif, keyable: photo)
+      exif_data_set = notice.data_sets.create!(data: exif, kind: :exif, keyable: photo)
 
       # the last or first exif is the good as any other
       coords = exif_data_set.coords

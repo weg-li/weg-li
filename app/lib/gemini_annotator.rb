@@ -1,24 +1,8 @@
 # frozen_string_literal: true
 
 class GeminiAnnotator
-  include PhotoHelper
-  include Rails.application.routes.url_helpers
-
-  def annotate_object(key)
-    uri = image_url(key)
+  def annotate_object(uri)
     call_api(request_body_with_uri(uri))
-  end
-
-  def image_url(key)
-    if Rails.env.development?
-      gcloud = Google::Cloud.new
-      storage = gcloud.storage
-      bucket = storage.bucket(Annotator.bucket_name)
-      file = bucket.file key
-      file.signed_url
-    else
-      cloudflare_image_resize_url(key, :default, true)
-    end
   end
 
   def annotate_file(file_name = Rails.root.join("spec/fixtures/files/mercedes.jpg").to_s)

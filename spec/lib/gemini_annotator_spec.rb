@@ -142,12 +142,7 @@ describe GeminiAnnotator do
   end
 
   describe "#annotate_object" do
-    let(:bucket_name) { "test-bucket" }
-    let(:key) { "uploads/photo.jpg" }
-
-    before do
-      allow(Annotator).to receive(:bucket_name).and_return(bucket_name)
-    end
+    let(:url) { "https://images.weg.li/photo.jpg" }
 
     it "sends a cloudflare URI via file_data instead of downloading bytes in production" do
       stub_request(:post, api_url).to_return(
@@ -156,9 +151,7 @@ describe GeminiAnnotator do
         headers: { "Content-Type" => "application/json" },
       )
 
-      allow(Rails.env).to receive(:development?).and_return(false)
-
-      subject.annotate_object(key)
+      subject.annotate_object(url)
 
       expect(WebMock).to(have_requested(:post, api_url).with do |req|
         body = JSON.parse(req.body)
@@ -170,36 +163,14 @@ describe GeminiAnnotator do
       end)
     end
 
-    it "sends GCS URI via file_data instead of downloading bytes" do
-      stub_request(:post, api_url).to_return(
-        status: 200,
-        body: gemini_response.to_json,
-        headers: { "Content-Type" => "application/json" },
-      )
-
-      allow(subject).to receive(:image_url).and_return("https://signed-url.example.com")
-
-      subject.annotate_object(key)
-
-      expect(WebMock).to(have_requested(:post, api_url).with do |req|
-        body = JSON.parse(req.body)
-        parts = body.dig("contents", 0, "parts")
-        file_part = parts.find { |p| p.key?("file_data") }
-        file_part.present? &&
-          file_part.dig("file_data", "file_uri") == "https://signed-url.example.com" &&
-          file_part.dig("file_data", "mime_type") == "image/jpeg"
-      end)
-    end
-
     it "does not send inline_data" do
       stub_request(:post, api_url).to_return(
         status: 200,
         body: gemini_response.to_json,
         headers: { "Content-Type" => "application/json" },
       )
-      allow(subject).to receive(:image_url).and_return("https://signed-url.example.com")
 
-      subject.annotate_object(key)
+      subject.annotate_object(url)
 
       expect(WebMock).to(have_requested(:post, api_url).with do |req|
         body = JSON.parse(req.body)

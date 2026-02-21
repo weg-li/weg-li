@@ -3,11 +3,9 @@
 class ApplicationJob < ActiveJob::Base
   include Slack::Slackable
 
-  class NotYetAnalyzedError < StandardError
-  end
+  class NotYetAnalyzedError < StandardError; end
+  class NotYetProcessedError < StandardError; end
 
-  class NotYetProcessedError < StandardError
-  end
   retry_on NotYetAnalyzedError, attempts: 20, wait: :polynomially_longer
   retry_on NotYetProcessedError, attempts: 20, wait: :polynomially_longer
 

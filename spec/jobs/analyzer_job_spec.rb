@@ -6,6 +6,10 @@ describe AnalyzerJob do
   context "perform" do
     let(:notice) { Fabricate.create(:notice) }
 
+    before do
+      stub_request(:get, /images\.weg\.li/).to_return(status: 200, body: file_fixture("mercedes.jpg").read)
+    end
+
     it "should analyze the image" do
       job = AnalyzerJob.new
       this = self
