@@ -104,11 +104,6 @@ class Notice < ApplicationRecord
     find_by!(token:)
   end
 
-  # TODO: (PS) remove
-  def self.statistics
-    Homepage.statistics
-  end
-
   def self.yearly_statistics(year, limit, base_scope: Notice.shared)
     notices = base_scope.reorder(nil)
     if year.present?

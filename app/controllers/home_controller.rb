@@ -194,6 +194,6 @@ class HomeController < ApplicationController
   end
 
   def statistics
-    @statistics ||= Notice.statistics
+    @statistics ||= Homepage.statistics
   end
 end
