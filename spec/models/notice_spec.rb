@@ -51,6 +51,14 @@ describe Notice do
     end
   end
 
+  context "helpers" do
+    it "parses filenames as dated" do
+      expect(described_class.time_from_filename("IMG_20190929_164947.jpg").to_s).to eql("2019-09-29 16:49:47 +0200")
+      expect(described_class.time_from_filename("photo_2019-08-22_21-57-26.jpg").to_s).to eql("2019-08-22 21:57:26 +0200")
+      expect(described_class.time_from_filename("2024-04-10-13-45-49-250.jpg").to_s).to eql("2024-04-10 13:45:49 +0200")
+    end
+  end
+
   context "merge!" do
     it "merges notices" do
       notice = Fabricate(:notice, color: nil, location: nil, tbnr: nil, flags: nil, note: nil)
