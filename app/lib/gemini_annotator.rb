@@ -141,6 +141,8 @@ class GeminiAnnotator
     end
 
     result
+  rescue JSON::ParserError => e
+    raise HTTP::ResponseError.new, "Response malformed: #{e.message} (#{response.body})"
   end
 
   def client
