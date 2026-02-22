@@ -470,12 +470,7 @@ class Notice < ApplicationRecord
 
   def suggestions_from_data_sets(attribute)
     @suggestions_from_data_sets ||= {}
-    @suggestions_from_data_sets[attribute] ||= begin
-      google_vision = data_sets.select(&:google_vision?).flat_map(&attribute)
-      gemini = data_sets.select(&:gemini?).flat_map(&attribute)
-      car_ml = data_sets.select(&:car_ml?).flat_map(&attribute)
-      car_ml.concat(google_vision).concat(gemini).compact.uniq
-    end
+    @suggestions_from_data_sets[attribute] ||= data_sets.gemini.flat_map(&attribute)
   end
 
   def attachments

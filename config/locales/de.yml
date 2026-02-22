@@ -289,9 +289,6 @@ de:
       active_users: 'Aktive Melder'
       total_users: 'Registrierte Bürger'
   users:
-    analyzers:
-      vision: 'Vision AI'
-      gemini_flash: 'Gemini Flash'
     access:
       admin: 'Admin'
       community: 'Community'

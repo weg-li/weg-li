@@ -13,7 +13,7 @@ describe AnalyzerJob do
     it "should analyze the image" do
       job = AnalyzerJob.new
       this = self
-      job.define_singleton_method(:gemini_annotator) { this }
+      job.define_singleton_method(:gemini_annotator) { |_model| this }
 
       expect do
         job.analyze(notice)
@@ -24,6 +24,6 @@ describe AnalyzerJob do
   end
 
   def annotate_object(key)
-    with_fixture("annotate") { Annotator.new.annotate_object(key) }
+    { key: key, value: "value" }
   end
 end

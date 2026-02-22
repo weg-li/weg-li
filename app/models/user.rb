@@ -16,7 +16,12 @@ class User < ApplicationRecord
            8 => :from_history
 
   enum :access, { to_delete: -100, disabled: -99, user: 0, community: 1, studi: 2, admin: 42 }
-  enum :analyzer, { gemini_flash: 0, vision: 1 }
+  enum :analyzer, {
+    "gemini-2.5-flash-lite-preview-09-2025" => 0,
+    "gemini-2.5-flash-lite" => 1,
+    "gemini-2.5-flash" => 2,
+    "gemini-3-flash-preview" => 3,
+  }
 
   geocoded_by :geocode_address, language: proc { |_model| I18n.locale }, no_annotations: true
   after_validation :geocode, if: :geocode_address_changed?
