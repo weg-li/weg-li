@@ -119,7 +119,7 @@ describe GeminiAnnotator do
         headers: { "Content-Type" => "application/json" },
       )
 
-      expect { subject.annotate_file }.to raise_error(JSON::ParserError)
+      expect { subject.annotate_file }.to raise_error(HTTP::ResponseError)
     end
 
     it "sends image as base64 inline data" do
