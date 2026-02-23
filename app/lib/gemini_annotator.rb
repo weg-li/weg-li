@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 class GeminiAnnotator
+  attr_accessor :model
+
+  def initialize(model: nil)
+    @model = model || ENV.fetch("GEMINI_MODEL", "gemini-2.5-flash-lite")
+  end
+
   def annotate_object(uri)
     call_api(request_body_with_uri(uri))
   end
@@ -155,10 +161,6 @@ class GeminiAnnotator
 
   def endpoint
     "https://generativelanguage.googleapis.com"
-  end
-
-  def model
-    ENV.fetch("GEMINI_MODEL", "gemini-2.5-flash-lite")
   end
 
   def api_key

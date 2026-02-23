@@ -60,5 +60,4 @@ RSpec.configure do |config|
   config.include ActionMailbox::TestHelper
   config.include RequestHelper, type: :controller
   config.include LoginHelper, type: :request
-  config.include DataHelper
 end

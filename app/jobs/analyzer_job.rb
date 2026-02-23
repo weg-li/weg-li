@@ -15,41 +15,13 @@ class AnalyzerJob < ApplicationJob
 
   def analyze(notice)
     handle_exif(notice)
-
-    case notice.user.analyzer
-    when "gemini_flash"
-      handle_gemini(notice)
-    else
-      handle_vision(notice)
-    end
+    handle_gemini(notice)
 
     notice.status = :open
     notice.save_incomplete!
   end
 
   private
-
-  def handle_vision(notice)
-    notice.photos.each do |photo|
-      result = annotator.annotate_object(photo.key)
-
-      if result.present?
-        data_set =
-          notice.data_sets.create!(
-            data: result,
-            kind: :google_vision,
-            keyable: photo,
-          )
-        # skip if we got lucky
-        registrations = data_set.registrations
-        if registrations.present?
-          apply_registrations(notice, registrations, data_set)
-
-          break
-        end
-      end
-    end
-  end
 
   def apply_registrations(notice, registrations, data_set)
     notice.apply_favorites(registrations) if notice.user.from_history?
@@ -64,15 +36,10 @@ class AnalyzerJob < ApplicationJob
   def handle_gemini(notice)
     notice.photos.each do |photo|
       uri = image_url(photo)
-      result = gemini_annotator.annotate_object(uri)
+      result = gemini_annotator(notice.user.analyzer).annotate_object(uri)
       next if result.blank?
 
-      data_set =
-        notice.data_sets.create!(
-          data: result,
-          kind: :gemini,
-          keyable: photo,
-        )
+      data_set = notice.data_sets.create!(data: result, kind: :gemini, keyable: photo)
 
       registrations = data_set.registrations
       if registrations.present?
@@ -84,20 +51,16 @@ class AnalyzerJob < ApplicationJob
     false
   end
 
+  def gemini_annotator(model = nil)
+    GeminiAnnotator.new(model: model)
+  end
+
   def image_url(photo)
     if Rails.env.development?
       photo.url
     else
       cloudflare_image_resize_url(photo.key, :default, true)
     end
-  end
-
-  def gemini_annotator
-    @gemini_annotator ||= GeminiAnnotator.new
-  end
-
-  def annotator
-    @annotator ||= Annotator.new
   end
 
   def handle_exif(notice)
@@ -115,12 +78,7 @@ class AnalyzerJob < ApplicationJob
       if notice.data_sets.geocoder.blank?
         result = Geocoder.search(coords)
         if result.present?
-          geocoder_data_set =
-            notice.data_sets.create!(
-              data: result,
-              kind: :geocoder,
-              keyable: photo,
-            )
+          geocoder_data_set = notice.data_sets.create!(data: result, kind: :geocoder, keyable: photo)
           if notice.user.from_exif?
             address = geocoder_data_set.address
             notice.latitude = address[:latitude]

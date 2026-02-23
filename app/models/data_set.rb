@@ -21,13 +21,6 @@ class DataSet < ApplicationRecord
 
   def registrations
     case kind
-    when "google_vision"
-      district = setable.district || setable.user.district
-      text_annotations = data.deep_symbolize_keys[:text_annotations]
-      with_likelyhood = Annotator.grep(text_annotations) { |it| Vehicle.plate?(it, prefixes: district&.prefixes) }
-      Vehicle.by_likelyhood(with_likelyhood)
-    when "car_ml"
-      data["suggestions"]["license_plate_number"]
     when "gemini"
       vehicle = gemini_primary_vehicle
       return [] if vehicle.nil? || vehicle["registration"].blank?
@@ -40,12 +33,6 @@ class DataSet < ApplicationRecord
 
   def brands
     case kind
-    when "google_vision"
-      text_annotations = data.deep_symbolize_keys[:text_annotations]
-      with_likelyhood = Annotator.grep(text_annotations) { |it| Brand.brand?(it) }
-      Vehicle.by_likelyhood(with_likelyhood)
-    when "car_ml"
-      data["suggestions"]["make"]
     when "gemini"
       vehicle = gemini_primary_vehicle
       return [] if vehicle.nil? || vehicle["brand"].blank?
@@ -58,11 +45,6 @@ class DataSet < ApplicationRecord
 
   def colors
     case kind
-    when "google_vision"
-      with_likelyhood = Annotator.dominant_colors(data.deep_symbolize_keys)
-      Vehicle.by_likelyhood(with_likelyhood)
-    when "car_ml"
-      data["suggestions"]["color"]
     when "gemini"
       vehicle = gemini_primary_vehicle
       return [] if vehicle.nil? || vehicle["color"].blank?
@@ -91,12 +73,6 @@ class DataSet < ApplicationRecord
     else
       []
     end
-  end
-
-  def gemini_vehicles
-    return [] unless gemini?
-
-    data["vehicles"] || []
   end
 
   def address

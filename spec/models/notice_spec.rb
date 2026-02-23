@@ -2,6 +2,28 @@
 
 require "spec_helper"
 
+GEMINI_RESULT = {
+  "vehicles" => [
+    {
+      "registration" => "HH AB 1234",
+      "brand" => "Mercedes-Benz",
+      "color" => "silver",
+      "vehicle_type" => "car",
+      "location_in_image" => "center",
+      "is_likely_subject" => true,
+    },
+    {
+      "registration" => "B XY 567",
+      "brand" => "BMW",
+      "color" => "black",
+      "vehicle_type" => "car",
+      "location_in_image" => "left background",
+      "is_likely_subject" => false,
+    },
+  ],
+  "model_version" => "gemini-2.0-flash",
+}
+
 describe Notice do
   let(:notice) { Fabricate.build(:notice, registration: "BÜR-CO 443") }
   let(:charge) { Fabricate.create(:charge) }
@@ -248,38 +270,34 @@ describe Notice do
   context "suggested_registrations" do
     it "collects registrations from data_sets and the notice itself" do
       notice = Fabricate.create(:notice, registration: "HH PS 123")
-      Fabricate.create(:data_set, setable: notice, keyable: notice.photos.first, kind: :car_ml,
-                                  data: { "suggestions" => { "license_plate_number" => ["HH AB 456"], "make" => [], "color" => [] } })
+      Fabricate.create(:data_set, setable: notice, keyable: notice.photos.first, data: GEMINI_RESULT)
 
-      expect(notice.suggested_registrations).to contain_exactly("HH AB 456", "HH PS 123")
+      expect(notice.suggested_registrations).to contain_exactly("HH AB 1234", "HH PS 123")
     end
 
     it "deduplicates registrations" do
       notice = Fabricate.create(:notice, registration: "HH AB 456")
-      Fabricate.create(:data_set, setable: notice, keyable: notice.photos.first, kind: :car_ml,
-                                  data: { "suggestions" => { "license_plate_number" => ["HH AB 456"], "make" => [], "color" => [] } })
+      Fabricate.create(:data_set, setable: notice, keyable: notice.photos.first, data: GEMINI_RESULT)
 
-      expect(notice.suggested_registrations).to eq(["HH AB 456"])
+      expect(notice.suggested_registrations).to eq(["HH AB 1234", "HH AB 456"])
     end
   end
 
   context "suggested_brands" do
     it "collects brands from data_sets" do
       notice = Fabricate.create(:notice)
-      Fabricate.create(:data_set, setable: notice, keyable: notice.photos.first, kind: :car_ml,
-                                  data: { "suggestions" => { "license_plate_number" => [], "make" => ["BMW"], "color" => [] } })
+      Fabricate.create(:data_set, setable: notice, keyable: notice.photos.first, data: GEMINI_RESULT)
 
-      expect(notice.suggested_brands).to eq(["BMW"])
+      expect(notice.suggested_brands).to eq(["Mercedes-Benz"])
     end
   end
 
   context "suggested_colors" do
     it "collects colors from data_sets" do
       notice = Fabricate.create(:notice)
-      Fabricate.create(:data_set, setable: notice, keyable: notice.photos.first, kind: :car_ml,
-                                  data: { "suggestions" => { "license_plate_number" => [], "make" => [], "color" => ["black"] } })
+      Fabricate.create(:data_set, setable: notice, keyable: notice.photos.first, data: GEMINI_RESULT)
 
-      expect(notice.suggested_colors).to eq(["black"])
+      expect(notice.suggested_colors).to eq(["silver"])
     end
   end
 
