@@ -55,26 +55,6 @@ class DataSet < ApplicationRecord
     end
   end
 
-  def box_2d_plate
-    case kind
-    when "gemini"
-      vehicle = gemini_primary_vehicle
-      vehicle&.dig("box_2d_plate")
-    else
-      []
-    end
-  end
-
-  def box_2d_vehicle
-    case kind
-    when "gemini"
-      vehicle = gemini_primary_vehicle
-      vehicle&.dig("box_2d_vehicle")
-    else
-      []
-    end
-  end
-
   def address
     case kind
     when "geocoder"

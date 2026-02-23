@@ -94,8 +94,6 @@ class GeminiAnnotator
       - color: Body color. Must be one of: #{Vehicle.colors.join(', ')}. Set to null if not determinable.
       - vehicle_type: Must be one of: #{Brand.kinds.keys.join(', ')}.
       - is_likely_subject: true if this vehicle is likely the main subject of the photo.
-      - box_2d_plate: the segmentation masks for license plate (in format "y0,x0,y1,x1")
-      - box_2d_vehicle: the segmentation masks for vehicle (in format "y0,x0,y1,x1")
       - country_code: the country code if it's a foreign plate (e.g. "D" for Germany, "F" for France), null if it's a German plate or not identifiable.
 
       Return a JSON object with:
@@ -117,11 +115,9 @@ class GeminiAnnotator
               color: { type: "STRING", nullable: true, enum: Vehicle.colors },
               vehicle_type: { type: "STRING", nullable: true, enum: Brand.kinds.keys },
               is_likely_subject: { type: "BOOLEAN" },
-              box_2d_plate: { type: "STRING", nullable: true },
-              box_2d_vehicle: { type: "STRING", nullable: true },
               country_code: { type: "STRING", nullable: true },
             },
-            required: %w[registration brand color vehicle_type is_likely_subject box_2d_plate box_2d_vehicle country_code],
+            required: %w[registration brand color vehicle_type is_likely_subject country_code],
           },
         },
       },

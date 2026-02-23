@@ -2,9 +2,6 @@
 
 .bbox(style="position: relative; display: inline-block;")
   = image_tag(url_for_photo(@photo, size: :preview), class: 'item-photo')
-  = bbox(@photo, :preview, @recognition.data["vehicles"][0]["box_2d_plate"]) if @recognition&.data&.dig("vehicles", 0, "box_2d_plate")
-  = bbox(@photo, :preview, @recognition.data["vehicles"][0]["box_2d_vehicle"]) if @recognition&.data&.dig("vehicles", 0, "box_2d_vehicle")
-
 
 p
   =debug @notice.attributes
