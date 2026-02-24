@@ -331,7 +331,7 @@ class NoticesController < ApplicationController
     notice.data_sets.destroy_all
     notice.analyze!
 
-    redirect_to edit_notice_path(notice), notice: "Analyse neu gestartet, es kann einen Augenblick dauern"
+    redirect_back fallback_location: notice_path(notice), notice: "Analyse neu gestartet, es kann einen Augenblick dauern"
   end
 
   def purge

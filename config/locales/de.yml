@@ -104,6 +104,10 @@ de:
           bike: 'Kraftrad'
           scooter: 'Scooter'
           van: 'Camper'
+          moped: 'Moped'
+          bus: 'Bus'
+          trailer: 'Anhänger'
+          other: 'Sonstige'
       sign:
         number: 'Nummer'
         icon: 'Symbol'

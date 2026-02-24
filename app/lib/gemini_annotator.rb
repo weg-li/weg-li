@@ -70,7 +70,7 @@ class GeminiAnnotator
       - If uncertain about any character, return null for the whole plate
       - Do NOT guess or hallucinate characters
 
-      ## German License Plate Format for KFZ (cars, trucks, bikes)
+      ## German License Plate Format for KFZ (cars, trucks, bikes, vans, buses, trailers)
 
       Format: [DISTRICT] [LETTERS] [NUMBERS]
       - DISTRICT: 1-3 letters (city code like B, M, HH, KÜN)
@@ -78,13 +78,13 @@ class GeminiAnnotator
       - NUMBERS: 1-4 digits
       - Optional E/H suffix for electric/historic
 
-      Examples for Cars, Trucks, Bikes etc: "B AB 1234", "M XY 567", "HH A 1", "KÜN AB 12"
+      Examples: "B AB 1234", "M XY 567", "HH A 1", "KÜN AB 12"
 
-      ## German License Plate Format for Elektrokleinstfahrzeuge (e-scooters, e-bikes)
+      ## German License Plate Format for Versicherungskennzeichen (mopeds, e-scooters, e-bikes)
 
       Format: 3[LETTERS] 3[NUMBERS]
 
-      Examples for E-Scooters and other Elektrokleinstfahrzeuge: "780 HGA", "498 ABC"
+      Examples: "780 HGA", "498 ABC"
 
       ## Task
 
