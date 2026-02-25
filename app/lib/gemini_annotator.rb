@@ -86,6 +86,10 @@ class GeminiAnnotator
 
       Examples: "780 HGA", "498 ABC"
 
+      ## Foreign License Plate Format for KFZ
+
+      Examples: Polish "SK 4C 001", Italian "MI AB 12345", French "AB-123-CD"
+
       ## Task
 
       For each vehicle, extract:

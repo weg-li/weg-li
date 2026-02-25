@@ -56,7 +56,7 @@ Rails.application.routes.draw do
 
   resources :replies
   resources :snippets
-  resources :brands, except: [:delete]
+  resources :brands, except: [:destroy]
 
   resources :bulk_uploads do
     member { patch :purge }
@@ -101,7 +101,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :user, except: %i[create new index] do
+  resource :user, except: %i[create new] do
     member do
       get :studi
       patch :confirmation_mail

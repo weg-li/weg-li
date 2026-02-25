@@ -23,20 +23,25 @@ class ActiveStorage::Service::DiskService
 end
 
 ActiveSupport::Reloader.to_prepare do
-  require 'active_storage/blob'
-
-  class ActiveStorage::Blob
-    before_validation :set_usable_key_not_the_shait_from_active_storate
+  ActiveStorage::Blob.class_eval do
+    callback = _validation_callbacks.any? do |cb|
+      cb.kind == :before && cb.filter == :set_usable_key_not_the_shait_from_active_storate
+    end
+    before_validation :set_usable_key_not_the_shait_from_active_storate unless callback
 
     def set_usable_key_not_the_shait_from_active_storate
       # REM: add a file-extension to the key .jpg
-      self[:key] ||= "#{SecureRandom.base36(28)}#{File.extname(self[:filename])}" if self[:filename].present?
+      return unless self[:filename].present?
+
+      extension = File.extname(self[:filename].to_s)
+      return if extension.blank?
+      return if self[:key].present? && File.extname(self[:key]).present?
+
+      self[:key] = "#{SecureRandom.base36(28)}#{extension}"
     end
   end
 
-  require 'active_storage/direct_uploads_controller'
-
-  ActiveStorage::DirectUploadsController.instance_eval do
+  ActiveStorage::DirectUploadsController.class_eval do
     rescue_from(ActionController::InvalidAuthenticityToken, with: -> { redirect_to('/', alert: 'Deine Sitzung wurde unerwartet beendet!') })
   end
 end

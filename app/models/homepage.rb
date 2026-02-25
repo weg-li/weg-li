@@ -10,6 +10,6 @@ class Homepage < ApplicationRecord
   end
 
   def self.statistics
-    first.attributes.symbolize_keys
+    take.attributes.symbolize_keys
   end
 end
