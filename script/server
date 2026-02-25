@@ -19,5 +19,4 @@ export SECRET_KEY_BASE=6254271520a1865fabd321490051fb35e5ab0591ee99dd1f8e0f5dc17
 
 bundle check || bundle install
 bundle exec rails db:migrate
-bundle exec rails assets:precompile
 bundle exec rails server -b 0.0.0.0
