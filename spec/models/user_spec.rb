@@ -64,6 +64,19 @@ describe User do
     expect(user.wegli_email).to eql("dd-33@anzeige.weg.li")
   end
 
+  it "suggest the most often used tbnrs" do
+    user = Fabricate.create(:user)
+    user.notices.destroy_all
+
+    Fabricate.times(4, :notice, user:, charge: Fabricate.build(:charge, tbnr: "112464"))
+    Fabricate.times(3, :notice, user:, charge: Fabricate.build(:charge, tbnr: "141312"))
+    Fabricate.times(2, :notice, user:, charge: Fabricate.build(:charge, tbnr: "112030"))
+
+    result = user.favorite_tbnrs
+
+    expect(result).to eq(%w[112464 141312 112030 112454 141312 112262 141174 141194 141245 112474 142103 141322])
+  end
+
   context "registration_suggestions" do
     it "returns brand and color from the most recent matching notice" do
       user = Fabricate.create(:user)

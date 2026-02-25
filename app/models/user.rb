@@ -74,7 +74,7 @@ class User < ApplicationRecord
   end
 
   def favorite_tbnrs(max: 25)
-    @favorite_tbnrs ||= notices.since(6.month.ago).reorder(nil).distinct(:tbnr).limit(max).pluck(:tbnr)
+    @favorite_tbnrs ||= notices.since(6.month.ago).reorder("count(tbnr) DESC").group(:tbnr).limit(max).pluck(:tbnr)
 
     (@favorite_tbnrs + Charge::FAVS).first(max)
   end
