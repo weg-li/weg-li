@@ -2,6 +2,7 @@
 
 // allow templates to use $
 window.$ = require("jquery");
+
 window.jQuery = window.$;
 
 // rails deps
