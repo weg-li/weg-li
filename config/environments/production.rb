@@ -75,7 +75,7 @@ Rails.application.configure do
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
   # Prevent health checks from clogging up the logs.
-  config.silence_healthcheck_path = "/up"
+  config.silence_healthcheck_path = "/ping"
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
