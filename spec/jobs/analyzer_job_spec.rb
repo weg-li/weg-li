@@ -16,7 +16,7 @@ describe AnalyzerJob do
       job.define_singleton_method(:gemini_annotator) { |_model| this }
 
       expect do
-        job.analyze(notice)
+        job.perform(notice)
       end.to change {
         notice.data_sets.count
       }.by(3)
