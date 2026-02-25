@@ -3,7 +3,7 @@ html lang=I18n.locale
   head
     title = title
     = stylesheet_link_tag('application', media: 'all')
-    = javascript_include_tag("application", "data-turbo-track": "reload", defer: true)
+    = javascript_include_tag("application", "data-turbo-track": "reload")
     = content_for :head
     = csrf_meta_tags
     = canonical_tag

@@ -27,6 +27,7 @@ config/secrets
 wrangler.toml
 config/data/opengeodb.csv
 
+/app/assets/builds/*
 /node_modules
 /yarn-error.log
 yarn-debug.log*
