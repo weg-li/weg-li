@@ -15,7 +15,7 @@
 /.idea
 
 # Ignore all logfiles and tempfiles.
-/log/*.log
+/log/*.log*
 /tmp
 /storage
 .env.development
