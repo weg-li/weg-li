@@ -1,13 +1,15 @@
+@use "library/variables";
+
 .cell-label {
   padding-top: 0.15em;
 
   &:hover {
     a {
-      color: $action-color;
+      color: variables.$action-color;
     }
 
     svg {
-      fill: $action-color;
+      fill: variables.$action-color;
       transform: rotate(180deg);
     }
   }
@@ -15,14 +17,14 @@
   a {
     color: inherit;
     display: inline-block;
-    transition: color $base-duration $base-timing;
+    transition: color variables.$base-duration variables.$base-timing;
     width: 100%;
   }
 }
 
 .cell-label--asc,
 .cell-label--desc {
-  font-weight: $bold-font-weight;
+  font-weight: variables.$bold-font-weight;
 }
 
 .cell-label__sort-indicator {
@@ -30,9 +32,9 @@
   margin-left: 5px;
 
   svg {
-    fill: $hint-grey;
+    fill: variables.$hint-grey;
     height: 13px;
-    transition: transform $base-duration $base-timing;
+    transition: transform variables.$base-duration variables.$base-timing;
     width: 13px;
   }
 }

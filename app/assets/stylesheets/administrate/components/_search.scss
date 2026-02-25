@@ -1,3 +1,5 @@
+@use "library/variables";
+
 $_search-icon-size: 1rem;
 
 .search {
@@ -15,7 +17,7 @@ $_search-icon-size: 1rem;
 }
 
 .search__eyeglass-icon {
-  fill: $grey-7;
+  fill: variables.$grey-7;
   height: $_search-icon-size;
   left: $_search-icon-size;
   position: absolute;
@@ -34,13 +36,13 @@ $_search-icon-size: 1rem;
 }
 
 .search__clear-icon {
-  fill: $grey-5;
+  fill: variables.$grey-5;
   height: $_search-icon-size;
   position: absolute;
-  transition: fill $base-duration $base-timing;
+  transition: fill variables.$base-duration variables.$base-timing;
   width: $_search-icon-size;
 
   &:hover {
-    fill: $action-color;
+    fill: variables.$action-color;
   }
 }

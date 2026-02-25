@@ -1,14 +1,16 @@
+@use "sass:color";
+
 // Slate 3.4.1
 // Bootswatch
 // -----------------------------------------------------
 
 @mixin btn-shadow($color){
-  @include gradient-vertical-three-colors(lighten($color, 6%), $color, 60%, darken($color, 4%));
+  @include gradient-vertical-three-colors(color.adjust($color, $lightness: 6%, $space: hsl), $color, 60%, color.adjust($color, $lightness: -4%, $space: hsl));
   filter: none;
 }
 
 @mixin btn-shadow-inverse($color){
-  @include gradient-vertical-three-colors(darken($color, 24%), darken($color, 18%), 40%, darken($color, 16%));
+  @include gradient-vertical-three-colors(color.adjust($color, $lightness: -24%, $space: hsl), color.adjust($color, $lightness: -18%, $space: hsl), 40%, color.adjust($color, $lightness: -16%, $space: hsl));
   filter: none;
 }
 
@@ -405,7 +407,7 @@ a.list-group-item {
 
     &.active:hover,
     &.active:focus {
-      background-color: darken($state-success-bg, 5%);
+      background-color: color.adjust($state-success-bg, $lightness: -5%, $space: hsl);
     }
   }
 
@@ -416,7 +418,7 @@ a.list-group-item {
     
     &.active:hover,
     &.active:focus {
-      background-color: darken($state-warning-bg, 5%);
+      background-color: color.adjust($state-warning-bg, $lightness: -5%, $space: hsl);
     }
   }
 
@@ -427,7 +429,7 @@ a.list-group-item {
     
     &.active:hover,
     &.active:focus {
-      background-color: darken($state-danger-bg, 5%);
+      background-color: color.adjust($state-danger-bg, $lightness: -5%, $space: hsl);
     }
   }
 }

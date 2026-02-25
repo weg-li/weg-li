@@ -1,5 +1,7 @@
+@use "library/variables";
+
 html {
-  background-color: $base-background-color;
+  background-color: variables.$base-background-color;
   box-sizing: border-box;
 }
 

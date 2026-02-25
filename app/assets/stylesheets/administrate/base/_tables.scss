@@ -1,3 +1,5 @@
+@use "library/variables";
+
 table {
   border-collapse: collapse;
   font-size: 0.9em;
@@ -11,16 +13,16 @@ table {
 }
 
 thead {
-  font-weight: $bold-font-weight;
+  font-weight: variables.$bold-font-weight;
 }
 
 tr {
-  border-bottom: $base-border;
+  border-bottom: variables.$base-border;
 }
 
 tbody tr {
   &:hover {
-    background-color: $base-background-color;
+    background-color: variables.$base-background-color;
   }
 
   [role=link] {
@@ -28,8 +30,8 @@ tbody tr {
   }
 
   &:focus {
-    outline: $focus-outline;
-    outline-offset: -($focus-outline-width);
+    outline: variables.$focus-outline;
+    outline-offset: -(variables.$focus-outline-width);
   }
 }
 

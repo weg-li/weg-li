@@ -1,9 +1,12 @@
+@use "library/clearfix";
+@use "library/variables";
+
 .field-unit {
-  @include administrate-clearfix;
+  @include clearfix.administrate-clearfix;
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: $base-spacing;
+  margin-bottom: variables.$base-spacing;
   position: relative;
   width: 100%;
 }
@@ -22,7 +25,7 @@
   width: 100%;
 
   .optgroup-header {
-    font-weight: $bold-font-weight;
+    font-weight: variables.$bold-font-weight;
   }
 }
 
@@ -33,10 +36,10 @@
 }
 
 .field-unit--nested {
-  border: $base-border;
+  border: variables.$base-border;
   margin-left: 7.5%;
   max-width: 60rem;
-  padding: $small-spacing;
+  padding: variables.$small-spacing;
   width: 100%;
 
   .field-unit__field {
@@ -50,7 +53,7 @@
 
 .field-unit--required {
   label::after {
-    color: $red;
+    color: variables.$red;
     content: " *";
   }
 }

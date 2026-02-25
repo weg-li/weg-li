@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "library/variables";
+
 fieldset {
   background-color: transparent;
   border: 0;
@@ -6,29 +9,29 @@ fieldset {
 }
 
 legend {
-  font-weight: $bold-font-weight;
+  font-weight: variables.$bold-font-weight;
   margin: 0;
   padding: 0;
 }
 
 label {
   display: block;
-  font-weight: $bold-font-weight;
+  font-weight: variables.$bold-font-weight;
   margin: 0;
 }
 
 input,
 select {
   display: block;
-  font-family: $base-font-family;
-  font-size: $base-font-size;
+  font-family: variables.$base-font-family;
+  font-size: variables.$base-font-size;
 }
 
 input,
 select,
 textarea {
   display: block;
-  font-family: $base-font-family;
+  font-family: variables.$base-font-family;
   font-size: 16px;
 }
 
@@ -48,28 +51,28 @@ textarea {
 input:not([type]),
 textarea {
   appearance: none;
-  background-color: $white;
-  border: $base-border;
-  border-radius: $base-border-radius;
+  background-color: variables.$white;
+  border: variables.$base-border;
+  border-radius: variables.$base-border-radius;
   padding: 0.5em;
-  transition: border-color $base-duration $base-timing;
+  transition: border-color variables.$base-duration variables.$base-timing;
   width: 100%;
 
   &:hover {
-    border-color: mix($black, $base-border-color, 20%);
+    border-color: color.mix(variables.$black, variables.$base-border-color, 20%);
   }
 
   &:focus {
-    border-color: $action-color;
+    border-color: variables.$action-color;
     outline: none;
   }
 
   &:disabled {
-    background-color: mix($black, $white, 5%);
+    background-color: color.mix(variables.$black, variables.$white, 5%);
     cursor: not-allowed;
 
     &:hover {
-      border: $base-border;
+      border: variables.$base-border;
     }
   }
 
@@ -85,7 +88,7 @@ textarea {
 [type="checkbox"],
 [type="radio"] {
   display: inline;
-  margin-right: $small-spacing * 0.5;
+  margin-right: variables.$small-spacing * 0.5;
 }
 
 [type="file"] {
@@ -101,7 +104,7 @@ select {
 [type="file"],
 select {
   &:focus {
-    outline: $focus-outline;
-    outline-offset: $focus-outline-offset;
+    outline: variables.$focus-outline;
+    outline-offset: variables.$focus-outline-offset;
   }
 }

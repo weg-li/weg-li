@@ -1,3 +1,5 @@
+@use "library/variables";
+
 .app-container {
   align-items: stretch;
   display: flex;
@@ -5,5 +7,5 @@
   margin-right: auto;
   max-width: 100rem;
   min-height: 100vh;
-  padding: $base-spacing;
+  padding: variables.$base-spacing;
 }

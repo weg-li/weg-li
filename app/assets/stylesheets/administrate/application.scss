@@ -1,27 +1,27 @@
 @charset "utf-8";
 
-@import "reset/normalize";
+@use "reset/normalize";
 
-@import "library/clearfix";
-@import "library/data-label";
-@import "library/variables";
+@use "library/clearfix";
+@use "library/data-label";
+@use "library/variables";
 
-@import "base/forms";
-@import "base/layout";
-@import "base/lists";
-@import "base/tables";
-@import "base/typography";
+@use "base/forms";
+@use "base/layout";
+@use "base/lists";
+@use "base/tables";
+@use "base/typography";
 
-@import "components/app-container";
-@import "components/attributes";
-@import "components/buttons";
-@import "components/cells";
-@import "components/field-unit";
-@import "components/flashes";
-@import "components/form-actions";
-@import "components/main-content";
-@import "components/navigation";
-@import "components/pagination";
-@import "components/search";
+@use "components/app-container";
+@use "components/attributes";
+@use "components/buttons";
+@use "components/cells";
+@use "components/field-unit";
+@use "components/flashes";
+@use "components/form-actions";
+@use "components/main-content";
+@use "components/navigation";
+@use "components/pagination";
+@use "components/search";
 
-@import "utilities/text-color";
+@use "utilities/text-color";

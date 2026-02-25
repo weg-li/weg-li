@@ -1,3 +1,5 @@
+@use "library/variables";
+
 .text-color-red {
-  color: $red;
+  color: variables.$red;
 }
