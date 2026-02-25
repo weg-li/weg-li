@@ -19,6 +19,10 @@ describe BrandsHelper do
           ["Testo (bla, blub)", "Testo"],
         ],
         "Scooter" => [],
+        "Sonstige" => [],
+        "Anhänger" => [],
+        "Bus" => [],
+        "Moped" => [],
       })
     end
   end
