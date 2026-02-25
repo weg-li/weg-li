@@ -36,7 +36,7 @@ describe "admin/administrate smoke", type: :request do
 
       groups[controller] ||= {}
       groups[controller][action.to_sym] = name
-    end.select { |_controller, routes| routes.key?(:index) && routes.key?(:show) }.sort.to_h
+    end.select { |_controller, routes| routes.key?(:index) && routes.key?(:show) }.sort.to_h # rubocop:disable Style/MultilineBlockChain
   end
 
   def build_admin_record(resource_name, admin:)
