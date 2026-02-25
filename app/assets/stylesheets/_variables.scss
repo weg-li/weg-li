@@ -1,3 +1,5 @@
+@use "sass:color";
+
 $bootstrap-sass-asset-helper: false !default;
 // Slate 3.4.1
 // Variables
@@ -128,15 +130,15 @@ $table-cell-padding:            8px !default;
 $table-condensed-cell-padding:  5px !default;
 
 //** Default background color used for all tables.
-$table-bg:                      lighten($body-bg, 3%) !default;
+$table-bg:                      color.adjust($body-bg, $lightness: 3%, $space: hsl) !default;
 //** Background color used for `.table-striped`.
-$table-bg-accent:               lighten($table-bg, 3%) !default;
+$table-bg-accent:               color.adjust($table-bg, $lightness: 3%, $space: hsl) !default;
 //** Background color used for `.table-hover`.
-$table-bg-hover:                lighten($table-bg, 12%) !default;
+$table-bg-hover:                color.adjust($table-bg, $lightness: 12%, $space: hsl) !default;
 $table-bg-active:               $table-bg-hover !default;
 
 //** Border color for table and cell borders.
-$table-border-color:            darken($gray-darker, 5%) !default;
+$table-border-color:            color.adjust($gray-darker, $lightness: -5%, $space: hsl) !default;
 
 
 //== Buttons
@@ -217,7 +219,7 @@ $input-height-small:             (floor($font-size-small * $line-height-small) +
 $form-group-margin-bottom:       15px !default;
 
 $legend-color:                   $text-color !default;
-$legend-border-color:            darken($gray-darker, 5%) !default;
+$legend-border-color:            color.adjust($gray-darker, $lightness: -5%, $space: hsl) !default;
 
 //** Background color for textual input addons
 $input-group-addon-bg:           $gray-lighter !default;
@@ -367,14 +369,14 @@ $navbar-collapse-max-height:       340px !default;
 
 $navbar-default-color:             $text-color !default;
 $navbar-default-bg:                $gray-dark !default;
-$navbar-default-border:            darken($navbar-default-bg, 6.5%) !default;
+$navbar-default-border:            color.adjust($navbar-default-bg, $lightness: -6.5%, $space: hsl) !default;
 
 // Navbar links
 $navbar-default-link-color:                $text-color !default;
 $navbar-default-link-hover-color:          #fff !default;
-$navbar-default-link-hover-bg:             darken($navbar-default-bg, 8%) !default;
+$navbar-default-link-hover-bg:             color.adjust($navbar-default-bg, $lightness: -8%, $space: hsl) !default;
 $navbar-default-link-active-color:         #fff !default;
-$navbar-default-link-active-bg:            darken($navbar-default-bg, 8%) !default;
+$navbar-default-link-active-bg:            color.adjust($navbar-default-bg, $lightness: -8%, $space: hsl) !default;
 $navbar-default-link-disabled-color:       #ccc !default;
 $navbar-default-link-disabled-bg:          transparent !default;
 
@@ -384,23 +386,23 @@ $navbar-default-brand-hover-color:         #fff !default;
 $navbar-default-brand-hover-bg:            none !default;
 
 // Navbar toggle
-$navbar-default-toggle-hover-bg:           darken($navbar-default-bg, 8%) !default;
+$navbar-default-toggle-hover-bg:           color.adjust($navbar-default-bg, $lightness: -8%, $space: hsl) !default;
 $navbar-default-toggle-icon-bar-bg:        $text-color !default;
-$navbar-default-toggle-border-color:       darken($navbar-default-bg, 8%) !default;
+$navbar-default-toggle-border-color:       color.adjust($navbar-default-bg, $lightness: -8%, $space: hsl) !default;
 
 
 //=== Inverted navbar
 // Reset inverted navbar basics
 $navbar-inverse-color:                      #ccc !default;
 $navbar-inverse-bg:                         $brand-primary !default;
-$navbar-inverse-border:                     darken($navbar-inverse-bg, 10%) !default;
+$navbar-inverse-border:                     color.adjust($navbar-inverse-bg, $lightness: -10%, $space: hsl) !default;
 
 // Inverted navbar links
 $navbar-inverse-link-color:                 #ccc !default;
 $navbar-inverse-link-hover-color:           #fff !default;
-$navbar-inverse-link-hover-bg:              darken($navbar-inverse-bg, 12%) !default;
+$navbar-inverse-link-hover-bg:              color.adjust($navbar-inverse-bg, $lightness: -12%, $space: hsl) !default;
 $navbar-inverse-link-active-color:          $navbar-inverse-link-hover-color !default;
-$navbar-inverse-link-active-bg:             darken($navbar-inverse-bg, 12%) !default;
+$navbar-inverse-link-active-bg:             color.adjust($navbar-inverse-bg, $lightness: -12%, $space: hsl) !default;
 $navbar-inverse-link-disabled-color:        #ccc !default;
 $navbar-inverse-link-disabled-bg:           transparent !default;
 
@@ -410,9 +412,9 @@ $navbar-inverse-brand-hover-color:          #fff !default;
 $navbar-inverse-brand-hover-bg:             none !default;
 
 // Inverted navbar toggle
-$navbar-inverse-toggle-hover-bg:            darken($navbar-inverse-bg, 12%) !default;
+$navbar-inverse-toggle-hover-bg:            color.adjust($navbar-inverse-bg, $lightness: -12%, $space: hsl) !default;
 $navbar-inverse-toggle-icon-bar-bg:         #fff !default;
-$navbar-inverse-toggle-border-color:        darken($navbar-inverse-bg, 12%) !default;
+$navbar-inverse-toggle-border-color:        color.adjust($navbar-inverse-bg, $lightness: -12%, $space: hsl) !default;
 
 
 //== Navs
@@ -421,19 +423,19 @@ $navbar-inverse-toggle-border-color:        darken($navbar-inverse-bg, 12%) !def
 
 //=== Shared nav styles
 $nav-link-padding:                          10px 15px !default;
-$nav-link-hover-bg:                         lighten($body-bg, 10%) !default;
+$nav-link-hover-bg:                         color.adjust($body-bg, $lightness: 10%, $space: hsl) !default;
 
 $nav-disabled-link-color:                   $gray-light !default;
 $nav-disabled-link-hover-color:             $gray-light !default;
 
 //== Tabs
-$nav-tabs-border-color:                     darken($gray-darker, 5%) !default;
+$nav-tabs-border-color:                     color.adjust($gray-darker, $lightness: -5%, $space: hsl) !default;
 
-$nav-tabs-link-hover-border-color:          darken($gray-darker, 5%) !default;
+$nav-tabs-link-hover-border-color:          color.adjust($gray-darker, $lightness: -5%, $space: hsl) !default;
 
-$nav-tabs-active-link-hover-bg:             lighten($body-bg, 10%) !default;
+$nav-tabs-active-link-hover-bg:             color.adjust($body-bg, $lightness: 10%, $space: hsl) !default;
 $nav-tabs-active-link-hover-color:          #fff !default;
-$nav-tabs-active-link-hover-border-color:   darken($gray-darker, 5%) !default;
+$nav-tabs-active-link-hover-border-color:   color.adjust($gray-darker, $lightness: -5%, $space: hsl) !default;
 
 $nav-tabs-justified-link-border-color:            $nav-tabs-border-color !default;
 $nav-tabs-justified-active-link-border-color:     $body-bg !default;
@@ -457,7 +459,7 @@ $pagination-hover-bg:                  transparent !default;
 $pagination-hover-border:              rgba(0, 0, 0, 0.6) !default;
 
 $pagination-active-color:              #fff !default;
-$pagination-active-bg:                 darken($pagination-bg, 10%) !default;
+$pagination-active-bg:                 color.adjust($pagination-bg, $lightness: -10%, $space: hsl) !default;
 $pagination-active-border:             rgba(0, 0, 0, 0.6) !default;
 
 $pagination-disabled-color:            $gray-light !default;
@@ -487,7 +489,7 @@ $pager-disabled-color:                 $gray-light !default;
 
 $jumbotron-padding:              30px !default;
 $jumbotron-color:                inherit !default;
-$jumbotron-bg:                   darken($body-bg, 5%) !default;
+$jumbotron-bg:                   color.adjust($body-bg, $lightness: -5%, $space: hsl) !default;
 $jumbotron-heading-color:        inherit !default;
 $jumbotron-font-size:            ceil(($font-size-base * 1.5)) !default;
 $jumbotron-heading-font-size:    ceil(($font-size-base * 4.5)) !default;
@@ -499,19 +501,19 @@ $jumbotron-heading-font-size:    ceil(($font-size-base * 4.5)) !default;
 
 $state-success-text:             #fff !default;
 $state-success-bg:               $brand-success !default;
-$state-success-border:           darken(adjust-hue($state-success-bg, -10), 5%) !default;
+$state-success-border:           color.adjust(color.adjust($state-success-bg, $hue: -10, $space: hsl), $lightness: -5%, $space: hsl) !default;
 
 $state-info-text:                #fff !default;
 $state-info-bg:                  $brand-info !default;
-$state-info-border:              darken(adjust-hue($state-info-bg, -10), 7%) !default;
+$state-info-border:              color.adjust(color.adjust($state-info-bg, $hue: -10, $space: hsl), $lightness: -7%, $space: hsl) !default;
 
 $state-warning-text:             #fff !default;
 $state-warning-bg:               $brand-warning !default;
-$state-warning-border:           darken(adjust-hue($state-warning-bg, -10), 3%) !default;
+$state-warning-border:           color.adjust(color.adjust($state-warning-bg, $hue: -10, $space: hsl), $lightness: -3%, $space: hsl) !default;
 
 $state-danger-text:              #fff !default;
 $state-danger-bg:                $brand-danger !default;
-$state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 3%) !default;
+$state-danger-border:            color.adjust(color.adjust($state-danger-bg, $hue: -10, $space: hsl), $lightness: -3%, $space: hsl) !default;
 
 
 //== Tooltips
@@ -537,7 +539,7 @@ $tooltip-arrow-color:         $tooltip-bg !default;
 //##
 
 //** Popover body background color
-$popover-bg:                          lighten($body-bg, 3%) !default;
+$popover-bg:                          color.adjust($body-bg, $lightness: 3%, $space: hsl) !default;
 //** Popover maximum width
 $popover-max-width:                   276px !default;
 //** Popover border color
@@ -558,7 +560,7 @@ $popover-arrow-outer-width:           ($popover-arrow-width + 1) !default;
 //** Popover outer arrow color
 $popover-arrow-outer-color:           fadein($popover-border-color, 5%) !default;
 //** Popover outer arrow fallback color
-$popover-arrow-outer-fallback-color:  darken($popover-fallback-border-color, 20%) !default;
+$popover-arrow-outer-fallback-color:  color.adjust($popover-fallback-border-color, $lightness: -20%, $space: hsl) !default;
 
 
 //== Labels
@@ -597,7 +599,7 @@ $modal-title-padding:         15px !default;
 $modal-title-line-height:     $line-height-base !default;
 
 //** Background color of modal content area
-$modal-content-bg:                             lighten($body-bg, 3%) !default;
+$modal-content-bg:                             color.adjust($body-bg, $lightness: 3%, $space: hsl) !default;
 //** Modal content border color
 $modal-content-border-color:                   rgba(0,0,0,.2) !default;
 //** Modal content border color **for IE8**
@@ -608,7 +610,7 @@ $modal-backdrop-bg:           #000 !default;
 //** Modal backdrop opacity
 $modal-backdrop-opacity:      .5 !default;
 //** Modal header border color
-$modal-header-border-color:   darken($gray-darker, 5%) !default;
+$modal-header-border-color:   color.adjust($gray-darker, $lightness: -5%, $space: hsl) !default;
 //** Modal footer border color
 $modal-footer-border-color:   $modal-header-border-color !default;
 
@@ -647,7 +649,7 @@ $alert-danger-border:         $state-danger-border !default;
 //##
 
 //** Background color of the whole progress component
-$progress-bg:                 darken($body-bg, 5%) !default;
+$progress-bg:                 color.adjust($body-bg, $lightness: -5%, $space: hsl) !default;
 //** Progress bar text color
 $progress-bar-color:          #fff !default;
 //** Variable for setting rounded corners on progress bar.
@@ -670,22 +672,22 @@ $progress-bar-info-bg:        $brand-info !default;
 //##
 
 //** Background color on `.list-group-item`
-$list-group-bg:                 lighten($body-bg, 5%) !default;
+$list-group-bg:                 color.adjust($body-bg, $lightness: 5%, $space: hsl) !default;
 //** `.list-group-item` border color
 $list-group-border:             rgba(0, 0, 0, 0.6) !default;
 //** List group border radius
 $list-group-border-radius:      $border-radius-base !default;
 
 //** Background color of single list items on hover
-$list-group-hover-bg:           lighten($body-bg, 10%) !default;
+$list-group-hover-bg:           color.adjust($body-bg, $lightness: 10%, $space: hsl) !default;
 //** Text color of active list items
 $list-group-active-color:       $component-active-color !default;
 //** Background color of active list items
-$list-group-active-bg:          lighten($body-bg, 10%) !default;
+$list-group-active-bg:          color.adjust($body-bg, $lightness: 10%, $space: hsl) !default;
 //** Border color of active list elements
 $list-group-active-border:      $list-group-border !default;
 //** Text color for content within active list items
-$list-group-active-text-color:  lighten($list-group-active-bg, 40%) !default;
+$list-group-active-text-color:  color.adjust($list-group-active-bg, $lightness: 40%, $space: hsl) !default;
 
 //** Text color of disabled list items
 $list-group-disabled-color:      $gray-light !default;
@@ -703,7 +705,7 @@ $list-group-link-heading-color: #fff !default;
 //
 //##
 
-$panel-bg:                    lighten($body-bg, 3%) !default;
+$panel-bg:                    color.adjust($body-bg, $lightness: 3%, $space: hsl) !default;
 $panel-body-padding:          15px !default;
 $panel-heading-padding:       10px 15px !default;
 $panel-footer-padding:        $panel-heading-padding !default;
@@ -711,7 +713,7 @@ $panel-border-radius:         $border-radius-base !default;
 
 //** Border color for elements within panels
 $panel-inner-border:          rgba(0, 0, 0, 0.6) !default;
-$panel-footer-bg:             lighten($body-bg, 10%) !default;
+$panel-footer-bg:             color.adjust($body-bg, $lightness: 10%, $space: hsl) !default;
 
 $panel-default-text:          $text-color !default;
 $panel-default-border:        rgba(0, 0, 0, 0.6) !default;
@@ -745,9 +747,9 @@ $panel-danger-heading-bg:     $state-danger-bg !default;
 //** Padding around the thumbnail image
 $thumbnail-padding:           4px !default;
 //** Thumbnail background color
-$thumbnail-bg:                darken($body-bg, 5%) !default;
+$thumbnail-bg:                color.adjust($body-bg, $lightness: -5%, $space: hsl) !default;
 //** Thumbnail border color
-$thumbnail-border:            darken($thumbnail-bg, 7%) !default;
+$thumbnail-border:            color.adjust($thumbnail-bg, $lightness: -7%, $space: hsl) !default;
 //** Thumbnail border radius
 $thumbnail-border-radius:     $border-radius-base !default;
 
@@ -861,10 +863,10 @@ $blockquote-font-size:        ($font-size-base * 1.25) !default;
 //** Blockquote border color
 $blockquote-border-color:     $gray-light !default;
 //** Page header border color
-$page-header-border-color:    darken($gray-darker, 5%) !default;
+$page-header-border-color:    color.adjust($gray-darker, $lightness: -5%, $space: hsl) !default;
 //** Width of horizontal description list titles
 $dl-horizontal-offset:        $component-offset-horizontal !default;
 //** Point at which .dl-horizontal becomes horizontal
 $dl-horizontal-breakpoint:    $grid-float-breakpoint !default;
 //** Horizontal line color.
-$hr-border:                   darken($gray-darker, 5%) !default;
+$hr-border:                   color.adjust($gray-darker, $lightness: -5%, $space: hsl) !default;

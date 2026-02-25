@@ -1,3 +1,5 @@
+@use "sass:color";
+
 $default-color: #3a3f44;
 $primary-color: #7a8288;
 // $success-color: #62c462;
@@ -6,7 +8,7 @@ $warning-color: #f89406;
 $info-color: #5bc0de;
 $danger-color: #ee5f5b;
 $logo-color: #0c478b;
-$dark-color: darken($default-color, 10);
+$dark-color: color.adjust($default-color, $lightness: -10%, $space: hsl);
 
 $white: rgb(255, 255, 255);
 
@@ -199,7 +201,7 @@ select {
 
 .progress {
   .progress-bar-nyan {
-    background-image: asset-url("rainbow.png");
+    background-image: url("/img/rainbow.png");
     &::after {
       content: "";
       width: 32px;
@@ -207,7 +209,7 @@ select {
       display: block;
       float: right;
       margin-right: -30px;
-      background: asset-url("nyanCat.png") no-repeat;
+      background: url("/img/nyanCat.png") no-repeat;
     }
   }
 }
@@ -564,10 +566,10 @@ pre.charge {
   background-color: $success-color;
 }
 .success-step2 {
-  background-color: darken($success-color, 15%);
+  background-color: color.adjust($success-color, $lightness: -15%, $space: hsl);
 }
 .success-step3 {
-  background-color: darken($success-color, 30%);
+  background-color: color.adjust($success-color, $lightness: -30%, $space: hsl);
 }
 .success-step-active {
   background-color: $success-color;
@@ -576,8 +578,8 @@ pre.charge {
 }
 .success-step-button {
   background-color: white;
-  color: darken($success-color, 15%);
-  border: 2px solid darken($success-color, 15%);
+  color: color.adjust($success-color, $lightness: -15%, $space: hsl);
+  border: 2px solid color.adjust($success-color, $lightness: -15%, $space: hsl);
 }
 
 .step {

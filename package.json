@@ -5,7 +5,6 @@
     "@hotwired/turbo-rails": "^8.0.0-beta.2",
     "@rails/activestorage": "^6.1.0",
     "@rails/ujs": "^6.1.0",
-    "@rails/webpacker": "5.4.4",
     "alpinejs": "^2.8.0",
     "billboard.js": "^3.0.1",
     "bootstrap": "^3.4.1",
@@ -14,22 +13,22 @@
     "leaflet": "^1.7.1",
     "leaflet.heat": "^0.2.0",
     "leaflet.markercluster": "^1.4.1",
-    "rails-erb-loader": "^5.5.2",
     "select2": "^4.0.12",
-    "select2-bootstrap-theme": "^0.1.0-beta.10",
-    "webpack": "^4.46.0",
-    "webpack-cli": "^3.3.12"
+    "select2-bootstrap-theme": "^0.1.0-beta.10"
   },
   "devDependencies": {
+    "esbuild": "^0.25.0",
     "eslint": "^7.17.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^9.0.0",
-    "eslint-import-resolver-webpack": "^0.13.0",
     "eslint-plugin-import": "^2.22.1",
     "prettier": "^2.8.1",
-    "webpack-dev-server": "^3"
+    "sass": "^1.90.0"
   },
   "scripts": {
+    "build": "esbuild app/javascript/application.js --bundle --sourcemap --outdir=app/assets/builds --public-path=/assets",
+    "build:js": "yarn build",
+    "build:css": "mkdir -p app/assets/builds && sass --load-path=app/assets/stylesheets app/assets/stylesheets/application_base.scss:app/assets/builds/application.base.css --no-source-map && sass --load-path=app/assets/stylesheets app/assets/stylesheets/application_tail.scss:app/assets/builds/application.tail.css --no-source-map && cat app/assets/builds/application.base.css app/assets/stylesheets/slate.css node_modules/select2/dist/css/select2.css node_modules/select2-bootstrap-theme/dist/select2-bootstrap.css node_modules/leaflet/dist/leaflet.css node_modules/leaflet.markercluster/dist/MarkerCluster.css node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css node_modules/billboard.js/dist/theme/graph.css app/assets/stylesheets/direct_uploads.css app/assets/builds/application.tail.css > app/assets/builds/application.css",
     "lint": "eslint app/javascript/**"
   }
 }

@@ -1,4 +1,4 @@
-require("select2");
+require("select2")(window, window.jQuery);
 require("jquery-zoom");
 
 $(document).ready(() => {

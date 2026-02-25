@@ -1,3 +1,5 @@
+@use "sass:color";
+
 /*!
  * bootswatch v3.4.1
  * Homepage: http://bootswatch.com
@@ -15,13 +17,13 @@ $default-color: #3a3f44;
 $primary-color: #7a8288;
 // $success-color: #62c462;
 $success-color: #0C478B;
-$success-color-light: lighten($success-color, 10);
-$success-color-dark: darken($success-color, 10);
+$success-color-light: color.adjust($success-color, $lightness: 10%, $space: hsl);
+$success-color-dark: color.adjust($success-color, $lightness: -10%, $space: hsl);
 $warning-color: #f89406;
 $info-color: #5bc0de;
 $danger-color: #ee5f5b;
 $logo-color: #0C478B;
-$dark-color: darken($default-color, 10);
+$dark-color: color.adjust($default-color, $lightness: -10%, $space: hsl);
 
 html {
   font-family: sans-serif;
@@ -275,8 +277,8 @@ th {
 }
 @font-face {
   font-family: "Glyphicons Halflings";
-  src: asset-url("glyphicons-halflings-regular.eot");
-  src: asset-url("glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), asset-url("glyphicons-halflings-regular.woff2") format("woff2"), asset-url("glyphicons-halflings-regular.woff") format("woff"), asset-url("glyphicons-halflings-regular.ttf") format("truetype"), asset-url("glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg");
+  src: url("/fonts/bootstrap/glyphicons-halflings-regular.eot");
+  src: url("/fonts/bootstrap/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("/fonts/bootstrap/glyphicons-halflings-regular.woff2") format("woff2"), url("/fonts/bootstrap/glyphicons-halflings-regular.woff") format("woff"), url("/fonts/bootstrap/glyphicons-halflings-regular.ttf") format("truetype"), url("/fonts/bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg");
 }
 .glyphicon {
   position: relative;
