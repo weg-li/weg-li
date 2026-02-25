@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 ruby "3.2.10"
 
-gem "rails", "7.2.2.2"
+gem "rails", "8.1.2"
 gem "turbo-rails"
 gem "connection_pool", "~> 2.3.0"
 
@@ -48,7 +48,7 @@ gem "prawn"
 gem "prawn-markup"
 gem "prawn-qrcode"
 gem "prawn-emoji"
-gem "administrate", "0.20.1"
+gem "administrate", "1.0.0"
 gem "administrate-field-active_storage"
 gem "appsignal"
 gem "http"
