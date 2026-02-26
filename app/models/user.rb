@@ -76,7 +76,7 @@ class User < ApplicationRecord
   def favorite_tbnrs(max: 10)
     @favorite_tbnrs ||= notices.since(6.month.ago).reorder("count(tbnr) DESC").group(:tbnr).limit(max).pluck(:tbnr)
 
-    (@favorite_tbnrs + Charge::FAVS).first(max)
+    (@favorite_tbnrs + Charge::FAVS).uniq.first(max)
   end
 
   def registration_suggestions(registrations)
