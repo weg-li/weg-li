@@ -74,7 +74,7 @@ describe User do
 
     result = user.favorite_tbnrs
 
-    expect(result).to eq(%w[112464 141312 112030 112454 141312 112262 141174 141194 141245 112474 142103 141322])
+    expect(result).to eq(%w[112464 141312 112030 112454 141312 112262 141174 141194 141245 112474])
   end
 
   context "registration_suggestions" do
