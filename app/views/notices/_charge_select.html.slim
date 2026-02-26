@@ -1,14 +1,14 @@
 ruby:
-  charges = Charge.tbnrs_with_description
-  favorites = charges.select { |tbnr, _charge| current_user.favorite_tbnrs.include?(tbnr) }
+  charges = Charge.tbnrs_with_description.to_h
+  favorites = current_user.favorite_tbnrs.map { |tbnr| [tbnr, charges[tbnr]] }.to_h
   charge_options = [
     {
         text: "Favoriten",
-        children: favorites.map {|tbnr, description| {id: tbnr, text: signify(description, link: false) + " [#{tbnr}]"} }
+        children: favorites.map {|tbnr, description| {id: tbnr, text: "#{signify(description, link: false)} [#{tbnr}]"} }
     },
     {
       text: "BKAT",
-      children: charges.map { |tbnr, description| {id: tbnr, selected: notice.tbnr == tbnr, text: signify(description, link: false) + " [#{tbnr}]"} }
+      children: charges.map { |tbnr, description| {id: tbnr, selected: notice.tbnr == tbnr, text: "#{signify(description, link: false)} [#{tbnr}]"} }
     },
   ]
 javascript:
