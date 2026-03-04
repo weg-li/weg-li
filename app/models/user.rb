@@ -22,6 +22,7 @@ class User < ApplicationRecord
     "gemini-2.5-flash" => 2,
     "gemini-3-flash-preview" => 3,
     "no_analyzer" => 4,
+    "gemini-3.1-flash-lite-preview" => 5,
   }
 
   geocoded_by :geocode_address, language: proc { |_model| I18n.locale }, no_annotations: true
