@@ -67,6 +67,8 @@ class AnalyzerJob < ApplicationJob
   end
 
   def handle_gemini
+    return if @notice.user.no_analyzer?
+
     @notice.photos.each do |photo|
       uri = image_url(photo)
       result = gemini_annotator(@notice.user.analyzer).annotate_object(uri)

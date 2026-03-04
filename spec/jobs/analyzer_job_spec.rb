@@ -21,6 +21,17 @@ describe AnalyzerJob do
         notice.data_sets.count
       }.by(3)
     end
+
+    it "should analyze the image without gemini" do
+      job = AnalyzerJob.new
+      notice.user.update!(analyzer: "no_analyzer")
+
+      expect do
+        job.perform(notice)
+      end.to change {
+        notice.data_sets.count
+      }.by(2)
+    end
   end
 
   def annotate_object(key)
