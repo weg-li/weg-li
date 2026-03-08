@@ -259,13 +259,14 @@ class Notice < ApplicationRecord
   end
 
   def date_doubles
-    return false if registration.blank?
+    return [] if registration.blank?
 
     user
       .notices
       .where("DATE(start_date) = DATE(?)", start_date)
       .where(registration:)
-      .where.not(id:)
+      .where
+      .not(id:)
   end
 
   def photo_doubles
@@ -273,10 +274,7 @@ class Notice < ApplicationRecord
       .photos_attachments
       .joins(:blob)
       .where("active_storage_attachments.record_id != ?", id)
-      .where(
-        "active_storage_blobs.filename" =>
-          photos.map { |photo| photo.filename.to_s },
-      )
+      .where("active_storage_blobs.filename" => photos.map { |photo| photo.filename.to_s })
   end
 
   def apply_favorites(registrations)
@@ -284,10 +282,7 @@ class Notice < ApplicationRecord
       user
         .notices
         .shared
-        .where(
-          "REPLACE(registration, ' ', '') IN(?)",
-          registrations.map { |registration| registration.gsub(/\s/, "") },
-        )
+        .where("REPLACE(registration, ' ', '') IN(?)", registrations.map { |registration| registration.gsub(/\s/, "") })
         .order(created_at: :desc)
         .first
 
