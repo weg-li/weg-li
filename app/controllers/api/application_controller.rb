@@ -4,6 +4,7 @@ class Api::ApplicationController < ActionController::Base
   include Swagger::Blocks
 
   protect_from_forgery with: :null_session
+  skip_before_action :verify_authenticity_token
   before_action :api_sign_in
   before_action :increment_counter
 
@@ -16,10 +17,10 @@ class Api::ApplicationController < ActionController::Base
 
   def api_sign_in
     api_token = request.headers["X-API-KEY"] || params["X-API-KEY"]
-    head :unauthorized if api_token.blank?
+    raise ArgumentError, "API token is required" if api_token.blank?
 
     @current_user = User.active.find_by(api_token:)
-    head :unauthorized if @current_user.blank?
+    raise ArgumentError, "Invalid API token" if @current_user.blank?
   end
 
   def increment_counter
