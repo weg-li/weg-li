@@ -85,11 +85,11 @@ class HomeController < ApplicationController
 
   def generator
     if params[:stadtreinigung].present?
-      data = ParkGenerator.new.generate(params[:stadtreinigung_name])
+      data = ParkGenerator.new.generate(params[:stadtreinigung_name] || "Stadtreinigung")
 
       send_data data, filename: "Stadtreinigung #{params[:stadtreinigung_name]}.pdf"
     elsif params[:parkraummanagement].present?
-      data = ViolationGenerator.new.generate(params[:parkraummanagement_name])
+      data = ViolationGenerator.new.generate(params[:parkraummanagement_name] || "Parkraum-Management")
 
       send_data data, filename: "Parkraum-Management #{params[:parkraummanagement_name]}.pdf"
     end
