@@ -11,6 +11,7 @@ default: &defaults
 
   # Add default instrumentation of net/http. Default: true
   instrument_net_http: true
+  instrument_http_rb: true
 
   # Skip session data, if it contains private information. Default: false
   # skip_session_data: true
