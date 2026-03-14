@@ -300,19 +300,28 @@ class Notice < ApplicationRecord
   def self.nearest_tbnrs(latitude, longitude, distance = 50, count = 10)
     sql =
       "
-    SELECT
-      tbnr,
-      COUNT(tbnr) as count,
-      SUM(ST_DistanceSphere(lonlat::geometry, ST_MakePoint($1, $2))) as distance,
-      SUM(ST_DistanceSphere(lonlat::geometry, ST_MakePoint($1, $2))) / COUNT(tbnr) as diff
-    FROM notices
-    WHERE
-      status = 3
-      AND created_at > (CURRENT_DATE - INTERVAL '6 months')
-      AND ST_DWithin(lonlat::geography, ST_MakePoint($1, $2), $3)
-    GROUP BY tbnr
-    ORDER BY diff
-    LIMIT $4
+WITH params AS (
+  SELECT ST_MakePoint($1, $2) AS p
+),
+base AS (
+  SELECT
+    tbnr,
+    ST_DistanceSphere(lonlat::geometry, p) AS dist
+  FROM notices, params
+  WHERE
+    status = 3
+    AND created_at > CURRENT_DATE - INTERVAL '6 months'
+    AND ST_DWithin(lonlat::geography, p::geography, $3)
+)
+SELECT
+  tbnr,
+  COUNT(*) AS count,
+  SUM(dist) AS distance,
+  AVG(dist) AS diff
+FROM base
+GROUP BY tbnr
+ORDER BY diff
+LIMIT $4
     "
     binds = [longitude, latitude, distance, count]
     Notice.connection.exec_query(sql, "distance-quert", binds).to_a

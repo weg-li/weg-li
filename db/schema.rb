@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_03_150950) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_14_131950) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "postgis"
@@ -219,6 +219,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_03_150950) do
     t.index ["lonlat"], name: "index_notices_on_lonlat", using: :gist
     t.index ["registration"], name: "index_notices_on_registration"
     t.index ["start_date"], name: "index_notices_on_start_date"
+    t.index ["status", "created_at"], name: "index_notices_on_status_and_created_at"
     t.index ["status"], name: "index_notices_on_status"
     t.index ["tbnr"], name: "index_notices_on_tbnr"
     t.index ["token"], name: "index_notices_on_token", unique: true
@@ -302,6 +303,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_03_150950) do
     t.index ["api_token"], name: "index_users_on_api_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["token"], name: "index_users_on_token", unique: true
+    t.index ["zip"], name: "index_users_on_zip"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
