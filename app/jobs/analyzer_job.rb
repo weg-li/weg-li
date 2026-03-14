@@ -49,7 +49,7 @@ class AnalyzerJob < ApplicationJob
       end
 
       if @notice.data_sets.proximity.blank?
-        result = Notice.nearest_tbnrs(*coords)
+        result = Notice.nearest_tbnrs(coords.first, coords.last, @notice.user.id)
         if result.present?
           proximity_data_set = @notice.data_sets.create!(data: result, kind: :proximity, keyable: photo)
           if @notice.user.from_proximity?

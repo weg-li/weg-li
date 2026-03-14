@@ -126,10 +126,11 @@ describe Notice do
 
   context "postgis" do
     it "finds closest match" do
-      Fabricate.times(5, :notice, status: :shared)
-      Fabricate(:notice, status: :shared, created_at: 7.month.ago)
+      user = Fabricate(:user)
+      Fabricate.times(5, :notice, status: :shared, user: user)
+      Fabricate(:notice, status: :shared, created_at: 7.month.ago, user: user)
 
-      nearest = Notice.nearest_tbnrs(notice.latitude, notice.longitude)
+      nearest = Notice.nearest_tbnrs(notice.latitude, notice.longitude, user.id)
       expect(nearest.size).to eq(5)
       expect(nearest.first.keys).to eql(%w[tbnr count distance diff])
       expect(nearest.first["count"]).to eq(1)

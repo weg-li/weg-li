@@ -297,7 +297,7 @@ class Notice < ApplicationRecord
     end
   end
 
-  def self.nearest_tbnrs(latitude, longitude, distance = 50, count = 10)
+  def self.nearest_tbnrs(latitude, longitude, user_id, distance = 50, count = 10)
     sql =
       "
 WITH params AS (
@@ -310,6 +310,7 @@ base AS (
   FROM notices, params
   WHERE
     status = 3
+    AND user_id = $4
     AND created_at > CURRENT_DATE - INTERVAL '6 months'
     AND ST_DWithin(lonlat::geography, p::geography, $3)
 )
@@ -321,9 +322,9 @@ SELECT
 FROM base
 GROUP BY tbnr
 ORDER BY diff
-LIMIT $4
+LIMIT 10
     "
-    binds = [longitude, latitude, distance, count]
+    binds = [longitude, latitude, distance, user_id]
     Notice.connection.exec_query(sql, "distance-quert", binds).to_a
   end
 
