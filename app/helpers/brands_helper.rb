@@ -14,7 +14,7 @@ module BrandsHelper
   end
 
   def share(brand)
-    brands.find { |entry| entry.name == brand }.share
+    brands.find { |entry| entry.name == brand }&.share || 1
   end
 
   def brands

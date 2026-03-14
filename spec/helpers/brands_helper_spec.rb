@@ -26,4 +26,10 @@ describe BrandsHelper do
       })
     end
   end
+
+  it "returns the share of a brand" do
+    Fabricate.create(:brand, name: "Testo", share: 42)
+    expect(helper.share("Testo")).to eq(42)
+    expect(helper.share("Unknown")).to eq(1)
+  end
 end
