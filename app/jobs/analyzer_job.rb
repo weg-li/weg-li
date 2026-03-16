@@ -84,6 +84,8 @@ class AnalyzerJob < ApplicationJob
     end
   rescue HTTP::TimeoutError => e
     notify("Gemini API request timed out: #{e.message}")
+  rescue HTTP::ResponseError => e
+    notify("Gemini API response error: #{e.message}")
   end
 
   def finalize
