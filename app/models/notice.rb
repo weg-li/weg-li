@@ -297,7 +297,7 @@ class Notice < ApplicationRecord
     end
   end
 
-  def self.nearest_tbnrs(latitude, longitude, user_id, distance = 50, count = 10)
+  def self.nearest_tbnrs(latitude, longitude, user_id, distance = 50)
     sql =
       "
 WITH params AS (
