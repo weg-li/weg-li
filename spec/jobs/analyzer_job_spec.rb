@@ -12,14 +12,27 @@ describe AnalyzerJob do
 
     it "should analyze the image" do
       job = AnalyzerJob.new
-      this = self
-      job.define_singleton_method(:gemini_annotator) { |_model| this }
+      annotator = instance_double(GeminiAnnotator, annotate_object: { registrations: ["registration"], brands: ["brand"], colors: ["color"] })
+      allow(job).to receive(:gemini_annotator).and_return(annotator)
 
       expect do
         job.perform(notice)
       end.to change {
         notice.data_sets.count
       }.by(3)
+    end
+
+    it "should continue if there is a timeout" do
+      job = AnalyzerJob.new
+      annotator = instance_double(GeminiAnnotator)
+      expect(annotator).to receive(:annotate_object).and_raise(HTTP::TimeoutError.new("execution expired"))
+      allow(job).to receive(:gemini_annotator).and_return(annotator)
+
+      expect do
+        job.perform(notice)
+      end.to change {
+        notice.data_sets.count
+      }.by(2)
     end
 
     it "should analyze the image without gemini" do
@@ -32,9 +45,5 @@ describe AnalyzerJob do
         notice.data_sets.count
       }.by(2)
     end
-  end
-
-  def annotate_object(key)
-    { key: key, value: "value" }
   end
 end

@@ -168,6 +168,6 @@ class GeminiAnnotator
   end
 
   def timeout
-    ENV.fetch("GEMINI_TIMEOUT_SECONDS", "60").to_i
+    ENV.fetch("GEMINI_TIMEOUT_SECONDS", "20").to_i
   end
 end
