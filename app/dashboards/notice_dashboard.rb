@@ -88,17 +88,15 @@ class NoticeDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-    :user,
     :status,
     :registration,
     :brand,
     :color,
-    :district,
     :street,
     :zip,
     :city,
     :location,
-    :charge,
+    :tbnr,
     :start_date,
     :end_date,
     :note,
