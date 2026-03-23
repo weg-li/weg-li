@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 ruby "3.2.10"
 
-gem "rails", "8.1.2"
+gem "rails", "8.1.2.1"
 gem "turbo-rails"
 gem "connection_pool", "~> 2.3.0"
 
