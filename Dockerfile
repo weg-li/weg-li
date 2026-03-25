@@ -4,6 +4,7 @@ RUN apk add --update --no-cache \
   gcompat \
   alpine-sdk \
   imagemagick \
+  yaml-dev \
   nodejs \
   postgresql-client \
   postgresql-dev \
