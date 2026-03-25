@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_14_131950) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_25_122755) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "postgis"
@@ -155,6 +155,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_14_131950) do
     t.integer "osm_id"
     t.string "parts", default: [], null: false, array: true
     t.string "prefixes", default: [], null: false, array: true
+    t.string "reason"
     t.string "state"
     t.integer "status", default: 0
     t.datetime "updated_at", null: false
@@ -304,6 +305,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_14_131950) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["token"], name: "index_users_on_token", unique: true
     t.index ["zip"], name: "index_users_on_zip"
+  end
+
+  create_table "versions", force: :cascade do |t|
+    t.datetime "created_at"
+    t.string "event", null: false
+    t.bigint "item_id", null: false
+    t.string "item_type", null: false
+    t.json "object"
+    t.json "object_changes"
+    t.string "whodunnit"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

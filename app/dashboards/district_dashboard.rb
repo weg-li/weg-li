@@ -17,6 +17,7 @@ class DistrictDashboard < Administrate::BaseDashboard
     osm_id: Field::Number,
     aliases: Field::String,
     parts: Field::String,
+    reason: Field::String,
     latitude: Field::Number.with_options(decimals: 2),
     longitude: Field::Number.with_options(decimals: 2),
     flags: Field::Number,
@@ -25,6 +26,7 @@ class DistrictDashboard < Administrate::BaseDashboard
     ags: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
+    changeset: Field::PaperTrail.with_options(excluded_attributes: %w[created_at updated_at]),
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -58,9 +60,11 @@ class DistrictDashboard < Administrate::BaseDashboard
     :flags,
     :config,
     :status,
+    :reason,
     :ags,
     :created_at,
     :updated_at,
+    :changeset,
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -77,6 +81,7 @@ class DistrictDashboard < Administrate::BaseDashboard
     :osm_id,
     :flags,
     :config,
+    :reason,
     :status,
     :ags,
   ].freeze

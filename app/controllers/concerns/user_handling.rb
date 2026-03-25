@@ -3,7 +3,15 @@
 module UserHandling
   extend ActiveSupport::Concern
 
+  included do
+    before_action :set_paper_trail_whodunnit
+  end
+
   protected
+
+  def require_login!
+    redirect_back fallback_location: root_path, alert: "Diese Funktion steht nur registrierten Benutzern zur Verfügung!" unless signed_in?
+  end
 
   def authenticate!
     redirect_to login_path, alert: t("sessions.not_logged_in") unless signed_in?
@@ -11,13 +19,13 @@ module UserHandling
 
   def authenticate_community_user!
     if !signed_in? || !access?(:community)
-      redirect_to(root_path, notice: "You are not supposed to see that!")
+      redirect_to(root_path, alert: "Diese Funktion steht nur registrierten Benutzern zur Verfügung!")
     end
   end
 
   def authenticate_admin_user!
     if !signed_in? || !session_user.admin?
-      redirect_to(root_path, notice: "You are not supposed to see that!")
+      redirect_to(root_path, alert: "Diese Funktion steht nur Administratoren zur Verfügung!")
     end
   end
 
@@ -48,17 +56,16 @@ module UserHandling
   end
 
   def session_user
-    @session_user ||=
-      begin
-        if session[:user_id].present?
-          user = User.find_by_id(session[:user_id])
-          user.blank? ? sign_out : user.touch(:last_login)
-        elsif cookies.encrypted[:remember_me].present?
-          user = User.authenticated_with_token(*cookies.encrypted[:remember_me])
-          user&.touch(:last_login)
-        end
-        user
+    @session_user ||= begin
+      if session[:user_id].present?
+        user = User.find_by_id(session[:user_id])
+        user.blank? ? sign_out : user.touch(:last_login)
+      elsif cookies.encrypted[:remember_me].present?
+        user = User.authenticated_with_token(*cookies.encrypted[:remember_me])
+        user&.touch(:last_login)
       end
+      user
+    end
   end
 
   def current_user

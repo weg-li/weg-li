@@ -8,6 +8,7 @@ require "rspec/retry"
 require "action_mailbox/test_helper"
 require "webmock/rspec"
 require "csv"
+require "paper_trail/frameworks/rspec"
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 

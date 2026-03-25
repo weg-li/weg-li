@@ -62,6 +62,8 @@ gem "rack-attack"
 gem "thruster"
 gem "memo-it"
 gem "valid_email2"
+gem "paper_trail"
+gem "administrate-field-paper_trail"
 
 # ruby 3 https://stackoverflow.com/questions/70500220/rails-7-ruby-3-1-loaderror-cannot-load-such-file-net-smtp
 gem "matrix", require: false

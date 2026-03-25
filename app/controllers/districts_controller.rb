@@ -1,20 +1,19 @@
 # frozen_string_literal: true
 
 class DistrictsController < ApplicationController
+  before_action :require_login!, only: %i[update create]
+
   def index
     respond_to do |format|
       format.html { @districts = search_scope }
       format.json { render json: District.active.as_api_response(:public_beta) }
       format.csv do
-        csv_data =
-          CSV.generate(force_quotes: true) do |csv|
-            csv << %w[plz name email]
-            District.in_batches do |relation|
-              relation.each do |district|
-                csv << [district.zip, district.name, district.email]
-              end
-            end
+        csv_data = CSV.generate(force_quotes: true) do |csv|
+          csv << %w[plz name email]
+          District.in_batches do |relation|
+            relation.each { |district| csv << [district.zip, district.name, district.email] }
           end
+        end
         send_data csv_data, type: "text/csv; charset=UTF-8; header=present", disposition: "attachment; filename=districts-#{Time.now.to_i}.csv"
       end
     end
@@ -39,17 +38,14 @@ class DistrictsController < ApplicationController
   def update
     district = District.active.from_param(params[:id])
     district.assign_attributes(district_params)
-    changes = district.changes
 
-    if changes.present?
+    if district.save
+      changes = district.changes
       message = changes.map { |key, (from, to)| "#{key} changed from #{from} to #{to}" }.join(", ")
       notify("district changes proposed: #{message} #{edit_admin_district_url(district)}#{" by #{current_user.email}" if signed_in?}")
     end
 
-    redirect_to(
-      districts_path,
-      notice: "Änderungen wurden erfasst und warten nun auf Freischaltung",
-    )
+    redirect_to(districts_path, notice: "Änderungen wurden erfasst und sofort freigeschaltet!")
   end
 
   def new
@@ -70,12 +66,8 @@ class DistrictsController < ApplicationController
   private
 
   def district_params
-    params[:district][:prefixes] = params[:district][:prefixes].split(
-      /;|,|\s/,
-    ).reject(&:blank?)
-    params[:district][:parts] = params[:district][:parts].split(
-      /;|,|\s/,
-    ).reject(&:blank?)
+    params[:district][:prefixes] = params[:district][:prefixes].split(/;|,|\s/).reject(&:blank?)
+    params[:district][:parts] = params[:district][:parts].split(/;|,|\s/).reject(&:blank?)
     params.require(:district).permit(
       :name,
       :email,
@@ -89,16 +81,9 @@ class DistrictsController < ApplicationController
   end
 
   def search_scope
-    scope =
-      District.active.order(params[:order] || "zip ASC").page(params[:page])
+    scope = District.active.order(params[:order] || "zip ASC").page(params[:page])
     scope = scope.where("state = ?", params[:state]) if params[:state].present?
-    if params[:term].present?
-      scope =
-        scope.where(
-          "zip ILIKE :term OR name ILIKE :term OR email ILIKE :term",
-          term: "%#{params[:term]}%",
-        )
-    end
+    scope = scope.where("zip ILIKE :term OR name ILIKE :term OR email ILIKE :term", term: "%#{params[:term]}%") if params[:term].present?
     scope
   end
 end

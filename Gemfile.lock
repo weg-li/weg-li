@@ -102,6 +102,10 @@ GEM
     administrate-field-active_storage (1.0.6)
       administrate (>= 0.2.2)
       rails (>= 7.0)
+    administrate-field-paper_trail (0.1.0)
+      administrate (>= 0.2.2)
+      paper_trail (>= 2.7.2)
+      rails (>= 5.0)
     aes_key_wrap (1.1.0)
     appsignal (4.8.4)
       logger
@@ -390,6 +394,9 @@ GEM
       rack
     openssl (4.0.1)
     os (1.1.4)
+    paper_trail (17.0.0)
+      activerecord (>= 7.1)
+      request_store (~> 1.4)
     parallel (1.27.0)
     parser (3.3.10.2)
       ast (~> 2.4.1)
@@ -500,6 +507,8 @@ GEM
       declarative (< 0.1.0)
       trailblazer-option (>= 0.1.1, < 0.2.0)
       uber (< 0.2.0)
+    request_store (1.7.0)
+      rack (>= 1.4)
     retriable (3.4.1)
     rexml (3.4.4)
     rgeo (3.1.0)
@@ -656,6 +665,7 @@ DEPENDENCIES
   acts_as_api
   administrate (= 1.0.0)
   administrate-field-active_storage
+  administrate-field-paper_trail
   appsignal
   bitfields
   bootsnap
@@ -694,6 +704,7 @@ DEPENDENCIES
   omniauth-telegram
   omniauth-twitter
   openssl
+  paper_trail
   pg
   prawn
   prawn-emoji

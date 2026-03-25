@@ -5,6 +5,10 @@ require "spec_helper"
 describe District do
   let(:district) { Fabricate.build(:district) }
 
+  it "enables paper trail" do
+    is_expected.to be_versioned
+  end
+
   context "validation" do
     it "is valid" do
       expect(district).to be_valid

@@ -18,6 +18,7 @@ describe "districts", type: :request do
 
   context "districts#create" do
     it "creates a district" do
+      login
       params = { district: Fabricate.attributes_for(:district) }
 
       expect do
@@ -77,11 +78,17 @@ describe "districts", type: :request do
   end
 
   context "districts#update" do
-    it "updates a district" do
-      params = { district: Fabricate.attributes_for(:district) }
+    with_versioning do
+      it "updates a district" do
+        login
+        params = { district: Fabricate.attributes_for(:district) }
 
-      patch(district_path(@district), params:)
-      expect(response).to be_a_redirect
+        expect do
+          patch(district_path(@district), params:)
+        end.to change { PaperTrail::Version.count }.by(1)
+
+        expect(response).to be_a_redirect
+      end
     end
   end
 end
