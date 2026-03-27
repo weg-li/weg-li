@@ -45,6 +45,8 @@ Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented_relative_to_receiver
 Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
 
 Style/Next:
   Enabled: false
