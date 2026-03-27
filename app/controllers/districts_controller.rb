@@ -44,7 +44,7 @@ class DistrictsController < ApplicationController
     district.save!
     if changes.present?
       message = changes.map { |key, (from, to)| "#{key} changed from #{from} to #{to}" }.join(", ")
-      notify("district changes proposed: #{message} #{edit_admin_district_url(district)}#{" by #{current_user.email}" if signed_in?}")
+      notify("district changes proposed: #{message} #{admin_district_url(district)}#{" by #{current_user.email}" if signed_in?}")
     end
 
     redirect_to(districts_path, notice: "Änderungen wurden erfasst und sofort freigeschaltet!")
