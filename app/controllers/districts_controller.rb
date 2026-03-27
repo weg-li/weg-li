@@ -39,8 +39,9 @@ class DistrictsController < ApplicationController
     district = District.active.from_param(params[:id])
     district.assign_attributes(district_params)
 
-    if district.save
-      changes = district.changes
+    changes = district.changes # capture changes before saving, as save will reset the changes
+    district.save!
+    if changes.present?
       message = changes.map { |key, (from, to)| "#{key} changed from #{from} to #{to}" }.join(", ")
       notify("district changes proposed: #{message} #{edit_admin_district_url(district)}#{" by #{current_user.email}" if signed_in?}")
     end
