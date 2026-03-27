@@ -33,6 +33,7 @@ class DistrictsController < ApplicationController
 
   def edit
     @district = District.active.from_param(params[:id])
+    @district.reason = ""
   end
 
   def update
