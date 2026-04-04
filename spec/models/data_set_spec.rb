@@ -21,7 +21,7 @@ GEMINI_RESULT = {
       "is_likely_subject" => false,
     },
   ],
-  "model_version" => "gemini-2.0-flash",
+  "model_version" => "gemini-flash-latest",
 }
 
 GEMINI_EMPTY_RESULT = {
@@ -35,7 +35,7 @@ GEMINI_EMPTY_RESULT = {
       "is_likely_subject" => true,
     },
   ],
-  "model_version" => "gemini-2.0-flash",
+  "model_version" => "gemini-flash-latest",
 }
 
 describe DataSet do

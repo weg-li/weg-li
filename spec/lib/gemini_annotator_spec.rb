@@ -4,8 +4,8 @@ require "spec_helper"
 
 describe GeminiAnnotator do
   let(:api_key) { "test-gemini-api-key" }
-  let(:model) { "gemini-2.0-flash" }
-  let(:api_url) { "https://generativelanguage.googleapis.com/v1beta/models/#{model}:generateContent?key=#{api_key}" }
+  let(:model) { "gemini-flash-latest" }
+  let(:api_url) { "https://generativelanguage.googleapis.com/v1beta/models/#{model}:generateContent" }
 
   before do
     ENV["GEMINI_API_KEY"] = api_key
@@ -184,11 +184,11 @@ describe GeminiAnnotator do
     after { ENV.delete("GEMINI_MODEL") }
 
     it "resolves short names to full model IDs" do
-      ["gemini-2.0-flash",  "gemini-2.5-flash", "gemini-3-flash-preview"].each do |model|
+      ["gemini-flash-latest", "gemini-3-flash-preview"].each do |model|
         ENV["GEMINI_MODEL"] = model
         annotator = described_class.new
 
-        stub_request(:post, "https://generativelanguage.googleapis.com/v1beta/models/#{model}:generateContent?key=#{api_key}")
+        stub_request(:post, "https://generativelanguage.googleapis.com/v1beta/models/#{model}:generateContent")
           .to_return(status: 200, body: { candidates: [{ content: { parts: [{ text: { vehicles: [] }.to_json }] } }] }.to_json)
 
         annotator.annotate_file

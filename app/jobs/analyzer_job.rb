@@ -68,10 +68,11 @@ class AnalyzerJob < ApplicationJob
 
   def handle_gemini
     return if @notice.user.no_analyzer?
+    gemini_model = @notice.user.analyzer
 
     @notice.photos.each do |photo|
       uri = image_url(photo)
-      result = gemini_annotator(@notice.user.analyzer).annotate_object(uri)
+      result = gemini_annotator(gemini_model).annotate_object(uri)
       next if result.blank?
 
       data_set = @notice.data_sets.create!(data: result, kind: :gemini, keyable: photo)
@@ -83,9 +84,9 @@ class AnalyzerJob < ApplicationJob
       end
     end
   rescue HTTP::TimeoutError => e
-    notify("Gemini API request timed out: #{e.message}")
+    notify("Gemini API request timed out: #{e.message} #{gemini_model}")
   rescue HTTP::ResponseError => e
-    notify("Gemini API response error: #{e.message}")
+    notify("Gemini API response error: #{e.message} #{gemini_model}")
   end
 
   def finalize
