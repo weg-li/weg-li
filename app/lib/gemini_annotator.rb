@@ -20,7 +20,7 @@ class GeminiAnnotator
   private
 
   def call_api(json)
-    response = client.post(api_url, json: json)
+    response = client.post(api_url, json: json, headers: { "x-goog-api-key": api_key, "Content-Type": "application/json" })
 
     if response.status.success?
       parse_response(response)
@@ -37,6 +37,7 @@ class GeminiAnnotator
           { text: prompt },
         ],
       }],
+      service_tier: "priority",
       generationConfig: generation_config,
     }
   end
@@ -49,6 +50,7 @@ class GeminiAnnotator
           { text: prompt },
         ],
       }],
+      service_tier: "priority",
       generationConfig: generation_config,
     }
   end
@@ -156,7 +158,7 @@ class GeminiAnnotator
   end
 
   def api_url
-    "#{endpoint}/v1beta/models/#{model}:generateContent?key=#{api_key}"
+    "#{endpoint}/v1beta/models/#{model}:generateContent"
   end
 
   def endpoint
