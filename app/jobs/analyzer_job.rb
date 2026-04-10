@@ -84,8 +84,10 @@ class AnalyzerJob < ApplicationJob
       end
     end
   rescue HTTP::TimeoutError => e
+    Appsignal.increment_counter("analyzer_job.timeout", 1, model: gemini_model)
     notify("Gemini API request timed out: #{e.message} #{gemini_model}")
   rescue HTTP::ResponseError => e
+    Appsignal.increment_counter("analyzer_job.response_error", 1, model: gemini_model)
     notify("Gemini API response error: #{e.message} #{gemini_model}")
   end
 
