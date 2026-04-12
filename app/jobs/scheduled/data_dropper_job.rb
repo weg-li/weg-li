@@ -2,11 +2,11 @@
 
 class Scheduled::DataDropperJob < ApplicationJob
   def perform
-    Rails.logger.info "dropping photos for old archived notices"
-
     max = 5_000
-    notices = Notice.archived.joins(:photos_attachments).where("notices.created_at < ?", 4.years.ago).with_attached_photos.limit(max)
-    notify "dropping photos from #{notices.count} notices"
+    since = 48.months.ago
+    Rails.logger.info "dropping max #{max} photos for old archived notices since #{since}"
+    notices = Notice.archived.joins(:photos_attachments).where("notices.created_at < ?", since).with_attached_photos.limit(max)
+    notify "actually dropping photos from #{notices.count} notices"
     notices.each do |notice|
       notice.photos.each(&:purge_later)
     end

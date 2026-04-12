@@ -2,7 +2,7 @@
 
 class Scheduled::NoticeArchiverJob < ApplicationJob
   def perform
-    duration = 4.years.ago
+    duration = 40.months.ago
     Rails.logger.info "archiving notices since #{duration}"
 
     notices = Notice.where("created_at < ?", duration).where(archived: false)
