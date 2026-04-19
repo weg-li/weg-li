@@ -259,7 +259,7 @@ class Notice < ApplicationRecord
   end
 
   def date_doubles
-    return [] if registration.blank?
+    return user.notices.none if registration.blank?
 
     user
       .notices
