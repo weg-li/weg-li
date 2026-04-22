@@ -232,6 +232,11 @@ class User < ApplicationRecord
     ]
   end
 
+  def rotate_token!
+    self.api_token = SecureRandom.hex(32)
+    save!
+  end
+
   private
 
   def normalize

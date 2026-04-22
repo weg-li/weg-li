@@ -22,6 +22,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def rotate_token
+    if current_user.valid?
+      current_user.rotate_token!
+
+      redirect_to edit_user_path, notice: "API-Token wurde rotiert"
+    else
+      redirect_to edit_user_path, alert: "API-Token konnte nicht gespeichert werden, Nutzer-Daten sind nicht vollständig"
+    end
+  end
+
   def destroy_signature
     current_user.update!(signature: nil)
 

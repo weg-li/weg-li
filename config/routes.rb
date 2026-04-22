@@ -106,6 +106,7 @@ Rails.application.routes.draw do
       get :studi
       patch :confirmation_mail
       patch :signature
+      patch :rotate_token
       patch :destroy_signature
     end
   end

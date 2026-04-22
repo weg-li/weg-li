@@ -51,4 +51,29 @@ describe "users", type: :request do
       expect(response).to be_a_redirect
     end
   end
+
+  context "PATCH :signature" do
+    it "updates the signature" do
+      expect do
+        patch signature_user_path(@user), params: { user: { signature: fixture_file_upload(Rails.root.join("spec/fixtures/files/mercedes.jpg"), "image/jpg") } }
+      end.to change { @user.reload.signature.attached? }.from(false).to(true)
+
+      expect(response).to be_a_redirect
+      follow_redirect!
+      expect(response.body).to include("Unterschrift wurde gespeichert")
+    end
+  end
+
+  context "PATCH :rotate_token" do
+    it "rotates the API token" do
+      old_token = @user.api_token
+      expect do
+        patch rotate_token_user_path(@user)
+      end.to change { @user.reload.api_token }.from(old_token)
+
+      expect(response).to be_a_redirect
+      follow_redirect!
+      expect(response.body).to include("API-Token wurde rotiert")
+    end
+  end
 end
