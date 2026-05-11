@@ -87,6 +87,10 @@ module ApplicationHelper
     link_to("Bußgeldkatalog (bkat_owi Stand: 22.08.2024 – 15.1 Auflage)", "/pdf/bkat_owi_09_11_2021.pdf", target: "_blank")
   end
 
+  def iban
+    "DE41 2022 0800 0040 2974 03"
+  end
+
   def options_for_email(district, notice)
     selected = district.selected_email(notice)
     options_for_select(district.all_emails, selected)
