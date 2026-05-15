@@ -11,7 +11,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    action_text-trix (2.1.18)
+    action_text-trix (2.1.19)
       railties
     actioncable (8.1.2.1)
       actionpack (= 8.1.2.1)
@@ -117,7 +117,7 @@ GEM
     bindex (0.8.1)
     bitfields (0.14.0)
       activerecord (>= 5.1)
-    bootsnap (1.24.3)
+    bootsnap (1.24.4)
       msgpack (~> 1.2)
     builder (3.3.0)
     byebug (13.0.0)
@@ -202,7 +202,7 @@ GEM
       base64 (~> 0.2)
       faraday (>= 1.0, < 3.a)
     google-cloud-errors (1.6.0)
-    google-cloud-storage (1.59.0)
+    google-cloud-storage (1.60.0)
       addressable (~> 2.8)
       digest-crc (~> 0.4)
       google-apis-core (>= 0.18, < 2)
@@ -272,7 +272,7 @@ GEM
       bindata
       faraday (~> 2.0)
       faraday-follow_redirects
-    jwt (3.1.2)
+    jwt (3.2.0)
       base64
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
@@ -387,7 +387,7 @@ GEM
     omniauth-twitter (1.4.0)
       omniauth-oauth (~> 1.1)
       rack
-    openssl (4.0.1)
+    openssl (4.0.2)
     os (1.1.4)
     paper_trail (17.0.0)
       activerecord (>= 7.1)
@@ -493,7 +493,7 @@ GEM
       tsort
     redis (5.4.1)
       redis-client (>= 0.22.0)
-    redis-client (0.28.0)
+    redis-client (0.29.0)
       connection_pool
     regexp_parser (2.12.0)
     reline (0.6.3)
@@ -536,7 +536,7 @@ GEM
     rswag-ui (2.17.0)
       actionpack (>= 5.2, < 8.2)
       railties (>= 5.2, < 8.2)
-    rubocop (1.86.1)
+    rubocop (1.86.2)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
