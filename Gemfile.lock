@@ -119,7 +119,7 @@ GEM
     bindex (0.8.1)
     bitfields (0.14.0)
       activerecord (>= 5.1)
-    bootsnap (1.24.4)
+    bootsnap (1.24.5)
       msgpack (~> 1.2)
     builder (3.3.0)
     byebug (13.0.0)
@@ -168,7 +168,7 @@ GEM
     faraday-retry (2.4.0)
       faraday (~> 2.0)
     ffi (1.17.4)
-    fugit (1.12.1)
+    fugit (1.12.2)
       et-orbi (~> 1.4)
       raabro (~> 1.4)
     gapic-common (1.3.0)
@@ -256,7 +256,7 @@ GEM
       domain_name (~> 0.5)
     i18n (1.14.8)
       concurrent-ruby (~> 1.0)
-    image_processing (2.0.0)
+    image_processing (2.0.1)
     io-console (0.8.2)
     irb (1.18.0)
       pp (>= 0.6.0)
@@ -265,7 +265,7 @@ GEM
       reline (>= 0.4.2)
     jsbundling-rails (1.3.1)
       railties (>= 6.0.0)
-    json (2.19.5)
+    json (2.19.7)
     json-jwt (1.17.0)
       activesupport (>= 4.2)
       aes_key_wrap
@@ -323,7 +323,7 @@ GEM
     minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
-    msgpack (1.8.0)
+    msgpack (1.8.1)
     multi_json (1.21.1)
     multi_xml (0.9.1)
       bigdecimal (>= 3.1, < 5)
@@ -434,7 +434,7 @@ GEM
       date
       stringio
     public_suffix (7.0.5)
-    puma (8.0.1)
+    puma (8.0.2)
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.8.1)
@@ -510,7 +510,7 @@ GEM
       uber (< 0.2.0)
     request_store (1.7.0)
       rack (>= 1.4)
-    retriable (3.4.1)
+    retriable (3.8.0)
     rexml (3.4.4)
     rgeo (3.1.0)
     rgeo-activerecord (8.1.0)
@@ -652,7 +652,7 @@ GEM
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    zeitwerk (2.8.1)
+    zeitwerk (2.8.2)
 
 PLATFORMS
   ruby
