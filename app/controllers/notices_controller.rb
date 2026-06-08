@@ -184,18 +184,11 @@ class NoticesController < ApplicationController
     to = notice.district.all_emails.find { |email| email == params[:send_to] }
     to ||= notice.district.email
 
-    NoticeMailer.charge(
-      notice,
-      to:,
-      send_via_pdf: params[:send_via_pdf],
-    ).deliver_later
+    NoticeMailer.charge(notice, to:, send_via_pdf: params[:send_via_pdf]).deliver_later
 
     notice.mark_shared!
 
-    redirect_to(
-      notices_path,
-      notice: "Deine Anzeige wird per E-Mail an #{Array(to).join(', ')} versendet und als 'gemeldet' markiert.",
-    )
+    redirect_to(notices_path, notice: "Deine Anzeige wird per E-Mail an #{Array(to).join(', ')} versendet und als 'gemeldet' markiert.")
   end
 
   def duplicate
@@ -279,7 +272,7 @@ class NoticesController < ApplicationController
       notices = notices.open.complete
       if notices.present?
         notices.each do |notice|
-          NoticeMailer.charge(notice).deliver_later
+          NoticeMailer.charge(notice, to: notice.selected_email).deliver_later
           notice.mark_shared!
         end
         flash[:notice] = "Die noch offenen, vollständigen Meldungen werden im Hintergrund per E-Mail gemeldet"

@@ -258,6 +258,10 @@ class Notice < ApplicationRecord
     end
   end
 
+  def selected_email
+    district.selected_email(self)
+  end
+
   def date_doubles
     return user.notices.none if registration.blank?
 

@@ -184,9 +184,9 @@ class Api::NoticesController < Api::ApplicationController
 
   def mail
     notice = current_user.notices.from_param(params[:id])
-    notice.mark_shared!
 
-    NoticeMailer.charge(notice).deliver_later
+    NoticeMailer.charge(notice, to: notice.selected_email).deliver_later
+    notice.mark_shared!
 
     render json: notice.as_api_response(:public_beta)
   end
