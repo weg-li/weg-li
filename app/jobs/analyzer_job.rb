@@ -64,6 +64,8 @@ class AnalyzerJob < ApplicationJob
       @notice.start_date ||= dates.first
       @notice.end_date ||= dates.last
     end
+  ensure
+    @notice.save_incomplete!
   end
 
   def handle_gemini
@@ -87,6 +89,8 @@ class AnalyzerJob < ApplicationJob
     Appsignal.increment_counter("analyzer_job.timeout", 1, model: gemini_model)
   rescue HTTP::ResponseError
     Appsignal.increment_counter("analyzer_job.response_error", 1, model: gemini_model)
+  ensure
+    @notice.save_incomplete!
   end
 
   def finalize
