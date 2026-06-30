@@ -5,6 +5,7 @@ class Notice < ApplicationRecord
 
   include Statisticable
   ADDRESS_ZIP_PATTERN = /.+(\d{5}).+/
+  EXPIRY_TIME = 6.months
 
   extend TimeSplitter::Accessors
   split_accessor :start_date, :end_date
@@ -495,7 +496,7 @@ LIMIT 10
   end
 
   def validate_creation_date
-    errors.add(:start_date, :invalid) if start_date.to_i < 3.month.ago.to_i
+    errors.add(:start_date, :invalid) if start_date.to_i < EXPIRY_TIME.ago.to_i
   end
 
   def validate_duration

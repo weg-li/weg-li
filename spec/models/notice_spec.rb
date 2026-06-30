@@ -49,6 +49,8 @@ describe Notice do
       notice.start_date = 2.months.ago
       expect(notice).to be_valid
       notice.start_date = 4.months.ago
+      expect(notice).to be_valid
+      notice.start_date = 7.months.ago
       expect(notice).to_not be_valid
     end
 
