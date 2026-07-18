@@ -17,9 +17,9 @@ class User < ApplicationRecord
 
   enum :access, { to_delete: -100, disabled: -99, user: 0, community: 1, studi: 2, admin: 42 }
   enum :analyzer, {
-    "no_analyzer" => 0,
-    "gemini-2.5-flash-lite" => 1,
-    "gemini-3.1-flash-lite" => 2,
+    "gemini-2.5-flash-lite" => 0,
+    "gemini-3.1-flash-lite" => 1,
+    "no_analyzer" => 2,
   }
 
   geocoded_by :geocode_address, language: proc { |_model| I18n.locale }, no_annotations: true
