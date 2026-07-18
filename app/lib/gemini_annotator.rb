@@ -37,7 +37,7 @@ class GeminiAnnotator
           { text: prompt },
         ],
       }],
-      service_tier: "priority",
+      service_tier: "standard",
       generationConfig: generation_config,
     }
   end
@@ -50,7 +50,7 @@ class GeminiAnnotator
           { text: prompt },
         ],
       }],
-      service_tier: "priority",
+      service_tier: "standard",
       generationConfig: generation_config,
     }
   end
