@@ -109,8 +109,8 @@ class Geo
   def ray_crosses_through_line_segment?(a_point_on_polygon, trailing_point_on_polygon, latitude, longitude)
     (
       longitude < (
-          (trailing_point_on_polygon[1] - a_point_on_polygon[1]) * (latitude - a_point_on_polygon[0]) / (trailing_point_on_polygon[0] - a_point_on_polygon[0])
-        ) + a_point_on_polygon[1]
+        (trailing_point_on_polygon[1] - a_point_on_polygon[1]) * (latitude - a_point_on_polygon[0]) / (trailing_point_on_polygon[0] - a_point_on_polygon[0])
+      ) + a_point_on_polygon[1]
     )
   end
 end
