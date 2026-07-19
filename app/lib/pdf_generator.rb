@@ -18,6 +18,13 @@ class PdfGenerator
 
     pdf =
       Prawn::Document.new do |document|
+        # Use a Unicode-capable font so Prawn can render UTF-8 characters.
+        document.font_families.update("Roboto" => {
+          normal: "public/fonts/Roboto-Regular.ttf",
+          italic: "public/fonts/Roboto-Italic.ttf",
+        })
+        document.font "Roboto"
+
         qr_code = qr_code(notice)
         document.render_qr_code(
           qr_code,
@@ -78,10 +85,9 @@ class PdfGenerator
   def render_template(name, locals)
     result = renderer.render(template: "/notice_mailer/_#{name}", formats: [:text], locals:)
 
-    # Your document includes text that's not compatible with the Windows-1252 character set.
-    # If you need full UTF-8 support, use external fonts instead of PDF's built-in fonts.
-    # REM: Prawn workaround for bad font support
-    result.encode("WINDOWS-1252", invalid: :replace, undef: :replace)
+    # Ensure the rendered template is valid UTF-8 for Unicode-capable fonts.
+    # Replace any invalid or undefined byte sequences so Prawn receives a clean UTF-8 string.
+    result.encode("UTF-8", invalid: :replace, undef: :replace)
   end
 
   def qr_code(notice)
