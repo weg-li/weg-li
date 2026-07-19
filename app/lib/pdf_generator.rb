@@ -18,6 +18,13 @@ class PdfGenerator
 
     pdf =
       Prawn::Document.new do |document|
+        # Use a Unicode-capable font so Prawn can render UTF-8 characters.
+        document.font_families.update("Roboto" => {
+          normal: "public/fonts/Roboto-Regular.ttf",
+          italic: "public/fonts/Roboto-Italic.ttf",
+        })
+        document.font("Roboto")
+
         qr_code = qr_code(notice)
         document.render_qr_code(
           qr_code,
