@@ -22,7 +22,7 @@ class NoticeMailer < ApplicationMailer
       attach_photos(notice.photos)
     end
 
-    subject = "Anzeige #{@notice.registration} / #{@notice.charge.description}"
+    subject = "Anzeige #{@notice.registration} / #{@notice.charge_descriptions.join(', ')}"
     mail subject:,
          to: to || @district.email,
          cc: email_address_with_name(@user.email, @user.name),

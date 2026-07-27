@@ -361,7 +361,6 @@ class NoticesController < ApplicationController
 
   def notice_update_params
     params.require(:notice).permit(
-      :tbnr,
       :start_date,
       :start_date_date,
       :start_date_time,
@@ -383,15 +382,16 @@ class NoticesController < ApplicationController
       :expired_tuv,
       :expired_eco,
       :over_2_8_tons,
+      tbnr: [],
       photos: [],
     )
   end
 
   def notice_upload_params
     params.require(:notice).permit(
-      :tbnr,
       :flags,
       :note,
+      tbnr: [],
       photos: [],
     )
   end

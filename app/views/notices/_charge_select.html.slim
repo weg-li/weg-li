@@ -6,14 +6,16 @@ ruby:
         text: "Favoriten",
         children: favorites.map {|tbnr, description| {id: tbnr, text: "#{signify(description, link: false)} [#{tbnr}]"} }
     },
-    {
+  {
       text: "BKAT",
-      children: charges.map { |tbnr, description| {id: tbnr, selected: notice.tbnr == tbnr, text: "#{signify(description, link: false)} [#{tbnr}]"} }
+      children: charges.map { |tbnr, description| {id: tbnr, selected: notice.tbnrs.include?(tbnr), text: "#{signify(description, link: false)} [#{tbnr}]"} }
     },
   ]
 javascript:
   $('select#notice_tbnr').select2({
     theme: 'bootstrap',
+    multiple: true,
+    closeOnSelect: false,
     tags: true,
     selectOnClose: true,
     templateResult: function(data) {
@@ -24,5 +26,6 @@ javascript:
     },
     data: #{raw(charge_options.to_json.html_safe)},
   }).on('select2:open', function (e) {
-    $('.select2-search__field').val($('#notice_tbnr').val());
+    var current = $('#notice_tbnr').val() || [];
+    $('.select2-search__field').val(current.join(', '));
   });

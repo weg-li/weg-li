@@ -68,11 +68,13 @@ module ApplicationHelper
   end
 
   def to_charge(tbnr)
-    @charge_descriptions ||= {}
-    @charge_descriptions[tbnr] ||= begin
-      charge = Charge.by_param(tbnr).ordered.take
-      charge&.description
-    end
+    tbnrs = Array(tbnr).join(",").split(",").map(&:strip).reject(&:blank?)
+    return if tbnrs.blank?
+
+    tbnrs.map do |entry|
+      @charge_descriptions ||= {}
+      @charge_descriptions[entry] ||= Charge.by_param(entry).ordered.take&.description
+    end.compact.join(", ")
   end
 
   def link_to_notice(notice, &)

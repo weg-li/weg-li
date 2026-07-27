@@ -53,6 +53,7 @@ class Notice < ApplicationRecord
   geocoded_by :geocode_address, language: proc { |_model| I18n.locale }, no_annotations: true
 
   before_validation :defaults
+  before_validation :normalize_tbnr
 
   after_validation :geocode, if: :do_geocoding?
   after_validation :postgisify
@@ -73,7 +74,7 @@ class Notice < ApplicationRecord
 
   validates :photos, :registration, :street, :city, :start_date, :end_date, :charge, presence: true
   validates :zip, presence: true, zip: true
-  validates :tbnr, length: { is: 6 }
+  validate :validate_tbnr
   validates :token, uniqueness: true
   validate :validate_creation_date, on: :create
   validate :validate_date
@@ -196,6 +197,29 @@ class Notice < ApplicationRecord
     notice.photos.attach(photos.map(&:blob))
     notice.save_incomplete!
     notice.reload
+  end
+
+  def tbnrs
+    @tbnrs ||= tbnr.to_s.split(",").map(&:strip).reject(&:blank?)
+  end
+
+  def tbnr=(value)
+    super(Array(value).flatten.compact_blank.join(","))
+    @tbnrs = nil
+  end
+
+  def charge
+    Charge.by_param(tbnrs.first).ordered.take
+  end
+
+  def charge_descriptions
+    tbnrs.map do |entry|
+      Charge.by_param(entry).ordered.take&.description
+    end.compact
+  end
+
+  def tbnr_label
+    tbnrs.join(", ")
   end
 
   def mark_shared!
@@ -505,5 +529,21 @@ LIMIT 10
 
   def defaults
     self.token ||= SecureRandom.hex(16)
+  end
+
+  def normalize_tbnr
+    self.tbnr = tbnrs.uniq if tbnr_changed?
+  end
+
+  def validate_tbnr
+    if tbnrs.blank?
+      errors.add(:tbnr, :blank)
+      return
+    end
+
+    tbnrs.each do |entry|
+      errors.add(:tbnr, :invalid) unless entry.match?(/\A\d{6}\z/)
+      errors.add(:tbnr, :invalid) if Charge.by_param(entry).none?
+    end
   end
 end

@@ -1,6 +1,6 @@
 dl
   dt= Notice.human_attribute_name(:tbnr)
-  dd= notice.tbnr || '-'
+  dd= notice.tbnr_label.presence || '-'
   dt= Notice.human_attribute_name(:charge)
   dd= to_charge(notice.tbnr) || '-'
   dt= Notice.human_attribute_name(:start_date)
