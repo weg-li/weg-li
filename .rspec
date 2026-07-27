@@ -1,2 +1,3 @@
+-I .
 -I spec
 --color --format=documentation
