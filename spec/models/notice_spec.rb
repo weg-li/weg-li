@@ -42,6 +42,16 @@ describe Notice do
       expect(notice).to be_valid
     end
 
+    it "allows multiple tbnrs" do
+      other_charge = Fabricate.create(:charge, tbnr: "112454", description: "Parken auf dem Gehweg")
+
+      notice.tbnr = [charge.tbnr, other_charge.tbnr]
+
+      expect(notice).to be_valid
+      expect(notice.tbnrs).to eq([charge.tbnr, other_charge.tbnr])
+      expect(notice.charge_descriptions).to include(charge.description, other_charge.description)
+    end
+
     it "validates the date" do
       expect(notice).to be_valid
       notice.start_date = 2.minutes.from_now

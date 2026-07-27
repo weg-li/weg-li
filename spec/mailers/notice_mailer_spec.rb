@@ -21,6 +21,16 @@ describe NoticeMailer do
       expect(mail.attachments.size).to be(1)
     end
 
+    it "renders multiple charges in the subject and body" do
+      second_charge = Fabricate.create(:charge, tbnr: "112454", description: "Parken auf dem Gehweg")
+      notice.update!(tbnr: [notice.tbnr, second_charge.tbnr])
+
+      mail = NoticeMailer.charge(notice)
+
+      expect(mail.subject).to include(notice.charge.description, second_charge.description)
+      expect(mail.body.encoded).to include(notice.tbnr_label)
+    end
+
     it "sends mail to" do
       mail = NoticeMailer.charge(notice, to: "testo@pesto.de")
 

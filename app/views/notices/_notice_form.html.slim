@@ -83,14 +83,16 @@
   .col-lg-12
     .form-group
       = form.label :tbnr, class: "control-label control-label-required"
-      = form.select :tbnr, [], { include_blank: 'Verstoß Auswählen' }, { class: "form-control", required: true, data: {'select2-disabled' => true} }
+      - selected_tbnrs = notice.tbnrs
+      - selected_charges = selected_tbnrs.map { |tbnr| [to_charge(tbnr), tbnr] }
+      = form.select :tbnr, selected_charges, { include_blank: 'Verstoß Auswählen' }, { class: "form-control", required: true, multiple: true, data: {'select2-disabled' => true} }
       = render('charge_select', notice: notice)
       .input-group#pick_charge
         - nearest_tbnrs = notice.suggested_tbnrs
         - if nearest_tbnrs.present?
           - nearest_charges = Charge.tbnrs_with_description.select { |tbnr, _charge| nearest_tbnrs.include?(tbnr) }
           - nearest_charges.each do |nearest_tbnr, nearest_charge|
-            a(href="javascript:;" onclick="$('#notice_tbnr').val('#{nearest_tbnr}').trigger('change'); $('#pick_charge').fadeOut(); return false;")
+            a(href="javascript:;" onclick="var current = $('#notice_tbnr').val() || []; if (!Array.isArray(current)) { current = [current]; } if (current.indexOf('#{nearest_tbnr}') === -1) { current.push('#{nearest_tbnr}'); } $('#notice_tbnr').val(current).trigger('change'); $('#pick_charge').fadeOut(); return false;")
               span.label.label-default.label-picker(title=nearest_charge)
                 span => nearest_charge
                 span.glyphicon.glyphicon-circle-arrow-left

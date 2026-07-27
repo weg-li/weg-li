@@ -38,6 +38,7 @@ gem "activerecord-postgis-adapter"
 gem "scenic"
 gem "rubyzip"
 gem "i18n"
+gem "tzinfo-data", platforms: %i[mswin mingw x64_mingw jruby]
 gem "geocoder"
 gem "image_processing"
 gem "google-cloud-vision"

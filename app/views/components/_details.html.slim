@@ -24,14 +24,14 @@ dl.dl-horizontal
   dd = notice.full_location
   dt = Notice.human_attribute_name(:charge)
   dd
-    - if notice.charge.present?
-      = link_to(notice.charge.description, charge_path(notice.charge.tbnr))
+    - if notice.charge_descriptions.present?
+      = safe_join(notice.tbnrs.zip(notice.charge_descriptions).map { |tbnr, description| link_to(description, charge_path(tbnr)) }, ", ")
     - else
       = "-"
   dt = Notice.human_attribute_name(:tbnr)
   dd
-    - if notice.tbnr.present?
-      = link_to(notice.tbnr, charge_path(notice.tbnr))
+    - if notice.tbnrs.present?
+      = notice.tbnr_label
     - else
       = "-"
   dt = Notice.human_attribute_name(:start_date)
