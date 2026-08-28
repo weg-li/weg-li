@@ -233,7 +233,7 @@ GEM
       grpc (~> 1.41)
     googleapis-common-protos-types (1.23.0)
       google-protobuf (~> 4.26)
-    googleauth (1.17.3)
+    googleauth (1.17.4)
       faraday (>= 1.0, < 3.a)
       google-cloud-env (~> 2.2)
       google-logging-utils (~> 0.1)
@@ -244,7 +244,7 @@ GEM
     grpc (1.83.0)
       google-protobuf (>= 3.25, < 5.0)
       googleapis-common-protos-types (~> 1.0)
-    haml (7.4.1)
+    haml (7.5.0)
       prism (>= 1.1.0)
       temple (>= 0.8.2)
       thor
@@ -338,7 +338,7 @@ GEM
       net-protocol
     net-pop (0.1.2)
       net-protocol
-    net-protocol (0.2.2)
+    net-protocol (0.3.0)
       timeout
     net-smtp (0.5.1)
       net-protocol
@@ -547,8 +547,8 @@ GEM
     rswag-ui (2.17.0)
       actionpack (>= 5.2, < 8.2)
       railties (>= 5.2, < 8.2)
-    rubocop (1.89.0)
-      json (~> 2.3)
+    rubocop (1.90.0)
+      json (>= 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
       parallel (>= 1.10)
@@ -617,7 +617,7 @@ GEM
       syntax_tree (>= 2.0.1)
     temple (0.10.7)
     thor (1.5.0)
-    thruster (0.1.25)
+    thruster (0.1.26)
     tilt (2.9.0)
     time_splitter (1.1.0)
     timeout (0.6.1)
