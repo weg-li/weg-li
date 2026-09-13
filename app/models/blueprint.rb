@@ -10,5 +10,5 @@ class Blueprint < ApplicationRecord
   validates :name, presence: true
 
   scope :ordered, -> { order(name: :desc, created_at: :asc) }
-  scope :search, ->(term) { where("name ILIKE :term OR info ILIKE :term", term: "%#{term}%") }
+  scope :search, ->(term) { where("name ILIKE :term OR note ILIKE :term", term: "%#{term}%") }
 end
