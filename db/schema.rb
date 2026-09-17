@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_31_065929) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_17_183032) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "postgis"
@@ -64,6 +64,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_31_065929) do
 
   create_table "blueprints", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.integer "duration"
     t.integer "flags"
     t.string "name", null: false
     t.string "note"

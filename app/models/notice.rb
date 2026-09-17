@@ -209,6 +209,7 @@ class Notice < ApplicationRecord
     self.flags = blueprint.flags if blueprint.flags.present?
     self.tbnr = blueprint.tbnr if blueprint.tbnr.present?
     self.note = blueprint.note if blueprint.note.present?
+    self.end_date = start_date + blueprint.duration.minutes if blueprint.duration.present? && start_date.present?
   end
 
   def owi21_args

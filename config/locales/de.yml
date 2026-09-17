@@ -139,6 +139,7 @@ de:
       blueprint:
         created_at: 'Erstellt'
         name: 'Name'
+        duration: 'Dauer'
         charge: 'Verstoß'
         tbnr: 'Verstoß'
         note: 'Hinweis'

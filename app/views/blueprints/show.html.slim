@@ -8,6 +8,8 @@
     dl.dl-horizontal.well
       dt Name
       dd= @blueprint.name
+      dt Dauer
+      dd= @blueprint.duration || '-'
       dt Verstoß
       - if @blueprint.charge
         dd= link_to @blueprint.charge.description, charge_path(@blueprint.charge)
@@ -16,5 +18,5 @@
         - if @blueprint.send(flag)
           dd= t(flag, scope: "activerecord.attributes.blueprint.flags")
       dt Hinweis
-      dd= @blueprint.note
+      dd= @blueprint.note || '-'
     .small.text-muted Erstellt am #{l(@blueprint.created_at, format: :short)}, zuletzt aktualisiert am #{l(@blueprint.updated_at, format: :short)}

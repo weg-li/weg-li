@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe Blueprint, type: :model do
-  let(:blueprint) { Fabricate.build(:blueprint) }
+  let(:blueprint) { Fabricate.build(:blueprint, duration: 3) }
 
   context "validation" do
     it "is valid" do
@@ -21,6 +21,7 @@ RSpec.describe Blueprint, type: :model do
       expect(notice.flags).to eq(blueprint.flags)
       expect(notice.tbnr).to eq(blueprint.tbnr)
       expect(notice.note).to eq(blueprint.note)
+      expect(notice.end_date).to eq(notice.start_date + 3.minutes)
     end
   end
 

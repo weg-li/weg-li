@@ -1,8 +1,12 @@
 .row
-  .col-lg-6
+  .col-lg-3
     .form-group
       = form.label :name, class: "control-label control-label-required"
       = form.text_field :name, class: "form-control", required: true, placeholder: 'z.B. Gehwegparker'
+  .col-lg-3
+    .form-group
+      = form.label :duration, class: "control-label"
+      = form.number_field :duration, class: "form-control", placeholder: 'z.B. 1 Minute'
   .col-lg-6
     .form-group
       = form.label :tbnr, class: "control-label"
