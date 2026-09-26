@@ -84,7 +84,7 @@ module ApplicationHelper
   end
 
   def link_to_bkat
-    link_to("Bußgeldkatalog (bkat_owi Stand: 22.08.2024 – 15.1 Auflage)", "/pdf/bkat_owi_09_11_2021.pdf", target: "_blank")
+    link_to("Bußgeldkatalog (bkat_owi Stand: 22.08.2024 – 15.1 Auflage)", "/pdf/bkat_owi_22_08_2024.pdf", target: "_blank")
   end
 
   def iban
