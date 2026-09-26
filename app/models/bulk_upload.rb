@@ -28,7 +28,7 @@ class BulkUpload < ApplicationRecord
   end
 
   def self.for_reminder
-    range = [(21.days.ago.beginning_of_day)..(14.days.ago.end_of_day)]
+    range = [(Notice::EXPIRY_TIME.weeks.ago.beginning_of_day)..((Notice::EXPIRY_TIME - 1).weeks.ago.end_of_day)]
     open.joins(:user).where(created_at: range).merge(User.not_disable_reminders).merge(User.active)
   end
 

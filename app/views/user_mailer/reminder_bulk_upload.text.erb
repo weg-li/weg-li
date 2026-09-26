@@ -1,6 +1,6 @@
 Hallo <%= @user.name %>,
 
-Du hast noch <%= @bulk_uploads.size %> offene Massen-Uploads, die bereits 2 Wochen zurück liegen 😳
+Du hast noch <%= @bulk_uploads.size %> offene(n) <%= BulkUpload.model_name.human(count: @bulk_uploads.size) %>, die bereits <%= Notice::EXPIRY_TIME - 1 %> Wochen zurück liegen 😳
 Damit eine Anzeige fristgerecht bearbeitet werden kann, muss sie rechtzeitig eingereicht werden!
 
 

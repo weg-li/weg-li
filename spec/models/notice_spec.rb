@@ -256,7 +256,7 @@ describe Notice do
 
   context "scopes" do
     it "finds_for_reminder" do
-      notice = Fabricate(:notice, start_date: 15.days.ago)
+      notice = Fabricate(:notice, start_date: 35.days.ago)
 
       expect(Notice.for_reminder.to_a).to eql([notice])
       notice.user.update! disable_reminders: true

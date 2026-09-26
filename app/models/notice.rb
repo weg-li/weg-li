@@ -82,7 +82,7 @@ class Notice < ApplicationRecord
   def self.for_reminder
     open
       .joins(:user)
-      .where(start_date: [(21.days.ago.beginning_of_day)..(14.days.ago.end_of_day)])
+      .where(start_date: [(EXPIRY_TIME.weeks.ago.beginning_of_day)..((EXPIRY_TIME - 1).weeks.ago.end_of_day)])
       .merge(User.not_disable_reminders)
       .merge(User.active)
   end

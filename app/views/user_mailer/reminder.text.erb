@@ -1,7 +1,7 @@
 Hallo <%= @user.name %>,
 
-Du hast noch <%= @notices.size %> offene Meldungen, die bereits 2 Wochen zurück liegen 😳
-Die Frist der Verfolgungsverjährung beträgt bei Ordnungswidrigkeiten lediglich drei Monate,
+Du hast noch <%= @notices.size %> offene <%= Notice.model_name.human(count: @notices.size) %>, die bereits <%= Notice::EXPIRY_TIME - 1 %> Wochen zurück liegen 😳
+Die Frist der Verfolgungsverjährung beträgt bei Ordnungswidrigkeiten lediglich <%= Notice::EXPIRY_TIME %> Monate,
 bringe die Meldungen also schnellstmöglichst zur Anzeige, damit sie fristgerecht bearbeitet werden können.
 
 Bitte vervollständige Deine Meldungen über die nachfolgenden Links:
