@@ -95,7 +95,9 @@ class Api::NoticesController < Api::ApplicationController
   swagger_path "/notices/{token}" do
     operation :patch do
       key :summary, "Update Notice"
-      key :description, "Updates a notice for the authorized user"
+      key :description,
+          "Updates an open notice for the authorized user, including incomplete drafts. " \
+          "Omitted fields remain unchanged. The notice is saved as incomplete when required submission data is missing or invalid."
       key :tags, ["notice"]
       parameter do
         key :name, :token
@@ -124,7 +126,8 @@ class Api::NoticesController < Api::ApplicationController
 
   def update
     notice = current_user.notices.open.from_param(params[:id])
-    notice.update!(notice_params)
+    notice.assign_attributes(notice_params)
+    notice.save_incomplete!
 
     render json: notice.as_api_response(:public_beta)
   end

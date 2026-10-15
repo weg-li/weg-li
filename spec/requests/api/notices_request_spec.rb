@@ -78,6 +78,84 @@ describe "api/notices", type: :request do
         @notice.reload.registration
       }.from(@notice.registration).to("HH XX 123")
     end
+
+    it "persists corrections while other required fields are still missing" do
+      @notice.assign_attributes(street: nil, city: nil, zip: nil)
+      @notice.save_incomplete!
+      params = { notice: { registration: "HH XX 123", note: "Corrected draft" } }
+
+      patch api_notice_path(@notice), params:, headers: @headers
+
+      expect(response).to be_ok
+      expect(@notice.reload.registration).to eq("HH XX 123")
+      expect(@notice.note).to eq("Corrected draft")
+      expect(@notice).to be_incomplete
+      expect(response.body).to eq(@notice.as_api_response(:public_beta).to_json)
+    end
+
+    it "marks a draft complete when its last missing field is corrected" do
+      @notice.street = nil
+      @notice.save_incomplete!
+
+      patch api_notice_path(@notice), params: { notice: { street: "Teststrasse 1" } }, headers: @headers
+
+      expect(response).to be_ok
+      expect(@notice.reload.street).to eq("Teststrasse 1")
+      expect(@notice).to be_complete
+    end
+
+    it "allows clearing a required field and marks the draft incomplete" do
+      patch api_notice_path(@notice), params: { notice: { registration: nil } }, headers: @headers
+
+      expect(response).to be_ok
+      expect(@notice.reload.registration).to be_nil
+      expect(@notice).to be_incomplete
+      expect(response.parsed_body.fetch("registration")).to be_nil
+    end
+
+    it "saves invalid submission data as an incomplete draft" do
+      patch api_notice_path(@notice), params: { notice: { zip: "invalid" } }, headers: @headers
+
+      expect(response).to be_ok
+      expect(@notice.reload.zip).to eq("invalid")
+      expect(@notice).to be_incomplete
+    end
+
+    it "leaves omitted fields and photos unchanged" do
+      original_attributes = @notice.reload.attributes.except("note", "updated_at")
+      original_photos = @notice.photos.map(&:id)
+
+      patch api_notice_path(@notice), params: { notice: { note: "Corrected draft" } }, headers: @headers
+
+      expect(response).to be_ok
+      expect(@notice.reload.note).to eq("Corrected draft")
+      expect(@notice.attributes.except("note", "updated_at")).to eq(original_attributes)
+      expect(@notice.photos.map(&:id)).to eq(original_photos)
+    end
+
+    it "does not update another user's notice" do
+      foreign_notice = Fabricate(:notice)
+
+      expect do
+        patch api_notice_path(foreign_notice), params: { notice: { note: "Changed" } }, headers: @headers
+      end.not_to(change { foreign_notice.reload.note })
+
+      expect(response).to have_http_status(:not_found)
+      expect(response.parsed_body.fetch("code")).to eq(404)
+    end
+
+    %i[shared disabled analyzing].each do |status|
+      it "does not update a #{status} notice" do
+        @notice.update!(status:)
+
+        expect do
+          patch api_notice_path(@notice), params: { notice: { note: "Changed" } }, headers: @headers
+        end.not_to(change { @notice.reload.note })
+
+        expect(response).to have_http_status(:not_found)
+        expect(response.parsed_body.fetch("code")).to eq(404)
+      end
+    end
   end
 
   context "PATCH :mail" do
