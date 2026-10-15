@@ -42,7 +42,10 @@ Rails.application.routes.draw do
 
   namespace :api, constraints: { format: :json } do
     resources :notices do
-      member { patch :mail }
+      member do
+        patch :mail
+        delete "photos/:photo_id", action: :destroy_photo, as: :photo
+      end
     end
     resources :uploads, only: [:create]
     resources :exports, only: [:index] do

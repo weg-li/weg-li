@@ -159,6 +159,61 @@ class Api::NoticesController < Api::ApplicationController
     head(200)
   end
 
+  swagger_path "/notices/{token}/photos/{photo_id}" do
+    operation :delete do
+      key :summary, "Delete Notice Photo"
+      key :description,
+          "Removes one photo from the authorized user's active, open, unsent notice and returns the updated notice. " \
+          "Use the photo's id from a notice response, not a blob ID or upload signed_id. " \
+          "Removing the last photo is allowed and makes the notice incomplete. " \
+          "Other notices using the same uploaded file keep their photos. " \
+          "A repeated deletion returns 404; fetch the notice again to reconcile its photos after an uncertain response."
+      key :tags, ["notice"]
+      parameter do
+        key :name, :token
+        key :in, :path
+        key :description, "Token of notice"
+        key :required, true
+        key :type, :string
+      end
+      parameter do
+        key :name, :photo_id
+        key :in, :path
+        key :description, "Attachment ID from this notice's photos array"
+        key :required, true
+        key :type, :integer
+        key :format, :int64
+      end
+      response 200 do
+        key :description, "updated notice response"
+        schema { key :$ref, :Notice }
+      end
+      response 404 do
+        key :description, "Notice or photo not found, or notice is not editable"
+        schema { key :$ref, :Error }
+      end
+      response :default do
+        key :description, "unexpected error"
+        schema { key :$ref, :Error }
+      end
+    end
+  end
+
+  def destroy_photo
+    notice = current_user.notices.active.open.where(sent_at: nil).from_param(params[:id])
+    notice.with_lock do
+      raise ActiveRecord::RecordNotFound unless notice.open? && !notice.archived? && notice.sent_at.nil?
+
+      # Destroy only this attachment; Active Storage purges unreferenced blobs after commit.
+      notice.photos.find(params[:photo_id]).destroy!
+      notice.reload.save_incomplete!
+    end
+
+    render json: notice.as_api_response(:public_beta)
+  rescue ActiveRecord::RecordNotFound
+    render json: Api::Error.new(404, "Notice or photo not found, or notice is not editable"), status: :not_found
+  end
+
   swagger_path "/notices/{token}/mail" do
     operation :patch do
       key :summary, "Submit Notice"
