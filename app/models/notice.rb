@@ -224,9 +224,7 @@ class Notice < ApplicationRecord
       Beweis_Schluessel_2: "4",
       Beteiligung_Schluessel: "2", # Halterin/Halter
       Fahrzeugtyp_Schluessel: "D", # PKW
-      KFZ_Kennzeichen: Vehicle.normalize(registration, text_divider: "-"),
-      KFZ_Kennzeichen_Merkmal: "1", # FZV
-    }
+    }.merge(Owi21Registration.attributes(registration))
     if district.ags == "06440008" # Friedberg (Hessen)
       args[:AnwenderNr] = "997"
       args[:Sachgebiet_Schluessel] = "2"
