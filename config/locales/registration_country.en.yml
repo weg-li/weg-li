@@ -1,0 +1,7 @@
+en:
+  registration_country:
+    germany: Germany
+  activerecord:
+    attributes:
+      notice:
+        registration_country: Registration country

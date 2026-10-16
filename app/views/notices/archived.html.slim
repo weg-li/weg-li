@@ -17,7 +17,7 @@
         - if @notices.present?
           - @notices.each do |notice|
             tr
-              td = notice.registration.truncate(6)
+              td = notice.display_registration.truncate(12)
               td(nowrap) = d(notice.created_at)
               td(nowrap) = d(notice.start_date, default: '-')
               td = render 'status', status: notice.status

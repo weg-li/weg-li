@@ -23,6 +23,7 @@ class Notice < ApplicationRecord
     api.add(:latitude)
     api.add(:longitude)
     api.add(:registration)
+    api.add(:registration_country)
     api.add(:color)
     api.add(:brand)
     api.add(:charge)
@@ -39,6 +40,7 @@ class Notice < ApplicationRecord
   end
 
   include Incompletable
+  include RegistrationCountry
 
   geocoded_by :geocode_address, language: proc { |_model| I18n.locale }, no_annotations: true
 
@@ -160,8 +162,8 @@ class Notice < ApplicationRecord
           .to_a,
       grouped_registrations:
         notices
-          .select("count(registration) as registration_count, registration")
-          .group(:registration)
+          .select("count(registration) as registration_count, registration, registration_country")
+          .group(:registration, :registration_country)
           .order(registration_count: :desc)
           .limit(limit)
           .to_a,
@@ -224,7 +226,7 @@ class Notice < ApplicationRecord
       Beweis_Schluessel_2: "4",
       Beteiligung_Schluessel: "2", # Halterin/Halter
       Fahrzeugtyp_Schluessel: "D", # PKW
-    }.merge(Owi21Registration.attributes(registration))
+    }.merge(Owi21Registration.attributes(registration, country: registration_country))
     if district.ags == "06440008" # Friedberg (Hessen)
       args[:AnwenderNr] = "997"
       args[:Sachgebiet_Schluessel] = "2"
@@ -266,7 +268,7 @@ class Notice < ApplicationRecord
     user
       .notices
       .where("DATE(start_date) = DATE(?)", start_date)
-      .where(registration:)
+      .where(registration:, registration_country:)
       .where
       .not(id:)
   end
@@ -284,6 +286,7 @@ class Notice < ApplicationRecord
       user
         .notices
         .shared
+        .where(registration_country:)
         .where("REPLACE(registration, ' ', '') IN(?)", registrations.map { |registration| registration.gsub(/\s/, "") })
         .order(created_at: :desc)
         .first

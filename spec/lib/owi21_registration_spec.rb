@@ -83,7 +83,7 @@ describe Owi21Registration do
   end
 
   it "defines conversions only for recognized country tags" do
-    expect(described_class::NATION_CODES.keys - described_class::COUNTRY_CODES).to be_empty
+    expect(VehicleCountry.records.keys).to all(match(/\A[A-Z]{2}\z/))
   end
 
   it "does not change the stored registration string" do
@@ -97,6 +97,6 @@ describe Owi21Registration do
   end
 
   it "emits vehicle codes within the schema's three-character limit" do
-    expect(described_class::NATION_CODES.values).to all(match(/\A[A-Z]{1,3}\z/))
+    expect(VehicleCountry.records.values.map(&:vehicle_sign)).to all(match(/\A[A-Z]{1,3}\z/))
   end
 end

@@ -32,7 +32,7 @@
                       = image_tag(url_for_photo(photo, size: :preview), class: 'index-photo')
                 td
                   = link_to_notice(notice) do
-                    = registration_label(notice.registration)
+                    = registration_label(notice.display_registration)
                 td(nowrap)
                   = link_to_notice(notice) do
                     = d(notice.created_at)
