@@ -45,6 +45,7 @@ Rails.application.routes.draw do
       member { patch :mail }
     end
     resources :uploads, only: [:create]
+    resources :vehicle_countries, only: [:index]
     resources :exports, only: [:index] do
       collection { get :public }
     end

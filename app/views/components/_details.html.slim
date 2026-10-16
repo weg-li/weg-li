@@ -9,7 +9,7 @@ dl.dl-horizontal
   dt = Notice.human_attribute_name(:sent_at)
   dd = d(notice.sent_at)
   dt = Notice.human_attribute_name(:registration)
-  dd = notice.registration.presence || "-"
+  dd = notice.display_registration.presence || "-"
   dt = Notice.human_attribute_name(:brand)
   dd
     - if notice.brand.present?

@@ -199,6 +199,7 @@ class Api::NoticesController < Api::ApplicationController
       :start_date,
       :end_date,
       :registration,
+      :registration_country,
       :brand,
       :color,
       :street,
