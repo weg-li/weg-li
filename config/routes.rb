@@ -51,8 +51,11 @@ Rails.application.routes.draw do
     resources :districts, only: [:index, :show]
     resources :signs, only: [:index, :show]
     resources :plates, only: [:index, :show]
-    resources :charges, only: [:index, :show]
+    resources :charges, only: [:index, :show] do
+      collection { get :usage }
+    end
     resources :brands, only: [:index, :show]
+    resource :user, only: [:show]
   end
 
   resources :replies
