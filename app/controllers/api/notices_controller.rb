@@ -149,8 +149,8 @@ class Api::NoticesController < Api::ApplicationController
   end
 
   def analyze
-    notice = current_user.notices.open.from_param(params[:id])
-    notice.analyze!
+    notice = current_user.notices.from_param(params[:id])
+    notice.analyze! if notice.open?
 
     render json: notice.as_api_response(:public_beta)
   end
