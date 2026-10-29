@@ -105,7 +105,6 @@ Rails.application.routes.draw do
 
   resource :user, except: %i[create new] do
     member do
-      get :studi
       patch :confirmation_mail
       patch :signature
       patch :rotate_token

@@ -40,13 +40,30 @@ describe Export do
   end
 
   context "data" do
-    it "should have data" do
+    it "should have data for notices" do
       Fabricate.create(:notice, status: :shared)
 
       export = Fabricate.build(:export)
       export.data do |data|
         expect(data).to_not be_nil
       end
+    end
+
+    it "should have data for anonymized" do
+      user = Fabricate.create(:user, id: 42)
+      charge = Fabricate.create(:charge, tbnr: "111111")
+      district = Fabricate.create(:district, name: "Innsbruck", zip: "84384")
+      notice = Fabricate.create(:notice, user: user, charge: charge, district: district, status: :shared, city: "Innsbruck", zip: "84384")
+
+      export = Fabricate.build(:export, export_type: :anonymized)
+      data = []
+      export.data { |d| data << d }
+      expect(data).to eql(
+        [
+          %i[user_id start_date end_date tbnr city zip],
+          ["a1d0c6e83f027327d8461063f4ac58a6", notice.start_date, notice.end_date, "111111", "Innsbruck", "84384"],
+        ],
+      )
     end
   end
 end
