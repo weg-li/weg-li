@@ -42,7 +42,10 @@ Rails.application.routes.draw do
 
   namespace :api, constraints: { format: :json } do
     resources :notices do
-      member { patch :mail }
+      member do
+        patch :mail
+        patch :analyze
+      end
     end
     resources :uploads, only: [:create]
     resources :exports, only: [:index] do

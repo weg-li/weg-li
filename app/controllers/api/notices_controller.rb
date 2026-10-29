@@ -85,11 +85,7 @@ class Api::NoticesController < Api::ApplicationController
   end
 
   def show
-    render json:
-             current_user
-               .notices
-               .from_param(params[:id])
-               .as_api_response(:public_beta)
+    render json: current_user.notices.from_param(params[:id]).as_api_response(:public_beta)
   end
 
   swagger_path "/notices/{token}" do
@@ -125,6 +121,36 @@ class Api::NoticesController < Api::ApplicationController
   def update
     notice = current_user.notices.open.from_param(params[:id])
     notice.update!(notice_params)
+
+    render json: notice.as_api_response(:public_beta)
+  end
+
+  swagger_path "/notices/{token}/analyze" do
+    operation :patch do
+      key :summary, "Start the Analysis of a Notice"
+      key :description, "Starts the analysis of a notice for the authorized user"
+      key :tags, ["notice"]
+      parameter do
+        key :name, :token
+        key :in, :path
+        key :description, "Token of notice to update"
+        key :required, true
+        key :type, :string
+      end
+      response 200 do
+        key :description, "notice response"
+        schema { key :$ref, :Notice }
+      end
+      response :default do
+        key :description, "unexpected error"
+        schema { key :$ref, :Error }
+      end
+    end
+  end
+
+  def analyze
+    notice = current_user.notices.open.from_param(params[:id])
+    notice.analyze!
 
     render json: notice.as_api_response(:public_beta)
   end

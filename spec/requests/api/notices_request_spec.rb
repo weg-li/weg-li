@@ -80,6 +80,18 @@ describe "api/notices", type: :request do
     end
   end
 
+  context "PATCH :analyze" do
+    before do
+      @notice = Fabricate(:notice, user: @user)
+    end
+
+    it "analyzes a notice" do
+      expect do
+        patch analyze_api_notice_path(@notice), headers: @headers
+      end.to have_enqueued_job(AnalyzerJob).with(@notice)
+    end
+  end
+
   context "PATCH :mail" do
     before do
       @notice = Fabricate(:notice, user: @user)
