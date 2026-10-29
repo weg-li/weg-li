@@ -53,7 +53,7 @@ describe Export do
       user = Fabricate.create(:user, id: 42)
       charge = Fabricate.create(:charge, tbnr: "111111")
       district = Fabricate.create(:district, name: "Innsbruck", zip: "84384")
-      notice = Fabricate.create(:notice, user: user, charge: charge, district: district, status: :shared, city: "Innsbruck", zip: "84384")
+      Fabricate.create(:notice, user: user, charge: charge, district: district, status: :shared, city: "Innsbruck", zip: "84384")
 
       export = Fabricate.build(:export, export_type: :anonymized)
       data = []
