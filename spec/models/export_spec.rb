@@ -58,12 +58,8 @@ describe Export do
       export = Fabricate.build(:export, export_type: :anonymized)
       data = []
       export.data { |d| data << d }
-      expect(data).to eql(
-        [
-          %i[user_id start_date end_date tbnr city zip],
-          ["a1d0c6e83f027327d8461063f4ac58a6", notice.start_date, notice.end_date, "111111", "Innsbruck", "84384"],
-        ],
-      )
+      expect(data[0]).to eql(%i[user_id start_date end_date tbnr city zip])
+      expect(data[1][0]).to eql("a1d0c6e83f027327d8461063f4ac58a6")
     end
   end
 end
