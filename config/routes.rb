@@ -48,6 +48,7 @@ Rails.application.routes.draw do
       end
     end
     resources :uploads, only: [:create]
+    resources :vehicle_countries, only: [:index]
     resources :exports, only: [:index] do
       collection { get :public }
     end

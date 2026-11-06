@@ -32,7 +32,15 @@ javascript:
     ajax: {
       delay: 250,
       url: '#{ suggest_notice_path(notice) }',
-      dataType: 'json'
+      dataType: 'json',
+      data: function(params) {
+        return {term: params.term, registration_country: $('#notice_registration_country').val()};
+      }
+    }
+  }).on('change', function () {
+    var match = /^\s*\(([A-Za-z]{2})\)\s+/.exec($(this).val() || '');
+    if (match && $('#notice_registration_country option[value="' + match[1].toUpperCase() + '"]').length) {
+      $('#notice_registration_country').val(match[1].toUpperCase());
     }
   }).on('select2:open', function (e) {
     $('.select2-search__field').val($('#notice_registration').val());

@@ -79,9 +79,9 @@ class User < ApplicationRecord
     (@favorite_tbnrs + Charge::FAVS).uniq.first(max)
   end
 
-  def registration_suggestions(registrations)
+  def registration_suggestions(registrations, country: VehicleCountry::DEFAULT)
     notices.active
-      .where(registration: registrations)
+      .where(registration: registrations, registration_country: country)
       .order(updated_at: :desc)
       .pluck(:registration, :brand, :color)
       .each_with_object({}) { |(reg, brand, color), h| h[reg] ||= { brand: brand.presence, color: color.presence } }

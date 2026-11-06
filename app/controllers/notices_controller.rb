@@ -28,7 +28,8 @@ class NoticesController < ApplicationController
 
   def suggest
     term = (params[:term] || "").upcase
-    notices = current_user.notices.active.search(term).order(:registration).limit(25)
+    country = VehicleCountry.find(params[:registration_country])&.iso_code || VehicleCountry::DEFAULT
+    notices = current_user.notices.active.where(registration_country: country).search(term).order(:registration).limit(25)
 
     results = notices.pluck(:registration, :brand, :color)
     results = results.uniq.map { |registration, brand, color| { id: registration, text: registration.upcase, brand:, color: } }
@@ -369,6 +370,7 @@ class NoticesController < ApplicationController
       :end_date_date,
       :end_date_time,
       :registration,
+      :registration_country,
       :brand,
       :color,
       :street,

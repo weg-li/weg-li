@@ -140,7 +140,7 @@
                       - if notice.incomplete?
                         = render 'status', status: :incomplete
                       - else
-                        = registration_label(notice.registration)
+                        = registration_label(notice.display_registration)
                   td(nowrap)
                     = link_to_notice(notice) do
                       = d(notice.created_at)

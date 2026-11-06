@@ -56,7 +56,7 @@
               td(nowrap)= link_to l(reply.notice.start_date, format: :short, default: '-'), reply.notice
               td
                 = link_to reply.notice
-                  = registration_label(reply.notice.registration)
+                  = registration_label(reply.notice.display_registration)
               td= render('notices/reply_modal_button', reply: reply)
 
         - else

@@ -66,7 +66,7 @@ xml.OWIGMDEData Version: "1" do
           xml.comment! "Optional"
           xml.Fabrikat notice.brand
           xml.comment! "Optional"
-          xml.Kennzeichen notice.registration
+          xml.Kennzeichen notice.display_registration
           xml.comment! "Optional"
           xml.Farbe color_name(notice.color.presence)
         end

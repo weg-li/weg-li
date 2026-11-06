@@ -70,6 +70,7 @@ Export API-KEY can be obtained via the profile page https://www.weg.li/user
     Api::District,
     Api::NoticesController,
     Api::Notice,
+    Api::VehicleCountriesController,
     Api::ExportsController,
     Api::Export,
     Api::UploadsController,

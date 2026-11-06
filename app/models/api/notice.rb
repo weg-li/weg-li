@@ -32,6 +32,12 @@ class Api::Notice < Notice
     property :registration do
       key :type, :string
     end
+    property :registration_country do
+      key :type, :string
+      key :enum, VehicleCountry.codes
+      key :default, "DE"
+      key :description, "ISO alpha-2 registration country; defaults to Germany"
+    end
     property :brand do
       key :type, :string
       key :enum, Brand.all.pluck(:name)

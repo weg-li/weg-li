@@ -47,7 +47,7 @@ ul.nav.nav-tabs.nav-panel
             = link_to notices_path(search: {term: entry.registration}) do
               li.list-group-item
                 .badge.pull-right= number_with_delimiter(entry.registration_count)
-                = registration_label(entry.registration)
+                = registration_label(entry.display_registration)
 
       .col-lg-4
         h4 📈 Top-#{@limit} Automarken

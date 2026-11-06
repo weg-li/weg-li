@@ -10,7 +10,7 @@
             .panel-heading
               .dropdown
                 = radio_button_tag 'gender', index, false, onchange: "toggleFieldsets(#{index})"
-                strong< Vorauswahl wie #{notice.registration}
+                strong< Vorauswahl wie #{notice.display_registration}
             .panel-body
               = render('preview_details', notice: notice)
               fieldset(disabled='disabled' id="fieldset_#{index}" class="disabled-fieldsets")

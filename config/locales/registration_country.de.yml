@@ -1,0 +1,7 @@
+de:
+  registration_country:
+    germany: Deutschland
+  activerecord:
+    attributes:
+      notice:
+        registration_country: Zulassungsland
