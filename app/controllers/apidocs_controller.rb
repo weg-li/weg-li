@@ -57,6 +57,10 @@ Export API-KEY can be obtained via the profile page https://www.weg.li/user
         key :url, "https://swagger.io/specification/"
       end
     end
+    tag do
+      key :name, "user"
+      key :description, "Own account and statistics"
+    end
     key :host, Rails.env.development? ? "localhost:3000" : "www.weg.li"
     key :basePath, "/api"
     key :consumes, ["application/json"]
@@ -66,6 +70,9 @@ Export API-KEY can be obtained via the profile page https://www.weg.li/user
   SWAGGERED_CLASSES = [
     Api::ChargesController,
     Api::Charge,
+    Api::ChargeUsage,
+    Api::UsersController,
+    Api::User,
     Api::DistrictsController,
     Api::District,
     Api::NoticesController,
