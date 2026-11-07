@@ -1,3 +1,5 @@
+- incomplete, complete = notices.order(:created_at, :id).partition(&:incomplete?)
+- groups = { t('notices.statistics.incomplete') => incomplete, t('notices.statistics.complete') => complete }.reject { |_, group| group.empty? }
 .table-responsive
   table.table.table-striped.table-hover
     thead
@@ -7,23 +9,27 @@
         th= Notice.human_attribute_name(:created_at)
         th= Notice.human_attribute_name(:date)
         th= Notice.human_attribute_name(:status)
-    tbody
-      - notices.each do |notice|
-        tr
-          td.text-center
-            = link_to(notice)
-              - notice.photos.first(1).each do |photo|
-                = image_tag(url_for_photo(photo, size: :preview), class: 'index-photo')
-          td
-            = link_to_notice(notice) do
-              - if notice.incomplete?
-                = render 'status', status: :incomplete
-              - else
-                = registration_label(notice.registration)
-          td(nowrap)
-            = link_to_notice(notice) do
-              = d(notice.created_at)
-          td(nowrap)
-            = link_to_notice(notice) do
-              = d(notice.start_date, default: '-')
-          td= render 'status', status: notice.status
+    - groups.each do |title, group|
+      tbody
+        - if groups.size > 1
+          tr.active
+            th(colspan=5 scope="colgroup") #{title} (#{group.size})
+        - group.each do |notice|
+          tr
+            td.text-center
+              = link_to(notice)
+                - notice.photos.first(1).each do |photo|
+                  = image_tag(url_for_photo(photo, size: :preview), class: 'index-photo')
+            td
+              = link_to_notice(notice) do
+                - if notice.incomplete? && (groups.size == 1 || notice.registration.blank?)
+                  = render 'status', status: :incomplete
+                - else
+                  = registration_label(notice.registration)
+            td(nowrap)
+              = link_to_notice(notice) do
+                = d(notice.created_at)
+            td(nowrap)
+              = link_to_notice(notice) do
+                = d(notice.start_date, default: '-')
+            td= render 'status', status: notice.status
