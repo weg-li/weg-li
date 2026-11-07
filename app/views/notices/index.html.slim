@@ -29,7 +29,7 @@
             span.glyphicon.glyphicon-plus>
             | Meldung erfassen
         .col-xs-4.text-right
-          button.btn.btn-default.btn-sm.dropdown-toggle type="button" data-toggle="dropdown"
+          button.btn.btn-default.btn-sm.dropdown-toggle type="button" data-toggle="dropdown" aria-label=(["Suche", @table_params[:search][:term].presence].compact.join(": "))
             span.glyphicon.glyphicon-search<>
             - if @table_params[:search][:term].present?
               span.label.label-primary<> = @table_params[:search][:term]
@@ -41,9 +41,9 @@
                   = hidden_field_tag('order[column]', @table_params[:order][:column])
                   = hidden_field_tag('order[value]', @table_params[:order][:value])
                   = hidden_field_tag('filter[status]', @table_params[:filter][:status])
-                  = text_field_tag('search[term]', @table_params[:search][:term], placeholder: 'z.B. HH SV 1887', class: 'form-control', autofocus: true)
+                  = text_field_tag('search[term]', @table_params[:search][:term], placeholder: 'z.B. HH SV 1887', class: 'form-control', autofocus: true, aria: { label: 'Suche' })
                   span.input-group-btn
-                    = button_tag(class: 'btn btn-default btn-sm')
+                    = button_tag(class: 'btn btn-default btn-sm', aria: { label: 'Suchen' })
                       span.glyphicon.glyphicon-search
             - if @table_params[:search][:term].present?
               li.divider
@@ -65,43 +65,43 @@
                 => Notice.human_attribute_name(:registration)
                 - if @table_params.dig(:order, :column) == 'registration'
                   - if @table_params.dig(:order, :value) == 'ASC'
-                    = link_to url_for(@table_params.deep_merge(order: {column: :registration, value: 'DESC'}))
+                    = link_to url_for(@table_params.deep_merge(order: {column: :registration, value: 'DESC'})), aria: { label: 'Nach Kennzeichen absteigend sortieren' }
                       span.glyphicon.glyphicon-arrow-up.smaller
                   - else
-                    = link_to url_for(@table_params.deep_merge(order: {column: :registration, value: 'ASC'}))
+                    = link_to url_for(@table_params.deep_merge(order: {column: :registration, value: 'ASC'})), aria: { label: 'Nach Kennzeichen aufsteigend sortieren' }
                       span.glyphicon.glyphicon-arrow-down.smaller
-                  = link_to url_for(@table_params.merge(order: :remove))
+                  = link_to url_for(@table_params.merge(order: :remove)), aria: { label: 'Sortierung entfernen' }
                     span.text-muted.glyphicon.glyphicon-remove.smaller
                 - else
-                  = link_to url_for(@table_params.deep_merge(order: {column: :registration, value: 'ASC'}))
+                  = link_to url_for(@table_params.deep_merge(order: {column: :registration, value: 'ASC'})), aria: { label: 'Nach Kennzeichen aufsteigend sortieren' }
                     span.glyphicon.glyphicon-arrow-up.smaller.text-muted
               th
                 => Notice.human_attribute_name(:created_at)
                 - if @table_params.dig(:order, :column) == 'created_at'
                   - if @table_params.dig(:order, :value) == 'ASC'
-                    = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'DESC'}))
+                    = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'DESC'})), aria: { label: 'Nach Erstellt absteigend sortieren' }
                       span.glyphicon.glyphicon-arrow-up.smaller
                   - else
-                    = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'}))
+                    = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'})), aria: { label: 'Nach Erstellt aufsteigend sortieren' }
                       span.glyphicon.glyphicon-arrow-down.smaller
-                  = link_to url_for(@table_params.merge(order: :remove))
+                  = link_to url_for(@table_params.merge(order: :remove)), aria: { label: 'Sortierung entfernen' }
                     span.text-muted.glyphicon.glyphicon-remove.smaller
                 - else
-                  = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'}))
+                  = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'})), aria: { label: 'Nach Erstellt aufsteigend sortieren' }
                     span.glyphicon.glyphicon-arrow-up.smaller.text-muted
               th
                 => Notice.human_attribute_name(:date)
                 - if @table_params.dig(:order, :column) == 'start_date'
                   - if @table_params.dig(:order, :value) == 'ASC'
-                    = link_to url_for(@table_params.deep_merge(order: {column: :start_date, value: 'DESC'}))
+                    = link_to url_for(@table_params.deep_merge(order: {column: :start_date, value: 'DESC'})), aria: { label: 'Nach Tatzeit absteigend sortieren' }
                       span.glyphicon.glyphicon-arrow-up.smaller
                   - else
-                    = link_to url_for(@table_params.deep_merge(order: {column: :start_date, value: 'ASC'}))
+                    = link_to url_for(@table_params.deep_merge(order: {column: :start_date, value: 'ASC'})), aria: { label: 'Nach Tatzeit aufsteigend sortieren' }
                       span.glyphicon.glyphicon-arrow-down.smaller
-                  = link_to url_for(@table_params.merge(order: :remove))
+                  = link_to url_for(@table_params.merge(order: :remove)), aria: { label: 'Sortierung entfernen' }
                     span.text-muted.glyphicon.glyphicon-remove.smaller
                 - else
-                  = link_to url_for(@table_params.deep_merge(order: {column: :start_date, value: 'ASC'}))
+                  = link_to url_for(@table_params.deep_merge(order: {column: :start_date, value: 'ASC'})), aria: { label: 'Nach Tatzeit aufsteigend sortieren' }
                     span.glyphicon.glyphicon-arrow-up.smaller.text-muted
               th
                 .dropdown
@@ -128,13 +128,13 @@
                 tr
                   td
                     label.btn-sm
-                      = check_box_tag 'selected[]', notice.id, false, class: 'select-all'
+                      = check_box_tag 'selected[]', notice.id, false, class: 'select-all', aria: { label: 'Meldung auswählen' }
                     .btn-group.dropdown
                       = render 'actions', notice: notice
                   td
                     = link_to_notice(notice) do
                       - notice.photos.first(1).each do |photo|
-                        = image_tag(url_for_photo(photo, size: :preview), class: 'index-photo')
+                        = image_tag(url_for_photo(photo, size: :preview), alt: "Beweisfoto #{notice.registration}".strip, class: 'index-photo')
                   td
                     = link_to_notice(notice) do
                       - if notice.incomplete?

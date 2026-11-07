@@ -24,15 +24,15 @@
               => BulkUpload.human_attribute_name(:created_at)
               - if params.dig(:order, :column) == 'created_at'
                 - if params.dig(:order, :value) == 'ASC'
-                  = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'DESC'}))
+                  = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'DESC'})), aria: { label: "Nach #{BulkUpload.human_attribute_name(:created_at)} absteigend sortieren" }
                     span.glyphicon.glyphicon-arrow-up.smaller
                 - else
-                  = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'}))
+                  = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'})), aria: { label: "Nach #{BulkUpload.human_attribute_name(:created_at)} aufsteigend sortieren" }
                     span.glyphicon.glyphicon-arrow-down.smaller
-                = link_to url_for(@table_params.merge(order: {}))
+                = link_to url_for(@table_params.merge(order: {})), aria: { label: 'Sortierung entfernen' }
                   span.text-muted.glyphicon.glyphicon-remove.smaller
               - else
-                = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'}))
+                = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'})), aria: { label: "Nach #{BulkUpload.human_attribute_name(:created_at)} aufsteigend sortieren" }
                   span.glyphicon.glyphicon-arrow-up.smaller.text-muted
             th
               .dropdown
@@ -53,14 +53,14 @@
               tr
                 td
                   label.btn-sm
-                    = check_box_tag "selected[]", bulk_upload.id, false, class: 'select-all checkbox-addon'
+                    = check_box_tag "selected[]", bulk_upload.id, false, class: 'select-all checkbox-addon', aria: { label: 'Massen-Upload auswählen' }
                   .btn-group.dropdown
                     = render 'bulk_upload_actions', bulk_upload: bulk_upload
                 td
                   - if bulk_upload.photos.present?
                     = link_to([:edit, bulk_upload]) do
                       - bulk_upload.photos.first(3).each do |photo|
-                        = image_tag(url_for_photo(photo, size: :preview), class: 'index-photo')
+                        = image_tag(url_for_photo(photo, size: :preview), alt: 'Beweisfoto', class: 'index-photo')
                   - else
                     = link_to('-', [:edit, bulk_upload])
                 td= d(bulk_upload.created_at)
