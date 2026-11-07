@@ -20,9 +20,9 @@
             = form_tag({url: url_for}, method: :get, class: 'form-dropdown', autocomplete: :off) do
               = hidden_field_tag(:kind, params[:kind])
               .input-group.input-group-sm
-                = text_field_tag(:term, params[:term], placeholder: 'z.B. BMW', class: 'form-control input-sm', autofocus: true)
+                = text_field_tag(:term, params[:term], placeholder: 'z.B. BMW', class: 'form-control input-sm', autofocus: true, aria: { label: 'Suche' })
                 span.input-group-btn
-                  = button_tag(class: "btn btn-default btn-sm")
+                  = button_tag(class: "btn btn-default btn-sm", aria: { label: 'Suchen' })
                     span.glyphicon.glyphicon-search
 
           - if params[:term].present?
@@ -59,7 +59,7 @@
         - if @brands.present?
           - @brands.each do |brand|
             tr
-              td = image_tag asset_url(brand.image(brand.file.extname)), class: 'img-thumbnail', style: "max-width: 5em;", title: brand.name if brand.file.exist?
+              td = image_tag asset_url(brand.image(brand.file.extname)), alt: '', class: 'img-thumbnail', style: "max-width: 5em;", title: brand.name if brand.file.exist?
               td= link_to(brand.name, brand)
               td= link_to(brand.models.take(3).join(', ').presence || "-", brand)
               td= t(brand.kind, scope: 'activerecord.attributes.brand.kinds')
