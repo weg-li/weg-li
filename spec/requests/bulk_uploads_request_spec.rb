@@ -63,24 +63,79 @@ describe "bulk_uploads", type: :request do
   end
 
   context "GET :show" do
-    it "lists unsent notices before shared ones" do
-      shared = Fabricate.create(:notice, user:, bulk_upload:, status: :shared, registration: "HH-SH 1", start_date: 1.day.ago, end_date: 1.day.ago + 3.minutes)
-      open = Fabricate.create(:notice, user:, bulk_upload:, status: :open, registration: "HH-OP 2", start_date: 4.days.ago, end_date: 4.days.ago + 3.minutes)
+    def incomplete_notice(**attributes)
+      Fabricate.build(:notice, user:, bulk_upload:, street: nil, **attributes).tap(&:save_incomplete!)
+    end
+
+    it "lists incomplete notices first and the rest below" do
+      complete = Fabricate.create(:notice, user:, bulk_upload:, registration: "HH-CO 1")
+      incomplete = incomplete_notice
+      expect(incomplete).to be_incomplete
 
       get bulk_upload_path(bulk_upload)
 
       expect(response).to be_successful
-      expect(response.body.index(open.registration)).to be < response.body.index(shared.registration)
-      expect(response.body).to include("sortiert ⬇ noch nicht gemeldete Meldungen")
+      body = response.body
+      expect(body.index("Unvollständige Meldungen (1)")).to be < body.index("Vollständige Meldungen (1)")
+      expect(body.index("Vollständige Meldungen (1)")).to be < body.index(complete.registration)
+      expect(body).to include(incomplete.registration)
+    end
+
+    it "lists the notices of each group in the order they were created" do
+      later = Fabricate.create(:notice, user:, bulk_upload:, registration: "HH-LA 2", created_at: 1.hour.ago)
+      earlier = Fabricate.create(:notice, user:, bulk_upload:, registration: "HH-EA 1", created_at: 2.hours.ago)
+
+      get bulk_upload_path(bulk_upload)
+
+      expect(response.body.index(earlier.registration)).to be < response.body.index(later.registration)
+    end
+
+    it "shows no group headings when all notices are in one group" do
+      Fabricate.create(:notice, user:, bulk_upload:)
+
+      get bulk_upload_path(bulk_upload)
+
+      expect(response.body).not_to include("Vollständige Meldungen")
+
+      incomplete_notice
+      Notice.update_all(incomplete: true)
+
+      get bulk_upload_path(bulk_upload)
+
+      expect(response.body).not_to include("Unvollständige Meldungen")
+      expect(response.body).not_to include("Vollständige Meldungen")
+    end
+
+    it "shows the plate of an incomplete notice when the group titles are visible" do
+      Fabricate.create(:notice, user:, bulk_upload:)
+      incomplete_notice(registration: "HH-IN 5")
+      incomplete_notice(registration: nil)
+
+      get bulk_upload_path(bulk_upload)
+
+      expect(response.body).to include("HH-IN 5")
+      assert_select("span.label-status-incomplete", 1)
+      assert_select("th[scope=colgroup][colspan='5']", 2)
+    end
+
+    it "keeps the incomplete label when all notices are incomplete" do
+      incomplete_notice(registration: "HH-IN 5")
+
+      get bulk_upload_path(bulk_upload)
+
+      expect(response.body).to include("unvollständig")
+      expect(response.body).not_to include("HH-IN 5")
     end
 
     it "renders a notice without start_date" do
-      notice = Fabricate.create(:notice, user:, bulk_upload:)
+      notice = incomplete_notice
       notice.update_columns(start_date: nil, end_date: nil)
+      Fabricate.create(:notice, user:, bulk_upload:)
 
       get bulk_upload_path(bulk_upload)
 
       expect(response).to be_successful
+      expect(response.body).to include("Unvollständige Meldungen (1)")
     end
 
     it "renders a bulk_upload without notices" do
@@ -89,6 +144,18 @@ describe "bulk_uploads", type: :request do
 
       get edit_bulk_upload_path(bulk_upload)
       expect(response).to be_successful
+    end
+  end
+
+  context "GET :edit with notices" do
+    it "lists incomplete notices first and the rest below" do
+      Fabricate.create(:notice, user:, bulk_upload:)
+      Fabricate.build(:notice, user:, bulk_upload:, street: nil).tap(&:save_incomplete!)
+
+      get edit_bulk_upload_path(bulk_upload)
+
+      expect(response).to be_successful
+      expect(response.body.index("Unvollständige Meldungen (1)")).to be < response.body.index("Vollständige Meldungen (1)")
     end
   end
 
