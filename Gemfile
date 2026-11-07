@@ -8,6 +8,7 @@ gem "rails", "8.1.4.1"
 gem "turbo-rails"
 gem "connection_pool", "~> 2.3.0"
 
+gem "json", "~> 2.21.2" # duplicate keys are rejected with an error and i did not find a way to configure this in rails
 gem "bootsnap", require: false
 gem "rack"
 gem "openssl"
