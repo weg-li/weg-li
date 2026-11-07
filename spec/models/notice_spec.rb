@@ -212,6 +212,37 @@ describe Notice do
     end
   end
 
+  context "unsent_first" do
+    it "orders unsent before shared, then by start_date and created_at descending" do
+      shared = Fabricate.create(:notice, status: :shared, start_date: 1.day.ago, end_date: 1.day.ago + 3.minutes)
+      older = Fabricate.create(:notice, status: :open, start_date: 5.days.ago, end_date: 5.days.ago + 3.minutes)
+      day = 3.days.ago
+      newer = Fabricate.create(:notice, status: :open, start_date: day, end_date: day + 3.minutes)
+      same_day_later = Fabricate.create(:notice, status: :open, start_date: day, end_date: day + 3.minutes)
+
+      expect(Notice.unsent_first).to eq([same_day_later, newer, older, shared])
+    end
+
+    it "treats every status except shared as unsent" do
+      shared = Fabricate.create(:notice, status: :shared, start_date: 1.day.ago, end_date: 1.day.ago + 3.minutes)
+      analyzing = Fabricate.create(:notice, status: :analyzing, start_date: 2.days.ago, end_date: 2.days.ago + 3.minutes)
+      disabled = Fabricate.create(:notice, status: :disabled, start_date: 3.days.ago, end_date: 3.days.ago + 3.minutes)
+
+      expect(Notice.unsent_first).to eq([analyzing, disabled, shared])
+    end
+
+    it "lists notices without start_date first within their status group" do
+      dated = Fabricate.create(:notice, status: :open, start_date: 1.day.ago, end_date: 1.day.ago + 3.minutes)
+      undated = Fabricate.create(:notice, status: :open)
+      undated.update_columns(start_date: nil, end_date: nil)
+      shared_dated = Fabricate.create(:notice, status: :shared, start_date: 1.day.ago, end_date: 1.day.ago + 3.minutes)
+      shared_undated = Fabricate.create(:notice, status: :shared)
+      shared_undated.update_columns(start_date: nil, end_date: nil)
+
+      expect(Notice.unsent_first).to eq([undated, dated, shared_undated, shared_dated])
+    end
+  end
+
   context "guid" do
     it "generates a guid" do
       notice = Fabricate.build(:notice, token: "1234567890abcdef1234567890abcdef12345678")

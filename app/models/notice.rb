@@ -78,6 +78,7 @@ class Notice < ApplicationRecord
   scope :preselect, -> { shared.limit(3) }
   scope :active, -> { where(archived: false) }
   scope :archived, -> { where(archived: true) }
+  scope :unsent_first, -> { order(Arel.sql("notices.status = #{Notice.status[:shared]}"), start_date: :desc, created_at: :desc) }
 
   def self.for_reminder
     open

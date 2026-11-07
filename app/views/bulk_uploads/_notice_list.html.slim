@@ -1,5 +1,7 @@
 .table-responsive
   table.table.table-striped.table-hover
+    caption.small
+      | sortiert ⬇ noch nicht gemeldete Meldungen (auch deaktivierte) zuerst, danach gemeldete – jeweils nach Tatzeit, neueste zuerst. Meldungen ohne Tatzeit stehen am Anfang ihrer Gruppe.
     thead
       tr
         th
@@ -8,7 +10,7 @@
         th= Notice.human_attribute_name(:date)
         th= Notice.human_attribute_name(:status)
     tbody
-      - notices.each do |notice|
+      - notices.unsent_first.each do |notice|
         tr
           td.text-center
             = link_to(notice)

@@ -62,6 +62,36 @@ describe "bulk_uploads", type: :request do
     end
   end
 
+  context "GET :show" do
+    it "lists unsent notices before shared ones" do
+      shared = Fabricate.create(:notice, user:, bulk_upload:, status: :shared, registration: "HH-SH 1", start_date: 1.day.ago, end_date: 1.day.ago + 3.minutes)
+      open = Fabricate.create(:notice, user:, bulk_upload:, status: :open, registration: "HH-OP 2", start_date: 4.days.ago, end_date: 4.days.ago + 3.minutes)
+
+      get bulk_upload_path(bulk_upload)
+
+      expect(response).to be_successful
+      expect(response.body.index(open.registration)).to be < response.body.index(shared.registration)
+      expect(response.body).to include("sortiert ⬇ noch nicht gemeldete Meldungen")
+    end
+
+    it "renders a notice without start_date" do
+      notice = Fabricate.create(:notice, user:, bulk_upload:)
+      notice.update_columns(start_date: nil, end_date: nil)
+
+      get bulk_upload_path(bulk_upload)
+
+      expect(response).to be_successful
+    end
+
+    it "renders a bulk_upload without notices" do
+      get bulk_upload_path(bulk_upload)
+      expect(response).to be_successful
+
+      get edit_bulk_upload_path(bulk_upload)
+      expect(response).to be_successful
+    end
+  end
+
   context "PATCH :update" do
     it "assigns images for notices" do
       params = {
