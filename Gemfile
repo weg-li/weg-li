@@ -62,7 +62,7 @@ gem "rack-cache"
 gem "rack-attack"
 gem "thruster"
 gem "memo-it"
-gem "valid_email2"
+gem "valid_email2", github: "micke/valid_email2", branch: "main"
 gem "paper_trail"
 gem "administrate-field-paper_trail"
 
