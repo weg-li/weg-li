@@ -1,7 +1,7 @@
 - button_text ||= false
 
 .dropdown
-  button.btn.btn-default.btn-sm.dropdown-toggle type="button" data-toggle="dropdown"
+  button.btn.btn-default.btn-sm.dropdown-toggle type="button" data-toggle="dropdown" aria-label=("Aktionen" unless button_text)
     | <span class="glyphicon glyphicon-cog"></span>
     =<> 'Aktionen' if button_text
     | <span class="caret"></span>

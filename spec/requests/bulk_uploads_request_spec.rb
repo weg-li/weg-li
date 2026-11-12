@@ -113,7 +113,7 @@ describe "bulk_uploads", type: :request do
 
       get bulk_upload_path(bulk_upload)
 
-      expect(response.body).to include("HH-IN 5")
+      assert_select("span.label-license", text: "HH-IN 5")
       assert_select("span.label-status-incomplete", 1)
       assert_select("th[scope=colgroup][colspan='5']", 2)
     end
@@ -123,8 +123,8 @@ describe "bulk_uploads", type: :request do
 
       get bulk_upload_path(bulk_upload)
 
-      expect(response.body).to include("unvollständig")
-      expect(response.body).not_to include("HH-IN 5")
+      assert_select("span.label-status-incomplete", 1)
+      assert_select("span.label-license", 0)
     end
 
     it "renders a notice without start_date" do

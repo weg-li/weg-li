@@ -15,7 +15,7 @@ module SignsHelper
         elsif !sign.file.exist?
           link_to_if(link, match, sign_path(match), class: "sign")
         else
-          image = image_tag(asset_url(sign.image), class: "inline-sign", title: sign.description)
+          image = image_tag(asset_url(sign.image), alt: sign.description, class: "inline-sign", title: sign.description)
           link_to_if(link, match, sign_path(match), title: sign.description, class: "sign") + image
         end
       end.html_safe
