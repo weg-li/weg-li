@@ -320,13 +320,8 @@ GEM
       net-protocol
     net-protocol (0.4.0)
       timeout
-    net-sftp (4.1.1)
-      net-ssh (>= 5.0.0, < 9.0.0)
     net-smtp (0.5.2)
       net-protocol
-    net-ssh (8.1.2)
-      logger
-      openssl (>= 3.2.0)
     nio4r (2.7.5)
     nokogiri (1.19.7)
       mini_portile2 (~> 2.8.2)
@@ -677,7 +672,6 @@ DEPENDENCIES
   mini_magick
   net-imap
   net-pop
-  net-sftp
   net-smtp
   omniauth (>= 2.0)
   omniauth-amazon!
