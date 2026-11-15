@@ -61,9 +61,11 @@ class Api::NoticesController < Api::ApplicationController
 
   def create
     notice = current_user.notices.build(notice_params)
-    notice.analyze!
-
-    render json: notice.as_api_response(:public_beta), status: :created
+    if notice.save_incomplete!
+      render json: notice.as_api_response(:public_beta), status: :created
+    else
+      render json: notice.errors, status: :unprocessable_entity
+    end
   end
 
   swagger_path "/notices/{token}" do
