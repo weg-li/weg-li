@@ -2,7 +2,7 @@
 
 require "net/sftp"
 
-class FTPConnector
+class FtpConnector
   def initialize(host:, username:, private_key:, port: 22, passphrase: nil)
     @host = host
     @username = username

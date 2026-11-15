@@ -3,7 +3,7 @@
 require "spec_helper"
 require_relative "../../app/lib/ftp_connector"
 
-describe FTPConnector do
+describe FtpConnector do
   let(:sftp) { instance_double(Net::SFTP::Session) }
   let(:connector) do
     described_class.new(

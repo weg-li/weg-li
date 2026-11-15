@@ -22,6 +22,7 @@ gem "sidekiq-scheduler"
 gem "time_splitter"
 gem "bitfields"
 gem "exifr"
+gem "net-sftp"
 gem "omniauth", ">= 2.0"
 gem "omniauth-rails_csrf_protection", ">= 1.0"
 gem "omniauth-twitter"
@@ -70,7 +71,6 @@ gem "matrix", require: false
 gem "net-smtp", require: false
 gem "net-imap", require: false
 gem "net-pop", require: false
-gem "net-sftp", require: false
 
 group :development do
   gem "listen"
