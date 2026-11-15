@@ -24,6 +24,24 @@ describe "api/notices", type: :request do
       expect(response).to be_ok
       expect(response.body).to eql(notices.reverse[0..9].as_api_response(:public_beta).to_json)
     end
+
+    it "filters notices by status" do
+      notice = Fabricate(:notice, user: @user, status: :shared)
+      Fabricate(:notice, user: @user, status: :open)
+      get api_notices_path(filter: { status: "shared" }), headers: @headers
+
+      expect(response).to be_ok
+      expect(response.body).to eql([notice].as_api_response(:public_beta).to_json)
+    end
+
+    it "filters notices by incompleteness" do
+      notice = Fabricate.build(:notice, user: @user, street: nil).tap(&:save_incomplete!)
+      Fabricate(:notice, user: @user)
+      get api_notices_path(filter: { incomplete: true }), headers: @headers
+
+      expect(response).to be_ok
+      expect(response.body).to eql([notice].as_api_response(:public_beta).to_json)
+    end
   end
 
   context "GET: show" do

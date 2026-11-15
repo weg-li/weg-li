@@ -8,6 +8,8 @@ class Api::NoticesController < Api::ApplicationController
       key :tags, ["notice"]
       parameter name: :page, type: :integer, description: "page number", required: false
       parameter name: :per_page, type: :integer, description: "number of elements per page", required: false
+      parameter name: :"filter[status]", type: :string, description: "filter by notice status", required: false
+      parameter name: :"filter[incomplete]", type: :boolean, description: "show only incomplete notices", required: false
       response 200 do
         key :description, "notices response"
         schema do
@@ -24,6 +26,9 @@ class Api::NoticesController < Api::ApplicationController
 
   def index
     notices = current_user.notices
+    filter = params[:filter] || {}
+    notices = notices.where(status: filter[:status]) if filter[:status].present?
+    notices = notices.incomplete if filter[:incomplete].present?
     notices = notices.page(params[:page]) if params[:page].present?
     notices = notices.per(params[:per_page]) if params[:per_page].present?
     render json: notices.as_api_response(:public_beta)
