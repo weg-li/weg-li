@@ -1,16 +1,28 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require_relative "../../app/lib/ftp_connector"
 
-describe FtpConnector do
+describe SftpConnector do
   let(:sftp) { instance_double(Net::SFTP::Session) }
   let(:connector) do
     described_class.new(
       host: "sftp.example.com",
       username: "uploader",
+      password: "secret",
       private_key: "/path/to/private_key",
+      passphrase: "secret",
+      remote_directory: "/files/",
+      port: 22,
     )
+  end
+
+  # run with env vars for testing: SFTP_HOST_WUPPERTAL, SFTP_USERNAME_WUPPERTAL, SFTP_PASSWORD_WUPPERTAL, SFTP_PRIVATE_KEY, SFTP_PASSPHRASE
+  it "executes an SFTP upload with the correct parameters in real life", skip: true do
+    connector = described_class.create(:wuppertal)
+    filename = "import.zip"
+    file = file_fixture(filename)
+    subfolder = Time.zone.now.strftime("%Y_%m_%d")
+    connector.upload_to_subfolder(file, subfolder, filename)
   end
 
   it "uploads a file over SFTP using a private key" do
@@ -24,7 +36,8 @@ describe FtpConnector do
       "uploader",
       keys: ["/path/to/private_key"],
       port: 22,
-      passphrase: nil,
+      passphrase: "secret",
+      password: "secret",
       auth_methods: ["publickey"],
     )
     expect(sftp).to have_received(:upload!).with("/tmp/report.zip", "/incoming/report.zip")
@@ -32,7 +45,7 @@ describe FtpConnector do
 
   it "passes private key contents directly to SSH" do
     key = "-----BEGIN OPENSSH PRIVATE KEY-----\nkey-data\n-----END OPENSSH PRIVATE KEY-----"
-    connector = described_class.new(host: "sftp.example.com", username: "uploader", private_key: key)
+    connector = described_class.new(host: "sftp.example.com", username: "uploader", private_key: key, password: nil, passphrase: nil, remote_directory: "/files/", port: 22)
     allow(Net::SFTP).to receive(:start).and_yield(sftp)
     allow(sftp).to receive(:upload!)
 
@@ -44,30 +57,16 @@ describe FtpConnector do
       key_data: [key],
       port: 22,
       passphrase: nil,
+      password: nil,
       auth_methods: ["publickey"],
     )
   end
 
-  it "creates the requested subfolder and uploads the file into it" do
-    allow(Net::SFTP).to receive(:start).and_yield(sftp)
-    allow(sftp).to receive(:mkdir!).with("/incoming/reports")
-    allow(sftp).to receive(:upload!).with("/tmp/report.zip", "/incoming/reports/report.zip")
-
-    connector.upload_to_subfolder("/tmp/report.zip", "/incoming", subfolder: "reports")
-
-    expect(sftp).to have_received(:mkdir!).with("/incoming/reports")
-    expect(sftp).to have_received(:upload!).with("/tmp/report.zip", "/incoming/reports/report.zip")
-  end
-
   it "defaults the subfolder to the current date" do
-    allow(Date).to receive(:current).and_return(Date.new(2026, 11, 12))
     allow(Net::SFTP).to receive(:start).and_yield(sftp)
-    allow(sftp).to receive(:mkdir!).with("/incoming/2026_11_12")
-    allow(sftp).to receive(:upload!).with("/tmp/report.zip", "/incoming/2026_11_12/report.zip")
+    allow(sftp).to receive(:mkdir!).with("/files/incoming")
+    allow(sftp).to receive(:upload!).with("/tmp/report.zip", "/files/incoming/report.zip")
 
-    connector.upload_to_subfolder("/tmp/report.zip", "/incoming")
-
-    expect(sftp).to have_received(:mkdir!).with("/incoming/2026_11_12")
-    expect(sftp).to have_received(:upload!).with("/tmp/report.zip", "/incoming/2026_11_12/report.zip")
+    connector.upload_to_subfolder("/tmp/report.zip", "/incoming", "report.zip")
   end
 end

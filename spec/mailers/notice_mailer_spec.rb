@@ -49,6 +49,16 @@ describe NoticeMailer do
       expect(mail.attachments.first.filename).to match(/OWI21_.*\.zip/)
     end
 
+    it "sends mail without attachment but uploads to sftp for wuppertal" do
+      notice.district.update! config: :wuppertal
+
+      expect do
+        mail = NoticeMailer.charge(notice)
+
+        expect(mail.attachments).to be_empty
+      end.to have_enqueued_job(SftpJob).with(notice)
+    end
+
     it "sends mail for ploen" do
       Fabricate.create(:district, zip: "24306", config: :ploen)
       notice.update!(street: "Appelwarder 1", zip: "24306", city: "Plön")
