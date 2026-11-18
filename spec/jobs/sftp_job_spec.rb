@@ -9,7 +9,7 @@ describe SftpJob do
 
   context "perform" do
     # run with env vars for testing: SFTP_HOST_WUPPERTAL, SFTP_USERNAME_WUPPERTAL, SFTP_PASSWORD_WUPPERTAL, SFTP_PRIVATE_KEY, SFTP_PASSPHRASE
-    it "handles the upload" do
+    it "handles the upload", skip: true do
       district = Fabricate(:district, zip: "17098", ags: "08311000", config: :wuppertal)
       user = Fabricate.build(:user, name: "Uschi Müller", email: "test@example.com", city: "Dorf", zip: "17098", street: "Am Weiher 123", appendix: "2. OG", phone: "0178123456", date_of_birth: "31.12.2000")
       charge = Fabricate.build(:charge, tbnr: "142170", description: "Parken auf einem unbeschilderten Radweg")
