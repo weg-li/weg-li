@@ -14,36 +14,38 @@ class SftpConnector
       passphrase = ENV["SFTP_PASSPHRASE"]
       port = ENV.fetch("SFTP_PORT", 22).to_i
 
+      connection_options = private_key.include?("-----BEGIN") ? { key_data: [private_key] } : { keys: [private_key] }
+      connection_options.merge!(
+        port: port,
+        password: password,
+        passphrase: passphrase,
+        auth_methods: ["publickey"],
+      )
+
       new(
         host: host,
         username: username,
-        password: password,
-        private_key: private_key,
-        port: port,
-        passphrase: passphrase,
         remote_directory: remote_directory,
+        connection_options: connection_options,
       )
     end
   end
 
-  def initialize(host:, username:, password:, private_key:, passphrase:, remote_directory:, port:) # rubocop:disable Metrics/ParameterLists
+  def initialize(host:, username:, remote_directory:, connection_options:)
     @host = host
     @username = username
-    @password = password
-    @private_key = private_key
-    @port = port
-    @passphrase = passphrase
     @remote_directory = remote_directory
+    @connection_options = connection_options
   end
 
   def upload(io, remote_path)
-    Net::SFTP.start(@host, @username, **connection_options) do |sftp|
+    Net::SFTP.start(@host, @username, **@connection_options) do |sftp|
       sftp.upload!(io, remote_path)
     end
   end
 
   def upload_to_subfolder(io, subfolder, filename)
-    Net::SFTP.start(@host, @username, **connection_options) do |sftp|
+    Net::SFTP.start(@host, @username, **@connection_options) do |sftp|
       remote_subfolder = File.join(@remote_directory, subfolder)
 
       # If the directory already exists, ignore the error
@@ -51,23 +53,5 @@ class SftpConnector
 
       sftp.upload!(io, File.join(remote_subfolder, filename))
     end
-  end
-
-  private
-
-  def connection_options
-    key_options =
-      if @private_key.include?("-----BEGIN")
-        { key_data: [@private_key] }
-      else
-        { keys: [@private_key] }
-      end
-
-    key_options.merge(
-      port: @port,
-      password: @password,
-      passphrase: @passphrase,
-      auth_methods: ["publickey"],
-    )
   end
 end

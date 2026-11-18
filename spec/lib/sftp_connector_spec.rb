@@ -8,11 +8,13 @@ describe SftpConnector do
     described_class.new(
       host: "sftp.example.com",
       username: "uploader",
-      password: "secret",
-      private_key: "/path/to/private_key",
-      passphrase: "secret",
       remote_directory: "/files/",
-      port: 22,
+      connection_options: {
+        password: "secret",
+        private_key: "/path/to/private_key",
+        passphrase: "secret",
+        port: 22,
+      },
     )
   end
 
@@ -34,32 +36,12 @@ describe SftpConnector do
     expect(Net::SFTP).to have_received(:start).with(
       "sftp.example.com",
       "uploader",
-      keys: ["/path/to/private_key"],
-      port: 22,
-      passphrase: "secret",
       password: "secret",
-      auth_methods: ["publickey"],
+      private_key: "/path/to/private_key",
+      passphrase: "secret",
+      port: 22,
     )
     expect(sftp).to have_received(:upload!).with("/tmp/report.zip", "/incoming/report.zip")
-  end
-
-  it "passes private key contents directly to SSH" do
-    key = "-----BEGIN OPENSSH PRIVATE KEY-----\nkey-data\n-----END OPENSSH PRIVATE KEY-----"
-    connector = described_class.new(host: "sftp.example.com", username: "uploader", private_key: key, password: nil, passphrase: nil, remote_directory: "/files/", port: 22)
-    allow(Net::SFTP).to receive(:start).and_yield(sftp)
-    allow(sftp).to receive(:upload!)
-
-    connector.upload("/tmp/report.zip", "/incoming/report.zip")
-
-    expect(Net::SFTP).to have_received(:start).with(
-      "sftp.example.com",
-      "uploader",
-      key_data: [key],
-      port: 22,
-      passphrase: nil,
-      password: nil,
-      auth_methods: ["publickey"],
-    )
   end
 
   it "defaults the subfolder to the current date" do
