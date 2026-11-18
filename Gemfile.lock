@@ -125,6 +125,7 @@ GEM
     auth-sanitizer (0.2.5)
       version_gem (~> 1.1, >= 1.1.16)
     base64 (0.3.0)
+    bcrypt_pbkdf (1.1.2)
     bigdecimal (3.3.1)
     bindata (3.0.1)
     bindex (0.8.1)
@@ -652,6 +653,7 @@ DEPENDENCIES
   administrate-field-active_storage
   administrate-field-paper_trail
   appsignal
+  bcrypt_pbkdf
   bitfields
   bootsnap
   byebug

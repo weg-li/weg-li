@@ -65,6 +65,7 @@ gem "memo-it"
 gem "valid_email2", github: "micke/valid_email2", branch: "main"
 gem "paper_trail"
 gem "administrate-field-paper_trail"
+gem "bcrypt_pbkdf"
 
 # ruby 3 https://stackoverflow.com/questions/70500220/rails-7-ruby-3-1-loaderror-cannot-load-such-file-net-smtp
 gem "matrix", require: false
