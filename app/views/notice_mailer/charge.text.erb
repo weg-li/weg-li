@@ -29,5 +29,9 @@ Mit freundlichen Grüßen
 
 <%= @user.name %>
 
+<% if @district.wuppertal? %>
+Die Daten der Anzeige werden auf den Server der Stadt Wuppertal übermittelt und automatisch weiterverarbeitet.
+<% else %>
 Die Daten der Anzeige können im Import-Format für gängige Fachverfahren wie WiNOWiG, EurOwiG, pmOWI oder owi21 kostenlos
 bereitgestellt werden. Erfahren Sie hierzu mehr unter <%= integrations_url %> oder wenden Sie sich an den weg.li Support: support@weg.li
+<% end %>
