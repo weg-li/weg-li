@@ -5,9 +5,7 @@ require "zip"
 
 class Scheduled::ExportJob < ApplicationJob
   def perform(export_type: :notices)
-    Rails.logger.info(
-      "create export for type #{export_type}",
-    )
+    Rails.logger.info("create export for type #{export_type}")
 
     export = Export.new(export_type:)
     name = export.display_name.parameterize

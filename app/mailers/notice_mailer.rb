@@ -18,6 +18,8 @@ class NoticeMailer < ApplicationMailer
     elsif send_via_pdf
       data = PdfGenerator.new.generate(@notice)
       attachments[notice.file_name] = data
+    elsif @district.wuppertal?
+      SftpJob.perform_later(notice)
     else
       attach_photos(notice.photos)
     end

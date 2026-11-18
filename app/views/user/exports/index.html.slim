@@ -14,7 +14,8 @@
     .col-sm-6
       = form_for(Export.new(export_type: nil, file_extension: nil), url: user_exports_path, html:{ class: 'form-inline' }) do |form|
         fieldset.form-group(disabled = too_many_exports)
-          = form.select :export_type, Export.export_types.keys.map {|type| [Export.human_enum_name(:export_type, type), type]}, { include_blank: 'Typ Auswählen' }, { class: "form-control", required: true }
+          - types = (access?(:studi) ? [:notices, :anonymized] : [:notices])
+          = form.select :export_type, types.map {|type| [Export.human_enum_name(:export_type, type), type]}, { include_blank: 'Typ Auswählen' }, { class: "form-control", required: true }
           = form.select :file_extension, Export.file_extensions.keys.map {|extension| [Export.human_enum_name(:file_extension, extension), extension]}, { include_blank: 'Format Auswählen' }, { class: "form-control", required: true }
           = form.submit "Export starten", class: "btn btn-success", data: {confirm: 'Immer nur einen Export zur Zeit starten!'}
 

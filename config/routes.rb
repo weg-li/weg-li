@@ -45,6 +45,7 @@ Rails.application.routes.draw do
       member do
         patch :mail
         delete "photos/:photo_id", action: :destroy_photo, as: :photo
+        patch :analyze
       end
     end
     resources :uploads, only: [:create]
@@ -108,7 +109,6 @@ Rails.application.routes.draw do
 
   resource :user, except: %i[create new] do
     member do
-      get :studi
       patch :confirmation_mail
       patch :signature
       patch :rotate_token

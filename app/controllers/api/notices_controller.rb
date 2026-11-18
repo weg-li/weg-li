@@ -8,6 +8,8 @@ class Api::NoticesController < Api::ApplicationController
       key :tags, ["notice"]
       parameter name: :page, type: :integer, description: "page number", required: false
       parameter name: :per_page, type: :integer, description: "number of elements per page", required: false
+      parameter name: :"filter[status]", type: :string, description: "filter by notice status", required: false
+      parameter name: :"filter[incomplete]", type: :boolean, description: "show only incomplete notices", required: false
       response 200 do
         key :description, "notices response"
         schema do
@@ -24,6 +26,9 @@ class Api::NoticesController < Api::ApplicationController
 
   def index
     notices = current_user.notices
+    filter = params[:filter] || {}
+    notices = notices.where(status: filter[:status]) if filter[:status].present?
+    notices = notices.incomplete if filter[:incomplete].present?
     notices = notices.page(params[:page]) if params[:page].present?
     notices = notices.per(params[:per_page]) if params[:per_page].present?
     render json: notices.as_api_response(:public_beta)
@@ -56,9 +61,11 @@ class Api::NoticesController < Api::ApplicationController
 
   def create
     notice = current_user.notices.build(notice_params)
-    notice.analyze!
-
-    render json: notice.as_api_response(:public_beta), status: :created
+    if notice.save_incomplete!
+      render json: notice.as_api_response(:public_beta), status: :created
+    else
+      render json: notice.errors, status: :unprocessable_entity
+    end
   end
 
   swagger_path "/notices/{token}" do
@@ -85,17 +92,15 @@ class Api::NoticesController < Api::ApplicationController
   end
 
   def show
-    render json:
-             current_user
-               .notices
-               .from_param(params[:id])
-               .as_api_response(:public_beta)
+    render json: current_user.notices.from_param(params[:id]).as_api_response(:public_beta)
   end
 
   swagger_path "/notices/{token}" do
     operation :patch do
       key :summary, "Update Notice"
-      key :description, "Updates a notice for the authorized user"
+      key :description,
+          "Updates an open notice for the authorized user, including incomplete drafts. " \
+          "Omitted fields remain unchanged. The notice is saved as incomplete when required submission data is missing or invalid."
       key :tags, ["notice"]
       parameter do
         key :name, :token
@@ -124,7 +129,38 @@ class Api::NoticesController < Api::ApplicationController
 
   def update
     notice = current_user.notices.open.from_param(params[:id])
-    notice.update!(notice_params)
+    notice.assign_attributes(notice_params)
+    notice.save_incomplete!
+
+    render json: notice.as_api_response(:public_beta)
+  end
+
+  swagger_path "/notices/{token}/analyze" do
+    operation :patch do
+      key :summary, "Start the Analysis of a Notice"
+      key :description, "Starts the analysis of a notice for the authorized user"
+      key :tags, ["notice"]
+      parameter do
+        key :name, :token
+        key :in, :path
+        key :description, "Token of notice to update"
+        key :required, true
+        key :type, :string
+      end
+      response 200 do
+        key :description, "notice response"
+        schema { key :$ref, :Notice }
+      end
+      response :default do
+        key :description, "unexpected error"
+        schema { key :$ref, :Error }
+      end
+    end
+  end
+
+  def analyze
+    notice = current_user.notices.from_param(params[:id])
+    notice.analyze! if notice.open?
 
     render json: notice.as_api_response(:public_beta)
   end

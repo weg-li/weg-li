@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Export < ApplicationRecord
-  enum :export_type, { notices: 0 }
+  enum :export_type, { notices: 0, anonymized: 1 }
   enum :file_extension, { csv: 0 }
 
   validates :export_type, presence: true
@@ -9,7 +9,7 @@ class Export < ApplicationRecord
   has_one_attached :archive
   belongs_to :user, optional: true
 
-  scope :for_public, -> { where(user_id: nil).order(created_at: :desc) }
+  scope :for_public, -> { notices.where(user_id: nil).order(created_at: :desc) }
 
   acts_as_api
 
@@ -61,5 +61,19 @@ class Export < ApplicationRecord
 
   def notices_entries(notice)
     [notices_fields.map { |key| notice.send(key) }]
+  end
+
+  def anonymized_fields
+    %i[user_id start_date end_date tbnr city zip]
+  end
+
+  def anonymized_scope
+    Notice.shared.select(anonymized_fields)
+  end
+
+  def anonymized_entries(notice)
+    [anonymized_fields.map do |key|
+      key == :user_id ? Digest::MD5.hexdigest(notice.user_id.to_s) : notice.send(key)
+    end]
   end
 end
