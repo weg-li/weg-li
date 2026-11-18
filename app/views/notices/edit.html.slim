@@ -38,10 +38,6 @@
                           span.glyphicon.glyphicon-save>
                           | Meldung zwischenspeichern
                       li
-                        = button_to forward_notice_path(@notice), class: 'btn btn-link', data: {confirm: 'Die Meldung wird an einen anderen Nutzer übertragen'}, method: :patch
-                          span.glyphicon.glyphicon-forward>
-                          | Meldung übertragen
-                      li
                         = button_to notice_path(@notice), class: 'btn btn-link', method: :delete, data: {confirm: 'Die Meldung wird endgültig gelöscht'}, title: 'löschen'
                           span.glyphicon.glyphicon-trash>
                           | Meldung löschen
