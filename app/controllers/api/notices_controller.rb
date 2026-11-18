@@ -236,18 +236,12 @@ class Api::NoticesController < Api::ApplicationController
   end
 
   def destroy_photo
-    notice = current_user.notices.active.open.where(sent_at: nil).from_param(params[:id])
-    notice.with_lock do
-      raise ActiveRecord::RecordNotFound unless notice.open? && !notice.archived? && notice.sent_at.nil?
+    notice = current_user.notices.active.from_param(params[:id])
+    photo = notice.photos.find(params[:photo_id])
+    photo.purge_later
+    notice.save_incomplete!
 
-      # Destroy only this attachment; Active Storage purges unreferenced blobs after commit.
-      notice.photos.find(params[:photo_id]).destroy!
-      notice.reload.save_incomplete!
-    end
-
-    render json: notice.as_api_response(:public_beta)
-  rescue ActiveRecord::RecordNotFound
-    render json: Api::Error.new(404, "Notice or photo not found, or notice is not editable"), status: :not_found
+    render json: notice.reload.as_api_response(:public_beta)
   end
 
   swagger_path "/notices/{token}/mail" do
