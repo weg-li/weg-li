@@ -110,6 +110,10 @@
                       span.glyphicon.glyphicon-save-file>
                       | Meldung als PDF
                   li
+                    = link_to forward_notice_path(@notice), data: {confirm: 'Die Meldung wird an einen anderen Nutzer übertragen'}, method: :patch
+                      span.glyphicon.glyphicon-forward>
+                      | Meldung übertragen
+                  li
                     = link_to public_charge_path(@notice)
                       span.glyphicon.glyphicon-globe>
                       | Anzeige ansehen
