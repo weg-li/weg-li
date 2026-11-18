@@ -77,6 +77,12 @@ class Api::Notice < Notice
       key :type, :array
       items do
         key :type, :object
+        property :id do
+          key :type, :integer
+          key :format, :int64
+          key :readOnly, true
+          key :description, "Attachment ID for deleting this photo from this notice; not a blob ID or upload signed_id"
+        end
         property :filename do
           key :type, :string
         end

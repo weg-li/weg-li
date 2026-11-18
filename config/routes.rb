@@ -44,6 +44,7 @@ Rails.application.routes.draw do
     resources :notices do
       member do
         patch :mail
+        delete "photos/:photo_id", action: :destroy_photo, as: :photo
         patch :analyze
       end
     end
