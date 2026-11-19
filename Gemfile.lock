@@ -679,6 +679,7 @@ DEPENDENCIES
   matrix
   memo-it
   mini_magick
+  mini_portile2
   net-imap
   net-pop
   net-sftp
