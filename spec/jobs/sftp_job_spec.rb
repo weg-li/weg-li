@@ -17,7 +17,8 @@ describe SftpJob do
       notice.save!
       notice.photos.first.update!(key: "test.jpg")
 
-      SftpJob.perform_now(notice)
+      job = SftpJob.new
+      job.perform(notice)
     end
 
     it "calls the uploader" do
