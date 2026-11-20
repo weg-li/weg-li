@@ -35,6 +35,9 @@
                   = link_to(rails_blob_path(photo, disposition: "attachment"), class: 'btn btn-sm btn-default', title: 'herunterladen') do
                     span.glyphicon.glyphicon-download>
                     | Herunterladen
+                  button type="button" class="btn btn-sm btn-default" data-dismiss="modal" onclick="ablegenMove('photo_item_#{photo.id}')"
+                    span.glyphicon.glyphicon-move>
+                    | Zuordnen
                   button type="button" class="btn btn-sm btn-default" data-dismiss="modal"
                     span.glyphicon.glyphicon-remove>
                     | Schließen
