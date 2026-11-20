@@ -12,9 +12,9 @@
               .input-group.input-group-sm
                 = hidden_field_tag('order[column]', @table_params[:order][:column])
                 = hidden_field_tag('order[value]', @table_params[:order][:value])
-                = text_field_tag('search[term]', @table_params[:search][:term], placeholder: 'z.B. HH SV 1887', class: 'form-control')
+                = text_field_tag('search[term]', @table_params[:search][:term], placeholder: 'z.B. HH SV 1887', class: 'form-control', aria: { label: 'Suche' })
                 span.input-group-btn
-                  = button_tag(class: "btn btn-default btn-sm")
+                  = button_tag(class: "btn btn-default btn-sm", aria: { label: 'Suchen' })
                     span.glyphicon.glyphicon-search
           - if @table_params[:search][:term].present?
             li.divider
@@ -31,15 +31,15 @@
             => Reply.human_attribute_name(:created_at)
             - if params.dig(:order, :column) == 'created_at'
               - if params.dig(:order, :value) == 'ASC'
-                = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'DESC'}))
+                = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'DESC'})), aria: { label: "Nach #{Reply.human_attribute_name(:created_at)} absteigend sortieren" }
                   span.glyphicon.glyphicon-arrow-up.smaller
               - else
-                = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'}))
+                = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'})), aria: { label: "Nach #{Reply.human_attribute_name(:created_at)} aufsteigend sortieren" }
                   span.glyphicon.glyphicon-arrow-down.smaller
-              = link_to url_for(@table_params.merge(order: {}))
+              = link_to url_for(@table_params.merge(order: {})), aria: { label: 'Sortierung entfernen' }
                 span.text-muted.glyphicon.glyphicon-remove.smaller
             - else
-              = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'}))
+              = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'})), aria: { label: "Nach #{Reply.human_attribute_name(:created_at)} aufsteigend sortieren" }
                 span.glyphicon.glyphicon-arrow-up.smaller.text-muted
           th= Reply.human_attribute_name(:sender)
           th= Reply.human_attribute_name(:subject)

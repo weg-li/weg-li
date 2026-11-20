@@ -14,4 +14,4 @@ h3 #{@sign.description} (#{@sign.number})
     - if @sign.file.exist?
       li.list-group-item
         code = @sign.url
-      li.list-group-item = image_tag asset_url(@sign.image), class: 'img-responsive', title: @sign.description
+      li.list-group-item = image_tag asset_url(@sign.image), alt: @sign.description, class: 'img-responsive', title: @sign.description

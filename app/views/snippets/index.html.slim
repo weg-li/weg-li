@@ -16,9 +16,9 @@
               .input-group.input-group-sm
                 = hidden_field_tag('order[column]', @table_params[:order][:column])
                 = hidden_field_tag('order[value]', @table_params[:order][:value])
-                = text_field_tag('search[term]', @table_params[:search][:term], placeholder: 'z.B. Blechdose', class: 'form-control')
+                = text_field_tag('search[term]', @table_params[:search][:term], placeholder: 'z.B. Blechdose', class: 'form-control', aria: { label: 'Suche' })
                 span.input-group-btn
-                  = button_tag(class: "btn btn-default btn-sm")
+                  = button_tag(class: "btn btn-default btn-sm", aria: { label: 'Suchen' })
                     span.glyphicon.glyphicon-search
           - if @table_params[:search][:term].present?
             li.divider
@@ -36,29 +36,29 @@
             => Snippet.human_attribute_name(:created_at)
             - if params.dig(:order, :column) == 'created_at'
               - if params.dig(:order, :value) == 'ASC'
-                = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'DESC'}))
+                = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'DESC'})), aria: { label: "Nach #{Snippet.human_attribute_name(:created_at)} absteigend sortieren" }
                   span.glyphicon.glyphicon-arrow-up.smaller
               - else
-                = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'}))
+                = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'})), aria: { label: "Nach #{Snippet.human_attribute_name(:created_at)} aufsteigend sortieren" }
                   span.glyphicon.glyphicon-arrow-down.smaller
-              = link_to url_for(@table_params.merge(order: {}))
+              = link_to url_for(@table_params.merge(order: {})), aria: { label: 'Sortierung entfernen' }
                 span.text-muted.glyphicon.glyphicon-remove.smaller
             - else
-              = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'}))
+              = link_to url_for(@table_params.deep_merge(order: {column: :created_at, value: 'ASC'})), aria: { label: "Nach #{Snippet.human_attribute_name(:created_at)} aufsteigend sortieren" }
                 span.glyphicon.glyphicon-arrow-up.smaller.text-muted
           th
             => Snippet.human_attribute_name(:priority)
             - if params.dig(:order, :column) == 'priority'
               - if params.dig(:order, :value) == 'ASC'
-                = link_to url_for(@table_params.deep_merge(order: {column: :priority, value: 'DESC'}))
+                = link_to url_for(@table_params.deep_merge(order: {column: :priority, value: 'DESC'})), aria: { label: "Nach #{Snippet.human_attribute_name(:priority)} absteigend sortieren" }
                   span.glyphicon.glyphicon-arrow-up.smaller
               - else
-                = link_to url_for(@table_params.deep_merge(order: {column: :priority, value: 'ASC'}))
+                = link_to url_for(@table_params.deep_merge(order: {column: :priority, value: 'ASC'})), aria: { label: "Nach #{Snippet.human_attribute_name(:priority)} aufsteigend sortieren" }
                   span.glyphicon.glyphicon-arrow-down.smaller
-              = link_to url_for(@table_params.merge(order: {}))
+              = link_to url_for(@table_params.merge(order: {})), aria: { label: 'Sortierung entfernen' }
                 span.text-muted.glyphicon.glyphicon-remove.smaller
             - else
-              = link_to url_for(@table_params.deep_merge(order: {column: :priority, value: 'ASC'}))
+              = link_to url_for(@table_params.deep_merge(order: {column: :priority, value: 'ASC'})), aria: { label: "Nach #{Snippet.human_attribute_name(:priority)} aufsteigend sortieren" }
                 span.glyphicon.glyphicon-arrow-up.smaller.text-muted
           th= Snippet.human_attribute_name(:name)
           th= Snippet.human_attribute_name(:content)
@@ -68,7 +68,7 @@
             tr
               td
                 label.btn-sm
-                  = check_box_tag "selected[]", snippet.id, false, class: 'select-all checkbox-addon'
+                  = check_box_tag "selected[]", snippet.id, false, class: 'select-all checkbox-addon', aria: { label: 'Hinweis auswählen' }
                 .btn-group.dropdown
                   = render('snippet_actions', snippet: snippet)
               td(nowrap)= link_to l(snippet.created_at, format: :short, default: '-'), snippet_path(snippet)

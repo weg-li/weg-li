@@ -16,9 +16,9 @@
           li
             = form_tag({url: url_for}, method: :get, class: 'form-dropdown', autocomplete: :off) do
               .input-group.input-group-sm
-                = text_field_tag(:term, params[:term], placeholder: 'z.B. Haltverbot', class: 'form-control input-sm', autofocus: true)
+                = text_field_tag(:term, params[:term], placeholder: 'z.B. Haltverbot', class: 'form-control input-sm', autofocus: true, aria: { label: 'Suche' })
                 span.input-group-btn
-                  = button_tag(class: "btn btn-default btn-sm")
+                  = button_tag(class: "btn btn-default btn-sm", aria: { label: 'Suchen' })
                     span.glyphicon.glyphicon-search
 
           - if params[:term].present?
@@ -41,7 +41,7 @@
           - @signs.each do |sign|
             tr
               td
-              td = image_tag asset_url(sign.image), class: 'img-thumbnail', style: "width: 5em;", title: sign.description if sign.file.exist?
+              td = image_tag asset_url(sign.image), alt: '', class: 'img-thumbnail', style: "width: 5em;", title: sign.description if sign.file.exist?
               td = link_to(sign.number, sign, class: sign.category? ? 'text-muted' : '')
               td = link_to(sign.description, sign, class: sign.category? ? 'text-muted' : '')
         - else

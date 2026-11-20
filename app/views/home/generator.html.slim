@@ -8,22 +8,22 @@
 .row
   .col-lg-6
     .well.text-center
-      = image_tag(asset_url('stadtreinigung.png'), class: 'img-circle imprint-logo')
+      = image_tag(asset_url('stadtreinigung.png'), alt: 'Logo Stadtreinigung', class: 'img-circle imprint-logo')
       strong Freie Fahrt für die Stadtreinigung!
 
       = form_tag(generator_url, method: :get)
         .input-group
-          = text_field_tag(:stadtreinigung_name, params[:stadtreinigung_name], placeholder: 'z.B. Stadtreinigung Hamburg', class: 'form-control', required: true)
+          = text_field_tag(:stadtreinigung_name, params[:stadtreinigung_name], placeholder: 'z.B. Stadtreinigung Hamburg', class: 'form-control', required: true, aria: { label: 'Name der Stadtreinigung' })
           span.input-group-btn
             = submit_tag("PDF erzeugen", name: :stadtreinigung, class: 'btn btn-default')
 
   .col-lg-6
     .well.text-center
-      = image_tag(asset_url('parkraummanagement.png'), class: 'img-circle imprint-logo')
+      = image_tag(asset_url('parkraummanagement.png'), alt: 'Logo Parkraummanagement', class: 'img-circle imprint-logo')
       strong Knöllchen vom Parkraum-Management
 
       = form_tag(generator_url, method: :get)
         .input-group
-          = text_field_tag(:parkraummanagement_name, params[:parkraummanagement_name], placeholder: 'z.B. "Landesbetrieb Verkehr Hamburg', class: 'form-control', required: true)
+          = text_field_tag(:parkraummanagement_name, params[:parkraummanagement_name], placeholder: 'z.B. "Landesbetrieb Verkehr Hamburg', class: 'form-control', required: true, aria: { label: 'Name des Parkraummanagements' })
           span.input-group-btn
             = submit_tag("PDF erzeugen", name: :parkraummanagement, class: 'btn btn-default')

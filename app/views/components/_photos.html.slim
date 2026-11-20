@@ -10,7 +10,7 @@
       li.list-item id="photo_item_#{photo.id}"
         a(href="#" data-toggle="modal" data-target="#photo_modal_#{photo.id}")
           .bbox(style="position: relative; display: inline-block;")
-            = image_tag(url_for_photo(photo, size: :preview), class: 'item-photo')
+            = image_tag(url_for_photo(photo, size: :preview), alt: 'Beweisfoto', class: 'item-photo')
 
       .modal.fade id="photo_modal_#{photo.id}" tabindex="-1" role="dialog"
         .modal-dialog.modal-lg

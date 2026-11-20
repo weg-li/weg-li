@@ -25,11 +25,11 @@
               tr
                 td
                   label.btn-sm
-                    = check_box_tag 'selected[]', notice.id, false, class: 'select-all'
+                    = check_box_tag 'selected[]', notice.id, false, class: 'select-all', aria: { label: 'Meldung auswählen' }
                 td
                   = link_to_notice(notice) do
                     - notice.photos.first(1).each do |photo|
-                      = image_tag(url_for_photo(photo, size: :preview), class: 'index-photo')
+                      = image_tag(url_for_photo(photo, size: :preview), alt: "Beweisfoto #{notice.registration}".strip, class: 'index-photo')
                 td
                   = link_to_notice(notice) do
                     = registration_label(notice.registration)
