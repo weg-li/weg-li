@@ -58,6 +58,7 @@ de:
           hamburg: 'ohne PDF'
           ploen: 'Kreis & Stadt Plön'
           winowig: 'WiNOWiG Import'
+          wuppertal: 'Wuppertal SFTP'
       user:
         time_zone: 'Zeitzone'
         nickname: 'Spitzname'
