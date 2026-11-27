@@ -37,6 +37,16 @@ describe "brands", type: :request do
       expect(Brand.order(:created_at).last.models).to eq([])
       expect(response).to be_a_redirect
     end
+
+    it "splits model names on pipes, commas, and semicolons without splitting spaces" do
+      params = {
+        brand: Fabricate.attributes_for(:brand).slice(:name, :kind).merge(models: "Model One|Model Two,Model Three; Model Four"),
+      }
+
+      post(brands_path, params:)
+
+      expect(Brand.order(:created_at).last.models).to eq(["Model One", "Model Two", "Model Three", "Model Four"])
+    end
   end
 
   context "brands#index" do
