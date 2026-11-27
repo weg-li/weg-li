@@ -3,7 +3,8 @@
 class Token
   def self.generate(email, expiration: 15.minutes, secret: self.secret)
     now_seconds = Time.now.to_i
-    payload = { iss: email, iat: now_seconds, exp: now_seconds + expiration }
+    expiration_seconds = expiration.to_i
+    payload = { iss: email, iat: now_seconds, exp: now_seconds + expiration_seconds }
     token = ::JWT.encode(payload, secret, "HS256")
     Base64.encode64(token)
   end
