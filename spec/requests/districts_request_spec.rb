@@ -17,6 +17,16 @@ describe "districts", type: :request do
   end
 
   context "districts#create" do
+    it "does not create a district without login" do
+      params = { district: Fabricate.attributes_for(:district) }
+
+      expect do
+        post(districts_path, params:)
+      end.not_to change { District.count }
+
+      expect(response).to be_a_redirect
+    end
+
     it "creates a district" do
       login
       params = { district: Fabricate.attributes_for(:district) }
@@ -25,6 +35,20 @@ describe "districts", type: :request do
         post(districts_path, params:)
       end.to change { District.count }.by(1)
 
+      expect(response).to be_a_redirect
+    end
+
+    it "handles missing prefixes and parts" do
+      login
+      params = { district: Fabricate.attributes_for(:district).except(:prefixes, :parts) }
+
+      expect do
+        post(districts_path, params:)
+      end.to change { District.count }.by(1)
+
+      district = District.order(:created_at).last
+      expect(district.prefixes).to eq([])
+      expect(district.parts).to eq([])
       expect(response).to be_a_redirect
     end
   end

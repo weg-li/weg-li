@@ -30,16 +30,18 @@ module Admin
     # for more information
 
     def resource_params
-      params[:district][:aliases] = params[:district][:aliases].split(/;|,|\s/).reject(&:blank?)
-      params[:district][:prefixes] = params[:district][:prefixes].split(/;|,|\s/).reject(&:blank?)
-      params[:district][:parts] = params[:district][:parts].split(/;|,|\s/).reject(&:blank?)
+      district = params.require(resource_name)
+      district[:aliases] = normalize_list_param(district[:aliases])
+      district[:prefixes] = normalize_list_param(district[:prefixes])
+      district[:parts] = normalize_list_param(district[:parts])
 
-      params.require(resource_name).permit(
+      district.permit(
         *dashboard.permitted_attributes,
         aliases: [],
         prefixes: [],
         parts: [],
       )
     end
+
   end
 end

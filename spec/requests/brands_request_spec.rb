@@ -26,6 +26,17 @@ describe "brands", type: :request do
 
       expect(response).to be_a_redirect
     end
+
+    it "handles missing models" do
+      params = { brand: Fabricate.attributes_for(:brand).slice(:name, :kind) }
+
+      expect do
+        post(brands_path, params:)
+      end.to change { Brand.count }.by(1)
+
+      expect(Brand.order(:created_at).last.models).to eq([])
+      expect(response).to be_a_redirect
+    end
   end
 
   context "brands#index" do

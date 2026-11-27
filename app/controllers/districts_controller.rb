@@ -68,9 +68,11 @@ class DistrictsController < ApplicationController
   private
 
   def district_params
-    params[:district][:prefixes] = params[:district][:prefixes].split(/;|,|\s/).reject(&:blank?)
-    params[:district][:parts] = params[:district][:parts].split(/;|,|\s/).reject(&:blank?)
-    params.require(:district).permit(
+    district = params.require(:district)
+    district[:prefixes] = normalize_list_param(district[:prefixes])
+    district[:parts] = normalize_list_param(district[:parts])
+
+    district.permit(
       :name,
       :email,
       :zip,
