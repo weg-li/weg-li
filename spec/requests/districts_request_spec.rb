@@ -22,7 +22,7 @@ describe "districts", type: :request do
 
       expect do
         post(districts_path, params:)
-      end.not_to change { District.count }
+      end.not_to(change { District.count })
 
       expect(response).to be_a_redirect
     end
