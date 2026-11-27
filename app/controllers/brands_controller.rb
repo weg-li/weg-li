@@ -70,7 +70,7 @@ class BrandsController < ApplicationController
   end
 
   def brand_params
-    params[:brand][:models] = params[:brand][:models].split(/;|,|\s/).reject(&:blank?)
+    params[:brand][:models] = normalize_list_param(params[:brand][:models])
     params.require(:brand).permit(
       :name,
       :kind,
