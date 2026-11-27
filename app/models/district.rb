@@ -92,7 +92,7 @@ class District < ApplicationRecord
     selected = email
 
     if munich? || ploen?
-      suggested = Geo.suggest_email(notice.point) if munich?
+      suggested = Geo.suggest_email(notice.point) if munich? && notice.coordinates?
       suggested = suggest_email_by_street(notice.street) if ploen?
 
       if suggested.nil?
