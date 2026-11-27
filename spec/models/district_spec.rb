@@ -69,6 +69,14 @@ describe District do
       selected = district.selected_email(notice)
       expect(selected).to eql("pp-mue.muenchen.pi11@polizei.bayern.de")
     end
+    it "falls back to the district email for Munich notices without coordinates" do
+      district = Fabricate.create(:district, config: :munich, email: "ordnungsamt@munich.de", aliases: ["pp-mue.muenchen.pi11@polizei.bayern.de"])
+      notice = Fabricate.build(:notice, street: "Marienplatz 1", zip: "80331", city: "München", latitude: nil, longitude: nil)
+
+      expect(Geo).not_to receive(:suggest_email)
+      selected = district.selected_email(notice)
+      expect(selected).to eql("ordnungsamt@munich.de")
+    end
     it "selects the correct email for Ploen district based on street" do
       district = Fabricate.create(:district, config: :ploen, email: "ordnungsamt@ploen.de", aliases: ["bussgeldstelle@kreis-ploen.de"])
       notice = Fabricate.build(:notice, street: "Appelwarder 1", zip: "24306", city: "Plön")
