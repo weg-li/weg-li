@@ -379,6 +379,7 @@ GEM
       rack
     openssl (4.0.2)
     os (1.1.4)
+    ostruct (0.6.3)
     paper_trail (17.0.0)
       activerecord (>= 7.1)
       request_store (~> 1.4)
@@ -687,6 +688,7 @@ DEPENDENCIES
   omniauth-telegram
   omniauth-twitter
   openssl
+  ostruct
   paper_trail
   pg
   prawn
@@ -726,7 +728,7 @@ DEPENDENCIES
   webmock
 
 RUBY VERSION
-  ruby 3.4.13
+  ruby 4.0.10
 
 BUNDLED WITH
-  4.1.1
+  4.0.20
