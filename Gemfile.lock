@@ -8,15 +8,6 @@ GIT
       omniauth (~> 2.0)
       omniauth-oauth2 (~> 1.1)
 
-GIT
-  remote: https://github.com/micke/valid_email2.git
-  revision: 752c19466cc632d99843a9b8f0f3164b051414ec
-  branch: main
-  specs:
-    valid_email2 (8.0.0)
-      activemodel (>= 6.0)
-      mail (~> 2.5)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -257,7 +248,7 @@ GEM
       bindata
       faraday (~> 2.0)
       faraday-follow_redirects
-    jwt (3.3.1)
+    jwt (3.3.2)
       base64
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
@@ -628,6 +619,9 @@ GEM
     utf8-cleaner (2.0.1)
       activesupport
       rack (~> 3.0)
+    valid_email2 (8.1.0)
+      activemodel (>= 6.0)
+      mail (~> 2.5)
     version_gem (1.1.17)
     web-console (4.3.0)
       actionview (>= 8.0.0)
@@ -727,12 +721,12 @@ DEPENDENCIES
   time_splitter
   turbo-rails
   utf8-cleaner
-  valid_email2!
+  valid_email2
   web-console
   webmock
 
 RUBY VERSION
-   ruby 3.4.13
+  ruby 3.4.13
 
 BUNDLED WITH
-   2.3.25
+  4.1.1
