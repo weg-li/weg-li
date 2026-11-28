@@ -169,6 +169,9 @@ GEM
     faraday-net_http (3.5.0)
       net-http (~> 0.5)
     ffi (1.17.4)
+    ffi (1.17.4-aarch64-linux-gnu)
+    ffi (1.17.4-arm64-darwin)
+    ffi (1.17.4-x86_64-linux-gnu)
     fugit (1.14.0)
       et-orbi (~> 1.4)
       raabro (~> 1.4)
@@ -323,6 +326,12 @@ GEM
     nokogiri (1.19.7)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
+    nokogiri (1.19.7-aarch64-linux-gnu)
+      racc (~> 1.4)
+    nokogiri (1.19.7-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.19.7-x86_64-linux-gnu)
+      racc (~> 1.4)
     oauth (1.1.9)
       anonymous_loader (~> 0.1, >= 0.1.5)
       auth-sanitizer (~> 0.2, >= 0.2.5)
@@ -389,6 +398,9 @@ GEM
       racc
     pdf-core (0.10.0)
     pg (1.7.0)
+    pg (1.7.0-aarch64-linux)
+    pg (1.7.0-arm64-darwin)
+    pg (1.7.0-x86_64-linux)
     pp (0.6.4)
       prettyprint
     prawn (2.5.0)
@@ -599,6 +611,9 @@ GEM
     temple (0.10.7)
     thor (1.5.0)
     thruster (0.1.28)
+    thruster (0.1.28-aarch64-linux)
+    thruster (0.1.28-arm64-darwin)
+    thruster (0.1.28-x86_64-linux)
     tilt (2.9.0)
     time_splitter (1.1.0)
     timeout (0.6.1)
@@ -639,7 +654,10 @@ GEM
     zeitwerk (2.8.3)
 
 PLATFORMS
+  aarch64-linux
+  arm64-darwin
   ruby
+  x86_64-linux
 
 DEPENDENCIES
   activerecord-postgis-adapter
